@@ -22,6 +22,8 @@ Rekna 13.11.2026 med `kitbash.py mek` og `lys.py`. Modell, ikkje måling. Lyset 
 | 16 | Fot · røyr | 24,45 W | 0,32 | 569 lx | 0,19 | 3928 cd/m² | 23 lx / 161 | 1,00 / 0,00 | 447 g | 196 cm² | 34,6 / 36,1 N | 71 cm | F3 watt, jamnheit, F6 vegg, F1 blending, F2 dimmar, rekkjevidd |
 | 17 | Veltar: projektoren | – | – | – | – | – | – | – | 1435 g | 987 cm² | 3,4 / – N | 58 cm | lyset er ikkje rekna, F8 masse, F9 fotavtrykk |
 | 18 | Kan ikkje lagast: linsa 280 | – | – | – | – | – | – | – | 1479 g | 196 cm² | 0,6 / 2,7 N | 78 cm | lyset er ikkje rekna, F8 masse, veltar ved dytt, veltar ved trykk, rekkjevidd |
+| 19 | Under · band | 2,93 W | 0,70 | 132 lx | 0,18 | 317 cd/m² | 143 lx / 334 | 0,44 / 0,07 | 2260 g | 690 cm² | 7,0 / 86,9 N | 66 cm | F8 masse, F9 fotavtrykk |
+| 20 | Vegg · band | 2,93 W | 0,70 | 132 lx | 0,18 | 317 cd/m² | 143 lx / 334 | 0,44 / 0,07 | 1250 g | på veggen | – | 66 cm | F8 masse, F8 kan ikkje flyttast |
 
 ## Lysgrepa
 
@@ -46,3 +48,4 @@ Rekna 13.11.2026 med `kitbash.py mek` og `lys.py`. Modell, ikkje måling. Lyset 
 | over-band-vindauge-q30 | 2,93 | 0,70 | 132 | 62 | 317 / 317 / 317 | 143 lx, 334 | 0,44 | 0,07 |
 | over-vindauge-q30 | 2,46 | 0,47 | 106 | 79 | 227 / 196 / 196 | 144 lx, 364 | 0,40 | 0,08 |
 | over-band-3 | 2,53 | 0,65 | 15 | 65 | 68 / 68 / 68 | 120 lx, 124 | 0,26 | 0,33 |
+| over-band-kort | 1,36 | 0,34 | 11 | 52 | 81 / 81 / 81 | 185 lx, 277 | 0,03 | 0,50 |

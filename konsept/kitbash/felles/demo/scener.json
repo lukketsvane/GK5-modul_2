@@ -2,7 +2,7 @@
  "demo-samla": {
   "objekt": [
    {
-    "fil": "stl/fot.stl",
+    "fil": "render/nett/demo_00_fot.stl",
     "mat": "print",
     "M": [
      [
@@ -36,7 +36,7 @@
     "slag": "print"
    },
    {
-    "fil": "stl/hylse.stl",
+    "fil": "render/nett/demo_01_hylse.stl",
     "mat": "print",
     "M": [
      [
@@ -70,7 +70,7 @@
     "slag": "print"
    },
    {
-    "fil": "stl/ballast.stl",
+    "fil": "render/nett/demo_02_ballast.stl",
     "mat": "stål",
     "M": [
      [
@@ -240,7 +240,7 @@
     "slag": "sett"
    },
    {
-    "fil": "stl/nav.stl",
+    "fil": "render/nett/demo_04_nav.stl",
     "mat": "print",
     "M": [
      [
@@ -274,7 +274,7 @@
     "slag": "print"
    },
    {
-    "fil": "stl/kjoleplate.stl",
+    "fil": "render/nett/demo_05_kjoleplate.stl",
     "mat": "aluminium",
     "M": [
      [
@@ -308,7 +308,7 @@
     "slag": "kjopt"
    },
    {
-    "fil": "stl/led.stl",
+    "fil": "render/nett/demo_06_led.stl",
     "mat": "led",
     "M": [
      [
@@ -373,7 +373,7 @@
  "demo-sprengt": {
   "objekt": [
    {
-    "fil": "stl/fot.stl",
+    "fil": "render/nett/demo_00_fot.stl",
     "mat": "print",
     "M": [
      [
@@ -407,7 +407,7 @@
     "slag": "print"
    },
    {
-    "fil": "stl/hylse.stl",
+    "fil": "render/nett/demo_01_hylse.stl",
     "mat": "print",
     "M": [
      [
@@ -441,7 +441,7 @@
     "slag": "print"
    },
    {
-    "fil": "stl/ballast.stl",
+    "fil": "render/nett/demo_02_ballast.stl",
     "mat": "stål",
     "M": [
      [
@@ -611,7 +611,7 @@
     "slag": "sett"
    },
    {
-    "fil": "stl/nav.stl",
+    "fil": "render/nett/demo_04_nav.stl",
     "mat": "print",
     "M": [
      [
@@ -645,7 +645,7 @@
     "slag": "print"
    },
    {
-    "fil": "stl/kjoleplate.stl",
+    "fil": "render/nett/demo_05_kjoleplate.stl",
     "mat": "aluminium",
     "M": [
      [
@@ -679,7 +679,7 @@
     "slag": "kjopt"
    },
    {
-    "fil": "stl/led.stl",
+    "fil": "render/nett/demo_06_led.stl",
     "mat": "led",
     "M": [
      [
@@ -744,7 +744,7 @@
  "demo-del": {
   "objekt": [
    {
-    "fil": "stl/fot.stl",
+    "fil": "render/nett/demo_00_fot.stl",
     "mat": "print",
     "M": [
      [
@@ -778,7 +778,7 @@
     "slag": "print"
    },
    {
-    "fil": "stl/hylse.stl",
+    "fil": "render/nett/demo_01_hylse.stl",
     "mat": "print",
     "M": [
      [
@@ -812,7 +812,7 @@
     "slag": "print"
    },
    {
-    "fil": "stl/ballast.stl",
+    "fil": "render/nett/demo_02_ballast.stl",
     "mat": "stål",
     "M": [
      [
@@ -982,7 +982,7 @@
     "slag": "sett"
    },
    {
-    "fil": "stl/nav.stl",
+    "fil": "render/nett/demo_04_nav.stl",
     "mat": "print",
     "M": [
      [
@@ -1016,7 +1016,7 @@
     "slag": "print"
    },
    {
-    "fil": "stl/kjoleplate.stl",
+    "fil": "render/nett/demo_05_kjoleplate.stl",
     "mat": "aluminium",
     "M": [
      [
@@ -1050,7 +1050,7 @@
     "slag": "kjopt"
    },
    {
-    "fil": "stl/led.stl",
+    "fil": "render/nett/demo_06_led.stl",
     "mat": "led",
     "M": [
      [
@@ -1118,7 +1118,7 @@
  "demo-stemning-samla": {
   "objekt": [
    {
-    "fil": "stl/fot.stl",
+    "fil": "render/nett/demo-stemning_00_fot.stl",
     "mat": "print",
     "M": [
      [
@@ -1152,7 +1152,7 @@
     "slag": "print"
    },
    {
-    "fil": "stl/hylse.stl",
+    "fil": "render/nett/demo-stemning_01_hylse.stl",
     "mat": "print",
     "M": [
      [
@@ -1186,7 +1186,7 @@
     "slag": "print"
    },
    {
-    "fil": "stl/ballast.stl",
+    "fil": "render/nett/demo-stemning_02_ballast.stl",
     "mat": "stål",
     "M": [
      [
@@ -1356,7 +1356,7 @@
     "slag": "sett"
    },
    {
-    "fil": "stl/nav.stl",
+    "fil": "render/nett/demo-stemning_04_nav.stl",
     "mat": "print",
     "M": [
      [
@@ -1390,7 +1390,7 @@
     "slag": "print"
    },
    {
-    "fil": "stl/kjoleplate.stl",
+    "fil": "render/nett/demo-stemning_05_kjoleplate.stl",
     "mat": "aluminium",
     "M": [
      [
@@ -1424,7 +1424,7 @@
     "slag": "kjopt"
    },
    {
-    "fil": "stl/led.stl",
+    "fil": "render/nett/demo-stemning_06_led.stl",
     "mat": "led",
     "M": [
      [
@@ -1489,7 +1489,7 @@
  "demo-stemning-sprengt": {
   "objekt": [
    {
-    "fil": "stl/fot.stl",
+    "fil": "render/nett/demo-stemning_00_fot.stl",
     "mat": "print",
     "M": [
      [
@@ -1523,7 +1523,7 @@
     "slag": "print"
    },
    {
-    "fil": "stl/hylse.stl",
+    "fil": "render/nett/demo-stemning_01_hylse.stl",
     "mat": "print",
     "M": [
      [
@@ -1557,7 +1557,7 @@
     "slag": "print"
    },
    {
-    "fil": "stl/ballast.stl",
+    "fil": "render/nett/demo-stemning_02_ballast.stl",
     "mat": "stål",
     "M": [
      [
@@ -1727,7 +1727,7 @@
     "slag": "sett"
    },
    {
-    "fil": "stl/nav.stl",
+    "fil": "render/nett/demo-stemning_04_nav.stl",
     "mat": "print",
     "M": [
      [
@@ -1761,7 +1761,7 @@
     "slag": "print"
    },
    {
-    "fil": "stl/kjoleplate.stl",
+    "fil": "render/nett/demo-stemning_05_kjoleplate.stl",
     "mat": "aluminium",
     "M": [
      [
@@ -1795,7 +1795,7 @@
     "slag": "kjopt"
    },
    {
-    "fil": "stl/led.stl",
+    "fil": "render/nett/demo-stemning_06_led.stl",
     "mat": "led",
     "M": [
      [
@@ -1860,7 +1860,7 @@
  "demo-stemning-del": {
   "objekt": [
    {
-    "fil": "stl/fot.stl",
+    "fil": "render/nett/demo-stemning_00_fot.stl",
     "mat": "print",
     "M": [
      [
@@ -1894,7 +1894,7 @@
     "slag": "print"
    },
    {
-    "fil": "stl/hylse.stl",
+    "fil": "render/nett/demo-stemning_01_hylse.stl",
     "mat": "print",
     "M": [
      [
@@ -1928,7 +1928,7 @@
     "slag": "print"
    },
    {
-    "fil": "stl/ballast.stl",
+    "fil": "render/nett/demo-stemning_02_ballast.stl",
     "mat": "stål",
     "M": [
      [
@@ -2098,7 +2098,7 @@
     "slag": "sett"
    },
    {
-    "fil": "stl/nav.stl",
+    "fil": "render/nett/demo-stemning_04_nav.stl",
     "mat": "print",
     "M": [
      [
@@ -2132,7 +2132,7 @@
     "slag": "print"
    },
    {
-    "fil": "stl/kjoleplate.stl",
+    "fil": "render/nett/demo-stemning_05_kjoleplate.stl",
     "mat": "aluminium",
     "M": [
      [
@@ -2166,7 +2166,7 @@
     "slag": "kjopt"
    },
    {
-    "fil": "stl/led.stl",
+    "fil": "render/nett/demo-stemning_06_led.stl",
     "mat": "led",
     "M": [
      [
@@ -2221,6 +2221,2757 @@
     -0.5,
     0.6083873865323,
     167.0
+   ],
+   "azimut": -35,
+   "elevasjon": 28,
+   "lens": 50,
+   "faktor": 1.0
+  },
+  "delbank": {
+   "px_per_mm": 4
+  }
+ },
+ "sett-samla": {
+  "objekt": [
+   {
+    "fil": "../../../../modell/byggjesett/stl/P05_fresnelspegel_ramme.stl",
+    "mat": "plast_svart",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P05",
+    "under": "ramme",
+    "namn": "fresnelspegel",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P05_fresnelspegel_plate.stl",
+    "mat": "fresnel",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P05",
+    "under": "plate",
+    "namn": "fresnelspegel",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P01_arm_profil.stl",
+    "mat": "aluminium",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      -120.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      240.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      25.5
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P01",
+    "under": "profil",
+    "namn": "arm",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P01_arm_kappe.stl",
+    "mat": "plast_grå",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      -120.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      240.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      25.5
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P01",
+    "under": "kappe",
+    "namn": "arm",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P01_arm_tapp.stl",
+    "mat": "stål",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      -120.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      240.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      25.5
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P01",
+    "under": "tapp",
+    "namn": "arm",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P01_arm_laas.stl",
+    "mat": "stål",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      -120.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      240.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      25.5
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P01",
+    "under": "laas",
+    "namn": "arm",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P02_hengsel_plate.stl",
+    "mat": "stål",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      -250.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      240.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      27.5
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P02",
+    "under": "plate",
+    "namn": "hengsel",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P02_hengsel_kanal.stl",
+    "mat": "stål",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      -250.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      240.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      27.5
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P02",
+    "under": "kanal",
+    "namn": "hengsel",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P02_hengsel_bolt.stl",
+    "mat": "stål",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      -250.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      240.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      27.5
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P02",
+    "under": "bolt",
+    "namn": "hengsel",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P02_hengsel_mutter.stl",
+    "mat": "stål",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      -250.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      240.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      27.5
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P02",
+    "under": "mutter",
+    "namn": "hengsel",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P02_hengsel_spak.stl",
+    "mat": "stål",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      -250.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      240.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      27.5
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P02",
+    "under": "spak",
+    "namn": "hengsel",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P02_hengsel_fjoer.stl",
+    "mat": "stål",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      -250.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      240.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      27.5
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P02",
+    "under": "fjoer",
+    "namn": "hengsel",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P03_hovud_hus.stl",
+    "mat": "stål_svart",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      215.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      240.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      40.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P03",
+    "under": "hus",
+    "namn": "hovud",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P03_hovud_vifte.stl",
+    "mat": "plast_svart",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      215.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      240.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      40.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P03",
+    "under": "vifte",
+    "namn": "hovud",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P03_hovud_vifte_merke.stl",
+    "mat": "kopar",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      215.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      240.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      40.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P03",
+    "under": "vifte_merke",
+    "namn": "hovud",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P03_hovud_sokkel.stl",
+    "mat": "stål",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      215.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      240.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      40.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P03",
+    "under": "sokkel",
+    "namn": "hovud",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P03_hovud_lager.stl",
+    "mat": "kopar",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      215.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      240.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      40.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P03",
+    "under": "lager",
+    "namn": "hovud",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P03_hovud_lager_nav.stl",
+    "mat": "stål",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      215.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      240.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      40.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P03",
+    "under": "lager_nav",
+    "namn": "hovud",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P06_glaslinse_linse.stl",
+    "mat": "glas",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      215.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      70.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P06",
+    "under": "linse",
+    "namn": "glaslinse",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P07_projeksjonslinse_fatning.stl",
+    "mat": "plast_svart",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      225.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      -40.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P07",
+    "under": "fatning",
+    "namn": "projeksjonslinse",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P07_projeksjonslinse_glas.stl",
+    "mat": "glas",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      225.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      -40.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P07",
+    "under": "glas",
+    "namn": "projeksjonslinse",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P07_projeksjonslinse_spak.stl",
+    "mat": "stål",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      225.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      -40.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P07",
+    "under": "spak",
+    "namn": "projeksjonslinse",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P07_projeksjonslinse_hylse.stl",
+    "mat": "gummi_svart",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      225.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      -40.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P07",
+    "under": "hylse",
+    "namn": "projeksjonslinse",
+    "slag": "sett"
+   },
+   {
+    "fil": "render/nett/sett_06_filmstykke_ark.stl",
+    "mat": "film",
+    "M": [
+     [
+      1.5848095757158825e-17,
+      -1.0,
+      5.914589856893349e-17,
+      -235.0
+     ],
+     [
+      0.25881904510252074,
+      6.123233995736766e-17,
+      0.9659258262890683,
+      0.0
+     ],
+     [
+      -0.9659258262890683,
+      0.0,
+      0.25881904510252074,
+      57.9555495773441
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P08",
+    "under": "ark",
+    "namn": "filmstykke",
+    "slag": "sett",
+    "flat": true
+   },
+   {
+    "fil": "render/nett/sett_07_trykt_kloss_40.stl",
+    "mat": "print",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      225.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      -140.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "ny",
+    "under": "trykt kloss 40",
+    "namn": "trykt kloss 40",
+    "slag": "print"
+   },
+   {
+    "fil": "render/nett/sett_08_led.stl",
+    "mat": "led",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      170.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      -140.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "ny",
+    "under": "led",
+    "namn": "led",
+    "slag": "kjopt"
+   }
+  ],
+  "lo": [
+   -312.0,
+   -160.0,
+   -38.637033051562724
+  ],
+  "hi": [
+   355.0,
+   279.0,
+   154.59989601527144
+  ],
+  "prover": 48,
+  "storleik": [
+   1600,
+   1000
+  ],
+  "baklys": false,
+  "kamera": {
+   "mal": [
+    -19.805706492597864,
+    68.89339478994002,
+    29.13022276731441
+   ],
+   "azimut": -38,
+   "elevasjon": 32,
+   "lens": 50,
+   "faktor": 0.563
+  }
+ },
+ "sett-sprengt": {
+  "objekt": [
+   {
+    "fil": "../../../../modell/byggjesett/stl/P05_fresnelspegel_ramme.stl",
+    "mat": "plast_svart",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      -33.73885888911261
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P05",
+    "under": "ramme",
+    "namn": "fresnelspegel",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P05_fresnelspegel_plate.stl",
+    "mat": "fresnel",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      -33.73885888911261
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P05",
+    "under": "plate",
+    "namn": "fresnelspegel",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P01_arm_profil.stl",
+    "mat": "aluminium",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      -120.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      343.8
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      25.5
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P01",
+    "under": "profil",
+    "namn": "arm",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P01_arm_kappe.stl",
+    "mat": "plast_grå",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      -120.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      343.8
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      25.5
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P01",
+    "under": "kappe",
+    "namn": "arm",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P01_arm_tapp.stl",
+    "mat": "stål",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      -120.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      343.8
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      25.5
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P01",
+    "under": "tapp",
+    "namn": "arm",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P01_arm_laas.stl",
+    "mat": "stål",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      -120.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      343.8
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      25.5
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P01",
+    "under": "laas",
+    "namn": "arm",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P02_hengsel_plate.stl",
+    "mat": "stål",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      -424.9
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      240.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      27.5
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P02",
+    "under": "plate",
+    "namn": "hengsel",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P02_hengsel_kanal.stl",
+    "mat": "stål",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      -424.9
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      240.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      27.5
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P02",
+    "under": "kanal",
+    "namn": "hengsel",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P02_hengsel_bolt.stl",
+    "mat": "stål",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      -424.9
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      240.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      27.5
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P02",
+    "under": "bolt",
+    "namn": "hengsel",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P02_hengsel_mutter.stl",
+    "mat": "stål",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      -424.9
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      240.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      27.5
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P02",
+    "under": "mutter",
+    "namn": "hengsel",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P02_hengsel_spak.stl",
+    "mat": "stål",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      -424.9
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      240.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      27.5
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P02",
+    "under": "spak",
+    "namn": "hengsel",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P02_hengsel_fjoer.stl",
+    "mat": "stål",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      -424.9
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      240.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      27.5
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P02",
+    "under": "fjoer",
+    "namn": "hengsel",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P03_hovud_hus.stl",
+    "mat": "stål_svart",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      215.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      348.3
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      40.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P03",
+    "under": "hus",
+    "namn": "hovud",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P03_hovud_vifte.stl",
+    "mat": "plast_svart",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      215.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      348.3
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      40.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P03",
+    "under": "vifte",
+    "namn": "hovud",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P03_hovud_vifte_merke.stl",
+    "mat": "kopar",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      215.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      348.3
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      40.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P03",
+    "under": "vifte_merke",
+    "namn": "hovud",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P03_hovud_sokkel.stl",
+    "mat": "stål",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      215.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      348.3
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      40.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P03",
+    "under": "sokkel",
+    "namn": "hovud",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P03_hovud_lager.stl",
+    "mat": "kopar",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      215.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      348.3
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      40.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P03",
+    "under": "lager",
+    "namn": "hovud",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P03_hovud_lager_nav.stl",
+    "mat": "stål",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      215.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      348.3
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      40.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P03",
+    "under": "lager_nav",
+    "namn": "hovud",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P06_glaslinse_linse.stl",
+    "mat": "glas",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      331.1
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      70.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P06",
+    "under": "linse",
+    "namn": "glaslinse",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P07_projeksjonslinse_fatning.stl",
+    "mat": "plast_svart",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      352.2
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      -40.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P07",
+    "under": "fatning",
+    "namn": "projeksjonslinse",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P07_projeksjonslinse_glas.stl",
+    "mat": "glas",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      352.2
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      -40.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P07",
+    "under": "glas",
+    "namn": "projeksjonslinse",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P07_projeksjonslinse_spak.stl",
+    "mat": "stål",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      352.2
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      -40.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P07",
+    "under": "spak",
+    "namn": "projeksjonslinse",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P07_projeksjonslinse_hylse.stl",
+    "mat": "gummi_svart",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      352.2
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      -40.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P07",
+    "under": "hylse",
+    "namn": "projeksjonslinse",
+    "slag": "sett"
+   },
+   {
+    "fil": "render/nett/sett_06_filmstykke_ark.stl",
+    "mat": "film",
+    "M": [
+     [
+      1.5848095757158825e-17,
+      -1.0,
+      5.914589856893349e-17,
+      -388.9
+     ],
+     [
+      0.25881904510252074,
+      6.123233995736766e-17,
+      0.9659258262890683,
+      0.0
+     ],
+     [
+      -0.9659258262890683,
+      0.0,
+      0.25881904510252074,
+      57.9555495773441
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P08",
+    "under": "ark",
+    "namn": "filmstykke",
+    "slag": "sett",
+    "flat": true
+   },
+   {
+    "fil": "render/nett/sett_07_trykt_kloss_40.stl",
+    "mat": "print",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      225.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      -259.7
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "ny",
+    "under": "trykt kloss 40",
+    "namn": "trykt kloss 40",
+    "slag": "print"
+   },
+   {
+    "fil": "render/nett/sett_08_led.stl",
+    "mat": "led",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      170.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      -259.7
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "ny",
+    "under": "led",
+    "namn": "led",
+    "slag": "kjopt"
+   }
+  ],
+  "lo": [
+   -486.9,
+   -279.7,
+   -38.637033051562724
+  ],
+  "hi": [
+   407.7,
+   387.3,
+   154.59989601527144
+  ],
+  "prover": 48,
+  "storleik": [
+   1600,
+   1000
+  ],
+  "baklys": false,
+  "kamera": {
+   "mal": [
+    -68.60723233321183,
+    61.62344678548472,
+    39.26763919804866
+   ],
+   "azimut": -38,
+   "elevasjon": 32,
+   "lens": 50,
+   "faktor": 0.5489
+  }
+ },
+ "sett-del": {
+  "objekt": [
+   {
+    "fil": "../../../../modell/byggjesett/stl/P05_fresnelspegel_ramme.stl",
+    "mat": "plast_svart",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P05",
+    "under": "ramme",
+    "namn": "fresnelspegel",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P05_fresnelspegel_plate.stl",
+    "mat": "fresnel",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P05",
+    "under": "plate",
+    "namn": "fresnelspegel",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P01_arm_profil.stl",
+    "mat": "aluminium",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      -120.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      240.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      25.5
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P01",
+    "under": "profil",
+    "namn": "arm",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P01_arm_kappe.stl",
+    "mat": "plast_grå",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      -120.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      240.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      25.5
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P01",
+    "under": "kappe",
+    "namn": "arm",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P01_arm_tapp.stl",
+    "mat": "stål",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      -120.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      240.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      25.5
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P01",
+    "under": "tapp",
+    "namn": "arm",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P01_arm_laas.stl",
+    "mat": "stål",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      -120.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      240.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      25.5
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P01",
+    "under": "laas",
+    "namn": "arm",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P02_hengsel_plate.stl",
+    "mat": "stål",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      -250.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      240.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      27.5
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P02",
+    "under": "plate",
+    "namn": "hengsel",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P02_hengsel_kanal.stl",
+    "mat": "stål",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      -250.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      240.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      27.5
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P02",
+    "under": "kanal",
+    "namn": "hengsel",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P02_hengsel_bolt.stl",
+    "mat": "stål",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      -250.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      240.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      27.5
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P02",
+    "under": "bolt",
+    "namn": "hengsel",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P02_hengsel_mutter.stl",
+    "mat": "stål",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      -250.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      240.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      27.5
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P02",
+    "under": "mutter",
+    "namn": "hengsel",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P02_hengsel_spak.stl",
+    "mat": "stål",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      -250.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      240.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      27.5
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P02",
+    "under": "spak",
+    "namn": "hengsel",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P02_hengsel_fjoer.stl",
+    "mat": "stål",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      -250.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      240.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      27.5
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P02",
+    "under": "fjoer",
+    "namn": "hengsel",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P03_hovud_hus.stl",
+    "mat": "stål_svart",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      215.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      240.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      40.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P03",
+    "under": "hus",
+    "namn": "hovud",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P03_hovud_vifte.stl",
+    "mat": "plast_svart",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      215.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      240.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      40.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P03",
+    "under": "vifte",
+    "namn": "hovud",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P03_hovud_vifte_merke.stl",
+    "mat": "kopar",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      215.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      240.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      40.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P03",
+    "under": "vifte_merke",
+    "namn": "hovud",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P03_hovud_sokkel.stl",
+    "mat": "stål",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      215.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      240.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      40.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P03",
+    "under": "sokkel",
+    "namn": "hovud",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P03_hovud_lager.stl",
+    "mat": "kopar",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      215.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      240.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      40.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P03",
+    "under": "lager",
+    "namn": "hovud",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P03_hovud_lager_nav.stl",
+    "mat": "stål",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      215.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      240.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      40.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P03",
+    "under": "lager_nav",
+    "namn": "hovud",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P06_glaslinse_linse.stl",
+    "mat": "glas",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      215.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      70.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P06",
+    "under": "linse",
+    "namn": "glaslinse",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P07_projeksjonslinse_fatning.stl",
+    "mat": "plast_svart",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      225.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      -40.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P07",
+    "under": "fatning",
+    "namn": "projeksjonslinse",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P07_projeksjonslinse_glas.stl",
+    "mat": "glas",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      225.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      -40.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P07",
+    "under": "glas",
+    "namn": "projeksjonslinse",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P07_projeksjonslinse_spak.stl",
+    "mat": "stål",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      225.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      -40.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P07",
+    "under": "spak",
+    "namn": "projeksjonslinse",
+    "slag": "sett"
+   },
+   {
+    "fil": "../../../../modell/byggjesett/stl/P07_projeksjonslinse_hylse.stl",
+    "mat": "gummi_svart",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      225.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      -40.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P07",
+    "under": "hylse",
+    "namn": "projeksjonslinse",
+    "slag": "sett"
+   },
+   {
+    "fil": "render/nett/sett_06_filmstykke_ark.stl",
+    "mat": "film",
+    "M": [
+     [
+      1.5848095757158825e-17,
+      -1.0,
+      5.914589856893349e-17,
+      -235.0
+     ],
+     [
+      0.25881904510252074,
+      6.123233995736766e-17,
+      0.9659258262890683,
+      0.0
+     ],
+     [
+      -0.9659258262890683,
+      0.0,
+      0.25881904510252074,
+      57.9555495773441
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "P08",
+    "under": "ark",
+    "namn": "filmstykke",
+    "slag": "sett",
+    "flat": true
+   },
+   {
+    "fil": "render/nett/sett_07_trykt_kloss_40.stl",
+    "mat": "print",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      225.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      -140.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "ny",
+    "under": "trykt kloss 40",
+    "namn": "trykt kloss 40",
+    "slag": "print"
+   },
+   {
+    "fil": "render/nett/sett_08_led.stl",
+    "mat": "led",
+    "M": [
+     [
+      1.0,
+      0.0,
+      0.0,
+      170.0
+     ],
+     [
+      0.0,
+      1.0,
+      0.0,
+      -140.0
+     ],
+     [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+     ],
+     [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+     ]
+    ],
+    "del_": "ny",
+    "under": "led",
+    "namn": "led",
+    "slag": "kjopt"
+   }
+  ],
+  "lo": [
+   -312.0,
+   -160.0,
+   -38.637033051562724
+  ],
+  "hi": [
+   355.0,
+   279.0,
+   154.59989601527144
+  ],
+  "prover": 32,
+  "storleik": [
+   1600,
+   1000
+  ],
+  "baklys": false,
+  "kamera": {
+   "mal": [
+    21.5,
+    59.5,
+    57.98143148185436
    ],
    "azimut": -35,
    "elevasjon": 28,

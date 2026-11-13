@@ -332,9 +332,14 @@ def eksporter(delar, mappe, namn='lampe'):
     (meter, Y opp som glTF krev, farge per materiale). Gjev dict(stl=[...], glb=fil)."""
     os.makedirs(os.path.join(mappe, 'stl'), exist_ok=True)
     stl = []
+    brukt = set()
     for d in delar:
         if d.slag != 'print': continue
-        fil = os.path.join(mappe, 'stl', 'print_%s.stl' % d.namn)
+        stamme = 'print_%s' % K.filnamn(d.namn); k = 2
+        while stamme in brukt:                                          # to trykte delar med same namn: nummerer dei
+            stamme = 'print_%s_%d' % (K.filnamn(d.namn), k); k += 1
+        brukt.add(stamme)
+        fil = os.path.join(mappe, 'stl', stamme + '.stl')
         _paa_plata(d).export(fil); stl.append(fil)
     sc = trimesh.Scene()
     til_gltf = np.array([[1, 0, 0, 0], [0, 0, 1, 0], [0, -1, 0, 0], [0, 0, 0, 1.0]]) @ np.diag([0.001, 0.001, 0.001, 1.0])
@@ -381,6 +386,12 @@ def rapport(byggjar, mappe, namn='lampe', stillingar=(0.0, 0.25, 0.5, 0.75, 1.0)
         ut['stillingar'].append(s)
     delar = bygg(1.0)
     ut['masse'] = masse(delar); ut['varme'] = varme(delar); ut['utskrift'] = utskrift(delar)
+    staal = K.med_staalarm(delar)                                        # armprofilen kan vere stål (delar.py seier aluminium)
+    if any(a is not b for a, b in zip(staal, delar)):
+        ms = masse(staal); p1 = ut['stillingar'][-1]['velt'].get('punkt_mm')
+        vs = velt(staal, p1, krav_N) if p1 else {}
+        ut['om_armen_er_staal'] = dict(total_g=ms['total_g'], pm_g=ms['pm_g'], tp_mm=ms['tp_mm'], dytt_N=vs.get('dytt_N'), veltevinkel=vs.get('veltevinkel'),
+                                       held=vs.get('held'), merknad='armprofilen P01 rekna som stål 7,85 g/cm³ i staden for aluminium 2,70. Prøv med magnet, og vei armen.')
     lo, hi = K.grenser(delar)
     ut['maal_mm'] = [round(float(x), 1) for x in hi - lo]
     ut['settdelar'] = sorted({d.pid for d in delar if d.pid})
@@ -395,6 +406,10 @@ def rapport(byggjar, mappe, namn='lampe', stillingar=(0.0, 0.25, 0.5, 0.75, 1.0)
     L += ['| %s | %s | %s | %s | %s |' % (r['namn'], r['slag'] + (' ' + r['pid'] if r['pid'] else ''), _nn(r['g']), _nn(r['pm_g']), r['kjelde']) for r in m['rader']]
     L += ['', 'Samla %s g ± %s (rekna; ± er ANTAKING: 35 %% på delar frå settet, 15 %% på trykte, 10 %% på kjøpte). Kravet F8 er høgst 1 200 g: %s. Tyngdepunkt (%s) mm. Ytre mål %s mm.' % (
         _nn(m['total_g']), _nn(m['pm_g']), 'held' if m['total_g'] <= 1200 else 'held ikkje', ', '.join(_nn(x) for x in m['tp_mm']), ' × '.join(_nn(x) for x in ut['maal_mm'])), '']
+    if 'om_armen_er_staal' in ut:
+        o = ut['om_armen_er_staal']
+        L += ['Armprofilen (P01) er merkt aluminium i `modell/byggjesett/delar.py`, medan oppdraget kallar han stål. Er han stål, veg lampa %s g ± %s (F8: %s), tyngdepunktet ligg i (%s) mm, og ho toler %s N dytt i arbeidsstillinga. Prøv med ein magnet og vei armen: set `vekt_g=` i `sett()`.' % (
+            _nn(o['total_g']), _nn(o['pm_g']), 'held' if o['total_g'] <= 1200 else 'held ikkje', ', '.join(_nn(x) for x in o['tp_mm']), _nn(o['dytt_N'], 1) if o['dytt_N'] is not None else 'ukjent'), '']
     L += ['## Kollisjon og velt langs gesten', '', '| t | Kollisjonar | Dytt som veltar (N) | Retning | Held %s N | Veltevinkel | Fot cm² |' % _nn(krav_N), '| --- | --- | --- | --- | --- | --- | --- |']
     for s in ut['stillingar']:
         kol = '; '.join('%s mot %s %s mm³%s' % (c['a'], c['b'], _nn(c['volum_mm3']), ' (tillate)' if c['tillate'] else '') for c in s['kollisjonar']) or 'ingen'
@@ -423,3 +438,50 @@ def rapport(byggjar, mappe, namn='lampe', stillingar=(0.0, 0.25, 0.5, 0.75, 1.0)
           '- LED-ar skal liggje på metall eller ha ein varmeveg. Trykt PLA mjuknar ved 55 til 60 °C.', '']
     open(os.path.join(mappe, 'sjekk.md'), 'w', encoding='utf-8', newline='\n').write('\n'.join(L))
     return ut
+
+
+# ------------------------------------------------------------------ sjølvprøve: kjende svar
+
+def sjolvprove():
+    """Prøver kontrollane mot tilfelle med kjent svar. Køyr: python sjekk.py"""
+    ok = True
+    def linje(namn, fekk, venta, tol):
+        nonlocal ok
+        bra = abs(fekk - venta) <= tol; ok &= bra
+        print('  %-62s %10.2f   venta %10.2f   %s' % (namn, fekk, venta, 'ok' if bra else 'FEIL'))
+    a = K.trykt('a', K.boks(20, 20, 20, (0, 0, 10)))
+    b = K.trykt('b', K.boks(20, 20, 20, (15, 0, 10)))                      # 5 mm inn i a: 5 x 20 x 20 = 2000 mm3
+    c = K.trykt('c', K.boks(20, 20, 20, (20, 0, 10)), M=K.T(40, 0, 0))     # rører ingen
+    kol = kollisjonar([a, b, c])
+    linje('kollisjon: to boksar 5 mm inn i kvarandre, mm3', kol[0]['volum_mm3'] if kol else 0.0, 2000.0, 20.0)
+    linje('kollisjon: tal par (berre a mot b)', len(kol), 1, 0)
+    kol = kollisjonar([a.flytt(K.Rz(30)), b.flytt(K.Rz(30))])
+    linje('kollisjon: same par dreidd 30 grader om z, mm3', kol[0]['volum_mm3'] if kol else 0.0, 2000.0, 20.0)
+    kloss = K.Del('kloss', 'sett', [('kloss', K.boks(100, 100, 200, (0, 0, 100)), 'stål')])      # masse frå volum: 2000 cm3 stål
+    m = masse([kloss])
+    linje('masse: massiv stålkloss 100 x 100 x 200 mm, g', m['total_g'], 15700.0, 5.0)
+    linje('tyngdepunkt: høgd, mm', m['tp_mm'][2], 100.0, 0.5)
+    v = velt([kloss], (0, 0, 200))
+    linje('velt: dytt i toppen, N (m g 50 / 200)', v['dytt_N'], 15.7 * G * 50 / 200, 0.3)
+    linje('velt: veltevinkel, grader (atan 50 / 100)', v['veltevinkel'], math.degrees(math.atan2(50, 100)), 0.2)
+    linje('velt: fotavtrykk, cm2', v['fot_cm2'], 100.0, 0.1)
+    linje('tippkraft: trykk rett ned 30 mm utanfor kanten, N (m g 50 / 30)', tippkraft([kloss], (80, 0, 200), (0, 0, -1)), 15.7 * G * 50 / 30, 1.0)
+    rund = K.Del('rund', 'sett', [('rund', K.sylinder(120, 300), 'aluminium')])                  # rund fot: hylsteret er ein mangekant
+    vr = velt([rund], (0, 0, 300)); mr = math.pi * 6 ** 2 * 30 * 2.70 / 1000
+    linje('velt: rund søyle Ø120 x 300, dytt i toppen, N (m g 60 / 300)', vr['dytt_N'], mr * G * 60 / 300, 0.15)
+    lang = K.trykt('lang', K.boks(300, 20, 10, (0, 0, 5)))
+    bru_ = K.trykt('bru', K.pluss(K.boks(10, 20, 30, (-20, 0, 15)), K.boks(10, 20, 30, (20, 0, 15)), K.boks(50, 20, 5, (0, 0, 32.5))))
+    u = utskrift([lang, bru_])
+    linje('trykk: 300 mm lang del passar ikkje (0 = nei)', float(u[0]['passar']), 0.0, 0)
+    linje('trykk: overheng under ei bru med 30 x 20 mm opning, cm2', u[1]['overheng_cm2'], 6.0, 0.1)
+    arm = K.sett('P01')
+    print('  armen P01 (usikker, anslag frå foto): %.0f g med profilen som aluminium, %.0f g som stål'
+          % (masse([arm])['total_g'], masse(K.med_staalarm([arm]))['total_g']))
+    print('sjølvprøve:', 'alt stemmer' if ok else 'FEIL: sjå over')
+    return ok
+
+
+if __name__ == '__main__':
+    try: sys.stdout.reconfigure(encoding='utf-8')
+    except Exception: pass
+    sys.exit(0 if sjolvprove() else 1)

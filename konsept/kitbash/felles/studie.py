@@ -96,7 +96,9 @@ def rekn(g):
     Ea = max(a['E_felt'], 1e-9); f = KRAV['felt'] / Ea
     ut['W350'] = a['W'] * f
     ut['ved350'] = dict(faktor=f, W=a['W'] * f, lm=a['lm'] * f, auge350=a['L_auge'] * f, bak350=a['E_bak'] * f, vegg350=a['E_vegg'] * f,
-                        skjerm350=a['E_skjerm'] * f, skjerm_del=a['E_skjerm'] / Ea, ansikt350=a['E_ansikt'] * f, spegl350=a['L_spegl'] * f)
+                        skjerm350=a['E_skjerm'] * f, skjerm_del=a['E_skjerm'] / Ea, ansikt350=a['E_ansikt'] * f, spegl350=a['L_spegl'] * f,
+                        auge25=max(a['L_auge25'], a['L_flate']) * f, auge47=max(a['L_lampe'], a['L_flate']) * f,
+                        auge60=max(a['L_auge60'], a['L_flate']) * f)
     v = ut['ved350']
     ut['likskap'] = float(ls.likskap(s['_fordeling'], a['_fordeling']))
     ut['krav'] = dict(W350=bool(ut['W350'] <= KRAV['W']), jamnheit=bool(a['U'] >= KRAV['U']), auge_arbeid=bool(v['auge350'] <= KRAV['L_arbeid']),

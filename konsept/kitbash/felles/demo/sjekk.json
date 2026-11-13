@@ -389,6 +389,19 @@
    "merknad": "ok"
   }
  ],
+ "om_armen_er_staal": {
+  "total_g": 1265.7,
+  "pm_g": 162.1,
+  "tp_mm": [
+   -2.3,
+   -2.3,
+   68.3
+  ],
+  "dytt_N": 3.23,
+  "veltevinkel": 51.8,
+  "held": false,
+  "merknad": "armprofilen P01 rekna som stål 7,85 g/cm³ i staden for aluminium 2,70. Prøv med magnet, og vei armen."
+ },
  "maal_mm": [
   181.0,
   205.0,

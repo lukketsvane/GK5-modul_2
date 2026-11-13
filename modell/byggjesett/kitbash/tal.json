@@ -1169,5 +1169,142 @@
    "veltar ved trykk",
    "rekkjevidd"
   ]
+ },
+ {
+  "id": 19,
+  "namn": "Under · band",
+  "stotte": "under",
+  "organ": "LED-stripe mot plata og vindaugsdiode",
+  "handling": "vri knotten",
+  "setning": "Same lys som kropp 4, ståande på stålplata under skjermfoten.",
+  "lys": "over-band-vindauge-q30",
+  "masse_g": 2260,
+  "tyngdepunkt": [
+   2.6,
+   523.2,
+   243.9
+  ],
+  "hogd_mm": 675,
+  "masse_sett_g": 728,
+  "masse_cad_g": 185,
+  "masse_ny_g": 1348,
+  "delar_sett": [
+   "P01",
+   "P02",
+   "P05"
+  ],
+  "delar_cad": [
+   "R07",
+   "R08",
+   "R11",
+   "R12"
+  ],
+  "nye": [
+   "bøyel Ø6",
+   "dreieknott for to kanalar",
+   "finger til bjelken",
+   "hylle med krage",
+   "røyr Ø25 × 1,5, 280 mm",
+   "stålplate under skjermfoten, 300 × 230 × 2",
+   "vindaugsdiode med maske"
+  ],
+  "handtak": "knotten på enden av bjelken",
+  "rekk_mm": 657,
+  "fotavtrykk_cm2": 690.0,
+  "tipp_grader": 15.1,
+  "dytt_N": 7.0,
+  "trykk_N": 86.9,
+  "flagg": [
+   "bryt F9 (200 cm²)",
+   "bryt F8 (1,2 kg)"
+  ],
+  "W350": 2.9255019805989213,
+  "U0": 0.6982302553591284,
+  "bak350": 132.49152261447438,
+  "skjerm": 0.17817873200928197,
+  "ansikt350": 35.639763693865056,
+  "auge25": 316.90276848950515,
+  "auge47": 316.90276848950515,
+  "auge60": 316.90276848950515,
+  "auge": 316.90276848950515,
+  "s_bak": 143.2501782542869,
+  "s_auge": 334.4255966699284,
+  "s_felt": 2.0986203717035328,
+  "likskap": 0.4431710754302529,
+  "sprang": 0.06570780513654617,
+  "topp": 0.8783866778246661,
+  "timar": 5.161507358442691,
+  "fell": [
+   "F8 masse",
+   "F9 fotavtrykk"
+  ]
+ },
+ {
+  "id": 20,
+  "namn": "Vegg · band",
+  "stotte": "vegg",
+  "organ": "LED-stripe mot plata og vindaugsdiode",
+  "handling": "vri knotten",
+  "setning": "Same lys som kropp 4, på ein konsoll frå veggen.",
+  "lys": "over-band-vindauge-q30",
+  "masse_g": 1250,
+  "tyngdepunkt": [
+   4.8,
+   501.1,
+   466.8
+  ],
+  "hogd_mm": 675,
+  "masse_sett_g": 728,
+  "masse_cad_g": 185,
+  "masse_ny_g": 337,
+  "delar_sett": [
+   "P01",
+   "P02",
+   "P05"
+  ],
+  "delar_cad": [
+   "R07",
+   "R08",
+   "R11",
+   "R12"
+  ],
+  "nye": [
+   "bøyel Ø6",
+   "dreieknott for to kanalar",
+   "finger til bjelken",
+   "konsoll frå veggen",
+   "veggplate 80 × 120 × 6",
+   "vindaugsdiode med maske"
+  ],
+  "handtak": "knotten på enden av bjelken",
+  "rekk_mm": 657,
+  "fotavtrykk_cm2": 0.0,
+  "tipp_grader": null,
+  "dytt_N": null,
+  "trykk_N": null,
+  "flagg": [
+   "skrudd i veggen: kan ikkje flyttast (F8)",
+   "bryt F8 (1,2 kg)"
+  ],
+  "W350": 2.9255019805989213,
+  "U0": 0.6982302553591284,
+  "bak350": 132.49152261447438,
+  "skjerm": 0.17817873200928197,
+  "ansikt350": 35.639763693865056,
+  "auge25": 316.90276848950515,
+  "auge47": 316.90276848950515,
+  "auge60": 316.90276848950515,
+  "auge": 316.90276848950515,
+  "s_bak": 143.2501782542869,
+  "s_auge": 334.4255966699284,
+  "s_felt": 2.0986203717035328,
+  "likskap": 0.4431710754302529,
+  "sprang": 0.06570780513654617,
+  "topp": 0.8783866778246661,
+  "timar": 5.161507358442691,
+  "fell": [
+   "F8 masse",
+   "F8 kan ikkje flyttast"
+  ]
  }
 ]

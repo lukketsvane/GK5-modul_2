@@ -9,6 +9,8 @@ aluminiumsplate, og under plata ein kjøpt LED-modul. Gesten er å vippe plata o
   python demo.py prove          scener.json og små prøverendrar av samla, sprengt og delbank
   python demo.py full           samla i full storleik (tek nokre minutt, køyr i bakgrunnen)
   python demo.py studie [px]    lysstudien -> studie.png (px 560 er full, 300 er prøve)
+  python demo.py sett           alle delane frå settet og eit filmstykke gjennom verktøya: massetabell og prøverendring
+  python demo.py kryss          fresnelplata P05 gjennom kit og bru, mot talet til søkjebrettet (modell/byggjesett/kitbash)
 
 Alle tal er rekna, ikkje målt. Måla på delane frå settet er anslag frå foto.
 """
@@ -102,7 +104,7 @@ def k_prove():
     import rendre
     namn = rendre.scener(samling(1.0), HER, 'demo')
     rendre.scener(samling(0.0), HER, 'demo-stemning')
-    for b in rendre.koyr(HER, namn, prove=True): print(b)
+    for b in rendre.koyr(HER, namn + ['demo-stemning-samla'], prove=True): print(b)
 
 
 def k_full():
@@ -125,8 +127,81 @@ def k_studie(px='560'):
     print('W350 %.1f · likskap %.2f · krav %s' % (ut['W350'], ut['likskap'], ut['krav']))
 
 
+def settbenk():
+    """Alle delane som kan brukast (P01, P02, P03, P05, P06, P07) og eit filmstykke klipt av P08, lagde ut på eit bord."""
+    h = lambda pid, k: K.D.v(pid, k)
+    return [sett('P05', T(0, 0, 0)),
+            sett('P01', T(-120, 240, h('P01', 'kappe_hogd') / 2)),
+            sett('P02', T(-250, 240, h('P02', 'hogd') / 2)),
+            sett('P03', T(240, 240, h('P03', 'hogd') / 2)),
+            sett('P06', T(215, 70, 0)),
+            sett('P07', T(225, -40, 0)),
+            film(200, 120, T(-235, 0, 60 * np.sin(np.radians(75))) @ Rz(90) @ Ry(75), namn='filmstykke'),
+            trykt('trykt kloss 40', boks(40, 40, 40, (0, 0, 20)), T(225, -140, 0)),
+            led_skive(40, watt=5.0, M=T(170, -140, 0))]
+
+
+def k_sett():
+    """Viser at kvar del i settet lastar, held materiala sine, får ein masse og kan rendrast. P04 og P09 er sperra."""
+    import sjekk, rendre
+    for pid in ('P04', 'P09'):
+        try:
+            sett(pid); print('FEIL: %s vart ikkje stoppa' % pid)
+        except ValueError as e:
+            print('  sperra:', e)
+    delar = settbenk()
+    m = sjekk.masse(delar)
+    print('  masse per del (rekna frå anslåtte mål, usikker til delane er vegne):')
+    for r in m['rader']:
+        print('    %-18s %-6s %7.0f g ± %-4.0f %s' % (r['namn'], r['pid'] or r['slag'], r['g'], r['pm_g'], r['kjelde'][:90]))
+    arm = K.finn(delar, 'arm')
+    print('    armen om profilen er stål: %.0f g' % sjekk.masse(K.med_staalarm([arm]))['total_g'])
+    kol = sjekk.kollisjonar(delar)
+    print('  kollisjonar på benken:', [(c['a'], c['b'], c['volum_mm3']) for c in kol] or 'ingen')
+    namn = rendre.scener(delar, HER, 'sett', elevasjon=32)
+    for b in rendre.koyr(HER, ['sett-samla'], prove=True): print(b)
+
+
+def k_kryss():
+    """Fresnelplata P05 plassert med kit og sett i rommet med bru, mot «over-vipp» i modell/byggjesett/kitbash/tal_lys.json
+    (plata over skjermkanten, diode i brønn 50 grader på skjermkanten, diffusorark 12 grader, plata vend mot feltet)."""
+    import json, bru, studie
+    ls = bru.motor()
+    c = ls.b(0.0, 0.36, 0.62); a = ls.nrm((0.0, 0.40, -0.90)); kp = c + 0.12 * a           # som fre.OVER_C, OVER_A i reflektor/fresnel/familie.py
+    pl = bru.i_rommet(fot=(0.0, 0.0))                                                      # lampa sitt system = bordet sitt, i mm
+    mm = lambda P: (np.asarray(P) - ls.b(0, 0, 0)) * 1000.0
+    def plate_i(mot):
+        til = ls.nrm(mot - c); n = ls.nrm(a + til); y = ls.nrm(np.cross(a, til)); x = np.cross(y, n)
+        R = np.stack([x, y, n], 1)                                                         # +z i delen (spegelsida) -> n
+        t_sp = sett('P05').anker['spegelflate'][2]
+        return sett('P05', plass(mm(c) - R @ np.array([0, 0, t_sp]), R))
+    def grep(attekant, kropp_nett):
+        def g(t):
+            W, Kel = ls.watt(t)
+            plate = plate_i(ls.b(0.0, ls.YV, 0.60) * (1 - t) + ls.FELT * t)
+            k = ls.straale(pl.p(mm(kp)), pl.p(plate.punkt('spegelflate')), W * ls.LMW_KJELDE, Kel, spreiing=40, kutt=50, opning=0.02, bronn=50)
+            lys = [k, pl.fresnel(plate, k, spreiing=12, n=22, attekant=attekant)]
+            kropp = pl.kropp([plate]) if kropp_nett else [ls.syl(ls.b(0.0, 0.568, 0.31), ls.b(0.0, 0.568, 0.645), 0.02)]
+            return lys, kropp
+        return g
+    brett = json.load(open(os.path.join(K.SETT, 'kitbash', 'tal_lys.json'), encoding='utf-8'))['over-vipp']
+    print('  %-44s W350 %5.2f  U %.2f  bak350 %5.1f  skjerm350 %5.1f  ansikt350 %5.1f  auge %4.0f/%4.0f/%4.0f  s_bak %5.1f' % (
+        'søkjebrettet (tal_lys.json, over-vipp)', brett['W350'], brett['jamnheit'], brett['bak350'], brett['skjerm350'], brett['ansikt350'],
+        brett['auge25'], brett['auge47'], brett['auge60'], brett['s_bak']))
+    ut = {}
+    for namn, g in (('kit + bru, heil firkant, same stolpe', grep(False, False)), ('kit + bru, skorne hjørne, same stolpe', grep(True, False)),
+                    ('kit + bru, skorne hjørne, plata som nett', grep(True, True))):
+        R = studie.rekn(g); v = R['ved350']
+        print('  %-44s W350 %5.2f  U %.2f  bak350 %5.1f  skjerm350 %5.1f  ansikt350 %5.1f  auge %4.0f/%4.0f/%4.0f  s_bak %5.1f' % (
+            namn, R['W350'], R['arbeid']['U'], v['bak350'], v['skjerm350'], v['ansikt350'], v['auge25'], v['auge47'], v['auge60'], R['stemning']['E_bak']))
+        ut[namn] = dict(W350=R['W350'], jamnheit=R['arbeid']['U'], **{k_: v[k_] for k_ in ('bak350', 'skjerm350', 'ansikt350', 'auge25', 'auge47', 'auge60')},
+                        s_bak=R['stemning']['E_bak'])
+    ut['søkjebrettet'] = {k_: brett[k_] for k_ in ('W350', 'jamnheit', 'bak350', 'skjerm350', 'ansikt350', 'auge25', 'auge47', 'auge60', 's_bak')}
+    json.dump(ut, open(os.path.join(HER, 'kryss.json'), 'w', encoding='utf-8'), indent=1, ensure_ascii=False)
+
+
 if __name__ == '__main__':
     try: sys.stdout.reconfigure(encoding='utf-8')
     except Exception: pass
     a = sys.argv[1:] or ['sjekk']
-    {'sjekk': k_sjekk, 'prove': k_prove, 'full': k_full, 'studie': k_studie}[a[0]](*a[1:])
+    {'sjekk': k_sjekk, 'prove': k_prove, 'full': k_full, 'studie': k_studie, 'sett': k_sett, 'kryss': k_kryss}[a[0]](*a[1:])

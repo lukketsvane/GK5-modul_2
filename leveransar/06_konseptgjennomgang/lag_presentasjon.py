@@ -130,24 +130,24 @@ def l_samanlikning():
     rader = [('Watt for 350 lx på feltet', lambda r: r['W350'], f2, min), ('Timar arbeidslys per celle', lambda r: r['timar'], f1, max),
              ('Jamnheit på feltet', lambda r: r['jamnheit'], f2, max), ('Mot auget frå 25 cm, cd/m²', lambda r: r['auge25'], f0, min),
              ('Veggen bak skjermen i arbeid, lx', lambda r: r['bak350'], f0, max), ('Skjermflata midt i overgangen, lx', lambda r: r['veg_skjerm'][2], f0, min),
-             ('Største sprang i overgangen', lambda r: r['sprang'], f2, min)]
+             ('Største sprang i overgangen', lambda r: r['sprang'], f2, min), ('Skjermflata i stemning, lx', lambda r: r['s_skjerm'], f0, min)]
     tr = ''
     for namn, fn, fmt, best in rader:
-        v = {k: fn(T[k]) for k in 'ABC'}; bk = best(v, key=v.get)
-        tr += f'<tr><td>{namn}</td>' + ''.join(f'<td class="tal{" best" if k == bk else ""}">{fmt(v[k])}</td>' for k in 'ABC') + '</tr>'
+        v = {k: fn(T[k]) for k in 'ABC'}; bv = fmt(best(v.values()))      # like verdiar etter avrunding er like gode
+        tr += f'<tr><td>{namn}</td>' + ''.join(f'<td class="tal{" best" if fmt(v[k]) == bv else ""}">{fmt(v[k])}</td>' for k in 'ABC') + '</tr>'
     inn = f'''<table class="sam"><tr><th></th><th class="tal">A Skiva</th><th class="tal">B Over</th><th class="tal">C Vindauge</th></tr>{tr}</table>
-    <p class="stor" style="margin-top:22px">B brukar minst straum, A lyser jamnast, og berre C held lyset borte frå skjermen. Ingen held veggen bak skjermen lys i arbeid.</p>'''
-    return lysbilete(10, 'Kvar dei står samanlikna', inn, MODELL + ' Kvit: best av dei tre.')
+    <p class="stor" style="margin-top:20px">A brukar minst straum, men legg lys på skjermen. C legg minst lys på skjermen, men brukar mest straum. B ligg mellom og lyser ujamnast.</p>'''
+    return lysbilete(10, 'Alle tre held veggen. Valet står mellom straum og lys på skjermen.', inn, MODELL + ' Kvit: best av dei tre.')
 
 
 def l_val():
-    inn = '''<div class="to-kol"><section><p class="etikett">Det eg vil spørje dykk om</p>
-      <ol class="liste"><li>Kva skal lampa vere først: jamnt arbeidslys (A), minst straum og eit reint skifte (B), eller lys som aldri treffer skjermen (C)?</li>
-      <li>Kva kropp passar i sortimentet: fot og stong (A), ei plate over skjermen (B), eller eit lyshovud (C)?</li>
+    inn = f'''<div class="to-kol"><section><p class="etikett">Det eg vil spørje dykk om</p>
+      <ol class="liste"><li>Kva vel de når det kostar: lang batteritid med lys på skjermen (A, {f1(T["A"]["timar"])} timar per celle), eller lys som held seg av skjermen (C, {f1(T["C"]["timar"])} timar)? B ligg mellom.</li>
+      <li>Kva kropp passar i sortimentet: fot og stong (A), ei plate over skjermen (B), eller eit lyshovud på ei høg stong (C)?</li>
       <li>Vil de selje batteri, elektronikk og lysmodul som reservedelar?</li>
       <li>Produksjon, årsvolum og målpris: kva ramme skal eg halde meg innanfor?</li></ol></section>
     <section><p class="etikett">Neste steg</p>
-      <ul class="liste"><li>Mål lobebreidda på folien. Ho avgjer blendinga for A og B.</li><li>Byggj skissemodellen av det valde konseptet om, med kropp.</li>
+      <ul class="liste"><li>Mål lobebreidda på folien. Ho avgjer blendinga for A.</li><li>Byggj skissemodellen av det valde konseptet om, med kropp.</li>
       <li>Formføring og handskisser til formgjennomgangen 25.11.</li><li>Konstruksjon i Fusion og 1:1-modell til 7.12.</li></ul></section></div>'''
     return lysbilete(11, 'Kva de vel, avgjer kva eg byggjer vidare.', inn, 'Konseptgjennomgangen er der valet blir teke saman med Northern (prosjektbeskrivinga).')
 

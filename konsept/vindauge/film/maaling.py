@@ -298,6 +298,13 @@ def D_bak(phi, alfa=45.0, n=1.59):
     return np.where(np.abs(s) <= 1, d, np.nan)
 
 
+def n_eff(n, psi_grader):
+    """Straalar som gaar paa skraa langs rillene (psi fraa planet normalt paa rillene) ser prismet
+    med ein hogare effektiv brytingsindeks i det planet."""
+    c = np.cos(np.radians(psi_grader)); s_ = np.sin(np.radians(psi_grader))
+    return np.sqrt(n * n - s_ * s_) / c
+
+
 def M_flat(fun, phi, **kw):
     """Loddrett vinkelforstorring for eit plant ark: d(kameravinkel)/d(scenevinkel)."""
     h = 0.05
@@ -484,16 +491,28 @@ def main():
 
     # ---- 5 modellsamanlikning + Monte Carlo
     mod = {}
-    for nr, D, phi in (("07", D07["R"], phi07), ("01", D01["R"], phi01)):
-        mod[nr] = dict(D_obs=D, phi=phi,
-                       fram90=float(D_fram(phi)), bak90=float(D_bak(phi)),
-                       M_fram90=float(M_flat(D_fram, phi)), M_bak90=float(M_flat(D_bak, phi)),
-                       dDdn_fram90=float(dD_dn(D_fram, phi)), dDdn_bak90=float(dD_dn(D_bak, phi)))
+    # trekka ligg til venstre for biletsenteret: skeiv vinkel psi langs rillene
+    psi07 = float(np.degrees(np.arctan((450 - 966) / f07))); psi01 = float(np.degrees(np.arctan((640 - 966) / f01)))
+    N_R = 1.585                                   # ANTAKING: akrylatharpiks paa PET, raud kanal
+    ne07, ne01 = float(n_eff(N_R, psi07)), float(n_eff(N_R, psi01))
+    # lokal krumming: d(theta_s)/d(a) ved trekket, fraa den kubiske kanttilpassinga
+    def dth_da(th, y, f):
+        return float((th(y + 60) - th(y - 60)) / (vinkel(y + 60, f) - vinkel(y - 60, f)))
+    kr07, kr01 = dth_da(th7, y_sky07, f07), dth_da(th1, y_sky01, f01)
+    for nr, D, phi, ne, kr, psi in (("07", D07["R"], phi07, ne07, kr07, psi07), ("01", D01["R"], phi01, ne01, kr01, psi01)):
+        mod[nr] = dict(D_obs=D, phi=phi, psi=psi, n_eff=ne, dtheta_da=kr,
+                       fram90=float(D_fram(phi, n=ne)), bak90=float(D_bak(phi, n=ne)),
+                       M_fram90=float(M_flat(D_fram, phi, n=ne)), M_bak90=float(M_flat(D_bak, phi, n=ne)),
+                       dDdn_fram90=float(dD_dn(D_fram, phi, n=ne)), dDdn_bak90=float(dD_dn(D_bak, phi, n=ne)))
+        for namn, fun in (("fram", D_fram), ("bak", D_bak)):
+            Dp = 1.0 - 1.0 / float(M_flat(fun, phi, n=ne))
+            mod[nr]["M_%s90_krum" % namn] = float(1.0 / (1.0 - Dp * (1.0 + kr)))
     # MC: f (fraa FP-analysen), theta_s (2 gr), trekkposisjon (8 px gjennom, 5 px direkte), n_R (1.585 +/- 0.03),
     # for 01 i tillegg pitch-skilnaden (pitch_sd for begge foto)
     apex7, apex1, r_fram, r_bak = [], [], [], []
     for _ in range(N_MC):
-        n = RNG.normal(1.585, 0.03)
+        n0 = RNG.normal(N_R, 0.03)
+        n, nb1 = n_eff(n0, psi07), n_eff(n0, psi01)
         fa = RNG.normal(f07, kam["07"]["f_sd"]); sc = fa / f07
         ths = np.degrees(np.arctan(np.tan(np.radians(th7(y_sky07))) * sc)) + RNG.normal(0, 2.0)
         a_g = vinkel(y_sky07 + RNG.normal(0, 8), fa); a_d = vinkel(np.nanmean(dir07[:2]) + RNG.normal(0, 5), fa)
@@ -506,9 +525,9 @@ def main():
         ths1 = np.degrees(np.arctan(np.tan(np.radians(th1(y_sky01))) * scb)) + RNG.normal(0, 3.0)
         a_g1 = vinkel(y_sky01 + RNG.normal(0, 8), fb)
         D1, p1 = a_g1 - a_d1, a_g1 + ths1
-        apex1.append(180 - 2 * alfa_for(D1, p1, n))
-        r_fram.append((D7 - float(D_fram(p7, n=n)), D1 - float(D_fram(p1, n=n))))
-        r_bak.append((D7 - float(D_bak(p7, n=n)), D1 - float(D_bak(p1, n=n))))
+        apex1.append(180 - 2 * alfa_for(D1, p1, nb1))
+        r_fram.append((D7 - float(D_fram(p7, n=n)), D1 - float(D_fram(p1, n=nb1))))
+        r_bak.append((D7 - float(D_bak(p7, n=n)), D1 - float(D_bak(p1, n=nb1))))
     apex7, apex1 = np.array(apex7), np.array(apex1)
     r_fram, r_bak = np.array(r_fram), np.array(r_bak)
 
@@ -529,10 +548,12 @@ def main():
                                    snitt_01=float(r[:, 1].mean()), sd_01=float(r[:, 1].std()),
                                    z_07=float(r[:, 0].mean() / r[:, 0].std()), z_01=float(r[:, 1].mean() / r[:, 1].std()))
     # fargespreiing: forventa R->B for dn = 0.018..0.025 (ANTAKING, typisk akrylat/PET-harpiks) ganger flat forstorring
-    for nr, phi in (("07", phi07), ("01", phi01)):
+    for nr, phi, ne in (("07", phi07, ne07), ("01", phi01, ne01)):
         for namn, fun in (("fram", D_fram), ("bak", D_bak)):
-            dd = float(dD_dn(fun, phi)); M = float(M_flat(fun, phi))
-            mod[nr]["frynse_%s90_flat" % namn] = [dd * 0.018 * M, dd * 0.025 * M]
+            dd = float(dD_dn(fun, phi, n=ne))
+            for etikett in ("flat", "krum"):
+                M = float(M_flat(fun, phi, n=ne)) if etikett == "flat" else mod[nr]["M_%s90_krum" % namn]
+                mod[nr]["frynse_%s90_%s" % (namn, etikett)] = [dd * 0.018 * M, dd * 0.025 * M]
     TAL["modell"] = mod
     print("toppvinkel (fram) 07:", {k: round(v, 1) for k, v in mod["toppvinkel_fram_07"].items()})
     print("toppvinkel (fram) 01:", {k: round(v, 1) for k, v in mod["toppvinkel_fram_01"].items()})
@@ -615,6 +636,112 @@ def main():
                            px_per_mm_ved_arkfoten=float(s_botn), breidd_nedst_px=Wpx, breidd_mm=float(W_mm),
                            hoegd_mm=float(W_mm * HW), usikkerheit_relativ=0.15)
     print("storleik: lineavstand %d px, %.2f px/mm ved arkfoten, W = %.0f mm, H = %.0f mm" % (lag, s_botn, W_mm, W_mm * HW))
+
+
+    # ---- 9 tilleggsmaal
+    til = {}
+    # 9a kantskarpleik (10-90 %), direkte og gjennom arket
+    def breidd_10_90(ys, p, a, b, n=10):
+        ia, ib = int(a - ys[0]), int(b - ys[0])
+        v0, v1 = p[ia:ia + n].mean(), p[ib - n:ib].mean()
+        q = (p[ia:ib] - v0) / (v1 - v0)
+        i10 = np.where(q > 0.1)[0]; i90 = np.where(q > 0.9)[0]
+        return float(i90[0] - i10[0]) if len(i10) and len(i90) else float("nan")
+    ys, p = profil(L07, 400, 500, 0, 200, 1.0)
+    til["07_takline_direkte_10_90_px"] = breidd_10_90(ys, p[:, 2], 40, 130)
+    ys, p = profil(L07, 390, 450, 1300, 2100, 1.0)
+    til["07_takline_gjennom_R_10_90_px"] = breidd_10_90(ys, p[:, 0], 1630, 1790)
+    ys, p = profil(L01, 600, 680, 1150, 1750, 1.0)
+    til["01_takline_gjennom_R_10_90_px"] = breidd_10_90(ys, p[:, 0], 1330, 1400)
+    for k, f in (("07_takline_direkte_10_90", f07), ("07_takline_gjennom_R_10_90", f07), ("01_takline_gjennom_R_10_90", f01)):
+        til[k + "_grader"] = float(np.degrees(til[k + "_px"] / f))
+    ys, p = profil(L07, 560, 640, 1500, 2450, 1.0)
+    til["07_plataakant_10_90_px"] = breidd_10_90(ys, p.mean(axis=1), 1985, 2060)
+
+    # 9b rett-gjennom-del: finst det eit sprang inne i arket der ramma (direkte) gaar fraa lys sno til mork ramme?
+    for nr, L, kol, yk, ute in (("07", L07, ((320, 420), (560, 640), (900, 960)), trekk["07_ramme_direkte"]["overkant"], (1520, 1580)),
+                                ("01", L01, ((470, 540), (640, 700), (860, 900)), trekk["01_ramme_direkte"]["overkant"], (1400, 1440))):
+        yk = int(round(yk))
+        sprang = []
+        for (x0, x1) in kol:
+            pm = L[yk - 60:yk + 60, x0:x1].mean(axis=(1, 2))
+            # lineaer trend + sprang ved yk
+            t = np.arange(-60, 60)
+            A = np.c_[np.ones_like(t), t, (t > 0).astype(float)]
+            c = np.linalg.lstsq(A, pm, rcond=None)[0]
+            sprang.append(float(-c[2]))               # positivt = lysare over, slik det er direkte
+        d = L[yk - 60:yk + 60, ute[0]:ute[1]].mean(axis=(1, 2))
+        dsprang = float(d[:40].mean() - d[-40:].mean())
+        til[nr + "_rett_gjennom_sprang_inne"] = sprang
+        til[nr + "_sprang_direkte"] = dsprang
+        til[nr + "_rett_gjennom_del_ovre_grense"] = float(max(abs(x) for x in sprang) / dsprang)
+
+    # 9c dobbeltbilete av overkanten paa vindaugsramma: avstand paa arket i px og mm
+    Wmm = TAL["storleik"]["breidd_mm"]
+    for nr, ln, ram, w_ in (("07", l7, trekk["07_ramme_direkte"], w7), ("01", l1, trekk["01_ramme_direkte"], w1)):
+        yk = ram["overkant"]
+        sk = float(w_(yk) / Wmm)                      # px per mm paa arket ved denne rada
+        til[nr + "_px_per_mm_paa_arket"] = sk
+        til[nr + "_line_over_ramme_px"] = float(yk - ln["line"]["G"]); til[nr + "_line_over_ramme_mm"] = float((yk - ln["line"]["G"]) / sk)
+        til[nr + "_kant_under_ramme_px"] = float(np.nanmean(ln["kant"]) - yk); til[nr + "_kant_under_ramme_mm"] = float((np.nanmean(ln["kant"]) - yk) / sk)
+
+    # 9d tilt-skann langs midten av arket: a, theta_s, phi, lysstyrke (lin. snitt RGB), og om 90-gradersmodellen slepper lys gjennom
+    for nr, L, f, w_, th, s_, y0 in (("07", L07, f07, w7, th7, s7, KANT["07"]["topp"]), ("01", L01, f01, w1, th1, s1, KANT["01"]["topp"])):
+        rad = []
+        cL, cR = kant[nr]["L"]["c"], kant[nr]["R"]["c"]
+        for y in range(KANT[nr]["ys"][0], KANT[nr]["ys"][1] - 20, 120):
+            xm = int(0.5 * (np.polyval(cL, y) + np.polyval(cR, y)))
+            lys = float(L[y - 10:y + 10, xm - 250:xm + 250].mean())
+            phi = float(vinkel(y, f) + th(y))
+            rad.append(dict(y=y, a=float(vinkel(y, f)), theta_s=float(th(y)), phi=phi, s=float(s_(y, y0)), lys=lys,
+                            D_opp_fram90=float(D_fram(phi)), D_ned_fram90=float(D_fram(-phi)),
+                            bak90_slepper_gjennom=bool(abs(phi) > 9.6)))
+        til["tiltskann_" + nr] = rad
+    him = float(np.mean(TAL["transmisjon"]["07_himmel_direkte_RGB"]))
+    ovre = [r_ for r_ in til["tiltskann_07"] if abs(r_["phi"]) < 9.6]
+    til["07_del_av_arket_med_abs_phi_under_9_6"] = dict(y_fraa=ovre[0]["y"], y_til=ovre[-1]["y"], phi_fraa=ovre[0]["phi"], phi_til=ovre[-1]["phi"],
+                                                        lys_snitt=float(np.mean([r_["lys"] for r_ in ovre])), lys_mot_himmel=float(np.mean([r_["lys"] for r_ in ovre]) / him))
+
+    # 9e stripelengd: kor langt nedover held det varme (R/B > 1.2) seg i kolonnene med det gule bygget
+    for nr, L, f, kol, yr in (("07", L07, f07, ((960, 1010), (1060, 1100)), (1300, 2040)), ("01", L01, f01, ((1020, 1080), (1120, 1160)), (1150, 1900))):
+        lg = []
+        for (x0, x1) in kol:
+            ys, p = profil(L, x0, x1, yr[0], yr[1], 4.0)
+            varm = p[:, 0] / np.maximum(p[:, 2], 1e-3) > 1.2
+            idx = np.where(varm)[0]
+            if len(idx):
+                lg.append([float(ys[idx[0]]), float(ys[idx[-1]]), float(vinkel(ys[idx[-1]], f) - vinkel(ys[idx[0]], f))])
+        til[nr + "_varm_stripe_y0_y1_grader"] = lg
+
+    # 9f vassrett maalestokk: breidda paa det hoge gule bygget, direkte (y = 30) og gjennom arket (y = 1555), foto 07
+    def utstrekning(rad_R, rad_B, x0, x1, terskel=1.25):
+        v = gaussian_filter1d(rad_R, 3) / np.maximum(gaussian_filter1d(rad_B, 3), 1e-3) > terskel
+        idx = np.where(v[x0:x1])[0]
+        return (float(x0 + idx[0]), float(x0 + idx[-1])) if len(idx) else (float("nan"), float("nan"))
+    dR, dB = L07[15:45, :, 0].mean(axis=0), L07[15:45, :, 2].mean(axis=0)
+    gR, gB = L07[1540:1570, :, 0].mean(axis=0), L07[1540:1570, :, 2].mean(axis=0)
+    til["07_gult_bygg_x_direkte"] = utstrekning(dR, dB, 780, 1200)
+    til["07_gult_bygg_x_gjennom"] = utstrekning(gR, gB, 780, 1100)
+
+    # 9g fin ripling paa stripekantane (naerbilete 05 og heilbilete 07): periode langs y
+    for nr, (x0, y0), n_ in (("05", (1000, 1750), 256), ("07", (900, 1500), 256), ("06", (900, 1700), 256)):
+        a = graa(les(nr))[y0:y0 + n_, x0:x0 + n_]
+        a = a - gaussian_filter(a, 4)
+        P = (np.abs(np.fft.rfft(a * np.hanning(n_)[:, None], axis=0)) ** 2).mean(axis=1)   # frekvens langs y
+        Q = (np.abs(np.fft.rfft(a * np.hanning(n_)[None, :], axis=1)) ** 2).mean(axis=0)   # frekvens langs x
+        k = np.arange(len(P)); m = (k > n_ // 12)
+        i = int(np.argmax(np.where(m, P, 0)))
+        til[nr + "_ripling"] = dict(rute=[x0, y0, n_], periode_langs_y_px=float(n_ / i), topp_over_median=float(P[i] / np.median(P[m])),
+                                    energi_y_over_x=float(P[m].sum() / Q[m].sum()))
+    TAL["tillegg"] = til
+    for k_, v_ in til.items():
+        if not k_.startswith("tiltskann"):
+            print("  ", k_, np.round(v_, 3).tolist() if isinstance(v_, (list, tuple)) else (v_ if isinstance(v_, dict) else round(v_, 3)))
+    for nr in ("07", "01"):
+        print("tiltskann", nr)
+        for r_ in til["tiltskann_" + nr]:
+            print("   y=%4d a=%6.1f th=%5.1f phi=%5.1f s=%.2f lys=%.2f  D_opp=%.1f D_ned=%.1f bak90:%s" % (
+                r_["y"], r_["a"], r_["theta_s"], r_["phi"], r_["s"], r_["lys"], r_["D_opp_fram90"], r_["D_ned_fram90"], r_["bak90_slepper_gjennom"]))
 
     # ---- figurar (berre til analyse/)
     fig, ax = plt.subplots(1, 2, figsize=(13, 5))

@@ -82,3 +82,4 @@ Premisset held ikkje for nokon av dei 18 kroppane (rekna frå geometrien, med m�
 - 19.55 val studie b (82 s, 560 px): C:\Users\Iver\Documents\github\GK5-modul_2\northern-lampe\form05\gen_d\studie_b.png
 - 19.56 val studie c (61 s, 560 px): C:\Users\Iver\Documents\github\GK5-modul_2\northern-lampe\form05\gen_d\studie_c.png
 - 19.56 val iou: teikna 35° mot abc-kroppen 20° (sidelys) 0.59/0.50; teikna 35° mot abc-kroppen 80° (stemning) 0.39/0.50; abc-kroppen 20° mot 80° (handlinga) 0.50/0.73; teikna 35° mot same kropp 0° 0.43/0.72; teikna mot ARM_UT -230 (lyset held) 0.11/0.43; teikna mot AKSE_H 220 åleine 0.54/0.48; teikna mot ARM_UT 78 åleine 0.92/1.00
+- 19.57 val kalib (9 s): masse 1182 g mot 1184, tp [9.4, 4.1, 149.9] mot [9.2, 4.3, 150.8]; venstre 6.7 mot 6.7 N, dytt 3.1 mot 3.1 N; 2 W 35° ideelt: under 134 mot 190 lx, felt 56 mot 57 lx, auge 386 mot 372

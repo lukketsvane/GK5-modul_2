@@ -1,0 +1,225 @@
+{
+ "a": {
+  "masse": 1.23305,
+  "F_lyft_akse": 2.92651,
+  "F_lyft_grep": 2.80872,
+  "lam_finger": 0.91284,
+  "rettingar": [
+   {
+    "lab": "stål i føtene (y 0,03–0,33, sentrum)",
+    "ekstra": 3.15703,
+    "F_fram": 10.0,
+    "F_bak": 10.0,
+    "masse": 4.39008
+   },
+   {
+    "lab": "meie stål 25×5, y 0,01–0,70",
+    "ekstra": 1.35413,
+    "F_fram": 10.2776,
+    "F_bak": 16.83129,
+    "masse": 2.58718
+   },
+   {
+    "lab": "meie alu 25×5, y 0,01–0,70 + lodd 2×0,35 kg bak (y 0,66)",
+    "ekstra": 1.16575,
+    "F_fram": 12.53284,
+    "F_bak": 12.60221,
+    "masse": 2.3988
+   },
+   {
+    "lab": "meie stål 30×6, y 0,01–0,70",
+    "ekstra": 1.94994,
+    "F_fram": 13.39912,
+    "F_bak": 19.95281,
+    "masse": 3.18299
+   }
+  ],
+  "T_ubalanse": 0.02504,
+  "GJ_ope": 1.75506
+ },
+ "b": {
+  "23x1.5": {
+   "spiss_x": 2.33932,
+   "finger": 1.72351,
+   "grep_x": 2.24309
+  },
+  "24x1.5": {
+   "spiss_x": 2.04193,
+   "finger": 1.50441,
+   "grep_x": 1.95793
+  },
+  "25x1.5": {
+   "spiss_x": 1.79285,
+   "finger": 1.3209,
+   "grep_x": 1.7191
+  },
+  "26x1.5": {
+   "spiss_x": 1.58267,
+   "finger": 1.16605,
+   "grep_x": 1.51756
+  },
+  "klem_mu0.3": {
+   "P_vri": 395.47902,
+   "P_rull": 238.19,
+   "P_SF2": 790.95805
+  },
+  "klem_mu0.6": {
+   "P_vri": 194.51237,
+   "P_rull": 238.19,
+   "P_SF2": 476.38
+  },
+  "trykk_Ø25_MPa": 1.61133,
+  "T_M8_Nm": 1.26553
+ },
+ "c": {
+  "aleine": {
+   "masse": 3.20156,
+   "y": 0.39377,
+   "z": 0.30519,
+   "tipp_fram": 20.11503,
+   "tipp_bak": 31.66452,
+   "tipp_side": 21.46481,
+   "F_lyft_akse": 5.25668
+  },
+  "med skjerm": {
+   "masse": 7.20156,
+   "y": 0.45278,
+   "z": 0.24676,
+   "tipp_fram": 34.68571,
+   "tipp_bak": 27.64014,
+   "tipp_side": 25.93354,
+   "F_lyft_akse": 18.06605
+  },
+  "gest|tyngdepunktet|T0.2|aleine": 1.92235,
+  "gest|tyngdepunktet|T0.2|med skjerm": 4.47814,
+  "gest|tyngdepunktet|T0.3|aleine": 1.28157,
+  "gest|tyngdepunktet|T0.3|med skjerm": 2.98543,
+  "gest|LED-lina|T0.2|aleine": 1.06299,
+  "gest|LED-lina|T0.2|med skjerm": 2.58189,
+  "gest|LED-lina|T0.3|aleine": 0.85974,
+  "gest|LED-lina|T0.3|med skjerm": 2.08244,
+  "T_losriving_lyft": 0.38447,
+  "T_pendel_105": 0.223,
+  "fot_T0.2": {
+   "rett_mm": 8,
+   "motor_mm": 7,
+   "masse": 3.39511
+  },
+  "fot_T0.3": {
+   "rett_mm": 14,
+   "motor_mm": 14,
+   "masse": 4.55646
+  },
+  "J_U": 0.0,
+  "J_lukka2": 0.0,
+  "J_lukka15": 0.0,
+  "a_kv": 0.50962,
+  "Ls": 0.74662,
+  "La": 0.31562,
+  "vri|T0.2|arbeid: ": [
+   6.33168,
+   0.70199,
+   0.01102,
+   0.01415
+  ],
+  "vri|T0.2|stemning": [
+   14.97812,
+   5.79079,
+   0.02607,
+   0.03347
+  ],
+  "vri|T0.3|arbeid: ": [
+   9.49751,
+   1.05298,
+   0.01653,
+   0.02122
+  ],
+  "vri|T0.3|stemning": [
+   22.46719,
+   8.68619,
+   0.0391,
+   0.05021
+  ],
+  "f_Hz|U fri": 1.89284,
+  "f_Hz|lukka 2": 45.37291,
+  "f_Hz|lukka 1,5": 40.04125,
+  "ned_mm": 0.39491,
+  "plate|3 mm, kinn i endane": 11.6739,
+  "plate|3 mm, kryp (E 2 GPa)": 17.51085,
+  "plate|6 mm, kinn i endane": 2.55367,
+  "kollisjon": {
+   "LED-lina": {
+    "forste_treff": -51.0,
+    "z_maks": 0.79151,
+    "inntrenging_mm": 61.50911,
+    "kant_105": [
+     0.24759,
+     0.79022
+    ]
+   },
+   "tyngdepunktet": {
+    "forste_treff": -62.0,
+    "z_maks": 0.751,
+    "inntrenging_mm": 20.99674,
+    "kant_105": [
+     0.2165,
+     0.7497
+    ]
+   }
+  }
+ },
+ "varme": {
+  "a|eps0.85": {
+   "W_per_m": 20.92072,
+   "dT": 9.21499,
+   "T_lodd": 38.42005,
+   "h": 10.02771
+  },
+  "a|eps0.1": {
+   "W_per_m": 20.92072,
+   "dT": 14.59324,
+   "T_lodd": 43.7983,
+   "h": 5.88009
+  },
+  "b|eps0.85": {
+   "W_per_m": 23.00526,
+   "dT": 14.08313,
+   "T_lodd": 43.70719,
+   "h": 10.67115
+  },
+  "b|eps0.1": {
+   "W_per_m": 23.00526,
+   "dT": 23.05166,
+   "T_lodd": 52.67572,
+   "h": 6.51941
+  },
+  "c|eps0.85": {
+   "W_per_m": 7.21228,
+   "dT": 8.16939,
+   "T_lodd": 34.61906,
+   "h": 11.34294
+  },
+  "c|eps0.1": {
+   "W_per_m": 7.21228,
+   "dT": 12.87305,
+   "T_lodd": 39.32272,
+   "h": 7.19837
+  },
+  "trygg|røyr Ø44×1,2 (spalte 50°)|eps0.85": {
+   "beroering": 34.5824,
+   "lodd60": 46.3978
+  },
+  "trygg|røyr Ø44×1,2 (spalte 50°)|eps0.1": {
+   "beroering": 19.32802,
+   "lodd60": 30.35962
+  },
+  "trygg|renne 16×20, berre utsida|eps0.85": {
+   "beroering": 19.87926,
+   "lodd60": 30.60212
+  },
+  "trygg|renne 16×20, berre utsida|eps0.1": {
+   "beroering": 12.12331,
+   "lodd60": 20.554
+  }
+ }
+}

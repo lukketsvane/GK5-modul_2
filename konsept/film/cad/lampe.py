@@ -18,8 +18,8 @@ HER = os.path.dirname(os.path.abspath(__file__))
 UT = os.path.join(HER, 'ut')
 
 # ------------------------------------------------------------------ proporsjonar (namngjevne, så formsøket kan setje dei)
-RUTE_B = 300.0        # breidd på ruta langs bjelken. KONTROLLMÅL: arket er anslått til 306 ± 40 mm på kortsida
-RUTE_D = 190.0        # djupn på ruta frå innspent kant til fri kant
+RUTE_B = 300.0        # breidd på ruta langs bjelken. KONTROLLMÅL: arket er anslått til om lag 250 × 440 mm, med rillene langs kortsida
+RUTE_D = 190.0        # djupn på ruta frå innspent kant til fri kant. Går langs rillene, altså kortsida på arket (må vere under 250)
 VINKEL = 35.0         # hellinga i teikninga, grader under vassrett (0 = ruta ligg flatt, peikar mot brukaren)
 VINKEL_OMRAADE = (0.0, 80.0)
 AKSE_H = 260.0        # høgda på bjelkeaksen over bordet
@@ -140,22 +140,34 @@ def _midtline(z):
     t = min(max((z - 45.0) / (AKSE_H - 30.0 - 45.0), 0.0), 1.0)
     return XF + ARM_UT * (3 * t * t - 2 * t ** 3)
 
-def arm_omriss(n=90):
-    """Omrisset av den rette delen av armen i xz-planet, frå bøyen til toppen (halvsirkel rundt leddaksen)."""
-    zs = [Z_BOY + (AKSE_H - Z_BOY) * i / n for i in range(n + 1)]
+def _kantar(n, z0=None):
+    """Høgre og venstre kant av armen: punkt 20 mm til kvar side av midtlina, målt vinkelrett på ho."""
+    z0 = Z_BOY if z0 is None else z0
+    zs = [z0 + (AKSE_H - z0) * i / n for i in range(n + 1)]
     v, h = [], []
     for z in zs:
         dz = 0.5
         dx = (_midtline(z + dz) - _midtline(z - dz)) / (2 * dz)
-        l = math.hypot(dx, 1.0); nx, nz = 1.0 / l, -dx / l                       # normalen mot høgre
+        l = math.hypot(dx, 1.0); nx, nz = 1.0 / l, -dx / l
         x = _midtline(z)
         h.append((x + nx * ARM_B / 2, z + nz * ARM_B / 2)); v.append((x - nx * ARM_B / 2, z - nz * ARM_B / 2))
-    h[0] = (XF + ARM_B / 2, Z_BOY); v[0] = (XF - ARM_B / 2, Z_BOY)
+    h[0] = (XF + ARM_B / 2, z0); v[0] = (XF - ARM_B / 2, z0)
+    h[-1] = (XT + ARM_B / 2, AKSE_H); v[-1] = (XT - ARM_B / 2, AKSE_H)
+    return h, v
+
+def arm_omriss(n=90):
+    """Omrisset av den rette delen av armen i xz-planet som polygon (til DXF): frå bøyen til toppen."""
+    h, v = _kantar(n)
     boge = [(XT + ARM_B / 2 * math.cos(a), AKSE_H + ARM_B / 2 * math.sin(a)) for a in [math.pi * i / 24 for i in range(1, 24)]]
     return h + boge + v[::-1]
 
 def arm():
-    blad = cq.Workplane('XZ', origin=(0, YA + ARM_T / 2, 0)).polyline(arm_omriss()).close().extrude(ARM_T)
+    h, v = _kantar(14)
+    blad = (cq.Workplane('XZ', origin=(0, YA + ARM_T / 2, 0)).moveTo(*h[0])
+            .spline(h[1:], tangents=[(0, 1), (0, 1)], includeCurrent=True)
+            .threePointArc((XT, AKSE_H + ARM_B / 2), v[-1])
+            .spline(v[::-1][1:], tangents=[(0, -1), (0, -1)], includeCurrent=True)
+            .close().extrude(ARM_T))
     # bøyen: kvartsirkel frå den loddrette armen fram til fliken som ligg på foten
     boy = (cq.Workplane('YZ', origin=(XF - ARM_B / 2, 0, 0))
            .moveTo(Y_BOY + R_INN, Z_BOY).lineTo(Y_BOY + R_INN + ARM_T, Z_BOY)
@@ -176,14 +188,13 @@ def arm():
 
 def kabeldeksel():
     """Trykt list på baksida av armen. Kabelen ligg i sporet."""
-    pk = []
-    n = 60
+    n = 14
     zs = [FOT_H + 2 + (AKSE_H - 22 - FOT_H - 2) * i / n for i in range(n + 1)]
-    hv = [(_midtline(max(z, Z_BOY)) + 5.0, z) for z in zs]; vv = [(_midtline(max(z, Z_BOY)) - 5.0, z) for z in zs]
-    list_ = cq.Workplane('XZ', origin=(0, YA + ARM_T / 2 + 4.0, 0)).polyline(hv + vv[::-1]).close().extrude(4.0)
-    hs = [(_midtline(max(z, Z_BOY)) + 2.0, z) for z in zs]; vs = [(_midtline(max(z, Z_BOY)) - 2.0, z) for z in zs]
-    spor = cq.Workplane('XZ', origin=(0, YA + ARM_T / 2 + 2.8, 0)).polyline(hs + vs[::-1]).close().extrude(2.9)
-    return list_.cut(spor)
+    def band(halv, y0, t):
+        hv = [(_midtline(max(z, Z_BOY)) + halv, z) for z in zs]; vv = [(_midtline(max(z, Z_BOY)) - halv, z) for z in zs]
+        return (cq.Workplane('XZ', origin=(0, y0, 0)).moveTo(*hv[0]).spline(hv[1:], includeCurrent=True)
+                .lineTo(*vv[-1]).spline(vv[::-1][1:], includeCurrent=True).close().extrude(t))
+    return band(5.0, YA + ARM_T / 2 + 4.0, 4.0).cut(band(2.0, YA + ARM_T / 2 + 2.8, 2.9))
 
 # ------------------------------------------------------------------ ledd og knott
 
@@ -281,7 +292,7 @@ def delar(vinkel=VINKEL):
         ('07', 'bjelke', P(kropp), 'petg', 'bjelke', 1, 'trykt i to lengder (produksjon: ekstrudert aluminium)'),
         ('08', 'bjelkelok', P(lok), 'petg', 'bjelke', 1, 'trykt i to lengder'),
         ('09', 'lysleiar', P(plate), 'pmma', 'rute', 1, 'PMMA %g mm, frå monitoren eller akrylplate, kantane polerte' % RUTE_T),
-        ('10', 'prismeark', P(film), 'film', 'film', 1, 'frå monitoren, prisma opp, rillene langs bjelken'),
+        ('10', 'prismeark', P(film), 'film', 'film', 1, 'frå monitoren, prisma opp, rillene på tvers av bjelken (langs kortsida på arket)'),
         ('11', 'flatstong', P(alu), 'alu', 'arm', 1, 'aluminium 12 × 2 × %.0f' % (RUTE_B - 4)),
         ('12', 'led-stripe', P(led), 'gummi', 'led', 1, 'KJØP: COB 5 V, 2700 K, 8 mm, %.0f mm, med USB og dimmar' % (RUTE_B - 4)),
         ('13', 'knott', knott(), 'messing', 'knott', 1, 'dreia messing (prototyp: trykt)'),
@@ -355,9 +366,84 @@ def kontroll(vis=True):
         for r_ in rap['rorsle']: print('  helling %2d°: kollisjon %.1f mm³ %s · lågaste punkt %.0f mm over bordet' % (r_['vinkel'], r_['kollisjon_mm3'], r_['kven'], r_['laagaste_punkt']))
     return rap
 
+# ------------------------------------------------------------------ eksport
+
+def samanstilling(vinkel=VINKEL):
+    a = cq.Assembly(name='ruta-pa-fot')
+    for (i, namn, form, mat, farge, n, _) in delar(vinkel):
+        a.add(form, name='%s_%s' % (i, namn.replace(' ', '_').replace('×', 'x')), color=cq.Color(*FARGE[farge]))
+    return a
+
+def utbreidd_arm():
+    """Armen flat, før bøying. Gjev (omriss, hol [(x, z, d)], bøyeline z). K-faktor 0,4."""
+    ba = math.pi / 2 * (R_INN + 0.4 * ARM_T)
+    botn = Z_BOY - ba - TAB_L
+    om = arm_omriss()
+    om = [(XF + ARM_B / 2, botn)] + om + [(XF - ARM_B / 2, botn)]
+    hol = [(x, Z_BOY - ba - (Y_BOY - y), 5.5) for x, y in TAB_SKRUAR] + [(XT - 12.0, AKSE_H, 4.5), (XT + 12.0, AKSE_H, 4.5)]
+    return om, hol, Z_BOY - ba / 2, ba
+
+def _dxf(fil, omriss=None, sirklar=(), liner=(), ytre_sirkel=None):
+    import ezdxf
+    d = ezdxf.new('R2010'); d.units = ezdxf.units.MM
+    d.layers.add('SKJER', color=7); d.layers.add('BOY', color=1)
+    m = d.modelspace()
+    if omriss: m.add_lwpolyline(omriss, close=True, dxfattribs={'layer': 'SKJER'})
+    if ytre_sirkel: m.add_circle((0, 0), ytre_sirkel, dxfattribs={'layer': 'SKJER'})
+    for (x, y, dia) in sirklar: m.add_circle((x, y), dia / 2, dxfattribs={'layer': 'SKJER'})
+    for (a, b_) in liner: m.add_line(a, b_, dxfattribs={'layer': 'BOY'})
+    d.saveas(fil)
+
+def eksporter():
+    from cadquery import exporters
+    for m in ('step', 'stl', 'dxf'): os.makedirs(os.path.join(UT, m), exist_ok=True)
+    a = samanstilling()
+    a.export(os.path.join(UT, 'ruta-pa-fot.step'))
+    a.export(os.path.join(UT, 'ruta-pa-fot.glb'), tolerance=0.05, angularTolerance=0.2)
+    D = delar()
+    for (i, namn, form, mat, _, n, _) in D:
+        exporters.export(form, os.path.join(UT, 'step', '%s_%s.step' % (i, namn.replace(' ', '_').replace('×', 'x'))))
+    # printfiler i printstilling (z opp frå plata)
+    d = {x[0]: x[2] for x in D}
+    kropp, lok = _bjelke_lokal()
+    xm = 0.5 * (X_RUTE0 + X_RUTE1)
+    def del_x(form, x0, x1): return form.intersect(_boks(x0, x1, -40, 40, -40, 40))
+    staaande = lambda f: f.rotate((0, 0, 0), (0, 1, 0), -90)                      # aksen opp
+    P = [('01_fot', d['01'].rotate((0, 0, 0), (1, 0, 0), 180)),                   # toppflata mot plata
+         ('02_botnlok', d['02']),
+         ('05_kabeldeksel', d['05'].rotate((0, 0, 0), (1, 0, 0), 90)),
+         ('06_leddhus', staaande(d['06'])),
+         ('07_bjelke_venstre', staaande(del_x(kropp, X_BJ0 - 1, xm - 12))),
+         ('07_bjelke_hogre', staaande(del_x(kropp, xm - 12, X_BJ1 + 5))),
+         ('08_bjelkelok_venstre', staaande(del_x(lok, X_BJ0 - 1, xm + 12))),
+         ('08_bjelkelok_hogre', staaande(del_x(lok, xm + 12, X_BJ1 + 5))),
+         ('13_knott_prototyp', d['13'].rotate((0, 0, 0), (0, 1, 0), 90))]
+    for namn, f in P:
+        bb = f.val().BoundingBox()
+        f = f.translate((-0.5 * (bb.xmin + bb.xmax), -0.5 * (bb.ymin + bb.ymax), -bb.zmin))
+        exporters.export(f, os.path.join(UT, 'stl', namn + '.stl'), tolerance=0.02, angularTolerance=0.1)
+        bb = f.val().BoundingBox()
+        print('  stl %-24s %5.0f x %5.0f x %5.0f mm' % (namn, bb.xlen, bb.ylen, bb.zlen))
+    # flate delar
+    om, hol, zb, ba = utbreidd_arm()
+    _dxf(os.path.join(UT, 'dxf', '04_arm_utbreidd.dxf'), om, hol, [((XF - ARM_B / 2, zb), (XF + ARM_B / 2, zb))])
+    _dxf(os.path.join(UT, 'dxf', '03_ballast.dxf'), None, [(x, y, 4.2) for x, y in TAB_SKRUAR], ytre_sirkel=BALLAST_D / 2)
+    hy = U_SKRUE - U_KANT
+    ruta = [(0, 0), (RUTE_B, 0), (RUTE_B, RUTE_D), (0, RUTE_D)]
+    _dxf(os.path.join(UT, 'dxf', '09_lysleiar.dxf'), ruta, [(x - X_RUTE0, RUTE_D - hy, 3.6) for x in SKRUAR_X])
+    _dxf(os.path.join(UT, 'dxf', '10_prismeark.dxf'), [(0, 6.0), (RUTE_B, 6.0), (RUTE_B, RUTE_D), (0, RUTE_D)], [(x - X_RUTE0, RUTE_D - hy, 3.6) for x in SKRUAR_X])
+    _dxf(os.path.join(UT, 'dxf', '14_friksjonsskive.dxf'), None, [(0, 0, 8.6)], ytre_sirkel=8.5)
+    json.dump(dict(bolengd=ba, boyeline_z=zb, utbreidd_lengd=max(p[1] for p in om) - min(p[1] for p in om)),
+              open(os.path.join(UT, 'dxf', 'arm.json'), 'w'), indent=1)
+    print('  armen utbreidd: %.1f mm lang, bøyeline %.1f mm frå nedste kant' % (max(p[1] for p in om) - min(p[1] for p in om), zb - min(p[1] for p in om)))
+
 if __name__ == '__main__':
     try: sys.stdout.reconfigure(encoding='utf-8')
     except Exception: pass
     os.makedirs(UT, exist_ok=True)
     rap = kontroll()
+    rap['lause'] = LAUSE
+    rap['stykkliste'] = [dict(id=i, namn=n, tal=t, materiale=m, prosess=pr) for (i, n, _, m, _, t, pr) in delar()]
     json.dump(rap, open(os.path.join(UT, 'kontroll.json'), 'w', encoding='utf-8'), indent=1, ensure_ascii=False)
+    if sys.argv[1:2] != ['kontroll']:
+        eksporter()

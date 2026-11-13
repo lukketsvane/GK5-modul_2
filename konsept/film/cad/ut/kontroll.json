@@ -201,5 +201,172 @@
  "veltevinkel": 24.5,
  "velt_venstre_N": 6.7,
  "velt_framme_N": 10.7,
- "velt_dytt_topp_N": 3.1
+ "velt_dytt_topp_N": 3.1,
+ "lause": [
+  [
+   "F",
+   "skrue M4 × 10 senk",
+   2,
+   "armen til leddhuset, med innpressmutter M4"
+  ],
+  [
+   "G",
+   "skrue M3 × 8 senk",
+   3,
+   "botnloket, med innpressmutter M3"
+  ],
+  [
+   "H",
+   "innpressmutter M3",
+   7,
+   "messing, varmepressa"
+  ],
+  [
+   "I",
+   "innpressmutter M4",
+   2,
+   "messing, varmepressa"
+  ],
+  [
+   "J",
+   "gummiføter Ø 10",
+   3,
+   "under botnloket"
+  ]
+ ],
+ "stykkliste": [
+  {
+   "id": "01",
+   "namn": "fot",
+   "tal": 1,
+   "materiale": "petg",
+   "prosess": "trykt (produksjon: trykkstøypt aluminium, pulverlakk)"
+  },
+  {
+   "id": "02",
+   "namn": "botnlok",
+   "tal": 1,
+   "materiale": "petg",
+   "prosess": "trykt"
+  },
+  {
+   "id": "03",
+   "namn": "ballast",
+   "tal": 1,
+   "materiale": "staal",
+   "prosess": "stålplate 3 mm, laserskoren, 2 × M5 gjenga"
+  },
+  {
+   "id": "04",
+   "namn": "arm",
+   "tal": 1,
+   "materiale": "alu",
+   "prosess": "aluminium 5 mm EN AW-5754, skoren og bøygd éin gong"
+  },
+  {
+   "id": "05",
+   "namn": "kabeldeksel",
+   "tal": 1,
+   "materiale": "petg",
+   "prosess": "trykt, limt på baksida av armen"
+  },
+  {
+   "id": "06",
+   "namn": "leddhus",
+   "tal": 1,
+   "materiale": "petg",
+   "prosess": "trykt (produksjon: maskinert aluminium)"
+  },
+  {
+   "id": "07",
+   "namn": "bjelke",
+   "tal": 1,
+   "materiale": "petg",
+   "prosess": "trykt i to lengder (produksjon: ekstrudert aluminium)"
+  },
+  {
+   "id": "08",
+   "namn": "bjelkelok",
+   "tal": 1,
+   "materiale": "petg",
+   "prosess": "trykt i to lengder"
+  },
+  {
+   "id": "09",
+   "namn": "lysleiar",
+   "tal": 1,
+   "materiale": "pmma",
+   "prosess": "PMMA 3 mm, frå monitoren eller akrylplate, kantane polerte"
+  },
+  {
+   "id": "10",
+   "namn": "prismeark",
+   "tal": 1,
+   "materiale": "film",
+   "prosess": "frå monitoren, prisma opp, rillene på tvers av bjelken (langs kortsida på arket)"
+  },
+  {
+   "id": "11",
+   "namn": "flatstong",
+   "tal": 1,
+   "materiale": "alu",
+   "prosess": "aluminium 12 × 2 × 296"
+  },
+  {
+   "id": "12",
+   "namn": "led-stripe",
+   "tal": 1,
+   "materiale": "gummi",
+   "prosess": "KJØP: COB 5 V, 2700 K, 8 mm, 296 mm, med USB og dimmar"
+  },
+  {
+   "id": "13",
+   "namn": "knott",
+   "tal": 1,
+   "materiale": "messing",
+   "prosess": "dreia messing (prototyp: trykt)"
+  },
+  {
+   "id": "14",
+   "namn": "friksjonsskive",
+   "tal": 1,
+   "materiale": "gummi",
+   "prosess": "kork eller gummi 1 mm, Ø 17 med hol Ø 8,6"
+  },
+  {
+   "id": "A",
+   "namn": "bolt M8 × 70",
+   "tal": 1,
+   "materiale": "staal",
+   "prosess": "sekskant, DIN 933"
+  },
+  {
+   "id": "B",
+   "namn": "låsemutter M8",
+   "tal": 1,
+   "materiale": "staal",
+   "prosess": "DIN 985"
+  },
+  {
+   "id": "C",
+   "namn": "skiver M8",
+   "tal": 2,
+   "materiale": "staal",
+   "prosess": "éi nylon, éi stål"
+  },
+  {
+   "id": "D",
+   "namn": "skrue M5 × 12 senk",
+   "tal": 2,
+   "materiale": "staal",
+   "prosess": "ISO 10642"
+  },
+  {
+   "id": "E",
+   "namn": "skrue M3 × 12 senk",
+   "tal": 4,
+   "materiale": "staal",
+   "prosess": "ISO 10642, med innpressmutter M3"
+  }
+ ]
 }

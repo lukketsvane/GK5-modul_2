@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 # KOPI av modell/byggjesett/rendre_blender.py (13.11.2026). Endra berre: kvar scenene blir lesne frå (--scener),
-# kvar bileta blir skrivne (--ut), materiala «print», «led» og «opal» for trykte og kjøpte delar, og «flat» på filmstykke
-# (ikkje bøygd i delbanken, og reflekskortet lyser berre på filmen, så bakgrunnen held seg svart).
+# kvar bileta blir skrivne (--ut), materiala «print», «led» og «opal» for trykte og kjøpte delar, «flat» på filmstykke
+# (ikkje bøygd i delbanken, og reflekskortet lyser berre på filmen, så bakgrunnen held seg svart), og ei <scene>.json
+# ved sida av kvart bilete med kvar delane hamnar i biletet (pikslar), til merking på oppsummeringsarket.
 # Materiale, lys, verd, kamera, prøvetal og utdata er dei same som i originalen.
 """rendre_blender.py · studiorendrar av kitbash-lampene med oppsettet til byggjesettet (Cycles, Blender 5.1, hovudlaust)
 
@@ -116,7 +117,10 @@ def materiale():
     M['golv'], _ = _principled('golv', (0.014, 0.014, 0.016), 0.0, 0.6)
     # --- lagt til for kitbash: trykte og kjøpte delar
     # Trykte delar: matt, varm raudbrun, fargen Iver brukte på fot og bjelke i konsept/film/cad/render.py (0,20 0,028 0,03).
-    M['print'], _ = _principled('print', (0.13, 0.024, 0.018), 0.0, 0.62)
+    # Under studiolyset til byggjesettet blir (0,20 0,028 0,03) rosa, så verdien er senka og glansen dempa til fargen les som
+    # den same raudbrune (prøvd i fire steg mot ut/render/ruta-pa-fot-skissa.png).
+    M['print'], _pp = _principled('print', (0.07, 0.010, 0.006), 0.0, 0.75)
+    _pp.inputs['Specular IOR Level'].default_value = 0.25
     # Kjøpt LED-flate: lyser svakt varmt, så ho les som tend utan å lyse opp studioet
     m, p = _principled('led', (1.0, 0.86, 0.62), 0.0, 0.5)
     p.inputs['Emission Color'].default_value = (1.0, 0.74, 0.42, 1.0); p.inputs['Emission Strength'].default_value = 2.5
@@ -315,9 +319,26 @@ def rendre(namn, sc):
         _lys('baklys', bak, mal, 0.9 * d * 2, 30 * (d / 0.3) ** 2, (1.0, 0.95, 0.88))
     os.makedirs(UT, exist_ok=True)
     s.render.filepath = os.path.join(UT, namn + ('-prove' if PROVE else '') + '.png')
+    # --- lagt til for kitbash: kvar kvar del hamnar i biletet (pikslar), så oppsummeringsarket kan setje namn på delane
+    meta = meta or dict(scene=namn)
+    try:
+        from bpy_extras.object_utils import world_to_camera_view
+        bpy.context.view_layer.update()
+        rx, ry = s.render.resolution_x, s.render.resolution_y
+        meta.update(w=rx, h=ry)
+        per = {}
+        for ob, o in zip(objekt, sc['objekt']):
+            c = sum((ob.matrix_world @ Vector(h) for h in ob.bound_box), Vector()) / 8
+            v = world_to_camera_view(s, cam, c)
+            d = per.setdefault(o.get('namn', o.get('del_')), dict(namn=o.get('namn', o.get('del_')), slag=o.get('slag', 'sett'), del_=o.get('del_'), px=[]))
+            d['px'].append((v.x * rx, (1 - v.y) * ry))
+        for d in per.values():
+            d['px'] = [round(sum(q[0] for q in d['px']) / len(d['px']), 1), round(sum(q[1] for q in d['px']) / len(d['px']), 1)]
+        meta['delar'] = list(per.values())
+    except Exception as e:
+        meta['delar_feil'] = repr(e)
     bpy.ops.render.render(write_still=True)
-    if meta:
-        json.dump(meta, open(os.path.join(UT, namn + ('-prove' if PROVE else '') + '.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
+    json.dump(meta, open(os.path.join(UT, namn + ('-prove' if PROVE else '') + '.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
     print('RENDRA', s.render.filepath, flush=True)
 
 

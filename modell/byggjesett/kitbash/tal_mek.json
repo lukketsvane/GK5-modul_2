@@ -93,7 +93,7 @@
   "organ": "plata og vindaugsdiode",
   "handling": "vri knotten",
   "setning": "Plata står fast mot feltet. Ei diode bak ei maske teiknar vindauget på veggen, og knotten flyttar watten.",
-  "lys": "over-vindauge",
+  "lys": "over-vindauge-q30",
   "masse_g": 956,
   "tyngdepunkt": [
    1.0,
@@ -138,7 +138,7 @@
   "organ": "LED-stripe mot plata og vindaugsdiode",
   "handling": "vri knotten",
   "setning": "Bjelken med LED-stripa ligg på skjermkanten og lyser opp i plata, som legg eit band av lys over feltet. Vindaugsdioden held veggen.",
-  "lys": "over-band-vindauge",
+  "lys": "over-band-vindauge-q30",
   "masse_g": 1143,
   "tyngdepunkt": [
    5.2,
@@ -279,7 +279,7 @@
   "organ": "plata og vindaugsdiode",
   "handling": "vri knotten",
   "setning": "Plata fast mot feltet og vindauget på veggen, ståande på plata under skjermen.",
-  "lys": "over-vindauge",
+  "lys": "over-vindauge-q30",
   "masse_g": 2080,
   "tyngdepunkt": [
    -0.0,

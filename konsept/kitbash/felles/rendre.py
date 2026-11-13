@@ -9,7 +9,7 @@ materiale, lys, verd, kamera, prøvetal og utdata). Tre scener per lampe:
   <namn>-del       delbanken: ortografisk, gjennomsiktig bakgrunn, 4 pikslar per mm (asimut -35, elevasjon 28)
 
   import rendre
-  rendre.scener(delar, mappe, 'lampe')                  skriv <mappe>/scener.json og STL for trykte og kjøpte delar
+  rendre.scener(delar, mappe, 'lampe')                  skriv <mappe>/scener.json og nett for trykte og kjøpte delar (render/nett/)
   rendre.koyr(mappe, ['lampe-samla'], prove=True)       rendre til <mappe>/render/lampe-samla-prove.png
   python rendre.py <mappe> [scene ...] [--prove]        same frå kommandolina
 
@@ -50,8 +50,9 @@ def _lik(fil, mesh):
 
 def _objekt(delar, mappe):
     """Scenelista: éin post per underdel. Delar frå settet peikar på STL-filene i modell/byggjesett/stl/ (ikkje kopierte);
-    trykte og kjøpte delar og filmstykke blir skrivne til <mappe>/stl/."""
-    os.makedirs(os.path.join(mappe, 'stl'), exist_ok=True)
+    trykte og kjøpte delar og filmstykke blir skrivne til <mappe>/render/nett/ slik dei er teikna (ikkje til <mappe>/stl/,
+    der sjekk.eksporter legg dei trykte delane slik dei ligg på plata)."""
+    os.makedirs(os.path.join(mappe, 'render', 'nett'), exist_ok=True)
     ut = []
     for d in delar:
         for u, m, mat in d.under:
@@ -59,7 +60,7 @@ def _objekt(delar, mappe):
                 raise ValueError('%s/%s: materialet «%s» finst ikkje i rendraren (%s)' % (d.namn, u, mat, ', '.join(MATERIALE)))
             fil = _settfil(d.pid, u) if d.slag == 'sett' else None
             if fil is None or not _lik(fil, m):
-                fil = os.path.join(mappe, 'stl', '%s_%s.stl' % (d.namn, u) if u != d.namn else '%s.stl' % d.namn)
+                fil = os.path.join(mappe, 'render', 'nett', '%s_%s.stl' % (d.namn, u) if u != d.namn else '%s.stl' % d.namn)
                 m.export(fil)
             o = dict(fil=os.path.relpath(fil, mappe).replace('\\', '/'), mat=mat, M=d.M.tolist(),
                      del_=(d.pid or 'ny'), under=u, namn=d.namn, slag=d.slag)

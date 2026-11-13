@@ -119,7 +119,8 @@ def _bjelke_lokal():
 def _rute_lokal():
     h = SPALTE / 2
     plate = _boks(X_RUTE0, X_RUTE1, U_KANT, U_KANT + RUTE_D, h - RUTE_T, h)
-    # fri kant skoren 45° mot undersida: lyset som når kanten, går ned på bordet og ikkje mot auget
+    # fri kant skoren 45° på oversida og polert: lyset som når kanten, blir spegla ned gjennom undersida,
+    # på bordet og ikkje mot auget
     kile = (cq.Workplane('YZ', origin=(X_RUTE0 - 1, 0, 0))
             .polyline([(U_KANT + RUTE_D - RUTE_T, h - RUTE_T - 0.01), (U_KANT + RUTE_D + 0.01, h - RUTE_T - 0.01),
                        (U_KANT + RUTE_D + 0.01, h + 0.01)]).close().extrude(RUTE_B + 2))
@@ -426,7 +427,10 @@ def eksporter():
          ('07_bjelke_hogre', staaande(del_x(kropp, xm - 12, X_BJ1 + 5))),
          ('08_bjelkelok_venstre', staaande(del_x(lok, X_BJ0 - 1, xm + 12))),
          ('08_bjelkelok_hogre', staaande(del_x(lok, xm + 12, X_BJ1 + 5))),
-         ('13_knott_prototyp', d['13'].rotate((0, 0, 0), (0, 1, 0), 90))]
+         ('13_knott_prototyp', d['13'].rotate((0, 0, 0), (0, 1, 0), 90)),
+         # prøvedelar: 20 mm av bjelken og loket rundt éin skrue. Print desse først og prøv plata, arket, stripa og flatstonga
+         ('prove_bjelkesnitt', staaande(del_x(kropp, SKRUAR_X[0] - 10, SKRUAR_X[0] + 10))),
+         ('prove_loksnitt', staaande(del_x(lok, SKRUAR_X[0] - 10, SKRUAR_X[0] + 10)))]
     for namn, f in P:
         bb = f.val().BoundingBox()
         f = f.translate((-0.5 * (bb.xmin + bb.xmax), -0.5 * (bb.ymin + bb.ymax), -bb.zmin))

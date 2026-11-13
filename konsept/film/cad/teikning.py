@@ -144,7 +144,7 @@ STEG = {
               plass={'07': (-30, 26), 'A': (22, 10), '11': (-52, 4), '12': (-50, -8), '09': (34, 30), '10': (-46, 26), '08': (-40, -16), 'E': (-26, -18)},
               ramme=(40, 22, 262, 172),
               tekst=['Legg bolten A i lomma i høgre ende av bjelken 07. Lim LED-stripa 12 på flatstonga 11 og legg ho i sporet. Før leidningen ut bak.',
-                     'Legg lysleiaren 09 i spalta med den skrå kanten ned. Legg prismearket 10 oppå, med prisma opp og rillene på tvers av bjelken.',
+                     'Legg lysleiaren 09 i spalta med den skrå kanten opp og ytst. Legg prismearket 10 oppå, med prisma opp og rillene på tvers av bjelken.',
                      'Legg på loket 08 og skru til med E gjennom plata. Stram til arket ligg flatt, ikkje hardare.']),
     '5': dict(tal=3, tittel='Leddet', fil='side-5-leddet.png', retning=ISO,
               flytting='ledd',

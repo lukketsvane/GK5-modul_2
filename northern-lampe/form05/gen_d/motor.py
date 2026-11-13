@@ -104,7 +104,7 @@ SKJ = dict(x=0.27, y0=0.45, y1=0.50, z0=0.10, z1=0.42)  # skjermen som boks (dju
 SKJ_FOT = dict(x=0.12, y0=0.40, y1=0.60, z1=0.025)      # ANTAKING: skjermfoten 24 × 20 cm
 KNOTT = dict(r=0.0385, l=0.028, m=0.08)              # P07 fatning Ø77 × 28 frå byggjesettet (A), masse A
 F_DYTT = 5.0                                         # ANTAKING: fingerdytt på knotten, N
-SKULDER = np.array([0.20, -0.22, 0.32]); REKK = 0.60 # ANTAKING: høgre skulder og godt grep, m
+SKULDER = np.array([0.20, -0.22, 0.32]); REKK = 0.70 # ANTAKING: høgre skulder og lengste grep utan å reise seg, m
 FELT = (-0.30, 0.30, 0.05, 0.45)
 TIP_MIN, DELTA_MAX = fe.TIP_MIN, fe.DELTA_MAX         # 6° og 2 mm, som felles.py
 
@@ -213,7 +213,10 @@ class Kropp:
                       np.array([s.xf, s.yf, s.tf / 2]), ls.skive(W([s.xf, s.yf, 0.004]), (0, 0, 1), s.r)))
         return D
 
-    def prims(s): return [d[4] for d in s.delar() if d[4] is not None]
+    def delar_c(s):
+        if not hasattr(s, '_D'): s._D = s.delar()
+        return s._D
+    def prims(s): return [d[4] for d in s.delar_c() if d[4] is not None]
     def mesh(s): return fe.merge([d[1] for d in s.delar()])
     def kontakt(s):
         if s.sp['fot'] == 'under':
@@ -222,7 +225,7 @@ class Kropp:
         return np.c_[s.xf + s.r * np.cos(th), s.yf + s.r * np.sin(th)]
     def masser(s, r=None):
         """(masse, tyngdepunkt) for alle delar, med skjermen som ballast når foten er plata. r: annan fotradius."""
-        P = [(d[2], np.asarray(d[3], float)) for d in s.delar() if d[0] != 'fot']
+        P = [(d[2], np.asarray(d[3], float)) for d in s.delar_c() if d[0] != 'fot']
         if s.sp['fot'] == 'under':
             P.append((M_SKJERM, C_SKJERM))
         else:
@@ -410,10 +413,12 @@ def stab(kr, r=None):
     Fk = min(F_tipp(parts, hull, kr.K, d) for d in RETN)
     return st, Fk, parts, hull
 
-def r_krav(kr):
-    """Minste fotradius (same plassering, same 8 mm) som gjev tipp ≥ 6° og tol 2 × fingerdytten på knotten."""
+def r_krav(kr, dytt=True):
+    """Minste fotradius (same plassering, same tjukn) som gjev tipp ≥ 6°, og med dytt=True òg tol fingerdytten (5 N) på knotten."""
     if kr.sp['fot'] == 'under': return float('nan')
-    ok = lambda r: stab(kr, r)[0]['tipp_deg'] >= TIP_MIN and stab(kr, r)[1] >= 2 * F_DYTT
+    def ok(r):
+        st, Fk, _, _ = stab(kr, r)
+        return st['tipp_deg'] >= TIP_MIN and (Fk >= F_DYTT or not dytt)
     lo, hi = 0.02, 0.40
     if not ok(hi): return float('inf')
     for _ in range(26):
@@ -516,7 +521,9 @@ def tal(sp, n=5, N=2_000_000):
     # --- form og mekanikk
     st, Fk, parts, hull = stab(kr)
     m = sum(x for x, _ in parts) - (M_SKJERM if sp['fot'] == 'under' else 0.0)
-    rk = r_krav(kr); rm = r_maks(kr)
+    rk = r_krav(kr); rk0 = r_krav(kr, dytt=False); rm = r_maks(kr)
+    led = np.array([0.0, Y_BJ + 0.016, kr.H])
+    d_led = min(np.linalg.norm(np.cross(led - p, nrm(q - p))) if 0 <= (led - p) @ nrm(q - p) <= np.linalg.norm(q - p) else min(np.linalg.norm(led - p), np.linalg.norm(led - q)) for p, q in zip(kr.arm[:-1], kr.arm[1:]))
     fr = kr.BJ + kr.e * kr.d                                         # framkanten, midt
     hj = [fr - kr.la * kr.w / 2, fr + kr.la * kr.w / 2]
     F_rute = min(F_tipp(parts, hull, q, np.array([0, 0, -1.0])) for q in hj)
@@ -528,7 +535,7 @@ def tal(sp, n=5, N=2_000_000):
         ch = kjede_til(kr, kr.K)
         sv_k = max(np.linalg.norm(forskyving(ch, kr.K, F_DYTT * d, kr.K)) for d in RETN)
     sv_r = max(np.linalg.norm(forskyving(kjede_til(kr, q), q, np.array([0, 0, -F_DYTT]), q)) for q in hj)
-    heng = [(d[2], np.asarray(d[3], float)) for d in kr.delar() if d[0] in ('rute', 'bjelke', 'knott', 'lokk') and d[3][2] > 0.1]
+    heng = [(d[2], np.asarray(d[3], float)) for d in kr.delar_c() if d[0] in ('rute', 'bjelke', 'knott', 'lokk') and d[3][2] > 0.1]
     mh = sum(x for x, _ in heng); ch_ = sum(x * c for x, c in heng) / mh
     heng_mm = abs(forskyving(kjede_til(kr, ch_), ch_, np.array([0, 0, -mh * G]), fr)[2]) * 1000
     rekk = float(np.linalg.norm(kr.K - SKULDER))
@@ -549,9 +556,9 @@ def tal(sp, n=5, N=2_000_000):
                likskap=L['likskap'], sprang=L['sprang'], topp=L['topp'],
                # kropp
                masse_kg=m, hogd_cm=V[:, 2].max() * 100, breidd_cm=(V[:, 0].max() - V[:, 0].min()) * 100,
-               tipp_deg=st['tipp_deg'], F_tipp_knott_N=Fk, F_tipp_rute_N=F_rute, r_krav_cm=rk * 100, r_maks_cm=rm * 100,
+               tipp_deg=st['tipp_deg'], F_tipp_knott_N=Fk, F_tipp_rute_N=F_rute, r_krav_stat_cm=rk0 * 100, r_krav_cm=rk * 100, r_maks_cm=rm * 100,
                svikt_knott_mm=sv_k * 1000, svikt_rute_mm=sv_r * 1000, heng_mm=heng_mm,
-               rekk_cm=rekk * 100, knott_bak_skjerm=bak_skj, i_sikt=isk, kollisjon_mm=kol, fot_pa_felt=fpf)
+               rekk_cm=rekk * 100, knott_bak_skjerm=bak_skj, arm_til_vindaugsdiode_mm=d_led * 1000, i_sikt=isk, kollisjon_mm=kol, fot_pa_felt=fpf)
     rad.update(pd)
     fl = []
     if rad['W350'] > 7.5: fl.append('over 7,5 W')
@@ -567,19 +574,21 @@ def tal(sp, n=5, N=2_000_000):
     if rad['skjerm_del'] > 0.5: fl.append('lys på skjermen')
     if rad['likskap'] > 0.9: fl.append('dimmar')
     if rad['tipp_deg'] < TIP_MIN: fl.append('veltar')
-    elif rad['F_tipp_knott_N'] < 2 * F_DYTT: fl.append('dytt veltar')
-    if rad['F_tipp_rute_N'] < 2 * F_DYTT: fl.append('trykk på ruta veltar')
+    elif rad['F_tipp_knott_N'] < F_DYTT: fl.append('dytt veltar')
+    if rad['F_tipp_rute_N'] < F_DYTT: fl.append('trykk på ruta veltar')
     if rad['svikt_knott_mm'] > DELTA_MAX: fl.append('knotten vaggar')
     if rad['svikt_rute_mm'] > 5: fl.append('ruta vaggar')
     if isk > 0.005: fl.append('i siktlina')
     if kol > 1: fl.append('kolliderer')
     if fpf > 0.005: fl.append('foten på feltet')
-    if rk > rm: fl.append('ingen fot held')
+    if rk0 > rm: fl.append('ingen fot står')
+    elif rk > rm: fl.append('ingen fot toler dytten')
+    if d_led < 0.017 + 0.005: fl.append('armen dekkjer vindaugsdioden')
     if rekk > REKK: fl.append('knotten langt unna')
     if bak_skj: fl.append('knotten bak skjermen')
     if pd['skoyt']: fl.append('skøyt i filmen')
     if pd['n_ark'] > ARK_I_KIT: fl.append('treng %d ark' % pd['n_ark'])
-    rad['kan_lagast'] = not (kol > 1 or rk > rm)
+    rad['kan_lagast'] = not (kol > 1 or rk0 > rm)
     rad['berre_kit_og_LED'] = False                       # sjå produksjon: bjelke, fot og hus finst ikkje i byggjesettet
     rad['flagg'] = '; '.join(fl) or '-'
     rad['sekund'] = time.time() - t0

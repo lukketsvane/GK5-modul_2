@@ -16,14 +16,18 @@ Delane frå den demonterte overheadprojektoren (truleg ein 3M 2000, sjå `resear
 | `byggjesett.glb` | Alle delane lagde ut ved sida av kvarandre, med farge per materiale. Kan opnast i Blender, Fusion eller ein nettlesar. |
 | `projektoren.glb` | Projektoren slik delane kan ha sete saman. Det er ein rekonstruksjon frå delane, ikkje målt. |
 | `maal.json` | Same mål som `DIMS`, som JSON. |
-| `scener.json`, `rendre_blender.py` | Fire studioscener og rendraren for Blender (Cycles). |
-| `render/` | Rendrane: projektoren samla, fresnelplata, linsene og arket. |
+| `scener.json`, `rendre_blender.py` | Fire studioscener, delbanken og rendraren for Blender (Cycles). |
+| `render/` | Studiorendrane: projektoren samla, fresnelplata, linsene og arket. |
+| `render/del-*.png` | Delbanken: kvar del for seg (P01 til P09) og projektoren samla, med gjennomsiktig bakgrunn. Ortografisk kamera frå same retning og 4 pikslar per mm, så bileta kan setjast saman i skisser utan å skalerast kvar for seg. `del-*.json` har storleiken. |
+| `ark/` | Oversiktsarket (1127 × 797, husstilen frå fase 1): `lag_ark.py` legg alle delane i same målestokk og skriv `byggjesett.html` og `byggjesett.png`. |
 
 ## Bruk
 
 - **Fusion eller Blender:** importer STL-filene (mm) eller GLB-fila.
 - **Python:** `from delar import del_, DIMS`, så gjev `del_('P05')` underdelane til fresnelspegelen. Endre eit mål i `DIMS` og køyr `python delar.py` på nytt.
-- **Rendrar:** `blender.exe -b -P rendre_blender.py -- [scene ...]`. Blender 5.1.2 ligg i `Documents/verktoy/`. Skriptet køyrer på CPU med fire trådar og lågaste prioritet, så lyden ikkje hakkar. `--prove` gjev små, raske bilete.
+- **Rendrar:** `blender.exe -b -P rendre_blender.py -- [scene ...]`. Blender 5.1.2 ligg i `Documents/verktoy/`. Skriptet køyrer på CPU med fire trådar og lågaste prioritet, så lyden ikkje hakkar. `--prove` gjev små, raske bilete. Scenene `del-P01` til `del-P09` og `del-samla` er delbanken.
+- **Figma:** delbanken ligg på sida «Byggjesett · 13.11» i den eigne Figma-fila, i 2 px per mm. Dra ein del inn i ei skisse og skaler alle delane like mykje, så held målestokken.
+- **Arket (P08) i bileta:** filmen er vist som tynn, klar plast med glans og ein svak bøy, berre for å lese som film. Prisma og optikken er ikkje med. Den første studiorendra hadde lys bak arket og vart heilt kvit. Det lyset er teke bort.
 
 ## Måla og kor sikre dei er
 

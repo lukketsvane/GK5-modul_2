@@ -50,7 +50,7 @@ def film_materiale():
     cr.color_ramp.elements[0].position = 0.35; cr.color_ramp.elements[0].color = (1.0, 0.86, 0.66, 1.0)
     cr.color_ramp.elements[1].position = 0.75; cr.color_ramp.elements[1].color = (1.0, 0.62, 0.22, 1.0)
     nt.links.new(no.outputs['Fac'], cr.inputs['Fac'])
-    mu = nt.nodes.new('ShaderNodeMath'); mu.operation = 'MULTIPLY'; mu.inputs[1].default_value = 2.2
+    mu = nt.nodes.new('ShaderNodeMath'); mu.operation = 'MULTIPLY'; mu.inputs[1].default_value = 0.55
     nt.links.new(no.outputs['Fac'], mu.inputs[0])
     nt.links.new(cr.outputs['Color'], p.inputs['Emission Color']); nt.links.new(mu.outputs[0], p.inputs['Emission Strength'])
     return m
@@ -82,7 +82,7 @@ bpy.ops.wm.read_factory_settings(use_empty=True)
 s = bpy.context.scene
 s.render.engine = 'CYCLES'; s.cycles.device = 'CPU'
 s.render.threads_mode = 'FIXED'; s.render.threads = 4
-s.cycles.samples = 24 if PROVE else 160
+s.cycles.samples = 24 if PROVE else 96
 s.cycles.use_denoising = True
 s.render.resolution_x, s.render.resolution_y = (640, 427) if PROVE else (1536, 1024)
 s.view_settings.view_transform = 'AgX'; s.view_settings.look = 'AgX - Medium High Contrast'
@@ -93,7 +93,7 @@ messing = mat('messing', (0.83, 0.62, 0.30), 1.0, 0.28)
 staal = mat('staal', (0.62, 0.62, 0.63), 1.0, 0.3)
 svart = mat('svart', (0.015, 0.015, 0.017), 0.0, 0.5)
 kork = mat('kork', (0.45, 0.33, 0.22), 0.0, 0.8)
-akryl = mat('akryl', (1.0, 0.97, 0.92), 0.0, 0.03, trans=1.0, ior=1.49, glod=(1.0, 0.70, 0.36), styrke=0.6)
+akryl = mat('akryl', (1.0, 0.97, 0.92), 0.0, 0.03, trans=1.0, ior=1.49, glod=(1.0, 0.70, 0.36), styrke=0.12)
 led = mat('led', (1.0, 0.9, 0.7), 0.0, 0.5, glod=(1.0, 0.72, 0.38), styrke=30.0)
 film = film_materiale()
 M = {'01': raud, '02': svart, '03': staal, '04': alu, '05': svart, '06': raud, '07': raud, '08': raud, '09': akryl, '10': film,
@@ -108,13 +108,14 @@ flate('bord', 4.0, (0, 0, 0), bord)
 flate('vegg', 4.0, (0, 0.55, 1.0), vegg, (math.radians(90), 0, 0))
 
 # lyset: ei svak, stor flate framme til venstre for forma, og gløden under ruta ned på bordet
-lys('fyll', (-0.9, -1.1, 0.9), (0, 0, 0.15), 1.2, 9.0, (1.0, 0.93, 0.85))
+lys('fyll', (-0.9, -1.1, 0.9), (0, 0, 0.15), 1.2, 4.5, (1.0, 0.93, 0.85))
 lys('kant', (0.7, -0.5, 0.6), (0.05, 0, 0.2), 0.5, 4.0, (1.0, 0.95, 0.9))
-lys('under', (-0.08, -0.07, 0.17), (-0.08, -0.10, 0.0), 0.22, 3.2, (1.0, 0.66, 0.34))
+u = lys('under', (-0.08, -0.07, 0.17), (-0.08, -0.10, 0.0), 0.22, 1.3, (1.0, 0.66, 0.34))
+u.visible_camera = False; u.visible_transmission = False; u.visible_glossy = False
 verd = bpy.data.worlds.new('verd'); s.world = verd; verd.use_nodes = True
 verd.node_tree.nodes['Background'].inputs['Color'].default_value = (0.02, 0.017, 0.014, 1.0)
 
-kam = bpy.data.cameras.new('kam'); kam.lens = 52
+kam = bpy.data.cameras.new('kam'); kam.lens = 62
 ko = bpy.data.objects.new('kam', kam); bpy.context.collection.objects.link(ko)
 ko.location = (-0.50, -0.78, 0.25); peik(ko, (-0.03, 0.0, 0.135)); s.camera = ko
 kam.dof.use_dof = False

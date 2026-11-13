@@ -65,7 +65,7 @@ Dei kvite tala er best av dei tre.
 ## 11 A er det trygge kortet, C det nye, B lampa over skjermen
 
 Dette er mi lesing, ikkje eit val:
-- A ligg nærast Northern og er enklast å byggje, men er òg det minst nye. Snur du skiva, gjev den kvite baksida møtelys på ansiktet.
+- A ligg nærast Northern og er enklast å byggje, men er òg det minst nye. Snur du skiva, gjev den kvite baksida møtelys på ansiktet. Skiva må snu den korte vegen, så leddet treng eit stopp. Den lange vegen kastar spegelstrålen i auga.
 - B er den einaste som ligg over skjermen og lèt bordet vere fritt. Prisen er ujamt lys og ein mekanikk som kan verke teknisk.
 - C er det nyaste og lyser reinast, men brukar mest straum og står høgt.
 

@@ -192,7 +192,9 @@ def s_oversikt(W, H):
           'Julekula er tynt glas: fyll ho over ei skål med hanskar, tett opninga,',
           '     hald vatn borte frå telefonen og lykta.',
           'Frontflatespegelen: rør ikkje flata, teip berre på baksida og kantane.',
-          '     Kantane kan vere uslipte. Teip dei.']
+          '     Kantane kan vere uslipte. Teip dei.',
+          'Skiva i A: vend ho alltid med spegelsida mot skjermen. Går spegelsida',
+          '     forbi andletet ditt, kastar ho lyset frå lykta rett i auga.']
     g.append(tekstblokk(x, y + 6, tr, 'brod', lh=4.4))
     g.append(t(m, H - 23, 'Måla og vinklane er rekna frå lysmodellen i konsept/tre (runde 2). Modellen er ikkje målt: sikt etter lysflekken, ikkje etter gradene.', 'liten'))
     return ''.join(g)
@@ -308,6 +310,8 @@ def s_A_plassering(W, H):
             'Stemning: sikt skiveflekken midt på veggen bak skjermen. Arbeid: 10 cm til',
             '     venstre for feltmidten. Fliken står fast i begge.',
             'Møte (F10): vend skiva så den kvite baksida ser ned mot lykta og mot ansiktet.',
+            '     Vend den korte vegen (150°): spegelsida peikar mot skjermen og veggen heile',
+            '     tida, aldri mot deg. Den lange vegen kastar lyset frå lykta rett i auga.',
             f'     Lykta må spreie meir enn i arbeid (18° mot 10°): røyr på {k(ROER_MOTE, 0)} mm, halve hovudrøyret.']
     g.append(tekstblokk(m, 52, maal, 'brod', lh=4.4))
     x2 = m + (W - 2 * m) * 0.62

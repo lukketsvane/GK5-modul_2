@@ -1,0 +1,361 @@
+<!doctype html><html lang="nn"><head><meta charset="utf-8"><title>Konseptgjennomgang 18.11</title><style>/* Felles stil for fase 1-sidene, utgåve 2: biletet først, på svart.
+   Éi side er 1127 x 797 px. Svart er null lys. Fargen i bileta er lyset sin eigen farge.
+   Skrift: EB Garamond (lokale filer) og Consolas. Ingen feit skrift, ingen pynt. */
+
+@font-face { font-family: "EB Garamond 12"; src: url("../01_fase1_sider/fonts/EBGaramond12-Regular.otf") format("opentype"); font-style: normal; font-weight: 400; }
+@font-face { font-family: "EB Garamond 12"; src: url("../01_fase1_sider/fonts/EBGaramond12-Italic.otf") format("opentype"); font-style: italic; font-weight: 400; }
+
+:root {
+  --papir: #000000;
+  --blekk: #F4F4F4;
+  --tekst: #D9D9D9;
+  --graa: #8E8E8E;
+  --linje: #343434;
+  --serif: "EB Garamond 12", "EB Garamond", Georgia, serif;
+  --mono: Consolas, "Cascadia Mono", "Courier New", monospace;
+}
+
+html, body { margin: 0; padding: 0; background: var(--papir); }
+* { box-sizing: border-box; font-weight: 400; }
+b, strong, th, h1, h2, h3 { font-weight: 400; }
+
+.side {
+  width: 1127px;
+  height: 797px;
+  padding: 26px 44px 22px;
+  overflow: hidden;
+  position: relative;
+  background: var(--papir);
+  color: var(--tekst);
+  font-family: var(--serif);
+  font-size: 15px;
+  line-height: 1.34;
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr) auto;
+}
+
+.topp {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: baseline;
+  font: 400 10px/1 var(--mono);
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--graa);
+  padding-bottom: 9px;
+  border-bottom: 1px solid #5C5C5C;
+}
+.topp span:nth-child(2) { color: var(--blekk); }
+.topp span:last-child { text-align: right; }
+
+/* Tittel: éi setning som seier hovudpoenget */
+.tittel {
+  font: 400 36px/1.1 var(--serif);
+  color: var(--blekk);
+  letter-spacing: -0.005em;
+  margin: 16px 0 14px;
+  text-wrap: balance;
+}
+.tittel em { font-style: italic; }
+
+.innhald {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: 16px;
+  row-gap: 14px;
+  align-content: start;
+  min-height: 0;
+}
+.k1 { grid-column: span 1; } .k2 { grid-column: span 2; } .k3 { grid-column: span 3; }
+.k4 { grid-column: span 4; } .k5 { grid-column: span 5; } .k6 { grid-column: span 6; }
+.k7 { grid-column: span 7; } .k8 { grid-column: span 8; } .k9 { grid-column: span 9; }
+.k10 { grid-column: span 10; } .k11 { grid-column: span 11; } .k12 { grid-column: span 12; }
+
+p { margin: 0 0 0.5em; }
+p:last-child { margin-bottom: 0; }
+em { font-style: italic; }
+
+.etikett {
+  font: 400 10px/1.25 var(--mono);
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--graa);
+  margin: 0 0 6px;
+}
+.stor { font-size: 23px; line-height: 1.2; color: var(--blekk); }
+.liten { font: 400 13px/1.34 var(--serif); }
+.graa { color: var(--graa); }
+.kvit { color: var(--blekk); }
+
+/* Store tal */
+.talrad { display: flex; gap: 28px; align-items: baseline; }
+.stortal { font: 400 44px/1 var(--serif); color: var(--blekk); letter-spacing: -0.01em; }
+.stortal small { font: 400 10px/1.2 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--graa); display: block; margin-top: 6px; }
+
+/* Bilete: lysbileta frå modellen. Ingen ramme, biletet er svart i kantane. */
+figure { margin: 0; }
+figure img { display: block; width: 100%; height: auto; }
+figcaption { font: 400 10px/1.35 var(--mono); color: var(--graa); letter-spacing: 0.06em; margin-top: 7px; text-transform: uppercase; }
+figcaption b { color: var(--blekk); }
+
+/* Punktliste med nummer */
+.punkt { display: grid; grid-template-columns: 22px minmax(0, 1fr); padding: 6px 0 7px; border-top: 1px solid var(--linje); }
+.punkt .nr { font: 400 9.5px/1 var(--mono); color: var(--graa); padding-top: 5px; }
+.punkt p { font-size: 13.5px; line-height: 1.33; margin: 0; }
+.punkt em { color: var(--blekk); }
+
+/* Tabellar: hårliner, ingen boksar */
+table { border-collapse: collapse; width: 100%; font: 400 13px/1.3 var(--serif); }
+th {
+  font: 400 9.5px/1.2 var(--mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--graa);
+  text-align: left;
+  padding: 0 8px 5px 0;
+  border-bottom: 1px solid #5C5C5C;
+  vertical-align: bottom;
+}
+td { padding: 5px 10px 5px 0; border-bottom: 1px solid var(--linje); vertical-align: top; }
+td.tal { text-align: right; font-family: var(--mono); font-size: 11.5px; }
+th.tal { text-align: right; }
+td.id { font-family: var(--mono); font-size: 11px; color: var(--graa); white-space: nowrap; }
+
+/* Figurar i SVG */
+svg { display: block; overflow: visible; }
+svg text { font-family: var(--mono); font-size: 9.5px; fill: var(--blekk); }
+svg text.graa { fill: var(--graa); }
+svg text.serif { font-family: var(--serif); font-size: 13px; }
+svg .strek { stroke: var(--blekk); stroke-width: 1; fill: none; }
+svg .haar { stroke: var(--linje); stroke-width: 1; fill: none; }
+svg .fyll { fill: var(--blekk); }
+svg .graafyll { fill: #6A6A6A; }
+svg .lysflate { fill: #FFFFFF; fill-opacity: 0.10; }
+
+.botn {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  font: 400 9.5px/1.35 var(--mono);
+  color: var(--graa);
+  letter-spacing: 0.03em;
+  padding-top: 8px;
+  border-top: 1px solid var(--linje);
+}
+.botn span:last-child { white-space: nowrap; text-align: right; }
+
+/* Utskrift til PDF: éi side per ark, same storleik som skjermsida, svart bakgrunn med. */
+@page { size: 1127px 797px; margin: 0; }
+html, body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+/* Rette tal i all tekst. Font-snarvegen nullstiller eigenskapen, difor !important. */
+.side, .side * { font-feature-settings: "kern", "liga", "lnum" !important; }
+sub { font-size: 0.7em; line-height: 0; vertical-align: -0.2em; }
+
+@page { size: 1280px 720px; margin: 0; }
+.lb { width: 1280px; height: 720px; padding: 26px 52px 22px; box-sizing: border-box; background: #000; color: var(--tekst); font-family: var(--serif);
+      position: relative; overflow: hidden; display: grid; grid-template-rows: auto auto minmax(0, 1fr) auto; break-after: page; }
+.lb:last-child { break-after: auto; }
+.lb .topp { font: 400 11px/1 var(--mono); }
+.lb .tittel { font-size: 40px; margin: 18px 0 16px; }
+.lb main { min-height: 0; }
+.lb .botn { font-size: 10.5px; }
+.stor { font-size: 26px; line-height: 1.22; color: var(--blekk); }
+.graa { color: var(--graa); } .liten { font-size: 15px; line-height: 1.32; }
+.tre-bilete { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 18px; margin-top: 14px; }
+.tre-bilete img { aspect-ratio: 1.8 / 1; object-fit: cover; object-position: center 58%; width: 100%; }
+.tre-bilete.hoge img { aspect-ratio: 1 / 1; }
+.to-tredel { display: grid; grid-template-columns: 2fr 1fr; column-gap: 30px; }
+.to-tredel .graa { font-size: 17px; line-height: 1.35; }
+.fire-bilete { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: 16px; }
+.fire-bilete img { aspect-ratio: 1 / 0.95; object-fit: cover; object-position: center 60%; width: 100%; }
+.tre-tal { display: flex; justify-content: space-between; margin-top: 8px; border-top: 1px solid var(--linje); padding-top: 8px; }
+.tre-tal div { font: 400 22px/1 var(--serif); color: var(--blekk); white-space: nowrap; }
+.tre-tal small, .tal4 small { display: block; font: 400 10px/1.3 var(--mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--graa); margin-top: 4px; }
+.to-kol { display: grid; grid-template-columns: 1fr 1fr; column-gap: 40px; align-items: start; }
+.to-kol .stort img { width: 100%; aspect-ratio: 1.25 / 1; object-fit: cover; object-position: center 55%; }
+ul.liste, ol.liste { margin: 0; padding: 0 0 0 0; list-style: none; counter-reset: n; }
+.liste li { font-size: 19px; line-height: 1.3; padding: 8px 0 9px; border-top: 1px solid var(--linje); color: var(--blekk); }
+ol.liste li { counter-increment: n; } ol.liste li::before { content: counter(n) "  "; font: 400 12px/1 var(--mono); color: var(--graa); }
+.liste.liten li { font-size: 15px; padding: 5px 0 6px; }
+.liste li.graa { color: var(--graa); }
+.liste b { font: 400 13px/1 var(--mono); color: var(--graa); margin-right: 6px; }
+.silhuettar svg { width: 100%; height: auto; }
+.fire-reglar { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: 18px; margin-top: 14px; }
+.fire-reglar div { font-size: 19px; line-height: 1.25; color: var(--blekk); border-top: 1px solid var(--linje); padding-top: 8px; }
+.fire-reglar b { display: block; font: 400 12px/1 var(--mono); color: var(--graa); margin-bottom: 6px; }
+.konsept { display: grid; grid-template-columns: 430px 430px minmax(0, 1fr); column-gap: 18px; }
+.konsept img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; }
+.gest { font: italic 400 30px/1.1 var(--serif); color: var(--blekk); margin: 0 0 12px; }
+.tal4 div { font: 400 30px/1 var(--serif); color: var(--blekk); padding: 7px 0 8px; border-top: 1px solid var(--linje); }
+table.sam { width: 100%; border-collapse: collapse; font-size: 19px; }
+table.sam th { font: 400 11px/1.2 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--graa); text-align: left; padding-bottom: 8px; border-bottom: 1px solid #5C5C5C; }
+table.sam td { padding: 8px 10px 8px 0; border-bottom: 1px solid var(--linje); }
+table.sam .tal { text-align: right; width: 16%; font-family: var(--mono); font-size: 17px; color: var(--graa); }
+table.sam td.best { color: var(--blekk); }
+.tittelbilete { padding: 0; display: block; }
+.tittelbilete .heil { position: absolute; right: 0; top: 0; height: 720px; width: 720px; object-fit: cover; }
+.tittelbilete .tekst { position: absolute; left: 52px; top: 0; bottom: 0; width: 500px; display: flex; flex-direction: column; justify-content: center; }
+.tittelbilete h1 { font: 400 54px/1.05 var(--serif); color: var(--blekk); margin: 14px 0 14px; }
+.tittelbilete .under { font-size: 24px; color: var(--tekst); }
+.tittelbilete .namn { margin-top: 40px; }
+</style></head><body style="margin:0;background:#000"><section class="lb tittelbilete">
+  <img class="heil" src="../01_fase1_v2/bilete/rom-stemning.png" alt="">
+  <div class="tekst">
+    <p class="etikett">GK5 · Northern · konseptgjennomgang 18.11.2026</p>
+    <h1>Ei stemningslampe som òg kan arbeide</h1>
+    <p class="under">Tre konsept for heimearbeidsplassen</p>
+    <p class="etikett namn">Iver R. Finne · AHO</p>
+  </div>
+</section><section class="lb">
+  <header class="topp"><span>GK5 · Northern · konseptgjennomgang 18.11.2026</span><span>02</span><span>Iver R. Finne</span></header>
+  <h1 class="tittel">Oppgåva slik eg les ho</h1>
+  <main><div class="to-tredel"><p class="stor">Ei lampe som gjer ein plass i heimen til arbeidsplass og til heim att, som gjev arbeidslys utan blending, og som eigaren kan reparere.</p>
+    <p class="graa">Hybridarbeidaren, heime ein til to dagar i veka, i eit rom som òg er stove eller kjøken. 45,1&nbsp;% har heimekontor, berre 5,7&nbsp;% minst halve tida.</p></div>
+    <div class="tre-bilete"><figure><img src="../01_fase1_v2/bilete/rom-arbeid.png" alt=""><figcaption><b>Arbeid</b> · 350&nbsp;lx på feltet</figcaption></figure><figure><img src="../01_fase1_v2/bilete/rom-paa-veg.png" alt=""><figcaption><b>Skiftet</b> · éi rørsle, under 10&nbsp;s</figcaption></figure><figure><img src="../01_fase1_v2/bilete/rom-stemning.png" alt=""><figcaption><b>Stemning</b> · 50 til 200&nbsp;lm, varmt</figcaption></figure></div></main>
+  <footer class="botn"><span>Bileta er modell, ikkje måling: lysmotoren i konsept/lysskisse, same rom, mannekeng og budsjett. Tal: SSB 2025.</span></footer>
+</section><section class="lb">
+  <header class="topp"><span>GK5 · Northern · konseptgjennomgang 18.11.2026</span><span>03</span><span>Iver R. Finne</span></header>
+  <h1 class="tittel">Ingen av dei gjev både stemning og arbeidslys utan blending.</h1>
+  <main><div class="fire-bilete"><figure><img src="../01_fase1_v2/bilete/marknad-snowball.png" alt=""><figcaption><b>Northern Snowball oppladbar</b> · 158&nbsp;lm</figcaption><div class="tre-tal"><div>31&nbsp;lx<small>feltet</small></div><div>36&nbsp;lx<small>veggen</small></div><div>3&nbsp;270<small>cd/m² mot auget</small></div></div></figure><figure><img src="../01_fase1_v2/bilete/marknad-l1.png" alt=""><figcaption><b>Luxo L-1</b> · 529&nbsp;lm</figcaption><div class="tre-tal"><div>1&nbsp;004&nbsp;lx<small>feltet</small></div><div>23&nbsp;lx<small>veggen</small></div><div>235<small>cd/m² mot auget</small></div></div></figure><figure><img src="../01_fase1_v2/bilete/marknad-litra.png" alt=""><figcaption><b>Logitech Litra Glow</b> · 250&nbsp;lm</figcaption><div class="tre-tal"><div>58&nbsp;lx<small>feltet</small></div><div>3&nbsp;lx<small>veggen</small></div><div>9&nbsp;820<small>cd/m² mot auget</small></div></div></figure><figure><img src="../01_fase1_v2/bilete/rom-arbeid.png" alt=""><figcaption><b>Målet</b> · lyset ingen av dei gjev</figcaption><div class="tre-tal"><div>350&nbsp;lx<small>feltet</small></div><div>100–150&nbsp;lx<small>veggen</small></div><div>&lt; 1500<small>cd/m² mot auget</small></div></div></figure></div></main>
+  <footer class="botn"><span>Bileta er modell med lumental frå produsenten og forenkla form.</span></footer>
+</section><section class="lb">
+  <header class="topp"><span>GK5 · Northern · konseptgjennomgang 18.11.2026</span><span>04</span><span>Iver R. Finne</span></header>
+  <h1 class="tittel">Lyset er prøvd i modellen. Kropp, sortiment og reparasjon står att.</h1>
+  <main><div class="to-kol"><figure class="stort"><img src="../01_fase1_v2/bilete/rom-krav.png" alt=""></figure>
+    <section><p class="etikett">Prøvde før valet</p>
+      <ul class="liste"><li><b>F1</b> låg blending: inga lyskjelde synleg frå 25 til 60&nbsp;cm</li><li><b>F2</b> éi handling mellom arbeid og stemning</li>
+      <li><b>F3</b> 350&nbsp;lx jamt på feltet ved skjermen</li><li class="graa"><b>E2</b> speglar Northern</li><li class="graa"><b>M1</b> passar sortimentet</li>
+      <li class="graa"><b>B1</b> eigaren byter slitedelane</li></ul>
+      <p class="graa" style="margin-top:14px">Lyset (F1, F2, F3) er prøvd i modellen. Kroppen, sortimentet og reparasjonen (E2, M1, B1) står att, og dei vil eg avgjere saman med dykk.</p></section></div></main>
+  <footer class="botn"><span>Bileta er modell, ikkje måling: lysmotoren i konsept/lysskisse, same rom, mannekeng og budsjett.</span></footer>
+</section><section class="lb">
+  <header class="topp"><span>GK5 · Northern · konseptgjennomgang 18.11.2026</span><span>05</span><span>Iver R. Finne</span></header>
+  <h1 class="tittel">Fire reglar ber attkjenninga. Silhuetten og handlinga er fri.</h1>
+  <main><figure class="silhuettar"><svg width="1039" height="312" viewBox="0 0 1039 312" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="glod"><stop offset="0" stop-color="#FFFFFF" stop-opacity="0.20"/><stop offset="0.45" stop-color="#FFFFFF" stop-opacity="0.07"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/></radialGradient>
+          <radialGradient id="mjuk"><stop offset="0" stop-color="#FFFFFF" stop-opacity="0.95"/><stop offset="0.55" stop-color="#FFFFFF" stop-opacity="0.45"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/></radialGradient>
+        </defs>
+        <line x1="18" y1="262" x2="18" y2="9.000000000000028" class="haar"/>
+        <line x1="14" y1="262.0" x2="18" y2="262.0" class="strek"/>
+        <text x="11" y="265.0" class="graa" text-anchor="end">0</text>
+        <line x1="14" y1="216.0" x2="18" y2="216.0" class="strek"/>
+        <text x="11" y="219.0" class="graa" text-anchor="end">10</text>
+        <line x1="14" y1="170.0" x2="18" y2="170.0" class="strek"/>
+        <text x="11" y="173.0" class="graa" text-anchor="end">20</text>
+        <line x1="14" y1="124.0" x2="18" y2="124.0" class="strek"/>
+        <text x="11" y="127.0" class="graa" text-anchor="end">30</text>
+        <line x1="14" y1="78.0" x2="18" y2="78.0" class="strek"/>
+        <text x="11" y="81.0" class="graa" text-anchor="end">40</text>
+        <line x1="14" y1="32.00000000000003" x2="18" y2="32.00000000000003" class="strek"/>
+        <text x="11" y="35.00000000000003" class="graa" text-anchor="end">50</text>
+        <line x1="21" y1="137.8" x2="21" y2="9.000000000000028" stroke="#F4F4F4" stroke-width="3"/>
+        <text transform="translate(33,73.4) rotate(-90)" class="graa" text-anchor="middle">27 til 55&nbsp;cm: bordlampene</text>
+        <text x="11" y="278" class="graa" text-anchor="end">cm</text>
+        <line x1="18" y1="262" x2="1039" y2="262" stroke="#8E8E8E" stroke-width="1"/>
+        <rect x="130.0" y="251.88" width="41.4" height="10.12" fill="#626262"/>
+        <rect x="136.9" y="245.9" width="27.6" height="5.98" fill="#626262"/>
+        <rect x="147.94" y="141.94" width="5.52" height="103.96" fill="#626262"/>
+        <circle cx="150.7" cy="126.3" r="41.86" fill="url(#glod)"/>
+        <circle cx="150.7" cy="126.3" r="16.1" fill="#F4F4F4"/>
+        <text x="150.7" y="280" class="kv" text-anchor="middle">SNOWBALL OPPLADBAR</text>
+        <text x="150.7" y="293" class="graa" text-anchor="middle">2025 · H 33&nbsp;cm</text>
+        <text x="150.7" y="306" class="graa" text-anchor="middle">hovud/fot 0,78</text>
+        <rect x="247.87" y="220.6" width="39.1" height="41.4" fill="#626262"/>
+        <path d="M267.42 220.6 L267.42 80.3 A27.6 27.6 0 0 1 295.02 52.7" fill="none" stroke="#626262" stroke-width="6.44" stroke-linecap="butt"/>
+        <rect x="295.02" y="36.6" width="46.0" height="32.2" rx="16.1" fill="#626262"/>
+        <ellipse cx="318.02" cy="70.8" rx="28.98" ry="13.8" fill="url(#glod)"/>
+        <line x1="301.92" y1="68.8" x2="334.12" y2="68.8" stroke="#F4F4F4" stroke-width="2.3"/>
+        <text x="294.4" y="280" class="kv" text-anchor="middle">BUDDY</text>
+        <text x="294.4" y="293" class="graa" text-anchor="middle">2016 · H 49&nbsp;cm</text>
+        <text x="294.4" y="306" class="graa" text-anchor="middle">hovud/fot 0,82</text>
+        <rect x="417.49" y="179.2" width="27.6" height="82.8" fill="#626262"/>
+        <circle cx="473.84" cy="195.3" r="45.54" fill="url(#glod)"/>
+        <path d="M463.49 174.6 A20.7 20.7 0 0 1 463.49 216.0 Z" fill="#F4F4F4"/>
+        <path d="M463.49 174.6 A20.7 20.7 0 0 0 463.49 216.0 Z" fill="#626262"/>
+        <text x="450.8" y="280" class="kv" text-anchor="middle">BALANCER MINI</text>
+        <text x="450.8" y="293" class="graa" text-anchor="middle">2022 · H 19&nbsp;cm</text>
+        <text x="450.8" y="306" class="graa" text-anchor="middle">hovud/fot 1,5</text>
+        <rect x="588.26" y="193.0" width="36.8" height="69.0" fill="#626262"/>
+        <ellipse cx="606.66" cy="155.74" rx="87.4" ry="124.2" fill="url(#glod)"/>
+        <path d="M560.66 193.0 A46.0 82.8 0 0 1 652.66 193.0 Z" fill="#F4F4F4"/>
+        <text x="606.7" y="280" class="kv" text-anchor="middle">KIN H33</text>
+        <text x="606.7" y="293" class="graa" text-anchor="middle">2023 · H 33&nbsp;cm</text>
+        <text x="606.7" y="306" class="graa" text-anchor="middle">hovud/fot 2,5</text>
+        <rect x="755.58" y="156.2" width="39.1" height="105.8" fill="#626262"/>
+        <ellipse cx="775.13" cy="121.01" rx="87.4" ry="117.3" fill="url(#glod)"/>
+        <path d="M729.13 156.2 A46.0 78.2 0 0 1 821.13 156.2 Z" fill="#F4F4F4"/>
+        <text x="775.1" y="280" class="kv" text-anchor="middle">KIN H40</text>
+        <text x="775.1" y="293" class="graa" text-anchor="middle">2023 · H 40&nbsp;cm</text>
+        <text x="775.1" y="306" class="graa" text-anchor="middle">hovud/fot 2,35</text>
+        <rect x="941.3" y="179.2" width="46.0" height="82.8" fill="#626262"/>
+        <ellipse cx="964.3" cy="135.73" rx="126.73" ry="144.9" fill="url(#glod)"/>
+        <path d="M897.6 179.2 A66.7 96.6 0 0 1 1031.0 179.2 Z" fill="#F4F4F4"/>
+        <text x="964.3" y="280" class="kv" text-anchor="middle">TRADITION</text>
+        <text x="964.3" y="293" class="graa" text-anchor="middle">2025 · H 39&nbsp;cm</text>
+        <text x="964.3" y="306" class="graa" text-anchor="middle">hovud/fot 2,9</text>
+        <text x="235.5" y="12" class="graa" text-anchor="middle">SLANK TYPE · hovudet ein femdel av høgda</text>
+        <line x1="130.0" y1="18" x2="341.0" y2="18" class="haar"/>
+        <text x="450.8" y="12" class="graa" text-anchor="middle">IMELLOM</text>
+        <line x1="417.5" y1="18" x2="484.2" y2="18" class="haar"/>
+        <text x="795.8" y="12" class="graa" text-anchor="middle">HATTETYPEN · hovudet om lag halve høgda</text>
+        <line x1="560.7" y1="18" x2="1031.0" y2="18" class="haar"/>
+      </svg></figure>
+    <div class="fire-reglar"><div><b>R1</b> høgst tre primærformer</div><div><b>R2</b> det som ber, har konstant tverrsnitt</div>
+    <div><b>R3</b> lyskjelda er aldri naken</div><div><b>R4</b> éin lakkfarge, kontrast berre i materialskifte</div></div></main>
+  <footer class="botn"><span>Mål frå produktarka til Northern. Silhuettane er skjematiske. Regeltesten er gjord på 18 lamper i produktbilete.</span></footer>
+</section><section class="lb">
+  <header class="topp"><span>GK5 · Northern · konseptgjennomgang 18.11.2026</span><span>06</span><span>Iver R. Finne</span></header>
+  <h1 class="tittel">Tre måtar å flytte lyset frå veggen til bordet.</h1>
+  <main><div class="tre-bilete hoge"><figure><img src="../03_konsept/bilete/A-arbeid.png" alt=""><figcaption><b>A Skiva</b> · vipp skiva</figcaption><p class="graa liten">Ei kjelde i foten lyser opp på ei bøygd spegelskive. Skiva vippar lyset frå veggen bak skjermen ned på arbeidsfeltet.</p></figure><figure><img src="../03_konsept/bilete/B-arbeid.png" alt=""><figcaption><b>B Over</b> · vipp plata</figcaption><p class="graa liten">Fresnelplata frå overheadprojektoren ligg over skjermkanten. Ho vippar lyset frå veggen bak skjermen ned på bordet.</p></figure><figure><img src="../03_konsept/bilete/C-arbeid.png" alt=""><figcaption><b>C Vindauge</b> · skyv spegelen inn</figcaption><p class="graa liten">Ei linse teiknar eit vindauge av lys på veggen. Ein spegel glir inn i strålen og legg feltet på bordet, medan vindauget blir ståande.</p></figure></div></main>
+  <footer class="botn"><span>Bileta er modell, ikkje måling: lysmotoren i konsept/lysskisse, same rom, mannekeng og budsjett.</span></footer>
+</section><section class="lb">
+  <header class="topp"><span>GK5 · Northern · konseptgjennomgang 18.11.2026</span><span>07</span><span>Iver R. Finne</span></header>
+  <h1 class="tittel">Skiva lyser jamnast av dei tre, men sveipar over skjermen på veg ned.</h1>
+  <main><div class="konsept"><figure><img src="../03_konsept/bilete/A-stemning.png" alt=""><figcaption><b>Stemning</b></figcaption></figure>
+    <figure><img src="../03_konsept/bilete/A-arbeid.png" alt=""><figcaption><b>Arbeid</b></figcaption></figure>
+    <section><p class="gest">Vipp skiva.</p>
+      <div class="tal4"><div>3,47&nbsp;W<small>for 350&nbsp;lx på feltet</small></div><div>0,63<small>jamnheit · ref. 0,6</small></div>
+      <div>672<small>cd/m² mot auget, høgst</small></div></div>
+      <p class="etikett" style="margin-top:12px">Held ikkje enno</p><ul class="liste liten"><li>Midt i overgangen sveipar strålen over skjermen: 350&nbsp;lx på skjermflata.</li><li>I stemning ligg 142&nbsp;lx på skjermflata.</li><li>Veggen bak skjermen får 14&nbsp;lx i arbeid. F6 krev 100 til 150.</li></ul></section></div></main>
+  <footer class="botn"><span>Bileta er modell, ikkje måling: lysmotoren i konsept/lysskisse, same rom, mannekeng og budsjett. Tala er skalerte til 350&nbsp;lx på feltet.</span></footer>
+</section><section class="lb">
+  <header class="topp"><span>GK5 · Northern · konseptgjennomgang 18.11.2026</span><span>08</span><span>Iver R. Finne</span></header>
+  <h1 class="tittel">Plata brukar minst straum og flyttar lyset heilt, men skiftet hoppar.</h1>
+  <main><div class="konsept"><figure><img src="../03_konsept/bilete/B-stemning.png" alt=""><figcaption><b>Stemning</b></figcaption></figure>
+    <figure><img src="../03_konsept/bilete/B-arbeid.png" alt=""><figcaption><b>Arbeid</b></figcaption></figure>
+    <section><p class="gest">Vipp plata.</p>
+      <div class="tal4"><div>3,56&nbsp;W<small>for 350&nbsp;lx på feltet</small></div><div>0,41<small>jamnheit · ref. 0,6</small></div>
+      <div>1&nbsp;124<small>cd/m² mot auget, høgst</small></div></div>
+      <p class="etikett" style="margin-top:12px">Held ikkje enno</p><ul class="liste liten"><li>Overgangen hoppar: største sprang 0,36.</li><li>Veggen bak skjermen får 16&nbsp;lx i arbeid. F6 krev 100 til 150.</li><li>Dioden har lite margin. Brønnen må vere 50°: med 64° ser auget dioden frå 60&nbsp;cm, 140&nbsp;000&nbsp;cd/m².</li></ul></section></div></main>
+  <footer class="botn"><span>Bileta er modell, ikkje måling: lysmotoren i konsept/lysskisse, same rom, mannekeng og budsjett. Tala er skalerte til 350&nbsp;lx på feltet.</span></footer>
+</section><section class="lb">
+  <header class="topp"><span>GK5 · Northern · konseptgjennomgang 18.11.2026</span><span>09</span><span>Iver R. Finne</span></header>
+  <h1 class="tittel">Spegelen deler strålen: vindauget står, feltet kjem, og skjermen blir ikkje treft.</h1>
+  <main><div class="konsept"><figure><img src="../03_konsept/bilete/C-stemning.png" alt=""><figcaption><b>Stemning</b></figcaption></figure>
+    <figure><img src="../03_konsept/bilete/C-arbeid.png" alt=""><figcaption><b>Arbeid</b></figcaption></figure>
+    <section><p class="gest">Skyv spegelen inn.</p>
+      <div class="tal4"><div>5,78&nbsp;W<small>for 350&nbsp;lx på feltet</small></div><div>0,62<small>jamnheit · ref. 0,6</small></div>
+      <div>155<small>cd/m² mot auget, høgst</small></div></div>
+      <p class="etikett" style="margin-top:12px">Held ikkje enno</p><ul class="liste liten"><li>Maska slepp gjennom 0,47 av lyset, så arbeidslyset krev 3,8&nbsp;W.</li><li>Jamnheita er 0,24. Referansen er 0,6.</li><li>Linsa på om lag 60&nbsp;mm finst ikkje i byggjesettet.</li></ul></section></div></main>
+  <footer class="botn"><span>Bileta er modell, ikkje måling: lysmotoren i konsept/lysskisse, same rom, mannekeng og budsjett. Tala er skalerte til 350&nbsp;lx på feltet.</span></footer>
+</section><section class="lb">
+  <header class="topp"><span>GK5 · Northern · konseptgjennomgang 18.11.2026</span><span>10</span><span>Iver R. Finne</span></header>
+  <h1 class="tittel">Kvar dei står samanlikna</h1>
+  <main><table class="sam"><tr><th></th><th class="tal">A Skiva</th><th class="tal">B Over</th><th class="tal">C Vindauge</th></tr><tr><td>Watt for 350 lx på feltet</td><td class="tal best">3,47</td><td class="tal">3,56</td><td class="tal">5,78</td></tr><tr><td>Timar arbeidslys per celle</td><td class="tal best">4,3</td><td class="tal">4,2</td><td class="tal">2,6</td></tr><tr><td>Jamnheit på feltet</td><td class="tal best">0,63</td><td class="tal">0,41</td><td class="tal">0,62</td></tr><tr><td>Mot auget frå 25 cm, cd/m²</td><td class="tal">672</td><td class="tal">1&nbsp;124</td><td class="tal best">155</td></tr><tr><td>Veggen bak skjermen i arbeid, lx</td><td class="tal">105</td><td class="tal best">134</td><td class="tal">123</td></tr><tr><td>Skjermflata midt i overgangen, lx</td><td class="tal">226</td><td class="tal">243</td><td class="tal best">9</td></tr><tr><td>Største sprang i overgangen</td><td class="tal">0,06</td><td class="tal">0,12</td><td class="tal best">0,05</td></tr></table>
+    <p class="stor" style="margin-top:22px">B brukar minst straum, A lyser jamnast, og berre C held lyset borte frå skjermen. Ingen held veggen bak skjermen lys i arbeid.</p></main>
+  <footer class="botn"><span>Bileta er modell, ikkje måling: lysmotoren i konsept/lysskisse, same rom, mannekeng og budsjett. Kvit: best av dei tre.</span></footer>
+</section><section class="lb">
+  <header class="topp"><span>GK5 · Northern · konseptgjennomgang 18.11.2026</span><span>11</span><span>Iver R. Finne</span></header>
+  <h1 class="tittel">Kva de vel, avgjer kva eg byggjer vidare.</h1>
+  <main><div class="to-kol"><section><p class="etikett">Det eg vil spørje dykk om</p>
+      <ol class="liste"><li>Kva skal lampa vere først: jamnt arbeidslys (A), minst straum og eit reint skifte (B), eller lys som aldri treffer skjermen (C)?</li>
+      <li>Kva kropp passar i sortimentet: fot og stong (A), ei plate over skjermen (B), eller eit lyshovud (C)?</li>
+      <li>Vil de selje batteri, elektronikk og lysmodul som reservedelar?</li>
+      <li>Produksjon, årsvolum og målpris: kva ramme skal eg halde meg innanfor?</li></ol></section>
+    <section><p class="etikett">Neste steg</p>
+      <ul class="liste"><li>Mål lobebreidda på folien. Ho avgjer blendinga for A og B.</li><li>Byggj skissemodellen av det valde konseptet om, med kropp.</li>
+      <li>Formføring og handskisser til formgjennomgangen 25.11.</li><li>Konstruksjon i Fusion og 1:1-modell til 7.12.</li></ul></section></div></main>
+  <footer class="botn"><span>Konseptgjennomgangen er der valet blir teke saman med Northern (prosjektbeskrivinga).</span></footer>
+</section></body></html>

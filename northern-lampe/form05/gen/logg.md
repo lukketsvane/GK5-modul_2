@@ -1,0 +1,2 @@
+- 16.10 kjede (6 s): 129.7 W → 9.76 W → 2.14 W → 2.25 W → 2.44 W → 2.08 W → 2.88 W → 3.71 W → 3.71 W
+- 16.10 tal (7 s): 2 kroppar rekna, tal.csv skriven

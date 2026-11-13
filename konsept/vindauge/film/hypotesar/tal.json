@@ -433,757 +433,584 @@
   },
   "prisme90_r08_kamera": {
    "+10": {
-    "gjennom": 0.9239427447319031,
-    "attende": 0.07536545395851135,
+    "gjennom": 0.9244042634963989,
+    "attende": 0.07490196824073792,
     "greiner": [
      {
-      "elevasjon": -22.73,
-      "fraa": -23.0,
-      "til": -13.25,
-      "vekt": 0.343
+      "elevasjon": -16.12,
+      "fraa": -28.25,
+      "til": 23.5,
+      "vekt": 0.43
      },
      {
-      "elevasjon": 22.82,
-      "fraa": 22.5,
-      "til": 23.0,
-      "vekt": 0.022
+      "elevasjon": 31.63,
+      "fraa": 25.0,
+      "til": 38.75,
+      "vekt": 0.026
      },
      {
-      "elevasjon": 40.04,
-      "fraa": 27.5,
+      "elevasjon": 40.38,
+      "fraa": 40.25,
       "til": 40.5,
-      "vekt": 0.483
+      "vekt": 0.462
      }
     ]
    },
    "+0": {
-    "gjennom": 0.9314558506011963,
-    "attende": 0.06495850533246994,
+    "gjennom": 0.9313422441482544,
+    "attende": 0.06507550179958344,
     "greiner": [
      {
-      "elevasjon": -30.88,
+      "elevasjon": -30.86,
       "fraa": -32.75,
-      "til": -30.75,
-      "vekt": 0.413
+      "til": -28.25,
+      "vekt": 0.417
      },
      {
-      "elevasjon": 30.88,
-      "fraa": 30.75,
-      "til": 31.0,
-      "vekt": 0.412
+      "elevasjon": -4.91,
+      "fraa": -15.25,
+      "til": 4.75,
+      "vekt": 0.044
+     },
+     {
+      "elevasjon": 30.84,
+      "fraa": 26.5,
+      "til": 33.0,
+      "vekt": 0.419
      }
     ]
    },
    "-10": {
-    "gjennom": 0.9236891269683838,
-    "attende": 0.07565774023532867,
+    "gjennom": 0.9236271381378174,
+    "attende": 0.07571808993816376,
     "greiner": [
      {
-      "elevasjon": -40.34,
+      "elevasjon": -40.16,
       "fraa": -40.5,
-      "til": -35.0,
-      "vekt": 0.469
+      "til": -30.0,
+      "vekt": 0.478
      },
      {
-      "elevasjon": -20.17,
-      "fraa": -23.0,
-      "til": -13.25,
-      "vekt": 0.043
+      "elevasjon": -13.13,
+      "fraa": -23.5,
+      "til": 4.25,
+      "vekt": 0.076
      },
      {
-      "elevasjon": 22.86,
-      "fraa": 19.5,
-      "til": 23.0,
-      "vekt": 0.336
+      "elevasjon": 22.68,
+      "fraa": 12.25,
+      "til": 28.0,
+      "vekt": 0.345
      }
     ]
    },
    "-20": {
-    "gjennom": 0.8876882195472717,
-    "attende": 0.11209653317928314,
+    "gjennom": 0.8878454566001892,
+    "attende": 0.11194509267807007,
     "greiner": [
      {
       "elevasjon": -52.12,
       "fraa": -52.25,
-      "til": -52.0,
-      "vekt": 0.525
+      "til": -51.25,
+      "vekt": 0.527
      },
      {
-      "elevasjon": -17.07,
-      "fraa": -19.0,
-      "til": -16.25,
-      "vekt": 0.022
+      "elevasjon": -37.81,
+      "fraa": -49.0,
+      "til": -27.75,
+      "vekt": 0.044
      },
      {
-      "elevasjon": 16.63,
-      "fraa": 16.25,
-      "til": 19.0,
-      "vekt": 0.242
+      "elevasjon": -19.2,
+      "fraa": -26.0,
+      "til": -14.75,
+      "vekt": 0.038
+     },
+     {
+      "elevasjon": 16.61,
+      "fraa": 13.25,
+      "til": 19.75,
+      "vekt": 0.244
      }
     ]
    },
    "-30": {
-    "gjennom": 0.7995947003364563,
-    "attende": 0.20030680298805237,
+    "gjennom": 0.8000735640525818,
+    "attende": 0.19982746243476868,
     "greiner": [
      {
       "elevasjon": -68.62,
-      "fraa": -68.75,
-      "til": -68.0,
+      "fraa": -70.0,
+      "til": -67.5,
       "vekt": 0.548
+     },
+     {
+      "elevasjon": -56.01,
+      "fraa": -64.25,
+      "til": -49.5,
+      "vekt": 0.027
+     },
+     {
+      "elevasjon": -40.53,
+      "fraa": -47.75,
+      "til": -33.25,
+      "vekt": 0.032
      },
      {
       "elevasjon": 12.38,
       "fraa": 12.25,
-      "til": 15.0,
-      "vekt": 0.136
+      "til": 16.25,
+      "vekt": 0.137
      }
     ]
    },
    "-40": {
-    "gjennom": 0.14904682338237762,
-    "attende": 0.8509130477905273,
+    "gjennom": 0.14324192702770233,
+    "attende": 0.8567119836807251,
     "greiner": [
      {
-      "elevasjon": 10.14,
+      "elevasjon": -45.28,
+      "fraa": -53.75,
+      "til": -38.0,
+      "vekt": 0.039
+     },
+     {
+      "elevasjon": 10.13,
       "fraa": 10.0,
-      "til": 11.5,
+      "til": 14.5,
       "vekt": 0.027
      }
     ]
    },
    "-50": {
-    "gjennom": 0.08093289285898209,
-    "attende": 0.9190311431884766,
+    "gjennom": 0.08235353231430054,
+    "attende": 0.9176091551780701,
     "greiner": [
      {
-      "elevasjon": -10.15,
-      "fraa": -11.25,
+      "elevasjon": -10.12,
+      "fraa": -10.25,
       "til": -10.0,
-      "vekt": 0.021
+      "vekt": 0.02
      }
     ]
    }
   },
   "prisme90_r08_vindauge": {
    "+10": {
-    "gjennom": 0.3027961254119873,
-    "attende": 0.6970923542976379,
+    "gjennom": 0.30174052715301514,
+    "attende": 0.6981500387191772,
     "greiner": [
      {
       "elevasjon": -42.37,
       "fraa": -42.5,
-      "til": -41.0,
-      "vekt": 0.114
+      "til": -39.5,
+      "vekt": 0.113
      },
      {
-      "elevasjon": 47.71,
+      "elevasjon": 2.95,
+      "fraa": -4.75,
+      "til": 9.75,
+      "vekt": 0.032
+     },
+     {
+      "elevasjon": 15.18,
+      "fraa": 11.25,
+      "til": 20.25,
+      "vekt": 0.021
+     },
+     {
+      "elevasjon": 47.63,
       "fraa": 47.5,
-      "til": 51.25,
-      "vekt": 0.068
+      "til": 49.0,
+      "vekt": 0.064
      }
     ]
    },
    "+0": {
-    "gjennom": 0.08504289388656616,
-    "attende": 0.9149434566497803,
-    "greiner": []
-   },
-   "-10": {
-    "gjennom": 0.30271103978157043,
-    "attende": 0.6971816420555115,
+    "gjennom": 0.08828645944595337,
+    "attende": 0.9117013216018677,
     "greiner": [
      {
-      "elevasjon": -47.75,
-      "fraa": -51.25,
-      "til": -47.25,
-      "vekt": 0.069
+      "elevasjon": -11.22,
+      "fraa": -17.25,
+      "til": -6.25,
+      "vekt": 0.02
+     },
+     {
+      "elevasjon": -0.0,
+      "fraa": -4.75,
+      "til": 4.75,
+      "vekt": 0.022
+     }
+    ]
+   },
+   "-10": {
+    "gjennom": 0.30396682024002075,
+    "attende": 0.695927083492279,
+    "greiner": [
+     {
+      "elevasjon": -47.73,
+      "fraa": -52.5,
+      "til": -47.5,
+      "vekt": 0.066
+     },
+     {
+      "elevasjon": -11.12,
+      "fraa": -17.0,
+      "til": -4.5,
+      "vekt": 0.03
      },
      {
       "elevasjon": 42.37,
-      "fraa": 41.0,
+      "fraa": 40.0,
       "til": 42.5,
-      "vekt": 0.113
+      "vekt": 0.114
      }
     ]
    },
    "-20": {
-    "gjennom": 0.6542049050331116,
-    "attende": 0.3453744053840637,
+    "gjennom": 0.6538288593292236,
+    "attende": 0.3457486629486084,
     "greiner": [
      {
-      "elevasjon": -75.62,
+      "elevasjon": -75.58,
       "fraa": -75.75,
-      "til": -75.5,
-      "vekt": 0.052
+      "til": -74.25,
+      "vekt": 0.053
      },
      {
-      "elevasjon": -14.34,
-      "fraa": -14.5,
-      "til": -14.0,
-      "vekt": 0.029
+      "elevasjon": -14.27,
+      "fraa": -21.75,
+      "til": -7.5,
+      "vekt": 0.059
      },
      {
-      "elevasjon": 14.37,
-      "fraa": 14.0,
-      "til": 14.5,
-      "vekt": 0.48
+      "elevasjon": 13.7,
+      "fraa": -6.0,
+      "til": 18.0,
+      "vekt": 0.508
      }
     ]
    },
    "-30": {
-    "gjennom": 0.6433409452438354,
-    "attende": 0.35444653034210205,
+    "gjennom": 0.6480218172073364,
+    "attende": 0.3497663140296936,
     "greiner": [
      {
-      "elevasjon": -29.12,
-      "fraa": -34.25,
-      "til": -26.0,
-      "vekt": 0.025
+      "elevasjon": -16.54,
+      "fraa": -23.5,
+      "til": -10.75,
+      "vekt": 0.03
      },
      {
-      "elevasjon": 0.88,
-      "fraa": 0.75,
-      "til": 1.0,
-      "vekt": 0.538
+      "elevasjon": 0.82,
+      "fraa": -2.0,
+      "til": 1.25,
+      "vekt": 0.557
      }
     ]
    },
    "-40": {
-    "gjennom": 0.8261393308639526,
-    "attende": 0.1735287308692932,
+    "gjennom": 0.8291571736335754,
+    "attende": 0.1705099642276764,
     "greiner": [
      {
-      "elevasjon": -80.46,
-      "fraa": -82.0,
-      "til": -80.25,
-      "vekt": 0.159
+      "elevasjon": -80.39,
+      "fraa": -81.0,
+      "til": -78.75,
+      "vekt": 0.154
      },
      {
-      "elevasjon": -19.05,
-      "fraa": -21.25,
-      "til": -16.25,
-      "vekt": 0.021
+      "elevasjon": -29.95,
+      "fraa": -36.5,
+      "til": -24.0,
+      "vekt": 0.027
      },
      {
-      "elevasjon": -9.67,
-      "fraa": -14.25,
+      "elevasjon": -9.8,
+      "fraa": -18.25,
       "til": -9.5,
-      "vekt": 0.575
+      "vekt": 0.585
      }
     ]
    },
    "-50": {
-    "gjennom": 0.8463222980499268,
-    "attende": 0.15350928902626038,
+    "gjennom": 0.8480339050292969,
+    "attende": 0.15179961919784546,
     "greiner": [
      {
-      "elevasjon": -71.58,
+      "elevasjon": -71.62,
       "fraa": -71.75,
-      "til": -70.25,
-      "vekt": 0.133
+      "til": -71.5,
+      "vekt": 0.129
+     },
+     {
+      "elevasjon": -38.79,
+      "fraa": -49.25,
+      "til": -28.5,
+      "vekt": 0.06
      },
      {
       "elevasjon": -18.38,
-      "fraa": -19.75,
+      "fraa": -19.25,
       "til": -18.25,
-      "vekt": 0.604
+      "vekt": 0.602
      }
     ]
    }
   },
   "prisme90_r20_kamera": {
    "+10": {
-    "gjennom": 0.9206503629684448,
-    "attende": 0.0787600502371788,
+    "gjennom": 0.9201300144195557,
+    "attende": 0.07928082346916199,
     "greiner": [
      {
-      "elevasjon": -22.44,
-      "fraa": -23.0,
-      "til": -13.25,
-      "vekt": 0.291
-     },
-     {
-      "elevasjon": 1.91,
-      "fraa": -9.0,
-      "til": 11.5,
-      "vekt": 0.101
-     },
-     {
-      "elevasjon": 18.7,
-      "fraa": 13.25,
-      "til": 23.0,
-      "vekt": 0.071
-     },
-     {
-      "elevasjon": 28.86,
-      "fraa": 27.5,
-      "til": 30.5,
-      "vekt": 0.024
-     },
-     {
-      "elevasjon": 40.01,
-      "fraa": 32.25,
-      "til": 44.25,
-      "vekt": 0.405
+      "elevasjon": 12.92,
+      "fraa": -40.5,
+      "til": 40.5,
+      "vekt": 0.916
      }
     ]
    },
    "+0": {
-    "gjennom": 0.9257743954658508,
-    "attende": 0.07070787996053696,
+    "gjennom": 0.9255145788192749,
+    "attende": 0.07098057866096497,
     "greiner": [
      {
-      "elevasjon": -30.88,
-      "fraa": -32.75,
-      "til": -30.75,
-      "vekt": 0.33
-     },
-     {
-      "elevasjon": -24.49,
-      "fraa": -27.0,
-      "til": -23.0,
-      "vekt": 0.021
-     },
-     {
-      "elevasjon": -6.66,
-      "fraa": -8.0,
-      "til": -5.5,
-      "vekt": 0.026
-     },
-     {
-      "elevasjon": 11.39,
-      "fraa": 10.0,
-      "til": 12.75,
-      "vekt": 0.023
-     },
-     {
-      "elevasjon": 24.46,
-      "fraa": 23.0,
-      "til": 26.25,
-      "vekt": 0.021
-     },
-     {
-      "elevasjon": 30.88,
-      "fraa": 30.75,
-      "til": 34.25,
-      "vekt": 0.329
+      "elevasjon": -0.05,
+      "fraa": -39.5,
+      "til": 34.5,
+      "vekt": 0.922
      }
     ]
    },
    "-10": {
-    "gjennom": 0.9203059077262878,
-    "attende": 0.07910990715026855,
+    "gjennom": 0.9203792810440063,
+    "attende": 0.07903796434402466,
     "greiner": [
      {
-      "elevasjon": -39.0,
-      "fraa": -40.5,
-      "til": -24.75,
-      "vekt": 0.439
-     },
-     {
-      "elevasjon": -22.73,
-      "fraa": -23.0,
-      "til": -22.25,
-      "vekt": 0.024
-     },
-     {
-      "elevasjon": -16.7,
-      "fraa": -20.75,
-      "til": -13.25,
-      "vekt": 0.047
-     },
-     {
-      "elevasjon": -5.38,
-      "fraa": -9.25,
-      "til": -1.75,
-      "vekt": 0.047
-     },
-     {
-      "elevasjon": 4.3,
-      "fraa": -0.25,
-      "til": 9.0,
-      "vekt": 0.043
-     },
-     {
-      "elevasjon": 22.45,
-      "fraa": 13.25,
-      "til": 25.25,
-      "vekt": 0.291
+      "elevasjon": -13.16,
+      "fraa": -41.0,
+      "til": 31.25,
+      "vekt": 0.912
      }
     ]
    },
    "-20": {
-    "gjennom": 0.8906161785125732,
-    "attende": 0.109177365899086,
+    "gjennom": 0.8898237943649292,
+    "attende": 0.1099788248538971,
     "greiner": [
      {
-      "elevasjon": -52.08,
+      "elevasjon": -28.07,
       "fraa": -52.25,
-      "til": -50.25,
-      "vekt": 0.436
-     },
-     {
-      "elevasjon": -44.24,
-      "fraa": -47.25,
-      "til": -41.25,
-      "vekt": 0.037
-     },
-     {
-      "elevasjon": -33.57,
-      "fraa": -39.75,
-      "til": -28.0,
-      "vekt": 0.065
-     },
-     {
-      "elevasjon": -23.62,
-      "fraa": -26.25,
-      "til": -21.0,
-      "vekt": 0.036
-     },
-     {
-      "elevasjon": -17.42,
-      "fraa": -19.0,
-      "til": -16.25,
-      "vekt": 0.031
-     },
-     {
-      "elevasjon": 16.65,
-      "fraa": 16.25,
-      "til": 24.25,
-      "vekt": 0.194
+      "til": 32.75,
+      "vekt": 0.886
      }
     ]
    },
    "-30": {
-    "gjennom": 0.8232779502868652,
-    "attende": 0.17659252882003784,
+    "gjennom": 0.8211072683334351,
+    "attende": 0.17876985669136047,
     "greiner": [
      {
       "elevasjon": -68.62,
-      "fraa": -68.75,
-      "til": -68.5,
-      "vekt": 0.442
+      "fraa": -70.0,
+      "til": -67.5,
+      "vekt": 0.445
      },
      {
-      "elevasjon": -59.86,
-      "fraa": -62.0,
-      "til": -57.25,
-      "vekt": 0.027
+      "elevasjon": -34.33,
+      "fraa": -64.25,
+      "til": 6.5,
+      "vekt": 0.254
      },
      {
-      "elevasjon": -53.01,
-      "fraa": -55.75,
-      "til": -51.25,
-      "vekt": 0.026
-     },
-     {
-      "elevasjon": -38.31,
-      "fraa": -46.5,
-      "til": -31.25,
-      "vekt": 0.081
-     },
-     {
-      "elevasjon": -27.13,
-      "fraa": -28.75,
-      "til": -25.5,
-      "vekt": 0.023
-     },
-     {
-      "elevasjon": -17.92,
-      "fraa": -24.0,
-      "til": -12.25,
-      "vekt": 0.047
-     },
-     {
-      "elevasjon": 12.43,
-      "fraa": 12.25,
-      "til": 24.0,
-      "vekt": 0.111
+      "elevasjon": 12.38,
+      "fraa": 9.75,
+      "til": 19.0,
+      "vekt": 0.113
      }
     ]
    },
    "-40": {
-    "gjennom": 0.28952187299728394,
-    "attende": 0.710417628288269,
+    "gjennom": 0.2875259220600128,
+    "attende": 0.7124083042144775,
     "greiner": [
      {
-      "elevasjon": -73.51,
-      "fraa": -73.75,
-      "til": -73.25,
-      "vekt": 0.022
+      "elevasjon": -68.03,
+      "fraa": -71.25,
+      "til": -65.25,
+      "vekt": 0.025
      },
      {
-      "elevasjon": -53.34,
-      "fraa": -55.75,
-      "til": -51.5,
-      "vekt": 0.041
+      "elevasjon": -43.0,
+      "fraa": -63.75,
+      "til": -14.25,
+      "vekt": 0.196
      },
      {
-      "elevasjon": -36.65,
-      "fraa": -39.0,
-      "til": -34.75,
-      "vekt": 0.028
-     },
-     {
-      "elevasjon": -27.05,
-      "fraa": -32.0,
-      "til": -22.25,
-      "vekt": 0.034
-     },
-     {
-      "elevasjon": -16.2,
-      "fraa": -20.5,
-      "til": -9.0,
-      "vekt": 0.021
-     },
-     {
-      "elevasjon": 10.19,
+      "elevasjon": 10.15,
       "fraa": 10.0,
-      "til": 14.5,
-      "vekt": 0.023
+      "til": 13.5,
+      "vekt": 0.022
      }
     ]
    },
    "-50": {
-    "gjennom": 0.20228128135204315,
-    "attende": 0.7976283431053162,
+    "gjennom": 0.2010592520236969,
+    "attende": 0.7988891005516052,
     "greiner": [
      {
-      "elevasjon": -73.38,
-      "fraa": -75.0,
-      "til": -71.0,
-      "vekt": 0.024
+      "elevasjon": -65.92,
+      "fraa": -68.0,
+      "til": -63.0,
+      "vekt": 0.022
      },
      {
-      "elevasjon": -39.7,
-      "fraa": -48.0,
-      "til": -29.75,
-      "vekt": 0.066
+      "elevasjon": -52.0,
+      "fraa": -56.0,
+      "til": -47.5,
+      "vekt": 0.037
+     },
+     {
+      "elevasjon": -42.67,
+      "fraa": -46.0,
+      "til": -39.25,
+      "vekt": 0.023
      }
     ]
    }
   },
   "prisme90_r20_vindauge": {
    "+10": {
-    "gjennom": 0.39429381489753723,
-    "attende": 0.6055961847305298,
+    "gjennom": 0.3922250270843506,
+    "attende": 0.6076697111129761,
     "greiner": [
      {
       "elevasjon": -42.37,
-      "fraa": -43.5,
-      "til": -41.0,
+      "fraa": -43.75,
+      "til": -39.25,
       "vekt": 0.09
      },
      {
-      "elevasjon": -3.0,
-      "fraa": -6.75,
-      "til": 0.25,
-      "vekt": 0.037
+      "elevasjon": 8.53,
+      "fraa": -13.0,
+      "til": 35.75,
+      "vekt": 0.188
      },
      {
-      "elevasjon": 4.36,
-      "fraa": 2.0,
-      "til": 6.75,
-      "vekt": 0.036
-     },
-     {
-      "elevasjon": 12.37,
-      "fraa": 11.0,
-      "til": 14.25,
-      "vekt": 0.027
-     },
-     {
-      "elevasjon": 24.08,
-      "fraa": 21.25,
-      "til": 25.75,
-      "vekt": 0.023
-     },
-     {
-      "elevasjon": 47.73,
-      "fraa": 47.5,
-      "til": 49.0,
-      "vekt": 0.047
+      "elevasjon": 47.52,
+      "fraa": 39.25,
+      "til": 64.0,
+      "vekt": 0.06
      }
     ]
    },
    "+0": {
-    "gjennom": 0.21817830204963684,
-    "attende": 0.7817973494529724,
+    "gjennom": 0.2217244952917099,
+    "attende": 0.7782545685768127,
     "greiner": [
      {
-      "elevasjon": -0.0,
-      "fraa": -1.25,
-      "til": 1.25,
-      "vekt": 0.022
+      "elevasjon": -0.02,
+      "fraa": -25.25,
+      "til": 25.25,
+      "vekt": 0.191
      }
     ]
    },
    "-10": {
-    "gjennom": 0.39195966720581055,
-    "attende": 0.6079359650611877,
+    "gjennom": 0.39082467555999756,
+    "attende": 0.609065055847168,
     "greiner": [
      {
-      "elevasjon": -47.73,
-      "fraa": -49.0,
-      "til": -47.5,
-      "vekt": 0.047
+      "elevasjon": -46.07,
+      "fraa": -62.0,
+      "til": -34.5,
+      "vekt": 0.068
      },
      {
-      "elevasjon": -17.48,
-      "fraa": -19.0,
-      "til": -15.75,
-      "vekt": 0.022
+      "elevasjon": -4.67,
+      "fraa": -25.75,
+      "til": 21.0,
+      "vekt": 0.187
      },
      {
-      "elevasjon": -5.59,
-      "fraa": -6.75,
-      "til": -4.25,
-      "vekt": 0.025
-     },
-     {
-      "elevasjon": 42.37,
-      "fraa": 41.0,
-      "til": 43.5,
-      "vekt": 0.09
+      "elevasjon": 43.14,
+      "fraa": 42.25,
+      "til": 51.5,
+      "vekt": 0.104
      }
     ]
    },
    "-20": {
-    "gjennom": 0.6932225823402405,
-    "attende": 0.3064543604850769,
+    "gjennom": 0.6931859254837036,
+    "attende": 0.3064787983894348,
     "greiner": [
      {
-      "elevasjon": -75.62,
-      "fraa": -75.75,
-      "til": -75.5,
-      "vekt": 0.056
+      "elevasjon": -75.54,
+      "fraa": -77.25,
+      "til": -72.5,
+      "vekt": 0.06
      },
      {
-      "elevasjon": -24.06,
-      "fraa": -27.0,
-      "til": -21.25,
-      "vekt": 0.034
-     },
-     {
-      "elevasjon": -16.06,
-      "fraa": -19.0,
-      "til": -14.0,
-      "vekt": 0.054
-     },
-     {
-      "elevasjon": -6.16,
-      "fraa": -12.0,
-      "til": 0.5,
-      "vekt": 0.069
-     },
-     {
-      "elevasjon": 5.22,
-      "fraa": 2.0,
-      "til": 7.5,
-      "vekt": 0.022
-     },
-     {
-      "elevasjon": 14.37,
-      "fraa": 14.0,
-      "til": 14.5,
-      "vekt": 0.385
+      "elevasjon": 3.83,
+      "fraa": -45.0,
+      "til": 32.0,
+      "vekt": 0.613
      }
     ]
    },
    "-30": {
-    "gjennom": 0.6781179904937744,
-    "attende": 0.3196454346179962,
+    "gjennom": 0.6867387294769287,
+    "attende": 0.3110814094543457,
     "greiner": [
      {
-      "elevasjon": -44.34,
-      "fraa": -47.5,
-      "til": -42.5,
-      "vekt": 0.023
+      "elevasjon": -49.92,
+      "fraa": -56.0,
+      "til": -47.25,
+      "vekt": 0.022
      },
      {
-      "elevasjon": -32.87,
-      "fraa": -34.75,
-      "til": -31.25,
-      "vekt": 0.026
-     },
-     {
-      "elevasjon": -14.58,
-      "fraa": -29.0,
-      "til": -0.75,
-      "vekt": 0.157
-     },
-     {
-      "elevasjon": 0.88,
-      "fraa": 0.75,
-      "til": 4.5,
-      "vekt": 0.434
+      "elevasjon": -5.17,
+      "fraa": -38.5,
+      "til": 5.25,
+      "vekt": 0.631
      }
     ]
    },
    "-40": {
-    "gjennom": 0.776915967464447,
-    "attende": 0.22276756167411804,
+    "gjennom": 0.7730424404144287,
+    "attende": 0.22663497924804688,
     "greiner": [
      {
-      "elevasjon": -80.51,
-      "fraa": -82.0,
-      "til": -79.5,
-      "vekt": 0.073
+      "elevasjon": -80.89,
+      "fraa": -86.5,
+      "til": -80.25,
+      "vekt": 0.079
      },
      {
-      "elevasjon": -36.26,
-      "fraa": -38.5,
-      "til": -34.75,
-      "vekt": 0.037
-     },
-     {
-      "elevasjon": -22.58,
-      "fraa": -25.75,
-      "til": -18.0,
-      "vekt": 0.056
-     },
-     {
-      "elevasjon": -9.7,
-      "fraa": -12.0,
+      "elevasjon": -14.53,
+      "fraa": -45.25,
       "til": -9.5,
-      "vekt": 0.48
+      "vekt": 0.643
      }
     ]
    },
    "-50": {
-    "gjennom": 0.7895023226737976,
-    "attende": 0.2103235423564911,
+    "gjennom": 0.7938517332077026,
+    "attende": 0.20597311854362488,
     "greiner": [
      {
-      "elevasjon": -72.03,
-      "fraa": -73.25,
-      "til": -69.5,
-      "vekt": 0.033
+      "elevasjon": -75.71,
+      "fraa": -82.25,
+      "til": -69.0,
+      "vekt": 0.067
      },
      {
-      "elevasjon": -47.79,
-      "fraa": -49.75,
-      "til": -47.0,
-      "vekt": 0.022
-     },
-     {
-      "elevasjon": -38.55,
-      "fraa": -44.5,
-      "til": -33.5,
-      "vekt": 0.085
-     },
-     {
-      "elevasjon": -30.18,
-      "fraa": -31.5,
-      "til": -28.5,
-      "vekt": 0.023
-     },
-     {
-      "elevasjon": -18.92,
-      "fraa": -27.0,
-      "til": -18.25,
-      "vekt": 0.533
+      "elevasjon": -22.84,
+      "fraa": -51.0,
+      "til": -11.5,
+      "vekt": 0.666
      }
     ]
    }
@@ -2927,34 +2754,39 @@
      "breidd": 1.75
     },
     {
+     "elevasjon": -24.375,
+     "sprang": 0.05,
+     "breidd": 4.0
+    },
+    {
      "elevasjon": 34.875,
-     "sprang": -0.536,
-     "breidd": 2.75
+     "sprang": -0.529,
+     "breidd": 2.25
     },
     {
      "elevasjon": 58.625,
-     "sprang": 0.151,
-     "breidd": 1.25
-    },
-    {
-     "elevasjon": 61.125,
-     "sprang": 0.046,
+     "sprang": 0.127,
      "breidd": 0.75
     },
     {
-     "elevasjon": 63.875,
-     "sprang": 0.11,
-     "breidd": 3.0
+     "elevasjon": 61.125,
+     "sprang": 0.043,
+     "breidd": 1.0
     },
     {
-     "elevasjon": 67.625,
-     "sprang": 0.117,
-     "breidd": 3.25
+     "elevasjon": 64.875,
+     "sprang": 0.048,
+     "breidd": 1.0
+    },
+    {
+     "elevasjon": 68.375,
+     "sprang": 0.085,
+     "breidd": 2.0
     }
    ],
    "fargekant_640_minus_460": 4.5,
-   "himmeldel_ved_minus10": 0.34780612724260784,
-   "himmeldel_ved_minus25": 0.19696423646919925
+   "himmeldel_ved_minus10": 0.3498719772639447,
+   "himmeldel_ved_minus25": 0.19486826739794516
   },
   "prisme90_r08_vindauge": {
    "himmel_synleg_ned_til": -21.5,
@@ -2966,78 +2798,78 @@
     },
     {
      "elevasjon": -10.125,
-     "sprang": -0.416,
+     "sprang": -0.421,
      "breidd": 2.75
     },
     {
      "elevasjon": 10.125,
-     "sprang": 0.185,
-     "breidd": 1.25
+     "sprang": 0.184,
+     "breidd": 1.0
     },
     {
      "elevasjon": 21.625,
-     "sprang": -0.064,
-     "breidd": 1.25
-    },
-    {
-     "elevasjon": 33.875,
-     "sprang": 0.05,
-     "breidd": 1.5
+     "sprang": -0.051,
+     "breidd": 0.75
     },
     {
      "elevasjon": 37.875,
-     "sprang": 0.053,
-     "breidd": 2.0
+     "sprang": 0.042,
+     "breidd": 1.25
     },
     {
      "elevasjon": 42.375,
-     "sprang": 0.569,
+     "sprang": 0.575,
      "breidd": 0.25
     }
    ],
    "fargekant_640_minus_460": 1.5,
-   "himmeldel_ved_minus10": 0.14424830091788365,
-   "himmeldel_ved_minus25": 0.002057700186037792
+   "himmeldel_ved_minus10": 0.14466301753446764,
+   "himmeldel_ved_minus25": 0.001959045473020282
   },
   "prisme90_r20_kamera": {
    "himmel_synleg_ned_til": -31.25,
    "kantkopiar": [
     {
      "elevasjon": -31.375,
-     "sprang": 0.102,
+     "sprang": 0.101,
      "breidd": 0.25
     },
     {
      "elevasjon": 34.875,
-     "sprang": -0.379,
+     "sprang": -0.371,
      "breidd": 1.75
     },
     {
      "elevasjon": 58.625,
-     "sprang": 0.073,
-     "breidd": 0.75
+     "sprang": 0.051,
+     "breidd": 0.25
     }
    ],
    "fargekant_640_minus_460": 4.5,
-   "himmeldel_ved_minus10": 0.2973092884237385,
-   "himmeldel_ved_minus25": 0.16158518013619982
+   "himmeldel_ved_minus10": 0.29978532175111816,
+   "himmeldel_ved_minus25": 0.15757553131377833
   },
   "prisme90_r20_vindauge": {
    "himmel_synleg_ned_til": -21.5,
    "kantkopiar": [
     {
      "elevasjon": -21.625,
-     "sprang": 0.398,
+     "sprang": 0.397,
      "breidd": 0.25
     },
     {
-     "elevasjon": -10.125,
-     "sprang": -0.308,
+     "elevasjon": -12.875,
+     "sprang": -0.041,
      "breidd": 2.0
     },
     {
+     "elevasjon": -10.125,
+     "sprang": -0.289,
+     "breidd": 1.5
+    },
+    {
      "elevasjon": 10.125,
-     "sprang": 0.141,
+     "sprang": 0.145,
      "breidd": 1.25
     },
     {
@@ -3047,8 +2879,8 @@
     }
    ],
    "fargekant_640_minus_460": 1.5,
-   "himmeldel_ved_minus10": 0.1373341824365628,
-   "himmeldel_ved_minus25": 0.004271102142357819
+   "himmeldel_ved_minus10": 0.1410323663462485,
+   "himmeldel_ved_minus25": 0.005012661550839681
   },
   "prisme80_kamera": {
    "himmel_synleg_ned_til": -53.75,

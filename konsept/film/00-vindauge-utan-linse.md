@@ -4,6 +4,10 @@ Dato: 13.11.2026. Ei lita diode, ei maske og prismearket frå monitoren kastar e
 
 ![Tre grep, stemning og arbeid](vindauge-tre-grep.png)
 
+![Generert illustrasjon](vindauge-generert.png)
+
+Biletet over er ein generert illustrasjon (GPT Image), laga frå stemningsruta for «spjeld» i simuleringa. Mønsteret og plasseringa er frå simuleringa, materiala og lyset elles er dikta.
+
 ## Kva filmen gjer
 
 Kvart foton er spora gjennom prismeprofilen med bryting, totalrefleksjon og Fresnel-tap, per bølgjelengd.

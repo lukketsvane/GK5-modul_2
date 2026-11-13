@@ -69,3 +69,5 @@ Premisset held ikkje for nokon av dei 18 kroppane (rekna frå geometrien, med m�
 - 16.53 tal (16 s): 4 kroppar rekna, tal.csv skriven  (9 til 12 med plata bak feltet)
 - 16.53 fin (5 s): under-ende W 3.94 U0 0.51 bak 127
 - 16.53 brett (5 s): nabo-IoU snitt 0.19, maks 0.43; klipt av ramma: ingen
+- 19.32 val ford (4 s): verknad ideelt 0.892, arket 0.903
+- 19.32 val kalib (11 s): masse 1182 g mot 1184, tp [9.4, 4.1, 149.9] mot [9.2, 4.3, 150.8]; venstre 6.7 mot 6.7 N, dytt 3.1 mot 3.1 N; 2 W 35° ideelt: under 151 mot 190 lx, felt 56 mot 57 lx, auge 386 mot 372

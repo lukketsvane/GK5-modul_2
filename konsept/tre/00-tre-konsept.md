@@ -55,7 +55,7 @@ Lyset på skjermflata blir samanlikna som del av feltet. Bru og krok frå forms�
 
 **A Skiva** er den jamnaste og brukar minst straum (3,0 W). Svakheita er skjermflata: spegelskiva legg 0,33 av feltluxen på skjermen i arbeid og om lag 220 lx midt i overgangen, og auget 25 cm over bordet ser fliken med 1013 cd/m². Næraste nabo er Verner Panton Reflect, som har fast, kvit skive og ingen flik.
 
-**B Over** er den einaste som held stemninga heilt av skjermen (5 lx). Svakheita er jamnheita (0,41) og at strålen sveipar over skjermen midt i vippen (243 lx). Det låge auget ser 1124 cd/m², under F5. Næraste nabo er BenQ ScreenBar Halo.
+**B Over** held stemninga av skjermen (5 lx), som C (0 lx). A legg 105 lx på skjermflata i stemning. Svakheita er jamnheita (0,41) og at strålen sveipar over skjermen midt i vippen (243 lx). Det låge auget ser 1124 cd/m², under F5. Næraste nabo er BenQ ScreenBar Halo.
 
 **C Vindauge** er den reinaste: lite lys på skjermen langs heile overgangen (høgst 34 lx), låg luminans mot auget i alle høgder, og vindauget på veggen står i ro. Svakheita er watten (5,8 W, 2,6 timar per celle) og hovudet 70 cm over bordet. Ingen kjend lampe deler strålen slik.
 
@@ -80,7 +80,7 @@ Etterprøvingane ligg i `../reflektor/*/etterproving.md`.
 
 ## Skissemodellar
 
-**A Skiva:** Folie på papp Ø 250 mm, limt utan krøll, med ein 3D-printa ribbe med boge R 1,2 m (pil 6,5 mm) bak. Telefonlykta i ein svart papprull Ø 25 × 100 mm i foten, 5 cm over bordet. Stolpen frå overheadprojektoren held skiva 41 cm over bordet, 15 cm framfor skjermplanet. Fliken: papp 12 × 8,4 cm med folie og bakepapir, teipa på stolpen 30 cm over bordet, lyst opp av ei lykt til. Føreseiing: lågaste rute delt på snittet over 0,5 med bøyen, under 0,45 flat.
+**A Skiva:** Folie på papp Ø 250 mm, limt utan krøll, med ein 3D-printa ribbe med boge R 1,2 m (pil 6,5 mm) bak. Telefonlykta i foten, 5 cm over bordet, i ein svart papprull Ø 25 mm og 34 mm lang: då slepper rullen ut lys til 20° frå aksen, som i modellen. Stolpen frå overheadprojektoren held skiva 41 cm over bordet, 15 cm framfor skjermplanet. Fliken: papp 12 × 8,4 cm med folie og bakepapir, på ein kort arm 3,5 cm til venstre for stolpen og 30 cm over bordet. Han får lys frå ei lykt til med smal stråle (10° frå aksen: rull Ø 15 mm, 43 mm lang). Føreseiing: lågaste rute delt på snittet over 0,5 med bøyen, under 0,45 flat.
 
 **B Over:** Fresnelplata i ei pappramme med teiphengsel langs bakkanten, delt med ein knekk 60 mm frå kanten mot veggen. Stolpen klemt bak skjermen, ramma 20 cm over skjermkanten og 9 cm framfor skjermplanet. Telefonen på skjermkanten med lykta opp i ein brønn av svart papp, 12 cm under plata. To diffusorark teipa på plata. Føreseiing: jamnheit om lag 0,4, veggen bak skjermen om lag ein tredel av feltet.
 

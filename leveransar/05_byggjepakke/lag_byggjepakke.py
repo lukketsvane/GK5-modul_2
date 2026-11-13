@@ -134,7 +134,8 @@ def roernett(ox, oy, L, tekst):
     w = math.pi * ROER_D + OVERLAPP
     g = [rekt(ox, oy, w, L), fald(ox + w - OVERLAPP, oy, ox + w - OVERLAPP, oy + L)]
     g.append(maallinje(ox, oy + L + 4, ox + w, oy + L + 4, f'{k(w)} mm'))
-    g.append(maallinje(ox - 4, oy, ox - 4, oy + L, f'{k(L)} mm', side=-1, vassrett=L < 50))
+    g.append(maallinje(ox - 4, oy, ox - 4, oy + L, '', side=-1, vassrett=True))
+    g.append(t(ox - 6.5, oy + L / 2 + 1, f'{k(L)} mm', 'mono', 'end'))
     g.append(tekstblokk(ox, oy - 7.5, tekst, 'mono', lh=3.8))
     return ''.join(g)
 
@@ -340,8 +341,8 @@ def s_A_malar_A4(W, H, nr):
 def s_A_malar_3(W, H):
     m = 12
     g = [t(m, 26, 'A Skiva: mal 3 av 3, røyr, flik og arm', 'tittel')]
-    g.append(roernett(m + 14, 46, ROER_A, ['HOVUDLYKTA · svart papp', f'{k(ROER_A, 0)} mm: kutt ved 20° frå aksen']))
-    g.append(roernett(m + 14, 104, ROER_FLIK, ['FLIKLYKTA · svart papp', f'{k(ROER_FLIK, 0)} mm: kutt ved {G["A"]["lykt2_kutt"]}° frå aksen']))
+    g.append(roernett(m + 24, 46, ROER_A, ['HOVUDLYKTA · svart papp', f'{k(ROER_A, 0)} mm: kutt ved 20° frå aksen']))
+    g.append(roernett(m + 24, 104, ROER_FLIK, ['FLIKLYKTA · svart papp', f'{k(ROER_FLIK, 0)} mm: kutt ved {G["A"]["lykt2_kutt"]}° frå aksen']))
     fx, fy = m + 120, 44
     g.append(rekt(fx, fy, 120, 84))
     g.append(maallinje(fx, fy + 84 + 4, fx + 120, fy + 84 + 4, '120 mm'))

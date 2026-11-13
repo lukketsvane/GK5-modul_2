@@ -83,16 +83,37 @@ def _med_stolpe(g, x=0.31, y=0.49, r=0.006):
                                    ls.syl(b(x, y, 0), b(x, y, 0.012), 0.045)]
     return g2
 
+# ------------------------------------------------------------------ dei tre, etter søket 13.11 (a_sok, b_sok, c_sok)
+
+def _A(t):
+    import a_sok   # fast flik på stamma til veggen bak skjermen, 40 % av watten, satin, 12 x 8,4 cm, 30 cm over bordet
+    return a_sok.a_ny(0.40, 0.30, 0.12, 0.084, ls.SATIN)(t)
+
+def _B(t):
+    import b_sok   # plata knekt: flik 60 mm mot veggen bak skjermen, diffusorark 14°, plata 62 cm over bordet
+    return b_sok.b_ny(0.62, 0.06, 14, b(0.0, YV, 0.60))(t)
+
+def _C(t):
+    import c_sok   # vasskule Ø 70 mm, hovudet 70 cm over bordet, gråfilter 1,5 i maska, 65 % til bordet i arbeid
+    return c_sok.c_ny(c_sok.LINSER['vasskule'], 0.65, 0.06, 0.0, grad=1.5, pos=b(0.40, 0.42, 0.70), fot=(0.40, 0.50))(t)
+
 KONSEPT = {
-    'A': dict(namn='Skiva', g=_med_kantskive(_finn(boy, 'spegel-kuv-1.2')),
-              setning='Ei kjelde i foten lyser opp på ei bøygd spegelskive som vippar frå veggen bak skjermen ned på arbeidsfeltet.',
-              handling='Handlinga: vipp skiva.', familie='boy', kandidat='spegel-kuv-1.2'),
-    'B': dict(namn='Over', g=_med_stolpe(lambda t: fre.plate(t, fre.OVER_C, fre.OVER_A, 0.12, fre.gli(b(0.0, YV, 0.60), FELT), spreiing=12, kjelde=(40, 50, 50))),
-              setning='Fresnelplata ligg over skjermkanten og vippar lyset frå veggen bak skjermen ned på bordet.',
-              handling='Handlinga: vipp plata.', familie='fresnel', kandidat='over-vipp, brønn 50°'),
-    'C': dict(namn='Vindauge', g=_finn(pro, 'dele-vindauge'),
-              setning='Ei linse teiknar eit vindauge av lys på veggen. Ein spegel glir inn i strålen og legg feltet på bordet, medan vindauget blir.',
-              handling='Handlinga: skyv spegelen inn.', familie='projektor', kandidat='dele-vindauge, trakt ×0,47'),
+    'A': dict(namn='Skiva', g=_A,
+              setning='Ei kjelde i foten lyser opp på ei bøygd spegelskive som vippar frå veggen ned på feltet. Ein fast flik på stamma held veggen bak skjermen lys.',
+              handling='Handlinga: vipp skiva.', familie='boy', kandidat='spegel-kuv-1.2 med veggflik'),
+    'B': dict(namn='Over', g=_B,
+              setning='Fresnelplata over skjermkanten er knekt. Den store delen vippar lyset frå veggen ned på bordet, fliken held veggen bak skjermen lys.',
+              handling='Handlinga: vipp plata.', familie='fresnel', kandidat='over-knekk, brønn 50°, flik 60 mm, ark 14°'),
+    'C': dict(namn='Vindauge', g=_C,
+              setning='Ei vasskule teiknar eit vindauge av lys på veggen. Ein spegel glir inn i strålen og legg feltet på bordet, medan vindauget blir.',
+              handling='Handlinga: skyv spegelen inn.', familie='projektor', kandidat='dele-vindauge med vasskule, gråfilter og høgt hovud'),
+}
+
+# Versjonane frå første runde (før veggen bak skjermen og jamnheita), til samanlikning
+FORSTE = {
+    'A': _med_kantskive(_finn(boy, 'spegel-kuv-1.2')),
+    'B': _med_stolpe(lambda t: fre.plate(t, fre.OVER_C, fre.OVER_A, 0.12, fre.gli(b(0.0, YV, 0.60), FELT), spreiing=12, kjelde=(40, 50, 50))),
+    'C': _finn(pro, 'dele-vindauge'),
 }
 
 def rekn(k, n=5):

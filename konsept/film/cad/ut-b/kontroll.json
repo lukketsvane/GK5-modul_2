@@ -1,0 +1,232 @@
+{
+ "delar": [
+  {
+   "id": "01",
+   "namn": "fot",
+   "masse_g": 65.1,
+   "gyldig": true
+  },
+  {
+   "id": "02",
+   "namn": "botnlok med pute",
+   "masse_g": 22.2,
+   "gyldig": true
+  },
+  {
+   "id": "03",
+   "namn": "ballast",
+   "masse_g": 321.4,
+   "gyldig": true
+  },
+  {
+   "id": "04",
+   "namn": "røyr",
+   "masse_g": 235.0,
+   "gyldig": true
+  },
+  {
+   "id": "05",
+   "namn": "bjelke",
+   "masse_g": 125.1,
+   "gyldig": true
+  },
+  {
+   "id": "06",
+   "namn": "bjelkelok",
+   "masse_g": 47.2,
+   "gyldig": true
+  },
+  {
+   "id": "07",
+   "namn": "lysleiar",
+   "masse_g": 201.7,
+   "gyldig": true
+  },
+  {
+   "id": "08",
+   "namn": "prismeark",
+   "masse_g": 17.9,
+   "gyldig": true
+  },
+  {
+   "id": "09",
+   "namn": "flatstong",
+   "masse_g": 19.2,
+   "gyldig": true
+  },
+  {
+   "id": "10",
+   "namn": "led-stripe",
+   "masse_g": 5.2,
+   "gyldig": true
+  },
+  {
+   "id": "11",
+   "namn": "dimmer",
+   "masse_g": 10.1,
+   "gyldig": true
+  },
+  {
+   "id": "E",
+   "namn": "skrue M3 × 12 senk",
+   "masse_g": 3.5,
+   "gyldig": true
+  }
+ ],
+ "kollisjonar": [],
+ "rorsle": [
+  {
+   "vinkel": 0,
+   "kollisjon_mm3": 0.0,
+   "kven": "",
+   "laagaste_punkt": 242.0
+  },
+  {
+   "vinkel": 10,
+   "kollisjon_mm3": 0.0,
+   "kven": "",
+   "laagaste_punkt": 223.1
+  },
+  {
+   "vinkel": 20,
+   "kollisjon_mm3": 0.0,
+   "kven": "",
+   "laagaste_punkt": 188.9
+  },
+  {
+   "vinkel": 30,
+   "kollisjon_mm3": 0.0,
+   "kven": "",
+   "laagaste_punkt": 156.9
+  },
+  {
+   "vinkel": 40,
+   "kollisjon_mm3": 0.0,
+   "kven": "",
+   "laagaste_punkt": 128.0
+  },
+  {
+   "vinkel": 50,
+   "kollisjon_mm3": 0.0,
+   "kven": "",
+   "laagaste_punkt": 103.1
+  },
+  {
+   "vinkel": 60,
+   "kollisjon_mm3": 0.0,
+   "kven": "",
+   "laagaste_punkt": 83.0
+  },
+  {
+   "vinkel": 70,
+   "kollisjon_mm3": 0.0,
+   "kven": "",
+   "laagaste_punkt": 68.3
+  },
+  {
+   "vinkel": 80,
+   "kollisjon_mm3": 0.0,
+   "kven": "",
+   "laagaste_punkt": 59.4
+  }
+ ],
+ "masse_g": 1104,
+ "tyngdepunkt": [
+  -1.7,
+  -6.2,
+  133.8
+ ],
+ "fotavtrykk_cm2": 196.1,
+ "veltevinkel": 28.5,
+ "velt_venstre_N": 7.7,
+ "velt_framme_N": 12.0,
+ "velt_dytt_topp_N": 3.0,
+ "delar_i_alt": 12,
+ "stykkliste": [
+  {
+   "id": "01",
+   "namn": "fot",
+   "tal": 1,
+   "materiale": "petg",
+   "framstilling": "prototyp: trykt og lakkert. Produksjon: trykkstøypt aluminium, matt pulverlakk"
+  },
+  {
+   "id": "02",
+   "namn": "botnlok med pute",
+   "tal": 1,
+   "materiale": "petg",
+   "framstilling": "trykt, med svart mjuk pute under"
+  },
+  {
+   "id": "03",
+   "namn": "ballast",
+   "tal": 1,
+   "materiale": "staal",
+   "framstilling": "stålplate 5 mm, skoren"
+  },
+  {
+   "id": "04",
+   "namn": "røyr",
+   "tal": 1,
+   "materiale": "staal",
+   "framstilling": "stålrøyr Ø 12 × 1.5, éin boge med radius 45, same pulverlakk som foten"
+  },
+  {
+   "id": "05",
+   "namn": "bjelke",
+   "tal": 1,
+   "materiale": "petg",
+   "framstilling": "prototyp: trykt i to lengder. Produksjon: ekstrudert aluminium, pulverlakk"
+  },
+  {
+   "id": "06",
+   "namn": "bjelkelok",
+   "tal": 1,
+   "materiale": "petg",
+   "framstilling": "på undersida, fire skruar"
+  },
+  {
+   "id": "07",
+   "namn": "lysleiar",
+   "tal": 1,
+   "materiale": "pmma",
+   "framstilling": "PMMA 3 mm, frie hjørne R 8"
+  },
+  {
+   "id": "08",
+   "namn": "prismeark",
+   "tal": 1,
+   "materiale": "film",
+   "framstilling": "prisma opp, rillene på tvers av bjelken"
+  },
+  {
+   "id": "09",
+   "namn": "flatstong",
+   "tal": 1,
+   "materiale": "alu",
+   "framstilling": "aluminium 12 × 2"
+  },
+  {
+   "id": "10",
+   "namn": "led-stripe",
+   "tal": 1,
+   "materiale": "gummi",
+   "framstilling": "KJØP: COB 5 V, 2700 K, 8 mm"
+  },
+  {
+   "id": "11",
+   "namn": "dimmer",
+   "tal": 1,
+   "materiale": "messing",
+   "framstilling": "touch-dimmer i børsta messing, Ø 20"
+  },
+  {
+   "id": "E",
+   "namn": "skrue M3 × 12 senk",
+   "tal": 4,
+   "materiale": "staal",
+   "framstilling": "nedanfrå, med innpressmutter"
+  }
+ ],
+ "royr_lengd": 605
+}

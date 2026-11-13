@@ -20,6 +20,7 @@ Delane frå den demonterte overheadprojektoren (truleg ein 3M 2000, sjå `resear
 | `render/` | Studiorendrane: projektoren samla, fresnelplata, linsene og arket. |
 | `render/del-*.png` | Delbanken: kvar del for seg (P01 til P09) og projektoren samla, med gjennomsiktig bakgrunn. Ortografisk kamera frå same retning og 4 pikslar per mm, så bileta kan setjast saman i skisser utan å skalerast kvar for seg. `del-*.json` har storleiken. |
 | `ark/` | Oversiktsarket (1127 × 797, husstilen frå fase 1): `lag_ark.py` legg alle delane i same målestokk og skriv `byggjesett.html` og `byggjesett.png`. |
+| `kitbash/` | Søket: 16 lampekroppar sette saman av delane her og ruta på fot, med mekanikk og lys for alle, og valet (a)/(b)/(c). Sjå `kitbash/LES_MEG.md`. |
 
 ## Bruk
 

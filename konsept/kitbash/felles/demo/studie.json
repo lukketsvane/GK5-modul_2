@@ -2,6 +2,21 @@
  "tittel": "Demo · armen P01 på trykt fot, LED på aluminiumsplate som vippar om tappen",
  "merknad": "rekna, ikkje målt",
  "W350": 4.995007270020778,
+ "ved350": {
+  "faktor": 0.9990014540041557,
+  "W": 4.995007270020778,
+  "lm": 399.60058160166227,
+  "auge350": 101220.00978011751,
+  "bak350": 21.782742535071705,
+  "vegg350": 17.908228974477364,
+  "skjerm350": 101.59639901324633,
+  "skjerm_del": 0.2902754257521324,
+  "ansikt350": 24.262866716363817,
+  "spegl350": 0.0,
+  "auge25": 101220.00978011751,
+  "auge47": 194.61561242734436,
+  "auge60": 194.61561242734436
+ },
  "likskap": 0.3368649414033113,
  "krav": {
   "W350": true,
@@ -9,6 +24,7 @@
   "auge_arbeid": false,
   "auge_stemning": true,
   "vegg": false,
+  "vegg_over": false,
   "ansikt": false
  },
  "arbeid": {
@@ -64,9 +80,10 @@
  "liner_arbeid": [
   "400 lm ut · 5,0 W · 3 000 K",
   "350 lx snitt på feltet · jamnheit 0,14 (krav 0,6): held ikkje",
-  "101 321 cd/m² mot auget (krav under 3 000): held ikkje · 102 lx på skjermflata (0,29 av feltet)",
-  "22 lx på veggen bak skjermen (krav 100 til 150): held ikkje · 24 lx på ansiktet (krav 50): held ikkje",
+  "101 321 cd/m² mot auget · 102 lx på skjermflata · 22 lx på veggen bak skjermen · 24 lx på ansiktet",
   "350 lx på feltet krev 5,0 W (tak 7,5 W)",
+  "ved 350 lx: 101 220 cd/m² mot auget (krav under 3 000): held ikkje · 102 lx på skjermflata (0,29 av feltet)",
+  "ved 350 lx: 22 lx på veggen bak skjermen (krav 100 til 150): held ikkje · 24 lx på ansiktet (krav 50): held ikkje",
   "kurvene: 10 · 25 · 50 · 100 · 200 lx på bord og vegg"
  ],
  "liner_stemning": [
@@ -78,6 +95,6 @@
   "veltar ved 2,6 N dytt i toppen (krav 5): held ikkje",
   "kurvene: 10 · 25 · 50 · 100 · 200 lx på bord og vegg"
  ],
- "sekund": 11.6,
- "px": 300
+ "sekund": 59.4,
+ "px": 560
 }

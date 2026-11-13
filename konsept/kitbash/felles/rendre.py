@@ -90,6 +90,7 @@ def _tilpass(delar, kam, storleik, marg=0.06):
 
 
 def _scene(delar, mappe, kamera, prover, storleik, delbank=None, prefiks='lampe'):
+    delar = [d for d in delar if not d.omgjevnad]                       # skjermen og anna lampa heng på, er ikkje med i bileta
     lo, hi = K.grenser(delar)
     kam = dict(kamera); mal = (lo + hi) / 2
     if not delbank:

@@ -11,6 +11,7 @@ og b(x, y, h) er eit punkt h meter over bordplata (bordet ligg i z = 0,72).
   pl.kropp(delar)       samlinga som svarte kroppar i lysmotoren (trekantnett per materiale): skuggar og syner i biletet
   pl.fresnel(plate, kjelde)   fresnelspegelen P05 slik han står i lampa, som reflektor i lysmotoren
   pl.film(stykke)       eit filmstykke slik det sit: senter, normal (prismesida), rilleretning og storleik i rommet
+  pl.skjerm()           skjermen i rommet som del i lampa sitt system (omgjevnad): til kollisjon og velt for lamper på skjermen
   pl.nett(delar)        samlinga som trimesh i romkoordinatar (m)
   pl.sjekk(delar)       står foten på bordet, utanfor feltet, og går noko gjennom skjermen eller veggen
 
@@ -108,7 +109,7 @@ class Plass:
         """[(del, undernamn, trimesh i rommet (m), materiale)]. utan: namn på delar eller 'del/underdel' som skal ut."""
         ut = []
         for d, u, m, mat in K.alle_under(delar):
-            if d.namn in utan or '%s/%s' % (d.namn, u) in utan: continue
+            if d.namn in utan or '%s/%s' % (d.namn, u) in utan or d.omgjevnad: continue
             if mat in GJENNOMSIKTIG and not gjennomsiktig: continue
             if d.lyser and not lysande: continue
             m = m.copy(); m.apply_transform(s.M); ut.append((d, u, m, mat))
@@ -151,6 +152,24 @@ class Plass:
         return dict(senter=s.p(stykke.punkt('prismeside')) if 'prismeside' in stykke.anker else s.p(K.pkt(stykke.M, t)),
                     normal=s.r(stykke.retning((0, 0, 1))), riller=s.r(stykke.retning(getattr(stykke, 'riller', (1.0, 0.0, 0.0)))),
                     storleik=tuple(x / 1000.0 for x in getattr(stykke, 'storleik', (0.0, 0.0))))
+
+    def skjerm(s, masse_g=4000.0, djupn=0.05):
+        """Skjermen i rommet som ein del i lampa sitt system (mm), merkt som omgjevnad. Til lamper som heng på skjermkanten
+        eller står under skjermfoten: sjekk.kollisjonar(delar + [pl.skjerm()]) viser om lampa går inn i skjermen, og
+        sjekk.velt(delar + [pl.skjerm()], punkt) reknar skjermen og lampa som éin kropp som står på skjermfoten.
+        Framsida (y = 0,45), 54 x 31 cm og 11 til 42 cm over bordet er lysmotoren sine mål. ANTAKING (frå
+        modell/byggjesett/kitbash/kitbash.py): 5 cm djup, fotplate 24 x 20 x 2,5 cm, hals 6 x 4 cm, 4 kg."""
+        ls = motor(); z = ls.ZB
+        bx = lambda x0, y0, z0, x1, y1, z1: trimesh.creation.box((x1 - x0, y1 - y0, z1 - z0), trimesh.transformations.translation_matrix(
+            ((x0 + x1) / 2, (y0 + y1) / 2, (z0 + z1) / 2)))
+        deler = [('panel', bx(-0.27, 0.45, z + 0.11, 0.27, 0.45 + djupn, z + 0.42)), ('hals', bx(-0.03, 0.50, z, 0.03, 0.54, z + 0.25)),
+                 ('fotplate', bx(-0.12, 0.40, z, 0.12, 0.60, z + 0.025))]
+        inv = np.linalg.inv(s.M)
+        for _, m in deler: m.apply_transform(inv)
+        d = K.Del('skjermen', 'kjopt', [(u, m, 'plast_svart') for u, m in deler], vekt_g=float(masse_g), omgjevnad=True,
+                  merknad='skjermen i rommet, ikkje ein del av lampa. ANTAKING: 4 kg, 5 cm djup, fotplate 24 x 20 cm')
+        d.anker.update(overkant=tuple(K.pkt(inv, (0.0, 0.45 + djupn / 2, z + 0.42))), framkant_oppe=tuple(K.pkt(inv, (0.0, 0.45, z + 0.42))))
+        return d
 
     def sjekk(s, delar):
         """Kvar lampa står i rommet: dict(fot_pa_felt, fot_utanfor_bordet, gjennom_skjerm, gjennom_vegg, under_bordet_mm,

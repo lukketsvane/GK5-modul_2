@@ -124,12 +124,13 @@ def klaring(pid, maal, luft=0.3):
 class Del:
     """Ein plassert del. under: [(undernamn, mesh i delen sitt eige system, materiale)]. M: frå delen til lampa (mm)."""
     def __init__(s, namn, slag, under, M=None, pid=None, vekt_g=None, spreng=None, plast='PETG', print_R=None,
-                 watt=None, lyser=False, anker=None, merknad='', flat_film=True):
+                 watt=None, lyser=False, anker=None, merknad='', flat_film=True, omgjevnad=False):
         s.namn = namn; s.slag = slag                      # slag: 'sett' | 'print' | 'kjopt'
         s.under = list(under); s.M = np.eye(4) if M is None else np.asarray(M, float).copy()
         s.pid = pid; s.vekt_g = vekt_g; s.spreng = spreng; s.plast = plast
         s.print_R = np.eye(4) if print_R is None else np.asarray(print_R, float)
         s.watt = watt; s.lyser = lyser; s.anker = dict(anker or {}); s.merknad = merknad; s.flat_film = flat_film
+        s.omgjevnad = omgjevnad                           # ikkje ein del av lampa (skjermen, bordkanten): sjå kjopt()
         if abs(abs(np.linalg.det(s.M[:3, :3])) - 1.0) > 1e-6:
             raise ValueError('%s: M er ikkje stiv (delane kan ikkje skalerast)' % namn)
 
@@ -252,10 +253,13 @@ def trykt(namn, mesh, M=None, plast='PETG', print_R=None, spreng=None, vekt_g=No
     return Del(namn, 'print', [(namn, mesh, 'print')], M, plast=plast, print_R=print_R, spreng=spreng, vekt_g=vekt_g, merknad=merknad)
 
 
-def kjopt(namn, mesh, materiale, masse_g, M=None, watt=None, lyser=False, spreng=None, merknad=''):
+def kjopt(namn, mesh, materiale, masse_g, M=None, watt=None, lyser=False, spreng=None, merknad='', omgjevnad=False):
     """Ein kjøpt del med oppgjeven masse (g). watt: effekten til ein LED-del (høgste). lyser: flata gløder i rendringa
-    og blir halden utanfor skuggekroppen i lysstudien. materiale: 'led', 'opal', 'aluminium', 'stål', 'gummi_svart' ..."""
-    return Del(namn, 'kjopt', [(namn, mesh, materiale)], M, vekt_g=float(masse_g), watt=watt, lyser=lyser, spreng=spreng, merknad=merknad)
+    og blir halden utanfor skuggekroppen i lysstudien. materiale: 'led', 'opal', 'aluminium', 'stål', 'gummi_svart' ...
+    omgjevnad=True: noko lampa heng på eller står under, som ikkje er ein del av henne (skjermen, ein bordkant). Det er med
+    i velt og kollisjon, men ikkje i massen til lampa (F8), i rendringane, i GLB-fila eller i skuggekroppen til lysstudien."""
+    return Del(namn, 'kjopt', [(namn, mesh, materiale)], M, vekt_g=float(masse_g), watt=watt, lyser=lyser, spreng=spreng, merknad=merknad,
+               omgjevnad=omgjevnad)
 
 # ------------------------------------------------------------------ former til trykte og kjøpte delar (trimesh, mm)
 
@@ -391,6 +395,7 @@ def med_staalarm(delar):
 def sprengd(delar, faktor=0.6):
     """Samlinga dregen frå kvarandre. Ein del med .spreng = (dx, dy, dz) flyttar seg så mykje. Delar utan
     blir skuva ut frå midten av samlinga langs den aksen dei ligg lengst ute på (faktor gonger avstanden)."""
+    delar = [d for d in delar if not d.omgjevnad]
     lo, hi = grenser(delar); midt = (lo + hi) / 2
     ut = []
     for d in delar:

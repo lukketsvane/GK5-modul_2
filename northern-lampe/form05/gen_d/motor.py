@@ -98,7 +98,7 @@ P01_L = 0.240                                        # A: profillengda i byggjes
 _Ib = math.pi / 64 * (0.024 ** 4 - 0.021 ** 4)
 BJELKE = dict(EIa=E_AL * _Ib, EIb=E_AL * _Ib, GJ=G_AL * 2 * _Ib, kgm=RHO_AL * math.pi / 4 * (0.024 ** 2 - 0.021 ** 2), namn='Ø24 × 1,5')
 T_FOT = 0.008                                        # stålskive 8 mm (fast, ikkje tjukn som fridomsgrad)
-PLATE = dict(x=0.15, y0=0.38, y1=0.64, t=0.002)      # stålplate under skjermfoten, 30 × 26 cm × 2 mm
+PLATE = dict(x=0.15, y0=0.45, y1=0.68, t=0.002)      # stålplate under skjermfoten, 30 × 23 cm × 2 mm, bak feltet (y0 0,38 skugga feltet, sjå logg.md)
 M_SKJERM, C_SKJERM = 3.5, np.array([0.0, 0.47, 0.20])   # ANTAKING (som gen/motor.py): skjermen er ballast på plata
 SKJ = dict(x=0.27, y0=0.45, y1=0.50, z0=0.10, z1=0.42)  # skjermen som boks (djupn 5 cm ANTAKING), h over bordet
 SKJ_FOT = dict(x=0.12, y0=0.40, y1=0.60, z1=0.025)      # ANTAKING: skjermfoten 24 × 20 cm
@@ -502,7 +502,7 @@ def produksjon(kr):
     lag.append('arm %d stk%s' % (len(kr.arm) - 1, ', %d gjæring' % knekk if knekk else ''))
     lag.append('bjelke Ø24 %.0f mm' % (2 * kr.xe * 1000)); skaff.append('alu-røyr Ø24 %.0f mm' % (2 * kr.xe * 1000))
     if kr.sp['fot'] == 'under':
-        lag.append('stålplate 300×260×2'); skaff.append('stålplate %.1f kg' % (RHO_ST * 0.30 * 0.26 * 0.002))
+        lag.append('stålplate 300×230×2'); skaff.append('stålplate %.1f kg' % (RHO_ST * 0.30 * 0.23 * 0.002))
     else:
         mf = RHO_ST * math.pi * kr.r ** 2 * kr.tf
         lag.append('fot Ø%.0f×%.0f' % (2 * kr.r * 1000, kr.tf * 1000)); skaff.append('stål %.1f kg' % mf)

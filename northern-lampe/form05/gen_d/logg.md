@@ -4,3 +4,6 @@
 - 16.49 tal (84 s): 6 kroppar rekna, tal.csv skriven
 - 16.49 brett (5 s): nabo-IoU snitt 0.19, maks 0.44; klipt av ramma: ingen
 - 16.51 tal (79 s): 9 kroppar rekna, tal.csv skriven
+- 16.52 tal (70 s): 9 kroppar rekna, tal.csv skriven
+- 16.52 fin (7 s): D W 3.69 U0 0.51 bak 121, under-ende W 4.33 U0 0.03 bak 140, side-ende W 3.31 U0 0.58 bak 119, bak-skeiv-høg W 4.35 U0 0.44 bak 144
+- 16.53 tal (16 s): 4 kroppar rekna, tal.csv skriven

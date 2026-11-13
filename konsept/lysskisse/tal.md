@@ -6,7 +6,7 @@ Rekkjefølgja er brettet, rad for rad.
 
 | Nr. | Lysgrep | Steg | Felt, lx | Jamnheit | Lysnytte | lm for 350 lx | Timar per celle | Vegg, lx | Ansikt, lx | Mot auget, cd/m² | Mot auget ved 350 lx | Stemning: mot auget, cd/m² | Stemning: felt, lx | Likskap |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 1 | bordlykt | busett | 79 | 0.27 | 5 % | 1780 | 0.7 | 87 | 65 | 4053 | 18033 | 1013 | 20 | 1.00 |
+| 1 | bordlykt | busett | 79 | 0.27 | 5 % | 1780 | 0.7 | 87 | 65 | 4053 | 18034 | 1013 | 20 | 1.00 |
 | 2 | linsekule | S12 | 1178 | 0.12 | 71 % | 119 | 10.2 | 19 | 53 | 744 | 221 | 2068 | 19 | 0.30 |
 | 3 | plate | S9 | 175 | 0.25 | 11 % | 798 | 1.5 | 9 | 184 | 2546 | 5080 | 637 | 44 | 1.00 |
 | 4 | vend | S2 | 949 | 0.27 | 57 % | 147 | 8.2 | 29 | 67 | 494 | 182 | 648 | 50 | 0.59 |

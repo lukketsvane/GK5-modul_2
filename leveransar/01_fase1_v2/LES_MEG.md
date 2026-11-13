@@ -20,6 +20,7 @@ Bileta i `bilete/` kjem frå lysmotoren i `konsept/lysskisse/lysskisse.py`. Same
 
 - `rom-arbeid.png`, `rom-paa-veg.png`, `rom-stemning.png`, `rom-krav.png`: lyset briefen ber om, før lampa finst. Kjeldene står utanfor biletet eller bak skjermen.
 - `marknad-*.png`: tre lamper som finst, med lumentalet til produsenten og forenkla form.
+- Figuren framfor skjermen er pølge-mannekengen (`modell/polge_1.glb`). `modell/polge.py` set han inn i motoren før rommet blir bygd, på same plass og med same hovudhøgd som den gamle figuren av kuler og sylindrar. Tala var uendra etter bytet.
 
 ## Lage noko på nytt
 

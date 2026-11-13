@@ -1,0 +1,158 @@
+## 2 Tala på nytt (overgang n=7 og _rad)
+kryss-hog
+  W350       funn     4.46  no     4.46  avvik   0.1 % 
+  felt       funn   393.00  no   392.70  avvik   0.1 % 
+  jamnheit   funn     0.32  no     0.32  avvik   1.2 % 
+  auge       funn   555.00  no   555.37  avvik   0.1 % 
+  vegg       funn   126.00  no   126.23  avvik   0.2 % 
+  ansikt     funn    37.00  no    37.15  avvik   0.4 % 
+  s_auge     funn   148.00  no   147.99  avvik   0.0 % 
+  s_vegg     funn     6.00  no     5.93  avvik   1.2 % 
+  likskap    funn     0.28  no     0.28  avvik   0.3 % 
+  topp       funn     0.66  no     0.66  avvik   0.2 % 
+  sprang     funn     0.04  no     0.04  avvik   7.3 % FEIL
+  skjermmaks funn    66.00  no    65.76  avvik   0.4 % 
+  jamn auke 1.00  strekk 0.0000
+  auge    [148, 155, 157, 148, 233, 367, 555]
+  L_lampe [0, 29, 73, 139, 233, 367, 555]  L_flate [148, 155, 157, 148, 149, 235, 354]
+  felt    [5, 26, 57, 103, 169, 262, 393]
+  vegg    [6, 13, 23, 38, 58, 87, 126]
+  ansikt  [11, 14, 17, 20, 25, 30, 37]
+  skjerm maks [0, 3, 9, 16, 28, 43, 66]  motor E_skjerm_maks [1, 6, 14, 25, 41, 64, 96]
+  L_spegl (kjelder) [0, 0, 0, 0, 0, 0, 0]
+  fordeling arbeid (felt, bord, vegg nær, vegg elles, tak, rom) [0.219, 0.144, 0.272, 0.045, 0.098, 0.223]
+  fordeling stemning [0.0, 0.0, 0.046, 0.602, 0.271, 0.081]
+  (39 s)
+skjer
+  W350       funn     2.25  no     2.25  avvik   0.1 % 
+  felt       funn   779.00  no   778.71  avvik   0.0 % 
+  jamnheit   funn     0.31  no     0.31  avvik   0.2 % 
+  auge       funn  1338.00  no  1338.29  avvik   0.0 % 
+  vegg       funn    29.00  no    28.62  avvik   1.3 % 
+  ansikt     funn    55.00  no    55.37  avvik   0.7 % 
+  s_auge     funn   173.00  no   173.02  avvik   0.0 % 
+  s_vegg     funn    60.00  no    59.68  avvik   0.5 % 
+  likskap    funn     0.08  no     0.08  avvik   1.1 % 
+  topp       funn     0.79  no     0.79  avvik   0.5 % 
+  sprang     funn     0.15  no     0.15  avvik   2.4 % 
+  skjermmaks funn   114.00  no   114.32  avvik   0.3 % 
+  jamn auke 1.00  strekk 0.0000
+  auge    [173, 218, 388, 669, 843, 1062, 1338]
+  L_lampe [0, 62, 388, 669, 843, 1062, 1338]  L_flate [173, 218, 274, 346, 369, 249, 203]
+  felt    [6, 9, 45, 175, 379, 586, 779]
+  vegg    [60, 75, 89, 92, 75, 47, 29]
+  ansikt  [24, 31, 37, 45, 47, 51, 55]
+  skjerm maks [2, 2, 3, 11, 41, 82, 114]  motor E_skjerm_maks [3, 4, 8, 28, 73, 118, 181]
+  L_spegl (kjelder) [0, 0, 0, 0, 0, 0, 0]
+  fordeling arbeid (felt, bord, vegg nær, vegg elles, tak, rom) [0.456, 0.235, 0.024, 0.033, 0.003, 0.248]
+  fordeling stemning [0.0, 0.0, 0.459, 0.524, 0.002, 0.015]
+  (49 s)
+drei-snigel
+  W350       funn     2.05  no     2.05  avvik   0.2 % 
+  felt       funn   852.00  no   852.15  avvik   0.0 % 
+  jamnheit   funn     0.24  no     0.24  avvik   1.7 % 
+  auge       funn  2311.00  no  2311.22  avvik   0.0 % 
+  vegg       funn    55.00  no    54.62  avvik   0.7 % 
+  ansikt     funn    63.00  no    63.47  avvik   0.7 % 
+  s_auge     funn   279.00  no   279.32  avvik   0.1 % 
+  s_vegg     funn    54.00  no    53.94  avvik   0.1 % 
+  likskap    funn     0.20  no     0.20  avvik   0.4 % 
+  topp       funn     0.80  no     0.80  avvik   0.3 % 
+  sprang     funn     0.11  no     0.11  avvik   4.0 % 
+  skjermmaks funn   132.00  no   132.11  avvik   0.1 % 
+  jamn auke 1.00  strekk 0.0000
+  auge    [279, 429, 812, 1156, 1456, 1843, 2311]
+  L_lampe [127, 429, 812, 1156, 1456, 1843, 2311]  L_flate [279, 352, 443, 557, 471, 593, 508]
+  felt    [13, 41, 128, 283, 470, 654, 852]
+  vegg    [54, 70, 86, 91, 60, 69, 55]
+  ansikt  [24, 31, 37, 41, 42, 56, 63]
+  skjerm maks [2, 4, 9, 23, 58, 102, 132]  motor E_skjerm_maks [3, 8, 22, 50, 96, 139, 177]
+  L_spegl (kjelder) [0, 0, 0, 0, 0, 0, 0]
+  fordeling arbeid (felt, bord, vegg nær, vegg elles, tak, rom) [0.492, 0.177, 0.089, 0.037, 0.002, 0.202]
+  fordeling stemning [0.013, 0.01, 0.416, 0.505, 0.002, 0.054]
+  (55 s)
+
+## 3 Fysikk
+kryss-hog
+  t=0.0 kjelder (pos over bord, lm, lm forbi ark): [([0.47, 0.42, 0.57], 100.0, 100.0), ([0.47, 0.48, 0.05], 0.0, 0.0)]
+        ark: lm_inn 0.0  x 0.36..0.58  y 0.275..0.525  z 0.36..0.46  strekk 0.0000
+        arket spegla i skjermen frå auget: 0 cd/m²
+  t=0.5 kjelder (pos over bord, lm, lm forbi ark): [([0.47, 0.42, 0.57], 100.0, 100.0), ([0.47, 0.48, 0.05], 71.3, 7.3), ([0.44, 0.53, 0.05], 43.0, 43.0)]
+        ark: lm_inn 64.0  x 0.36..0.58  y 0.275..0.525  z 0.36..0.46  strekk 0.0000
+        arket spegla i skjermen frå auget: 0 cd/m²
+  t=1.0 kjelder (pos over bord, lm, lm forbi ark): [([0.47, 0.48, 0.05], 285.0, 29.1), ([0.44, 0.53, 0.05], 172.0, 172.0)]
+        ark: lm_inn 255.9  x 0.36..0.58  y 0.275..0.525  z 0.36..0.46  strekk 0.0000
+        arket spegla i skjermen frå auget: 0 cd/m²
+  vegg t=0: venstre 1  over 7  bak 1  hogre 13  sone 6  over sona 45
+  vegg t=1: venstre 27  over 106  bak 301  hogre 131  sone 126  over sona 13
+  (56 s)
+skjer
+  t=0.0 kjelder (pos over bord, lm, lm forbi ark): [([0.62, 0.22, 0.05], 125.0, 124.9)]
+        ark: lm_inn 0.1  x 0.59..0.84  y 0.164..0.397  z 0.27..0.41  strekk 0.0000
+        arket spegla i skjermen frå auget: 0 cd/m²
+  t=0.5 kjelder (pos over bord, lm, lm forbi ark): [([0.62, 0.22, 0.05], 250.0, 157.0)]
+        ark: lm_inn 93.0  x 0.47..0.72  y 0.227..0.460  z 0.27..0.41  strekk 0.0000
+        arket spegla i skjermen frå auget: 0 cd/m²
+  t=1.0 kjelder (pos over bord, lm, lm forbi ark): [([0.62, 0.22, 0.05], 500.0, 29.2)]
+        ark: lm_inn 470.8  x 0.35..0.60  y 0.290..0.523  z 0.27..0.41  strekk 0.0000
+        arket spegla i skjermen frå auget: 0 cd/m²
+  vegg t=0: venstre 1  over 114  bak 2  hogre 109  sone 60  over sona 48
+  vegg t=1: venstre 13  over 33  bak 44  hogre 31  sone 29  over sona 15
+  (57 s)
+drei-snigel
+  t=0.0 kjelder (pos over bord, lm, lm forbi ark): [([0.62, 0.22, 0.05], 125.0, 120.1)]
+        ark: lm_inn 4.9  x 0.21..0.58  y 0.281..0.617  z 0.24..0.44  strekk 0.0000
+        arket spegla i skjermen frå auget: 0 cd/m²
+  t=0.5 kjelder (pos over bord, lm, lm forbi ark): [([0.62, 0.22, 0.05], 250.0, 98.6)]
+        ark: lm_inn 151.4  x 0.21..0.58  y 0.281..0.617  z 0.24..0.44  strekk 0.0000
+        arket spegla i skjermen frå auget: 0 cd/m²
+  t=1.0 kjelder (pos over bord, lm, lm forbi ark): [([0.62, 0.22, 0.05], 500.0, 58.7)]
+        ark: lm_inn 441.3  x 0.21..0.58  y 0.281..0.617  z 0.24..0.44  strekk 0.0000
+        arket spegla i skjermen frå auget: 0 cd/m²
+  vegg t=0: venstre 1  over 121  bak 2  hogre 83  sone 54  over sona 46
+  vegg t=1: venstre 12  over 152  bak 40  hogre 23  sone 55  over sona 16
+  (61 s)
+
+## 3 Augehøgder (L mot auget per steg, maks av lampe og romflate)
+  auge 25 cm  kryss-hog    L [148, 155, 341, 645, 1084, 1707, 2581]  (lampe [0, 136, 341, 645, 1084, 1707, 2581])  spegla i skjerm maks 0
+  auge 25 cm  skjer        L [173, 218, 1105, 2046, 2576, 3255, 4111]  (lampe [1, 94, 1105, 2046, 2576, 3255, 4111])  spegla i skjerm maks 0
+  auge 25 cm  drei-snigel  L [441, 886, 1143, 1458, 1772, 2287, 2916]  (lampe [441, 886, 1143, 1458, 1772, 2287, 2916])  spegla i skjerm maks 0
+  auge 60 cm  kryss-hog    L [148, 155, 157, 148, 233, 367, 555]  (lampe [0, 29, 73, 139, 233, 367, 555])  spegla i skjerm maks 0
+  auge 60 cm  skjer        L [173, 218, 388, 669, 843, 1062, 1338]  (lampe [0, 62, 388, 669, 843, 1062, 1338])  spegla i skjerm maks 0
+  auge 60 cm  drei-snigel  L [279, 428, 812, 1155, 1456, 1843, 2311]  (lampe [127, 428, 812, 1155, 1456, 1843, 2311])  spegla i skjerm maks 0
+  AUGE sett tilbake til 0.47 (186 s)
+
+## 3 SATIN (alle tre brukar SATIN på arket)
+  sigma 6       kryss-hog    felt  451  W350 3.88  U 0.25  vegg 126  auge [148, 155, 157, 148, 233, 367, 555]  topp 0.66  sprang 0.04  likskap 0.27
+  sigma 6       skjer        felt  924  W350 1.89  U 0.28  vegg  28  auge [173, 218, 388, 669, 843, 1062, 1338]  topp 0.79  sprang 0.16  likskap 0.07
+  sigma 6       drei-snigel  felt 1035  W350 1.69  U 0.11  vegg  54  auge [279, 428, 812, 1155, 1456, 1843, 2311]  topp 0.80  sprang 0.11  likskap 0.18
+  (233 s)
+  sigma 14      kryss-hog    felt  329  W350 5.33  U 0.36  vegg 127  auge [148, 155, 157, 183, 308, 485, 734]  topp 0.66  sprang 0.04  likskap 0.29
+  sigma 14      skjer        felt  633  W350 2.76  U 0.33  vegg  30  auge [173, 218, 453, 737, 928, 1168, 1472]  topp 0.79  sprang 0.15  likskap 0.10
+  sigma 14      drei-snigel  felt  673  W350 2.60  U 0.30  vegg  55  auge [279, 511, 938, 1262, 1599, 1996, 2524]  topp 0.79  sprang 0.12  likskap 0.23
+  (253 s)
+  rd 0.3        kryss-hog    felt  413  W350 4.24  U 0.32  vegg 134  auge [148, 155, 157, 278, 466, 735, 1111]  topp 0.66  sprang 0.03  likskap 0.28
+  rd 0.3        skjer        felt  814  W350 2.15  U 0.31  vegg  33  auge [173, 218, 776, 1338, 1686, 2124, 2676]  topp 0.79  sprang 0.16  likskap 0.08
+  rd 0.3        drei-snigel  felt  885  W350 1.98  U 0.24  vegg  59  auge [279, 857, 1624, 2311, 2912, 3686, 4622]  topp 0.80  sprang 0.11  likskap 0.20
+  (290 s)
+  rd 0.3 rs 0.5 kryss-hog    felt  331  W350 5.29  U 0.33  vegg 132  auge [148, 155, 157, 278, 466, 735, 1111]  topp 0.66  sprang 0.04  likskap 0.30
+  rd 0.3 rs 0.5 skjer        felt  643  W350 2.72  U 0.31  vegg  30  auge [173, 218, 776, 1338, 1686, 2124, 2676]  topp 0.79  sprang 0.15  likskap 0.10
+  rd 0.3 rs 0.5 drei-snigel  felt  696  W350 2.51  U 0.24  vegg  56  auge [279, 857, 1624, 2311, 2912, 3686, 4622]  topp 0.80  sprang 0.12  likskap 0.23
+  (336 s)
+SATIN sett tilbake: {'rd': 0.15, 'rs': 0.65, 'sigma': 10.0}
+
+## Tillegg: auge 25 cm saman med SATIN-variantar, i arbeid (t = 1)
+  SATIN     kryss-hog    L_lampe  2581  L_flate  354
+  SATIN     skjer        L_lampe  4111  L_flate  203
+  SATIN     drei-snigel  L_lampe  2916  L_flate  508
+  sigma 14  kryss-hog    L_lampe  3587  L_flate  356
+  sigma 14  skjer        L_lampe  7137  L_flate  166
+  sigma 14  drei-snigel  L_lampe  8253  L_flate  508
+  rd 0.3    kryss-hog    L_lampe  2700  L_flate  363
+  rd 0.3    skjer        L_lampe  4442  L_flate  213
+  rd 0.3    drei-snigel  L_lampe  4753  L_flate  509
+
+## Tillegg: ark-flater bak skjermplanet innanfor skjermen (|x| < 0,27, 11 til 42 cm, y over 0,45)
+  kryss-hog    fliser bak skjermen: 0 av 384 (y maks 0.000)
+  skjer        fliser bak skjermen: 0 av 384 (y maks 0.000)
+  drei-snigel  fliser bak skjermen: 13 av 266 (y maks 0.560)

@@ -466,6 +466,9 @@ def overgangstabell():
         f = os.path.join(HER, 'journal-gen%d.jsonl' % gen)
         for l in open(f, encoding='utf-8'):
             r = json.loads(l); r['gen'] = gen; J[r['namn']] = r
+            if 'skjerm_maks' not in r:                          # generasjon 1 lagra ikkje skjermlux i journalen
+                g = _ALLE.get(r['namn'])
+                r['skjerm_maks'] = [skjermlux(*g(float(t)))[1] for t in r['t']] if g and r['namn'] in dict(GREP) else []
     kol = ['namn', 'gen', 'topp', 'sprang', 'jamn_auke', 'likskap', 'W350', 'jamnheit']
     with open(os.path.join(HER, 'overgang.csv'), 'w', encoding='utf-8', newline='') as fh:
         import csv

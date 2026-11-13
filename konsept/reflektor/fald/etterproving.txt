@@ -1,0 +1,56 @@
+
+=== Z-spreidd ===
+nytt   W350 3.83 felt 457 U 0.34 auge 963 vegg 114 ansikt 48 | s_auge 76 s_vegg 64 s_felt 14 | lik 0.68 W3 5.24 (ansikt) auge3 1011 skjerm/felt 0.31 strekk 0.0000
+avvik over 5 %: ingen
+overgang n=5: topp 0.70 sprang 0.06 jamn_auke 1.00
+   auge [76, 234, 469, 677, 963] felt [14, 25, 68, 205, 457] vegg [64, 82, 91, 93, 114]
+t=0 ark: y 0.298..0.502  z over bord 0.283..0.537  x 0.340..0.600  snittnormal 51 grader frå loddrett
+      kjelde lm 125, inn på arket 108 (87 %), spill 13 %; rift 0.00 mm, sk_inn 0.0 %, sk_ut 0.0 %, boydel 0 %, strekk 0.0000
+t=1 ark: y 0.274..0.522  z over bord 0.341..0.481  x 0.340..0.589  snittnormal 31 grader frå loddrett
+      kjelde lm 500, inn på arket 461 (92 %), spill 8 %; rift 0.00 mm, sk_inn 0.0 %, sk_ut 0.0 %, boydel 19 %, strekk 0.0000
+      spill åleine: felt 3 lx, vegg 2 lx, kjelda mot auget 0 cd/m²; fordeling felt/bord/veggnær/vegg elles/tak/rom [np.float64(0.0), np.float64(0.0), np.float64(0.01), np.float64(0.04), np.float64(0.95), np.float64(0.0)]
+kjelda KP [0.47, 0.48, 0.77] (y = 0.48, skjermplanet y = 0,45; skjermen x frå -0,27 til 0,27)
+auge 25 cm: arbeid lampe 1120 flate 131 cd/m², ansikt 56 lx | stemning lampe 213 flate 76
+auge 60 cm: arbeid lampe 763 flate 131 cd/m², ansikt 39 lx | stemning lampe 3 flate 76
+sigma 6  W350 3.30 felt 531 U 0.24 auge 963 vegg 119 ansikt 52 | s_auge 88 s_vegg 66 s_felt 14 | lik 0.66 W3 4.84 (ansikt) auge3 933 skjerm/felt 0.25 strekk 0.0000
+sigma 14 W350 4.59 felt 382 U 0.39 auge 1270 vegg 109 ansikt 45 | s_auge 63 s_vegg 60 s_felt 15 | lik 0.70 W3 5.51 (ansikt) auge3 1400 skjerm/felt 0.37 strekk 0.0000
+rd 0,3   W350 3.56 felt 491 U 0.34 auge 1927 vegg 134 ansikt 57 | s_auge 79 s_vegg 71 s_felt 21 | lik 0.72 W3 4.39 (ansikt) auge3 1693 skjerm/felt 0.32 strekk 0.0000
+tid 96 s
+
+=== rund-bok ===
+nytt   W350 4.05 felt 432 U 0.43 auge 941 vegg 118 ansikt 49 | s_auge 222 s_vegg 46 s_felt 20 | lik 0.84 W3 5.15 (ansikt) auge3 970 skjerm/felt 0.27 strekk 0.0000
+avvik over 5 %: ingen
+overgang n=5: topp 0.70 sprang 0.02 jamn_auke 1.00
+   auge [222, 319, 462, 663, 941] felt [20, 48, 120, 257, 432] vegg [46, 54, 66, 87, 118]
+   avvik sprang 0.018 mot 0.02
+t=0 ark: y 0.275..0.525  z over bord 0.313..0.507  x 0.361..0.579  snittnormal 44 grader frå loddrett
+      kjelde lm 125, inn på arket 112 (90 %), spill 10 %; rift 0.00 mm, sk_inn 0.0 %, sk_ut 0.0 %, boydel 0 %, strekk 0.0000
+t=1 ark: y 0.264..0.525  z over bord 0.349..0.507  x 0.361..0.592  snittnormal 35 grader frå loddrett
+      kjelde lm 500, inn på arket 444 (89 %), spill 11 %; rift 0.00 mm, sk_inn 0.0 %, sk_ut 0.0 %, boydel 6 %, strekk 0.0000
+      spill åleine: felt 4 lx, vegg 2 lx, kjelda mot auget 0 cd/m²; fordeling felt/bord/veggnær/vegg elles/tak/rom [np.float64(0.0), np.float64(0.0), np.float64(0.01), np.float64(0.03), np.float64(0.89), np.float64(0.08)]
+kjelda KP [0.47, 0.48, 0.77] (y = 0.48, skjermplanet y = 0,45; skjermen x frå -0,27 til 0,27)
+auge 25 cm: arbeid lampe 2639 flate 134 cd/m², ansikt 67 lx | stemning lampe 222 flate 41
+auge 60 cm: arbeid lampe 941 flate 134 cd/m², ansikt 39 lx | stemning lampe 3 flate 41
+sigma 6  W350 3.44 felt 509 U 0.30 auge 941 vegg 124 ansikt 53 | s_auge 222 s_vegg 49 s_felt 18 | lik 0.78 W3 4.76 (ansikt) auge3 895 skjerm/felt 0.22 strekk 0.0000
+sigma 14 W350 4.89 felt 358 U 0.49 auge 1097 vegg 111 ansikt 47 | s_auge 223 s_vegg 43 s_felt 24 | lik 0.89 W3 5.28 (ansikt) auge3 1159 skjerm/felt 0.33 strekk 0.0000
+rd 0,3   W350 3.76 felt 465 U 0.43 auge 1882 vegg 138 ansikt 58 | s_auge 445 s_vegg 52 s_felt 29 | lik 0.87 W3 4.28 (ansikt) auge3 1612 skjerm/felt 0.29 strekk 0.0000
+tid 166 s
+
+=== tak-vipp ===
+nytt   W350 3.33 felt 526 U 0.24 auge 974 vegg 96 ansikt 50 | s_auge 53 s_vegg 48 s_felt 13 | lik 0.56 W3 5.23 (vegg) auge3 1020 skjerm/felt 0.17 strekk 0.0000
+avvik over 5 %: ingen
+overgang n=5: topp 0.70 sprang 0.07 jamn_auke 1.00
+   auge [53, 317, 465, 680, 974] felt [13, 26, 109, 328, 526] vegg [48, 53, 55, 72, 96]
+   avvik sprang 0.074 mot 0.07
+t=0 ark: y 0.298..0.498  z over bord 0.283..0.565  x 0.340..0.603  snittnormal 60 grader frå loddrett
+      kjelde lm 125, inn på arket 96 (77 %), spill 23 %; rift 0.00 mm, sk_inn 0.0 %, sk_ut 0.0 %, boydel 5 %, strekk 0.0000
+t=1 ark: y 0.281..0.518  z over bord 0.360..0.511  x 0.362..0.581  snittnormal 30 grader frå loddrett
+      kjelde lm 500, inn på arket 451 (90 %), spill 10 %; rift 0.00 mm, sk_inn 0.0 %, sk_ut 0.0 %, boydel 7 %, strekk 0.0000
+      spill åleine: felt 2 lx, vegg 1 lx, kjelda mot auget 0 cd/m²; fordeling felt/bord/veggnær/vegg elles/tak/rom [np.float64(0.0), np.float64(0.0), np.float64(0.01), np.float64(0.03), np.float64(0.59), np.float64(0.37)]
+kjelda KP [0.47, 0.48, 0.77] (y = 0.48, skjermplanet y = 0,45; skjermen x frå -0,27 til 0,27)
+auge 25 cm: arbeid lampe 4747 flate 139 cd/m², ansikt 87 lx | stemning lampe 213 flate 53
+auge 60 cm: arbeid lampe 974 flate 139 cd/m², ansikt 38 lx | stemning lampe 3 flate 53
+sigma 6  W350 2.86 felt 612 U 0.16 auge 974 vegg 99 ansikt 55 | s_auge 65 s_vegg 49 s_felt 13 | lik 0.53 W3 5.05 (vegg) auge3 984 skjerm/felt 0.15 strekk 0.0000
+sigma 14 W350 4.03 felt 434 U 0.32 auge 1288 vegg 91 ansikt 49 | s_auge 43 s_vegg 46 s_felt 14 | lik 0.58 W3 5.51 (vegg) auge3 1419 skjerm/felt 0.21 strekk 0.0000
+rd 0,3   W350 3.13 felt 559 U 0.25 auge 1949 vegg 113 ansikt 60 | s_auge 56 s_vegg 54 s_felt 19 | lik 0.60 W3 4.42 (vegg) auge3 1724 skjerm/felt 0.19 strekk 0.0000
+tid 220 s

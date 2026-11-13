@@ -28,6 +28,8 @@ Fire støtter × lysorgan. Rad 1 og 2 har armen ståande bak skjermen: klype på
 7. **Veggen fekk for lite med 20 % til vindauget.** Band med vindauge gav 82 lx bak skjermen. Med 30 % blir det 132 lx, og watten går frå 2,6 til 2,9.
 8. **To lysjobbar gjekk samstundes.** Første køyring av bandet tok 207 s medan brettet vart teikna. Jobben vart stoppa og køyrd om med dei raske grepa først.
 
+9. **Rombiletet av bandet vart aldri ferdig.** `studie.py` brukar `par()` i lysmotoren. Med fem kjelder mot plata stod jobben i ti minutt ved 420 px og i ti minutt til ved 400 px utan å levere, og vart stoppa begge gongene. Arket for valet viser i staden lyskartet på bordet frå den uavhengige strålesporinga (`lyskart.py`, 40 s). Rombiletet manglar framleis.
+
 ## Kontroll
 
 - **Mekanikken mot CAD-en:** ruta på fot gjev 3,0 N dytt, 24,0° veltevinkel, 1159 g og 196 cm² her. `konsept/film/cad/ut/kontroll.json` har 3,1 N, 24,5°, 1184 g og 196 cm².
@@ -93,3 +95,5 @@ Fire støtter × lysorgan. Rad 1 og 2 har armen ståande bak skjermen: klype på
 - 20.47 brett (104 s): kropp 4 med vindaugsdiode og knott.
 - 20.50 til 20.57 lys: over-band-kort 260 s, fot-band 191 s.
 - 21.00 etterprøving (40 s): sju oppsett. 21.02 sikte, stripelengd og ark (16 oppsett, 25 s).
+- 20.56 til 21.16 studie: stoppa to gonger (feil 9).
+- 21.13 lyskart (40 s), 21.15 på nytt med 9 mill. strålar og mjukare kant.

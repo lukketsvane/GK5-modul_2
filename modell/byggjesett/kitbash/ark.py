@@ -105,18 +105,18 @@ def ark_brett(R, L):
 
 
 def ark_val(R, L, V):
-    a = V['a']; ll = L['over-band-vindauge-q30']
+    ll = L['over-band-vindauge-q30']; K = json.load(open(os.path.join(HER, 'lyskart.json'), encoding='utf-8'))
     def blokk(bokstav, v):
         l = v['lys']
-        return f"""        <div class="val">
-          <img src="{v['flis']}" alt="">
-          <div>
-            <p class="namn">({bokstav}) {v['namn']}</p>
-            <p class="tal"><em>{k(l['W350'] * 100, 0)} lm · {k(l['W350'], 1)} W · 3000 K · 350 lx · U0 {k(l['jamnheit'], 2)}</em></p>
-            <p class="liten">{v['tekst']}</p>
-            <p class="m2">{v['mek']}</p>
-          </div>
-        </div>"""
+        return f"""      <div class="val">
+        <img src="{v['flis']}" alt="">
+        <div>
+          <p class="namn">({bokstav}) {v['namn']}</p>
+          <p class="tal"><em>{k(l['W350'] * 100, 0)} lm · {k(l['W350'], 1)} W · 3000 K · 350 lx · U0 {k(l['jamnheit'], 2)}</em></p>
+          <p class="liten">{v['tekst']}</p>
+          <p class="m2">{v['mek']}</p>
+        </div>
+      </div>"""
     return f"""<!doctype html>
 <html lang="nn">
 <head>
@@ -124,19 +124,18 @@ def ark_val(R, L, V):
 <title>Kitbash · val</title>
 <link rel="stylesheet" href="{CSS}">
 <style>
-  .to {{ display: grid; grid-template-columns: 760px minmax(0, 1fr); column-gap: 24px; }}
-  .studie img {{ display: block; width: 760px; height: auto; }}
-  .studie figcaption {{ display: grid; grid-template-columns: 1fr 1fr; column-gap: 14px; padding-left: 14px; }}
-  .val {{ display: grid; grid-template-columns: 64px minmax(0, 1fr); column-gap: 10px; align-items: start; padding: 8px 0 9px; border-top: 1px solid var(--linje); }}
-  .val:first-child {{ border-top: 0; padding-top: 0; }}
+  .kart img {{ display: block; width: 1039px; height: 374px; }}
+  .kart figcaption {{ display: grid; grid-template-columns: 505px 1fr; column-gap: 28px; }}
+  .tre {{ display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 24px; margin-top: 12px; }}
+  .val {{ display: grid; grid-template-columns: 64px minmax(0, 1fr); column-gap: 10px; align-items: start; }}
   .val img {{ width: 64px; height: 64px; display: block; }}
   .val .namn {{ font: 400 17px/1.15 var(--serif); color: var(--blekk); margin: 0 0 3px; }}
-  .val .tal {{ font-size: 10.5px; line-height: 1.25; color: var(--graa); margin: 0 0 4px; }}
+  .val .tal {{ font-size: 10.5px; line-height: 1.25; color: var(--graa); margin: 0 0 3px; }}
   .val .liten {{ font-size: 12px; line-height: 1.28; margin: 0 0 4px; }}
   .val .m2 {{ font: 400 8px/1.35 var(--mono); letter-spacing: 0.04em; text-transform: uppercase; color: var(--graa); margin: 0; }}
-  .prove {{ margin-top: 14px; }}
-  .prove .fire {{ display: grid; grid-template-columns: 1fr 1fr; column-gap: 24px; }}
-  .prove .punkt p {{ font-size: 13px; }}
+  .prove {{ margin-top: 12px; }}
+  .prove .fire {{ display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: 24px; }}
+  .prove .punkt p {{ font-size: 12.5px; line-height: 1.3; }}
 </style>
 </head>
 <body>
@@ -146,30 +145,28 @@ def ark_val(R, L, V):
   <h1 class="tittel">Lyset er funne. Valet er kven som ber plata: skjermen, bordet eller foten.</h1>
 
   <main class="innhald" style="display: block;">
-    <div class="to">
-      <figure class="studie">
-        <img src="{V['studie']}" alt="">
-        <figcaption><span><b>Stemning</b> · 1,25 W · 2200 K · vindauget {k(ll['s_bak'], 0)} lx bak skjermen</span><span><b>Arbeid</b> · 5 W · 3000 K · feltet {k(ll['veg_felt'][-1], 0)} lx (350 lx ved {k(ll['W350'], 1)} W)</span></figcaption>
-      </figure>
-      <section>
+    <figure class="kart">
+      <img src="lyskart.png" alt="">
+      <figcaption><span><b>LED-stripe 24 cm mot rein plate</b> · jamnheit {k(K['stripe']['U_10cm'], 2)} her, {k(ll['jamnheit'], 2)} i lysmotoren</span><span><b>Éi diode mot plata med diffusorark</b> · jamnheit {k(K['diode_ark']['U_10cm'], 2)} her, {k(L['over-vindauge-q30']['jamnheit'], 2)} i lysmotoren</span></figcaption>
+    </figure>
+    <div class="tre">
 {blokk('a', V['a'])}
 {blokk('b', V['b'])}
 {blokk('c', V['c'])}
-      </section>
     </div>
     <div class="prove">
       <p class="etikett">Bandprøva i papp, før noko blir bygt · føreseiingar sette 13.11</p>
       <div class="fire">
-        <div class="punkt"><span class="nr">01</span><p>Stripa 24 cm mot rein plate: lågaste rute delt på snittet 0,55 til 0,70, i ruter på 10 cm.</p></div>
+        <div class="punkt"><span class="nr">01</span><p>Stripa 24 cm mot rein plate: lågaste rute delt på snittet 0,55 til 0,70.</p></div>
         <div class="punkt"><span class="nr">02</span><p>Same stripe dekt til 12 cm: under 0,4.</p></div>
         <div class="punkt"><span class="nr">03</span><p>Stripa 42 cm under plata, som på fot: ei lys line, under 0,1.</p></div>
-        <div class="punkt"><span class="nr">04</span><p>Frå stolen er plata mørk, med auget 25 til 60 cm over bordet.</p></div>
+        <div class="punkt"><span class="nr">04</span><p>Sitjande ser du ikkje stripa. Ståande framfor bordet ser du ned i renna.</p></div>
       </div>
     </div>
   </main>
 
   <footer class="botn">
-    <span>Bileta er lysmotoren sitt rom for (a) og (b), same kamera og eksponering. Tala er modell, skalerte til 350 lx på feltet. Uavhengig kode gjev jamnheit 0,59.</span>
+    <span>Lyset på bordet sett ovanfrå, uavhengig strålesporing, 350 lx i snitt på feltet (ramma, 0,6 × 0,4 m). Streken er skjermen, du sit nedst. Modell, ikkje måling.</span>
     <span>Designaren vel.</span>
   </footer>
 </div>

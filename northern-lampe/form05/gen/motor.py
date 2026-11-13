@@ -61,7 +61,7 @@ ARK_L, ARK_K = 0.61, 0.35     # (F) konsept/vindauge/film/bevis.md: arket er om 
 RILLE_LAG = {'vassrett': ['x'], 'loddrett': ['y'], 'kryss': ['x', 'y'], 'kryss-v': ['x', 'y'], 'ingen': []}
 LEIAR_MAKS = 0.30             # ANTAKING: lengste veg i lysleiarplata før uttaket blir ujamt (rute/motor.py har 200 mm)
 T_HENGSEL = 1.5               # ANTAKING: friksjonshengsel som held 1,5 N·m
-M_KLEMME = 4.0                # ANTAKING: handskrudd klemme på 18 til 25 mm bordplate held 4 N·m
+M_KLEMME = 15.0               # ANTAKING: vanleg lampeklemme (skrue, kjeft 60 × 80 mm) held om lag 15 N·m. Første køyring hadde 4 N·m, sjå logg.md
 M_SKJERM = 3.5                # ANTAKING: skjermen står på plata til «fot» og er ballast (kg), ikkje med i massen til lampa
 SKJ = dict(x=0.27, y0=0.45, y1=0.50, z0=0.10, z1=0.42)    # skjermen som boks (djupn 5 cm ANTAKING), h over bordet
 RAD = {'kant': 0.020, 'bak': 0.008}                       # huset langs hengslet: Ø40 alu med LED-ar, eller stong Ø16
@@ -173,7 +173,7 @@ class Kropp:
         s.S = S
         xa = np.concatenate([rute_pkt(sp, r, 1.0)[:, 0] for r in s.R] + [rute_pkt(sp, r, 0.0)[:, 0] for r in s.R])
         if st == 'klemme': s.base = np.array([0.66, S[1]])
-        elif st == 'stolpe': s.base = np.array([min(S[0], xa.min()) - 0.06, S[1]])
+        elif st == 'stolpe': s.base = np.array([min(S[0] - 0.06, -0.30 - s.fot.get('r', 0.09) - 0.01), S[1]])   # foten utanfor feltet (retta 16.xx)
         elif st == 'telt': s.base = np.array([max(S[0] + 0.05, xa.max() + 0.05, 0.44), S[1]])
         else: s.base = np.array([0.0, 0.62])
 
@@ -449,6 +449,12 @@ def tal(spec, n_gest=5, n_geo=13):
         stab.append(fe.stabilitet(parts, kr.kontakt(), zg, kr.F_gest))
     st = min(stab, key=lambda x: x['tipp_deg'])
     masse = sum(d[2] for d in D0)
+    r_krav = float('nan')
+    if spec['stotte'] in ('telt', 'stolpe'):            # fotradius som gjev tipp 6° med same tyngdepunkt (rekna, foten sin eigen masse halden fast)
+        r_krav = 0.0
+        for t in (0.0, 1.0):
+            D = kr.delar(t); m_ = sum(d[2] for d in D); c_ = sum(d[2] * d[3] for d in D) / m_
+            r_krav = max(r_krav, np.linalg.norm(c_[:2] - kr.base) + math.tan(math.radians(fe.TIP_MIN)) * c_[2])
     M_kl = 0.0
     if spec['stotte'] == 'klemme':
         for t in (0.0, 1.0):
@@ -476,7 +482,7 @@ def tal(spec, n_gest=5, n_geo=13):
                # form
                fot_cm2=st['fot_cm2'], hogd_cm=(max(V0[:, 2].max(), V1[:, 2].max())) * 100, ut_bord=ut_b, i_sikt=ist,
                sveip_sikt=ins, kollisjon_mm=kol, masse_kg=masse, tipp_deg=st['tipp_deg'], F_tipp_N=st['F_tipp_N'],
-               F_gest_N=kr.F_gest, M_klemme_Nm=M_kl, T_hengsel_Nm=kr.T_hold, d_stong_mm=kr.d_maks, svikt_mm=kr.svikt,
+               r_fot_krav_cm=r_krav * 100, F_gest_N=kr.F_gest, M_klemme_Nm=M_kl, T_hengsel_Nm=kr.T_hold, d_stong_mm=kr.d_maks, svikt_mm=kr.svikt,
                A_rute_cm2=A_rute * 1e4, n_ark=n_ark, skoyt=skoyt, A_kjol_cm2=A_kj * 1e4, A_krav_cm2=W350 / (10 * 30) * 1e4,
                kamera_rille_deg=kam,
                # lys i arbeid (350 lx på feltet, 8 cm arealsnitt)

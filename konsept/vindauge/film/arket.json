@@ -1,0 +1,172 @@
+{
+  "dokument": "konsept/vindauge/film/arket.md",
+  "dato": "2026-11-13",
+  "maalt_paa_arket": false,
+  "merke": {"R": "rekna", "F": "estimat frå foto", "K": "kjent frå kjelde", "A": "ANTAKING"},
+  "dom": "Lineær prismefilm av BEF-typen (90°-prisme i akrylat på berefilm) frå baklyset, riller parallelt med kortsida, prismesida mot rommet i fotoa. Antakinga i øktene held for forma og splitten, men lobene ligg truleg nærare ±29° enn ±30,7°: fotoa peikar mot n 1,55 til 1,57 ved 90°.",
+  "arket": {
+    "rilleretning": {"verdi": "parallelt med kortsida", "status": "F", "sannsyn": 0.95},
+    "rifla_side": {"verdi": "sida som vende mot rommet i foto 01 og 07", "status": "F", "sannsyn": 0.85},
+    "hoegd_over_breidd": {"verdi": 1.745, "pm": 0.03, "status": "R frå F"},
+    "storleik_cm": {"verdi": [25, 44], "breidd_spenn": [21, 28], "hoegd_spenn": [37, 49], "status": "F", "grunn": "linjeavstand i brevet 17 til 18 px (kontrollert), 4,2 til 5,6 mm (A), brevet ligg flatt, forkorting 0,70 (R)"},
+    "monitor": {"format": "16:9", "tommar": {"20 til 24": 0.70, "27": 0.20, "anna": 0.10}, "status": "F", "merke": "ukjent"},
+    "tjukn_mm": {"spenn": [0.1, 0.2], "status": "K"},
+    "rilleavstand_um": {"spenn": [24, 50], "status": "K"}
+  },
+  "hypotesar": [
+    {
+      "id": "H1",
+      "namn": "nær ideell lineær 90°-prismefilm (BEF)",
+      "sannsyn": 55,
+      "film": "Film(prisme(90, avrunding=0.03), n_d=1.57, abbe=30, spreiing=0.3, spreiing_langs=0.3, haze=0.01)",
+      "parametrar": {
+        "toppvinkel": {"verdi": 90, "spenn": [88, 92], "status": "K", "merknad": "foto gjev 93,6 ± 2,8 ved n 1,585 (F)"},
+        "avrunding": {"verdi": 0.03, "spenn": [0, 0.1], "status": "A"},
+        "land": {"verdi": 0, "status": "F", "merknad": "under 3,5 % rett gjennom"},
+        "n_d": {"verdi": 1.57, "spenn": [1.53, 1.65], "status": "F", "merknad": "foto 1,53 til 1,56 ved 90°, kjelde over 1,56 (K)"},
+        "abbe": {"verdi": 30, "spenn": [20, 40], "status": "A"},
+        "spreiing": {"verdi": 0.3, "maks": 0.5, "status": "F"},
+        "spreiing_langs": {"verdi": 0.3, "maks": 0.5, "status": "F"},
+        "haze": {"verdi": 0.01, "maks": 0.02, "status": "F"},
+        "T_ekstra": {"verdi": 1.0, "status": "A"},
+        "lobe_rett_inn_grader": {"verdi": 29.4, "spenn": [27.3, 33.7], "status": "R"}
+      }
+    },
+    {
+      "id": "H2",
+      "namn": "prismefilm med avvik: toppvinkel utanfor 88 til 92°, avrunding over 0,05 eller ekstra spreiing",
+      "sannsyn": 31,
+      "film": "Film(prisme(94, avrunding=0.1), n_d=1.585, abbe=30, spreiing=0.5, spreiing_langs=1.0, haze=0.03)",
+      "parametrar": {
+        "toppvinkel": {"verdi": 94, "spenn": [85, 100], "status": "F"},
+        "avrunding": {"verdi": 0.1, "spenn": [0.05, 0.2], "status": "A"},
+        "land": {"verdi": 0, "status": "F"},
+        "n_d": {"verdi": 1.585, "status": "K", "merknad": "typisk for harpiksen"},
+        "abbe": {"verdi": 30, "status": "A"},
+        "spreiing": {"verdi": 0.5, "status": "F", "merknad": "øvre grense frå foto"},
+        "spreiing_langs": {"verdi": 1.0, "status": "A", "merknad": "bølgja riller"},
+        "haze": {"verdi": 0.03, "status": "A"},
+        "T_ekstra": {"verdi": 1.0, "status": "A"},
+        "lobe_rett_inn_grader": {"verdi": 28.5, "status": "R"}
+      }
+    },
+    {
+      "id": "H3",
+      "namn": "prismefilm laminert med reflekterande polarisator",
+      "sannsyn": 5,
+      "film": "Film(prisme(90, avrunding=0.03), n_d=1.57, abbe=30, spreiing=0.3, spreiing_langs=0.3, haze=0.01, T_ekstra=0.5)",
+      "parametrar": {
+        "som": "H1",
+        "T_ekstra": {"verdi": 0.5, "status": "A", "merknad": "halve polarisasjonen blir kasta attende; film.py reknar han som tapt"}
+      }
+    },
+    {
+      "id": "H4",
+      "namn": "to ark saman (kryssa prisme, eller prisme og tynn diffusor)",
+      "sannsyn": 3,
+      "film": "to H1 i serie, kryssa 90°, eller H1 med haze 0.3 (A)"
+    },
+    {
+      "id": "H5",
+      "namn": "anna: lentikulær, einvegsdiffusor, diffusor, mikrolinse",
+      "sannsyn": 6,
+      "film": "Film(linse(0.6), n_d=1.49, abbe=57) (A)"
+    }
+  ],
+  "provar": [
+    {
+      "id": "P1",
+      "rang": 1,
+      "namn": "hol og kort",
+      "erstattar": "lykteprøva i konsept/film/00-vindauge-utan-linse.md",
+      "oppsett": "mørkt rom, papir med hol 1 cm teipa på arket, lykta 30 cm bak holet, kvitt kort 30 cm framfor, parallelt; begge sider mot lykta",
+      "noter": ["tal flekkar", "S, avstand mellom flekksentra (cm)", "lys midt mellom", "farge ytst", "kantuskarpleik (mm)", "kva som er att med flatsida mot lykta"],
+      "foresagt": {
+        "H1": {"prismeside": "2 like flekkar langs langsida, S 34 cm (31 til 40), mørkt midt, blått ytst, fargekant 9 til 10 mm, kant ca. 5 mm", "flatside": "mørkt kort, lyset attende mot lykta", "status": "R"},
+        "H2": {"prismeside": "som H1, men glød midt 2,5 til 10 % av lyset, flekkar smurde over 2 cm, eller S utanfor 31 til 40", "flatside": "glød midt, 5 til 20 % gjennom", "status": "R"},
+        "H3": {"prismeside": "som H1", "flatside": "som H1"},
+        "H4": {"prismeside": "4 flekkar i kryss, eller flekkar på lys bakgrunn", "flatside": "lys att midt"},
+        "H5": {"prismeside": "éi samanhengande stripe lysast midt, eller éin mjuk flekk", "flatside": "nesten som framsida"}
+      },
+      "S_cm_til_n_ved_90": [[31.0, 1.53], [32.4, 1.55], [33.8, 1.57], [35.3, 1.59], [39.9, 1.65]]
+    },
+    {
+      "id": "P2",
+      "rang": 2,
+      "namn": "blindsona",
+      "oppsett": "som P1, flatsida mot lykta, kortet 5 cm framfor; flytt lykta sidelengs på tvers av rillene til to flekkar dukkar opp 4 til 6 cm ut; begge sider",
+      "noter": ["x, halve avstanden mellom dei to lykteplassane (cm)"],
+      "foresagt": {
+        "H1": {"x_cm": "0,39 · (S − 22,3)", "status": "R"},
+        "H2": {"x_cm": "om lag 1 cm under H1 ved 95°, 2 cm under ved 100°, 1 cm over ved 85°; aldri heilt mørkt ved avrunda toppar", "status": "R"},
+        "H3": {"x_cm": "som H1"},
+        "H4": {"x_cm": "lys ved x = 0 om eitt ark er diffusor"},
+        "H5": {"x_cm": "inga blindsone, lys ved x = 0"}
+      },
+      "tabell": [
+        {"toppvinkel": 90, "n": 1.53, "S": 31.0, "x": 3.4},
+        {"toppvinkel": 90, "n": 1.55, "S": 32.4, "x": 3.9},
+        {"toppvinkel": 90, "n": 1.57, "S": 33.8, "x": 4.5},
+        {"toppvinkel": 90, "n": 1.59, "S": 35.3, "x": 5.1},
+        {"toppvinkel": 90, "n": 1.65, "S": 39.9, "x": 6.8},
+        {"toppvinkel": 95, "n": 1.59, "S": 32.3, "x": 3.0},
+        {"toppvinkel": 100, "n": 1.59, "S": 29.6, "x": 0.9},
+        {"toppvinkel": 85, "n": 1.59, "S": 38.5, "x": 7.3}
+      ]
+    },
+    {
+      "id": "P3",
+      "rang": 3,
+      "namn": "polarisator",
+      "oppsett": "kvitt bilete på telefonskjermen, arket over, sjå rett ned frå 40 cm, drei telefonen ein halv runde",
+      "noter": ["forhold lysaste mot mørkaste stilling"],
+      "foresagt": {
+        "H3": "éi stilling nesten svart, over 5:1",
+        "H1": "under 1,5:1", "H2": "under 1,5:1", "H4": "under 1,5:1", "H5": "under 1,5:1",
+        "status": "A"
+      }
+    }
+  ],
+  "lampe": [
+    {"eigenskap": "gøymer kjelda utan skjerm", "fysikk": "ingen veg rett gjennom frå prismesida", "tal": "under 3,5 % rett gjennom (F)"},
+    {"eigenskap": "deler éin stråle i to", "fysikk": "bryting i to flanker", "tal": "±29°, 47 % i kvar (R)"},
+    {"eigenskap": "samlar og skjermar med prisma ut over ein kvit boks", "fysikk": "totalrefleksjon kastar attende alt innanfor ±8,6° frå flatsida", "tal": "dobbelt rett fram, nesten mørk i flate vinklar (R, 01-ruta)"},
+    {"eigenskap": "vipp om rilleaksen styrer lyset", "fysikk": "innfallsvinkel på flankane", "tal": "4:1 ved 30°, spegel ved 40 til 50° (R)"},
+    {"eigenskap": "nært står fast, fjernt løyser seg opp", "fysikk": "forskyving = avstand · tan 29°", "tal": "1 cm bak: 6 mm; 20 cm bak: 11 cm og dobla (R); regnbogekant 1,3° (R)"}
+  ],
+  "verkar_ikkje": "Arket gjer ikkje lyset varmare, mjukare eller jamnare: utan spreiar bak viser det kvar diode som to skarpe, blendande punkt.",
+  "handtering": {
+    "klipping": "pil langs rillene på prismesida i eit hjørne først; saks eller kniv mot stållinjal frå den glatte sida; ikkje laser (A)",
+    "feste": "berre i kantane, luft på prismesida, 1 til 3 mm klaring (A); 0,4 til 1,3 mm utviding over 60 cm ved 30 K (R)",
+    "varme_maks_C": {"verdi": 60, "status": "A", "grunn": "PET mjuknar ved ca. 78 °C (K)"},
+    "reinhald": "vatn og oppvaskmiddel, dupp langs rillene, ikkje aceton (A)"
+  },
+  "andre_ark": [
+    {"ark": "reflektor", "bruk": "bakvegg som sender lys ut att", "status": "K"},
+    {"ark": "lysleiar 2 til 4 mm med prikkmønster", "bruk": "kantlyst flate", "status": "K"},
+    {"ark": "diffusor 1 til 2", "bruk": "jamnar diodepunkt under prismefilmen", "status": "K"},
+    {"ark": "prismefilm nr. 2, riller langs langsida", "bruk": "kryssa: gøymer kjelda i begge aksar", "status": "A", "sannsyn": 0.6},
+    {"ark": "reflekterande polarisator", "bruk": "halvspegel", "status": "A"}
+  ],
+  "usemje": [
+    {"om": "brennvidd", "bevis": "26 mm", "maaling": "28,4 og 33,9 mm frå forsvinningspunkt", "dom": "maaling; avbøying 35 til 36°, n 1,6 frå bevis er for høg"},
+    {"om": "lys tverrline og mørk kant", "bevis": "betongbandet forskyvd 36°", "maaling": "vindaugsramma sett to gonger", "dom": "maaling; same stad på arket ved ulik synsvinkel"},
+    {"om": "H1 mot H2", "bevis": "45/43", "maaling": "55/32", "dom": "55/31"},
+    {"om": "storleik", "bevis": "35 × 61 cm, 27 tommar", "maaling": "27 × 47 cm, 21,5 tommar", "dom": "ca. 25 × 44 cm; ingen retta for at brevet ligg flatt"},
+    {"om": "n", "fjerde_lesing": "1,58 til 1,65", "maaling": "1,53 til 1,56 ved 90°", "dom": "1,57 som arbeidsverdi; P1 og P2 avgjer"},
+    {"om": "mjølkekvit rett framfrå", "fjerde_lesing": "TIR", "dom": "TIR berre frå flatsida; frå prismesida er det to bilete oppå kvarandre"}
+  ],
+  "ope": [
+    "n og toppvinkel kvar for seg (P1 og P2)",
+    "avrunding (flatsida i P1)",
+    "polarisator i arket (P3)",
+    "storleik og tjukkleik",
+    "rilleavstand 24 til 50 µm, diffraksjon 0,6 til 1,3° (R)",
+    "Abbe-tal: fargekant 2,0 til 2,9° i 07 mot 1,5 til 2,0° i modell",
+    "strekket ved taklina 3 til 5 gonger større i 07 enn i 01",
+    "oransje stolpe i mørk sone, farga band i 01",
+    "om monitoren hadde eit andre prismeark",
+    "hypotesar/tal.json frå tredje lesar er ukontrollert og ikkje brukt",
+    "00 og 01 i konsept/film kviler på n 1,59; lobene flyttar seg ca. 1° innover ved 1,57"
+  ]
+}

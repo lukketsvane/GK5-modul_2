@@ -325,8 +325,24 @@ SCENER = {      # faktor: avstand i høve til det som akkurat får med heile kul
     'linsene': dict(fn=lambda: [('P07', np.eye(4)), ('P06', _Tr(80, 18, 0)), ('P09', _M(_R((0, 1, 0), 90), _Tr(-110, 10, 10)))],
                     kamera=dict(azimut=-18, elevasjon=32, lens=90, faktor=0.85), prover=64),
     'arket': dict(fn=lambda: [('P08', _M(_R((1, 0, 0), 90 - 9), _Tr(0, 0, 0)))],
-                  kamera=dict(azimut=-24, elevasjon=10, lens=50, faktor=0.80), prover=48, baklys=True),
+                  kamera=dict(azimut=-24, elevasjon=10, lens=50, faktor=0.80), prover=48),
 }
+
+# Delbanken: kvar del for seg, gjennomsiktig bakgrunn, ortografisk kamera frå same retning og med same målestokk
+# (PX_PER_MM pikslar per mm), så bileta kan setjast saman i skisser utan å skalerast kvar for seg.
+PX_PER_MM = 4
+BANKVINKEL = dict(azimut=-35, elevasjon=28, lens=50, faktor=1.0)
+
+
+def _bank_M(pid):
+    if pid == 'P08':
+        return _R((1, 0, 0), 90 - 9)                       # arket står, lent 9° bakover, som i scena «arket»
+    return np.eye(4)
+
+
+for _pid in DELAR:
+    SCENER[f'del-{_pid}'] = dict(fn=(lambda p=_pid: [(p, _bank_M(p))]), kamera=BANKVINKEL, prover=32, delbank=True)
+SCENER['del-samla'] = dict(fn=scene_samla, kamera=BANKVINKEL, prover=32, delbank=True)
 
 
 def _scenedata(namn, sc, stl_av):
@@ -340,8 +356,11 @@ def _scenedata(namn, sc, stl_av):
     midt = (lo + hi) / 2
     R = np.linalg.norm(hi - lo) / 2
     k = sc['kamera']
-    return dict(objekt=objekt, lo=lo.tolist(), hi=hi.tolist(), prover=sc['prover'], storleik=[1600, 1000], baklys=sc.get('baklys', False),
-                kamera=dict(mal=midt.tolist(), azimut=k['azimut'], elevasjon=k['elevasjon'], lens=k['lens'], faktor=k['faktor']))
+    ut = dict(objekt=objekt, lo=lo.tolist(), hi=hi.tolist(), prover=sc['prover'], storleik=[1600, 1000], baklys=sc.get('baklys', False),
+              kamera=dict(mal=midt.tolist(), azimut=k['azimut'], elevasjon=k['elevasjon'], lens=k['lens'], faktor=k['faktor']))
+    if sc.get('delbank'):
+        ut['delbank'] = dict(px_per_mm=PX_PER_MM)
+    return ut
 
 
 FARGAR = {'aluminium': (200, 202, 205), 'plast_grå': (130, 132, 135), 'stål': (185, 185, 188), 'stål_svart': (25, 25, 28),

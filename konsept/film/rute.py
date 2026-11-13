@@ -110,10 +110,11 @@ def _rot(v, akse, vinkel):
     akse = nrm(akse); c, s = math.cos(vinkel), math.sin(vinkel)
     return v * c + np.cross(akse, v) * s + akse * (akse @ v) * (1 - c)
 
-def lampe(bjelke, langs, ut0, djupn=0.19, lengd=0.30, ford=None, riller='bjelke', vinkel=(0.0, 0.0), fot=None, direkte=0.0):
+def lampe(bjelke, langs, ut0, djupn=0.19, lengd=0.30, ford=None, riller='bjelke', vinkel=(0.0, 0.0), fot=None, bakstripe=0.0, stripe_n=(0.0, 1.0, -0.3)):
     """Ei rute som heng i ein bjelke og vippar om han. bjelke: midten av bjelken. langs: retninga bjelken går.
     ut0: retninga den lysande sida peikar når vinkelen er 0. vinkel: (stemning, arbeid) i grader om bjelken.
-    riller: 'bjelke' (rillene langs bjelken) eller 'tvers'. Gjev lysgrep g(t)."""
+    riller: 'bjelke' (rillene langs bjelken) eller 'tvers'. bakstripe: del av watten til ei diodestripe på bjelken, vend mot veggen.
+    Gjev lysgrep g(t)."""
     bj = np.asarray(bjelke, float); la = nrm(langs); ut0 = nrm(np.asarray(ut0, float) - (np.asarray(ut0, float) @ la) * la)
     e0 = np.cross(la, ut0)                                   # retninga ruta strekkjer seg frå bjelken
     def g(t):
@@ -123,12 +124,18 @@ def lampe(bjelke, langs, ut0, djupn=0.19, lengd=0.30, ford=None, riller='bjelke'
         c = bj + e * djupn / 2
         r = la if riller == 'bjelke' else e
         st = (djupn, lengd) if riller == 'bjelke' else (lengd, djupn)
-        l = rute(c, ut, r, st, W * ls.LMW_KJELDE, K, ford)
+        l = rute(c, ut, r, st, (1 - bakstripe) * W * ls.LMW_KJELDE, K, ford)
+        lys = [l]
+        if bakstripe > 0:      # ei smal stripe dioder på bjelken, vend mot veggen: held veggen bak skjermen lys i arbeid
+            sn = nrm(stripe_n)
+            fl = ls.flate(bj + sn * 0.014, sn, (lengd, 0.02), bakstripe * W * ls.LMW_KJELDE * 0.9, K, opp=(0, 0, 1))
+            fl.lm_ut = fl.lm; fl.lm = bakstripe * W * ls.LMW_KJELDE; fl.mater = True
+            lys.append(fl)
         bak = ls.Rekt(c - ut * 0.012 - la * lengd / 2 - e * djupn / 2, la * lengd, e * djupn)       # huset: svart bakside
         kropp = [bak, ls.syl(bj - la * lengd / 2, bj + la * lengd / 2, 0.012)]
         if fot is not None:
             kropp += [ls.syl(b(fot[0], fot[1], 0.0), bj, 0.008), ls.skive(b(fot[0], fot[1], 0.004), (0, 0, 1), 0.10)]
-        return [l], kropp
+        return lys, kropp
     return g
 
 def rekn(g, n=5):

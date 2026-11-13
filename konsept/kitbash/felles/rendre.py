@@ -68,10 +68,34 @@ def _objekt(delar, mappe):
     return ut
 
 
+def _tilpass(delar, kam, storleik, marg=0.06):
+    """Kameraet til byggjesettet står i ein avstand som er sett for hand per scene (faktor). Her blir siktepunktet og
+    faktoren rekna ut slik at heile lampa akkurat får plass i biletet med `marg` luft, i same retning og med same linse."""
+    V = np.vstack([m.vertices for _, _, m, _ in K.alle_under(delar)])
+    lo, hi = V.min(0), V.max(0); R = float(np.linalg.norm(hi - lo)) / 2
+    az, el = np.radians(kam['azimut']), np.radians(kam['elevasjon'])
+    retn = np.array([np.sin(az) * np.cos(el), -np.cos(az) * np.cos(el), np.sin(el)])        # frå siktepunktet mot kameraet
+    hogre = np.cross([0, 0, 1.0], retn); hogre /= np.linalg.norm(hogre); opp = np.cross(retn, hogre)
+    W, H = storleik
+    th, tv = (1 - marg) * 18.0 / kam['lens'], (1 - marg) * 18.0 * H / W / kam['lens']
+    mal = (lo + hi) / 2
+    for _ in range(4):
+        q = V - mal; a = q @ retn; x = q @ hogre; y = q @ opp
+        Dist = float(np.max(a + np.maximum(np.abs(x) / th, np.abs(y) / tv)))
+        z = Dist - a
+        mal = mal + hogre * (np.max(x / z) + np.min(x / z)) / 2 * Dist + opp * (np.max(y / z) + np.min(y / z)) / 2 * Dist
+    halv_v = np.arctan(18.0 * H / W / kam['lens'])
+    return mal, Dist * np.sin(halv_v) / max(R, 1e-9)
+
+
 def _scene(delar, mappe, kamera, prover, storleik, delbank=None):
     lo, hi = K.grenser(delar)
+    kam = dict(kamera); mal = (lo + hi) / 2
+    if not delbank:
+        mal, kam['faktor'] = _tilpass(delar, kam, storleik)
+        kam['faktor'] = round(float(kam['faktor']), 4)
     sc = dict(objekt=_objekt(delar, mappe), lo=lo.tolist(), hi=hi.tolist(), prover=prover, storleik=list(storleik), baklys=False,
-              kamera=dict(mal=((lo + hi) / 2).tolist(), **kamera))
+              kamera=dict(mal=np.asarray(mal).tolist(), **kam))
     if delbank: sc['delbank'] = dict(px_per_mm=delbank)
     return sc
 

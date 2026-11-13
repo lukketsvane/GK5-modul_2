@@ -226,19 +226,19 @@ def arm_paa(B, phi=180.0):
     return P, np.asarray(B, float) + np.array([0.0, 0.0, 304.5])
 
 
-def bak_skjermen(stotte):
-    """Armen står bak skjermen, midt på, med knoken i (0, 568, 620). stotte: klype, under eller vegg."""
-    B = np.array([0.0, 568.0, 315.5]); P = []
+def bak_skjermen(stotte, knoke_z=620.0):
+    """Armen står bak skjermen, midt på, med knoken i (0, 568, knoke_z). stotte: klype, under eller vegg."""
+    B = np.array([0.0, 568.0, knoke_z - 304.5]); z1 = B[2] - 27.5; z0 = z1 - 6.0; P = []
     if stotte == 'klype':
         P.append(ny('skjermklype med hylle', slaa([boks((-35, 444, 420), (35, 506, 432)), boks((-35, 444, 395), (35, 450, 420)),
-                                                   boks((-35, 500, 282), (35, 506, 420)), boks((-35, 506, 282), (35, 600, 288))])))
+                                                   boks((-35, 500, z0), (35, 506, 420)), boks((-35, 506, z0), (35, 600, z1))])))
     elif stotte == 'under':
         P.append(ny('stålplate under skjermfoten, 300 × 230 × 2', boks((-150, 450, 0), (150, 680, 2)), 'stål'))
-        P.append(ny('røyr Ø25 × 1,5, 280 mm', ror((0, 640, 2), (0, 640, 282), 12.5, 11.0), 'aluminium'))
-        P.append(ny('hylle med krage', slaa([boks((-35, 506, 282), (35, 660, 288)), boks((-18, 622, 262), (18, 658, 282))])))
+        P.append(ny(f'røyr Ø25 × 1,5, {z0 - 2:.0f} mm', ror((0, 640, 2), (0, 640, z0), 12.5, 11.0), 'aluminium'))
+        P.append(ny('hylle med krage', slaa([boks((-35, 506, z0), (35, 660, z1)), boks((-18, 622, z0 - 20), (18, 658, z0))])))
     elif stotte == 'vegg':
-        P.append(ny('veggplate 80 × 120 × 6', boks((-40, 694, 228), (40, 700, 348)), 'aluminium'))
-        P.append(ny('konsoll frå veggen', slaa([boks((-35, 506, 282), (35, 694, 288)), stong((0, 692, 236), (0, 545, 283), 5)])))
+        P.append(ny('veggplate 80 × 120 × 6', boks((-40, 694, z0 - 54), (40, 700, z0 + 66)), 'aluminium'))
+        P.append(ny('konsoll frå veggen', slaa([boks((-35, 506, z0), (35, 694, z1)), stong((0, 692, z0 - 46), (0, 545, z0 + 1), 5)])))
     A, K = arm_paa(B, 180.0)
     return P + A, K
 
@@ -275,14 +275,15 @@ def hovud(K, d, opp):
 
 # ------------------------------------------------------------------ kroppane
 def over(stotte, organ):
-    P, K = bak_skjermen(stotte)
     r = np.array([1.0, 0.0, 0.0]); h = dict(namn='framkanten av plata', P=C_OVER + 147.0 * np.cross(N_OVER, r))
-    if organ == 'rute':        # D Ruta: bjelken og ruta frå CAD-en framfor armen, 10° opp mot brukaren, den lysande sida ned
+    if organ == 'rute':        # D Ruta: bjelken og ruta frå CAD-en på knoken, 10° opp mot brukaren, den lysande sida ned
+        P, K = bak_skjermen(stotte, 500.0)
         e = np.array([0.0, -math.cos(math.radians(10)), math.sin(math.radians(10))])
-        P += ruta_gruppe(['07', '08', '09', '10', '11', '12'], (0.0, 530.5, 500.0), (1, 0, 0), e)
+        P += ruta_gruppe(['07', '08', '09', '10', '11', '12'], (0.0, 526.0, 500.0), (1, 0, 0), e)
         P += vindaugsmodul(K + np.array([0.0, 7.0, 39.0]), K + np.array([0.0, 100.0, 20.0]))
-        P.append(ny('dreieknott for to kanalar', stong((120, 530.5, 500), (146, 530.5, 500), 14), 'aluminium'))
-        return P, dict(namn='knotten på bjelken', P=np.array([146.0, 530.5, 500.0]))
+        P.append(ny('dreieknott for to kanalar', stong((163, 526, 500), (189, 526, 500), 14), 'aluminium'))
+        return P, dict(namn='knotten på bjelken', P=np.array([189.0, 526.0, 500.0]))
+    P, K = bak_skjermen(stotte)
     P.append(ny('bøyel Ø6', boyel(K, C_OVER, r), 'aluminium'))
     if organ == 'flik':
         P += plate(C_OVER, N_OVER, r, flik=60.0, n_flik=NW_OVER)
@@ -529,7 +530,10 @@ def k_brett():
     import felles as fe
     from PIL import Image
     t0 = time.time()
-    cam = fe.Cam(S=1024, el=17, az=240, fov=19, D=3.0, target=(0.12, 0.46, 0.36))
+    # Husstilen har az 240. Her står kameraet i az 300 (framfor til høgre): frå 240 ligg platene på fot rett langs synslina.
+    KAM = dict(el=17, az=300, fov=19, D=3.0, target=[0.16, 0.46, 0.36])
+    cam = fe.Cam(S=1024, **{k: (tuple(v) if k == 'target' else v) for k, v in KAM.items()})
+    E_FARGE = np.array([255, 219, 168])           # fargen fe.render gjev lysande flater
     sb = boks((-SKJ['x'], SKJ['y0'], SKJ['z0']), (SKJ['x'], SKJ['y1'], SKJ['z1']))
     sf = slaa([sb, boks((-SKJ_FOT['x'], SKJ_FOT['y0'], 0), (SKJ_FOT['x'], SKJ_FOT['y1'], SKJ_FOT['z1'])), boks((-30, 500, 0), (30, 540, 250))])
     Vs, Fs = np.asarray(sf.vertices) / 1000.0, np.asarray(sf.faces)
@@ -542,12 +546,16 @@ def k_brett():
         emit = np.concatenate([np.full(len(p['mesh'].faces), p['mat'] == 'led') for p in P])
         iml, mkl = fe.render(V, F, cam, emit)
         if sp['id'] == 17:                    # projektoren står åleine: skjermen ville dekt han
-            ima = iml
+            a = np.asarray(iml).astype(float); lampe = mkl
         else:
-            ima, _ = fe.render(np.vstack([V, Vs]), np.vstack([F, Fs + len(V)]), cam, np.r_[emit, np.zeros(len(Fs), bool)])
-        a = np.asarray(ima).astype(float); l = np.asarray(iml).astype(float)
-        lampe = mkl & (np.abs(a - l).max(-1) < 12)
-        a[~lampe] *= 0.26
+            # Skjermen er med som mørk skugge, med rett dekking. Første pass teiknar skjermen lysande for å finne pikslane hans.
+            # (Første utgåve samanlikna fargar med lampa åleine. Då skein delar bak skjermen gjennom som lyse silhuettar.)
+            VA, FA = np.vstack([V, Vs]), np.vstack([F, Fs + len(V)])
+            im1, _ = fe.render(VA, FA, cam, np.r_[np.zeros(len(F), bool), np.ones(len(Fs), bool)])
+            im2, _ = fe.render(VA, FA, cam, np.r_[emit, np.zeros(len(Fs), bool)])
+            S = np.abs(np.asarray(im1).astype(int) - E_FARGE).max(-1) <= 8
+            a = np.asarray(im2).astype(float); a[S] *= 0.26
+            lampe = mkl & ~S
         ims[sp['id']] = Image.fromarray(a.astype(np.uint8)); masks[sp['id']] = lampe
         ys, xs = np.nonzero(mkl)
         if len(xs) and (xs.min() <= 1 or ys.min() <= 1 or xs.max() >= 510 or ys.max() >= 510):
@@ -577,7 +585,7 @@ def k_brett():
             hull = MultiPoint(list(zip(xs[::7].tolist(), ys[::7].tolist()))).convex_hull
             luft[k] = round(1.0 - float(mk.sum()) / max(hull.area, 1.0), 2)
     ut = dict(iou_snitt=round(float(np.mean([p[2] for p in par])), 2), iou_maks=max(p[2] for p in par), iou_par=par, luft=luft,
-              klipt_av_ramma=klipt, kamera=dict(el=17, az=240, fov=19, D=3.0, target=[0.12, 0.46, 0.36]))
+              klipt_av_ramma=klipt, kamera=KAM)
     json.dump(ut, open(os.path.join(HER, 'tal_brett.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
     print(json.dumps({k: v for k, v in ut.items() if k != 'iou_par'}, ensure_ascii=False), 'brett %.0f s' % (time.time() - t0))
 

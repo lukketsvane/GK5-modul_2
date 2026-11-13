@@ -115,7 +115,7 @@ def materiale():
     M['golv'], _ = _principled('golv', (0.014, 0.014, 0.016), 0.0, 0.6)
     # --- lagt til for kitbash: trykte og kjøpte delar
     # Trykte delar: matt, varm raudbrun, fargen Iver brukte på fot og bjelke i konsept/film/cad/render.py (0,20 0,028 0,03).
-    M['print'], _ = _principled('print', (0.20, 0.028, 0.03), 0.0, 0.62)
+    M['print'], _ = _principled('print', (0.13, 0.024, 0.018), 0.0, 0.62)
     # Kjøpt LED-flate: lyser svakt varmt, så ho les som tend utan å lyse opp studioet
     m, p = _principled('led', (1.0, 0.86, 0.62), 0.0, 0.5)
     p.inputs['Emission Color'].default_value = (1.0, 0.74, 0.42, 1.0); p.inputs['Emission Strength'].default_value = 2.5

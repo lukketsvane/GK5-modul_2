@@ -24,6 +24,12 @@ import trimesh
 from shapely.geometry import Polygon, Point, box as _sboks
 from shapely import affinity as _aff
 
+# Det `from kit import *` gjev. HER, ROT og SETT er ikkje med, så dei ikkje skriv over dine eigne.
+__all__ = ['T', 'Rx', 'Ry', 'Rz', 'om', 'plass', 'pkt', 'retn', 'usikker', 'klaring', 'GRENSESNITT', 'FILM_TRYGG', 'Del', 'sett', 'film',
+           'trykt', 'kjopt', 'ekstruder', 'boks', 'sylinder', 'royr', 'hylse', 'plate', 'vinkel', 'skal', 'kopp', 'dreielekam', 'minus',
+           'pluss', 'snitt', 'flytta', 'fraa_cq', 'led_skive', 'led_stripe', 'alle_under', 'grenser', 'finn', 'sprengd', 'DIMS', 'MAAL',
+           'PRINTER', 'MJUKNAR', 'FORBODNE']
+
 HER = os.path.dirname(os.path.abspath(__file__))
 ROT = os.path.normpath(os.path.join(HER, '..', '..', '..'))
 SETT = os.path.join(ROT, 'modell', 'byggjesett')

@@ -44,7 +44,7 @@ def s_oppsett(W, H):
              ('5', 'kropp', 'modellen frå sida i romlys, rolig bakgrunn', 'side 10 og presentasjonen'),
              ('6', 'felt', 'arbeid, A4-arket i feltet rett ovanfrå', 'jamnheita (F3)'),
              ('7', 'auge-25, -47, -60', 'frå augehøgda 25, 47 og 60 cm over bordet', 'blendinga (F1)'),
-             ('8', 'mote (berre A)', 'skiva vend, frå augehøgda 47 cm', 'møtelyset (F10)')]
+             ('8', 'mote (berre A)', 'skiva vend, fliklykta sløkt, auge 47 cm', 'møtelyset (F10)')]
     y = 56
     for s_, dx in (('NR', 0), ('FILNAMN', 7), ('KVA', 38), ('TIL', 98)):
         g.append(t(x2 + dx, y, s_, 'mono grå'))

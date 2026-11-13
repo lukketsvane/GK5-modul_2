@@ -23,16 +23,16 @@ Dato: 13.11.2026. Ingenting er målt. Lys og mekanikk er rekna med `val.py`, og 
 | Ruta i siktlina | 0 % | 7 % | **99 %** | 0 % | 14 % |
 
 - **Lyset og foten dreg kvar sin veg.** 350 lx med U0 over 0,4 krev at ruta heng ut over feltet. Med 1,2 kg på Ø 158 mm har tyngdepunktet 79 mm å gå på, og det er brukt opp. Med utsvinget −80 mm, altså ruta 15 cm lenger mot feltet, er tippvinkelen −0,6°, og lampa veltar utan dytt. Med −230 mm trengst ein fot på Ø 544 mm.
-- **Ein høgare aske gjer det verre.** Dytten som veltar lampa, fell frå 3,1 N ved 260 mm til 2,2 N ved 360 mm og 1,7 N ved 460 mm. Massen stig samstundes til 1233 og 1286 g, over F8.
+- **Ein høgare akse gjer det verre.** Dytten som veltar lampa, fell frå 3,1 N ved 260 mm til 2,2 N ved 360 mm og 1,7 N ved 460 mm. Massen stig samstundes til 1233 og 1286 g, over F8.
 - **I søket held lyset (W ≤ 7,5, U0 ≥ 0,4 og auget ≤ 1500) for éin variant av 300.** Han veltar. Dei 10 som står, har U0 på 0,06 eller lågare.
 - **Ei større rute hjelper ikkje.** Arket fullt ut (44 × 24,4 cm) gjev 6,4 W med U0 0,13, men 1457 g, og lampa veltar ved 1,5 N trykk på ruta.
-- **Den teikna kroppen held heller ikkje over heile hellinga.** Ved 0 og 10° veltar eit trykk på 4,8 N på framkanten av ruta lampa. Ved 50 til 80° er dytten i toppen 2,7 N. Kontrollen i `kontroll.json` (6,7 N og 3,1 N) gjeld berre ved 35°.
+- **Den teikna kroppen held heller ikkje over heile hellinga.** Ved 0 og 10° veltar eit trykk på 4,8 N på eit hjørne av ruta lampa. Ved 50 til 80° er dytten i toppen 2,7 N. Kontrollen i `kontroll.json` (6,7 N og 3,1 N) gjeld berre ved 35°.
 
 Kroppen er altså eit **stemnings- og sidelys**. Det er det (a), (b) og (c) under er: dei beste stemnings- og sidelysvariantane av kroppen Iver valde, ikkje arbeidslys. Arbeidslyset (F3) krev D-kroppen, som står lenger nede: bjelke over skjermkanten, 2 til 4 kg og ein fot som bryt F9.
 
 ## (a), (b), (c): stemnings- og sidelys
 
-Alle tre har same kropp. Han er som teikna, med to endringar: aksen ligg 40 mm lågare (`AKSE_H` 220) og armen svingar 8 mm meir ut (`ARM_UT` 78). Då held kroppen over heile hellinga, frå 0 til 80° (R). Trykket på venstre hjørne som veltar lampa, er minst 7,3 N (i dag 6,7 N). Dytten i toppen er minst 3,04 N, mot 3,1 N i dag ved 35° og 2,7 N ved 80°. Trykket på framkanten er minst 5,06 N, og tippvinkelen minst 25,7°. Lampa veg 1164 g (F8 held) og har ein fot på 196 cm² (F9 held). Rutemålet 300 × 190 mm går inn i arket (25 × 44 cm). Vindauget for utsvinget er smalt: 77 til 79 mm. Utanfor det fell anten trykket ved 0° eller dytten ved 80° under kravet.
+Alle tre har same kropp. Han er som teikna, med to endringar: aksen ligg 40 mm lågare (`AKSE_H` 220) og armen svingar 8 mm meir ut (`ARM_UT` 78). Då held kroppen over heile hellinga, frå 0 til 80° (R). Trykket på venstre hjørne som veltar lampa, er minst 7,3 N (i dag 6,7 N). Dytten i toppen er minst 3,04 N, mot 3,1 N i dag ved 35° og 2,7 N ved 80°. Trykket på eit hjørne av ruta er minst 5,06 N, og tippvinkelen minst 25,7°. Lampa veg 1164 g (F8 held) og har ein fot på 196 cm² (F9 held). Rutemålet 300 × 190 mm går inn i arket (25 × 44 cm). Vindauget for utsvinget er smalt: 77 til 79 mm. Utanfor det fell anten trykket ved 0° eller dytten ved 80° under kravet.
 
 Handlinga er hellinga. Ruta ligg låg i sidelys og står nesten loddrett i stemning, med dimmaren på leidningen. Stripa er éin kanal på 2700 K, så fargetemperaturen er den same i begge tilstandane.
 
@@ -57,7 +57,7 @@ Handlinga er hellinga. Ruta ligg låg i sidelys og står nesten loddrett i stemn
 | Tipp, sidelys / stemning | 26,8° / 26,3° | 25,7° / 26,3° | 27,5° / 26,3° |
 | Trykk på venstre hjørne som veltar (i dag 6,7 N) | 7,3 N | 7,3 N | 7,3 N |
 | Dytt i toppen som veltar (i dag 3,1 N) | 3,4 / 3,0 N | 3,4 / 3,0 N | 3,3 / 3,0 N |
-| Trykk ned på framkanten som veltar | 5,3 / 7,0 N | 5,1 / 7,0 N | 6,9 / 7,0 N |
+| Trykk ned på eit hjørne av ruta som veltar | 5,3 / 7,0 N | 5,1 / 7,0 N | 6,9 / 7,0 N |
 | Svikt under 5 N: knotten / framkanten | 0,6 / 10,9 mm | 0,6 / 11,7 mm | 0,6 / 5,7 mm |
 | Moment i friksjonsleddet frå 5 N på framkanten | 0,91 N·m | 0,97 N·m | 0,48 N·m |
 | Ruta i siktlina | 3 % | 1 % | 0 |
@@ -70,7 +70,7 @@ Lysstudiane har same kamera og eksponering for arbeid og stemning (ls.KAM og ls.
 
 **(b) Langs feltkanten.** Lampa er dreidd 90°. Bjelken går framover langs høgre kant av feltet, og ruta ligg flat inn over feltet. Ruta står nesten ikkje i siktlina (1 %), og ho speglar seg minst av (a) og (b). Lyset på feltet er 91 lx. Mot eit auge 25 cm over bordet lyser ruta 508 cd/m², fordi auget då ser rett inn i prismesida. I stemning er ho den mildaste (101 cd/m² mot auget), men ho lyser nesten ikkje opp veggen (5 lx).
 
-**(c) Bak skjermen.** Foten står mellom skjermen og veggen, og ruta lyser på veggen bak og ved sida av skjermen. Ruta er skjult frå auget i 47 og 60 cm. Ho gjev 87 lx på veggen bak skjermen ved 2 W og 70 lx i stemning, og ingenting på skjermflata. Ved 2,5 W er det nok til F6 (100 til 150 lx) åleine. På feltet gjev ho nesten ingenting (14 lx), og likskapen er 0,98, så handlinga er berre ein dimmar. Ho er eit bakgrunns- og stemningslys, ikkje eit sidelys. Under 60° kolliderer ruta med skjermen. Ved 0 til 35° går ho 18 til 25 mm inn i skjermen (sok2.csv).
+**(c) Bak skjermen.** Foten står mellom skjermen og veggen, og ruta lyser på veggen bak og ved sida av skjermen. Ruta er skjult frå auget i 47 og 60 cm. Ho gjev 87 lx på veggen bak skjermen ved 2 W og 70 lx i stemning, og ingenting på skjermflata. Ved 2,5 W er det nok til F6 (100 til 150 lx) åleine. På feltet gjev ho nesten ingenting (14 lx), og likskapen er 0,98, så handlinga er berre ein dimmar. Ho er eit bakgrunns- og stemningslys, ikkje eit sidelys. Under 60° kolliderer ruta med skjermen. Ved 0 til 35° gjekk ho 18 til 25 mm inn i skjermen i sok2.csv (aksen 260).
 
 ## Mot A, B, C og D
 
@@ -85,8 +85,8 @@ A til D er frå `konsept/film/02-D-ruta.md` (grovt gitter, ideelt prisme). D-fra
 | D-a, D med Ø240 (arket, fint) | 3,80 | 0,53 | 1169 (augevolum 2071) | 129 | 202 | 40 | 144 | 211 | 0,42 |
 | D-b, plata under skjermen (arket, fint) | 4,05 | 0,54 | 792 (2269) | 136 | 195 | 39 | 143 | 244 | 0,43 |
 | D-c, vassrette riller (arket, fint) | 3,45 | 0,60 | **1693** (2055) | 124 | 143 | **144** | 145 | 244 | 0,43 |
-| (a) Ved feltkanten | **6,8** | **0,07** | 1248 (1452) | 26 | 101 | 61 | 13 | 244 | 0,81 |
-| (b) Langs feltkanten | **7,7** | **0,10** | **1956** (1956) | 34 | 124 | 43 | 5 | 101 | 0,85 |
+| (a) Ved feltkanten | **6,8** | **0,07** | 1248 (1452) | 26 | 101 | 60 | 13 | 244 | 0,81 |
+| (b) Langs feltkanten | **7,7** | **0,10** | **1956** (1956) | 34 | 124 | 44 | 5 | 101 | 0,85 |
 | (c) Bak skjermen | **48** | 0,68 | 9850 | 2100 | 34 | 75 | 70 | 270 | 0,98 |
 
 Stemninga i A til D er 1,25 W med 2200 K. I (a), (b) og (c) er ho 1,25 W med 2700 K, fordi stripa har éin kanal.

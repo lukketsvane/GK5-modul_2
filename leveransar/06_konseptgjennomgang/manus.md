@@ -62,12 +62,21 @@ Alle tre held veggen bak skjermen mellom 100 og 150 lux i arbeid. Det som skil d
 
 Dei kvite tala er best av dei tre.
 
-## 11 Kva de vel, avgjer kva eg byggjer vidare
+## 11 A er det trygge kortet, C det nye, B lampa over skjermen
+
+Dette er mi lesing, ikkje eit val:
+- A ligg nærast Northern og er enklast å byggje, men er òg det minst nye. Snur du skiva, gjev den kvite baksida møtelys på ansiktet.
+- B er den einaste som ligg over skjermen og lèt bordet vere fritt. Prisen er ujamt lys og ein mekanikk som kan verke teknisk.
+- C er det nyaste og lyser reinast, men brukar mest straum og står høgt.
+
+Felles for alle tre: eit dytt veltar lampa. Handlinga må difor vere eit kraftpar, med ein knott i leddet eller ein spak ved foten.
+
+## 12 Kva de vel, avgjer kva eg byggjer vidare
 
 Still spørsmåla i rekkjefølgje og skriv ned svara:
-1. Batteritid med lys på skjermen (A), eller ein skjerm utan lys (C). Dette er det viktigaste.
-2. Kroppen.
-3. Reparasjon.
+1. Kva dei vil ha: det trygge kortet (A), lampa over skjermen (B) eller den nye typen (C). Dette er det viktigaste.
+2. Om B eller C kan stå i sortimentet ved sida av Snowball og Ombre.
+3. Reservedelar.
 4. Ramma for produksjon.
 
-Etter valet måler eg det som står att, byggjer det valde konseptet om med kropp og tek det med til formgjennomgangen 25.11.
+Etter valet måler eg lobebreidda og gjer handlinga til eit kraftpar. Så byggjer eg det valde konseptet om med kropp og tek det med til formgjennomgangen 25.11.

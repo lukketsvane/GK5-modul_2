@@ -165,20 +165,22 @@ def l_valet():
     inn = ('<div class="tre-val">' +
            kol('A', 'nærast Northern, enklast å byggje',
                [f'{f2(A["W350"])}{NB}W for 350{NB}lx, {f1(A["timar"])} timar per celle', f'jamt lys på feltet ({f2(A["jamnheit"])})',
-                'fot, stong og skive, nær Snowball og Ombre'],
+                f'møtelys: vend skiva, 50{NB}lx på ansiktet ved 3,9{NB}W', 'fot, stong og skive, nær Snowball og Ombre'],
                [f'skjermflata får {f2(A["skjerm350"] / 350)} av lyset på feltet', 'minst nytt: Verner Panton Reflect er nær nabo',
                 'skiva må ha lobe under 4,5°']) +
            kol('B', 'den einaste over skjermen',
                ['bordet blir fritt med ei klemme bak skjermen', f'stemninga held seg av skjermen ({f0(B["s_skjerm"])}{NB}lx)', 'ein ny type for Northern'],
-               [f'ujamt lys ({f2(B["jamnheit"])})', 'mekanikken kan bli hovudmotivet og verke teknisk', 'treng klemme: på fot veltar ho']) +
+               [f'ujamt lys ({f2(B["jamnheit"])})', f'møtelyset blendar: 2200 til 2700{NB}cd/m²',
+                'mekanikken kan bli hovudmotivet og verke teknisk', 'treng klemme: på fot veltar ho']) +
            kol('C', 'det nyaste, lyser reinast',
                [f'høgst {f0(max(C["veg_skjerm"]))}{NB}lx på skjermen gjennom skiftet', f'{f0(C["auge25"])}{NB}cd/m² mot auget, lågast av dei tre',
                 'vindauget står i ro på veggen'],
-               [f'{f1(C["W350"])}{NB}W og {f1(C["timar"])} timar per celle', 'hovudet 70' + NB + 'cm over bordet', 'optikk som må stå nøyaktig']) +
+               [f'{f1(C["W350"])}{NB}W og {f1(C["timar"])} timar per celle', f'møtelys berre via veggen: om lag 40{NB}lx ved 7,5{NB}W',
+                'hovudet 70' + NB + 'cm over bordet', 'optikk som må stå nøyaktig']) +
            '</div><p class="graa liten" style="margin-top:12px">Felles: eit dytt på 5' + NB +
            'N veltar alle tre. Vippen og skyvet må vere eit kraftpar, med ein knott i leddet eller ein spak ved foten.</p>')
     return lysbilete(11, 'A er det trygge kortet, C det nye, B lampa over skjermen.', inn,
-                     'Kjelde: konsept/tre/val-18-11.md, tal-*.json og kropp.md (0,5 kg ballast). Modell og overslag, ikkje måling.')
+                     'Kjelde: konsept/tre/val-18-11.md, tal-*.json, kropp.md (0,5 kg ballast) og f10.md (møtelys). Modell og overslag, ikkje måling.')
 
 
 def l_val():

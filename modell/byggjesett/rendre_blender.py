@@ -274,16 +274,15 @@ def rendre(namn, sc):
     if not bank:
         kant.y = min(kant.y, y_bak - 0.03)                              # framfor bakveggen, elles skuggar veggen lyset
     _lys('kant', kant, mal, 1.0 * d * 2, 85 * (d / 0.3) ** 2, (1.0, 0.93, 0.85))
-    if bank:
-        for o in sc['objekt']:
-            if o.get('del_') == 'P08':
-                # Refleks: ei stor lysflate der arket speglar kameraretninga, så filmen får ein blank glans som skiftar over bøyen
-                n = (Matrix(o['M']).to_3x3() @ Vector((0, 0, 1))).normalized()
-                dv = -retn
-                if dv.dot(n) > 0:
-                    n = -n
-                r = dv - 2 * dv.dot(n) * n
-                _kort('refleks', mal + r * 1.2, mal, 1.2, 40.0)
+    for o in sc['objekt']:
+        if o.get('del_') == 'P08':
+            # Refleks: ei stor lysflate der arket speglar kameraretninga, så filmen får ein blank glans som skiftar over bøyen
+            n = (Matrix(o['M']).to_3x3() @ Vector((0, 0, 1))).normalized()
+            dv = -retn
+            if dv.dot(n) > 0:
+                n = -n
+            r = dv - 2 * dv.dot(n) * n
+            _kort('refleks', mal + r * 1.2, mal, 1.2, 70.0)
     if sc.get('baklys'):                                                # lys gjennom arket bakfrå
         bak = Vector((mal.x, min(hi.y + 0.25, y_bak - 0.03), mal.z))
         _lys('baklys', bak, mal, 0.9 * d * 2, 30 * (d / 0.3) ** 2, (1.0, 0.95, 0.88))

@@ -510,52 +510,68 @@ def s_C_maske(W, H):
 
 def s_prismeark(W, H):
     """Måleark for prismearket frå monitoren. Tala går til lysmodellen for «varmt vindauge» (konsept/vindauge/)."""
+    # Prøvene P1 til P3 er frå styringsøkta (konsept/vindauge/film/arket.md, bolk 2). Føresegnene per hypotese står der,
+    # skrivne før prøva, og er med vilje ikkje på arket, så dei ikkje styrer det Iver ser.
     m = 12
     g = [t(m, 28, 'Måleark: prismearket frå monitoren', 'tittel')]
-    g.append(t(m, 35, 'Tala går til lysmodellen for «varmt vindauge». Mørkt rom, telefonlykta som kjelde, aldri sola.', 'ingress'))
-    g.append(t(m, 46, 'OPPSETT, SETT FRÅ SIDA (IKKJE I MÅLESTOKK)', 'mono'))
-    ly, lx, ax, kx = 66, 22, 70, 118
+    g.append(t(m, 35, 'Tre prøver på fem minutt. Tala går til lysmodellen for «varmt vindauge». Mørkt rom, telefonlykta, aldri sola.', 'ingress'))
+    g.append(t(m, 41, 'Du treng telefonlykt, kvitt A4-kort, målband og eit papir med eit hol på 1 cm, teipa midt på arket (teip berre i papirkanten).', 'liten'))
+    g.append(t(m, 49, 'P1, SETT FRÅ SIDA (IKKJE I MÅLESTOKK)', 'mono'))
+    ly, lx, ax, kx = 67, 22, 70, 118
     g.append(f'<circle cx="{lx}" cy="{ly}" r="2.4" fill="#000"/>')
     g.append(f'<line x1="{lx}" y1="{ly}" x2="{ax}" y2="{ly}" class="straale"/>')
-    for dy in (-9, 0, 9):
+    for dy in (-9, 9):
         g.append(f'<line x1="{ax}" y1="{ly}" x2="{kx}" y2="{ly + dy}" class="straale"/>')
-    g.append(f'<line x1="{ax}" y1="{ly - 12}" x2="{ax}" y2="{ly + 12}" stroke="#000" stroke-width="0.9"/>')
+    g.append(f'<line x1="{ax}" y1="{ly - 12}" x2="{ax}" y2="{ly - 0.8}" stroke="#000" stroke-width="0.9"/>')
+    g.append(f'<line x1="{ax}" y1="{ly + 0.8}" x2="{ax}" y2="{ly + 12}" stroke="#000" stroke-width="0.9"/>')
     g.append(f'<line x1="{kx}" y1="{ly - 15}" x2="{kx}" y2="{ly + 15}" stroke="#000" stroke-width="1.8"/>')
     g.append(t(lx, ly + 7, 'lykta', 'mono', 'middle'))
-    g.append(t(ax, ly - 14, 'arket', 'mono', 'middle'))
+    g.append(t(ax, ly - 14, 'arket med hol', 'mono', 'middle'))
     g.append(t(kx, ly - 17, 'kvitt kort', 'mono', 'middle'))
+    g.append(t(kx + 3, ly - 8, 'S', 'mono svart'))
     g.append(maallinje(lx, ly + 20, ax, ly + 20, '30 cm'))
     g.append(maallinje(ax, ly + 20, kx, ly + 20, '30 cm'))
-    steg = ['1  Mørkt rom. Lykta 30 cm bak arket, kortet 30 cm framfor, på éi line.',
-            '2  Merk side A med teip: sida som vender mot deg når flikane peikar opp.',
-            '3  Side A mot lykta: teikn flekkane på kortet med blyant og mål dei.',
-            '4  Snu arket, så side B vender mot lykta, og gjer det same.',
-            '5  Vipp arket 30° og 45° om rilleaksen. Kva flekk blir sterkast?',
-            '6  Lux-appen midt på kortet: utan ark, og med side A og side B mot lykta.',
-            '7  Fargekanten: mål breidda i mm og noter kva farge som ligg ytst.',
-            '8  Dra neglen over flata: kva side er rilla, og går rillene langs eller',
-            '     på tvers av langsida?',
-            '9  Ta foto av kortet med låst eksponering for kvart oppsett.']
-    g.append(t(m, 98, 'SLIK GJER DU', 'mono'))
-    g.append(tekstblokk(m, 104, steg, 'brod', lh=4.4))
-    g.append(t(m, 152, 'Send tabellen og bileta, så blir arket lagt inn i lysmodellen.', 'liten'))
+    steg = [('P1  HOL OG KORT, AVGJER MEST', 'mono svart'),
+            ('1  Lykta 30 cm bak holet, rett mot det. Kortet 30 cm framfor, parallelt med arket.', 'brod'),
+            ('2  Prøv begge sider mot lykta. Sida som gjev to flekkar, er prismesida.', 'brod'),
+            ('3  Skriv ned tal flekkar, avstanden S mellom sentra, lyset midt mellom, ytste farge', 'brod'),
+            ('     og kor uskarp kanten er. Snu arket: kva er att på kortet med den andre sida?', 'brod'),
+            ('P2  BLINDSONA', 'mono svart'),
+            ('4  Flatsida mot lykta, kortet 5 cm framfor. Lykta rett bak holet: kortet er mørkt.', 'brod'),
+            ('5  Flytt lykta sidelengs langs ein linjal, på tvers av rillene, til to flekkar kjem', 'brod'),
+            ('     4 til 6 cm ut på kortet. Gjer det til begge sider og mål x, halve avstanden', 'brod'),
+            ('     mellom dei to lykteplassane.', 'brod'),
+            ('P3  POLARISATOR', 'mono svart'),
+            ('6  Lykta av. Kvitt bilete på telefonen, full styrke. Arket over skjermen, sjå rett', 'brod'),
+            ('     ned frå 40 cm. Drei telefonen sakte ein halv runde: lysast mot mørkast?', 'brod'),
+            ('MÅL OG FOTO', 'mono svart'),
+            ('7  Lengd og breidd med målband. Kjenn med neglen kva side som er rilla.', 'brod'),
+            ('8  Foto av kortet med låst eksponering for kvart oppsett.', 'brod')]
+    y = 100
+    for s, kl in steg:
+        if kl.startswith('mono') and y > 100:
+            y += 1.6
+        inn = 3.6 if s.startswith(' ') else 0                    # SVG slår saman mellomrom, så innrykket blir ein x-forskyving
+        g.append(t(m + inn, y, s.strip(), kl))
+        y += 4.3
     x = m + 146
-    g.append(t(x, 46, 'TABELL', 'mono'))
-    rader = ['Arket, breidd × høgd, mm:  ________ × ________',
-             'Tal ark av kvart slag:  ________',
-             'Rilla side (A eller B):  ____    Rillene går:  langs  /  på tvers av langsida',
-             'Side A mot lykta:  tal flekkar ____    avstand mellom dei ______ cm',
-             '     lengd × breidd per flekk, cm:  ______ × ______',
-             'Side B mot lykta:  tal flekkar ____    avstand mellom dei ______ cm',
-             '     lengd × breidd per flekk, cm:  ______ × ______',
-             'Lux:  utan ark ______    side A ______    side B ______',
-             'Fargekant:  breidd ______ mm    ytst farge ____________',
-             'Vippa 30°: sterkast flekk ______    vippa 45°: ______',
+    g.append(t(x, 49, 'TABELL', 'mono'))
+    rader = ['Arket, lengd × breidd (målband), cm:  ______ × ______',
+             'Tal ark av kvart slag:  ______    rilla side: ______',
+             'Rillene går:  langs  /  på tvers av langsida',
+             'P1 prismesida:  tal flekkar ____    S ______ cm',
+             '     lys midt:  ingen  /  svakt  /  tydeleg    kant ____ mm',
+             '     ytst farge ____________',
+             'P1 flatsida:  kva er att på kortet?',
+             'P2 x:  til venstre ______ cm    til høgre ______ cm',
+             'P3 lysast : mørkast  ______ : 1',
+             'Lux midt på kortet:  utan ark ______    prismesida ______',
              'Merknad:']
     for i, r in enumerate(rader):
-        y = 56 + i * 10.4
-        g.append(t(x, y, r, 'brod'))
-        g.append(f'<line x1="{x}" y1="{y + 3.2}" x2="{W - m}" y2="{y + 3.2}" class="haar"/>')
+        yy = 59 + i * 10.4
+        g.append(t(x + (6 if r.startswith(' ') else 0), yy, r.strip(), 'brod'))
+        g.append(f'<line x1="{x}" y1="{yy + 3.2}" x2="{W - m}" y2="{yy + 3.2}" class="haar"/>')
+    g.append(t(m, H - 27, 'Send tabellen og bileta, så blir arket lagt inn i lysmodellen. Kva kvar prøve skal vise, står i konsept/vindauge/film/arket.md, skrive før prøva.', 'liten'))
     g.append(t(m, H - 23, 'Arket er truleg ein prismefilm frå baklyset i skjermen. Optikken blir rekna i konsept/vindauge/, geometrien ligg i modell/byggjesett/.', 'liten'))
     return ''.join(g)
 

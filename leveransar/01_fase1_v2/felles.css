@@ -144,6 +144,10 @@ svg .lysflate { fill: #FFFFFF; fill-opacity: 0.10; }
 }
 .botn span:last-child { white-space: nowrap; text-align: right; }
 
+/* Utskrift til PDF: éi side per ark, same storleik som skjermsida, svart bakgrunn med. */
+@page { size: 1127px 797px; margin: 0; }
+html, body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
 /* Rette tal i all tekst. Font-snarvegen nullstiller eigenskapen, difor !important. */
 .side, .side * { font-feature-settings: "kern", "liga", "lnum" !important; }
 sub { font-size: 0.7em; line-height: 0; vertical-align: -0.2em; }

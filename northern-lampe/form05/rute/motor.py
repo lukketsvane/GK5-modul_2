@@ -436,17 +436,17 @@ def ende(spec):
 
 def skannliste():
     T, K = KROPPAR['T'], KROPPAR['K']
-    L = []
-    for ri in ('vassrett', 'loddrett', 'kryss', 'ingen'):
-        L.append(('T %s 90>0' % ri, variant(T, rille=ri, vinkel=(90, 0))))
-    L += [('T kryss 105>0', variant(T, rille='kryss', vinkel=(105, 0))), ('T kryss 75>0', variant(T, rille='kryss', vinkel=(75, 0))),
-          ('T kryss 90>15', variant(T, rille='kryss', vinkel=(90, 15))), ('T loddrett 90>15', variant(T, rille='loddrett', vinkel=(90, 15))),
-          ('T kryss 90>0 bak0.3', variant(T, rille='kryss', vinkel=(90, 0), bak=0.3))]
-    for ri in ('vassrett', 'loddrett', 'kryss', 'ingen'):
-        L.append(('K %s 180>0' % ri, variant(K, rille=ri, vinkel=(180, 0))))
-    L += [('K kryss -135>0', variant(K, rille='kryss', vinkel=(-135, 0))), ('K kryss 180>10', variant(K, rille='kryss', vinkel=(180, 10))),
-          ('K loddrett 180>10', variant(K, rille='loddrett', vinkel=(180, 10)))]
-    return L
+    return [('T kryss 90>0', variant(T, rille='kryss', vinkel=(90, 0))),
+            ('T kryss 110>0', variant(T, rille='kryss', vinkel=(110, 0))),
+            ('T loddrett 110>0', variant(T, rille='loddrett', vinkel=(110, 0))),
+            ('T vassrett 110>0', variant(T, rille='vassrett', vinkel=(110, 0))),
+            ('T kryss 110>15', variant(T, rille='kryss', vinkel=(110, 15))),
+            ('T ingen 110>0', variant(T, rille='ingen', vinkel=(110, 0))),
+            ('K kryss 180>0', variant(K, rille='kryss', vinkel=(180, 0))),
+            ('K loddrett 180>0', variant(K, rille='loddrett', vinkel=(180, 0))),
+            ('K vassrett 180>0', variant(K, rille='vassrett', vinkel=(180, 0))),
+            ('K kryss -135>0', variant(K, rille='kryss', vinkel=(-135, 0))),
+            ('K loddrett 180>10', variant(K, rille='loddrett', vinkel=(180, 10)))]
 
 def k_skann():
     t0 = time.time()

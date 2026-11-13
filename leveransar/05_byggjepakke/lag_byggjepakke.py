@@ -508,6 +508,58 @@ def s_C_maske(W, H):
     return ''.join(g)
 
 
+def s_prismeark(W, H):
+    """Måleark for prismearket frå monitoren. Tala går til lysmodellen for «varmt vindauge» (konsept/vindauge/)."""
+    m = 12
+    g = [t(m, 28, 'Måleark: prismearket frå monitoren', 'tittel')]
+    g.append(t(m, 35, 'Tala går til lysmodellen for «varmt vindauge». Mørkt rom, telefonlykta som kjelde, aldri sola.', 'ingress'))
+    g.append(t(m, 46, 'OPPSETT, SETT FRÅ SIDA (IKKJE I MÅLESTOKK)', 'mono'))
+    ly, lx, ax, kx = 66, 22, 70, 118
+    g.append(f'<circle cx="{lx}" cy="{ly}" r="2.4" fill="#000"/>')
+    g.append(f'<line x1="{lx}" y1="{ly}" x2="{ax}" y2="{ly}" class="straale"/>')
+    for dy in (-9, 0, 9):
+        g.append(f'<line x1="{ax}" y1="{ly}" x2="{kx}" y2="{ly + dy}" class="straale"/>')
+    g.append(f'<line x1="{ax}" y1="{ly - 12}" x2="{ax}" y2="{ly + 12}" stroke="#000" stroke-width="0.9"/>')
+    g.append(f'<line x1="{kx}" y1="{ly - 15}" x2="{kx}" y2="{ly + 15}" stroke="#000" stroke-width="1.8"/>')
+    g.append(t(lx, ly + 7, 'lykta', 'mono', 'middle'))
+    g.append(t(ax, ly - 14, 'arket', 'mono', 'middle'))
+    g.append(t(kx, ly - 17, 'kvitt kort', 'mono', 'middle'))
+    g.append(maallinje(lx, ly + 20, ax, ly + 20, '30 cm'))
+    g.append(maallinje(ax, ly + 20, kx, ly + 20, '30 cm'))
+    steg = ['1  Mørkt rom. Lykta 30 cm bak arket, kortet 30 cm framfor, på éi line.',
+            '2  Merk side A med teip: sida som vender mot deg når flikane peikar opp.',
+            '3  Side A mot lykta: teikn flekkane på kortet med blyant og mål dei.',
+            '4  Snu arket, så side B vender mot lykta, og gjer det same.',
+            '5  Vipp arket 30° og 45° om rilleaksen. Kva flekk blir sterkast?',
+            '6  Lux-appen midt på kortet: utan ark, og med side A og side B mot lykta.',
+            '7  Fargekanten: mål breidda i mm og noter kva farge som ligg ytst.',
+            '8  Dra neglen over flata: kva side er rilla, og går rillene langs eller',
+            '     på tvers av langsida?',
+            '9  Ta foto av kortet med låst eksponering for kvart oppsett.']
+    g.append(t(m, 98, 'SLIK GJER DU', 'mono'))
+    g.append(tekstblokk(m, 104, steg, 'brod', lh=4.4))
+    g.append(t(m, 152, 'Send tabellen og bileta, så blir arket lagt inn i lysmodellen.', 'liten'))
+    x = m + 146
+    g.append(t(x, 46, 'TABELL', 'mono'))
+    rader = ['Arket, breidd × høgd, mm:  ________ × ________',
+             'Tal ark av kvart slag:  ________',
+             'Rilla side (A eller B):  ____    Rillene går:  langs  /  på tvers av langsida',
+             'Side A mot lykta:  tal flekkar ____    avstand mellom dei ______ cm',
+             '     lengd × breidd per flekk, cm:  ______ × ______',
+             'Side B mot lykta:  tal flekkar ____    avstand mellom dei ______ cm',
+             '     lengd × breidd per flekk, cm:  ______ × ______',
+             'Lux:  utan ark ______    side A ______    side B ______',
+             'Fargekant:  breidd ______ mm    ytst farge ____________',
+             'Vippa 30°: sterkast flekk ______    vippa 45°: ______',
+             'Merknad:']
+    for i, r in enumerate(rader):
+        y = 56 + i * 10.4
+        g.append(t(x, y, r, 'brod'))
+        g.append(f'<line x1="{x}" y1="{y + 3.2}" x2="{W - m}" y2="{y + 3.2}" class="haar"/>')
+    g.append(t(m, H - 23, 'Arket er truleg ein prismefilm frå baklyset i skjermen. Optikken blir rekna i konsept/vindauge/, geometrien ligg i modell/byggjesett/.', 'liten'))
+    return ''.join(g)
+
+
 def s_A3(W, H):
     m = 12; R = D_SKIVE / 2
     g = [t(m, 26, 'A Skiva: heil skive og ribbe', 'tittel')]
@@ -569,9 +621,9 @@ if __name__ == '__main__':
     print('stl', skriv_stl(os.path.join(HER, 'ribbe_R1200_250mm.stl')), 'trekantar')
     W, H = 297, 210
     innhald = [s_oversikt(W, H), s_lobe_ark(W, H), s_lobe_kort(W, H, 16), s_A_plassering(W, H), s_A_malar_A4(W, H, 1),
-               s_A_malar_A4(W, H, 2), s_A_malar_3(W, H), s_B(W, H), s_C(W, H), s_C_maske(W, H)]
+               s_A_malar_A4(W, H, 2), s_A_malar_3(W, H), s_B(W, H), s_C(W, H), s_C_maske(W, H), s_prismeark(W, H)]
     tit = ['Oversikt', 'Lobebreidda', 'Målekortet', 'A Skiva', 'A Skiva, mal 1', 'A Skiva, mal 2', 'A Skiva, mal 3', 'B Over',
-           'C Vindauge', 'C Vindauge, maske']
+           'C Vindauge', 'C Vindauge, maske', 'Prismearket']
     sider = [side_svg(W, H, s, tit[i], i + 1, len(innhald)) for i, s in enumerate(innhald)]
     hf = os.path.join(HER, 'byggjepakke-A4.html'); open(hf, 'w', encoding='utf-8').write(html(sider, W, H))
     skriv_pdf(hf, os.path.join(HER, 'byggjepakke-A4.pdf')); print('skrive byggjepakke-A4.pdf')

@@ -187,8 +187,9 @@ def konseptark(namn, setning, g, kropp=None, fil='ark.png', px=560, ss=2, handli
     _, m = ls.overgang(g, n=5)
     a, s = A['tal'], S['tal']
     Ea = max(a['E_felt'], 1e-9); W350 = a['W'] * 350 / Ea
-    La = max(a['L_lampe'], a['L_flate']) * 350 / Ea; Lst = max(s['L_lampe'], s['L_flate'])
-    vegg350 = a['E_vegg'] * 350 / Ea
+    Lmaks = lambda d: max(d.get('L_auge25', 0), d['L_lampe'], d.get('L_auge60', 0), d['L_flate'])   # auge 25, 47 og 60 cm over bordet
+    La = Lmaks(a) * 350 / Ea; Lst = Lmaks(s)
+    vegg350 = a['E_bak'] * 350 / Ea
     lik = ls.likskap(s['_fordeling'], a['_fordeling'])
     n = 2 * px; k = n / 1120.0; marg = int(70 * k); W_ = 2 * n + 3 * marg; H_ = n + 2 * marg + int(640 * k)
     P = lambda v: int(round(v * k))
@@ -206,15 +207,15 @@ def konseptark(namn, setning, g, kropp=None, fil='ark.png', px=560, ss=2, handli
     if handling: dr.text((marg, y0 + P(126)), handling, font=fb, fill=graa)
     kol = [(marg, 'stemning', [
         f"{_tal(s['W'], 2)} W · {_tal(s['lm'])} lm ut · {2200} K",
-        f"{_tal(s['E_vegg'])} lx på veggen rundt skjermen",
+        f"{_tal(s['E_bak'])} lx på veggen bak skjermen",
         f"{_tal(s['E_felt'])} lx på arbeidsfeltet",
         f"{_ok(Lst <= 500)}{_tal(Lst)} cd/m² mot auget (krav 500)",
         f"{_tal(ls.CELLE / s['W'], 1)} timar per celle"]),
            (marg + int(0.265 * W_), 'arbeid', [
         f"{_ok(W350 <= 7.5)}{_tal(W350, 1)} W for 350 lx på feltet (tak 7,5 W)",
         f"jamnheit {_tal(a['U'], 2)} (referanse 0,6)",
-        f"{_ok(La <= 1500)}{_tal(La)} cd/m² mot auget ved 350 lx (krav 1500)",
-        f"{_ok(100 <= vegg350)}{_tal(vegg350)} lx på veggen ved 350 lx (krav 100 til 150)",
+        f"{_ok(La <= 1500)}{_tal(La)} cd/m² mot auget ved 350 lx, auge 25 til 60 cm",
+        f"{_ok(100 <= vegg350)}{_tal(vegg350)} lx på veggen bak skjermen (krav 100 til 150)",
         f"{_tal(a['E_ansikt'] * 350 / Ea)} lx på ansiktet · {_tal(ls.CELLE / W350, 1)} timar per celle",
         f"{_tal(a['E_skjerm'] * 350 / Ea)} lx på skjermflata ved 350 lx ({_tal(a['E_skjerm'] / Ea, 2)} av feltet)"]),
            (marg + int(0.545 * W_), 'overgang', [

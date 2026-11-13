@@ -1,0 +1,137 @@
+# -*- coding: utf-8 -*-
+"""
+tre.py  ·  dei tre konsepta til 17. november, rekna likt
+
+Kvart konsept er eit lysgrep frå formfamiliane i ../reflektor, med rettingane skeptikarane fann:
+
+  A  Skiva     bøygd spegel, kuv R 1,2 m, Ø 250 mm, vippar frå veggen til feltet      (reflektor/boy)
+  B  Over      fresnelplata over skjermkanten, diode i brønn 50°, vippar               (reflektor/fresnel)
+  C  Vindauge  linse, maske og delt frontflatespegel: vindauget blir, feltet kjem      (reflektor/projektor)
+
+Same rom, same mannekeng, same watt (1,25 W i stemning, 5 W i arbeid), same tal().
+
+  python tre.py tal          tabell til tal.md
+  python tre.py ark A        konseptark for A (B, C)
+"""
+import os, sys, math, importlib.util, json
+import numpy as np
+
+HER = os.path.dirname(os.path.abspath(__file__))
+REF = os.path.join(HER, '..', 'reflektor')
+sys.path.insert(0, os.path.join(HER, '..', 'lysskisse'))
+import lysskisse as ls
+from lysskisse import b, YV, FELT, watt
+
+def _last(namn, fil):
+    spec = importlib.util.spec_from_file_location(namn, fil)
+    m = importlib.util.module_from_spec(spec)
+    sys.modules[namn] = m
+    spec.loader.exec_module(m)
+    return m
+
+boy = _last('fam_boy', os.path.join(REF, 'boy', 'familie.py'))
+fre = _last('fam_fresnel', os.path.join(REF, 'fresnel', 'familie.py'))
+pro = _last('fam_projektor', os.path.join(REF, 'projektor', 'familie.py'))
+
+# Retting frå etterprøvinga av projektor: maska i trakta stengjer lyset utanfor opninga.
+# Berre 0,47 av lyset kjem gjennom (0,62 med trakta tilpassa maska).
+TRAKT_MASKE = 0.47
+_lpw = pro.lumen_per_watt
+def _lpw_retta(o, mm, u, spegel=0, blad=1.0):
+    v, t = _lpw(o, mm, u, spegel, blad)
+    if o.get('type') == 'trakt':
+        return v * TRAKT_MASKE, t + ' · maske i trakta ×%.2f' % TRAKT_MASKE
+    return v, t
+pro.lumen_per_watt = _lpw_retta
+
+def _finn(mod, namn):
+    """Siste lysgrep med dette namnet i alle lister i modulen (2- eller 3-tuplar)."""
+    funne = None
+    for v in vars(mod).values():
+        if isinstance(v, list):
+            for e in v:
+                if isinstance(e, tuple) and e and e[0] == namn and callable(e[-1]):
+                    funne = e[-1]
+    if funne is None: raise KeyError(namn)
+    return funne
+
+KONSEPT = {
+    'A': dict(namn='Skiva', g=_finn(boy, 'spegel-kuv-1.2'),
+              setning='Ei kjelde i foten lyser opp på ei bøygd spegelskive som vippar frå veggen bak skjermen ned på arbeidsfeltet.',
+              handling='Handlinga: vipp skiva.', familie='boy', kandidat='spegel-kuv-1.2'),
+    'B': dict(namn='Over', g=lambda t: fre.plate(t, fre.OVER_C, fre.OVER_A, 0.12, fre.gli(b(0.0, YV, 0.60), FELT), spreiing=12, kjelde=(40, 50, 50)),
+              setning='Fresnelplata ligg over skjermkanten og vippar lyset frå veggen bak skjermen ned på bordet.',
+              handling='Handlinga: vipp plata.', familie='fresnel', kandidat='over-vipp, brønn 50°'),
+    'C': dict(namn='Vindauge', g=_finn(pro, 'dele-vindauge'),
+              setning='Ei linse teiknar eit vindauge av lys på veggen. Ein spegel glir inn i strålen og legg feltet på bordet, medan vindauget blir.',
+              handling='Handlinga: skyv spegelen inn.', familie='projektor', kandidat='dele-vindauge, trakt ×0,47'),
+}
+
+def rekn(k, n=5):
+    g = KONSEPT[k]['g']
+    R, m = ls.overgang(g, n=n)
+    s, a = R[0], R[-1]
+    Ea = max(a['E_felt'], 1e-9); f = 350.0 / Ea
+    La = lambda d: max(d['L_lampe'], d['L_flate'])
+    rad = dict(
+        konsept=k, namn=KONSEPT[k]['namn'], W350=a['W'] * f, timar=ls.CELLE / (a['W'] * f), jamnheit=a['U'],
+        vegg350=a['E_vegg'] * f, bak350=a['E_bak'] * f, ansikt350=a['E_ansikt'] * f, skjerm350=a['E_skjerm'] * f,
+        auge25=max(a['L_auge25'], a['L_flate']) * f, auge47=La(a) * f, auge60=max(a['L_auge60'], a['L_flate']) * f,
+        s_W=s['W'], s_felt=s['E_felt'], s_vegg=s['E_vegg'], s_bak=s['E_bak'], s_skjerm=s['E_skjerm'],
+        s_auge25=max(s['L_auge25'], s['L_flate']), s_auge47=La(s), s_auge60=max(s['L_auge60'], s['L_flate']),
+        likskap=ls.likskap(s['_fordeling'], a['_fordeling']), topp=m['topp'], sprang=m['sprang'], jamn_auke=m['jamn_auke'],
+        veg_felt=[r['E_felt'] for r in R], veg_auge=[La(r) for r in R], veg_skjerm=[r['E_skjerm'] for r in R],
+        strekk=max(a.get('strekk', 0), s.get('strekk', 0)))
+    return rad
+
+def f0(x): return f'{x:,.0f}'.replace(',', ' ')
+def f1(x): return f'{x:.1f}'.replace('.', ',')
+def f2(x): return f'{x:.2f}'.replace('.', ',')
+
+def tabell(rader):
+    def ok(v, krav): return v if krav else v + ' (ikkje halde)'
+    L = ['| | ' + ' | '.join(f"{r['konsept']} {r['namn']}" for r in rader) + ' |', '| --- |' + ' --- |' * len(rader)]
+    lin = [
+        ('Watt for 350 lx på feltet (tak 7,5)', lambda r: ok(f2(r['W350']), r['W350'] <= 7.5)),
+        ('Timar per celle ved 350 lx', lambda r: f1(r['timar'])),
+        ('Jamnheit (referanse 0,6)', lambda r: f2(r['jamnheit'])),
+        ('Mot auget ved 350 lx, 25 / 47 / 60 cm (F1 3000, F5 1500)', lambda r: ok(f"{f0(r['auge25'])} / {f0(r['auge47'])} / {f0(r['auge60'])}", max(r['auge25'], r['auge47'], r['auge60']) <= 3000)),
+        ('Veggen bak skjermen ved 350 lx (F6 100 til 150)', lambda r: ok(f0(r['bak350']), r['bak350'] >= 100)),
+        ('Veggsona ved 350 lx', lambda r: f0(r['vegg350'])),
+        ('Skjermflata ved 350 lx (del av feltet)', lambda r: f"{f0(r['skjerm350'])} ({f2(r['skjerm350'] / 350)})"),
+        ('Ansiktet ved 350 lx', lambda r: f0(r['ansikt350'])),
+        ('Stemning: mot auget 25 / 47 / 60 cm (krav 500)', lambda r: ok(f"{f0(r['s_auge25'])} / {f0(r['s_auge47'])} / {f0(r['s_auge60'])}", max(r['s_auge25'], r['s_auge47'], r['s_auge60']) <= 500)),
+        ('Stemning: veggen bak skjermen / sona, lx', lambda r: f"{f0(r['s_bak'])} / {f0(r['s_vegg'])}"),
+        ('Stemning: feltet / skjermflata, lx', lambda r: f"{f0(r['s_felt'])} / {f0(r['s_skjerm'])}"),
+        ('Likskap stemning og arbeid (over 0,9 er dimmar)', lambda r: f2(r['likskap'])),
+        ('Lysaste mellomsteg mot auget / største sprang', lambda r: f"{f2(r['topp'])} / {f2(r['sprang'])}"),
+        ('Feltet langs overgangen, lx', lambda r: ' · '.join(f0(x) for x in r['veg_felt'])),
+        ('Skjermflata langs overgangen, lx', lambda r: ' · '.join(f0(x) for x in r['veg_skjerm'])),
+    ]
+    for t, fn in lin:
+        L.append(f'| {t} | ' + ' | '.join(fn(r) for r in rader) + ' |')
+    return '\n'.join(L) + '\n'
+
+if __name__ == '__main__':
+    try: sys.stdout.reconfigure(encoding='utf-8')
+    except Exception: pass
+    a = sys.argv[1:]
+    if a and a[0] == 'tal':
+        nokkel = a[1:] or list(KONSEPT)
+        rader = []
+        for k in nokkel:
+            r = rekn(k); rader.append(r)
+            json.dump(r, open(os.path.join(HER, f'tal-{k}.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
+            print(k, {x: (round(v, 2) if isinstance(v, float) else v) for x, v in r.items() if not isinstance(v, list)})
+        if len(rader) == len(KONSEPT):
+            open(os.path.join(HER, 'tal.md'), 'w', encoding='utf-8').write(tabell(rader))
+            print(tabell(rader))
+    elif a and a[0] == 'tabell':
+        rader = [json.load(open(os.path.join(HER, f'tal-{k}.json'), encoding='utf-8')) for k in KONSEPT]
+        open(os.path.join(HER, 'tal.md'), 'w', encoding='utf-8').write(tabell(rader)); print(tabell(rader))
+    elif a and a[0] == 'ark':
+        import studie
+        k = a[1]; K = KONSEPT[k]; px = int(a[2]) if len(a) > 2 else 560
+        r = studie.konseptark(f"{k}  {K['namn']}", K['setning'], K['g'], fil=os.path.join(HER, f'ark-{k}-{K["namn"].lower()}.png'),
+                              px=px, ss=1, handling=K['handling'])
+        print(k, 'ferdig', {x: round(float(v), 2) for x, v in r.items() if isinstance(v, (int, float))})

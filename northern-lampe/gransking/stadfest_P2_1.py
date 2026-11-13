@@ -33,7 +33,7 @@ def refr(k, N, n1, n2):
     rad = 1 - e ** 2 * (1 - ci ** 2)
     tir = rad < 0
     ct = np.sqrt(np.clip(rad, 0, None))
-    kt = e * k + (e * ci - ct)[..., None] * N
+    kt = e * k + (ct - e * ci)[..., None] * N               # N langs utbreiinga (k·N > 0)
     rs = ((n1 * ci - n2 * ct) / (n1 * ci + n2 * ct)) ** 2
     rp = ((n1 * ct - n2 * ci) / (n1 * ct + n2 * ci)) ** 2
     T = np.where(tir, 0.0, 1 - 0.5 * (rs + rp))
@@ -151,6 +151,12 @@ PHG = np.linspace(-phm, phm, 8001)
 TE = np.radians(np.arange(-90, 90.001, 0.25)); TC = (TE[:-1] + TE[1:]) / 2
 
 
+def KERN(sig_deg):
+    o = np.arange(-120, 121) * 0.25
+    kk = np.exp(-0.5 * (o / sig_deg) ** 2)
+    return kk / kk.sum()
+
+
 def tabell(modell, sig_deg):
     I = np.zeros((len(XI), len(TC)))
     for j, xi in enumerate(XI):
@@ -165,8 +171,7 @@ def tabell(modell, sig_deg):
         h, _ = np.histogram(th, TE, weights=f * (PHG[1] - PHG[0]))
         dens = h / np.diff(TE)
         if sig_deg > 0:
-            kk = np.exp(-0.5 * (np.degrees(TC - TC[len(TC) // 2]) / sig_deg) ** 2); kk /= kk.sum()
-            dens = np.convolve(dens, kk, mode='same')
+            dens = np.convolve(dens, KERN(sig_deg), mode='same')
         I[j] = dens / max(c, 1e-9)                            # per romvinkel
     return I
 
@@ -176,8 +181,7 @@ def tabell_marginal(sig_deg):
     I3 = tabell('M3', 0.0)
     flux_theta = (I3 * np.cos(XI)[:, None]).sum(0) * (XI[1] - XI[0])   # fluks per dθ
     if sig_deg > 0:
-        kk = np.exp(-0.5 * (np.degrees(TC - TC[len(TC) // 2]) / sig_deg) ** 2); kk /= kk.sum()
-        flux_theta = np.convolve(flux_theta, kk, mode='same')
+        flux_theta = np.convolve(flux_theta, KERN(sig_deg), mode='same')
     # separabel: I = G(θ)·(2/π)cos ξ, ∫∫ I cos ξ = ∫G
     return flux_theta[None, :] * (2 / np.pi) * np.cos(XI)[:, None]
 

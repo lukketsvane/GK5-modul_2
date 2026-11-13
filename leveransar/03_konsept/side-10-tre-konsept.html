@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="nn">
+<head>
+<meta charset="utf-8">
+<title>10 · Tre konsept</title>
+<link rel="stylesheet" href="../01_fase1_v2/felles.css">
+<style>
+  .tre { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 16px; }
+  .tre img { aspect-ratio: 1.7 / 1; object-fit: cover; object-position: center 55%; }
+  table.samanlikning { font-size: 13px; }
+  table.samanlikning td { padding: 3px 10px 3px 0; }
+  table.samanlikning td small { color: var(--graa); font: 400 9.5px/1 var(--mono); margin-left: 8px; letter-spacing: 0.03em; }
+  table.samanlikning td.tal { width: 19%; color: var(--graa); font-size: 12px; }
+  table.samanlikning td.best { color: var(--blekk); }
+  table.samanlikning .feil { font-size: 9.5px; color: var(--graa); }
+  table.samanlikning th.tal { width: 19%; }
+</style>
+</head>
+<body>
+<div class="side">
+  <header class="topp">
+    <span>GK5 · Northern · fase 2</span>
+    <span>10 · Tre konsept</span>
+    <span>Iver R. Finne · 17.11.2026</span>
+  </header>
+
+  <h1 class="tittel">B brukar minst straum, A lyser jamnast, og berre C held lyset borte frå skjermen.</h1>
+
+  <main class="innhald">
+    <div class="k12 tre">
+      <figure><img src="bilete/A-arbeid.png" alt=""><figcaption><b>A Skiva</b> · vipp skiva</figcaption></figure>
+      <figure><img src="bilete/B-arbeid.png" alt=""><figcaption><b>B Over</b> · vipp plata</figcaption></figure>
+      <figure><img src="bilete/C-arbeid.png" alt=""><figcaption><b>C Vindauge</b> · skyv spegelen inn</figcaption></figure>
+    </div>
+    <section class="k12">
+      <table class="samanlikning">
+        <tr><th>Arbeidslys skalert til 350 lx på feltet</th><th class="tal">A Skiva</th><th class="tal">B Over</th><th class="tal">C Vindauge</th></tr>
+        <tr><td>Watt for 350 lx på feltet<small>tak 7,5 W</small></td><td class="tal ">2,14</td><td class="tal best">1,73</td><td class="tal ">3,80</td></tr><tr><td>Timar arbeidslys per celle<small></small></td><td class="tal ">7,1</td><td class="tal best">8,7</td><td class="tal ">4,0</td></tr><tr><td>Jamnheit på feltet<small>referanse 0,6</small></td><td class="tal best">0,60</td><td class="tal ">0,47</td><td class="tal ">0,24</td></tr><tr><td>Mot auget frå 25 cm, cd/m²<small>F1 under 3000</small></td><td class="tal best">83</td><td class="tal ">227</td><td class="tal ">821</td></tr><tr><td>Veggen bak skjermen i arbeid, lx<small>F6 100 til 150</small></td><td class="tal ">14<span class="feil"> ikkje halde</span></td><td class="tal ">16<span class="feil"> ikkje halde</span></td><td class="tal best">72<span class="feil"> ikkje halde</span></td></tr><tr><td>Skjermflata midt i overgangen, lx<small>lys på skjermen</small></td><td class="tal ">350</td><td class="tal ">262</td><td class="tal best">16</td></tr><tr><td>Største sprang i overgangen<small>0 er glatt</small></td><td class="tal ">0,14</td><td class="tal ">0,36</td><td class="tal best">0,06</td></tr><tr><td>Stemning: mot auget, cd/m²<small>F5 under 500</small></td><td class="tal best">83</td><td class="tal ">200</td><td class="tal ">125</td></tr><tr><td>Stemning: veggen bak skjermen, lx<small></small></td><td class="tal ">142</td><td class="tal best">184</td><td class="tal ">85</td></tr><tr><td>Ikkje prøvd enno<small>krava merkte ◆</small></td><td class="tal graa">E2, M1, B1</td><td class="tal graa">E2, M1, B1</td><td class="tal graa">E2, M1, B1</td></tr>
+      </table>
+      <p class="liten kvit" style="margin-top: 8px;">Ingen av dei 18 kandidatane held alle krava når augehøgda og antakingane blir varierte. F1 for A og B heng på lobebreidda til folien, og ho blir målt først.</p>
+    </section>
+  </main>
+
+  <footer class="botn">
+    <span>Modell, ikkje måling: lysmotoren i konsept/lysskisse, same rom, mannekeng og budsjett (1,25&nbsp;W i stemning, 5&nbsp;W i arbeid).</span>
+    <span>Kvit: best av dei tre.</span>
+  </footer>
+</div>
+</body>
+</html>

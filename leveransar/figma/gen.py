@@ -26,6 +26,11 @@ def r1(x):
     return round(x * 2) / 2
 
 
+# Consolas har 0,55 em per teikn, IBM Plex Mono 0,60 em. Med denne faktoren blir monoteksten like brei som i HTML-en,
+# og versalhøgda blir nesten den same (0,64 mot 0,70 × 0,917).
+K_MONO = 0.55 / 0.60
+
+
 def tekst(t):
     runs = []
     for r in t['runs']:
@@ -33,7 +38,9 @@ def tekst(t):
             if runs:
                 runs[-1][0] += r['t']
             continue
-        st = (font(r), r1(r['fs']), hexa(r['c']), r1(r['ls']))
+        k = font(r)
+        fs = r['fs'] * (K_MONO if k.startswith('M') else 1)
+        st = (k, round(fs, 2), hexa(r['c']), round(r['ls'], 2))     # storleik og sperring nøyaktig, ikkje til halve piksel
         if runs and tuple(runs[-1][1:]) == st:
             runs[-1][0] += r['t']
         else:

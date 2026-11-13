@@ -18,17 +18,27 @@ def tilt(n): return math.degrees(math.acos(min(1.0, abs(n[2]))))     # vinkel me
 ZB = ls.ZB
 ut = {}
 
-# ---------------- A: fliken (a_ny(q=0.40, fh=0.30, fw=0.12, fl=0.084, SATIN)), kjelda 2 og hovudlykta
-F2 = tre.boy.F2
-kp2 = b(F2[0], F2[1] + 0.02, 0.05); c2 = b(F2[0], F2[1] + 0.045, 0.30); VEGGMAL = b(0.0, YV, 0.45)
+# ---------------- A: fliken og fliklykta. Parametrane blir lesne frå kallet a_sok.a_ny(...) i tre.py, så pakken følgjer modellen.
+import re, inspect
+SRC = open(REPO + '/konsept/tre/tre.py', encoding='utf-8').read()
+kall = re.search(r'a_sok\.a_ny\(((?:[^()]|\([^()]*\))*)\)', SRC).group(1)
+pa, kw = eval('(lambda *a, **k: (a, k))(' + kall + ')', {'ls': ls, 'b': b, 'YV': YV})
+ba = inspect.signature(a_sok.a_ny).bind(*pa, **kw); ba.apply_defaults(); P = ba.arguments
+for s in ("b_sok.b_ny(0.62, 0.06, 14, b(0.0, YV, 0.60))",
+          "c_sok.c_ny(c_sok.LINSER['vasskule'], 0.65, 0.06, 0.0, grad=1.5, pos=b(0.40, 0.42, 0.70), fot=(0.40, 0.50))"):
+    assert s in SRC, 'tre.py har endra B eller C sidan pakken vart laga: ' + s
+F2 = tre.boy.F2; dx = float(P['dx'])
+kp2 = b(F2[0] + dx, F2[1] + 0.02, 0.05); c2 = b(F2[0] + dx, F2[1] + 0.045, P['fh'])     # som i a_sok.a_ny
+VEGGMAL = getattr(a_sok, 'VEGGMAL', b(0.0, YV, 0.45))
 n2 = nrm(nrm(kp2 - c2) + nrm(VEGGMAL - c2))
 ut['A'] = dict(flik_senter_cm=[round(float(c2[0]) * 100, 1), round(float(c2[1]) * 100, 1), round(float(c2[2] - ZB) * 100, 1)],
-               flik_mm=[120, 84], flik_tilt_grader=round(tilt(n2), 1),
+               flik_dx_cm=round(dx * 100, 1),
+               flik_mm=[round(P['fw'] * 1000), round(P['fl'] * 1000)], flik_tilt_grader=round(tilt(n2), 1),
                flik_normal=[round(float(x), 3) for x in n2],
                lykt2_cm=[round(float(kp2[0]) * 100, 1), round(float(kp2[1]) * 100, 1), round(float(kp2[2] - ZB) * 100, 1)],
-               lykt2_sigma=8, lykt2_kutt=16, lykt2_til_flik_cm=round(float(np.linalg.norm(c2 - kp2)) * 100, 1),
+               lykt2_sigma=P['spr2'], lykt2_kutt=2 * P['spr2'], lykt2_til_flik_cm=round(float(np.linalg.norm(c2 - kp2)) * 100, 1),
                lykt2_vinkel_fram_frå_loddrett=round(math.degrees(math.atan2(float(c2[1] - kp2[1]), float(c2[2] - kp2[2]))), 1),
-               q=0.40)
+               q=P['q'])
 kp1 = b(F2[0], F2[1], 0.05); c1 = b(*tre.boy.CF)
 ut['A']['hovudlykt_vinkel_fram_frå_loddrett'] = round(math.degrees(math.atan2(float(kp1[1] - c1[1]), float(c1[2] - kp1[2]))), 1)
 ut['A']['hovudlykt_til_skive_cm'] = round(float(np.linalg.norm(c1 - kp1)) * 100, 1)

@@ -29,7 +29,7 @@ H_RIBBE = 6.0
 ROER_D = 25.0
 OVERLAPP = 8.0
 ROER_A = (ROER_D / 2) / math.tan(math.radians(20))                # 34 mm: kutt ved 20° (sigma 10°)
-ROER_FLIK = (ROER_D / 2) / math.tan(math.radians(G['A']['lykt2_kutt']))   # 44 mm: kutt ved 16° (sigma 8°)
+ROER_FLIK = (ROER_D / 2) / math.tan(math.radians(G['A']['lykt2_kutt']))   # 71 mm: kutt ved 10° (sigma 5°)
 BRONN_H = (ROER_D / 2) / math.tan(math.radians(50))               # 10,5 mm: avskjerming ved 50°
 ARM = 135.0
 
@@ -145,8 +145,9 @@ def s_oversikt(W, H):
     kol = [
         ('A SKIVA', 'vipp skiva',
          ['stolpen frå overheadprojektoren', 'reflektorfilm frå LCD-skjermen, om du har', 'ribba (3D-print, STL i mappa)'],
-         ['skive Ø 250 mm, papp med glatt folie', 'veggflik 12 × 8,4 cm, folie og bakepapir', 'arm 13,5 cm med ledd',
-          'to svarte papprull: 34 og 44 mm lange', 'to lykter i foten']),
+         ['skive Ø 250 mm, papp med glatt folie', 'veggflik 12 × 8,4 cm, folie og bakepapir',
+          'papplist som held fliken ved sida av stolpen', 'arm 13,5 cm med ledd',
+          f'to svarte papprull: {k(ROER_A, 0)} og {k(ROER_FLIK, 0)} mm lange', 'to lykter i foten']),
         ('B OVER', 'vipp plata',
          ['fresnelplata 285 × 285 mm', 'stolpen frå overheadprojektoren', 'to diffusorark'],
          ['pappramme, tappar midt på sidekantane', 'stag med merke for stemning og arbeid', 'flik 60 mm, blank folie på papp',
@@ -285,7 +286,7 @@ def ribbemal(ox, oy):
 def s_A_plassering(W, H):
     m = 12; A = G['A']
     g = [t(m, 28, 'A Skiva: plassering og bygging', 'tittel')]
-    g.append(t(m, 35, 'Ei lykt i foten lyser på ei bøygd spegelskive som vippar frå veggen ned på feltet. Ein fast flik på stolpen held veggen bak skjermen lys.', 'ingress'))
+    g.append(t(m, 35, 'Ei lykt i foten lyser på ei bøygd spegelskive som vippar frå veggen ned på feltet. Ein fast flik ved stolpen held veggen bak skjermen lys.', 'ingress'))
     g.append(t(m, 46, 'MÅL FRÅ MODELLEN', 'mono'))
     fl = A['flik_senter_cm']
     maal = ['Foten: 47 cm til høgre for skjermmidten, 7 cm framfor skjermplanet.',
@@ -293,10 +294,12 @@ def s_A_plassering(W, H):
             'Skiva: midten 41 cm over bordet, 15 cm framfor skjermplanet, altså 8 cm',
             '     framfor lykta. Spegelsida er kuv: ho bular ut mot lykta, 6,5 mm på 250 mm.',
             f'Hovudlykta: 5 cm over bordet, vippa om lag {A["hovudlykt_vinkel_fram_frå_loddrett"]:.0f}° fram mot skivemidten ({k(A["hovudlykt_til_skive_cm"], 0)} cm unna).',
-            f'Fliken: 12 × 8,4 cm, midten {fl[2]:.0f} cm over bordet og {45 - fl[1]:.1f} cm framfor skjermplanet'.replace('.', ','),
-            f'     på stolpen. Han vender ned og mot venstre, om lag {A["flik_tilt_grader"]:.0f}° mot vassrett, og siktar på',
-            '     veggen bak skjermmidten, 45 cm over bordet.',
-            f'Fliklykta: 2 cm bak hovudlykta, peikar rett opp på fliken ({k(A["lykt2_til_flik_cm"], 0)} cm). Om lag 40 % av lyset.',
+            f'Fliken: 12 × 8,4 cm, midten {fl[2]:.0f} cm over bordet, {k(-A["flik_dx_cm"])} cm til venstre for stolpen',
+            f'     og {k(45 - fl[1])} cm framfor skjermplanet. Fest han på ein papplist: rett på stolpen',
+            f'     kastar stolpen skugge på veggen. Fliken vender ned og mot venstre, om lag {A["flik_tilt_grader"]:.0f}°',
+            '     mot vassrett, og siktar på veggen bak skjermmidten, 45 cm over bordet.',
+            f'Fliklykta: {k(-A["flik_dx_cm"])} cm til venstre for og 2 cm bak hovudlykta, peikar nesten rett opp',
+            f'     på fliken ({k(A["lykt2_til_flik_cm"], 0)} cm unna). Om lag {A["q"] * 100:.0f} % av lyset.',
             'Stemning: sikt skiveflekken midt på veggen bak skjermen. Arbeid: 10 cm til',
             '     venstre for feltmidten. Fliken står fast i begge.']
     g.append(tekstblokk(m, 52, maal, 'brod', lh=4.4))
@@ -308,11 +311,13 @@ def s_A_plassering(W, H):
             '3  Teip ribba bak, på tvers av kastet.',
             '4  Skjer armen og fliken (side 7). Fliken: folie',
             '     med bakepapir oppå, matt flik blendar.',
-            '5  Rull røyra og set dei på lyktene: 34 mm på',
-            '     hovudlykta, 44 mm på fliklykta.',
+            f'5  Rull røyra og set dei på lyktene: {k(ROER_A, 0)} mm på',
+            f'     hovudlykta, {k(ROER_FLIK, 0)} mm på fliklykta.',
             '6  Fest armen på stolpen med ledd, så skiva',
             '     kan vippe og bli ståande.',
-            '7  Føreseiing: lågaste rute over 0,5 av snittet',
+            f'7  Teip fliken på ein papplist, {k(-G["A"]["flik_dx_cm"])} cm til',
+            '     venstre for stolpen.',
+            '8  Føreseiing: lågaste rute over 0,5 av snittet',
             '     med bogen, under 0,45 flat. Veggen bak',
             '     skjermen om lag ein tredel av feltet i arbeid.']
     g.append(tekstblokk(x2, 52, steg, 'brod', lh=4.4))
@@ -335,13 +340,15 @@ def s_A_malar_A4(W, H, nr):
 def s_A_malar_3(W, H):
     m = 12
     g = [t(m, 26, 'A Skiva: mal 3 av 3, røyr, flik og arm', 'tittel')]
-    g.append(roernett(m + 14, 48, ROER_A, ['HOVUDLYKTA · svart papp', f'{k(ROER_A, 0)} mm: kutt ved 20° frå aksen']))
-    g.append(roernett(m + 14, 112, ROER_FLIK, ['FLIKLYKTA · svart papp', f'{k(ROER_FLIK, 0)} mm: kutt ved 16° frå aksen']))
+    g.append(roernett(m + 14, 46, ROER_A, ['HOVUDLYKTA · svart papp', f'{k(ROER_A, 0)} mm: kutt ved 20° frå aksen']))
+    g.append(roernett(m + 14, 104, ROER_FLIK, ['FLIKLYKTA · svart papp', f'{k(ROER_FLIK, 0)} mm: kutt ved {G["A"]["lykt2_kutt"]}° frå aksen']))
     fx, fy = m + 120, 44
     g.append(rekt(fx, fy, 120, 84))
     g.append(maallinje(fx, fy + 84 + 4, fx + 120, fy + 84 + 4, '120 mm'))
     g.append(maallinje(fx + 124, fy, fx + 124, fy + 84, '84 mm'))
-    g.append(tekstblokk(fx + 4, fy + 8, ['FLIK · papp, glatt folie, bakepapir oppå', 'teip på stolpen 30 cm over bordet'], 'mono', lh=3.8))
+    g.append(tekstblokk(fx + 4, fy + 8, ['FLIK · papp, glatt folie, bakepapir oppå',
+                                         f'på ein papplist {k(-G["A"]["flik_dx_cm"])} cm til venstre for stolpen,',
+                                         '30 cm over bordet'], 'mono', lh=3.8))
     ax, ay = m + 113, 152
     L = ARM + 20
     g.append(f'<rect x="{ax:.2f}" y="{ay:.2f}" width="{L:.2f}" height="20" rx="10" class="kutt"/>')

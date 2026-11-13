@@ -1,0 +1,386 @@
+{
+ "delar": [
+  {
+   "id": "S1",
+   "namn": "arm P01: røyr",
+   "masse_g": 128.3,
+   "gyldig": true
+  },
+  {
+   "id": "S2",
+   "namn": "arm P01: kappe",
+   "masse_g": 46.4,
+   "gyldig": true
+  },
+  {
+   "id": "S3",
+   "namn": "arm P01: tapp",
+   "masse_g": 3.8,
+   "gyldig": true
+  },
+  {
+   "id": "S4",
+   "namn": "hengsel P02: festeplate",
+   "masse_g": 87.0,
+   "gyldig": true
+  },
+  {
+   "id": "S5",
+   "namn": "hengsel P02: kanal",
+   "masse_g": 122.1,
+   "gyldig": true
+  },
+  {
+   "id": "S6",
+   "namn": "hengsel P02: spak og fjør",
+   "masse_g": 45.1,
+   "gyldig": true
+  },
+  {
+   "id": "01",
+   "namn": "fot med sokkel",
+   "masse_g": 192.4,
+   "gyldig": true
+  },
+  {
+   "id": "02",
+   "namn": "botnlok",
+   "masse_g": 20.3,
+   "gyldig": true
+  },
+  {
+   "id": "03",
+   "namn": "klemlist",
+   "masse_g": 11.5,
+   "gyldig": true
+  },
+  {
+   "id": "04",
+   "namn": "klør",
+   "masse_g": 4.2,
+   "gyldig": true
+  },
+  {
+   "id": "05",
+   "namn": "sal",
+   "masse_g": 74.5,
+   "gyldig": true
+  },
+  {
+   "id": "06",
+   "namn": "knott med bremseskrue",
+   "masse_g": 23.6,
+   "gyldig": true
+  },
+  {
+   "id": "07",
+   "namn": "bjelke",
+   "masse_g": 115.8,
+   "gyldig": true
+  },
+  {
+   "id": "08",
+   "namn": "bjelkelok",
+   "masse_g": 37.1,
+   "gyldig": true
+  },
+  {
+   "id": "09",
+   "namn": "lysleiar",
+   "masse_g": 201.7,
+   "gyldig": true
+  },
+  {
+   "id": "10",
+   "namn": "prismeark",
+   "masse_g": 17.9,
+   "gyldig": true
+  },
+  {
+   "id": "11",
+   "namn": "flatstong",
+   "masse_g": 19.2,
+   "gyldig": true
+  },
+  {
+   "id": "12",
+   "namn": "led-stripe",
+   "masse_g": 5.2,
+   "gyldig": true
+  },
+  {
+   "id": "13",
+   "namn": "kabelklips",
+   "masse_g": 6.1,
+   "gyldig": true
+  },
+  {
+   "id": "E",
+   "namn": "skrue M3 × 12 senk",
+   "masse_g": 3.6,
+   "gyldig": true
+  }
+ ],
+ "kollisjonar": [],
+ "rorsle": [
+  {
+   "vinkel": 0,
+   "kollisjon_mm3": 0.0,
+   "kven": "",
+   "laagaste_punkt": 366.5
+  },
+  {
+   "vinkel": 10,
+   "kollisjon_mm3": 0.0,
+   "kven": "",
+   "laagaste_punkt": 347.2
+  },
+  {
+   "vinkel": 20,
+   "kollisjon_mm3": 0.0,
+   "kven": "",
+   "laagaste_punkt": 314.6
+  },
+  {
+   "vinkel": 30,
+   "kollisjon_mm3": 0.0,
+   "kven": "",
+   "laagaste_punkt": 284.1
+  },
+  {
+   "vinkel": 40,
+   "kollisjon_mm3": 0.0,
+   "kven": "",
+   "laagaste_punkt": 256.6
+  },
+  {
+   "vinkel": 50,
+   "kollisjon_mm3": 0.0,
+   "kven": "",
+   "laagaste_punkt": 232.9
+  },
+  {
+   "vinkel": 60,
+   "kollisjon_mm3": 0.0,
+   "kven": "",
+   "laagaste_punkt": 213.8
+  },
+  {
+   "vinkel": 70,
+   "kollisjon_mm3": 0.0,
+   "kven": "",
+   "laagaste_punkt": 199.7
+  },
+  {
+   "vinkel": 80,
+   "kollisjon_mm3": 0.0,
+   "kven": "",
+   "laagaste_punkt": 191.3
+  }
+ ],
+ "masse_g": 1196,
+ "tyngdepunkt": [
+  0.2,
+  -7.4,
+  209.7
+ ],
+ "fotavtrykk_cm2": 196.1,
+ "veltevinkel": 18.8,
+ "velt_hjorne_N": 13.0,
+ "velt_framme_N": 9.1,
+ "velt_dytt_topp_N": 2.2,
+ "hogd_akse": 382.5,
+ "masse_staalroyr_g": 1441,
+ "stykkliste": [
+  {
+   "id": "S1",
+   "namn": "arm P01: røyr",
+   "tal": 1,
+   "materiale": "alu",
+   "framstilling": "frå settet"
+  },
+  {
+   "id": "S2",
+   "namn": "arm P01: kappe",
+   "tal": 1,
+   "materiale": "plast",
+   "framstilling": "frå settet"
+  },
+  {
+   "id": "S3",
+   "namn": "arm P01: tapp",
+   "tal": 1,
+   "materiale": "staal",
+   "framstilling": "frå settet"
+  },
+  {
+   "id": "S4",
+   "namn": "hengsel P02: festeplate",
+   "tal": 1,
+   "materiale": "staal",
+   "framstilling": "frå settet"
+  },
+  {
+   "id": "S5",
+   "namn": "hengsel P02: kanal",
+   "tal": 1,
+   "materiale": "staal",
+   "framstilling": "frå settet"
+  },
+  {
+   "id": "S6",
+   "namn": "hengsel P02: spak og fjør",
+   "tal": 1,
+   "materiale": "staal",
+   "framstilling": "frå settet"
+  },
+  {
+   "id": "01",
+   "namn": "fot med sokkel",
+   "tal": 1,
+   "materiale": "petg",
+   "framstilling": "trykt, toppflata mot plata"
+  },
+  {
+   "id": "02",
+   "namn": "botnlok",
+   "tal": 1,
+   "materiale": "petg",
+   "framstilling": "trykt"
+  },
+  {
+   "id": "03",
+   "namn": "klemlist",
+   "tal": 1,
+   "materiale": "petg",
+   "framstilling": "trykt"
+  },
+  {
+   "id": "04",
+   "namn": "klør",
+   "tal": 2,
+   "materiale": "petg",
+   "framstilling": "trykt"
+  },
+  {
+   "id": "05",
+   "namn": "sal",
+   "tal": 1,
+   "materiale": "petg",
+   "framstilling": "trykt, liggjande på sida"
+  },
+  {
+   "id": "06",
+   "namn": "knott med bremseskrue",
+   "tal": 1,
+   "materiale": "alu",
+   "framstilling": "dreia aluminium eller messing på M5-skrue (prototyp: trykt)"
+  },
+  {
+   "id": "07",
+   "namn": "bjelke",
+   "tal": 1,
+   "materiale": "petg",
+   "framstilling": "trykt i to lengder, ståande"
+  },
+  {
+   "id": "08",
+   "namn": "bjelkelok",
+   "tal": 1,
+   "materiale": "petg",
+   "framstilling": "trykt i to lengder"
+  },
+  {
+   "id": "09",
+   "namn": "lysleiar",
+   "tal": 1,
+   "materiale": "pmma",
+   "framstilling": "PMMA 3 mm, frå monitoren eller akryl"
+  },
+  {
+   "id": "10",
+   "namn": "prismeark",
+   "tal": 1,
+   "materiale": "film",
+   "framstilling": "frå monitoren, prisma opp, rillene på tvers av bjelken"
+  },
+  {
+   "id": "11",
+   "namn": "flatstong",
+   "tal": 1,
+   "materiale": "alu",
+   "framstilling": "aluminium 12 × 2 × 296"
+  },
+  {
+   "id": "12",
+   "namn": "led-stripe",
+   "tal": 1,
+   "materiale": "gummi",
+   "framstilling": "KJØP: COB 5 V, 2700 K, 8 mm"
+  },
+  {
+   "id": "13",
+   "namn": "kabelklips",
+   "tal": 3,
+   "materiale": "petg",
+   "framstilling": "trykt"
+  },
+  {
+   "id": "E",
+   "namn": "skrue M3 × 12 senk",
+   "tal": 4,
+   "materiale": "staal",
+   "framstilling": "gjennom lok og plate, med innpressmutter"
+  }
+ ],
+ "lause": [
+  [
+   "F",
+   "skrue M4 × 25",
+   2,
+   "lista, inn i sokkelen"
+  ],
+  [
+   "F2",
+   "skrue M4 × 20",
+   2,
+   "klørne, inn i sokkelen"
+  ],
+  [
+   "G",
+   "skrue M4 × 30",
+   1,
+   "klemmer salen om kappa"
+  ],
+  [
+   "H",
+   "skrue M3 × 8 senk",
+   3,
+   "botnloket"
+  ],
+  [
+   "I",
+   "innpressmutter M4",
+   5,
+   ""
+  ],
+  [
+   "J",
+   "innpressmutter M3",
+   7,
+   ""
+  ],
+  [
+   "K",
+   "innpressmutter M5",
+   1,
+   "bremseskruen i salen"
+  ],
+  [
+   "M",
+   "gummiføter Ø 10",
+   3,
+   ""
+  ]
+ ]
+}

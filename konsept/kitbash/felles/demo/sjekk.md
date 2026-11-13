@@ -6,15 +6,15 @@ Alt er rekna, ikkje målt. Måla på delane frå settet er anslag frå foto, og 
 
 | Del | Slag | Gram | ± | Kjelde |
 | --- | --- | --- | --- | --- |
-| fot | print | 142 | 21 | rekna: PETG, vegg 1.2 mm og 15 % fyll (ANTAKING), massiv 410 g |
-| hylse | print | 40 | 6 | rekna: PETG, vegg 1.2 mm og 15 % fyll (ANTAKING), massiv 54 g |
+| fot | print | 142 | 21 | rekna: PETG, vegg 1,2 mm og 15 % fyll (ANTAKING), massiv 410 g |
+| hylse | print | 40 | 6 | rekna: PETG, vegg 1,2 mm og 15 % fyll (ANTAKING), massiv 54 g |
 | ballast | kjopt | 604 | 60 | oppgjeven |
-| arm | sett P01 | 184 | 64 | rekna frå volum, mål anslått frå foto; rekna som skal, vegg 2.5 mm (ANTAKING), tettleik ANTAKING |
-| nav | print | 7 | 1 | rekna: PETG, vegg 1.2 mm og 15 % fyll (ANTAKING), massiv 14 g |
+| arm | sett P01 | 184 | 64 | rekna frå volum, mål anslått frå foto; rekna som skal, vegg 2,5 mm (ANTAKING), tettleik ANTAKING |
+| nav | print | 7 | 1 | rekna: PETG, vegg 1,2 mm og 15 % fyll (ANTAKING), massiv 14 g |
 | kjoleplate | kjopt | 42 | 4 | oppgjeven |
 | led | kjopt | 5 | 0 | oppgjeven |
 
-Samla 1025 g ± 91 (rekna). Kravet F8 er høgst 1 200 g: held. Tyngdepunkt (-3, -3, 52) mm. Ytre mål 181 × 205 × 334 mm.
+Samla 1025 g ± 91 (rekna; ± er ANTAKING: 35 % på delar frå settet, 15 % på trykte, 10 % på kjøpte). Kravet F8 er høgst 1 200 g: held. Tyngdepunkt (-3, -3, 52) mm. Ytre mål 181 × 205 × 334 mm.
 
 ## Kollisjon og velt langs gesten
 
@@ -34,9 +34,9 @@ Ekstra kraft: t 0,00: inf N; t 0,25: inf N; t 0,50: inf N; t 0,75: 57,5 N; t 1,0
 
 | LED | Watt | Ligg mot | Kjøleflate cm² | Temperatur °C | Råd |
 | --- | --- | --- | --- | --- | --- |
-| led | 5,00 | kjoleplate | 161 | 47 | Held: om lag 47 °C ved 5.0 W på 161 cm² metall (grense 78 °C for PETG). |
+| led | 5,00 | kjoleplate | 161 | 47 | Held: om lag 47 °C ved 5,0 W på 161 cm² metall (grense 78 °C for PETG). |
 
-ANTAKING: 70 % av watten blir varme, flata gjev frå seg 10 W/m²K, rommet held 25 °C. Trykt PLA mjuknar ved 55 til 60 °C.
+Rekna, ikkje målt. ANTAKING: 70 % av watten blir varme, flata gjev frå seg 10 W/m²K, rommet held 25 °C. Trykt PLA mjuknar ved 55 til 60 °C.
 
 ## Trykte delar (Bambu Lab P1S, 256 × 256 × 256 mm)
 

@@ -289,16 +289,22 @@ def over(stotte, organ):
         P += plate(C_OVER, N_OVER, r, flik=60.0, n_flik=NW_OVER)
     else:
         P += plate(C_OVER, N_OVER, r)
-    if organ == 'band':        # bjelken med LED-stripa frå ruta-CAD-en på skjermkanten, stripa vend opp mot plata
+    if organ == 'band':        # bjelken med LED-stripa frå ruta-CAD-en på skjermkanten, stripa vend opp mot plata. Vindaugsdioden på toppen av armen
         P += ruta_gruppe(['07', '08', '11', '12'], KP_OVER, (1, 0, 0), C_OVER - KP_OVER)
         P.append(ny('finger til bjelken', stong((0, 546, 503), KP_OVER + np.array([0, 16.0, -6.0]), 4), 'aluminium'))
-    else:
-        P += diode(KP_OVER, C_OVER)
-        P.append(ny('finger til dioden', stong((0, 546, 503), KP_OVER + 9.0 * A_OVER, 3), 'aluminium'))
+        P += vindaugsmodul(K + np.array([0.0, 7.0, 39.0]), K + np.array([0.0, 100.0, 20.0]))
+        P.append(ny('dreieknott for to kanalar', stong(KP_OVER + np.array([163.0, 0, 0]), KP_OVER + np.array([185.0, 0, 0]), 14), 'aluminium'))
+        return P, dict(namn='knotten på enden av bjelken', P=KP_OVER + np.array([185.0, 0.0, 0.0]))
+    P += diode(KP_OVER, C_OVER)
+    P.append(ny('finger til dioden', stong((0, 546, 503), KP_OVER + 9.0 * A_OVER, 3), 'aluminium'))
     if organ == 'vindauge':
         P += vindaugsmodul(K + np.array([0.0, 7.0, 39.0]), K + np.array([0.0, 100.0, 20.0]))
-        P.append(ny('dreieknott for to kanalar', stong((36, 475, 426), (36, 475, 446), 14), 'aluminium'))
-        h = dict(namn='knotten på skjermkanten' if stotte == 'klype' else 'knotten ved skjermkanten', P=np.array([36.0, 475.0, 446.0]))
+        if stotte == 'klype':      # knotten på framsida av klypa, vend mot brukaren
+            P.append(ny('dreieknott for to kanalar', stong((36, 428, 410), (36, 444, 410), 14), 'aluminium'))
+            h = dict(namn='knotten på klypa', P=np.array([36.0, 428.0, 410.0]))
+        else:
+            P.append(ny('dreieknott for to kanalar', stong((0, 450, 506), (0, 450, 526), 14), 'aluminium'))
+            h = dict(namn='knotten på fingeren', P=np.array([0.0, 450.0, 526.0]))
     return P, h
 
 
@@ -399,8 +405,8 @@ KROPPAR = [
      'Same tak, med ein blank flik som held veggen bak skjermen lys i arbeid (B Over).'),
     (3, 0, 2, 'Klype · vindauge', 'klype', 'plata og vindaugsdiode', lambda: over('klype', 'vindauge'), 'over-vindauge', 'vri knotten',
      'Plata står fast mot feltet. Ei diode bak ei maske teiknar vindauget på veggen, og knotten flyttar watten.'),
-    (4, 0, 3, 'Klype · band', 'klype', 'plata og LED-stripe', lambda: over('klype', 'band'), 'over-band', 'vipp plata',
-     'Bjelken med LED-stripa ligg på skjermkanten og lyser opp i plata, som legg eit band av lys over feltet.'),
+    (4, 0, 3, 'Klype · band', 'klype', 'LED-stripe mot plata og vindaugsdiode', lambda: over('klype', 'band'), 'over-band-vindauge', 'vri knotten',
+     'Bjelken med LED-stripa ligg på skjermkanten og lyser opp i plata, som legg eit band av lys over feltet. Vindaugsdioden held veggen.'),
     (5, 1, 0, 'Klype · rute', 'klype', 'ruta og vindaugsdiode', lambda: over('klype', 'rute'), 'over-rute', 'vri knotten',
      'Ruta med prismefilmen over skjermkanten og vindaugsdioden bak (D Ruta), boren av armen frå projektoren.'),
     (6, 1, 1, 'Under · vipp', 'under', 'plata vippar', lambda: over('under', 'vipp'), 'over-vipp', 'vipp plata',

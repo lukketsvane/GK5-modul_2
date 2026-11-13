@@ -21,6 +21,7 @@ def materiale():
     m, p = R._principled('led', (1.0, 0.9, 0.7), 0.0, 0.5)
     p.inputs['Emission Color'].default_value = (1.0, 0.72, 0.38, 1.0); p.inputs['Emission Strength'].default_value = 6.0
     M['led'] = m
+    M['messing'], _ = R._principled('messing', (0.83, 0.62, 0.30), 1.0, 0.28)
     return M
 R.materiale = materiale
 

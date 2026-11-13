@@ -10,6 +10,7 @@ __pycache__/
 konsept/lysskisse/_skrift/
 *.log
 *.ny
+leveransar/04_moodle/kontroll-side-*.png
 
 # Vercel og system
 .vercel/

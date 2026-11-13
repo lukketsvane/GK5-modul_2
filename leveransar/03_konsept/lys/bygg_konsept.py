@@ -16,19 +16,32 @@ UT = os.path.normpath(os.path.join(HER, '..'))
 TRE = os.path.normpath(os.path.join(HER, '..', '..', '..', 'konsept', 'tre'))
 NB = '&nbsp;'
 
-# Runde 2 av konsepta (konsept/tre/00-tre-konsept.md, 13.11.2026). Tala blir lesne frå tal-*.json.
+# Runde 2 av konsepta (konsept/tre/00-tre-konsept.md, 13.11.2026). Tala i tekstane blir lesne frå tal-*.json,
+# og påstandane i titlane blir kontrollerte mot dei, så ei ny utrekning ikkje kan stå att med gamal tekst.
+TAL = {k: json.load(open(os.path.join(TRE, f'tal-{k}.json'), encoding='utf-8')) for k in 'ABC'}
+def _k(x, d=2): return f'{x:.{d}f}'.replace('.', ',')
+def _n(x): return f'{x:,.0f}'.replace(',', NB)
+_A, _B, _C = TAL['A'], TAL['B'], TAL['C']
+_min = lambda f: min('ABC', key=lambda k: f(TAL[k]))
+_max = lambda f: max('ABC', key=lambda k: f(TAL[k]))
+assert all(100 <= TAL[k]['bak350'] <= 150 for k in 'ABC'), 'ikkje alle held veggen bak skjermen (F6)'
+assert _min(lambda r: r['W350']) == 'A' and _max(lambda r: r['W350']) == 'C', 'A brukar ikkje minst / C ikkje mest straum'
+assert _max(lambda r: r['skjerm350']) == 'A', 'A legg ikkje mest lys på skjermen'
+assert _min(lambda r: r['skjerm350']) == 'C' and _min(lambda r: max(r['veg_skjerm'])) == 'C', 'C legg ikkje minst lys på skjermen'
+assert _min(lambda r: r['jamnheit']) == 'B' and _B['s_skjerm'] < 10, 'B: jamnheit eller stemning på skjermen har endra seg'
+
 KONSEPT = {
     'A': dict(namn='Skiva', fil='ark-A-skiva.png', nr='11',
-              tittel='Skiva lyser jamnast og skiftar mjukast, men legg lys på skjermen.',
-              prinsipp='Ei lykt i foten lyser på ei bøygd spegelskive som vippar lyset frå veggen ned på feltet. Ein fast flik på stolpen held veggen bak skjermen lys.',
+              tittel='Skiva brukar minst straum, men legg lys på skjermen.',
+              prinsipp='Ei lykt i foten lyser på ei bøygd spegelskive som vippar lyset frå veggen ned på feltet. Ein fast flik ved stolpen held veggen bak skjermen lys.',
               northern='Fot, stong og skive som Northern. Fliken er eit fjerde element (mi tolking).',
               nabo='Verner Panton Reflect, som har fast, kvit skive og ingen flik.',
               gest='Vipp skiva.',
-              modell='Folie på papp, Ø 250' + NB + 'mm, på ein printa ribbe med boge R 1,2' + NB + 'm. To lykter i foten: éi på skiva, éi på fliken (12 × 8,4' + NB + 'cm, folie og bakepapir) 30' + NB + 'cm over bordet.',
+              modell='Folie på papp, Ø 250' + NB + 'mm, på ein printa ribbe med boge R 1,2' + NB + 'm. To lykter i foten: éi på skiva, éi på fliken (12 × 8,4' + NB + 'cm, folie og bakepapir), 30' + NB + 'cm over bordet og 3,5' + NB + 'cm til venstre for stolpen.',
               fore='Med bøyen er lågaste rute over 0,5 av snittet, flat under 0,45.',
-              ikkje=['Spegelskiva legg 0,36 av feltluxen på skjermen i arbeid og 226' + NB + 'lx midt i overgangen.',
-                     'Fliken syner frå auget med 672' + NB + 'cd/m² frå 25 og 47' + NB + 'cm.',
-                     'F1 krev ei skive med lobe under 4,5°. Folie på papp er ikkje målt.']),
+              ikkje=[f'Spegelskiva legg {_k(_A["skjerm350"] / 350)} av feltluxen på skjermen i arbeid og {_n(_A["veg_skjerm"][2])}' + NB + 'lx midt i overgangen.',
+                     'F1 krev ei skive med lobe under 4,5°. Folie på papp er ikkje målt.',
+                     f'Frå 25' + NB + f'cm ser auget {_n(_A["s_auge25"])}' + NB + 'cd/m² i stemning. F5 tillèt 500.']),
     'B': dict(namn='Over', fil='ark-B-over.png', nr='12',
               tittel='Plata held stemninga heilt av skjermen, men lyser ujamnt.',
               prinsipp='Fresnelplata frå overheadprojektoren ligg over skjermkanten og er knekt. Den store delen vippar lyset frå veggen ned på bordet, fliken held veggen bak skjermen lys.',
@@ -37,21 +50,22 @@ KONSEPT = {
               gest='Vipp plata.',
               modell='Fresnelplata i pappramme som vippar om midten, med ein flik av blank folie 60' + NB + 'mm bak midtlina. Lykta i ein brønn av svart papp, 12' + NB + 'cm under plata. To diffusorark.',
               fore='Jamnheit om lag 0,4. Veggen bak skjermen om lag ein tredel av feltet.',
-              ikkje=['Jamnheita stoppar under 0,5: 0,41 med ark. Referansen 0,6 er ikkje nådd under 1500' + NB + 'cd/m².',
-                     'Strålen sveipar over skjermen midt i vippen: 243' + NB + 'lx.',
-                     'Frå 25' + NB + 'cm ser auget 1124' + NB + 'cd/m², under F5 men høgst av dei tre.']),
+              ikkje=[f'Jamnheita stoppar under 0,5: {_k(_B["jamnheit"])} med ark. Referansen 0,6 er ikkje nådd under 1500' + NB + 'cd/m².',
+                     f'Strålen sveipar over skjermen midt i vippen: {_n(_B["veg_skjerm"][2])}' + NB + 'lx.',
+                     f'Frå 25' + NB + f'cm ser auget {_n(_B["auge25"])}' + NB + 'cd/m² i arbeid, under F5 men høgst av dei tre.']),
     'C': dict(namn='Vindauge', fil='ark-C-vindauge.png', nr='13',
-              tittel='Spegelen deler strålen: skjermen får nesten ikkje lys, men det kostar straum.',
+              tittel='Spegelen deler strålen: skjermen får lite lys heile vegen, men det kostar straum.',
               prinsipp='Ei vasskule teiknar eit vindauge av lys på veggen. Ein spegel glir inn i strålen og legg feltet på bordet, medan vindauget blir ståande.',
               northern='Kroppen er ikkje forma enno. Spegelklaffen er synleg mekanikk.',
               nabo='ingen kjend lampe deler strålen slik.',
               gest='Skyv spegelen inn.',
               modell='Julekule av glas, Ø 70' + NB + 'mm, fylt med vatn. Maske i papp og gråfilter på overheadfilm, kredittkort-fresnel som kondensor, frontflatespegelen på ei pappflik. Hovudet 70' + NB + 'cm over bordet.',
               fore='Vindauget står i ro medan feltet kjem fram. Skjermen får under 0,15 av feltet heile vegen.',
-              ikkje=['Arbeidslyset krev 5,8' + NB + 'W og gjev 2,6 timar per celle.',
+              ikkje=[f'Arbeidslyset krev {_k(_C["W350"], 1)}' + NB + f'W og gjev {_k(_C["timar"], 1)} timar per celle.',
                      'Hovudet står 70' + NB + 'cm over bordet, høgare enn ei bordlampe.',
                      'Gråfilteret som gjev jamnheita, kostar 1,6' + NB + 'W.']),
 }
+assert _B['auge25'] == max(TAL[k]['auge25'] for k in 'ABC') and _B['auge25'] < 1500
 
 
 def f0(x): return f'{x:,.0f}'.replace(',', NB)
@@ -212,7 +226,7 @@ def oversyn(T):
   table.samanlikning td.best { color: var(--blekk); }
   table.samanlikning .feil { font-size: 9.5px; color: var(--graa); }
   table.samanlikning th.tal { width: 19%; }'''
-    side('side-10-tre-konsept.html', '10', 'Tre konsept', 'Alle tre held veggen bak skjermen. C held skjermen fri, men brukar mest straum.', stil, innhald,
+    side('side-10-tre-konsept.html', '10', 'Tre konsept', 'Alle tre held veggen bak skjermen. A brukar minst straum, C legg minst lys på skjermen.', stil, innhald,
          KJELDE, 'Kvit: best av dei tre.')
 
 

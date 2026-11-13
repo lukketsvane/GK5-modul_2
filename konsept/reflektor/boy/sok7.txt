@@ -1,0 +1,13 @@
+blank-kuv R0.6       A: felt  685 U 0.60 W350  2.55 vegg  35 Wbegge 14.45 auge47   194 a25  3475 a60   194 flate  133 skj 257 | S: felt  11 vegg  64 auge47    0 a25   44 a60    0 | strekk 0.00 %
+blank-kuv R0.3       A: felt  516 U 0.60 W350  3.39 vegg  61 Wbegge  8.16 auge47   194 a25 211870 a60   194 flate   99 skj 264 | S: felt  32 vegg  51 auge47   35 a25   45 a60    0 | strekk 0.00 %
+blank-kuv R1.2       A: felt  817 U 0.60 W350  2.14 vegg  24 Wbegge 20.74 auge47   194 a25   194 a60   194 flate  163 skj 221 | S: felt   9 vegg  68 auge47    0 a25   43 a60    0 | strekk 0.00 %
+blank-flat           A: felt  996 U 0.39 W350  1.76 vegg  22 Wbegge 22.42 auge47   194 a25   194 a60   194 flate  215 skj 119 | S: felt   9 vegg  72 auge47    0 a25   43 a60    0 | strekk 0.00 %
+folie-kuv R0.6       A: felt  661 U 0.61 W350  2.65 vegg  35 Wbegge 14.48 auge47   258 a25  9861 a60   258 flate  128 skj 249 | S: felt  12 vegg  62 auge47    0 a25   58 a60    0 | strekk 0.00 %
+kroll-kuv R0.6       A: felt  529 U 0.58 W350  3.31 vegg  37 Wbegge 13.63 auge47   645 a25 20068 a60   645 flate  103 skj 205 | S: felt  16 vegg  52 auge47    0 a25  146 a60    0 | strekk 0.00 %
+blank-kuvkast R0.6   A: felt  696 U 0.48 W350  2.52 vegg  21 Wbegge 23.39 auge47   196 a25   196 a60   190 flate  171 skj  81 | S: felt  10 vegg  69 auge47   18 a25   44 a60    0 | strekk 0.00 %
+blank-kuv 0.15       A: felt  874 U 0.03 W350  2.00 vegg  24 Wbegge 20.75 auge47   528 a25   528 a60   528 flate  221 skj 372 | S: felt   8 vegg  67 auge47   42 a25  115 a60    0 | strekk 0.00 %
+blank-kuv 0.35       A: felt  439 U 0.56 W350  3.99 vegg  59 Wbegge  8.43 auge47   103 a25 184518 a60   103 flate   82 skj 179 | S: felt  30 vegg  52 auge47    7 a25   25 a60    0 | strekk 0.00 %
+to-gli               A: felt  486 U 0.43 W350  3.60 vegg  90 Wbegge  5.55 auge47   953 a25  3944 a60   953 flate  110 skj 128 | S: felt  30 vegg  44 auge47  153 a25  770 a60   64 | strekk 0.00 %
+to-kryss             A: felt  357 U 0.39 W350  4.91 vegg  93 Wbegge  5.35 auge47   585 a25  4813 a60   585 flate  129 skj  81 | S: felt  17 vegg  39 auge47  108 a25  114 a60   58 | strekk 0.00 %
+to-gli blank         A: felt  741 U 0.43 W350  2.36 vegg 108 Wbegge  4.62 auge47   193 a25   193 a60   193 flate  205 skj 379 | S: felt  31 vegg  56 auge47   30 a25   33 a60   12 | strekk 0.00 %
+to-gli hog           A: felt  510 U 0.56 W350  3.43 vegg 102 Wbegge  4.91 auge47  1000 a25  3998 a60   999 flate  115 skj 138 | S: felt  29 vegg  53 auge47  189 a25  628 a60  165 | strekk 0.00 %

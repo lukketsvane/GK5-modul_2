@@ -1,0 +1,2 @@
+start 0.416 {'felt': 741, 'U': np.float64(0.43), 'vegg': 108, 'auge': 193, 'Wb': np.float64(4.62)}
+SLUTT {"Ax": -0.1, "Ay": 0.25, "sbw": -0.04, "mjuk": 0.02, "kA": 0.0, "kB": 0.0, "Bh": 0.45, "Bx": 0.0, "vinkel": 1.0} {'felt': 741, 'U': np.float64(0.43), 'vegg': 108, 'auge': 193, 'Wb': np.float64(4.62)}

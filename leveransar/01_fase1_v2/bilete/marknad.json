@@ -1,0 +1,32 @@
+{
+ "snowball": {
+  "lm": 158.0,
+  "felt_lx": 30.6,
+  "jamnheit": 0.3,
+  "vegg_lx": 35.8,
+  "ansikt_lx": 26.8,
+  "lampe_cd": 3267.0,
+  "lysaste_flate_cd": 33.2,
+  "spegla_cd": 0.0
+ },
+ "l1": {
+  "lm": 529.0,
+  "felt_lx": 1004.0,
+  "jamnheit": 0.42,
+  "vegg_lx": 22.8,
+  "ansikt_lx": 52.9,
+  "lampe_cd": 178.0,
+  "lysaste_flate_cd": 234.9,
+  "spegla_cd": 0.0
+ },
+ "litra": {
+  "lm": 250.0,
+  "felt_lx": 58.5,
+  "jamnheit": 0.15,
+  "vegg_lx": 2.6,
+  "ansikt_lx": 230.7,
+  "lampe_cd": 9824.0,
+  "lysaste_flate_cd": 13.7,
+  "spegla_cd": 0.0
+ }
+}

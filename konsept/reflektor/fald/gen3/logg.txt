@@ -1,0 +1,29 @@
+flat-vipp   W3 15.71 (vegg  ) auge3  3061 | felt  660 U 0.29 W350 2.65 vegg  32 ans  45 auge   974 | s: auge    76 felt  14 vegg  64 | lik 0.22 topp nan spr nan | strekk 0.000 rift 0.00 sk 0.00/0.00
+bok         W3  5.17 (ansikt) auge3   975 | felt  432 U 0.42 W350 4.05 vegg 116 ans  48 auge   942 | s: auge   223 felt  20 vegg  45 | lik 0.83 topp 0.70 spr 0.02 | strekk 0.000 rift 0.00 sk 0.00/0.00
+Z-samla     W3  5.15 (ansikt) auge3   964 | felt  490 U 0.22 W350 3.57 vegg 120 ans  49 auge   935 | s: auge    76 felt  14 vegg  64 | lik 0.69 topp 0.70 spr 0.06 | strekk 0.000 rift 0.00 sk 0.00/0.00
+Z-spreidd   W3  5.24 (ansikt) auge3  1011 | felt  457 U 0.34 W350 3.83 vegg 114 ans  48 auge   963 | s: auge    76 felt  14 vegg  64 | lik 0.68 topp 0.70 spr 0.06 | strekk 0.000 rift 0.00 sk 0.00/0.00
+vifte       W3  5.06 (ansikt) auge3   972 | felt  479 U 0.31 W350 3.65 vegg 115 ans  49 auge   961 | s: auge   223 felt  20 vegg  45 | lik 0.80 topp 0.71 spr 0.03 | strekk 0.000 rift 0.00 sk 0.00/0.00
+spel        W3  5.03 (ansikt) auge3   967 | felt  390 U 0.35 W350 4.49 vegg 140 ans  50 auge   962 | s: auge    76 felt  14 vegg  64 | lik 0.80 topp 0.71 spr 0.04 | strekk 0.000 rift 0.00 sk 0.00/0.00
+bolgje      W3  5.34 (ansikt) auge3  1030 | felt  376 U 0.35 W350 4.65 vegg 136 ans  47 auge   964 | s: auge    76 felt  14 vegg  64 | lik 0.79 topp 0.70 spr 0.03 | strekk 0.000 rift 0.00 sk 0.00/0.00
+tak-vipp    W3  5.23 (vegg  ) auge3  1020 | felt  526 U 0.24 W350 3.33 vegg  96 ans  50 auge   974 | s: auge    53 felt  13 vegg  48 | lik 0.56 topp 0.70 spr 0.07 | strekk 0.000 rift 0.00 sk 0.00/0.00
+Z-vipp      W3  4.94 (ansikt) auge3   962 | felt  420 U 0.23 W350 4.16 vegg 151 ans  51 auge   974 | s: auge    53 felt  10 vegg  43 | lik 0.68 topp 0.70 spr 0.06 | strekk 0.000 rift 0.00 sk 0.00/0.16
+tak-sveip   W3  4.77 (ansikt) auge3  1424 | felt  565 U 0.21 W350 3.10 vegg 105 ans  52 auge  1492 | s: auge   209 felt  35 vegg  53 | lik 0.56 topp 0.70 spr 0.05 | strekk 0.000 rift 0.00 sk 0.00/0.00
+rund-bok    W3  5.15 (ansikt) auge3   970 | felt  432 U 0.43 W350 4.05 vegg 118 ans  49 auge   941 | s: auge   222 felt  20 vegg  46 | lik 0.84 topp 0.70 spr 0.02 | strekk 0.000 rift 0.00 sk 0.00/0.00
+liten-bok   W3  5.54 (ansikt) auge3  1996 | felt  457 U 0.23 W350 3.83 vegg 119 ans  45 auge  1800 | s: auge    54 felt  16 vegg  51 | lik 0.80 topp 0.70 spr 0.03 | strekk 0.000 rift 0.00 sk 0.00/0.00
+fresnel-floy W3  5.24 (vegg  ) auge3   374 | felt  893 U 0.13 W350 1.96 vegg  95 ans  64 auge   356 | s: auge   158 felt   9 vegg  67 | lik 0.40 topp 0.54 spr 0.21 | strekk 0.000 rift 0.00 sk 0.00/0.00
+blank-bok   W3  4.10 (ansikt) auge3   168 | felt  706 U 0.14 W350 2.48 vegg 146 ans  61 auge   205 | s: auge    58 felt  12 vegg  59 | lik 0.65 topp nan spr nan | strekk 0.000 rift 0.00 sk 0.00/0.00
+kryss       W3  5.85 (vegg  ) auge3 55628 | felt  323 U 0.35 W350 5.42 vegg  85 ans  80 auge 47526 | s: auge    76 felt  14 vegg  64 | lik 0.66 topp nan spr nan | strekk 0.485 rift 20.42 sk 0.00/0.18
+gen3 ferdig etter 394 s
+| tak (éin fald) | 2 | 1 % | 529 | 96 | 50 | 0.23 | 5.22 | 974 |
+| tak (éin fald) | 10 | 3 % | 529 | 96 | 50 | 0.23 | 5.23 | 974 |
+| tak (éin fald) | 20 | 5 % | 527 | 96 | 50 | 0.24 | 5.23 | 974 |
+| tak (éin fald) | 40 | 11 % | 520 | 95 | 49 | 0.25 | 5.27 | 974 |
+| tak (éin fald) | 80 | 22 % | 503 | 94 | 49 | 0.29 | 5.34 | 974 |
+| Z (to faldar) | 2 | 1 % | 427 | 154 | 52 | 0.26 | 4.78 | 974 |
+| Z (to faldar) | 20 | 14 % | 424 | 152 | 51 | 0.24 | 4.88 | 974 |
+| Z (to faldar) | 40 | 28 % | 407 | 149 | 49 | 0.21 | 5.13 | 974 |
+| trekkspel (seks faldar) | 2 | 3 % | 423 | 153 | 51 | 0.21 | 4.87 | 974 |
+| trekkspel (seks faldar) | 10 | 18 % | 417 | 153 | 50 | 0.20 | 4.95 | 974 |
+| trekkspel (seks faldar) | 20 | 35 % | 394 | 150 | 48 | 0.19 | 5.24 | 974 |
+| trekkspel (seks faldar) | 40 | 70 % | 329 | 143 | 41 | 0.18 | 6.09 | 974 |
+radius ferdig etter 444 s

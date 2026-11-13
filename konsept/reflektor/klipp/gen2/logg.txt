@@ -1,0 +1,16 @@
+maane-drei   felt  381 U 0.21 W350  4.60 vegg  138 v/f 0.36 ansikt  55 auge   940 | stemn: auge   171 felt   58 vegg   56 | lik 0.90 strekk 0.00% | open 37% delar 1 bru >12 hol 0 rist 1.2 velt 2.6
+halv-drei    felt  195 U 0.32 W350  8.98 vegg  224 v/f 1.15 ansikt  55 auge   718 | stemn: auge   236 felt  121 vegg   29 | lik 0.81 strekk 0.00% | open 50% delar 1 bru >12 hol 0 rist 0.8 velt 3.2
+fase         felt  504 U 0.43 W350  3.47 vegg   73 v/f 0.15 ansikt  54 auge   923 | stemn: auge   227 felt   72 vegg   42 | lik 0.88 strekk 0.00% | open 50% delar 1 bru >12 hol 0 rist 0.8 velt 1.8
+formorking   felt  503 U 0.39 W350  3.48 vegg   86 v/f 0.17 ansikt  57 auge   923 | stemn: auge   163 felt   61 vegg   39 | lik 0.90 strekk 0.00% | open 64% delar 1 bru >12 hol 1 rist 1.6 velt 1.7
+ring-vipp    felt  394 U 0.42 W350  4.44 vegg  117 v/f 0.30 ansikt  58 auge   779 | stemn: auge   169 felt   11 vegg   63 | lik 0.78 strekk 0.00% | open 16% delar 1 bru >12 hol 1 rist 1.4 velt 2.1
+heil-vipp    felt  665 U 0.35 W350  2.63 vegg   41 v/f 0.06 ansikt  59 auge   923 | stemn: auge   169 felt   13 vegg   64 | lik 0.37 strekk 0.00% | open  0% delar 1 bru >12 hol 0 rist 1.0 velt 1.8
+blad-skyv    felt  639 U 0.34 W350  2.74 vegg   73 v/f 0.11 ansikt  60 auge  1395 | stemn: auge   123 felt   57 vegg   37 | lik 0.79 strekk 0.00% | open 57% delar 1 bru >12 hol 0 rist 0.7 velt 5.2
+luke         felt  413 U 0.38 W350  4.24 vegg   59 v/f 0.14 ansikt  55 auge  1047 | stemn: auge   191 felt   89 vegg   31 | lik 0.74 strekk 0.00% | open 22% delar 1 bru >12 hol 1 rist 1.5 velt 2.2
+lamell-vri   felt  510 U 0.17 W350  3.43 vegg   90 v/f 0.18 ansikt  57 auge   964 | stemn: auge   141 felt   36 vegg   44 | lik 0.64 strekk 0.00% | open 57% delar 1 bru 2 hol 4 rist 2.9 velt 3.6
+to-lag-hol   felt  577 U 0.36 W350  3.04 vegg   65 v/f 0.11 ansikt  58 auge   914 | stemn: auge   229 felt  100 vegg   35 | lik 0.90 strekk 0.00% | open 40% delar 1 bru >12 hol 38 rist 3.7 velt 1.5
+vifte-drei   felt  560 U 0.31 W350  3.12 vegg   54 v/f 0.10 ansikt  54 auge   923 | stemn: auge   231 felt   93 vegg   25 | lik 0.93 strekk 0.00% | open 48% delar 1 bru >12 hol 0 rist 1.4 velt 1.7
+fresnel      felt 1083 U 0.01 W350  1.62 vegg   28 v/f 0.03 ansikt  53 auge   452 | stemn: auge   117 felt  271 vegg    7 | lik 1.00 strekk 0.00% | open  0% delar 1 bru >12 hol 0 rist 1.3 velt 5.0
+fresnel-maske felt 1056 U 0.01 W350  1.66 vegg   28 v/f 0.03 ansikt  56 auge   941 | stemn: auge   987 felt  159 vegg    8 | lik 0.92 strekk 0.00% | open  0% delar 1 bru >12 hol 0 rist 1.3 velt 5.0
+ring-linse   felt  486 U 0.40 W350  3.60 vegg  107 v/f 0.22 ansikt  61 auge   848 | stemn: auge   212 felt  122 vegg   27 | lik 1.00 strekk 0.00% | open 10% delar 1 bru >12 hol 1 rist 1.3 velt 2.0
+VELT-sveip   felt  665 U 0.35 W350  2.63 vegg   41 v/f 0.06 ansikt  59 auge   923 | stemn: auge   171 felt   11 vegg   50 | lik 0.43 strekk 0.00% | open  0% delar 1 bru >12 hol 0 rist 1.0 velt 1.8
+UMOGL-kuppel felt  109 U 0.34 W350 16.09 vegg  137 v/f 1.26 ansikt  93 auge 35750 | stemn: auge  8937 felt   27 vegg   34 | lik 1.00 strekk 30.95% | open 27% delar 1 bru >12 hol 19 rist 3.2 velt 2.3

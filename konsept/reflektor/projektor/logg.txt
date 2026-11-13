@@ -1,0 +1,11 @@
+13.11 (framhald etter avbrot kl. 02.28)
+- Fann g1, g2, g3 med straalegang.md og tal. g3/overgang.md manglar: økta stoppa medan overgangstabellen for G3 gjekk.
+- _mal.py køyrd éin gong: verkar (flat 660 lx, overgang topp 0,70).
+- Opne spørsmål som avgjer dei tre beste: (a) kva kostar jamnheit med mjuk kant (overfylling og gradert maske),
+  (b) kor mykje vegg i arbeid når spegelen deler (q), (c) kan linsa 285 bli éin av dei tre når ho står 1,45 m unna,
+  med mjuk kant og delt spegel, (d) overgangen: sveipar vippen over skjermen?
+- Plan: G4 som avgjerdssett (15 grep), overgang n = 5 for alle, så brett px=200 og par.
+- G4 køyrd (15 grep, tal og overgang n = 5, 70 s). Feil i eigen kode retta før køyringa: gradert maske (jamn) var rekna
+  ut frå lengste stråle i det aktuelle siktet, så filteret endra seg når hovudet vippa (vipp-fyll gav 1 lx i stemning).
+  No er filteret fast i maskeplanet (gradert()). G2 sin kort60-jamn har same feil og står som han stod.
+- Val: dele-vindauge, golv-dele, zoom. Nest: vipp-vindauge (sveipar over skjermen, sprang 0,35, vegg 23 lx i arbeid).

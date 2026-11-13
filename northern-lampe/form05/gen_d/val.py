@@ -533,8 +533,76 @@ def k_gen(kva='a'):
     logg('gen %s (%.0f s): %s' % (kva, time.time() - t0, '; '.join('%s W %.2f mot %.2f ideelt, U0 %.2f mot %.2f, auge47 %.0f mot %.0f' % (
         k_, v['ark']['W350_fin'], v['ideell']['W350_fin'], v['ark']['U0_fin'], v['ideell']['U0_fin'], v['ark']['auge47'], v['ideell']['auge47']) for k_, v in ut.items())))
 
+# ------------------------------------------------------------------ lysstudien (stilen frå northern-lampe/lysstudie.py, rommet og kameraet frå lysskisse.py)
+GEORGIA = r'C:\Windows\Fonts\georgiai.ttf'
+def _nn(v, d=0): return f'{v:,.{d}f}'.replace(',', ' ').replace('.', ',')
+
+def k_studie(kk='a', px='560'):
+    import studie as st                                  # konsept/lysskisse/studie.py: polar, _felt, _teikn_isolux (berre lesne)
+    from PIL import Image, ImageDraw, ImageFont
+    t0 = time.time(); px = int(px)
+    A = ABC[kk]; pl = A['plass']; p = dict(CAD0); p.update(KROPP_ABC)
+    R = json.load(open(VALJSON, encoding='utf-8'))['abc'][kk]
+    Ts, Tm = R['ark']['side'], R['ark']['stemning']
+    ms, mm = R['mek_side'], R['mek_stemning']; hh = R['heile_hellinga']
+    panel = {}
+    for lab, v, W in (('arbeid', A['v_side'], W_SIDE), ('stemning', A['v_stem'], W_STEM)):
+        lys, kr, c, n, s = cad_lys(mal(dict(p, VINKEL=v)), pl, W, 'ark')
+        hdr = ls.luminans(lys, kr, px, 1)
+        im = Image.fromarray(ls.framkall(hdr, px)).resize((1200, 1200), Image.LANCZOS)      # låst eksponering, same kamera
+        F = st._felt(lys, kr)
+        fnt = ImageFont.truetype(GEORGIA, 22)
+        st._teikn_isolux(im, F, (25, 50, 100, 200) if lab == 'arbeid' else (10, 25, 50), (10, 25, 50, 100) if lab == 'arbeid' else (10, 25, 50), fnt)
+        panel[lab] = dict(im=im, polar=st.polar(lys))
+        print(lab, 'ferdig (%.0f s)' % (time.time() - t0), flush=True)
+    Wd, Hd = 2 * 1200 + 3 * 80, 1200 + 2 * 80 + 600
+    sh = Image.new('RGB', (Wd, Hd), 'black')
+    sh.paste(panel['arbeid']['im'], (80, 80)); sh.paste(panel['stemning']['im'], (80 + 1280, 80))
+    dr = ImageDraw.Draw(sh)
+    fh, fb, fs = (ImageFont.truetype(GEORGIA, z) for z in (46, 31, 24))
+    kvit, graa = (240, 236, 228), (170, 163, 152)
+    dr.text((80, 22), '(%s) %s  ·  CAD-kroppen, arket H1  ·  rekna, ikkje målt' % (kk, A['namn']), font=fs, fill=graa)
+    W350 = W_SIDE * 350.0 / max(Ts['E_felt_fin'], 1e-9)
+    y0 = 80 + 1200 + 60
+    lw = [f"{_nn(Ts['lm'])} lm ut · {_nn(W_SIDE, 1)} W · 2700 K · ruta {_nn(A['v_side'])}°",
+          f"{_nn(Ts['E_felt_fin'])} lx snitt på feltet · U0 {_nn(Ts['U0_fin'], 2)} · {_nn(Ts['under_ruta'])} lx under ruta",
+          f"{_nn(Ts['L_auge_maks'])} cd/m² mot auget · {_nn(Ts['E_skjerm_fin'])} lx på skjermflata · spegling {_nn(Ts['spegling_blank'])} cd/m²",
+          f"{_nn(Ts['E_bak_fin'])} lx på veggen bak skjermen · {_nn(Ts['E_ansikt'])} lx på ansiktet",
+          f"350 lx på feltet krev {_nn(W350, 1)} W med U0 {_nn(Ts['U0_fin'], 2)}: ikkje arbeidslys",
+          'kurvene: 25 · 50 · 100 · 200 lx på bordet, 10 · 25 · 50 · 100 lx på veggen']
+    lm_ = [f"{_nn(Tm['lm'])} lm ut · {_nn(W_STEM, 2)} W · 2700 K · ruta {_nn(A['v_stem'])}°",
+           f"{_nn(Tm['E_bak_fin'])} lx på veggen bak skjermen · {_nn(Tm['E_felt_fin'])} lx på feltet",
+           f"{_nn(Tm['L_auge_maks'])} cd/m² mot auget (krav 500) · likskap {_nn(R['likskap'], 2)}",
+           f"{_nn(ms['masse_g'])} g · fot Ø {_nn(p['FOT_D'])} · tipp {_nn(min(ms['veltevinkel'], mm['veltevinkel']))}°",
+           f"veltar ved {_nn(hh['venstre_min'], 1)} N på venstre hjørne og {_nn(hh['dytt_min'], 1)} N dytt (0 til 80°)",
+           'kurvene: 10 · 25 · 50 lx']
+    for x, head, w, lines in ((80, 'arbeid', 210, lw), (80 + 1280, 'stemning', 270, lm_)):
+        dr.text((x, y0), head, font=fh, fill=kvit)
+        dr.line([x, y0 + 64, x + w, y0 + 62], fill=kvit, width=2)
+        for i, s_ in enumerate(lines):
+            dr.text((x, y0 + 100 + i * 46), s_, font=fs if i else fb, fill=kvit if i < 2 else graa)
+    # polar: lysfordeling i snitt gjennom lampa og midten av feltet, cd/klm
+    cx, cy, r = Wd - 80 - 230, y0 + 250, 150
+    curves = [(panel['arbeid']['polar'], (245, 225, 200), 3, 'arbeid'), (panel['stemning']['polar'], (205, 165, 125), 2, 'stemning')]
+    top = max(float(np.max(c_[0][1])) for c_ in curves)
+    sc = next(v for v in (100, 200, 300, 500, 1000, 2000, 3000, 5000) if v >= top)
+    for rr in (sc / 3, 2 * sc / 3, sc):
+        rad = r * rr / sc; dr.ellipse([cx - rad, cy - rad, cx + rad, cy + rad], outline=(90, 85, 78), width=1)
+    dr.line([cx, cy - r - 8, cx, cy + r + 8], fill=(70, 66, 60), width=1); dr.line([cx - r - 8, cy, cx + r + 8, cy], fill=(70, 66, 60), width=1)
+    for (gr, I), col, wdt, lab in curves:
+        pts = [(cx + r * min(i, 1.1 * sc) / sc * math.sin(math.radians(g)), cy + r * min(i, 1.1 * sc) / sc * math.cos(math.radians(g))) for g, i in zip(gr, I)]
+        dr.line(pts + pts[:1], fill=col, width=wdt, joint='curve')
+        tip = max(pts, key=lambda q: (q[0] - cx) ** 2 + (q[1] - cy) ** 2)
+        dr.text((tip[0] + 10, tip[1] - 14), lab, font=fs, fill=col)
+    dr.text((cx - r - 10, cy - r - 44), 'lysfordeling, snitt', font=fs, fill=graa)
+    dr.text((cx + r * 0.71 + 6, cy + r * 0.71 + 2), f'{sc} cd/klm', font=fs, fill=(150, 142, 130))
+    fil = os.path.join(HER, 'studie_%s.png' % kk)
+    sh.save(fil)
+    logg('studie %s (%.0f s, %d px): %s' % (kk, time.time() - t0, px, fil))
+    print(fil, '%.0f s' % (time.time() - t0))
+
 if __name__ == '__main__':
     try: sys.stdout.reconfigure(encoding='utf-8')
     except Exception: pass
     a = sys.argv[1:]
-    {'ford': k_ford, 'kalib': k_kalib, 'sok': k_sok, 'sok2': k_sok2, 'cad': k_cad, 'gen': k_gen}[a[0]](*a[1:])
+    {'ford': k_ford, 'kalib': k_kalib, 'sok': k_sok, 'sok2': k_sok2, 'cad': k_cad, 'gen': k_gen, 'studie': k_studie}[a[0]](*a[1:])

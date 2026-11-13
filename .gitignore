@@ -1,0 +1,17 @@
+# Kursmateriale frå andre (artiklar, bokkapittel, forelesingar, skjermbilete frå Teams).
+# Repoet er offentleg, så dette blir berre liggjande lokalt.
+context/
+
+# Python
+__pycache__/
+*.pyc
+
+# Avleidde filer som blir laga på nytt ved køyring
+konsept/lysskisse/_skrift/
+*.log
+*.ny
+
+# Vercel og system
+.vercel/
+.DS_Store
+Thumbs.db

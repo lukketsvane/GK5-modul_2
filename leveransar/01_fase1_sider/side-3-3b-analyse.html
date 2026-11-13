@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="nn">
+<head>
+<meta charset="utf-8">
+<title>03 · 3B-analyse</title>
+<link rel="stylesheet" href="felles.css">
+<style>
+  .innhald p.b { font-size: 15.5px; line-height: 1.34; }
+  ul.kort { list-style: none; margin: 6px 0 8px; padding: 0; font: 400 13.5px/1.34 var(--serif); }
+  ul.kort li { padding: 3px 0; border-bottom: 1px solid var(--linje); }
+  ul.kort li:first-child { border-top: 1px solid var(--linje); }
+  td.krav { font-family: var(--mono); font-size: 10px; color: var(--graa); white-space: nowrap; padding-right: 0; text-align: right; }
+  .aks { fill: var(--lys); }
+</style>
+</head>
+<body>
+<div class="side">
+  <header class="topp">
+    <span>GK5 · Northern · fase 1</span>
+    <span>03 · 3B-analyse</span>
+    <span>Iver R. Finne · 13.11.2026</span>
+  </header>
+
+  <h1 class="tittel">Arbeidsslutten er det kritiske steget.</h1>
+
+  <main class="innhald">
+    <section class="k3">
+      <p class="etikett">Brukar</p>
+      <p class="b">Hybridarbeidaren, om lag 30 til 55&nbsp;år (mi avgrensing), som arbeider heime ein til to dagar i veka frå ein plass i eit fleirbruksrom.</p>
+      <ul class="kort">
+        <li>Halvparten sat i slike rom i 2021 (AFI, sekundærkjelde).</li>
+        <li>Har fast plass med stikkontakt (antaking).</li>
+        <li>Kjøper truleg privat. Northern må stadfeste.</li>
+        <li>Vil at rommet blir heim att etter arbeid (tolking).</li>
+        <li>Vel truleg ikkje lys etter lux og kelvin (éin liten studie).</li>
+      </ul>
+      <p class="liten graa">Sekundærbrukarar: andre i hushaldet, den ein møter på skjermen, forhandlaren og attvinnaren.</p>
+    </section>
+
+    <section class="k6">
+      <p class="etikett">Brukssituasjon</p>
+      <table>
+        <tr><th>Situasjon</th><th>Lampa skal eller bør</th><th>Straum</th><th class="tal">Krav</th></tr>
+        <tr><td>Fokusarbeid</td><td>gje 500&nbsp;lx på arbeidsfeltet og 100 til 150&nbsp;lx på flata ved skjermen, utan synleg eller spegla lyskjelde</td><td>Leidning</td><td class="krav">F1 F3 F6</td></tr>
+        <tr><td>Digitalt møte</td><td>gje 50 til 200&nbsp;lx mjukt lys på ansiktet, utan flimmer</td><td>Leidning</td><td class="krav">F10 T1</td></tr>
+        <tr><td>Arbeidsslutt</td><td>gå frå arbeidslys, 400 til 800&nbsp;lm, til stemningslys med éi rørsle</td><td>Leidning</td><td class="krav">F2</td></tr>
+        <tr><td>Kveld</td><td>lyse varmt og avskjerma, 50 til 200&nbsp;lm</td><td>Batteri</td><td class="krav">F4 F5 F7</td></tr>
+        <tr><td>Flytting og lading</td><td>kunne berast med éi hand, 0,9 til 1,2&nbsp;kg, og stå stødig</td><td>Av og på</td><td class="krav">F8 T2 T7</td></tr>
+      </table>
+    </section>
+
+    <section class="k3">
+      <p class="etikett">Bruksmåte</p>
+      <p class="b">Arbeidslys ein til to dagar i veka. Antakingar: økter på 8&nbsp;timar, stemningslys kvar kveld i 3,5&nbsp;timar, flytting to gonger dagleg.</p>
+      <p class="b merke" style="margin-top: 10px;">Ved arbeidsslutt tek den som ryddar i lampa, skiftar lyset med éi rørsle og ser det bli varmt og lågt.</p>
+      <p class="liten graa" style="margin-top: 10px;">Eg har ikkje intervjua eller observert enno. Intervju og fotoobservasjon 14. og 15.11 prøver antakingane om flytting, dagleg stemningslys og arbeidsslutt.</p>
+    </section>
+
+    <figure class="k12" style="margin-top: 6px;">
+      <p class="etikett">Døgnlinja: ein heimedag i desember</p>
+      <svg width="1039" height="178" viewBox="0 0 1039 178" xmlns="http://www.w3.org/2000/svg">
+        <!-- bandnamn -->
+        <text x="0" y="34" class="graa">DAGSLYS</text>
+        <text x="0" y="66" class="graa">STRAUM</text>
+        <text x="0" y="108" class="graa">MODUS</text>
+
+        <!-- dagslys 09.18 til 15.12 -->
+        <line x1="209" y1="30" x2="566" y2="30" stroke="#D2D2D2" stroke-width="5"/>
+        <text x="215" y="21" class="graa">09.18 til 15.12 (Oslo ved vintersolverv)</text>
+
+        <!-- straum -->
+        <line x1="100" y1="62" x2="796" y2="62" stroke="#000" stroke-width="1.5"/>
+        <text x="104" y="54">leidning, USB-C</text>
+        <line x1="796" y1="62" x2="1008" y2="62" stroke="#000" stroke-width="1.5" stroke-dasharray="4 3"/>
+        <text x="802" y="54">batteri</text>
+        <line x1="1008" y1="62" x2="1038" y2="62" stroke="#000" stroke-width="1.5"/>
+
+        <!-- modus -->
+        <rect x="100" y="86" width="544.75" height="34" class="strek"/>
+        <text x="108" y="107">arbeid · 500&nbsp;lx på arbeidsfeltet</text>
+        <rect x="644.75" y="106" width="363" height="14" class="lysflate"/>
+        <line x1="644.75" y1="106" x2="1007.75" y2="106" class="lysstrek"/>
+        <text x="652" y="100">stemning · 50 til 200&nbsp;lm</text>
+
+        <!-- møte -->
+        <circle cx="251.5" cy="86" r="3" class="fyll"/>
+        <text x="258" y="81">møte</text>
+        <circle cx="433" cy="86" r="3" class="fyll"/>
+        <text x="440" y="81">møte</text>
+
+        <!-- kritisk steg -->
+        <line x1="644.75" y1="12" x2="644.75" y2="140" class="lysstrek"/>
+        <text x="651" y="21" class="aks">KRITISK STEG 16.30 · éi rørsle frå arbeid til stemning</text>
+
+        <!-- tidsakse -->
+        <line x1="70" y1="140" x2="1038" y2="140" class="strek"/>
+        <g class="strek">
+          <line x1="70" y1="140" x2="70" y2="145"/><line x1="130.5" y1="140" x2="130.5" y2="143"/>
+          <line x1="191" y1="140" x2="191" y2="145"/><line x1="251.5" y1="140" x2="251.5" y2="143"/>
+          <line x1="312" y1="140" x2="312" y2="145"/><line x1="372.5" y1="140" x2="372.5" y2="143"/>
+          <line x1="433" y1="140" x2="433" y2="145"/><line x1="493.5" y1="140" x2="493.5" y2="143"/>
+          <line x1="554" y1="140" x2="554" y2="145"/><line x1="614.5" y1="140" x2="614.5" y2="143"/>
+          <line x1="675" y1="140" x2="675" y2="145"/><line x1="735.5" y1="140" x2="735.5" y2="143"/>
+          <line x1="796" y1="140" x2="796" y2="145"/><line x1="856.5" y1="140" x2="856.5" y2="143"/>
+          <line x1="917" y1="140" x2="917" y2="145"/><line x1="977.5" y1="140" x2="977.5" y2="143"/>
+          <line x1="1038" y1="140" x2="1038" y2="145"/>
+        </g>
+        <g class="graa" text-anchor="middle">
+          <text x="70" y="157" class="graa">07</text><text x="191" y="157" class="graa">09</text>
+          <text x="312" y="157" class="graa">11</text><text x="433" y="157" class="graa">13</text>
+          <text x="554" y="157" class="graa">15</text><text x="675" y="157" class="graa">17</text>
+          <text x="796" y="157" class="graa">19</text><text x="917" y="157" class="graa">21</text>
+          <text x="1030" y="157" class="graa">23</text>
+        </g>
+
+        <!-- steg -->
+        <text x="100" y="174">1 morgon</text>
+        <text x="225" y="174">2 fokusarbeid</text>
+        <text x="405" y="174">3 møte</text>
+        <text x="520" y="174">4 ettermiddag</text>
+        <text x="644.75" y="174" class="aks">5 arbeidsslutt</text>
+        <text x="796" y="174">6 kveld, lampa står der folk sit</text>
+        <text x="1038" y="174" text-anchor="end">7 natt</text>
+      </svg>
+    </figure>
+  </main>
+
+  <footer class="botn">
+    <span>Kjelder: NS-EN 12464-1 via Arbeidstilsynet, USN 2026, AFI 2021 via Simployer, celledatablad frå Samsung SDI.</span>
+    <span>Døgnlinja er konstruert, ikkje observert.</span>
+  </footer>
+</div>
+</body>
+</html>

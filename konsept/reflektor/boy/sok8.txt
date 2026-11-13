@@ -1,0 +1,13 @@
+blank-kuv R0.9       A: felt  769 U 0.60 W350  2.28 vegg  27 Wbegge 18.49 auge47   194 a25   194 a60   194 flate  151 skj 237 | S: felt   9 vegg  67 auge47    0 a25   44 a60    0 | strekk 0.00 %
+blank-kuv R2.0       A: felt  883 U 0.60 W350  1.98 vegg  22 Wbegge 22.47 auge47   194 a25   194 a60   194 flate  180 skj 193 | S: felt   9 vegg  70 auge47    0 a25   43 a60    0 | strekk 0.00 %
+folie-kuv R1.2       A: felt  787 U 0.61 W350  2.22 vegg  24 Wbegge 20.50 auge47   258 a25   258 a60   258 flate  157 skj 214 | S: felt   9 vegg  66 auge47    0 a25   58 a60    0 | strekk 0.00 %
+blank-kuv 0.18 R0.6  A: felt  975 U 0.05 W350  1.80 vegg  21 Wbegge 23.61 auge47   389 a25   389 a60   389 flate  235 skj 268 | S: felt   8 vegg  71 auge47    0 a25   85 a60    0 | strekk 0.00 %
+blank-kuv 0.18 R1.2  A: felt 1125 U 0.05 W350  1.56 vegg  22 Wbegge 22.24 auge47   389 a25   389 a60   389 flate  288 skj  93 | S: felt   8 vegg  74 auge47    0 a25   84 a60    0 | strekk 0.00 %
+blank-kuv 0.20 R0.9  A: felt  956 U 0.15 W350  1.83 vegg  22 Wbegge 22.45 auge47   299 a25   299 a60   299 flate  215 skj 233 | S: felt   8 vegg  70 auge47    0 a25   66 a60    0 | strekk 0.00 %
+blank-kuv 0.32 R1.2  A: felt  588 U 0.59 W350  2.98 vegg  34 Wbegge 14.51 auge47   118 a25 19194 a60   118 flate  111 skj 184 | S: felt  11 vegg  57 auge47    0 a25   28 a60    0 | strekk 0.00 %
+to-blank hog         A: felt  848 U 0.15 W350  2.06 vegg 123 Wbegge  4.05 auge47   200 a25   462 a60   200 flate  248 skj 262 | S: felt  33 vegg  63 auge47   38 a25  116 a60   35 | strekk 0.00 %
+to-blank kryss       A: felt  527 U 0.33 W350  3.32 vegg 114 Wbegge  4.37 auge47   118 a25  1836 a60   118 flate  224 skj 234 | S: felt  19 vegg  50 auge47   22 a25   23 a60   11 | strekk 0.00 %
+to-folie             A: felt  711 U 0.42 W350  2.46 vegg 106 Wbegge  4.74 auge47   258 a25   258 a60   258 flate  193 skj 306 | S: felt  31 vegg  54 auge47   40 a25   46 a60   16 | strekk 0.00 %
+to-blank kA-0.8      A: felt  655 U 0.38 W350  2.67 vegg 118 Wbegge  4.24 auge47   192 a25  2796 a60   184 flate  206 skj  17 | S: felt  32 vegg  56 auge47   26 a25   30 a60    8 | strekk 0.00 %
+to-blank vipp        A: felt  741 U 0.43 W350  2.36 vegg 108 Wbegge  4.62 auge47   193 a25   193 a60   193 flate  205 skj 379 | S: felt   9 vegg  54 auge47    0 a25   43 a60    0 | strekk 0.00 %
+blank-hol R0.3       A: felt 1255 U 0.01 W350  1.39 vegg  23 Wbegge 21.89 auge47   194 a25   194 a60   194 flate  548 skj   3 | S: felt   9 vegg  90 auge47   28 a25   41 a60    0 | strekk 0.00 %

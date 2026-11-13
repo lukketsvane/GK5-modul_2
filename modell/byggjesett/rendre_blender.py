@@ -86,6 +86,7 @@ def materiale():
     M['kopar'], _ = _principled('kopar', (0.95, 0.60, 0.46), 1.0, 0.28)
     M['kretskort'], _ = _principled('kretskort', (0.03, 0.17, 0.06), 0.0, 0.45, coat=0.4)
     M['gummi_svart'], _ = _principled('gummi_svart', (0.02, 0.02, 0.022), 0.0, 0.7)
+    M['keramikk'], _ = _principled('keramikk', (0.86, 0.84, 0.80), 0.0, 0.45)
     m, p = _principled('fresnel', (0.92, 0.93, 0.95), 1.0, 0.12); _ringar(m, p, 0.0018); M['fresnel'] = m
     M['glas'], _ = _principled('glas', (0.96, 1.0, 0.98), 0.0, 0.0, trans=1.0, ior=1.52)
     m, p = _principled('film', (0.96, 0.98, 1.0), 0.0, 0.10, trans=1.0, ior=1.58); _liner(m, p, 0.0006); M['film'] = m
@@ -125,8 +126,9 @@ def _bakgrunn(z0, y_bak, breidd=6.0, radius=0.7, hogd=4.0, framme=6.0):
 
 def _importer(fil, M, mat):
     bpy.ops.object.select_all(action='DESELECT')
-    bpy.ops.wm.stl_import(filepath=os.path.join(HER, fil), global_scale=0.001)
+    bpy.ops.wm.stl_import(filepath=os.path.join(HER, fil), global_scale=1.0)
     ob = bpy.context.selected_objects[0]
+    ob.data.transform(Matrix.Scale(0.001, 4)); ob.data.update()        # mm til m i sjølve meshen, så objektskalaen er 1
     m = Matrix(M); m.translation = m.translation * 0.001
     ob.matrix_world = m
     ob.data.materials.append(mat)
@@ -159,18 +161,22 @@ def rendre(namn, sc):
         _importer(o['fil'], o['M'], M[o['mat']])
     lo, hi = Vector(sc['lo']) * 0.001, Vector(sc['hi']) * 0.001
     midt = (lo + hi) / 2; R = (hi - lo).length / 2
-    bg = _bakgrunn(lo.z, hi.y + 0.25 * R + 0.05); bg.data.materials.append(M['golv'])
+    y_bak = hi.y + 0.25 * R + 0.05
+    bg = _bakgrunn(lo.z, y_bak); bg.data.materials.append(M['golv'])
     k = sc['kamera']
     mal = Vector(k['mal']) * 0.001
     az, el = math.radians(k['azimut']), math.radians(k['elevasjon'])
     retn = Vector((math.sin(az) * math.cos(el), -math.cos(az) * math.cos(el), math.sin(el)))
     cd = bpy.data.cameras.new('kamera'); cd.lens = k.get('lens', 70); cd.sensor_width = 36
     cam = bpy.data.objects.new('kamera', cd); bpy.context.collection.objects.link(cam)
-    cam.location = mal + retn * (k['avstand'] * 0.001); _peik(cam, mal); s.camera = cam
+    halv_v = math.atan((36.0 * H / W / 2) / cd.lens)                # halve vertikale synsvinkelen
+    cam.location = mal + retn * (k.get('faktor', 1.0) * R / math.sin(halv_v)); _peik(cam, mal); s.camera = cam
     d = max(R, 0.08)
-    _lys('hovudlys', mal + Vector((-1.6, -1.8, 2.2)) * d * 2.2, mal, 1.4 * d * 2, 380 * (d / 0.3) ** 2)
-    _lys('fyll', mal + Vector((2.2, -0.9, 0.9)) * d * 2.2, mal, 2.0 * d * 2, 90 * (d / 0.3) ** 2)
-    _lys('kant', mal + Vector((0.4, 2.4, 1.8)) * d * 2.2, mal, 1.0 * d * 2, 260 * (d / 0.3) ** 2, (1.0, 0.93, 0.85))
+    _lys('hovudlys', mal + Vector((-1.6, -1.8, 2.2)) * d * 2.2, mal, 1.4 * d * 2, 120 * (d / 0.3) ** 2)
+    _lys('fyll', mal + Vector((2.2, -0.9, 0.9)) * d * 2.2, mal, 2.0 * d * 2, 28 * (d / 0.3) ** 2)
+    kant = mal + Vector((0.4, 2.4, 1.8)) * d * 2.2
+    kant.y = min(kant.y, y_bak - 0.03)                                  # framfor bakveggen, elles skuggar veggen lyset
+    _lys('kant', kant, mal, 1.0 * d * 2, 85 * (d / 0.3) ** 2, (1.0, 0.93, 0.85))
     os.makedirs(UT, exist_ok=True)
     s.render.filepath = os.path.join(UT, namn + ('-prove' if PROVE else '') + '.png')
     bpy.ops.render.render(write_still=True)

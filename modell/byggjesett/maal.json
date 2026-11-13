@@ -1,0 +1,249 @@
+{
+ "P01": {
+  "namn": "arm",
+  "profil_lengd": [
+   240,
+   12,
+   "anslått frå foto"
+  ],
+  "profil_breidd": [
+   43,
+   6,
+   "anslått frå foto"
+  ],
+  "profil_tjukk": [
+   26,
+   3,
+   "anslått frå foto"
+  ],
+  "vegg": [
+   1.5,
+   0.5,
+   "antaking"
+  ],
+  "kappe_lengd": [
+   98,
+   10,
+   "anslått frå foto"
+  ],
+  "kappe_breidd": [
+   40,
+   5,
+   "anslått frå foto"
+  ],
+  "kappe_hogd": [
+   51,
+   8,
+   "anslått frå foto"
+  ],
+  "tapp_d": [
+   6,
+   1.5,
+   "anslått frå foto"
+  ],
+  "tapp_lengd": [
+   15,
+   3,
+   "anslått frå foto"
+  ],
+  "laas_lengd": [
+   12,
+   4,
+   "anslått frå foto"
+  ]
+ },
+ "P02": {
+  "namn": "hengsel",
+  "lengd": [
+   84,
+   12,
+   "anslått frå foto"
+  ],
+  "breidd": [
+   66,
+   12,
+   "anslått frå foto"
+  ],
+  "hogd": [
+   55,
+   15,
+   "anslått frå foto"
+  ],
+  "fjoer_lengd": [
+   35,
+   8,
+   "anslått frå foto"
+  ],
+  "fjoer_d": [
+   5.5,
+   2,
+   "anslått frå foto"
+  ]
+ },
+ "P03": {
+  "namn": "hovud",
+  "lengd": [
+   140,
+   15,
+   "anslått frå foto"
+  ],
+  "breidd": [
+   78,
+   10,
+   "anslått frå foto"
+  ],
+  "hogd": [
+   80,
+   20,
+   "anslått frå foto"
+  ],
+  "fas": [
+   18,
+   5,
+   "anslått frå foto"
+  ],
+  "vifte": [
+   60,
+   1,
+   "typeskilt Sunon GM1206PTV3-A"
+  ],
+  "lager_d": [
+   70,
+   10,
+   "anslått frå foto"
+  ]
+ },
+ "P04": {
+  "namn": "base",
+  "lengd": [
+   285,
+   12,
+   "anslått frå foto"
+  ],
+  "breidd": [
+   99,
+   12,
+   "anslått frå foto"
+  ],
+  "hogd": [
+   28,
+   10,
+   "anslått frå foto"
+  ]
+ },
+ "P05": {
+  "namn": "fresnelspegel",
+  "vindauge": [
+   285,
+   0,
+   "deleliste"
+  ],
+  "brennvidd": [
+   187.1,
+   0,
+   "deleliste"
+  ],
+  "ramme_ytre": [
+   295,
+   4,
+   "anslått frå foto"
+  ],
+  "skraa": [
+   37,
+   5,
+   "anslått frå foto"
+  ],
+  "tjukk": [
+   3.5,
+   2,
+   "anslått frå foto"
+  ]
+ },
+ "P06": {
+  "namn": "glaslinse",
+  "d": [
+   41,
+   4,
+   "anslått frå foto"
+  ],
+  "hogd": [
+   14,
+   6,
+   "anslått frå foto"
+  ]
+ },
+ "P07": {
+  "namn": "projeksjonslinse",
+  "fatning_d": [
+   77,
+   5,
+   "anslått frå foto"
+  ],
+  "fatning_hogd": [
+   28,
+   10,
+   "anslått frå foto"
+  ],
+  "linse_d": [
+   40,
+   4,
+   "anslått frå foto"
+  ],
+  "spak_lengd": [
+   17,
+   5,
+   "anslått frå foto"
+  ],
+  "brennvidd": [
+   280,
+   10,
+   "research/13, utrekna"
+  ]
+ },
+ "P08": {
+  "namn": "prismeark",
+  "breidd": [
+   306,
+   40,
+   "anslått frå foto"
+  ],
+  "hogd": [
+   535,
+   70,
+   "anslått frå foto"
+  ],
+  "tjukk": [
+   0.2,
+   0.15,
+   "antaking"
+  ],
+  "flik_breidd": [
+   10,
+   3,
+   "anslått frå foto"
+  ],
+  "flik_hogd": [
+   1.6,
+   1,
+   "anslått frå foto"
+  ],
+  "flik_tal": [
+   2,
+   0,
+   "anslått frå foto"
+  ]
+ },
+ "P09": {
+  "namn": "fsx_paere",
+  "d": [
+   20,
+   0,
+   "deleliste"
+  ],
+  "lengd": [
+   77,
+   0,
+   "deleliste"
+  ]
+ }
+}

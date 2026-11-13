@@ -31,6 +31,8 @@ Biletet er geometrien frå CAD-en. Gløden i ruta er ei visualisering, ikkje ei 
 
 Begge er parametrar øvst i `lampe.py` (`FOT_D`, `ARM_UT`). Med fot på Ø 240 mm toler lampa dobbelt så mykje (15,6 N på venstre hjørne), men ho bryt F9 (452 cm²) og F8 (1378 g).
 
+**Vedtak 13.11.2026:** foten blir Ø 158 mm. Iver overlét valet til meg. Den vesle foten held både fotkravet og vektkravet, og dei er hans eigne krav. Den breie held ingen av dei. Prisen er at lampa toler lite sidelengs dytt (3,1 N i toppen), og det må prøvast på prototypen. Blir ho for lett å velte, er første grep å senke bjelken (`AKSE_H`), ikkje å gjere foten breiare.
+
 ## Kontrollen
 
 | | Verdi | Krav |

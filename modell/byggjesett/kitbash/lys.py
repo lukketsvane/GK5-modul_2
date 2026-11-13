@@ -94,17 +94,42 @@ def g_over_vindauge(t):
     return lys, KROPP_OVER
 
 
+def band_lys(W, K, mot, spreiing=2.5, n=5, halv=0.12):
+    """LED-stripa på skjermkanten som n punktkjelder langs x, alle mot plata over. Plata speglar midtstrålen mot «mot»."""
+    c = OVER_C; a = nrm(KP_OVER - c); til = nrm(mot - c); nn = nrm(a + til); opp = nrm(np.cross(a, til)); lys = []
+    for x in np.linspace(-halv, halv, n):
+        d = np.array([x, 0.0, 0.0])
+        k = straale(KP_OVER + d, c + d, W / n * LMW_KJELDE, K, spreiing=BRONN50[0], kutt=BRONN50[1], opning=(2 * halv / n, 0.008), bronn=BRONN50[2])
+        lys += [k, fresnelspegel(k, c, nn, spreiing=spreiing, n=fre.N, opp=opp)]
+    return lys
+
+
 def band(spreiing=2.5, n=5, halv=0.12, vipp=True):
-    """LED-stripa på skjermkanten som n punktkjelder langs x. Plata vippar frå veggen til feltet (eller står fast mot feltet)."""
+    """Bandet åleine. Plata vippar frå veggen til feltet (eller står fast mot feltet, då er handlinga ein dimmar)."""
     def g(t):
-        W, K = watt(t); c = OVER_C
-        mot = VEGG_OVER * (1 - t) + FELT * t if vipp else FELT
-        a = nrm(KP_OVER - c); til = nrm(mot - c); nn = nrm(a + til); opp = nrm(np.cross(a, til))
-        lys = []
-        for x in np.linspace(-halv, halv, n):
-            d = np.array([x, 0.0, 0.0])
-            k = straale(KP_OVER + d, c + d, W / n * LMW_KJELDE, K, spreiing=BRONN50[0], kutt=BRONN50[1], opning=(2 * halv / n, 0.008), bronn=BRONN50[2])
-            lys += [k, fresnelspegel(k, c, nn, spreiing=spreiing, n=fre.N, opp=opp)]
+        W, K = watt(t)
+        return band_lys(W, K, VEGG_OVER * (1 - t) + FELT * t if vipp else FELT, spreiing, n, halv), KROPP_OVER
+    return g
+
+
+def band_vindauge(q=0.2, spreiing=2.5, n=5, halv=0.12):
+    """Bandet fast mot feltet og vindaugsdioden på toppen av armen. Knotten flyttar watten: ingenting sveipar over skjermen."""
+    def g(t):
+        W, K, Wv, Wp = to_kanalar(t, q)
+        lys = vindauge_paa(b(0.0, 0.575, 0.659), Wv, K)
+        if Wp > 0.02:
+            lys += band_lys(Wp, K, FELT, spreiing, n, halv)
+        return lys, KROPP_OVER
+    return g
+
+
+def vindauge_q(q):
+    """Plata fast med punktdiode og vindaugsdiode, med delen q av watten til vindauget i arbeid."""
+    def g(t):
+        W, K, Wv, Wp = to_kanalar(t, q)
+        lys = vindauge_paa(b(0.0, 0.575, 0.659), Wv, K)
+        if Wp > 0.02:
+            lys += fresnel_fast(Wp, K, OVER_C, KP_OVER, FELT)
         return lys, KROPP_OVER
     return g
 
@@ -180,10 +205,12 @@ def g_fot_royr(t):
 
 GREP = [
     ('over-vipp', g_over_vipp), ('over-flik', tre._B), ('over-vindauge', g_over_vindauge),
-    ('over-band', band(2.5)), ('over-band-ark6', band(6.0)), ('over-band-ark12', band(12.0)), ('over-band-fast', band(2.5, vipp=False)),
     ('over-rute', g_over_rute), ('fot-vipp', g_fot_vipp), ('fot-knekk', g_fot_knekk), ('fot-vindauge', g_fot_vindauge),
     ('fot-skive', g_fot_skive), ('fot-rute', g_fot_rute), ('fot-linse', tre._C), ('fot-hovud', g_fot_hovud), ('fot-royr', g_fot_royr),
     ('ref-A', tre._A), ('ref-D', ruta.g_ruta(N=N_FOTON)),
+    # bandet er tungt (fem kjelder mot plata), så det står sist
+    ('over-band', band(2.5)), ('over-band-vindauge', band_vindauge(0.2)), ('over-band-vindauge-q30', band_vindauge(0.3)),
+    ('over-vindauge-q30', vindauge_q(0.3)), ('over-band-ark6', band(6.0)), ('over-band-3', band(2.5, n=3)), ('over-band-kort', band(2.5, halv=0.06)),
 ]
 
 

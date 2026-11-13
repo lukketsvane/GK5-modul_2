@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # KOPI av modell/byggjesett/rendre_blender.py (13.11.2026). Endra berre: kvar scenene blir lesne frå (--scener),
-# kvar bileta blir skrivne (--ut), materiala «print», «led» og «opal» for trykte og kjøpte delar, og «flat» på filmstykke.
+# kvar bileta blir skrivne (--ut), materiala «print», «led» og «opal» for trykte og kjøpte delar, og «flat» på filmstykke
+# (ikkje bøygd i delbanken, og reflekskortet lyser berre på filmen, så bakgrunnen held seg svart).
 # Materiale, lys, verd, kamera, prøvetal og utdata er dei same som i originalen.
 """rendre_blender.py · studiorendrar av kitbash-lampene med oppsettet til byggjesettet (Cycles, Blender 5.1, hovudlaust)
 
@@ -300,7 +301,15 @@ def rendre(namn, sc):
             if dv.dot(n) > 0:
                 n = -n
             r = dv - 2 * dv.dot(n) * n
-            _kort('refleks', mal + r * 1.2, mal, 1.2, 70.0)
+            kort = _kort('refleks', mal + r * 1.2, mal, 1.2, 70.0)
+            if o.get('flat'):                                           # filmstykke i ei lampe: refleksen skal berre lyse på filmen,
+                try:                                                    # ikkje på golvet og dei andre delane (lyslenking)
+                    mottak = bpy.data.collections.new('film_mottak')
+                    for ob2, o2 in zip(objekt, sc['objekt']):
+                        if o2.get('del_') == 'P08': mottak.objects.link(ob2)
+                    kort.light_linking.receiver_collection = mottak
+                except Exception:
+                    kort.visible_diffuse = False
     if sc.get('baklys'):                                                # lys gjennom arket bakfrå
         bak = Vector((mal.x, min(hi.y + 0.25, y_bak - 0.03), mal.z))
         _lys('baklys', bak, mal, 0.9 * d * 2, 30 * (d / 0.3) ** 2, (1.0, 0.95, 0.88))

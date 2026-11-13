@@ -107,7 +107,7 @@ def polar(dr, ruter_a, ruter_s, x0, y0, R, f):
 def lag(kv='T'):
     spec = m.KROPPAR[kv]
     ek = m.les('ekstra_' + kv, {})
-    Wa = ek.get('arbeid', {}).get('W', 3.0)
+    Wa = m.les('rekn_' + kv, {}).get('W350', 3.0)
     st = m.stripekart(spec['ruter'][0]['w'], spec['ruter'][0]['h'], m.STRIPER['pitch'], m.STRIPER['sigma'])
     n = 1000; na = 420
     imS, ruter_s = bilete(spec, 0.0, None, n, stripe=st)
@@ -118,7 +118,7 @@ def lag(kv='T'):
     f1 = ImageFont.truetype(FONT, 34); f2 = ImageFont.truetype(FONT, 19); f3 = ImageFont.truetype(FONT, 16)
     dr.text((40, 34), 'Lysrute · %s' % spec['namn'], font=f1, fill=(225, 220, 210))
     S = ek.get('stemning', {}); A = ek.get('arbeid', {})
-    dr.text((40, 84), 'stemning · 2200 K · %.2f W · %s lm ut av ruta' % (sum(r.W for r in ruter_s), f'{sum(r.phi_ut for r in ruter_s):.0f}'),
+    dr.text((40, 84), 'stemning · 2200 K · 1,25 W · %s lm ut av ruta' % f'{sum(r.phi_ut for r in ruter_s):.0f}',
             font=f2, fill=(220, 160, 95))
     dr.text((n + 30, 34), 'arbeid · 2700 K · %.1f W · %.0f lm ut' % (Wa, sum(r.phi_ut for r in ruter_a)), font=f2, fill=(225, 220, 210))
     polar(dr, ruter_a, ruter_s, n + 30 + na // 2, 70 + na + 150, 120, f3)

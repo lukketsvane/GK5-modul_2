@@ -320,12 +320,12 @@ def scene_utlagd():
 
 
 SCENER = {      # faktor: avstand i høve til det som akkurat får med heile kula rundt motivet (1,0)
-    'projektoren-samla': dict(fn=scene_samla, kamera=dict(azimut=-38, elevasjon=22, lens=50, faktor=0.82), prover=192),
-    'fresnelplata': dict(fn=lambda: [('P05', np.eye(4))], kamera=dict(azimut=-22, elevasjon=36, lens=60, faktor=0.78), prover=160),
+    'projektoren-samla': dict(fn=scene_samla, kamera=dict(azimut=-38, elevasjon=22, lens=50, faktor=0.82), prover=48),
+    'fresnelplata': dict(fn=lambda: [('P05', np.eye(4))], kamera=dict(azimut=-22, elevasjon=36, lens=60, faktor=0.78), prover=48),
     'linsene': dict(fn=lambda: [('P07', np.eye(4)), ('P06', _Tr(80, 18, 0)), ('P09', _M(_R((0, 1, 0), 90), _Tr(-110, 10, 10)))],
-                    kamera=dict(azimut=-18, elevasjon=32, lens=90, faktor=0.85), prover=224),
+                    kamera=dict(azimut=-18, elevasjon=32, lens=90, faktor=0.85), prover=64),
     'arket': dict(fn=lambda: [('P08', _M(_R((1, 0, 0), 90 - 9), _Tr(0, 0, 0)))],
-                  kamera=dict(azimut=-24, elevasjon=10, lens=50, faktor=0.80), prover=160),
+                  kamera=dict(azimut=-24, elevasjon=10, lens=50, faktor=0.80), prover=48, baklys=True),
 }
 
 
@@ -340,7 +340,7 @@ def _scenedata(namn, sc, stl_av):
     midt = (lo + hi) / 2
     R = np.linalg.norm(hi - lo) / 2
     k = sc['kamera']
-    return dict(objekt=objekt, lo=lo.tolist(), hi=hi.tolist(), prover=sc['prover'], storleik=[1600, 1000],
+    return dict(objekt=objekt, lo=lo.tolist(), hi=hi.tolist(), prover=sc['prover'], storleik=[1600, 1000], baklys=sc.get('baklys', False),
                 kamera=dict(mal=midt.tolist(), azimut=k['azimut'], elevasjon=k['elevasjon'], lens=k['lens'], faktor=k['faktor']))
 
 

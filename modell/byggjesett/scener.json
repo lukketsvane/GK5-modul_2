@@ -940,11 +940,12 @@
    147.5,
    400.0
   ],
-  "prover": 192,
+  "prover": 48,
   "storleik": [
    1600,
    1000
   ],
+  "baklys": false,
   "kamera": {
    "mal": [
     0.0,
@@ -1034,11 +1035,12 @@
    147.5,
    3.5
   ],
-  "prover": 160,
+  "prover": 48,
   "storleik": [
    1600,
    1000
   ],
+  "baklys": false,
   "kamera": {
    "mal": [
     0.0,
@@ -1320,11 +1322,12 @@
    38.5,
    35.0
   ],
-  "prover": 224,
+  "prover": 64,
   "storleik": [
    1600,
    1000
   ],
+  "baklys": false,
   "kamera": {
    "mal": [
     -7.75,
@@ -1382,11 +1385,12 @@
    83.94273394058791,
    530.024850456359
   ],
-  "prover": 160,
+  "prover": 48,
   "storleik": [
    1600,
    1000
   ],
+  "baklys": true,
   "kamera": {
    "mal": [
     0.0,

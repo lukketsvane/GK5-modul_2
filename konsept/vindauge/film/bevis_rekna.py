@@ -29,8 +29,7 @@ def s1_opp(a, n=1.59):
     if abs(s) >= 1:
         return None, 0.0  # totalrefleksjon i den flate baksida
     ut = deg(math.asin(s))
-    andel = 0.5 * (1 + math.tan(rad(a))) if a < 0 else 0.5 * (1 + math.tan(rad(min(a, 44.9))))
-    andel = max(0.0, min(1.0, andel))
+    andel = max(0.0, min(1.0, 0.5 * (1 + math.tan(rad(a)))))  # del av rillebreidda som treffer flata
     return ut - a, andel
 
 
@@ -80,9 +79,8 @@ if __name__ == "__main__":
         dD = s1_opp(-20, n0 + dn / 2)[0] - s1_opp(-20, n0 - dn / 2)[0]
         print(f"  Abbe-tal {V}: fargespreiing ved a=-20: {dD:.2f} grader")
     print()
-    # Diffraksjon: spalte = synleg flatebreidd ~ halv pitch * cos(45)
+    # Diffraksjon: gitterordenar ved lambda/pitch; konvolutten er sett av ei flate ~ pitch/2
     for pitch in (24, 50):
-        b = 0.5 * pitch * math.sqrt(0.5) * 2 ** 0.5 / 1.0  # ~ halv pitch projisert (grovt)
         print(f"  pitch {pitch} um: ordensavstand lambda/pitch = {deg(0.55 / pitch):.2f} grader,"
               f" konvolutt lambda/(pitch/2) = {deg(0.55 / (pitch / 2)):.2f} grader")
     print()

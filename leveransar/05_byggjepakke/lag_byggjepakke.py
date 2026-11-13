@@ -30,6 +30,7 @@ ROER_D = 25.0
 OVERLAPP = 8.0
 ROER_A = (ROER_D / 2) / math.tan(math.radians(20))                # 34 mm: kutt ved 20° (sigma 10°)
 ROER_FLIK = (ROER_D / 2) / math.tan(math.radians(G['A']['lykt2_kutt']))   # 71 mm: kutt ved 10° (sigma 5°)
+ROER_FLIK_15 = 7.5 / math.tan(math.radians(G['A']['lykt2_kutt']))          # 43 mm: same kutt med ei lita lommelykt Ø 15
 BRONN_H = (ROER_D / 2) / math.tan(math.radians(50))               # 10,5 mm: avskjerming ved 50°
 ARM = 135.0
 
@@ -136,7 +137,7 @@ def roernett(ox, oy, L, tekst):
     g.append(maallinje(ox, oy + L + 4, ox + w, oy + L + 4, f'{k(w)} mm'))
     g.append(maallinje(ox - 4, oy, ox - 4, oy + L, '', side=-1, vassrett=True))
     g.append(t(ox - 6.5, oy + L / 2 + 1, f'{k(L)} mm', 'mono', 'end'))
-    g.append(tekstblokk(ox, oy - 7.5, tekst, 'mono', lh=3.8))
+    g.append(tekstblokk(ox, oy - 3.7 - 3.8 * (len(tekst) - 1), tekst, 'mono', lh=3.8))
     return ''.join(g)
 
 
@@ -313,7 +314,8 @@ def s_A_plassering(W, H):
             '4  Skjer armen og fliken (side 7). Fliken: folie',
             '     med bakepapir oppå, matt flik blendar.',
             f'5  Rull røyra og set dei på lyktene: {k(ROER_A, 0)} mm på',
-            f'     hovudlykta, {k(ROER_FLIK, 0)} mm på fliklykta.',
+            f'     hovudlykta og {k(ROER_FLIK, 0)} mm på fliklykta. Er ho ei',
+            f'     lita lommelykt: Ø 15 × {k(ROER_FLIK_15, 0)} mm.',
             '6  Fest armen på stolpen med ledd, så skiva',
             '     kan vippe og bli ståande.',
             f'7  Teip fliken på ein papplist, {k(-G["A"]["flik_dx_cm"])} cm til',
@@ -342,7 +344,8 @@ def s_A_malar_3(W, H):
     m = 12
     g = [t(m, 26, 'A Skiva: mal 3 av 3, røyr, flik og arm', 'tittel')]
     g.append(roernett(m + 24, 46, ROER_A, ['HOVUDLYKTA · svart papp', f'{k(ROER_A, 0)} mm: kutt ved 20° frå aksen']))
-    g.append(roernett(m + 24, 104, ROER_FLIK, ['FLIKLYKTA · svart papp', f'{k(ROER_FLIK, 0)} mm: kutt ved {G["A"]["lykt2_kutt"]}° frå aksen']))
+    g.append(roernett(m + 24, 108, ROER_FLIK, ['FLIKLYKTA · svart papp', f'{k(ROER_FLIK, 0)} mm: kutt ved {G["A"]["lykt2_kutt"]}° frå aksen',
+                                               f'lita lommelykt: rull Ø 15 × {k(ROER_FLIK_15, 0)} mm, same kutt']))
     fx, fy = m + 120, 44
     g.append(rekt(fx, fy, 120, 84))
     g.append(maallinje(fx, fy + 84 + 4, fx + 120, fy + 84 + 4, '120 mm'))

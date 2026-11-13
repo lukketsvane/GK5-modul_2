@@ -73,3 +73,5 @@ Premisset held ikkje for nokon av dei 18 kroppane (rekna frå geometrien, med m�
 - 19.32 val kalib (11 s): masse 1182 g mot 1184, tp [9.4, 4.1, 149.9] mot [9.2, 4.3, 150.8]; venstre 6.7 mot 6.7 N, dytt 3.1 mot 3.1 N; 2 W 35° ideelt: under 151 mot 190 lx, felt 56 mot 57 lx, auge 386 mot 372
 - 19.37 val sok (313 s): 300 variantar, 0 utan flagg; lyset held i 1, av dei står 0
 - 19.41 val sok2 (108 s): 150 variantar for stemning og sidelys, sok2.csv
+- 19.48 val cad sporsmal (27 s): teikna W350 12.4 U0 0.08 auge 2171 tipp 25°; kant-står W350 7.3 U0 0.09 auge 1355 tipp 24°; lyset-held W350 6.0 U0 0.44 auge 1263 tipp -22°; jamnast W350 8.9 U0 0.60 auge 14241 tipp -16°; største-ark W350 6.4 U0 0.13 auge 691 tipp 12°
+- 19.49 val cad abc (54 s): (a) felt 103 lx ved 2 W, stemning bak 13 lx, tipp 27°; (b) felt 91 lx ved 2 W, stemning bak 5 lx, tipp 26°; (c) felt 14 lx ved 2 W, stemning bak 70 lx, tipp 27°

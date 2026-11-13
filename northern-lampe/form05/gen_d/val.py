@@ -444,8 +444,97 @@ def k_sok2():
         for r in rader: w.writerow({k_: (round(v, 3) if isinstance(v, float) else v) for k_, v in r.items()})
     logg('sok2 (%.0f s): %d variantar for stemning og sidelys, sok2.csv' % (time.time() - t0, len(rader)))
 
+# ------------------------------------------------------------------ avgjerda
+# Spørsmålet: rekna fullt (ls.tal med sprett + fint gitter) for raden som teikna og dei som kjem nærast i sok.csv
+SPORSMAL = {
+    'teikna':         (dict(AKSE_H=260, VINKEL=35, ARM_UT=70), PLASSAR['teikna']),
+    'kant-står':      (dict(AKSE_H=260, VINKEL=20, ARM_UT=70), PLASSAR['kant']),       # den beste som står (sok.csv)
+    'lyset-held':     (dict(AKSE_H=360, VINKEL=20, ARM_UT=-230), PLASSAR['kant']),     # einaste der W, U0 og auget held (sok.csv)
+    'jamnast':        (dict(AKSE_H=460, VINKEL=0, ARM_UT=-230), PLASSAR['kant']),      # høgast U0 i sok.csv
+    'største-ark':    (dict(AKSE_H=260, VINKEL=20, ARM_UT=70, RUTE_B=440, RUTE_D=244), PLASSAR['kant']),   # arket fullt ut (25 x 44)
+}
+# (a)/(b)/(c): stemnings- og sidelys. Same kropp (robust over heile hellinga), tre plasseringar. (helling sidelys, helling stemning)
+KROPP_ABC = dict(AKSE_H=220.0, ARM_UT=78.0)
+ABC = {'a': dict(namn='Ved feltkanten', plass=PLASSAR2['kant'], v_side=20.0, v_stem=80.0),
+       'b': dict(namn='Langs feltkanten', plass=PLASSAR2['side-inn'], v_side=0.0, v_stem=80.0),
+       'c': dict(namn='Bak skjermen', plass=PLASSAR2['bak-vegg'], v_side=60.0, v_stem=80.0)}
+W_SIDE, W_STEM = 2.0, 1.25          # stripa i CAD-en (00-ruta-pa-fot.md: om lag 2 W på 30 cm) og stemningsbudsjettet til A til D
+
+def heile_hellinga(p):
+    rows = {v: mek(mal(dict(p, VINKEL=float(v))), krav=False) for v in range(0, 81, 10)}
+    return dict(trykk_min=min(r['trykk_ruta_N'] for r in rows.values()), dytt_min=min(r['dytt_knott_N'] for r in rows.values()),
+                venstre_min=min(r['velt_venstre_N'] for r in rows.values()), tipp_min=min(r['veltevinkel'] for r in rows.values()),
+                feil=[v for v, r in rows.items() if not r['stab_ok']])
+
+def k_cad(kva='sporsmal'):
+    t0 = time.time(); ut = {}
+    if kva == 'sporsmal':
+        for nm, (kw, pl) in SPORSMAL.items():
+            p = dict(CAD0); p.update({k_: float(v) for k_, v in kw.items()}); d = mal(p)
+            T = cad_full(d, pl, 1.0, 'ark'); f = 350.0 / T['E_felt_fin']
+            m = mek(d); ps = plass_sjekk(d, pl)
+            ut[nm] = dict(param=kw, plass=pl, W350_fin=f, W350_grov=350.0 / T['E_felt'], U0_fin=T['U0_fin'], U0_grov=T['U'],
+                          auge350=T['L_auge_maks'] * f, augevolum350=T['augevolum'] * f, skjerm350=T['E_skjerm_fin'] * f, bak350=T['E_bak_fin'] * f,
+                          ansikt350=T['E_ansikt'] * f, spegling350=T['spegling_blank'] * f, felt_2W=2 * T['E_felt_fin'], mek=m, plass_sjekk=ps)
+            r = ut[nm]
+            print('%-12s W350 %5.2f (grovt %5.2f) U0 %.2f auge %5.0f vol %5.0f skjerm %4.0f bak %4.0f ansikt %3.0f | 2 W: felt %3.0f | m %4.0f tipp %5.1f venstre %5.1f trykk %4.1f dytt %4.1f fot Ø %4.0f | kol %.0f sikt %.2f' % (
+                nm, r['W350_fin'], r['W350_grov'], r['U0_fin'], r['auge350'], r['augevolum350'], r['skjerm350'], r['bak350'], r['ansikt350'], r['felt_2W'],
+                m['masse_g'], m['veltevinkel'], m['velt_venstre_N'], m['trykk_ruta_N'], m['dytt_knott_N'], m['fot_D_krav_mm'], ps['kollisjon_mm'], ps['i_sikt']), flush=True)
+        ut['_teikna_heile_hellinga'] = heile_hellinga(dict(CAD0))
+        print('teikna over 0..80:', ut['_teikna_heile_hellinga'])
+        lagre('sporsmal', ut)
+        logg('cad sporsmal (%.0f s): %s' % (time.time() - t0, '; '.join('%s W350 %.1f U0 %.2f auge %.0f tipp %.0f°' % (k_, v['W350_fin'], v['U0_fin'], v['auge350'], v['mek']['veltevinkel']) for k_, v in ut.items() if not k_.startswith('_'))))
+        return
+    for kk in kva.split(','):
+        A = ABC[kk]; pl = A['plass']
+        p = dict(CAD0); p.update(KROPP_ABC)
+        r = dict(namn=A['namn'], param=dict(KROPP_ABC, VINKEL_side=A['v_side'], VINKEL_stemning=A['v_stem']), plass=pl,
+                 heile_hellinga=heile_hellinga(p))
+        for film in ('ark', 'ideell'):
+            ds, dm = mal(dict(p, VINKEL=A['v_side'])), mal(dict(p, VINKEL=A['v_stem']))
+            Ts = cad_full(ds, pl, W_SIDE, film); Tm = cad_full(dm, pl, W_STEM, film)
+            r[film] = dict(side=Ts, stemning=Tm)
+        ls_s = ls.tal(*cad_lys(mal(dict(p, VINKEL=A['v_stem'])), pl, W_STEM, 'ark')[:2])
+        ls_a = ls.tal(*cad_lys(mal(dict(p, VINKEL=A['v_side'])), pl, W_SIDE, 'ark')[:2])
+        r['likskap'] = float(ls.likskap(ls_s['_fordeling'], ls_a['_fordeling']))
+        r['mek_side'] = mek(mal(dict(p, VINKEL=A['v_side']))); r['mek_stemning'] = mek(mal(dict(p, VINKEL=A['v_stem'])))
+        r['plass_side'] = plass_sjekk(mal(dict(p, VINKEL=A['v_side'])), pl); r['plass_stemning'] = plass_sjekk(mal(dict(p, VINKEL=A['v_stem'])), pl)
+        ut[kk] = r
+        Ts, Tm, m = r['ark']['side'], r['ark']['stemning'], r['mek_side']
+        print('(%s) %s: side %.0f lm %.2f W felt %.0f lx U0 %.2f under %.0f auge %.0f/%.0f/%.0f vol %.0f skj %.0f spegl %.1f bak %.0f ansikt %.0f | stemning bak %.0f felt %.0f auge %.0f | likskap %.2f | m %.0f tipp %.1f venstre %.1f dytt %.1f trykk %.1f; 0..80 %s | kol %.0f/%.0f sikt %.2f | ideelt: felt %.0f auge %.0f' % (
+            kk, A['namn'], Ts['lm'], Ts['W'], Ts['E_felt_fin'], Ts['U0_fin'], Ts['under_ruta'], Ts['L_auge25'], Ts['L_auge47'], Ts['L_auge60'], Ts['augevolum'],
+            Ts['E_skjerm_fin'], Ts['spegling_blank'], Ts['E_bak_fin'], Ts['E_ansikt'], Tm['E_bak_fin'], Tm['E_felt_fin'], Tm['L_auge_maks'], r['likskap'],
+            m['masse_g'], m['veltevinkel'], m['velt_venstre_N'], m['dytt_knott_N'], m['trykk_ruta_N'], r['heile_hellinga'], r['plass_side']['kollisjon_mm'],
+            r['plass_stemning']['kollisjon_mm'], r['plass_side']['i_sikt'], r['ideell']['side']['E_felt_fin'], r['ideell']['side']['L_auge_maks']), flush=True)
+    lagre('abc', ut)
+    logg('cad abc (%.0f s): %s' % (time.time() - t0, '; '.join('(%s) felt %.0f lx ved 2 W, stemning bak %.0f lx, tipp %.0f°' % (
+        k_, v['ark']['side']['E_felt_fin'], v['ark']['stemning']['E_bak_fin'], v['mek_side']['veltevinkel']) for k_, v in ut.items())))
+
+# ------------------------------------------------------------------ gen_d-framlegga (val_forslag.md) med arket
+GEN = {'a': (1, dict(r_fot=0.12)), 'b': (9, {}), 'c': (5, dict(r_fot=0.13))}
+def k_gen(kva='a'):
+    t0 = time.time(); ut = {}
+    for kk in kva.split(','):
+        i, kw = GEN[kk]; sp = dict(M.SPEC[i]); sp.update(kw)
+        r = {}
+        for film in ('ark', 'ideell'):
+            bruk_film(film)
+            rad, kr = M.tal(sp)
+            g = M.g_lys(kr); a = M.tal_fin(*g(1.0)); s = M.tal_fin(*g(0.0)); f = 350.0 / a['E_felt']
+            rad.update(W350_fin=a['W'] * f, U0_fin=a['U'], bak350_fin=a['E_bak'] * f, skjerm350_fin=a['E_skjerm'] * f, s_bak_fin=s['E_bak'],
+                       s_felt_fin=s['E_felt'], lm350=a['W'] * f * ls.LMW_KJELDE)
+            r[film] = rad
+            print('%s %s %s: W %.2f/%.2f U0 %.2f/%.2f auge %.0f/%.0f/%.0f vol %.0f spegl %.1f bak %.0f/%.0f skj %.0f/%.0f ansikt %.0f | st bak %.0f/%.0f auge %.0f | m %.2f tipp %.1f Fk %.1f sv %.2f/%.2f (%.0f s)' % (
+                kk, sp['namn'], film, rad['W350'], rad['W350_fin'], rad['U0'], rad['U0_fin'], rad['auge25'], rad['auge47'], rad['auge60'], rad['augevolum'],
+                rad['spegling_blank'], rad['bak350'], rad['bak350_fin'], rad['skjerm350'], rad['skjerm350_fin'], rad['ansikt350'], rad['s_bak'], rad['s_bak_fin'],
+                rad['s_auge'], rad['masse_kg'], rad['tipp_deg'], rad['F_tipp_knott_N'], rad['svikt_knott_mm'], rad['svikt_rute_mm'], time.time() - t0), flush=True)
+        ut[kk] = r
+    lagre('gen', ut)
+    logg('gen %s (%.0f s): %s' % (kva, time.time() - t0, '; '.join('%s W %.2f mot %.2f ideelt, U0 %.2f mot %.2f, auge47 %.0f mot %.0f' % (
+        k_, v['ark']['W350_fin'], v['ideell']['W350_fin'], v['ark']['U0_fin'], v['ideell']['U0_fin'], v['ark']['auge47'], v['ideell']['auge47']) for k_, v in ut.items())))
+
 if __name__ == '__main__':
     try: sys.stdout.reconfigure(encoding='utf-8')
     except Exception: pass
     a = sys.argv[1:]
-    {'ford': k_ford, 'kalib': k_kalib, 'sok': k_sok, 'sok2': k_sok2}[a[0]](*a[1:])
+    {'ford': k_ford, 'kalib': k_kalib, 'sok': k_sok, 'sok2': k_sok2, 'cad': k_cad, 'gen': k_gen}[a[0]](*a[1:])

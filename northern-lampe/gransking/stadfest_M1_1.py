@@ -172,8 +172,10 @@ za = zs + 0.03
 yb = CY + CF                                     # bakkant søyle
 
 
-def boksar(t, lukka):
+def boksar(t, lukka, band=False):
     xa, xb = -CW / 2, CW / 2
+    if band:                                                       # stivt hovud: massivt band mellom flikane i aksehøgd
+        return boksar(t, lukka) + [(xa, xb, ys - 0.012, ys + 0.012, zs - 0.012, zs - 0.004)]
     B = [(xa, xb, yb - t, yb, z0, za + CF),                       # søyle, steg bak
          (xa, xa + t, CY, yb, z0, za + CF), (xb - t, xb, CY, yb, z0, za + CF),
          (xa, xb, ys - 0.012, yb, za + CF - t, za + CF),           # arm, steg oppe
@@ -196,9 +198,12 @@ def hovudpunkt(alfa_deg, s, x):
 
 
 I_z = None
-for lab, t, lukka, h in (('open U 100×30×2', 0.002, False, 0.006), ('lukka 100×30×1,5', 0.0015, True, 0.006)):
+VAR = (('open U 100×30×2', 0.002, False, 0.006, False), ('lukka 100×30×1,5', 0.0015, True, 0.006, False))
+if MODE == 'variant':
+    VAR = (('open U, gitter 4 mm', 0.002, False, 0.004, False), ('open U + stivt band mellom flikane', 0.002, False, 0.006, True))
+for lab, t, lukka, h, band in VAR:
     t0 = time.time()
-    m = Modell(boksar(t, lukka), h, lambda P: P[:, 2] < z0 + 1e-9)
+    m = Modell(boksar(t, lukka, band), h, lambda P: P[:, 2] < z0 + 1e-9)
     flik = np.where((m.P[:, 1] <= ys + 0.012 + 1e-9) & (m.P[:, 2] <= zs + 1e-9))[0]
     p(f'\n== {lab}: {m.nel} element, {m.nnode} nodar, faktorisering {m.tf:.1f} s, totalt {time.time() - t0:.1f} s, foten fast innspent (kvelving hindra)')
     res = {}
@@ -243,4 +248,4 @@ for lab, t, lukka, h in (('open U 100×30×2', 0.002, False, 0.006), ('lukka 100
     p(f'   eigenvekta til hovudet {Wt:.2f} N: {res["eigenvekt_mm"]:.3f} mm ned')
     UT[lab] = res
 
-json.dump(UT, open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'stadfest_M1_1.json'), 'w', encoding='utf-8'), indent=1, ensure_ascii=False, default=float)
+# skriv berre til skjermen (motprovet skal ikkje leggje att filer)

@@ -9,24 +9,24 @@
     "punkt_mm": [
      0.0,
      -0.0,
-     325.5
+     333.5
     ],
-    "dytt_N": 2.62,
+    "dytt_N": 2.6,
     "dytt_retning_grader": 140.0,
-    "dytt_N_lett": 2.38,
+    "dytt_N_lett": 2.37,
     "krav_N": 5.0,
     "held": false,
-    "glid_N": 3.96,
+    "glid_N": 4.02,
     "glir_forst": false,
-    "veltevinkel": 60.0,
+    "veltevinkel": 59.1,
     "tp_innanfor_mm": 86.1,
     "fot_cm2": 254.3,
-    "masse_g": 1009.5,
-    "masse_pm_g": 91.9,
+    "masse_g": 1024.6,
+    "masse_pm_g": 91.1,
     "tp_mm": [
      -2.9,
      2.5,
-     49.7
+     51.5
     ],
     "z0_mm": 0.0,
     "merknad": "rekna: stiv kropp på stivt bord, friksjon 0.4 (ANTAKING). dytt_N_lett er med massen i nedre kant av usikkerheita."
@@ -35,7 +35,7 @@
     "punkt_mm": [
      -56.0,
      12.0,
-     306.9
+     314.9
     ],
     "retning": [
      0.0,
@@ -52,24 +52,24 @@
     "punkt_mm": [
      0.0,
      -0.0,
-     325.5
+     333.5
     ],
-    "dytt_N": 2.64,
+    "dytt_N": 2.62,
     "dytt_retning_grader": 160.0,
-    "dytt_N_lett": 2.4,
+    "dytt_N_lett": 2.38,
     "krav_N": 5.0,
     "held": false,
-    "glid_N": 3.96,
+    "glid_N": 4.02,
     "glir_forst": false,
-    "veltevinkel": 60.8,
+    "veltevinkel": 59.9,
     "tp_innanfor_mm": 86.8,
     "fot_cm2": 254.3,
-    "masse_g": 1009.5,
-    "masse_pm_g": 91.9,
+    "masse_g": 1024.6,
+    "masse_pm_g": 91.1,
     "tp_mm": [
      -2.9,
      1.2,
-     48.6
+     50.4
     ],
     "z0_mm": 0.0,
     "merknad": "rekna: stiv kropp på stivt bord, friksjon 0.4 (ANTAKING). dytt_N_lett er med massen i nedre kant av usikkerheita."
@@ -78,7 +78,7 @@
     "punkt_mm": [
      -56.0,
      12.7,
-     298.3
+     306.3
     ],
     "retning": [
      0.0,
@@ -95,24 +95,24 @@
     "punkt_mm": [
      0.0,
      -0.0,
-     325.5
+     333.5
     ],
-    "dytt_N": 2.65,
+    "dytt_N": 2.62,
     "dytt_retning_grader": 190.0,
-    "dytt_N_lett": 2.41,
+    "dytt_N_lett": 2.39,
     "krav_N": 5.0,
     "held": false,
-    "glid_N": 3.96,
+    "glid_N": 4.02,
     "glir_forst": false,
-    "veltevinkel": 60.9,
+    "veltevinkel": 60.0,
     "tp_innanfor_mm": 87.0,
     "fot_cm2": 254.3,
-    "masse_g": 1009.5,
-    "masse_pm_g": 91.9,
+    "masse_g": 1024.6,
+    "masse_pm_g": 91.1,
     "tp_mm": [
      -2.9,
      -0.5,
-     48.4
+     50.2
     ],
     "z0_mm": 0.0,
     "merknad": "rekna: stiv kropp på stivt bord, friksjon 0.4 (ANTAKING). dytt_N_lett er med massen i nedre kant av usikkerheita."
@@ -121,7 +121,7 @@
     "punkt_mm": [
      -56.0,
      -32.9,
-     291.3
+     299.3
     ],
     "retning": [
      0.0,
@@ -138,24 +138,24 @@
     "punkt_mm": [
      0.0,
      -0.0,
-     325.5
+     333.5
     ],
-    "dytt_N": 2.63,
+    "dytt_N": 2.61,
     "dytt_retning_grader": 215.0,
-    "dytt_N_lett": 2.39,
+    "dytt_N_lett": 2.37,
     "krav_N": 5.0,
     "held": false,
-    "glid_N": 3.96,
+    "glid_N": 4.02,
     "glir_forst": false,
-    "veltevinkel": 60.3,
+    "veltevinkel": 59.5,
     "tp_innanfor_mm": 86.4,
     "fot_cm2": 254.3,
-    "masse_g": 1009.5,
-    "masse_pm_g": 91.9,
+    "masse_g": 1024.6,
+    "masse_pm_g": 91.1,
     "tp_mm": [
      -2.9,
      -2.0,
-     49.2
+     50.9
     ],
     "z0_mm": 0.0,
     "merknad": "rekna: stiv kropp på stivt bord, friksjon 0.4 (ANTAKING). dytt_N_lett er med massen i nedre kant av usikkerheita."
@@ -164,14 +164,14 @@
     "punkt_mm": [
      -56.0,
      -89.0,
-     287.7
+     295.7
     ],
     "retning": [
      0.0,
      0.0,
      -1.0
     ],
-    "kraft_N": 56.66
+    "kraft_N": 57.5
    }
   },
   {
@@ -181,24 +181,24 @@
     "punkt_mm": [
      0.0,
      -0.0,
-     325.5
+     333.5
     ],
-    "dytt_N": 2.61,
+    "dytt_N": 2.59,
     "dytt_retning_grader": 220.0,
-    "dytt_N_lett": 2.38,
+    "dytt_N_lett": 2.36,
     "krav_N": 5.0,
     "held": false,
-    "glid_N": 3.96,
+    "glid_N": 4.02,
     "glir_forst": false,
-    "veltevinkel": 59.5,
+    "veltevinkel": 58.6,
     "tp_innanfor_mm": 85.9,
     "fot_cm2": 254.3,
-    "masse_g": 1009.5,
-    "masse_pm_g": 91.9,
+    "masse_g": 1024.6,
+    "masse_pm_g": 91.1,
     "tp_mm": [
      -2.9,
      -2.8,
-     50.6
+     52.4
     ],
     "z0_mm": 0.0,
     "merknad": "rekna: stiv kropp på stivt bord, friksjon 0.4 (ANTAKING). dytt_N_lett er med massen i nedre kant av usikkerheita."
@@ -207,38 +207,51 @@
     "punkt_mm": [
      -56.0,
      -115.0,
-     288.5
+     296.5
     ],
     "retning": [
      0.0,
      0.0,
      -1.0
     ],
-    "kraft_N": 22.52
+    "kraft_N": 22.86
    }
   }
  ],
  "masse": {
-  "total_g": 1009.5,
-  "pm_g": 91.9,
+  "total_g": 1024.6,
+  "pm_g": 91.1,
   "tp_mm": [
    -2.9,
    -2.8,
-   50.6
+   52.4
   ],
   "rader": [
    {
     "namn": "fot",
     "slag": "print",
     "pid": null,
-    "g": 167.4,
+    "g": 142.2,
     "tp_mm": [
      -0.0,
      -0.0,
-     11.9
+     9.4
     ],
-    "kjelde": "rekna: PETG, vegg 1.2 mm og 15 % fyll (ANTAKING), massiv 435 g",
-    "pm_g": 25.1
+    "kjelde": "rekna: PETG, vegg 1.2 mm og 15 % fyll (ANTAKING), massiv 410 g",
+    "pm_g": 21.3
+   },
+   {
+    "namn": "hylse",
+    "slag": "print",
+    "pid": null,
+    "g": 40.4,
+    "tp_mm": [
+     0.0,
+     -0.0,
+     32.5
+    ],
+    "kjelde": "rekna: PETG, vegg 1.2 mm og 15 % fyll (ANTAKING), massiv 54 g",
+    "pm_g": 6.1
    },
    {
     "namn": "ballast",
@@ -261,7 +274,7 @@
     "tp_mm": [
      -0.5,
      0.2,
-     174.2
+     182.2
     ],
     "kjelde": "rekna frå volum, mål anslått frå foto; rekna som skal, vegg 2.5 mm (ANTAKING), tettleik ANTAKING",
     "pm_g": 64.3
@@ -274,7 +287,7 @@
     "tp_mm": [
      -28.5,
      -10.6,
-     297.4
+     305.4
     ],
     "kjelde": "rekna: PETG, vegg 1.2 mm og 15 % fyll (ANTAKING), massiv 14 g",
     "pm_g": 1.1
@@ -287,7 +300,7 @@
     "tp_mm": [
      -56.0,
      -60.0,
-     287.5
+     295.5
     ],
     "kjelde": "oppgjeven",
     "pm_g": 4.2
@@ -300,7 +313,7 @@
     "tp_mm": [
      -56.0,
      -60.0,
-     285.7
+     293.7
     ],
     "kjelde": "oppgjeven",
     "pm_g": 0.5
@@ -315,15 +328,14 @@
     "kjoleplate"
    ],
    "metall": [
-    "kjoleplate",
-    "arm"
+    "kjoleplate"
    ],
    "print": [],
-   "kjoleflate_cm2": 512.3,
-   "temp_C": 31.8,
+   "kjoleflate_cm2": 161.2,
+   "temp_C": 46.7,
    "grense_C": 78.0,
    "ok": true,
-   "raad": "Held: om lag 32 °C ved 5.0 W på 512 cm² metall.",
+   "raad": "Held: om lag 47 °C ved 5.0 W på 161 cm² metall (grense 78 °C for PETG).",
    "merknad": "rekna, ikkje målt. ANTAKING: 70 % varme, 10 W/m²K, rom 25 °C"
   }
  ],
@@ -334,15 +346,31 @@
    "maal_mm": [
     180.0,
     180.0,
-    61.0
+    16.0
    ],
    "passar": true,
-   "overheng_cm2": 158.3,
-   "overheng_del": 0.201,
-   "g": 167.4,
-   "g_massiv": 434.9,
+   "overheng_cm2": 0.0,
+   "overheng_del": 0.0,
+   "g": 142.2,
+   "g_massiv": 410.4,
    "tett": true,
-   "merknad": "overheng 158 cm²: støtte, eller snu delen"
+   "merknad": "ok"
+  },
+  {
+   "namn": "hylse",
+   "plast": "PETG",
+   "maal_mm": [
+    69.3,
+    89.3,
+    45.0
+   ],
+   "passar": true,
+   "overheng_cm2": 0.0,
+   "overheng_del": 0.0,
+   "g": 40.4,
+   "g_massiv": 53.8,
+   "tett": true,
+   "merknad": "ok"
   },
   {
    "namn": "nav",
@@ -364,7 +392,7 @@
  "maal_mm": [
   181.0,
   205.0,
-  326.0
+  334.0
  ],
  "settdelar": [
   "P01"
@@ -372,6 +400,7 @@
  "eksport": {
   "stl": [
    "stl/print_fot.stl",
+   "stl/print_hylse.stl",
    "stl/print_nav.stl"
   ],
   "glb": "demo.glb"

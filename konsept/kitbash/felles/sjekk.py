@@ -122,7 +122,7 @@ def _underdelmasse(d, u, mesh_lokal, mat):
         V, A = abs(float(mesh_lokal.volume)) / 1000, float(mesh_lokal.area) / 100            # cm³, cm²
         skal = min(V, A * PRINT_SKAL / 10)
         g = TETTLEIK[d.plast] * (skal + PRINT_FYLL * (V - skal))
-        return g, 'rekna: %s, vegg %.1f mm og %.0f %% fyll (ANTAKING), massiv %.0f g' % (d.plast, PRINT_SKAL, PRINT_FYLL * 100, TETTLEIK[d.plast] * V)
+        return g, 'rekna: %s, vegg %s mm og %.0f %% fyll (ANTAKING), massiv %.0f g' % (d.plast, _nn(PRINT_SKAL, 1), PRINT_FYLL * 100, TETTLEIK[d.plast] * V)
     rho = TETTLEIK.get(mat)
     if rho is None:
         return 0.0, 'ukjent materiale %s: 0 g' % mat
@@ -131,7 +131,7 @@ def _underdelmasse(d, u, mesh_lokal, mat):
     if vegg is not None:
         t = K.D.v('P01', 'vegg') if vegg == 'vegg' else float(vegg)
         V = min(abs(float(mesh_lokal.volume)), float(mesh_lokal.area) * t) / 1000
-        return rho * V, 'rekna som skal, vegg %.1f mm (%s)%s' % (t, 'DIMS P01 vegg' if vegg == 'vegg' else 'ANTAKING', ant)
+        return rho * V, 'rekna som skal, vegg %s mm (%s)%s' % (_nn(t, 1), 'DIMS P01 vegg' if vegg == 'vegg' else 'ANTAKING', ant)
     return rho * abs(float(mesh_lokal.volume)) / 1000, 'rekna frå volum, mål anslått frå foto%s' % ant
 
 
@@ -236,7 +236,7 @@ def velt(delar, punkt, krav_N=5.0, n_retn=72):
                 glid_N=round(MY * mk * G, 2), glir_forst=bool(MY * mk * G < F[i]), veltevinkel=round(vinkel, 1),
                 tp_innanfor_mm=round(min(inn), 1), fot_cm2=round(k['areal_cm2'], 1), masse_g=m['total_g'], masse_pm_g=m['pm_g'],
                 tp_mm=m['tp_mm'], z0_mm=round(k['z0'], 2),
-                merknad='rekna: stiv kropp på stivt bord, friksjon %.1f (ANTAKING). dytt_N_lett er med massen i nedre kant av usikkerheita.' % MY)
+                merknad='rekna: stiv kropp på stivt bord, friksjon %s (ANTAKING). dytt_N_lett er med massen i nedre kant av usikkerheita.' % _nn(MY, 1))
 
 # ------------------------------------------------------------------ varme
 
@@ -278,10 +278,10 @@ def varme(delar, grense=0.5):
         if not met:
             raad = 'LED-en ligg ikkje mot metall. Trykt PLA mjuknar ved 55 til 60 °C: legg han på aluminium eller stål, eller gje han ei kjøleplate.'
         elif not ok:
-            raad = 'For lita kjøleflate: %.0f cm² gjev om lag %.0f °C ved %.1f W. Større metallflate eller lågare watt.' % (A, temp, d.watt)
+            raad = 'For lita kjøleflate: %.0f cm² gjev om lag %.0f °C ved %s W. Større metallflate eller lågare watt.' % (A, temp, _nn(d.watt, 1))
         else:
-            raad = 'Held: om lag %.0f °C ved %.1f W på %.0f cm² metall (grense %.0f °C for %s).' % (
-                temp, d.watt, A, grenseC, '/'.join(sorted({o.plast for o in delar if o.slag == 'print'})) or 'PLA')
+            raad = 'Held: om lag %.0f °C ved %s W på %.0f cm² metall (grense %.0f °C for %s).' % (
+                temp, _nn(d.watt, 1), A, grenseC, '/'.join(sorted({o.plast for o in delar if o.slag == 'print'})) or 'PLA')
         ut.append(dict(namn=d.namn, watt=d.watt, ligg_mot=sorted({'%s/%s' % (o.namn, u) if u != o.namn else o.namn for o, u, _, _ in nabo}),
                        metall=sorted({'%s/%s' % (o.namn, u) if u != o.namn else o.namn for o, u, _, _ in met}), print=pr,
                        kjoleflate_cm2=round(A, 1), temp_C=(round(temp, 1) if A > 0 else None), grense_C=grenseC, ok=ok, raad=raad,
@@ -393,7 +393,7 @@ def rapport(byggjar, mappe, namn='lampe', stillingar=(0.0, 0.25, 0.5, 0.75, 1.0)
     m = ut['masse']
     L += ['## Masse', '', '| Del | Slag | Gram | ± | Kjelde |', '| --- | --- | --- | --- | --- |']
     L += ['| %s | %s | %s | %s | %s |' % (r['namn'], r['slag'] + (' ' + r['pid'] if r['pid'] else ''), _nn(r['g']), _nn(r['pm_g']), r['kjelde']) for r in m['rader']]
-    L += ['', 'Samla %s g ± %s (rekna). Kravet F8 er høgst 1 200 g: %s. Tyngdepunkt (%s) mm. Ytre mål %s mm.' % (
+    L += ['', 'Samla %s g ± %s (rekna; ± er ANTAKING: 35 %% på delar frå settet, 15 %% på trykte, 10 %% på kjøpte). Kravet F8 er høgst 1 200 g: %s. Tyngdepunkt (%s) mm. Ytre mål %s mm.' % (
         _nn(m['total_g']), _nn(m['pm_g']), 'held' if m['total_g'] <= 1200 else 'held ikkje', ', '.join(_nn(x) for x in m['tp_mm']), ' × '.join(_nn(x) for x in ut['maal_mm'])), '']
     L += ['## Kollisjon og velt langs gesten', '', '| t | Kollisjonar | Dytt som veltar (N) | Retning | Held %s N | Veltevinkel | Fot cm² |' % _nn(krav_N), '| --- | --- | --- | --- | --- | --- | --- |']
     for s in ut['stillingar']:
@@ -411,7 +411,7 @@ def rapport(byggjar, mappe, namn='lampe', stillingar=(0.0, 0.25, 0.5, 0.75, 1.0)
         L += ['| LED | Watt | Ligg mot | Kjøleflate cm² | Temperatur °C | Råd |', '| --- | --- | --- | --- | --- | --- |']
         L += ['| %s | %s | %s | %s | %s | %s |' % (h['namn'], _nn(h['watt'], 2), ', '.join(h['ligg_mot']) or 'ingenting', _nn(h['kjoleflate_cm2']),
                                                _nn(h['temp_C']) if h['temp_C'] is not None else 'ukjent', h['raad']) for h in ut['varme']]
-        L += ['', 'ANTAKING: %.0f %% av watten blir varme, flata gjev frå seg %.0f W/m²K, rommet held %.0f °C. Trykt PLA mjuknar ved 55 til 60 °C.' % (VARMEDEL * 100, H_KONV, ROMTEMP), '']
+        L += ['', 'Rekna, ikkje målt. ANTAKING: %.0f %% av watten blir varme, flata gjev frå seg %.0f W/m²K, rommet held %.0f °C. Trykt PLA mjuknar ved 55 til 60 °C.' % (VARMEDEL * 100, H_KONV, ROMTEMP), '']
     else:
         L += ['Ingen del har oppgjeven watt.', '']
     L += ['## Trykte delar (Bambu Lab P1S, 256 × 256 × 256 mm)', '', '| Del | Plast | Mål på plata mm | Passar | Overheng cm² | Gram | Merknad |', '| --- | --- | --- | --- | --- | --- | --- |']

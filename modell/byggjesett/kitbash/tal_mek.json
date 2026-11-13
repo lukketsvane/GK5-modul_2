@@ -187,16 +187,16 @@
   "handling": "vri knotten",
   "setning": "Ruta med prismefilmen over skjermkanten og vindaugsdioden bak (D Ruta), boren av armen frå projektoren.",
   "lys": "over-rute",
-  "masse_g": 992,
+  "masse_g": 1027,
   "tyngdepunkt": [
-   3.7,
-   520.1,
-   447.7
+   5.4,
+   517.6,
+   386.0
   ],
-  "hogd_mm": 675,
+  "hogd_mm": 555,
   "masse_sett_g": 422,
   "masse_cad_g": 404,
-  "masse_ny_g": 166,
+  "masse_ny_g": 201,
   "delar_sett": [
    "P01",
    "P02"
@@ -215,14 +215,14 @@
    "vindaugsdiode med maske"
   ],
   "handtak": "knotten på bjelken",
-  "rekk_mm": 774,
+  "rekk_mm": 767,
   "fotavtrykk_cm2": 0.0,
   "tipp_grader": null,
   "dytt_N": null,
   "trykk_N": null,
-  "last_skjerm_g": 992,
-  "moment_skjerm_Nm": 0.44,
-  "trykk_moment_Nm": 0.28,
+  "last_skjerm_g": 1027,
+  "moment_skjerm_Nm": 0.43,
+  "trykk_moment_Nm": 0.26,
   "flagg": [
    "lastar skjermen (må prøvast)",
    "handtaket utanfor rekkjevidd"
@@ -548,8 +548,8 @@
   "lys": "fot-rute",
   "masse_g": 1159,
   "tyngdepunkt": [
-   449.5,
-   444.4,
+   479.5,
+   304.4,
    154.1
   ],
   "hogd_mm": 282,
@@ -580,15 +580,13 @@
   ],
   "nye": [],
   "handtak": "knotten på leddet",
-  "rekk_mm": 783,
+  "rekk_mm": 682,
   "fotavtrykk_cm2": 195.9,
   "tipp_grader": 24.0,
   "dytt_N": 3.0,
   "trykk_N": 13.2,
   "flagg": [
-   "går inn i skjermen",
-   "veltar under fingerdytt",
-   "handtaket utanfor rekkjevidd"
+   "veltar under fingerdytt"
   ]
  },
  {
@@ -599,14 +597,14 @@
   "handling": "skyv spegelen inn",
   "setning": "Hovudet frå projektoren som projektor 70 cm oppe. Glaslinsa teiknar vindauget, spegelen deler strålen ned på feltet (C Vindauge).",
   "lys": "fot-linse",
-  "masse_g": 1869,
+  "masse_g": 1577,
   "tyngdepunkt": [
-   365.7,
-   520.6,
-   475.3
+   365.5,
+   517.6,
+   439.1
   ],
   "hogd_mm": 735,
-  "masse_sett_g": 1376,
+  "masse_sett_g": 1084,
   "masse_cad_g": 350,
   "masse_ny_g": 142,
   "delar_sett": [
@@ -630,9 +628,9 @@
   "handtak": "spegelen",
   "rekk_mm": 886,
   "fotavtrykk_cm2": 195.9,
-  "tipp_grader": 4.7,
-  "dytt_N": 1.1,
-  "trykk_N": 4.8,
+  "tipp_grader": 5.2,
+  "dytt_N": 1.0,
+  "trykk_N": 4.1,
   "flagg": [
    "veltar under fingerdytt",
    "bryt F8 (1,2 kg)",
@@ -647,14 +645,14 @@
   "handling": "drei hovudet",
   "setning": "Projektoren som bordlampe: hovudet på armen med opninga ned. Det busette: ei vanleg arbeidslampe.",
   "lys": "fot-hovud",
-  "masse_g": 1666,
+  "masse_g": 1374,
   "tyngdepunkt": [
-   408.4,
-   449.5,
-   228.7
+   409.8,
+   451.9,
+   199.1
   ],
   "hogd_mm": 388,
-  "masse_sett_g": 1302,
+  "masse_sett_g": 1010,
   "masse_cad_g": 350,
   "masse_ny_g": 14,
   "delar_sett": [
@@ -673,9 +671,9 @@
   "handtak": "hovudet",
   "rekk_mm": 628,
   "fotavtrykk_cm2": 195.9,
-  "tipp_grader": 11.4,
-  "dytt_N": 2.2,
-  "trykk_N": 10.8,
+  "tipp_grader": 13.1,
+  "dytt_N": 1.8,
+  "trykk_N": 9.2,
   "flagg": [
    "veltar under fingerdytt",
    "bryt F8 (1,2 kg)"
@@ -729,14 +727,14 @@
   "handling": "ingen",
   "setning": "Projektoren slik delane sat, utan basen. Plata ligg på bordet og tek 870 cm².",
   "lys": "projektor",
-  "masse_g": 1727,
+  "masse_g": 1435,
   "tyngdepunkt": [
-   435.3,
-   416.7,
-   231.6
+   438.0,
+   410.6,
+   209.5
   ],
   "hogd_mm": 400,
-  "masse_sett_g": 1713,
+  "masse_sett_g": 1421,
   "masse_cad_g": 0,
   "masse_ny_g": 14,
   "delar_sett": [
@@ -753,8 +751,8 @@
   "handtak": "hovudet",
   "rekk_mm": 578,
   "fotavtrykk_cm2": 986.8,
-  "tipp_grader": 21.4,
-  "dytt_N": 3.9,
+  "tipp_grader": 24.5,
+  "dytt_N": 3.4,
   "trykk_N": null,
   "flagg": [
    "veltar under fingerdytt",
@@ -770,14 +768,14 @@
   "handling": "ingen",
   "setning": "Projeksjonslinsa P07 (f 280 mm) i ei bordlampe: kastet er under 4f = 1,12 m, så biletet blir aldri skarpt.",
   "lys": "ingen",
-  "masse_g": 1771,
+  "masse_g": 1479,
   "tyngdepunkt": [
-   402.6,
-   493.3,
-   244.6
+   403.3,
+   488.3,
+   222.9
   ],
   "hogd_mm": 472,
-  "masse_sett_g": 1407,
+  "masse_sett_g": 1115,
   "masse_cad_g": 350,
   "masse_ny_g": 14,
   "delar_sett": [
@@ -797,9 +795,9 @@
   "handtak": "spaken på linsa",
   "rekk_mm": 784,
   "fotavtrykk_cm2": 195.9,
-  "tipp_grader": 3.2,
+  "tipp_grader": 4.7,
   "dytt_N": 0.6,
-  "trykk_N": 2.5,
+  "trykk_N": 2.7,
   "flagg": [
    "veltar under fingerdytt",
    "bryt F8 (1,2 kg)",

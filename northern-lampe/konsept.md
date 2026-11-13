@@ -1,6 +1,6 @@
 # Tre konsept · Northern, heim + arbeid · 2026-11-13
 
-> **Sporet vart avslutta 13.11.2026.** Granskinga stadfesta prismefunna P1–P7 og fotometrifunna F1–F5 og R-a2 med eigen kode. F2 og P1 fall i storleik. Mekanikk og premiss vart ikkje stadfesta.
+> **Granskinga vart pausa 13.11.2026 på grunn av vekegrensa.** Funna er rekna opp att med eigen kode, og dette er stadfesta: prisme P1–P7, fotometri F1–F5 og R-a2, mekanikk M1–M7 og premiss PR1–PR4, PR6, PR7 og PR14. P1, F2, M4 og M5 fall i storleik eller form. Det står att å stadfeste PR8, PR13 og PR15, og deretter å rette koden og skrive sluttkritikken. Granskinga kan takast opp att frå cache.
 
 > **(a) bru, (b) krok og (c) prisme er no referansespor.** Konsepta til Moodle 17.11 er A Skiva, B Over og C Vindauge i `../konsept/tre/`. Det granskinga her fann som gjeld dei, står i «Til A Skiva, B Over og C Vindauge» nedst.
 

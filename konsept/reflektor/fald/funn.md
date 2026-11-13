@@ -26,7 +26,7 @@ Alle tre: strekk 0,00 %, rift 0, topp 0,70 (ingen blending undervegs), under 150
 - **Kan ikkje lagast: kryss** (tre kreppar som kryssar utan klipp): strekk 48 %, rift 20 mm, og 47 526 cd/m² mot auget frå ein flik som peikar rett på deg. Same for kuppel (strekk 23 %, gen 2) og valm (rift 16 mm, gen 1).
 
 ## 4 Funn som gjeld meir enn denne familien
-1. **Ansiktet er ikkje ei adresse, det er ein bivinst.** Felt og vegg kastar 47 til 52 lx attende på ansiktet ved 5 W. Ei eiga flate mot ansiktet gjev 60 til 65 lx, men 2660 til 3450 cd/m² (matt) eller 15 500 cd/m² (satin) mot auget. To flater held tre adresser.
+1. **Ansiktet er ikkje ei adresse, det er ein bivinst.** Felt og vegg kastar 45 til 52 lx attende på ansiktet ved 5 W. Ei eiga flate mot ansiktet gjev 60 til 65 lx, men 2660 til 3450 cd/m² (matt) eller 15 500 cd/m² (satin) mot auget. To flater held tre adresser.
 2. **Det som står i ro, er stemninga.** Rota mot veggen og vinkel som opnar mot feltet gjev likskap 0,68. Rota mot feltet gjev 0,92: ein dimmar. Vel kva panelet i ro skal lyse på i stemning, så må rørsla bere arbeidet.
 3. **Ein mjuk fald kostar etter kor mykje lys som treff bøyen, ikkje etter radiusen.** Éin fald R 80 mm: +2 % watt (22 % av lyset på bøyen). Z R 40 mm: +7 % (28 %). Seks faldar R 40 mm: +25 % (70 %). Hald R x vinkel under om lag ein femtedel av den lyste breidda, så er «mjuk» gratis.
 4. **Jamnheit kjem av at panela siktar ulike stader, ikkje av fleire panel.** Trekkspel 0,47 då det var feilsikta (gen 1), 0,21 sikta mot midten (gen 2), 0,35 med fordelt sikt (gen 3). Ingen fald når referansen 0,6.

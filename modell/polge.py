@@ -142,28 +142,38 @@ def plasser(V, zb, snu=False, hovudhogd=HOVUDHOGD):
     return P, s, zh + dz
 
 
-def klynger(Vn, Fn, skive=0.05):
-    """Del trekantane i små klynger (vassrette skiver gonger fire sektorar), kvar med si eiga kule.
-    Gjev sorterte trekantar, startindeksar, klyngesenter og klyngeradiar."""
+def klynger(Vn, Fn, skive=0.025, sektorar=8):
+    """Del trekantane i små klynger (vassrette skiver gonger sektorar). To nivå med omslutta kuler:
+    først skiva, så klynga. Gjev sorterte trekantar, start per klynge, klyngekuler, start per skive og skivekuler."""
     c = Vn[Fn].mean(1)
     iz = np.floor((c[:, 2] - c[:, 2].min()) / skive).astype(np.int64)
     midt = np.array([c[:, 0].mean(), c[:, 1].mean()])
-    ia = (np.floor((np.arctan2(c[:, 1] - midt[1], c[:, 0] - midt[0]) + np.pi) / (np.pi / 2)).astype(np.int64)) % 4
-    kid = iz * 4 + ia
+    vink = np.arctan2(c[:, 1] - midt[1], c[:, 0] - midt[0]) + np.pi
+    ia = np.floor(vink / (2 * np.pi / sektorar)).astype(np.int64) % sektorar
+    kid = iz * sektorar + ia
     orden = np.argsort(kid, kind='stable')
     Fs = Fn[orden]; kid = kid[orden]
-    _, start = np.unique(kid, return_index=True)
+    unike, start = np.unique(kid, return_index=True)
     start = np.append(start, len(Fs)).astype(np.int64)
-    cc = np.zeros((len(start) - 1, 3)); cr = np.zeros(len(start) - 1)
-    for k in range(len(start) - 1):
+    nk = len(unike)
+    cc = np.zeros((nk, 3)); cr = np.zeros(nk)
+    for k in range(nk):
         pk = Vn[Fs[start[k]:start[k + 1]]].reshape(-1, 3)
         cc[k] = 0.5 * (pk.min(0) + pk.max(0)); cr[k] = np.linalg.norm(pk - cc[k], axis=1).max() + 1e-5
-    return Fs, start, cc, cr
+    skiveid = unike // sektorar
+    _, sstart = np.unique(skiveid, return_index=True)
+    sstart = np.append(sstart, nk).astype(np.int64)
+    ns = len(sstart) - 1
+    sc = np.zeros((ns, 3)); sr = np.zeros(ns)
+    for j in range(ns):
+        pk = Vn[Fs[start[sstart[j]]:start[sstart[j + 1]]]].reshape(-1, 3)
+        sc[j] = 0.5 * (pk.min(0) + pk.max(0)); sr[j] = np.linalg.norm(pk - sc[j], axis=1).max() + 1e-5
+    return Fs, start, cc, cr, sstart, sc, sr
 
 
 if _NUMBA:
     @numba.njit(parallel=True, fastmath=True, cache=True)
-    def _treff(O, D, c0, r0, cc, cr, start, V0, E1, E2, eps):
+    def _treff(O, D, c0, r0, sc, sr, sstart, cc, cr, start, V0, E1, E2, eps):
         n = O.shape[0]
         t = np.full(n, np.inf)
         for i in numba.prange(n):
@@ -174,29 +184,34 @@ if _NUMBA:
             if b * b - a * (qx * qx + qy * qy + qz * qz - r0 * r0) < 0.0:
                 continue
             best = np.inf
-            for k in range(cr.shape[0]):
-                qx = ox - cc[k, 0]; qy = oy - cc[k, 1]; qz = oz - cc[k, 2]
+            for m in range(sr.shape[0]):
+                qx = ox - sc[m, 0]; qy = oy - sc[m, 1]; qz = oz - sc[m, 2]
                 b = qx * dx + qy * dy + qz * dz
-                if b * b - a * (qx * qx + qy * qy + qz * qz - cr[k] * cr[k]) < 0.0:
+                if b * b - a * (qx * qx + qy * qy + qz * qz - sr[m] * sr[m]) < 0.0:
                     continue
-                for j in range(start[k], start[k + 1]):
-                    e1x = E1[j, 0]; e1y = E1[j, 1]; e1z = E1[j, 2]; e2x = E2[j, 0]; e2y = E2[j, 1]; e2z = E2[j, 2]
-                    px = dy * e2z - dz * e2y; py = dz * e2x - dx * e2z; pz = dx * e2y - dy * e2x
-                    det = e1x * px + e1y * py + e1z * pz
-                    if det > -1e-14 and det < 1e-14:
+                for k in range(sstart[m], sstart[m + 1]):
+                    qx = ox - cc[k, 0]; qy = oy - cc[k, 1]; qz = oz - cc[k, 2]
+                    b = qx * dx + qy * dy + qz * dz
+                    if b * b - a * (qx * qx + qy * qy + qz * qz - cr[k] * cr[k]) < 0.0:
                         continue
-                    inv = 1.0 / det
-                    tx = ox - V0[j, 0]; ty = oy - V0[j, 1]; tz = oz - V0[j, 2]
-                    u = (tx * px + ty * py + tz * pz) * inv
-                    if u < 0.0 or u > 1.0:
-                        continue
-                    wx = ty * e1z - tz * e1y; wy = tz * e1x - tx * e1z; wz = tx * e1y - ty * e1x
-                    v = (dx * wx + dy * wy + dz * wz) * inv
-                    if v < 0.0 or u + v > 1.0:
-                        continue
-                    tt = (e2x * wx + e2y * wy + e2z * wz) * inv
-                    if tt > eps and tt < best:
-                        best = tt
+                    for j in range(start[k], start[k + 1]):
+                        e1x = E1[j, 0]; e1y = E1[j, 1]; e1z = E1[j, 2]; e2x = E2[j, 0]; e2y = E2[j, 1]; e2z = E2[j, 2]
+                        px = dy * e2z - dz * e2y; py = dz * e2x - dx * e2z; pz = dx * e2y - dy * e2x
+                        det = e1x * px + e1y * py + e1z * pz
+                        if det > -1e-14 and det < 1e-14:
+                            continue
+                        inv = 1.0 / det
+                        tx = ox - V0[j, 0]; ty = oy - V0[j, 1]; tz = oz - V0[j, 2]
+                        u = (tx * px + ty * py + tz * pz) * inv
+                        if u < 0.0 or u > 1.0:
+                            continue
+                        wx = ty * e1z - tz * e1y; wy = tz * e1x - tx * e1z; wz = tx * e1y - ty * e1x
+                        v = (dx * wx + dy * wy + dz * wz) * inv
+                        if v < 0.0 or u + v > 1.0:
+                            continue
+                        tt = (e2x * wx + e2y * wy + e2z * wz) * inv
+                        if tt > eps and tt < best:
+                            best = tt
             t[i] = best
         return t
 
@@ -204,10 +219,11 @@ if _NUMBA:
 def lag_klasse(L):
     class Kropp(L.Prim):
         """Trekantnett som svart kropp. Klynger med omslutta kuler, glatte normalar frå næraste hjørne."""
-        def __init__(s, Vn, Fs, start, cc, cr, rho, tre, Nv):
+        def __init__(s, Vn, Fs, start, cc, cr, sstart, sc, sr, rho, tre, Nv):
             s.V0 = np.ascontiguousarray(Vn[Fs[:, 0]]); s.E1 = np.ascontiguousarray(Vn[Fs[:, 1]] - s.V0)
             s.E2 = np.ascontiguousarray(Vn[Fs[:, 2]] - s.V0)
             s.start = start; s.cc = np.ascontiguousarray(cc); s.cr = np.ascontiguousarray(cr)
+            s.sstart = sstart; s.sc = np.ascontiguousarray(sc); s.sr = np.ascontiguousarray(sr)
             alle = Vn[Fs].reshape(-1, 3)
             s.c = 0.5 * (alle.min(0) + alle.max(0)); s.r = float(np.linalg.norm(alle - s.c, axis=1).max()) + 1e-4
             s.senter = s.c; s.rho = np.asarray(rho, float); s.tre = tre; s.Nv = Nv
@@ -215,7 +231,7 @@ def lag_klasse(L):
         def t(s, O, D):
             O = np.ascontiguousarray(O, dtype=np.float64); D = np.ascontiguousarray(D, dtype=np.float64)
             if _NUMBA:
-                return _treff(O, D, s.c, s.r, s.cc, s.cr, s.start, s.V0, s.E1, s.E2, L.EPS)
+                return _treff(O, D, s.c, s.r, s.sc, s.sr, s.sstart, s.cc, s.cr, s.start, s.V0, s.E1, s.E2, L.EPS)
             n = len(O); t = np.full(n, np.inf)                      # rein numpy, sein
             with np.errstate(all='ignore'):
                 oc = O - s.c; a = (D * D).sum(1); bq = (oc * D).sum(1); c = (oc * oc).sum(1) - s.r ** 2
@@ -254,8 +270,8 @@ def figur(L, fil=MODELL, celle=0.008, snu=False, hovudhogd=HOVUDHOGD):
     delar = []
     for m, rho in ((zc > zh, L._HUD), (zc <= zh, L._TOY)):
         if not m.any(): continue
-        Fs, start, cc, cr = klynger(Vn, Fn[m])
-        delar.append(Kropp(Vn, Fs, start, cc, cr, rho, tre, Nn))
+        Fs, start, cc, cr, sstart, sc, sr = klynger(Vn, Fn[m])
+        delar.append(Kropp(Vn, Fs, start, cc, cr, sstart, sc, sr, rho, tre, Nn))
     info = dict(trekantar_inn=len(F), trekantar=len(Fn), hjorne=len(Vn), skala=round(float(s), 4),
                 hogd=round(float(np.ptp(P[:, 2])), 3), breidd=round(float(np.ptp(P[:, 0])), 3), djupn=round(float(np.ptp(P[:, 1])), 3),
                 hals_over_bordet=round(float(zh - L.ZB), 3), botn_over_golvet=round(float(P[:, 2].min()), 3),

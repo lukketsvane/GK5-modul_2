@@ -13,6 +13,15 @@ sys.path.insert(0, os.path.normpath(os.path.join(HER, '..', '..', '..', 'konsept
 from lysskisse import *          # noqa: F401,F403
 from PIL import Image
 
+# Ryggfiguren er pølge-mannekengen (modell/polge_1.glb). Han blir sett inn før rommet blir bygd.
+sys.path.insert(0, os.path.normpath(os.path.join(HER, '..', '..', '..', 'modell')))
+try:
+    import polge
+    FIGUR = polge.byt(sys.modules['lysskisse'])
+except Exception as e:                      # utan modellen: den gamle figuren av kuler og sylindrar
+    FIGUR = None
+    print('mannekengen vart ikkje sett inn:', e)
+
 UT = os.path.normpath(os.path.join(HER, '..', 'bilete'))
 os.makedirs(UT, exist_ok=True)
 

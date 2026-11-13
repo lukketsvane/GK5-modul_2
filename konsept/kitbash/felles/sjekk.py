@@ -18,12 +18,12 @@ ANTAKING: plasten i settet 1,05 (ABS), gummi 1,1, keramikk 2,4, «kopar» 8,96 (
 """
 import os, sys, json, math
 sys.dont_write_bytecode = True
+HER = os.path.dirname(os.path.abspath(__file__))
+if HER not in sys.path: sys.path.insert(0, HER)
+import miljo                                         # høgst fire trådar og låg prioritet, før numpy
 import numpy as np
 import trimesh
 from scipy.spatial import ConvexHull, cKDTree
-
-HER = os.path.dirname(os.path.abspath(__file__))
-if HER not in sys.path: sys.path.insert(0, HER)
 import kit as K
 
 G = 9.81
@@ -240,35 +240,37 @@ def velt(delar, punkt, krav_N=5.0, n_retn=72):
 
 # ------------------------------------------------------------------ varme
 
-def _ligg_mot(a, b, grense=1.0):
-    """Sant om flatene til to delar ligg nærare kvarandre enn grense (mm)."""
-    ba, bb = a.grenser(), b.grenser()
-    if np.any(np.minimum(ba[1], bb[1]) + grense <= np.maximum(ba[0], bb[0])): return False
-    return avstand(a, b, 1500) <= grense
+def _naer(ma, mb, grense, n=1500):
+    """Sant om flatene til to meshar ligg nærare kvarandre enn grense (mm)."""
+    if np.any(np.minimum(ma.bounds[1], mb.bounds[1]) + grense <= np.maximum(ma.bounds[0], mb.bounds[0])): return False
+    pa = np.vstack([ma.vertices, ma.sample(n)]); pb = np.vstack([mb.vertices, mb.sample(n)])
+    return bool(min(trimesh.proximity.closest_point(mb, pa)[1].min(), trimesh.proximity.closest_point(ma, pb)[1].min()) <= grense)
 
 
-def varme(delar, grense=1.0):
+def varme(delar, grense=0.5):
     """For kvar kjøpt del med watt: kva han ligg mot, og kor varm kjøleflata blir.
-    Reknestykket: 70 % av watten blir varme, flata gjev frå seg 10 W/m²K (ANTAKING, same som konsept/lysskisse/studie.py),
-    kjøleflata er den ytre flata (konvekst hylster) til metalldelane LED-en ligg mot, pluss metall som ligg mot dei att.
+    Reknestykket: 70 % av watten blir varme, flata gjev frå seg 10 W/m²K (ANTAKING, same som konsept/lysskisse/studie.py).
+    Kjøleflata er den ytre flata (konvekst hylster) til metallunderdelane LED-en ligg mot (nærare enn `grense` mm),
+    pluss metall som ligg mot dei att. Plast og print mellom LED og metall bryt varmevegen.
     Gjev [dict(namn, watt, ligg_mot, metall, print, kjoleflate_cm2, temp_C, ok, raad)]."""
+    alle = K.alle_under(delar)
     ut = []
     for d in delar:
         if not d.watt: continue
-        nabo = [o for o in delar if o is not d and _ligg_mot(d, o, grense)]
-        er_metall = lambda o: any(mat in METALL for _, _, mat in o.under)
-        met = [o for o in nabo if er_metall(o)]
-        andre = [o for o in delar if o is not d and o not in met and er_metall(o)]
-        for o in list(met):                                               # eitt steg vidare: metall mot metall
-            for p in andre:
-                if p not in met and _ligg_mot(o, p, grense): met.append(p)
+        md = d.mesh()
+        nabo = [(o, u, m, mat) for o, u, m, mat in alle if o is not d and _naer(md, m, grense)]
+        met = [x for x in nabo if x[3] in METALL]
+        ko = list(met)
+        while ko:                                                        # metall mot metall leier varmen vidare
+            _, _, m0, _ = ko.pop()
+            for x in alle:
+                if x[0] is not d and x[3] in METALL and not any(x[2] is y[2] for y in met) and _naer(m0, x[2], grense):
+                    met.append(x); ko.append(x)
         A = 0.0
-        for o in met:
-            for u, mv, mat in o.underdelar():
-                if mat in METALL:
-                    try: A += float(mv.convex_hull.area) / 100
-                    except Exception: A += float(mv.area) / 200
-        pr = [o for o in nabo if o.slag == 'print']
+        for _, _, mv, _ in met:
+            try: A += float(mv.convex_hull.area) / 100
+            except Exception: A += float(mv.area) / 200
+        pr = sorted({o.namn for o, _, _, _ in nabo if o.slag == 'print'})
         dT = VARMEDEL * d.watt / (H_KONV * A / 1e4) if A > 0 else float('inf')
         temp = ROMTEMP + dT
         grenseC = min([K.MJUKNAR[o.plast] for o in delar if o.slag == 'print'] or [K.MJUKNAR['PLA']])
@@ -278,8 +280,10 @@ def varme(delar, grense=1.0):
         elif not ok:
             raad = 'For lita kjøleflate: %.0f cm² gjev om lag %.0f °C ved %.1f W. Større metallflate eller lågare watt.' % (A, temp, d.watt)
         else:
-            raad = 'Held: om lag %.0f °C ved %.1f W på %.0f cm² metall.' % (temp, d.watt, A)
-        ut.append(dict(namn=d.namn, watt=d.watt, ligg_mot=[o.namn for o in nabo], metall=[o.namn for o in met], print=[o.namn for o in pr],
+            raad = 'Held: om lag %.0f °C ved %.1f W på %.0f cm² metall (grense %.0f °C for %s).' % (
+                temp, d.watt, A, grenseC, '/'.join(sorted({o.plast for o in delar if o.slag == 'print'})) or 'PLA')
+        ut.append(dict(namn=d.namn, watt=d.watt, ligg_mot=sorted({'%s/%s' % (o.namn, u) if u != o.namn else o.namn for o, u, _, _ in nabo}),
+                       metall=sorted({'%s/%s' % (o.namn, u) if u != o.namn else o.namn for o, u, _, _ in met}), print=pr,
                        kjoleflate_cm2=round(A, 1), temp_C=(round(temp, 1) if A > 0 else None), grense_C=grenseC, ok=ok, raad=raad,
                        merknad='rekna, ikkje målt. ANTAKING: %.0f %% varme, %.0f W/m²K, rom %.0f °C' % (VARMEDEL * 100, H_KONV, ROMTEMP)))
     return ut

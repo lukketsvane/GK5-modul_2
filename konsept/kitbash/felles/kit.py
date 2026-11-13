@@ -17,6 +17,8 @@ ein LED erstattar ho. Fresnelspegelen og linsene må aldri stå i sol. Trykt PLA
 """
 import os, sys, json, math, copy, importlib.util
 sys.dont_write_bytecode = True                       # ikkje skriv .pyc i mappene vi berre les frå
+if os.path.dirname(os.path.abspath(__file__)) not in sys.path: sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import miljo                                         # høgst fire trådar og låg prioritet, før numpy
 import numpy as np
 import trimesh
 from shapely.geometry import Polygon, Point, box as _sboks

@@ -13,7 +13,7 @@ Alt er rekna, ikkje målt. Måla på delane frå settet er anslag frå foto, og 
 
 Lampa veg 406 g (rekna; ± 70 er ANTAKING: 35 % på delar frå settet, 15 % på trykte, 10 % på kjøpte). Kravet F8 er høgst 1 200 g: held. Tyngdepunkt (-0, -5, 123) mm. Ytre mål 180 × 190 × 336 mm.
 
-Armprofilen (P01) er merkt aluminium i `modell/byggjesett/delar.py`, medan oppdraget kallar han stål. Er han stål, veg lampa 647 g ± 151 (F8: held), tyngdepunktet ligg i (-0, -3, 128) mm, og ho toler 1,8 N dytt i arbeidsstillinga. Prøv med ein magnet og vei armen: set `vekt_g=` i `sett()`.
+Armprofilen (P01) er merkt aluminium i `modell/byggjesett/delar.py`, medan oppdraget kallar han stål. Er han stål, veg lampa 647 g ± 151 (F8: held), tyngdepunktet ligg i (-0, -3, 128) mm, og ho toler 1,8 N dytt i arbeidsstillinga. Prøv med ein magnet og veg armen: set `vekt_g=` i `sett()`.
 
 ## Kollisjon og velt langs gesten
 

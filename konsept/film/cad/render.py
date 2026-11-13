@@ -37,7 +37,7 @@ def film_materiale():
     m = bpy.data.materials.new('film'); m.use_nodes = True; nt = m.node_tree
     p = nt.nodes['Principled BSDF']
     p.inputs['Base Color'].default_value = (0.86, 0.84, 0.80, 1.0); p.inputs['Roughness'].default_value = 0.25
-    p.inputs['Transmission Weight'].default_value = 0.55
+    p.inputs['Transmission Weight'].default_value = 0.22
     tc = nt.nodes.new('ShaderNodeTexCoord')
     ma = nt.nodes.new('ShaderNodeMapping'); ma.inputs['Scale'].default_value = (55.0, 1.2, 1.2)      # stripene går på tvers av bjelken (x)
     nt.links.new(tc.outputs['Object'], ma.inputs['Vector'])
@@ -50,9 +50,16 @@ def film_materiale():
     cr.color_ramp.elements[0].position = 0.35; cr.color_ramp.elements[0].color = (1.0, 0.86, 0.66, 1.0)
     cr.color_ramp.elements[1].position = 0.75; cr.color_ramp.elements[1].color = (1.0, 0.62, 0.22, 1.0)
     nt.links.new(no.outputs['Fac'], cr.inputs['Fac'])
-    mu = nt.nodes.new('ShaderNodeMath'); mu.operation = 'MULTIPLY'; mu.inputs[1].default_value = 0.55
+    mu = nt.nodes.new('ShaderNodeMath'); mu.operation = 'MULTIPLY'; mu.inputs[1].default_value = 1.15
     nt.links.new(no.outputs['Fac'], mu.inputs[0])
-    nt.links.new(cr.outputs['Color'], p.inputs['Emission Color']); nt.links.new(mu.outputs[0], p.inputs['Emission Strength'])
+    # sterkare mot den frie kanten: høgda z går frå 0,26 m ved bjelken til 0,15 m ved kanten
+    sep = nt.nodes.new('ShaderNodeSeparateXYZ'); nt.links.new(tc.outputs['Object'], sep.inputs[0])
+    mr = nt.nodes.new('ShaderNodeMapRange'); mr.inputs['From Min'].default_value = 0.26; mr.inputs['From Max'].default_value = 0.15
+    mr.inputs['To Min'].default_value = 0.25; mr.inputs['To Max'].default_value = 2.0
+    nt.links.new(sep.outputs['Z'], mr.inputs['Value'])
+    m2 = nt.nodes.new('ShaderNodeMath'); m2.operation = 'MULTIPLY'
+    nt.links.new(mu.outputs[0], m2.inputs[0]); nt.links.new(mr.outputs['Result'], m2.inputs[1])
+    nt.links.new(cr.outputs['Color'], p.inputs['Emission Color']); nt.links.new(m2.outputs[0], p.inputs['Emission Strength'])
     return m
 
 def importer(fil, m, glatt=32):
@@ -82,9 +89,9 @@ bpy.ops.wm.read_factory_settings(use_empty=True)
 s = bpy.context.scene
 s.render.engine = 'CYCLES'; s.cycles.device = 'CPU'
 s.render.threads_mode = 'FIXED'; s.render.threads = 4
-s.cycles.samples = 24 if PROVE else 96
+s.cycles.samples = 20 if PROVE else 72
 s.cycles.use_denoising = True
-s.render.resolution_x, s.render.resolution_y = (640, 427) if PROVE else (1536, 1024)
+s.render.resolution_x, s.render.resolution_y = (600, 400) if PROVE else (1440, 960)
 s.view_settings.view_transform = 'AgX'; s.view_settings.look = 'AgX - Medium High Contrast'
 
 raud = mat('raudbrun', (0.20, 0.028, 0.03), 0.0, 0.42, coat=0.25)
@@ -104,23 +111,25 @@ for i, m in M.items():
 
 bord = mat('bord', (0.10, 0.055, 0.03), 0.0, 0.38, coat=0.15)
 vegg = mat('vegg', (0.50, 0.45, 0.40), 0.0, 0.9)
-flate('bord', 4.0, (0, 0, 0), bord)
-flate('vegg', 4.0, (0, 0.55, 1.0), vegg, (math.radians(90), 0, 0))
+flate('bord', 20.0, (0, 0, 0), bord)
+flate('vegg', 20.0, (0, 1.1, 1.0), vegg, (math.radians(90), 0, 0))
 
 # lyset: ei svak, stor flate framme til venstre for forma, og gløden under ruta ned på bordet
-lys('fyll', (-0.9, -1.1, 0.9), (0, 0, 0.15), 1.2, 4.5, (1.0, 0.93, 0.85))
-lys('kant', (0.7, -0.5, 0.6), (0.05, 0, 0.2), 0.5, 4.0, (1.0, 0.95, 0.9))
-u = lys('under', (-0.08, -0.07, 0.17), (-0.08, -0.10, 0.0), 0.22, 1.3, (1.0, 0.66, 0.34))
+lys('fyll', (-0.9, -1.1, 0.9), (0, 0, 0.15), 1.2, 2.6, (1.0, 0.93, 0.85))
+lys('kant', (0.7, 0.5, 0.7), (0.05, 0, 0.2), 0.6, 3.0, (1.0, 0.95, 0.9))
+u = lys('under', (-0.10, -0.13, 0.15), (-0.10, -0.22, 0.0), 0.20, 1.1, (1.0, 0.64, 0.32))
 u.visible_camera = False; u.visible_transmission = False; u.visible_glossy = False
 verd = bpy.data.worlds.new('verd'); s.world = verd; verd.use_nodes = True
 verd.node_tree.nodes['Background'].inputs['Color'].default_value = (0.02, 0.017, 0.014, 1.0)
 
-kam = bpy.data.cameras.new('kam'); kam.lens = 62
-ko = bpy.data.objects.new('kam', kam); bpy.context.collection.objects.link(ko)
-ko.location = (-0.50, -0.78, 0.25); peik(ko, (-0.03, 0.0, 0.135)); s.camera = ko
-kam.dof.use_dof = False
-
+VISINGAR = [('skissa', (-0.50, -0.78, 0.25), (-0.03, 0.0, 0.135), 62),
+            ('bakfra', (0.52, 0.66, 0.34), (0.02, 0.0, 0.14), 58),
+            ('sida', (0.80, -0.32, 0.20), (0.02, -0.02, 0.14), 62)]
 os.makedirs(os.path.join(UT, 'render'), exist_ok=True)
-s.render.filepath = os.path.join(UT, 'render', 'ruta-pa-fot-prove.png' if PROVE else 'ruta-pa-fot.png')
-bpy.ops.render.render(write_still=True)
-print('render ferdig', s.render.filepath)
+for namn, pos, maal, linse in VISINGAR:
+    kam = bpy.data.cameras.new('kam-' + namn); kam.lens = linse
+    ko = bpy.data.objects.new('kam-' + namn, kam); bpy.context.collection.objects.link(ko)
+    ko.location = pos; peik(ko, maal); s.camera = ko
+    s.render.filepath = os.path.join(UT, 'render', 'ruta-pa-fot-%s%s.png' % (namn, '-prove' if PROVE else ''))
+    bpy.ops.render.render(write_still=True)
+    print('render ferdig', s.render.filepath, flush=True)

@@ -39,3 +39,8 @@ Merk: motoren fekk eit nytt tal (lys på skjermflata, `skjerm`) kl. 10.33, mello
 - Fresnelplata samlar alt til ein flekk: jamnheit 0,01. Maska av papir gjev topp 1,25 i overgangen.
 - Velta: VELT-sveip går om ansiktet, 36 282 cd/m² midt i overgangen (topp 39). Kan ikkje lagast: kuppel med strekk 31 %.
 - Val: ring-vipp, maane-drei, luke. Tre ulike handlingar (vippe, dreie, opne). Neste: familie.py med px 200 og par.
+
+## Leveransar (13.11, 11.50)
+
+- `familie.py` (generasjon 2) gav same tal som `gen2/`. Bretta (px 200) og par for ring-vipp, maane-drei og luke er laga og sette på.
+- Bileta stemmer med tala, men viser noko tala skjuler: veggstrøket landar til høgre for og over skjermen, ikkje bak han. Skrive inn i `funn.md`.

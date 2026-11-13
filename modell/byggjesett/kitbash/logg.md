@@ -76,6 +76,7 @@ Fire støtter × lysorgan. Rad 1 og 2 har armen ståande bak skjermen: klype på
 
 - LED-stripa er fem punktkjelder med brønn på 50°. Ei verkeleg stripe er ei line med lambertsk fordeling, og kanalen ho ligg i må skjere av lyset mot auget.
 - Fresnelplata er ideell i modellen. Spreiing i rillekantane og dobbeltbilete er ikkje med, så luminansen mot auget blir truleg høgare enn 70 til 317 cd/m².
+- **Ståande ser ein ned i renna.** Geometrisk kontroll 21.09: sitjande (auget 25 til 60 cm over bordet) ligg auget 57° til 91° frå aksen til stripa, utanfor renna på 50°, men det høge auget har berre 7° å gå på. Lent fram og lent over dekkjer plata. Ståande framfor bordet (auget 95 cm over bordet, 40 cm framfor kanten) ser ein 37° frå aksen, rett forbi framkanten av plata og ned i renna. Renna må difor skjere ved platekanten på brukarsida (61° frå loddrett), eller plata må ha ei leppe framme. Lysmotoren har symmetrisk brønn og ser ikkje dette.
 - Spegling av plata og stripa i skjermen er ikkje rekna.
 - Vindaugsdioden står 12,5 cm frå veggen og får 45 % av lyset gjennom maska (59 % på 18 cm i D).
 - Sollys i plata gjeld produktet òg: ho samlar lyset 19 cm framfor seg.

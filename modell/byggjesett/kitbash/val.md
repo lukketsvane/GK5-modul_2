@@ -57,6 +57,10 @@ Bygg B Over-modellen (plata i ei pappramme 20 cm over skjermkanten og 9 cm framf
 
 Held ikkje 1 og 4, fell (a) og (b), og B Over med flik og diffusorark er att (3,6 W, jamnheit 0,41).
 
+## Kjend veikskap i (a) og (b)
+
+Ståande framfor bordet ser ein forbi framkanten av plata og rett ned i renna med LED-stripa (37° frå aksen, renna skjer ved 50°). Sitjande er stripa gøymd, men det høgaste auget har berre 7° margin. Renna må skjere ved platekanten på brukarsida, eller plata må få ei leppe framme. Dette er ikkje rekna inn i tala.
+
 ## Tryggleik
 
 Fresnelplata samlar sollys 19 cm framfor seg. Ei lampe med plata over skjermen ved eit vindauge må tole det. Det gjeld produktet, ikkje berre skissemodellen. Basen P04 og pæra P09 er ikkje med i nokon kropp.

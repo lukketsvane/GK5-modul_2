@@ -1,0 +1,206 @@
+{
+ "status": "starta 13.11.2026",
+ "filmprofil": "ideelt 90-prisme (ANTAKING), arket.md fanst ikkje",
+ "film_sjekk": {
+  "prisme_0": {
+   "T": 0.93,
+   "lober": [
+    [
+     -30.7,
+     0.47
+    ],
+    [
+     30.8,
+     0.47
+    ]
+   ]
+  },
+  "flat_0": {
+   "T": 0.0,
+   "R": 1.0
+  },
+  "flat_30": {
+   "T": 0.63,
+   "lober": [
+    [
+     -0.8,
+     0.61
+    ]
+   ]
+  },
+  "farge_450_650": [
+   31.75,
+   30.25
+  ],
+  "analytisk_550": 30.69,
+  "maal_frå_00-vindauge": "prisme rett på: ±30,8°, 0,47 kvar, T 0,93; flat rett på: T 0; flat 30°: −0,8°, 0,63; 450/650 nm: 31,75°/30,25°"
+ },
+ "motor": {
+  "E0": {
+   "namn": "plate og diffusor, utan film",
+   "eta_stabel": 1.0,
+   "eta_inn": 0.65,
+   "eta_total": 0.65,
+   "lm_per_W": 65.0,
+   "gain_rett_fram": 1.05,
+   "halvvinkel_yz": 90.0,
+   "halvvinkel_xz": 90.0,
+   "cutoff_per_lam": {
+    "430": 90.0,
+    "470": 90.0,
+    "510": 90.0,
+    "550": 90.0,
+    "590": 90.0,
+    "630": 90.0,
+    "670": 90.0
+   },
+   "profil_yz_10gr": [
+    1.0,
+    0.937,
+    0.931,
+    0.889,
+    0.843,
+    0.966,
+    1.03,
+    0.854,
+    1.002
+   ],
+   "profil_xz_10gr": [
+    1.0,
+    0.817,
+    0.989,
+    0.898,
+    0.878,
+    0.887,
+    1.01,
+    0.893,
+    0.987
+   ],
+   "rekneskap_550": [
+    1.0,
+    0.0,
+    0.0
+   ]
+  },
+  "E1": {
+   "namn": "plate, diffusor og éin prismefilm",
+   "eta_stabel": 0.808,
+   "eta_inn": 0.65,
+   "eta_total": 0.525,
+   "lm_per_W": 52.5,
+   "gain_rett_fram": 1.73,
+   "halvvinkel_yz": 35.0,
+   "halvvinkel_xz": 51.0,
+   "cutoff_per_lam": {
+    "430": 33.0,
+    "470": 34.0,
+    "510": 34.0,
+    "550": 35.0,
+    "590": 35.0,
+    "630": 36.0,
+    "670": 36.0
+   },
+   "profil_yz_10gr": [
+    1.0,
+    1.005,
+    0.93,
+    0.819,
+    0.034,
+    0.027,
+    0.33,
+    0.683,
+    0.893
+   ],
+   "profil_xz_10gr": [
+    1.0,
+    0.953,
+    0.911,
+    1.017,
+    0.933,
+    0.634,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rekneskap_550": [
+    0.807,
+    0.193,
+    0.0
+   ]
+  },
+  "E2": {
+   "namn": "plate, diffusor og to prismefilmar i kryss",
+   "eta_stabel": 0.556,
+   "eta_inn": 0.65,
+   "eta_total": 0.361,
+   "lm_per_W": 36.1,
+   "gain_rett_fram": 2.47,
+   "halvvinkel_yz": 21.0,
+   "halvvinkel_xz": 22.0,
+   "cutoff_per_lam": {
+    "430": 18.0,
+    "470": 19.0,
+    "510": 20.0,
+    "550": 21.0,
+    "590": 21.0,
+    "630": 21.0,
+    "670": 22.0
+   },
+   "profil_yz_10gr": [
+    1.0,
+    1.02,
+    0.509,
+    0.189,
+    0.037,
+    0.031,
+    0.116,
+    0.431,
+    0.908
+   ],
+   "profil_xz_10gr": [
+    1.0,
+    1.005,
+    0.764,
+    0.111,
+    0.06,
+    0.442,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rekneskap_550": [
+    0.553,
+    0.446,
+    0.001
+   ]
+  },
+  "folsemd_Rc": {
+   "E1_Rc0.7": {
+    "eta": 0.735,
+    "gain": 1.63
+   },
+   "E1_Rc0.9": {
+    "eta": 0.893,
+    "gain": 1.87
+   },
+   "E2_Rc0.7": {
+    "eta": 0.452,
+    "gain": 1.87
+   },
+   "E2_Rc0.9": {
+    "eta": 0.712,
+    "gain": 3.46
+   }
+  },
+  "D1": {
+   "namn": "direkte LED-rekkje bak diffusor, éin prismefilm",
+   "eta_total": 0.646,
+   "lm_per_W": 64.6
+  },
+  "D2": {
+   "namn": "direkte LED-rekkje bak diffusor, to filmar i kryss",
+   "eta_total": 0.445,
+   "lm_per_W": 44.5
+  }
+ }
+}

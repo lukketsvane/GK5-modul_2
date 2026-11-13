@@ -10,3 +10,4 @@ Dato: 13.11.2026. Lampa ER vindauget: ei rute som sjølv lyser, med lysleiarplat
 - **ANTAKING: lysleiarplata finst ikkje i byggjesettet.** Ho er rekna som ei klar PMMA-plate (sjå `konsept.md`, bolken «Lysmotoren»).
 
 ## Køyringar (fortløpande)
+- 15.34 kalib (196 s): film.py stemmer med 00-vindauge (prisme_0 {'T': 0.93, 'lober': [(-30.7, 0.47), (30.8, 0.47)]}, flat_0 {'T': 0.0, 'R': 1.0}, flat_30 {'T': 0.63, 'lober': [(-0.8, 0.61)]}, farge_450_650 [31.75, 30.25]). Motorane: E0 η 0.65, gain 1.05, halvvinkel y-z 90°; E1 η 0.53, gain 1.73, halvvinkel y-z 35°; E2 η 0.36, gain 2.47, halvvinkel y-z 21°

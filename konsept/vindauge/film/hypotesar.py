@@ -470,8 +470,8 @@ def kjerne(profil, n_res, n_sub, alfa, fra_topp, npos=600, nb=720, skeiv=0.0,
 def profilar():
     P = {}
     P["prisme90"] = profil_prisme(90.0)
-    P["prisme90_r08"] = profil_prisme(90.0, r_topp=0.08)
-    P["prisme90_r20"] = profil_prisme(90.0, r_topp=0.20)
+    P["prisme90_r08"] = profil_prisme(90.0, r_topp=0.08, nbue=64)
+    P["prisme90_r20"] = profil_prisme(90.0, r_topp=0.20, nbue=64)
     P["prisme80"] = profil_prisme(80.0)
     P["prisme100"] = profil_prisme(100.0)
     P["prisme110"] = profil_prisme(110.0)
@@ -805,7 +805,7 @@ def bilete(helling=0.0):
     dir_im.save(os.path.join(UT, "scene_direkte.png"))
     K = kandidatar()
     for side in ("kamera", "vindauge"):
-        panel = [_skala_stripe(dir_im.height), dir_im]
+        panel = [dir_im]
         for namn, kand in K.items():
             if kand["profil"] == "flat" and side == "vindauge":
                 S = gjennomsyn(namn, "kamera", L, helling)
@@ -814,14 +814,16 @@ def bilete(helling=0.0):
             im = til_bilete(S, tekst=kand["tekst"])
             im.save(os.path.join(UT, "syn_%s_%s.png" % (namn, side)))
             panel.append(im)
-        # oversynsark: 2 rader
+        # oversynsark: 2 rader, elevasjonsskala til venstre i kvar rad
         n = len(panel)
         per_rad = (n + 1) // 2
-        w = max(p.width for p in panel) + 4
+        stripe = _skala_stripe(dir_im.height)
+        w = dir_im.width + 4
         h = dir_im.height + 4
-        ark = Image.new("RGB", (per_rad * w, 2 * h), (0, 0, 0))
+        ark = Image.new("RGB", (stripe.width + per_rad * w, 2 * h), (0, 0, 0))
+        ark.paste(stripe, (0, 0)); ark.paste(stripe, (0, h))
         for i, pm in enumerate(panel):
-            ark.paste(pm, ((i % per_rad) * w, (i // per_rad) * h))
+            ark.paste(pm, (stripe.width + (i % per_rad) * w, (i // per_rad) * h))
         ark.save(os.path.join(UT, "oversyn_struktur_mot_%s.png" % side))
         print("lagra oversyn for struktur mot", side, flush=True)
     # dei beste kandidatane i stoerre format, med snoekant og helling
@@ -1400,6 +1402,31 @@ def foto():
     r01["gul_topp_modell_rad_i_direkte_syn"] = cy1 - fpx1 * math.tan(math.radians(v1["gul_topp_R_stig"] + D_gul1))
     res["foto01"] = r01
 
+    # ---------------- fin tekstur i naerbilete 05: retning og periode
+    try:
+        from scipy.ndimage import gaussian_filter
+        C = _foto("05-prismefilm-naerbilete-a.jpg")
+        tek = []
+        for (x0, y0) in ((300, 2050), (900, 2060), (1300, 1900), (600, 900)):
+            pt = C[y0:y0 + 256, x0:x0 + 256, 1].copy()
+            pt = pt - gaussian_filter(pt, 6.0)
+            win = np.hanning(256)[:, None] * np.hanning(256)[None, :]
+            F = np.abs(np.fft.fftshift(np.fft.fft2(pt * win))) ** 2
+            fy, fx = np.indices(F.shape); fy = fy - 128; fx = fx - 128
+            rr = np.hypot(fx, fy)
+            F[(rr < 8) | (rr > 110)] = 0.0
+            F[fy < 0] = 0.0                      # halve planet (symmetrisk spektrum)
+            iy, ix = np.unravel_index(np.argmax(F), F.shape)
+            ky, kx = iy - 128, ix - 128
+            # styrke: toppen mot medianen i ringen
+            ring = F[(rr > 8) & (rr < 110) & (fy >= 0)]
+            tek.append(dict(x0=x0, y0=y0, periode_px=256.0 / math.hypot(kx, ky),
+                            bolgjevektor_vinkel_fraa_vassrett=math.degrees(math.atan2(ky, kx)),
+                            topp_over_median=float(F[iy, ix] / np.median(ring))))
+        res["tekstur_foto05"] = tek
+    except Exception as ex:
+        res["tekstur_foto05"] = "feil: %s" % ex
+
     # ---------------- modellprofil mot fotoprofil (himmelkanten til venstre i 07)
     T, R = kjerne_spektral("prisme90", "kamera")
     ia_app = np.round((APP - ALFA[0]) / DALFA).astype(int)
@@ -1450,7 +1477,7 @@ def foto():
     # modellen: same vinkelomraade, lokal vinkel = a_tir + (vinkel - vinkel_linje)
     a_topp = a_tir + (v["arktopp"] - v["linje_G"]); a_botn = a_tir + (vinkel(y1, fpx, cy) - v["linje_G"])
     i_t = int(round((a_topp - APP[0]) / 0.25)); i_b = int(round((a_botn - APP[0]) / 0.25))
-    rgb = spektrum_til_srgb(S[i_b:i_t + 1][::-1], 0.9)
+    rgb = spektrum_til_srgb(S[i_b:i_t + 1][::-1], 1.15)
     mod = Image.fromarray((rgb * 255 + 0.5).astype(np.uint8))
     # tangensprojeksjon: radene i fotoet er ikkje jamne i vinkel; resample modellen
     rad_v = np.array([vinkel(y, fpx, cy) for y in range(y0, y1)])

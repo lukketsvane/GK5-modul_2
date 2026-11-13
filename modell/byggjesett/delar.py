@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """delar.py · byggjesettet frå overheadprojektoren (truleg 3M 2000) som parametriske 3D-delar
 
-Måla er anten dokumenterte (delelista, typeskilt) eller anslått frå fotoa Iver tok 13.11.2026. Tre målarar mælte
+Måla er anten dokumenterte (delelista, typeskilt) eller anslått frå fotoa Iver tok 13.11.2026. Tre målarar målte
 fotoa kvar for seg med ulik målestokk. Den eine fekk fresnelvindauget til 198 mm mot 285 mm i delelista, så han vart
 utelaten. Verdiane er snittet av dei to andre, og usikkerheita er minst halve skilnaden mellom dei.
 Alle mål i mm, Z opp. Kvar del er ei liste med underdelar (namn, mesh, materiale), så rendrar kan gje kvar sitt materiale.

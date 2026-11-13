@@ -26,12 +26,12 @@ Delane frå den demonterte overheadprojektoren (truleg ein 3M 2000, sjå `resear
 - **Fusion eller Blender:** importer STL-filene (mm) eller GLB-fila.
 - **Python:** `from delar import del_, DIMS`, så gjev `del_('P05')` underdelane til fresnelspegelen. Endre eit mål i `DIMS` og køyr `python delar.py` på nytt.
 - **Rendrar:** `blender.exe -b -P rendre_blender.py -- [scene ...]`. Blender 5.1.2 ligg i `Documents/verktoy/`. Skriptet køyrer på CPU med fire trådar og lågaste prioritet, så lyden ikkje hakkar. `--prove` gjev små, raske bilete. Scenene `del-P01` til `del-P09` og `del-samla` er delbanken.
-- **Figma:** delbanken ligg på sida «Byggjesett · 13.11» i den eigne Figma-fila, i 2 px per mm. Dra ein del inn i ei skisse og skaler alle delane like mykje, så held målestokken.
-- **Arket (P08) i bileta:** filmen er vist som tynn, klar plast med glans og ein svak bøy, berre for å lese som film. Prisma og optikken er ikkje med. Den første studiorendra hadde lys bak arket og vart heilt kvit. Det lyset er teke bort.
+- **Figma:** delbanken ligg på sida «Byggjesett · 13.11» i Figma-fila til Iver (ikkje klassefila), i 2 px per mm. Dra ein del inn i ei skisse og skaler alle delane like mykje, så held målestokken.
+- **Arket (P08) i bileta:** filmen er vist som tynn, klar plast med glans og ein svak bøy, berre så han skal lesast som film. Prisma og optikken er ikkje med. Den første studiorendra hadde lys bak arket og vart heilt kvit. Det lyset er teke bort.
 
 ## Måla og kor sikre dei er
 
-Dokumenterte mål kjem frå delelista til 3M 2000 og typeskiltet på vifta. Resten er anslått frå fotoa Iver tok 13.11.2026. Tre målarar mælte fotoa kvar for seg med ulik målestokk: fresnelvindauget, A4-arka, og vifta saman med projektordata. Den eine fekk vindauget til 198 mm mot 285 mm i delelista, truleg fordi A4-arka låg i eit anna plan, og han er utelaten. Verdiane er snittet av dei to andre. Usikkerheita er minst halve skilnaden mellom dei. Ingenting er målt med linjal enno.
+Dokumenterte mål kjem frå delelista til 3M 2000 og typeskiltet på vifta. Resten er anslått frå fotoa Iver tok 13.11.2026. Tre målarar målte fotoa kvar for seg med ulik målestokk: fresnelvindauget, A4-arka, og vifta saman med projektordata. Den eine fekk vindauget til 198 mm mot 285 mm i delelista, truleg fordi A4-arka låg i eit anna plan, og han er utelaten. Verdiane er snittet av dei to andre. Usikkerheita er minst halve skilnaden mellom dei. Ingenting er målt med linjal enno.
 
 | Del | Mål | Verdi, mm | ± mm | Kjelde |
 | --- | --- | --- | --- | --- |

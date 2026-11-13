@@ -418,7 +418,7 @@ def rapport(byggjar, mappe, namn='lampe', stillingar=(0.0, 0.25, 0.5, 0.75, 1.0)
         ms = masse(staal); p1 = ut['stillingar'][-1]['velt'].get('punkt_mm')
         vs = velt(staal, p1, krav_N) if p1 else {}
         ut['om_armen_er_staal'] = dict(total_g=ms['lampe_g'], pm_g=ms['pm_g'], tp_mm=ms['lampe_tp_mm'], dytt_N=vs.get('dytt_N'), veltevinkel=vs.get('veltevinkel'),
-                                       held=vs.get('held'), merknad='armprofilen P01 rekna som stål 7,85 g/cm³ i staden for aluminium 2,70. Prøv med magnet, og vei armen.')
+                                       held=vs.get('held'), merknad='armprofilen P01 rekna som stål 7,85 g/cm³ i staden for aluminium 2,70. Prøv med magnet, og veg armen.')
     lo, hi = K.grenser([d for d in delar if not d.omgjevnad])
     ut['maal_mm'] = [round(float(x), 1) for x in hi - lo]
     ut['settdelar'] = sorted({d.pid for d in delar if d.pid})
@@ -438,7 +438,7 @@ def rapport(byggjar, mappe, namn='lampe', stillingar=(0.0, 0.25, 0.5, 0.75, 1.0)
             ', '.join(r['namn'] for r in m['rader'] if r.get('omgjevnad')), _nn(m['total_g']), ', '.join(_nn(x) for x in m['tp_mm'])), '']
     if 'om_armen_er_staal' in ut:
         o = ut['om_armen_er_staal']
-        L += ['Armprofilen (P01) er merkt aluminium i `modell/byggjesett/delar.py`, medan oppdraget kallar han stål. Er han stål, veg lampa %s g ± %s (F8: %s), tyngdepunktet ligg i (%s) mm, og ho toler %s N dytt i arbeidsstillinga. Prøv med ein magnet og vei armen: set `vekt_g=` i `sett()`.' % (
+        L += ['Armprofilen (P01) er merkt aluminium i `modell/byggjesett/delar.py`, medan oppdraget kallar han stål. Er han stål, veg lampa %s g ± %s (F8: %s), tyngdepunktet ligg i (%s) mm, og ho toler %s N dytt i arbeidsstillinga. Prøv med ein magnet og veg armen: set `vekt_g=` i `sett()`.' % (
             _nn(o['total_g']), _nn(o['pm_g']), 'held' if o['total_g'] <= 1200 else 'held ikkje', ', '.join(_nn(x) for x in o['tp_mm']), _nn(o['dytt_N'], 1) if o['dytt_N'] is not None else 'ukjent'), '']
     L += ['## Kollisjon og velt langs gesten', '', '| t | Kollisjonar | Dytt som veltar (N) | Retning | Held %s N | Veltevinkel | Fot cm² |' % _nn(krav_N), '| --- | --- | --- | --- | --- | --- | --- |']
     for s in ut['stillingar']:

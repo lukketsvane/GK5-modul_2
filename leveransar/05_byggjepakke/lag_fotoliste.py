@@ -5,7 +5,7 @@ Bileta skal kunne setjast rett inn på side 10 til 13: legg dei i leveransar/03_
 køyr leveransar/03_konsept/lys/bygg_konsept.py og leveransar/04_moodle/lag_pdf.py.
 
 Kameraplassen er den same som i rendringane (KAM i konsept/lysskisse/lysskisse.py):
-98 cm til høgre for skjermmidten, 1,40 m framfor bordkanten, 80 cm over bordplata, sikta på skjermfoten, 43° biletvinkel.
+98 cm til høgre for skjermmidten, 1,40 m framfor bordkanten, 80 cm over bordplata, sikta på eit punkt 24 cm over bordplata, om lag midt på skjermen, 43° biletvinkel.
 
   python lag_fotoliste.py
 """
@@ -22,19 +22,21 @@ def s_oppsett(W, H):
     g.append(t(m, 38, 'Bileta skal kunne samanliknast med rendringane på side 10 til 13. Difor står kameraet der rendrekameraet står.', 'ingress'))
     g.append(t(m, 50, 'KAMERAPLASSEN', 'mono'))
     kam = ['98 cm til høgre for skjermmidten, 1,40 m framfor bordkanten,',
-           '80 cm over bordplata. Sikt på skjermfoten.',
+           '80 cm over bordplata. Sikt på eit punkt 24 cm over bordplata,',
+           '9 cm til høgre for skjermmidten, om lag midt på skjermen.',
            'Telefonen på stativ eller ein bokstabel, så han står heilt i ro.',
-           'Bruk 2× zoom: det gjev om lag same biletvinkel som rendringane (43°).',
+           'Bruk om lag 1,3× zoom, eller 1× og beskjer: biletet skal vise 43°',
+           'over sida, same utsnitt som rendringane.',
            'Kvadratisk format (1:1), eller beskjer kvadratisk etterpå.',
            'Merk kameraplassen med teip på golvet, så du finn han att.']
     g.append(tekstblokk(m, 56, kam, 'brod'))
-    g.append(t(m, 90, 'LYS OG INNSTILLINGAR', 'mono'))
+    g.append(t(m, 99, 'LYS OG INNSTILLINGAR', 'mono'))
     lys = ['Mørkt rom. Skjermen på, mørkt tema, låg lysstyrke.',
            'Lås eksponering og fokus: hald fingeren på skjermen til AE/AF-lås.',
            'Ingen blits. Same innstilling for alle tre modellane.',
            'Ta først eitt bilete utan lampe, berre skjermen. Det er referansen.',
            'Sit på plassen sjølv, eller la stolen stå med eit mørkt plagg over.']
-    g.append(tekstblokk(m, 96, lys, 'brod'))
+    g.append(tekstblokk(m, 105, lys, 'brod'))
     x2 = m + (W - 2 * m) * 0.52
     g.append(t(x2, 50, 'BILETA PER MODELL', 'mono'))
     rader = [('1', 'stemning', 'kameraplassen, lampa i stemning', 'side 11 til 13, venstre'),
@@ -58,7 +60,7 @@ def s_oppsett(W, H):
                                      'C-kropp.jpg og så vidare. Legg dei i leveransar/03_konsept/foto/.',
                                      'Bilete 1, 2 og 5 blir sette inn på sidene når konseptsidene blir laga på nytt.',
                                      'Bilete 3, 4, 7 og 8 er til presentasjonen 18.11. Bilete 6 er til målinga.'], 'liten', lh=4.2))
-    g.append(t(m, H - 24, 'Kameraplassen er rendrekameraet i lysmodellen (KAM i konsept/lysskisse/lysskisse.py). Biletvinkelen med 2× zoom er eit overslag.', 'liten'))
+    g.append(t(m, H - 24, 'Kameraplassen er rendrekameraet i lysmodellen (KAM i konsept/lysskisse/lysskisse.py). Biletvinkelen med 1,3× zoom er eit overslag.', 'liten'))
     return ''.join(g)
 
 
@@ -85,7 +87,7 @@ def s_maaling(W, H):
            ('MOT AUGET 25 / 47 / 60 CM, SER DU LYSKJELDA?', 202)]
     for s_, dx in kol:
         g.append(t(m + dx, ty, s_, 'mono'))
-    for i, (mod, fore) in enumerate((('A Skiva', 'U over 0,5'), ('B Over', 'U 0,35 til 0,55'), ('C Vindauge', 'skjerm < 0,15'))):
+    for i, (mod, fore) in enumerate((('A Skiva', 'U over 0,5'), ('B Over', 'U om lag 0,4'), ('C Vindauge', 'skjerm < 0,15'))):
         for r in range(2):
             y = ty + 4 + (2 * i + r + 1) * 8
             g.append(f'<line x1="{m}" y1="{y}" x2="{W - m}" y2="{y}" class="haar"/>')
@@ -94,7 +96,7 @@ def s_maaling(W, H):
                 g.append(t(m + 26, y - 2.4, fore, 'brod'))
             else:
                 g.append(t(m, y - 2.4, '   stemning', 'brod'))
-    g.append(tekstblokk(m, ty + 62, ['Føreseiingane er frå byggjepakken: A med bogen over 0,5, flat under 0,45. B 0,46 (0,35 til 0,55) med diffusorark, under 0,05 utan.',
+    g.append(tekstblokk(m, ty + 62, ['Føreseiingane er frå byggjepakken: A med bogen over 0,5, flat under 0,45. B om lag 0,4 med to diffusorark.',
                                      'C: vindauget står i ro medan feltet kjem fram, og skjermen får under 0,15 av feltet heile vegen. Lux-appar er unøyaktige i absolutt nivå;',
                                      'bruk tala til å samanlikne modellane med kvarandre, ikkje med kravet på 350 lx.'], 'liten', lh=4.2))
     return ''.join(g)

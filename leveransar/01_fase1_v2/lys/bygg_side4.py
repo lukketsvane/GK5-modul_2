@@ -54,7 +54,7 @@ g.append(leiar(vh[0], vh[1], 424, 42))
 g.append(merke(360, 12, ['F6 VEGGEN VED SKJERMEN', f'100 til 150{NB}lx']))
 # i den mørke kroppen
 g.append(leiar(au[0], au[1], 112, 452))
-g.append(merke(44, 468, ['F1◆ AUGET', 'inga lyskjelde synleg,', f'25 til 60{NB}cm over bordet', f'F5 under 1500{NB}cd/m²', f'F10 ansiktet 50 til 200{NB}lx']))
+g.append(merke(44, 468, ['F1◆ AUGET', 'inga lyskjelde synleg og', f'ingen flate over 3000{NB}cd/m²,', f'25 til 60{NB}cm over bordet', f'F5 under 1500{NB}cd/m²', f'F10 ansiktet 50 til 200{NB}lx']))
 # under biletet
 g.append(leiar(ff[0], ff[1], 232, 552))
 g.append(merke(170, 568, ['F3◆ ARBEIDSFELTET', f'350{NB}lx frå lampa åleine,', f'500 med romlys, 0,6 × 0,4{NB}m']))

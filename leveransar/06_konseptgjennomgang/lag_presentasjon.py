@@ -127,9 +127,9 @@ def l_konsept(nr, k):
 
 
 def l_samanlikning():
-    rader = [('Watt for 350 lx på feltet', lambda r: r['W350'], f2, min), ('Timar arbeidslys per celle', lambda r: r['timar'], f1, max),
+    rader = [('Watt for 350 lx på feltet', lambda r: r['W350'], f2, min), ('Timar arbeidslys per celle (15,1 Wh)', lambda r: r['timar'], f1, max),
              ('Jamnheit på feltet', lambda r: r['jamnheit'], f2, max), ('Mot auget frå 25 cm, cd/m²', lambda r: r['auge25'], f0, min),
-             ('Veggen bak skjermen i arbeid, lx', lambda r: r['bak350'], f0, max), ('Skjermflata midt i overgangen, lx', lambda r: r['veg_skjerm'][2], f0, min),
+             ('Veggen bak skjermen i arbeid, lx', lambda r: r['bak350'], f0, max), ('Skjermflata midt i overgangen, lx', lambda r: r['veg_skjerm'][2] * 350 / r['veg_felt'][-1], f0, min),
              ('Største sprang i overgangen', lambda r: r['sprang'], f2, min), ('Skjermflata i stemning, lx', lambda r: r['s_skjerm'], f0, min)]
     tr = ''
     for namn, fn, fmt, best in rader:
@@ -197,10 +197,10 @@ def l_valet():
                 'skiva må ha lobe under 4,5°']) +
            kol('B', 'den einaste over skjermen',
                ['bordet blir fritt med ei klemme bak skjermen', f'stemninga held seg av skjermen ({f0(B["s_skjerm"])}{NB}lx)', 'ein ny type for Northern'],
-               [f'ujamt lys ({f2(B["jamnheit"])})', f'møtelyset går over F5: {f0(bkv["L_ved_50"])}{NB}cd/m² ved 50{NB}lx',
-                'mekanikken kan bli hovudmotivet og verke teknisk', 'treng klemme: på fot veltar ho']) +
+               [f'ujamt lys ({f2(B["jamnheit"])})', 'speglar seg i skjermen når han er tilta 20° (F1)',
+                f'møtelyset går over F5: {f0(bkv["L_ved_50"])}{NB}cd/m² ved 50{NB}lx', 'treng klemme, og mekanikken kan verke teknisk']) +
            kol('C', 'det nyaste, lyser reinast',
-               [f'høgst {f0(max(C["veg_skjerm"]))}{NB}lx på skjermen gjennom skiftet', f'{f0(C["auge25"])}{NB}cd/m² mot auget, lågast av dei tre',
+               [f'høgst {f0(max(C["veg_skjerm"]) * 350 / C["veg_felt"][-1])}{NB}lx på skjermen gjennom skiftet', f'{f0(C["auge25"])}{NB}cd/m² mot auget, lågast av dei tre',
                 'vindauget står i ro på veggen'],
                [f'{f1(C["W350"])}{NB}W og {f1(C["timar"])} timar per celle', f'møtelys berre via veggen: om lag {f0(cveg["lx_per_W"] * 7.5)}{NB}lx ved 7,5{NB}W',
                 'hovudet 70' + NB + 'cm over bordet', 'optikk som må stå nøyaktig']) +

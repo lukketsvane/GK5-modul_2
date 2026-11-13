@@ -33,13 +33,13 @@ assert _min(lambda r: r['jamnheit']) == 'B' and _B['s_skjerm'] < 10, 'B: jamnhei
 KONSEPT = {
     'A': dict(namn='Skiva', fil='ark-A-skiva.png', nr='11',
               tittel='Skiva brukar minst straum, men legg lys på skjermen.',
-              prinsipp='Ei lykt i foten lyser på ei bøygd spegelskive som vippar lyset frå veggen ned på feltet. Ein fast flik ved stolpen held veggen bak skjermen lys.',
+              prinsipp='Ei lykt i foten lyser på ei bøygd spegelskive som vippar lyset frå veggen ned på feltet. Ein fast flik ved stolpen held veggen bak skjermen lys. I møte blir skiva vend, så den kvite baksida lyser på ansiktet.',
               northern='Fot, stong og skive som Northern. Fliken er eit fjerde element (mi tolking).',
               nabo='Verner Panton Reflect, som har fast, kvit skive og ingen flik.',
               gest='Vipp skiva.',
-              modell='Folie på papp, Ø 250' + NB + 'mm, på ein printa ribbe med boge R 1,2' + NB + 'm. To lykter i foten: éi på skiva, éi på fliken (12 × 8,4' + NB + 'cm, folie og bakepapir), 30' + NB + 'cm over bordet og 3,5' + NB + 'cm til venstre for stolpen.',
+              modell='Folie på papp, Ø 250' + NB + 'mm, på ein printa ribbe med boge R 1,2' + NB + 'm. To lykter i foten: éi på skiva, éi på fliken (12 × 8,4' + NB + 'cm, folie og bakepapir), 30' + NB + 'cm over bordet og 3,5' + NB + 'cm til venstre for stolpen. Kvitt, matt papir på baksida av skiva (møte).',
               fore='Med bøyen er lågaste rute over 0,5 av snittet, flat under 0,45.',
-              ikkje=[f'Spegelskiva legg {_k(_A["skjerm350"] / 350)} av feltluxen på skjermen i arbeid og {_n(_A["veg_skjerm"][2])}' + NB + 'lx midt i overgangen.',
+              ikkje=[f'Spegelskiva legg {_k(_A["skjerm350"] / 350)} av feltluxen på skjermen i arbeid og {_n(_A["veg_skjerm"][2] * 350 / _A["veg_felt"][-1])}' + NB + 'lx midt i overgangen.',
                      'F1 krev ei skive med lobe under 4,5°. Folie på papp er ikkje målt.',
                      f'Frå 25' + NB + f'cm ser auget {_n(_A["s_auge25"])}' + NB + 'cd/m² i stemning. F5 tillèt 500.']),
     'B': dict(namn='Over', fil='ark-B-over.png', nr='12',
@@ -51,8 +51,8 @@ KONSEPT = {
               modell='Fresnelplata i pappramme som vippar om midten, med ein flik av blank folie 60' + NB + 'mm bak midtlina. Lykta i ein brønn av svart papp, 12' + NB + 'cm under plata. To diffusorark.',
               fore='Jamnheit om lag 0,4. Veggen bak skjermen om lag ein tredel av feltet.',
               ikkje=[f'Jamnheita stoppar under 0,5: {_k(_B["jamnheit"])} med ark. Referansen 0,6 er ikkje nådd under 1500' + NB + 'cd/m².',
-                     f'Strålen sveipar over skjermen midt i vippen: {_n(_B["veg_skjerm"][2])}' + NB + 'lx.',
-                     f'Frå 25' + NB + f'cm ser auget {_n(_B["auge25"])}' + NB + 'cd/m² i arbeid, under F5 men høgst av dei tre.']),
+                     f'Strålen sveipar over skjermen midt i vippen: {_n(_B["veg_skjerm"][2] * 350 / _B["veg_felt"][-1])}' + NB + 'lx.',
+                     'Er skjermen tilta 20° bakover, speglar plata seg i han, og det bryt F1. Plata treng avskjerming på skjermsida, eller skjermtilten ei grense.']),
     'C': dict(namn='Vindauge', fil='ark-C-vindauge.png', nr='13',
               tittel='Spegelen deler strålen: skjermen får lite lys heile vegen, men det kostar straum.',
               prinsipp='Ei vasskule teiknar eit vindauge av lys på veggen. Ein spegel glir inn i strålen og legg feltet på bordet, medan vindauget blir ståande.',
@@ -116,18 +116,18 @@ def side(fil, nr, namn, tittel, stil, innhald, kjelder, merknad):
 KJELDE = 'Modell, ikkje måling: lysmotoren i konsept/lysskisse, same rom, mannekeng og budsjett (1,25' + NB + 'W i stemning, 5' + NB + 'W i arbeid).'
 
 
-def overgangsfigur(r, ymaks=1100):
+def overgangsfigur(r, ymaks=400):
     """Feltet og skjermflata langs overgangen, fem steg frå stemning til arbeid."""
     W, H = 270, 128
     x0, x1, y0, y1 = 6, W - 64, 104, 10
     X = lambda i: round(x0 + i / 4 * (x1 - x0), 1)
     Y = lambda v: round(y0 - min(v, ymaks) / ymaks * (y0 - y1), 1)
     g = [f'<line x1="{x0}" y1="{y0}" x2="{x1}" y2="{y0}" class="strek"/>']
-    for v in (350, 1000):
+    for v in (100, 350):
         g.append(f'<line x1="{x0}" y1="{Y(v)}" x2="{x1}" y2="{Y(v)}" class="haar"/>')
         g.append(f'<text x="{x0}" y="{Y(v) - 3}" class="graa">{v}{NB}lx</text>')
     for key, kl, dash, namn in (('veg_felt', '#F4F4F4', '', 'feltet'), ('veg_skjerm', '#9A9A9A', ' stroke-dasharray="4 3"', 'skjermflata')):
-        v = r[key]
+        v = [x * 350 / r['veg_felt'][-1] for x in r[key]]      # skalert til 350 lx på feltet, som tala
         pts = ' '.join(f'{X(i)},{Y(x)}' for i, x in enumerate(v))
         g.append(f'<polyline points="{pts}" fill="none" stroke="{kl}" stroke-width="1.6"{dash}/>')
         for i, x in enumerate(v):
@@ -167,9 +167,9 @@ def konseptside(k, r):
             <div>{f2(r['W350'])}{NB}W<small>for 350{NB}lx på feltet · tak 7,5</small></div>
             <div>{f2(r['jamnheit'])}<small>jamnheit · referanse 0,6</small></div>
             <div>{f0(auge)}{NB}cd/m²<small>høgst mot auget, 25 til 60{NB}cm · F1 3000</small></div>
-            <div>{f1(r['timar'])}{NB}t<small>arbeidslys per 21700-celle</small></div>
+            <div>{f1(r['timar'])}{NB}t<small>arbeidslys per 21700-celle, 15,1 Wh brukbart</small></div>
           </div>
-          <p class="etikett" style="margin-top: 10px;">Langs overgangen, lx</p>
+          <p class="etikett" style="margin-top: 10px;">Langs overgangen, skalert, lx</p>
           {overgangsfigur(r)}
         </section>
       </div>
@@ -186,11 +186,11 @@ def konseptside(k, r):
 def oversyn(T):
     rader = [
         ('Watt for 350 lx på feltet', 'tak 7,5 W', lambda r: r['W350'], f2, 'lag', lambda v: v <= 7.5),
-        ('Timar arbeidslys per celle', '', lambda r: r['timar'], f1, 'hog', None),
+        ('Timar arbeidslys per celle', '15,1 Wh brukbart', lambda r: r['timar'], f1, 'hog', None),
         ('Jamnheit på feltet', 'referanse 0,6', lambda r: r['jamnheit'], f2, 'hog', None),
         ('Mot auget frå 25 cm, cd/m²', 'F1 under 3000', lambda r: r['auge25'], f0, 'lag', lambda v: v <= 3000),
         ('Veggen bak skjermen i arbeid, lx', 'F6 100 til 150', lambda r: r['bak350'], f0, 'hog', lambda v: v >= 100),
-        ('Skjermflata midt i overgangen, lx', 'lys på skjermen', lambda r: r['veg_skjerm'][2], f0, 'lag', None),
+        ('Skjermflata midt i overgangen, lx', 'lys på skjermen', lambda r: r['veg_skjerm'][2] * 350 / r['veg_felt'][-1], f0, 'lag', None),
         ('Største sprang i overgangen', '0 er glatt', lambda r: r['sprang'], f2, 'lag', None),
         ('Stemning: mot auget, cd/m²', 'F5 under 500', lambda r: r['s_auge25'], f0, 'lag', lambda v: v <= 500),
         ('Stemning: veggen bak skjermen, lx', '', lambda r: r['s_bak'], f0, 'hog', None),
@@ -201,7 +201,7 @@ def oversyn(T):
         bk = (min if best == 'lag' else max)(v, key=v.get)
         celler = []
         for k in KONSEPT:
-            kl = 'best' if k == bk else ''
+            kl = 'best' if fmt(v[k]) == fmt(v[bk]) else ''
             feil = '' if ok is None or ok(v[k]) else '<span class="feil"> ikkje halde</span>'
             celler.append(f'<td class="tal {kl}">{fmt(v[k])}{feil}</td>')
         tr.append(f'<tr><td>{namn}<small>{krav}</small></td>{"".join(celler)}</tr>')

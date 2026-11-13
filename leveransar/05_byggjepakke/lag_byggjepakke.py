@@ -149,8 +149,8 @@ def s_oversikt(W, H):
         ('A SKIVA', 'vipp skiva',
          ['stolpen frå overheadprojektoren', 'reflektorfilm frå LCD-skjermen, om du har', 'ribba (3D-print, STL i mappa)'],
          ['skive Ø 250 mm: glatt folie, kvit og matt bakside', 'veggflik 12 × 8,4 cm, folie og bakepapir',
-          'papplist som held fliken ved sida av stolpen', 'arm 13,5 cm med ledd',
-          f'to svarte papprull: {k(ROER_A, 0)} og {k(ROER_FLIK, 0)} mm lange', 'to lykter i foten']),
+          'papplist som held fliken ved sida av stolpen', 'arm 13,5 cm og to ledd for skiva',
+          f'tre svarte papprull: {k(ROER_A, 0)}, {k(ROER_FLIK, 0)} og {k(ROER_MOTE, 0)} mm (møte)', 'to lykter i foten']),
         ('B OVER', 'vipp plata',
          ['fresnelplata 285 × 285 mm', 'stolpen frå overheadprojektoren', 'to diffusorark'],
          ['pappramme, tappar midt på sidekantane', 'stag med merke for stemning og arbeid', 'flik 60 mm, blank folie på papp',
@@ -177,8 +177,9 @@ def s_oversikt(W, H):
     g.append(t(m, y, 'REKKJEFØLGJE', 'mono'))
     rek = ['1  Start 3D-printen av ribba til A. Ho printar medan du gjer resten.',
            '2  Mål lobebreidda (side 2 og 3). A krev under 4,5°. Send tala før du byggjer A.',
-           '3  Byggj éin modell om gongen: det finst berre éin stolpe.',
-           '     Han når 30 til 40 cm. B treng 62 cm og C 70 cm: set han på ein kloss eller ei lekt.',
+           '3  Byggj éin modell om gongen: det finst berre éin stolpe. Han når 30 til 40 cm.',
+           '     A treng om lag 41 cm, B 62 cm og C 70 cm: set han på ein kloss eller ei lekt.',
+           '     Klem foten fast med ei tvinge eller legg tyngd på han. B: klem stolpen bak skjermen.',
            '4  B først, så A når ribba er ferdig, så C.',
            '5  Fotografer etter fotolista. Kameraet er ein annan telefon enn lykta.',
            '6  Vipp og skyv med to fingrar eller i leddet, ikkje med eit dytt. Eit dytt veltar',
@@ -190,7 +191,8 @@ def s_oversikt(W, H):
           'Fresnelplata, blanke hole former og vasskula samlar sollys og kan tenne papp.',
           '     Aldri i sol eller ved vindauge. Lagre dei tildekte.',
           'Julekula er tynt glas: fyll ho over ei skål med hanskar, tett opninga,',
-          '     hald vatn borte frå telefonen og lykta.',
+          '     hald vatn borte frå telefonen og lykta. Teip kula fast i ringen,',
+          '     så ho ikkje fell ned om stolpen hellar.',
           'Frontflatespegelen: rør ikkje flata, teip berre på baksida og kantane.',
           '     Kantane kan vere uslipte. Teip dei.',
           'Skiva i A: vend ho alltid med spegelsida mot skjermen. Går spegelsida',
@@ -312,7 +314,7 @@ def s_A_plassering(W, H):
             'Møte (F10): sløkk fliklykta. Vend skiva så den kvite baksida ser ned mot lykta',
             '     og mot ansiktet. Vend den korte vegen (150°): spegelsida peikar mot skjermen',
             '     og veggen heile tida, aldri mot deg. Den lange vegen kastar lyset i auga.',
-            f'     Lykta må spreie meir enn i arbeid (18° mot 10°): røyr på {k(ROER_MOTE, 0)} mm, halve hovudrøyret.']
+            f'     Lykta må spreie meir (18° mot 10°): byt til eit eige røyr på {k(ROER_MOTE, 0)} mm (strimmel 86,5 × {k(ROER_MOTE, 0)} mm).']
     g.append(tekstblokk(m, 52, maal, 'brod', lh=4.4))
     x2 = m + (W - 2 * m) * 0.62
     g.append(t(x2, 46, 'BYGGING', 'mono'))
@@ -325,9 +327,12 @@ def s_A_plassering(W, H):
             '     med bakepapir oppå, matt flik blendar.',
             f'5  Rull røyra og set dei på lyktene: {k(ROER_A, 0)} mm på',
             f'     hovudlykta og {k(ROER_FLIK, 0)} mm på fliklykta. Er ho ei',
-            f'     lita lommelykt: Ø 15 × {k(ROER_FLIK_15, 0)} mm.',
-            '6  Fest armen på stolpen med ledd, så skiva',
-            '     kan vippe og bli ståande.',
+            f'     lita lommelykt: Ø 15 × {k(ROER_FLIK_15, 0)} mm. Møte: {k(ROER_MOTE, 0)} mm.',
+            '6  Fest armen på stolpen med eit ledd. Skiva',
+            '     treng to ledd på armen, eitt for vippen og',
+            '     eitt for vendinga (aksane står om lag 40° frå',
+            '     kvarandre), eller ein bit stiv ståltråd. Fest',
+            '     ved sida av ribba, ikkje gjennom ho.',
             f'7  Teip fliken på ein papplist, {k(-G["A"]["flik_dx_cm"])} cm til',
             '     venstre for stolpen.',
             '8  Føreseiing: lågaste rute over 0,5 av snittet',
@@ -381,23 +386,25 @@ def s_B(W, H):
     maal = ['Plata: midten 62 cm over bordet, 20 cm over skjermkanten, midt framfor brukaren og',
             '     9 cm framfor skjermplanet. Ho vippar om ein vassrett akse gjennom midten.',
             '     Tappar midt på sidekantane, ikkje hengsel langs bakkanten.',
+            'Stolpen: klemt bak skjermen ved høgre kant. Ein gaffel av papp eller lekt ber tappane.',
             f'Lykta: {k(B["lykt_avstand_cm"], 0)} cm under plata, 51 cm over bordet og 4 cm framfor skjermplanet:',
             '     ein kloss 9 cm over skjermkanten. Ho peikar opp mot midten av plata.',
-            'Knekken går langs midtlina frå venstre til høgre. Den framre halvdelen er hovuddelen.',
-            f'     Fliken er dei 60 mm bak midtlina, knekt {B["knekk_grader"]:.0f}° mot hovuddelen. Dei bakste 82,5 mm er dekte.',
+            'I modellen er plata knekt langs midtlina: den framre halvdelen er hovuddelen, fliken er',
+            f'     dei 60 mm bak midtlina, knekt {B["knekk_grader"]:.0f}° mot hovuddelen, og dei bakste 82,5 mm er dekte.',
+            '     I skissemodellen er plata heil, og fliken er ein eigen folieflik under ho (sjå bygging).',
             f'Arbeid: hovuddelen nesten vassrett (om lag {B["hovuddel_tilt_arbeid"]:.0f}°) og siktar på feltmidten,',
             f'     fliken om lag {B["flik_tilt_arbeid"]:.0f}° og siktar på veggen 60 cm over bordet.',
-            f'Stemning: heile plata vippar {B["knekk_grader"]:.0f}°, så begge delar siktar på veggen.',
+            f'Stemning: heile plata vippar {B["knekk_grader"]:.0f}°, og hovuddelen siktar på veggen. Fliken sender lite lys, mot taket.',
             'Brønnen skjermar ved 50°. Med 64° ser auget dioden frå 60 cm.']
     g.append(tekstblokk(m, 52, maal, 'brod', lh=4.4))
     x2 = m + (W - 2 * m) * 0.62
     g.append(t(x2, 46, 'BYGGING', 'mono'))
-    steg = ['1  Ikkje skjer i fresnelplata. Plata er éi.',
-            '     Dekk dei bakste 142,5 mm med svart papp,',
-            '     og teip ein flik av blank folie på papp',
-            f'     (60 × 285 mm) langs midtlina, {B["knekk_grader"]:.0f}° opp.',
-            '     Folieflika gjev veggen like mykje lys som',
-            '     ein fresnelstrimmel (135 mot 134 lx i modellen).',
+    steg = ['1  Ikkje skjer i fresnelplata. Dekk heile den',
+            '     bakre halvdelen (142,5 mm) med svart papp.',
+            '     Fliken (blank folie på papp, 60 × 285 mm) heng',
+            '     under den dekte halvdelen, bak lykta, blank',
+            '     side ned. Vinkle han til flekken ligg på veggen',
+            '     60 cm over bordet, utan å skugge hovuddelen.',
             '2  Same side opp som i projektoren, mot lykta.',
             '3  Ramme med tappar midt på sidekantane,',
             '     og eit stag med merke for dei to stillingane.',
@@ -410,9 +417,10 @@ def s_B(W, H):
     g.append(t(rx, ry - 4, 'PLATA SETT OVANFRÅ (1:5)', 'mono'))
     g.append(rekt(rx, ry, 285 * s, 285 * s, 'tynn'))
     g.append(f'<line x1="{rx:.2f}" y1="{ry + 142.5 * s:.2f}" x2="{rx + 285 * s:.2f}" y2="{ry + 142.5 * s:.2f}" class="fald"/>')
-    g.append(f'<rect x="{rx:.2f}" y="{ry:.2f}" width="{285 * s:.2f}" height="{82.5 * s:.2f}" fill="#d0d0d0" stroke="none"/>')
-    g.append(f'<rect x="{rx:.2f}" y="{ry + 82.5 * s:.2f}" width="{285 * s:.2f}" height="{60 * s:.2f}" fill="none" stroke="#000" stroke-width="0.35"/>')
-    for yy, tx in ((ry + 41 * s, 'dekt, 82,5 mm'), (ry + 112.5 * s, 'flik, 60 mm, 48° opp'), (ry + 213 * s, 'hovuddel, 142,5 mm')):
+    g.append(f'<rect x="{rx:.2f}" y="{ry:.2f}" width="{285 * s:.2f}" height="{142.5 * s:.2f}" fill="#d0d0d0" stroke="none"/>')
+    g.append(f'<rect x="{rx + 6:.2f}" y="{ry + 47.5 * s:.2f}" width="{285 * s - 12:.2f}" height="{40 * s:.2f}" fill="none" stroke="#000" stroke-width="0.35" stroke-dasharray="1.5 1"/>')
+    g.append(f'<circle cx="{rx + 285 * s / 2:.2f}" cy="{ry + 93.5 * s:.2f}" r="1.6" fill="none" stroke="#000" stroke-width="0.35"/>')
+    for yy, tx in ((ry + 22 * s, 'dekt, heile bakre halvdel'), (ry + 67.5 * s, 'flik under plata, bak lykta'), (ry + 95 * s, 'lykta, 12 cm under'), (ry + 213 * s, 'hovuddel, 142,5 mm')):
         g.append(t(rx + 285 * s + 4, yy + 1, tx, 'mono grå'))
     g.append(t(rx + 285 * s / 2, ry - 0.5 + 285 * s + 5, 'mot brukaren', 'mono grå', 'middle'))
     g.append(t(rx + 285 * s / 2, ry - 1.5, '', 'mono grå', 'middle'))
@@ -439,9 +447,11 @@ def s_C(W, H):
     x2 = m + (W - 2 * m) * 0.62
     g.append(t(x2, 46, 'BYGGING', 'mono'))
     steg = ['1  Fyll kula over ei skål, med hanskar. Tett',
-            '     opninga. Kula kviler i ein ring av papp.',
+            '     opninga. Teip kula fast i ein vassrett ring',
+            '     av papp, så ho ikkje fell ned.',
             '2  Skriv ut maska og gråfilteret (side 10):',
-            '     maska på papir, filteret på overheadfilm.',
+            '     maska på papir, limt på svart papp før du',
+            '     skjer, filteret på overheadfilm.',
             '3  Lykt, kondensor, filter og maske i éin',
             '     svart pappboks. Maska vender mot kula.',
             '4  Frontflatespegelen på ei pappflik rett etter',
@@ -483,13 +493,15 @@ def s_C_maske(W, H):
         namn = C['hjorne_namn']
         for (x, y), nm in zip(P, namn):
             g.append(f'<circle cx="{x:.2f}" cy="{y:.2f}" r="0.6" fill="#000"/>')
-        g.append(f'<circle cx="{ox}" cy="{oy}" r="0.8" fill="#000"/>')
+        g.append(f'<line x1="{ox - 5}" y1="{oy}" x2="{ox + 5}" y2="{oy}" stroke="#000" stroke-width="0.25"/>')
+        g.append(f'<line x1="{ox}" y1="{oy - 5}" x2="{ox}" y2="{oy + 5}" stroke="#000" stroke-width="0.25"/>')
         g.append(tekstblokk(ox - 45, oy + 52, [tittel_], 'mono', lh=3.8))
     lab = ['Hjørna lagar desse hjørna i feltet:']
     for nm, (x, y) in zip(C['hjorne_namn'], poly):
         lab.append(f'· {nm}: x {k(x)} mm, y {k(y)} mm frå krossen')
     g.append(tekstblokk(m, 160, lab, 'liten', lh=4))
     g.append(tekstblokk(m + 140, 160, ['Maska og filteret ligg oppå kvarandre, krossen på krossen.',
+                                       'Krossen ligg på aksen gjennom midten av kula.',
                                        f'Filteret slepp gjennom {k(C["filter_min"] * 100, 0)} til 100 %: mørkast der feltet er nærast lampa.',
                                        'Linsa snur biletet. Ligg feltet feil, snu maska og filteret saman.',
                                        f'Maska {k(C["u_mm"], 0)} mm frå midten av kula. Kondensoren rett bak maska.'], 'liten', lh=4))

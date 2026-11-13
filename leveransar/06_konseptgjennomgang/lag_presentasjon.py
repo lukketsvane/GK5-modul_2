@@ -151,6 +151,20 @@ def kropp():
     return ut
 
 
+def stykkliste():
+    """Produksjonskost (lågt, høgt, €) og hovuddelar (T6) per konsept, og kostnadsmålet, frå konsept/tre/stykkliste.md."""
+    import re
+    s = open(os.path.join(TRE, 'stykkliste.md'), encoding='utf-8').read()
+    ut = {}
+    for k, namn in (('A', 'A Skiva'), ('B', 'B Over'), ('C', 'C Vindauge')):
+        bolk = s.split(f'## {namn}', 1)[1].split('\n## ', 1)[0]
+        lo, hi = re.search(r'\|\s*\*\*Sum\*\*.*?\*\*(\d+)\*\*\s*\|\s*\*\*(\d+)\*\*', bolk).groups()
+        delar = re.search(r'Hovuddelar \(T6\):[^\n]*?\*\*(\d+)', bolk).group(1)
+        ut[k] = dict(lo=int(lo), hi=int(hi), delar=int(delar))
+    maal = re.search(r'\*\*(\d+) til (\d+) €\*\*', s).groups()
+    return ut, (int(maal[0]), int(maal[1]))
+
+
 def f10():
     """Møtelyset (F10) frå konsept/tre/f10.json: A med kjelde 18° og C med alt lyset på veggen."""
     F = json.load(open(os.path.join(TRE, 'f10.json'), encoding='utf-8'))
@@ -165,13 +179,15 @@ def l_valet():
     """Kva valet står på, etter valtabellen i konsept/tre/val-18-11.md."""
     Kr = kropp()
     a18, bkv, cveg = f10()
+    SL, _ = stykkliste()
     def kol(k, rolle, faar, pris):
-        K, kr = KO.KONSEPT[k], Kr[k]
+        K, kr, sl = KO.KONSEPT[k], Kr[k], SL[k]
         velt = f'veltar ved {f1(kr["velt_N"])}{NB}N' if kr['velt_N'] > 0 else 'veltar av seg sjølv på fot'
         return (f'<figure><img src="{bilete(k, "arbeid")[0]}" alt=""><figcaption><b>{k} {K["namn"]}</b> · {rolle}</figcaption>'
                 '<p class="etikett">Får de</p><ul class="liste liten">' + ''.join(f'<li>{x}</li>' for x in faar) + '</ul>'
                 '<p class="etikett">Prisen</p><ul class="liste liten pris">' + ''.join(f'<li>{x}</li>' for x in pris) + '</ul>'
-                f'<p class="kroppstal">{f2(kr["masse"])}{NB}kg · {f0(kr["fot_cm2"])}{NB}cm² · {velt}</p></figure>')
+                f'<p class="kroppstal">{f2(kr["masse"])}{NB}kg · {f0(kr["fot_cm2"])}{NB}cm² · {velt}<br>'
+                f'{sl["lo"]} til {sl["hi"]}{NB}€ i produksjon · {sl["delar"]} hovuddelar</p></figure>')
     A, B, C = T['A'], T['B'], T['C']
     inn = ('<div class="tre-val">' +
            kol('A', 'nærast Northern, enklast å byggje',
@@ -191,15 +207,17 @@ def l_valet():
            '</div><p class="graa liten" style="margin-top:12px">Felles: eit dytt på 5' + NB +
            'N veltar alle tre. Vippen og skyvet må vere eit kraftpar, med ein knott i leddet eller ein spak ved foten.</p>')
     return lysbilete(11, 'A er det trygge kortet, C det nye, B lampa over skjermen.', inn,
-                     'Kjelde: konsept/tre/val-18-11.md, tal-*.json, kropp.md (0,5 kg ballast) og f10.md (møtelys). Modell og overslag, ikkje måling.')
+                     'Kjelde: konsept/tre/val-18-11.md, tal-*.json, kropp.md (0,5 kg ballast), f10.md (møtelys) og stykkliste.md (overslag, ikkje tilbod). Modell, ikkje måling.')
 
 
 def l_val():
+    SL, (mlo, mhi) = stykkliste()
+    lo, hi = min(r['lo'] for r in SL.values()), max(r['hi'] for r in SL.values())
     inn = f'''<div class="to-kol"><section><p class="etikett">Det eg vil spørje dykk om</p>
       <ol class="liste"><li>Kva vil de ha: det trygge kortet nær sortimentet (A), ei lampe over skjermen som lèt bordet vere fritt (B), eller ein ny type som held lyset av skjermen (C)?</li>
       <li>Kan ei lampe over skjermen (B) eller eit lyshovud på ei høg stong (C) stå i sortimentet ved sida av Snowball og Ombre?</li>
       <li>Vil de selje batteri, elektronikk og lysmodul som reservedelar?</li>
-      <li>Produksjon, årsvolum og målpris: kva ramme skal eg halde meg innanfor?</li></ol></section>
+      <li>Pris og volum: overslaget gjev {lo} til {hi}{NB}€ i produksjon, og 2990 til 3990{NB}kr i butikk gjev rom for {mlo} til {mhi}{NB}€. Stemmer målprisen, og kva årsvolum reknar de med?</li></ol></section>
     <section><p class="etikett">Neste steg</p>
       <ul class="liste"><li>Mål lobebreidda på folien. Ho avgjer blendinga for A.</li>
       <li>Gjer handlinga til eit kraftpar, med knott eller spak, så lampa ikkje veltar.</li><li>Byggj skissemodellen av det valde konseptet om, med kropp.</li>

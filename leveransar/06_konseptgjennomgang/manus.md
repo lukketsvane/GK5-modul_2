@@ -71,12 +71,14 @@ Dette er mi lesing, ikkje eit val:
 
 Felles for alle tre: eit dytt veltar lampa. Handlinga må difor vere eit kraftpar, med ein knott i leddet eller ein spak ved foten.
 
+Prisen er eit overslag, ikkje tilbod. Alle tre kan nå prisnivået til Northern i nedre del av spennet. Det som avgjer, er mekanikken og finishen, ikkje elektronikken.
+
 ## 12 Kva de vel, avgjer kva eg byggjer vidare
 
 Still spørsmåla i rekkjefølgje og skriv ned svara:
 1. Kva dei vil ha: det trygge kortet (A), lampa over skjermen (B) eller den nye typen (C). Dette er det viktigaste.
 2. Om B eller C kan stå i sortimentet ved sida av Snowball og Ombre.
 3. Reservedelar.
-4. Ramma for produksjon.
+4. Pris og volum: stemmer målprisen, og kva årsvolum reknar dei med?
 
 Etter valet måler eg lobebreidda og gjer handlinga til eit kraftpar. Så byggjer eg det valde konseptet om med kropp og tek det med til formgjennomgangen 25.11.

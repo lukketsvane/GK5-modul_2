@@ -49,7 +49,16 @@ def vend(u, andre_vegen=False):
         m = -n; r = 2 * (m @ s) * m - s; form, side, bak = boy.boy(1 / 1.2), ls.MATT, SPEGEL
     g = tre._med_kantskive(lambda t: boy.lampe(1.0, form=form, side=side, bak=bak, n=30, fot=boy.F2, c=boy.CF,
                                                  mot=C + r, ref=boy.SIKT, W=W, spreiing=spr))
-    return g(1.0)
+    lys, kropp = g(1.0)
+    return lys, kropp + [flik_kropp()]
+
+def flik_kropp():
+    """Veggfliken frå a_sok (3,5 cm til venstre for stamma, 30 cm over bordet), sløkt i møte: berre ein kropp."""
+    import a_sok
+    c2 = b(boy.F2[0] - 0.035, boy.F2[1] + 0.045, 0.30); kp2 = b(boy.F2[0] - 0.035, boy.F2[1] + 0.02, 0.05)
+    n2 = ls.nrm(ls.nrm(kp2 - c2) + ls.nrm(a_sok.VEGGMAL - c2))
+    u = ls.nrm(np.cross(np.array([0.0, 0.0, 1.0]), n2)); v = np.cross(n2, u)
+    return ls.Rekt(c2 - u * 0.06 - v * 0.042, u * 0.12, v * 0.084)
 
 def tre_tilstandar(t):
     """t = 0 stemning, 0,5 arbeid, 1 møte (for bilete)."""

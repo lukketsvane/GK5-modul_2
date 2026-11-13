@@ -309,9 +309,9 @@ def s_A_plassering(W, H):
             f'     på fliken ({k(A["lykt2_til_flik_cm"], 0)} cm unna). Om lag {A["q"] * 100:.0f} % av lyset.',
             'Stemning: sikt skiveflekken midt på veggen bak skjermen. Arbeid: 10 cm til',
             '     venstre for feltmidten. Fliken står fast i begge.',
-            'Møte (F10): vend skiva så den kvite baksida ser ned mot lykta og mot ansiktet.',
-            '     Vend den korte vegen (150°): spegelsida peikar mot skjermen og veggen heile',
-            '     tida, aldri mot deg. Den lange vegen kastar lyset frå lykta rett i auga.',
+            'Møte (F10): sløkk fliklykta. Vend skiva så den kvite baksida ser ned mot lykta',
+            '     og mot ansiktet. Vend den korte vegen (150°): spegelsida peikar mot skjermen',
+            '     og veggen heile tida, aldri mot deg. Den lange vegen kastar lyset i auga.',
             f'     Lykta må spreie meir enn i arbeid (18° mot 10°): røyr på {k(ROER_MOTE, 0)} mm, halve hovudrøyret.']
     g.append(tekstblokk(m, 52, maal, 'brod', lh=4.4))
     x2 = m + (W - 2 * m) * 0.62

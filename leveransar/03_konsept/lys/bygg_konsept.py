@@ -16,43 +16,41 @@ UT = os.path.normpath(os.path.join(HER, '..'))
 TRE = os.path.normpath(os.path.join(HER, '..', '..', '..', 'konsept', 'tre'))
 NB = '&nbsp;'
 
+# Runde 2 av konsepta (konsept/tre/00-tre-konsept.md, 13.11.2026). Tala blir lesne frå tal-*.json.
 KONSEPT = {
     'A': dict(namn='Skiva', fil='ark-A-skiva.png', nr='11',
-              tittel='Skiva lyser jamnast av dei tre, men sveipar over skjermen på veg ned.',
-              prinsipp='Ei kjelde i foten lyser opp på ei bøygd spegelskive. Skiva vippar lyset frå veggen bak skjermen ned på arbeidsfeltet.',
-              northern='Fot, stong og skive: tre primærformer, som Northern.',
-              nabo='Verner Panton Reflect, som har fast, kvit skive.',
+              tittel='Skiva lyser jamnast og skiftar mjukast, men legg lys på skjermen.',
+              prinsipp='Ei lykt i foten lyser på ei bøygd spegelskive som vippar lyset frå veggen ned på feltet. Ein fast flik på stolpen held veggen bak skjermen lys.',
+              northern='Fot, stong og skive som Northern. Fliken er eit fjerde element (mi tolking).',
+              nabo='Verner Panton Reflect, som har fast, kvit skive og ingen flik.',
               gest='Vipp skiva.',
-              modell='Folie på papp, Ø 250' + NB + 'mm, på ein printa ribbe med boge R 1,2' + NB + 'm. Telefonlykta i ein svart papprull i foten. Stolpen frå projektoren held skiva 41' + NB + 'cm over bordet.',
+              modell='Folie på papp, Ø 250' + NB + 'mm, på ein printa ribbe med boge R 1,2' + NB + 'm. To lykter i foten: éi på skiva, éi på fliken (12 × 8,4' + NB + 'cm, folie og bakepapir) 30' + NB + 'cm over bordet.',
               fore='Med bøyen er lågaste rute over 0,5 av snittet, flat under 0,45.',
-              ikkje=['Midt i overgangen sveipar strålen over skjermen: 350' + NB + 'lx på skjermflata.',
-                     'I stemning ligg 142' + NB + 'lx på skjermflata.',
-                     'Veggen bak skjermen får 14' + NB + 'lx i arbeid. F6 krev 100 til 150.',
-                     'F1 kviler på lobebreidda. Folie på papp kan gje 1600 til 9000' + NB + 'cd/m² frå 25' + NB + 'cm.']),
+              ikkje=['Spegelskiva legg 0,36 av feltluxen på skjermen i arbeid og 226' + NB + 'lx midt i overgangen.',
+                     'Fliken syner frå auget med 672' + NB + 'cd/m² frå 25 og 47' + NB + 'cm.',
+                     'F1 krev ei skive med lobe under 4,5°. Folie på papp er ikkje målt.']),
     'B': dict(namn='Over', fil='ark-B-over.png', nr='12',
-              tittel='Plata brukar minst straum og flyttar lyset heilt, men skiftet hoppar.',
-              prinsipp='Fresnelplata frå overheadprojektoren ligg over skjermkanten. Ho vippar lyset frå veggen bak skjermen ned på bordet.',
-              northern='Kroppen er byggjesettet, ikkje forma enno.',
+              tittel='Plata held stemninga heilt av skjermen, men lyser ujamnt.',
+              prinsipp='Fresnelplata frå overheadprojektoren ligg over skjermkanten og er knekt. Den store delen vippar lyset frå veggen ned på bordet, fliken held veggen bak skjermen lys.',
+              northern='Kroppen er stolpen frå byggjesettet, ikkje forma enno.',
               nabo='BenQ ScreenBar Halo.',
               gest='Vipp plata.',
-              modell='Fresnelplata i ei pappramme med teiphengsel langs bakkanten. Stolpen klemt bak skjermen. Telefonlykta på skjermkanten i ein brønn av svart papp, 12' + NB + 'cm under plata, og eitt eller to diffusorark på plata.',
-              fore='Jamnheit 0,46 (0,35 til 0,55) med diffusorark, under 0,05 utan.',
-              ikkje=['Overgangen hoppar: største sprang 0,36.',
-                     'Veggen bak skjermen får 16' + NB + 'lx i arbeid. F6 krev 100 til 150.',
-                     'Dioden har lite margin. Brønnen må vere 50°: med 64° ser auget dioden frå 60' + NB + 'cm, 140' + NB + '000' + NB + 'cd/m².',
-                     'Kroppen er stolpen frå byggjesettet, ikkje ei Northern-form.']),
+              modell='Fresnelplata i pappramme som vippar om midten, med ein flik av blank folie 60' + NB + 'mm bak midtlina. Lykta i ein brønn av svart papp, 12' + NB + 'cm under plata. To diffusorark.',
+              fore='Jamnheit om lag 0,4. Veggen bak skjermen om lag ein tredel av feltet.',
+              ikkje=['Jamnheita stoppar under 0,5: 0,41 med ark. Referansen 0,6 er ikkje nådd under 1500' + NB + 'cd/m².',
+                     'Strålen sveipar over skjermen midt i vippen: 243' + NB + 'lx.',
+                     'Frå 25' + NB + 'cm ser auget 1124' + NB + 'cd/m², under F5 men høgst av dei tre.']),
     'C': dict(namn='Vindauge', fil='ark-C-vindauge.png', nr='13',
-              tittel='Spegelen deler strålen: vindauget står, feltet kjem, og skjermen blir ikkje treft.',
-              prinsipp='Ei linse teiknar eit vindauge av lys på veggen. Ein spegel glir inn i strålen og legg feltet på bordet, medan vindauget blir ståande.',
-              northern='Kroppen er ikkje forma enno.',
+              tittel='Spegelen deler strålen: skjermen får nesten ikkje lys, men det kostar straum.',
+              prinsipp='Ei vasskule teiknar eit vindauge av lys på veggen. Ein spegel glir inn i strålen og legg feltet på bordet, medan vindauget blir ståande.',
+              northern='Kroppen er ikkje forma enno. Spegelklaffen er synleg mekanikk.',
               nabo='ingen kjend lampe deler strålen slik.',
               gest='Skyv spegelen inn.',
-              modell='Ei lupe eller ei vassfylt glaskule på Ø 70' + NB + 'mm som linse. Maska i papp, ei trakt av folie, og frontflatespegelen frå projektoren på eit papphengsel rett etter linsa.',
+              modell='Julekule av glas, Ø 70' + NB + 'mm, fylt med vatn. Maske i papp og gråfilter på overheadfilm, kredittkort-fresnel som kondensor, frontflatespegelen på ei pappflik. Hovudet 70' + NB + 'cm over bordet.',
               fore='Vindauget står i ro medan feltet kjem fram. Skjermen får under 0,15 av feltet heile vegen.',
-              ikkje=['Maska slepp gjennom 0,47 av lyset, så arbeidslyset krev 3,8' + NB + 'W.',
-                     'Jamnheita er 0,24. Referansen er 0,6.',
-                     'Linsa på om lag 60' + NB + 'mm finst ikkje i byggjesettet.',
-                     'Vindauget har skarp kant, som verdiordet mjuk utelukkar (mi tolking).']),
+              ikkje=['Arbeidslyset krev 5,8' + NB + 'W og gjev 2,6 timar per celle.',
+                     'Hovudet står 70' + NB + 'cm over bordet, høgare enn ei bordlampe.',
+                     'Gråfilteret som gjev jamnheita, kostar 1,6' + NB + 'W.']),
 }
 
 
@@ -203,7 +201,7 @@ def oversyn(T):
         <tr><th>Arbeidslys skalert til 350 lx på feltet</th>{''.join(f'<th class="tal">{k} {K["namn"]}</th>' for k, K in KONSEPT.items())}</tr>
         {''.join(tr)}
       </table>
-      <p class="liten kvit" style="margin-top: 8px;">Ingen av dei 18 kandidatane held alle krava når augehøgda og antakingane blir varierte. F1 for A og B heng på lobebreidda til folien, og ho blir målt først.</p>
+      <p class="liten kvit" style="margin-top: 8px;">Runde 2: alle tre har fått ein eigen veg til veggen bak skjermen. F1 for A heng på lobebreidda til folien, og ho blir målt først.</p>
     </section>'''
     stil = '''  .tre { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 16px; }
   .tre img { aspect-ratio: 1.7 / 1; object-fit: cover; object-position: center 55%; }
@@ -214,7 +212,7 @@ def oversyn(T):
   table.samanlikning td.best { color: var(--blekk); }
   table.samanlikning .feil { font-size: 9.5px; color: var(--graa); }
   table.samanlikning th.tal { width: 19%; }'''
-    side('side-10-tre-konsept.html', '10', 'Tre konsept', 'B brukar minst straum, A lyser jamnast, og berre C held lyset borte frå skjermen.', stil, innhald,
+    side('side-10-tre-konsept.html', '10', 'Tre konsept', 'Alle tre held veggen bak skjermen. C held skjermen fri, men brukar mest straum.', stil, innhald,
          KJELDE, 'Kvit: best av dei tre.')
 
 

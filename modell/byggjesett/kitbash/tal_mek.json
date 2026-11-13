@@ -1,0 +1,809 @@
+[
+ {
+  "id": 1,
+  "namn": "Klype · vipp",
+  "stotte": "klype",
+  "organ": "plata vippar",
+  "handling": "vipp plata",
+  "setning": "Fresnelplata heng som eit tak over skjermkanten og vippar lyset frå veggen ned på bordet.",
+  "lys": "over-vipp",
+  "masse_g": 918,
+  "tyngdepunkt": [
+   -0.0,
+   480.8,
+   484.7
+  ],
+  "hogd_mm": 646,
+  "masse_sett_g": 728,
+  "masse_cad_g": 0,
+  "masse_ny_g": 190,
+  "delar_sett": [
+   "P01",
+   "P02",
+   "P05"
+  ],
+  "delar_cad": [],
+  "nye": [
+   "bøyel Ø6",
+   "diode i brønn",
+   "finger til dioden",
+   "skjermklype med hylle"
+  ],
+  "handtak": "framkanten av plata",
+  "rekk_mm": 555,
+  "fotavtrykk_cm2": 0.0,
+  "tipp_grader": null,
+  "dytt_N": null,
+  "trykk_N": null,
+  "last_skjerm_g": 918,
+  "moment_skjerm_Nm": 0.05,
+  "trykk_moment_Nm": -1.3,
+  "flagg": [
+   "lastar skjermen (må prøvast)"
+  ]
+ },
+ {
+  "id": 2,
+  "namn": "Klype · flik",
+  "stotte": "klype",
+  "organ": "plata med flik",
+  "handling": "vipp plata",
+  "setning": "Same tak, med ein blank flik som held veggen bak skjermen lys i arbeid (B Over).",
+  "lys": "over-flik",
+  "masse_g": 987,
+  "tyngdepunkt": [
+   -0.0,
+   473.6,
+   495.7
+  ],
+  "hogd_mm": 667,
+  "masse_sett_g": 728,
+  "masse_cad_g": 0,
+  "masse_ny_g": 259,
+  "delar_sett": [
+   "P01",
+   "P02",
+   "P05"
+  ],
+  "delar_cad": [],
+  "nye": [
+   "blank flik 285 × 60 mm",
+   "bøyel Ø6",
+   "diode i brønn",
+   "finger til dioden",
+   "skjermklype med hylle"
+  ],
+  "handtak": "framkanten av plata",
+  "rekk_mm": 555,
+  "fotavtrykk_cm2": 0.0,
+  "tipp_grader": null,
+  "dytt_N": null,
+  "trykk_N": null,
+  "last_skjerm_g": 987,
+  "moment_skjerm_Nm": -0.01,
+  "trykk_moment_Nm": -1.3,
+  "flagg": [
+   "lastar skjermen (må prøvast)"
+  ]
+ },
+ {
+  "id": 3,
+  "namn": "Klype · vindauge",
+  "stotte": "klype",
+  "organ": "plata og vindaugsdiode",
+  "handling": "vri knotten",
+  "setning": "Plata står fast mot feltet. Ei diode bak ei maske teiknar vindauget på veggen, og knotten flyttar watten.",
+  "lys": "over-vindauge",
+  "masse_g": 963,
+  "tyngdepunkt": [
+   1.2,
+   481.8,
+   485.3
+  ],
+  "hogd_mm": 675,
+  "masse_sett_g": 728,
+  "masse_cad_g": 0,
+  "masse_ny_g": 235,
+  "delar_sett": [
+   "P01",
+   "P02",
+   "P05"
+  ],
+  "delar_cad": [],
+  "nye": [
+   "bøyel Ø6",
+   "diode i brønn",
+   "dreieknott for to kanalar",
+   "finger til dioden",
+   "skjermklype med hylle",
+   "vindaugsdiode med maske"
+  ],
+  "handtak": "knotten på skjermkanten",
+  "rekk_mm": 725,
+  "fotavtrykk_cm2": 0.0,
+  "tipp_grader": null,
+  "dytt_N": null,
+  "trykk_N": null,
+  "last_skjerm_g": 963,
+  "moment_skjerm_Nm": 0.06,
+  "trykk_moment_Nm": 0.0,
+  "flagg": [
+   "lastar skjermen (må prøvast)",
+   "handtaket utanfor rekkjevidd"
+  ]
+ },
+ {
+  "id": 4,
+  "namn": "Klype · band",
+  "stotte": "klype",
+  "organ": "plata og LED-stripe",
+  "handling": "vipp plata",
+  "setning": "Bjelken med LED-stripa ligg på skjermkanten og lyser opp i plata, som legg eit band av lys over feltet.",
+  "lys": "over-band",
+  "masse_g": 1095,
+  "tyngdepunkt": [
+   -0.2,
+   469.7,
+   488.7
+  ],
+  "hogd_mm": 646,
+  "masse_sett_g": 728,
+  "masse_cad_g": 185,
+  "masse_ny_g": 182,
+  "delar_sett": [
+   "P01",
+   "P02",
+   "P05"
+  ],
+  "delar_cad": [
+   "R07",
+   "R08",
+   "R11",
+   "R12"
+  ],
+  "nye": [
+   "bøyel Ø6",
+   "finger til bjelken",
+   "skjermklype med hylle"
+  ],
+  "handtak": "framkanten av plata",
+  "rekk_mm": 555,
+  "fotavtrykk_cm2": 0.0,
+  "tipp_grader": null,
+  "dytt_N": null,
+  "trykk_N": null,
+  "last_skjerm_g": 1095,
+  "moment_skjerm_Nm": -0.06,
+  "trykk_moment_Nm": -1.3,
+  "flagg": [
+   "lastar skjermen (må prøvast)"
+  ]
+ },
+ {
+  "id": 5,
+  "namn": "Klype · rute",
+  "stotte": "klype",
+  "organ": "ruta og vindaugsdiode",
+  "handling": "vri knotten",
+  "setning": "Ruta med prismefilmen over skjermkanten og vindaugsdioden bak (D Ruta), boren av armen frå projektoren.",
+  "lys": "over-rute",
+  "masse_g": 992,
+  "tyngdepunkt": [
+   3.7,
+   520.1,
+   447.7
+  ],
+  "hogd_mm": 675,
+  "masse_sett_g": 422,
+  "masse_cad_g": 404,
+  "masse_ny_g": 166,
+  "delar_sett": [
+   "P01",
+   "P02"
+  ],
+  "delar_cad": [
+   "R07",
+   "R08",
+   "R09",
+   "R10",
+   "R11",
+   "R12"
+  ],
+  "nye": [
+   "dreieknott for to kanalar",
+   "skjermklype med hylle",
+   "vindaugsdiode med maske"
+  ],
+  "handtak": "knotten på bjelken",
+  "rekk_mm": 774,
+  "fotavtrykk_cm2": 0.0,
+  "tipp_grader": null,
+  "dytt_N": null,
+  "trykk_N": null,
+  "last_skjerm_g": 992,
+  "moment_skjerm_Nm": 0.44,
+  "trykk_moment_Nm": 0.28,
+  "flagg": [
+   "lastar skjermen (må prøvast)",
+   "handtaket utanfor rekkjevidd"
+  ]
+ },
+ {
+  "id": 6,
+  "namn": "Under · vipp",
+  "stotte": "under",
+  "organ": "plata vippar",
+  "handling": "vipp plata",
+  "setning": "Same tak, men lampa står på ei stålplate under skjermfoten og lastar ikkje skjermen.",
+  "lys": "over-vipp",
+  "masse_g": 2035,
+  "tyngdepunkt": [
+   -0.0,
+   534.6,
+   213.7
+  ],
+  "hogd_mm": 646,
+  "masse_sett_g": 728,
+  "masse_cad_g": 0,
+  "masse_ny_g": 1308,
+  "delar_sett": [
+   "P01",
+   "P02",
+   "P05"
+  ],
+  "delar_cad": [],
+  "nye": [
+   "bøyel Ø6",
+   "diode i brønn",
+   "finger til dioden",
+   "hylle med krage",
+   "røyr Ø25 × 1,5, 280 mm",
+   "stålplate under skjermfoten, 300 × 230 × 2"
+  ],
+  "handtak": "framkanten av plata",
+  "rekk_mm": 555,
+  "fotavtrykk_cm2": 690.0,
+  "tipp_grader": 16.8,
+  "dytt_N": 6.1,
+  "trykk_N": 15.5,
+  "flagg": [
+   "bryt F9 (200 cm²)",
+   "bryt F8 (1,2 kg)"
+  ]
+ },
+ {
+  "id": 7,
+  "namn": "Under · vindauge",
+  "stotte": "under",
+  "organ": "plata og vindaugsdiode",
+  "handling": "vri knotten",
+  "setning": "Plata fast mot feltet og vindauget på veggen, ståande på plata under skjermen.",
+  "lys": "over-vindauge",
+  "masse_g": 2080,
+  "tyngdepunkt": [
+   0.6,
+   533.9,
+   219.8
+  ],
+  "hogd_mm": 675,
+  "masse_sett_g": 728,
+  "masse_cad_g": 0,
+  "masse_ny_g": 1352,
+  "delar_sett": [
+   "P01",
+   "P02",
+   "P05"
+  ],
+  "delar_cad": [],
+  "nye": [
+   "bøyel Ø6",
+   "diode i brønn",
+   "dreieknott for to kanalar",
+   "finger til dioden",
+   "hylle med krage",
+   "røyr Ø25 × 1,5, 280 mm",
+   "stålplate under skjermfoten, 300 × 230 × 2",
+   "vindaugsdiode med maske"
+  ],
+  "handtak": "knotten ved skjermkanten",
+  "rekk_mm": 725,
+  "fotavtrykk_cm2": 690.0,
+  "tipp_grader": 16.6,
+  "dytt_N": 8.2,
+  "trykk_N": null,
+  "flagg": [
+   "bryt F9 (200 cm²)",
+   "bryt F8 (1,2 kg)",
+   "handtaket utanfor rekkjevidd"
+  ]
+ },
+ {
+  "id": 8,
+  "namn": "Vegg · vipp",
+  "stotte": "vegg",
+  "organ": "plata vippar",
+  "handling": "vipp plata",
+  "setning": "Same tak på ein konsoll frå veggen. Bordet er fritt, men lampa kan ikkje flyttast.",
+  "lys": "over-vipp",
+  "masse_g": 1025,
+  "tyngdepunkt": [
+   -0.0,
+   518.7,
+   455.6
+  ],
+  "hogd_mm": 646,
+  "masse_sett_g": 728,
+  "masse_cad_g": 0,
+  "masse_ny_g": 297,
+  "delar_sett": [
+   "P01",
+   "P02",
+   "P05"
+  ],
+  "delar_cad": [],
+  "nye": [
+   "bøyel Ø6",
+   "diode i brønn",
+   "finger til dioden",
+   "konsoll frå veggen",
+   "veggplate 80 × 120 × 6"
+  ],
+  "handtak": "framkanten av plata",
+  "rekk_mm": 555,
+  "fotavtrykk_cm2": 0.0,
+  "tipp_grader": null,
+  "dytt_N": null,
+  "trykk_N": null,
+  "flagg": [
+   "skrudd i veggen: kan ikkje flyttast (F8)"
+  ]
+ },
+ {
+  "id": 9,
+  "namn": "Fot · vipp",
+  "stotte": "fot",
+  "organ": "plata vippar",
+  "handling": "vipp plata",
+  "setning": "Plata står skrått på armen til høgre for skjermen, som ei rute på fot. Dioden med linse i foten lyser opp i henne.",
+  "lys": "fot-vipp",
+  "masse_g": 1178,
+  "tyngdepunkt": [
+   439.2,
+   433.6,
+   188.7
+  ],
+  "hogd_mm": 540,
+  "masse_sett_g": 757,
+  "masse_cad_g": 350,
+  "masse_ny_g": 71,
+  "delar_sett": [
+   "P01",
+   "P02",
+   "P05",
+   "P06"
+  ],
+  "delar_cad": [
+   "R01",
+   "R02",
+   "R03"
+  ],
+  "nye": [
+   "bøyel Ø6",
+   "diode på foten",
+   "linsehaldar"
+  ],
+  "handtak": "framkanten av plata",
+  "rekk_mm": 549,
+  "fotavtrykk_cm2": 195.9,
+  "tipp_grader": 21.0,
+  "dytt_N": 1.8,
+  "trykk_N": 5.9,
+  "flagg": [
+   "veltar under fingerdytt"
+  ]
+ },
+ {
+  "id": 10,
+  "namn": "Fot · knekk",
+  "stotte": "fot",
+  "organ": "plata med flik",
+  "handling": "vipp plata",
+  "setning": "Same, med ein flik på 100 mm som sender ein del av lyset til veggen bak skjermen.",
+  "lys": "fot-knekk",
+  "masse_g": 1293,
+  "tyngdepunkt": [
+   439.0,
+   430.2,
+   216.8
+  ],
+  "hogd_mm": 588,
+  "masse_sett_g": 757,
+  "masse_cad_g": 350,
+  "masse_ny_g": 186,
+  "delar_sett": [
+   "P01",
+   "P02",
+   "P05",
+   "P06"
+  ],
+  "delar_cad": [
+   "R01",
+   "R02",
+   "R03"
+  ],
+  "nye": [
+   "blank flik 285 × 100 mm",
+   "bøyel Ø6",
+   "diode på foten",
+   "linsehaldar"
+  ],
+  "handtak": "framkanten av plata",
+  "rekk_mm": 549,
+  "fotavtrykk_cm2": 195.9,
+  "tipp_grader": 17.7,
+  "dytt_N": 1.9,
+  "trykk_N": 6.2,
+  "flagg": [
+   "veltar under fingerdytt",
+   "bryt F8 (1,2 kg)"
+  ]
+ },
+ {
+  "id": 11,
+  "namn": "Fot · vindauge",
+  "stotte": "fot",
+  "organ": "plata og vindaugsdiode",
+  "handling": "vri knotten",
+  "setning": "Plata fast mot feltet, vindaugsdioden på toppen av armen teiknar vindauget på veggen til høgre.",
+  "lys": "fot-vindauge",
+  "masse_g": 1220,
+  "tyngdepunkt": [
+   438.2,
+   433.1,
+   186.9
+  ],
+  "hogd_mm": 540,
+  "masse_sett_g": 757,
+  "masse_cad_g": 350,
+  "masse_ny_g": 112,
+  "delar_sett": [
+   "P01",
+   "P02",
+   "P05",
+   "P06"
+  ],
+  "delar_cad": [
+   "R01",
+   "R02",
+   "R03"
+  ],
+  "nye": [
+   "bøyel Ø6",
+   "diode på foten",
+   "dreieknott for to kanalar",
+   "linsehaldar",
+   "vindaugsdiode med maske"
+  ],
+  "handtak": "knotten på foten",
+  "rekk_mm": 703,
+  "fotavtrykk_cm2": 195.9,
+  "tipp_grader": 21.0,
+  "dytt_N": 25.3,
+  "trykk_N": null,
+  "flagg": [
+   "bryt F8 (1,2 kg)",
+   "handtaket utanfor rekkjevidd"
+  ]
+ },
+ {
+  "id": 12,
+  "namn": "Fot · skive",
+  "stotte": "fot",
+  "organ": "skiva vippar",
+  "handling": "vipp skiva",
+  "setning": "Fot, tynn stong og plata maskert til ei skive 55 cm oppe: Northern i tre former.",
+  "lys": "fot-skive",
+  "masse_g": 769,
+  "tyngdepunkt": [
+   440.3,
+   403.8,
+   253.0
+  ],
+  "hogd_mm": 599,
+  "masse_sett_g": 339,
+  "masse_cad_g": 350,
+  "masse_ny_g": 79,
+  "delar_sett": [
+   "P05",
+   "P06"
+  ],
+  "delar_cad": [
+   "R01",
+   "R02",
+   "R03"
+  ],
+  "nye": [
+   "diode på foten",
+   "linsehaldar",
+   "stong Ø12 × 1, 560 mm",
+   "vippeledd"
+  ],
+  "handtak": "kanten av skiva",
+  "rekk_mm": 577,
+  "fotavtrykk_cm2": 195.9,
+  "tipp_grader": 9.6,
+  "dytt_N": 0.6,
+  "trykk_N": 2.4,
+  "flagg": [
+   "veltar under fingerdytt"
+  ]
+ },
+ {
+  "id": 13,
+  "namn": "Fot · rute",
+  "stotte": "fot",
+  "organ": "ruta",
+  "handling": "vri knotten",
+  "setning": "Kroppen Iver valde: ruta på fot slik CAD-en står.",
+  "lys": "fot-rute",
+  "masse_g": 1159,
+  "tyngdepunkt": [
+   449.5,
+   444.4,
+   154.1
+  ],
+  "hogd_mm": 282,
+  "masse_sett_g": 0,
+  "masse_cad_g": 1159,
+  "masse_ny_g": 0,
+  "delar_sett": [],
+  "delar_cad": [
+   "R01",
+   "R02",
+   "R03",
+   "R04",
+   "R05",
+   "R06",
+   "R07",
+   "R08",
+   "R09",
+   "R10",
+   "R11",
+   "R12",
+   "R13",
+   "R14",
+   "RA",
+   "RB",
+   "RC",
+   "RD",
+   "RE"
+  ],
+  "nye": [],
+  "handtak": "knotten på leddet",
+  "rekk_mm": 783,
+  "fotavtrykk_cm2": 195.9,
+  "tipp_grader": 24.0,
+  "dytt_N": 3.0,
+  "trykk_N": 13.2,
+  "flagg": [
+   "går inn i skjermen",
+   "veltar under fingerdytt",
+   "handtaket utanfor rekkjevidd"
+  ]
+ },
+ {
+  "id": 14,
+  "namn": "Fot · linse",
+  "stotte": "fot",
+  "organ": "linsa og spegelen",
+  "handling": "skyv spegelen inn",
+  "setning": "Hovudet frå projektoren som projektor 70 cm oppe. Glaslinsa teiknar vindauget, spegelen deler strålen ned på feltet (C Vindauge).",
+  "lys": "fot-linse",
+  "masse_g": 1869,
+  "tyngdepunkt": [
+   365.7,
+   520.6,
+   475.3
+  ],
+  "hogd_mm": 735,
+  "masse_sett_g": 1376,
+  "masse_cad_g": 350,
+  "masse_ny_g": 142,
+  "delar_sett": [
+   "P01",
+   "P02",
+   "P03",
+   "P06",
+   "P10"
+  ],
+  "delar_cad": [
+   "R01",
+   "R02",
+   "R03"
+  ],
+  "nye": [
+   "diode med maske i hovudet",
+   "plattform for hengselet",
+   "røyr Ø25 × 1,5, 350 mm",
+   "skinne til spegelen"
+  ],
+  "handtak": "spegelen",
+  "rekk_mm": 886,
+  "fotavtrykk_cm2": 195.9,
+  "tipp_grader": 4.7,
+  "dytt_N": 1.1,
+  "trykk_N": 4.8,
+  "flagg": [
+   "veltar under fingerdytt",
+   "bryt F8 (1,2 kg)",
+   "handtaket utanfor rekkjevidd"
+  ]
+ },
+ {
+  "id": 15,
+  "namn": "Fot · hovud",
+  "stotte": "fot",
+  "organ": "hovudet",
+  "handling": "drei hovudet",
+  "setning": "Projektoren som bordlampe: hovudet på armen med opninga ned. Det busette: ei vanleg arbeidslampe.",
+  "lys": "fot-hovud",
+  "masse_g": 1666,
+  "tyngdepunkt": [
+   408.4,
+   449.5,
+   228.7
+  ],
+  "hogd_mm": 388,
+  "masse_sett_g": 1302,
+  "masse_cad_g": 350,
+  "masse_ny_g": 14,
+  "delar_sett": [
+   "P01",
+   "P02",
+   "P03"
+  ],
+  "delar_cad": [
+   "R01",
+   "R02",
+   "R03"
+  ],
+  "nye": [
+   "diode i hovudet"
+  ],
+  "handtak": "hovudet",
+  "rekk_mm": 628,
+  "fotavtrykk_cm2": 195.9,
+  "tipp_grader": 11.4,
+  "dytt_N": 2.2,
+  "trykk_N": 10.8,
+  "flagg": [
+   "veltar under fingerdytt",
+   "bryt F8 (1,2 kg)"
+  ]
+ },
+ {
+  "id": 16,
+  "namn": "Fot · røyr",
+  "stotte": "fot",
+  "organ": "arket som røyr",
+  "handling": "dimmar",
+  "setning": "Prismearket rulla til eit røyr på foten, med ei diode i botnen. Berre stemning.",
+  "lys": "fot-royr",
+  "masse_g": 447,
+  "tyngdepunkt": [
+   439.9,
+   439.9,
+   75.4
+  ],
+  "hogd_mm": 553,
+  "masse_sett_g": 43,
+  "masse_cad_g": 350,
+  "masse_ny_g": 54,
+  "delar_sett": [
+   "P08"
+  ],
+  "delar_cad": [
+   "R01",
+   "R02",
+   "R03"
+  ],
+  "nye": [
+   "diode i botnen",
+   "ring og topplok"
+  ],
+  "handtak": "dimmaren på leidningen",
+  "rekk_mm": 712,
+  "fotavtrykk_cm2": 195.9,
+  "tipp_grader": 46.3,
+  "dytt_N": 34.6,
+  "trykk_N": 36.1,
+  "flagg": [
+   "handtaket utanfor rekkjevidd"
+  ]
+ },
+ {
+  "id": 17,
+  "namn": "Veltar: projektoren",
+  "stotte": "bord",
+  "organ": "som han stod",
+  "handling": "ingen",
+  "setning": "Projektoren slik delane sat, utan basen. Plata ligg på bordet og tek 870 cm².",
+  "lys": "projektor",
+  "masse_g": 1727,
+  "tyngdepunkt": [
+   435.3,
+   416.7,
+   231.6
+  ],
+  "hogd_mm": 400,
+  "masse_sett_g": 1713,
+  "masse_cad_g": 0,
+  "masse_ny_g": 14,
+  "delar_sett": [
+   "P01",
+   "P02",
+   "P03",
+   "P05",
+   "P07"
+  ],
+  "delar_cad": [],
+  "nye": [
+   "diode i hovudet"
+  ],
+  "handtak": "hovudet",
+  "rekk_mm": 578,
+  "fotavtrykk_cm2": 986.8,
+  "tipp_grader": 21.4,
+  "dytt_N": 3.9,
+  "trykk_N": null,
+  "flagg": [
+   "veltar under fingerdytt",
+   "bryt F9 (200 cm²)",
+   "bryt F8 (1,2 kg)"
+  ]
+ },
+ {
+  "id": 18,
+  "namn": "Kan ikkje lagast: linsa 280",
+  "stotte": "fot",
+  "organ": "projeksjonslinsa",
+  "handling": "ingen",
+  "setning": "Projeksjonslinsa P07 (f 280 mm) i ei bordlampe: kastet er under 4f = 1,12 m, så biletet blir aldri skarpt.",
+  "lys": "ingen",
+  "masse_g": 1771,
+  "tyngdepunkt": [
+   402.6,
+   493.3,
+   244.6
+  ],
+  "hogd_mm": 472,
+  "masse_sett_g": 1407,
+  "masse_cad_g": 350,
+  "masse_ny_g": 14,
+  "delar_sett": [
+   "P01",
+   "P02",
+   "P03",
+   "P07"
+  ],
+  "delar_cad": [
+   "R01",
+   "R02",
+   "R03"
+  ],
+  "nye": [
+   "diode med maske i hovudet"
+  ],
+  "handtak": "spaken på linsa",
+  "rekk_mm": 784,
+  "fotavtrykk_cm2": 195.9,
+  "tipp_grader": 3.2,
+  "dytt_N": 0.6,
+  "trykk_N": 2.5,
+  "flagg": [
+   "veltar under fingerdytt",
+   "bryt F8 (1,2 kg)",
+   "handtaket utanfor rekkjevidd"
+  ]
+ }
+]

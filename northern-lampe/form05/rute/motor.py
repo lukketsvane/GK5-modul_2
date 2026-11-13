@@ -650,7 +650,7 @@ def k_ut():
         spec = KROPPAR[kv]; ek = les('ekstra_' + kv, {})
         sc['kroppar'][kv] = dict(spec, gest=spec.get('gest', ''), motor=last_motor(spec['kjelde'], spec['rille'])['namn'])
         for t, m in ((0.0, 'stemning'), (1.0, 'arbeid')):
-            W = ek.get(m, {}).get('W') if m == 'arbeid' else None
+            W = les('rekn_' + kv, {}).get('W350') if m == 'arbeid' else None        # heile watten, stripa med
             ruter, kr = bygg(spec, t, W=W)
             fil = 'ies_%s_%s.ies' % (spec['namn'].lower(), m)
             lm = skriv_ies(ruter, os.path.join(HER, fil), '%s, %s, %.0f K' % (spec['namn'], m, ruter[0].K))

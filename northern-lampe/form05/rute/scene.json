@@ -1,0 +1,325 @@
+{
+ "merk": "Romkoordinatar i meter som lysskisse.py: x til høgre, y mot veggen (veggen y = 0,70), z opp, bordplata z = 0,72. Lyset i IES-filene er i romkoordinatar (γ 0 = ned, C 0 = +x, C 90 = +y): set punktlyset i rutesenteret utan rotasjon. IES-filene er rekna frå luminanstabellen til motoren, ikkje målte. Arbeid er ved watten for 350 lx på feltet, stemning ved 1,25 W.",
+ "rom": {
+  "bord": {
+   "z": 0.72,
+   "x": [
+    -0.7,
+    0.7
+   ],
+   "y": [
+    0.0,
+    0.7
+   ],
+   "rho": [
+    0.5,
+    0.4,
+    0.3
+   ]
+  },
+  "vegg_y": 0.7,
+  "skjerm": {
+   "senter": [
+    0.0,
+    0.45,
+    0.985
+   ],
+   "storleik": [
+    0.54,
+    0.31
+   ],
+   "luminans_cd_m2": 40,
+   "tilt_sjekka_grader": [
+    0,
+    20
+   ]
+  }
+ },
+ "augepunkt": {
+  "auge": [
+   0.0,
+   -0.15,
+   1.19
+  ],
+  "volum": "±0,15 m sidevegs, 0,15 m fram, 0,25 til 0,60 m over bordet"
+ },
+ "materiale": {
+  "prismefilm": {
+   "profil": "ideelt 90°-prisme, n_d 1,59, Abbe 30 (ANTAKING: arket.md fanst ikkje)",
+   "pitch_um": 50.0,
+   "pitch_merk": "ANTAKING, ikkje målt",
+   "n_d": 1.59,
+   "abbe": 30.0,
+   "cauchy": "n(λ) = A + B/λ², λ i nm",
+   "cauchy_A": 1.56018,
+   "cauchy_B_nm2": 10294.6,
+   "n": {
+    "450": 1.611,
+    "550": 1.5942,
+    "650": 1.5846
+   },
+   "orientering": "prismesida ut frå plata; rilleretninga står per kropp"
+  },
+  "lysleiarplate": {
+   "merk": "ANTAKING: finst ikkje i byggjesettet",
+   "materiale": "PMMA, klar",
+   "tjukn_mm": 4,
+   "n_d": 1.49,
+   "uttak": "kvite prikkar eller V-riller på baksida, tettare mot enden"
+  },
+  "diffusor": "volumdiffusor, om lag 60 % gjennom første gong (ANTAKING)",
+  "reflektor": "kvit PET bak plata, ρ 0,95 (ANTAKING)",
+  "burgunder": [
+   0.3,
+   0.06,
+   0.07
+  ],
+  "aluminium_borsta": {
+   "farge": [
+    0.55,
+    0.55,
+    0.56
+   ],
+   "ruheit": 0.35
+  },
+  "gra": [
+   0.4,
+   0.38,
+   0.36
+  ]
+ },
+ "kamera": {
+  "T": {
+   "pos": [
+    -0.45,
+    -0.85,
+    1.02
+   ],
+   "mot": [
+    0.02,
+    0.38,
+    1.14
+   ],
+   "fov_grader": 38,
+   "merk": "anslått frå det genererte biletet «Telt»"
+  },
+  "K": {
+   "pos": [
+    -0.6,
+    -0.55,
+    1.04
+   ],
+   "mot": [
+    0.3,
+    0.24,
+    1.1
+   ],
+   "fov_grader": 45,
+   "merk": "anslått frå det genererte biletet «Klemme»"
+  },
+  "rom": {
+   "pos": [
+    0.98,
+    -1.4,
+    1.52
+   ],
+   "merk": "kameraet til A, B og C i lysskisse.py"
+  }
+ },
+ "kroppar": {
+  "T": {
+   "namn": "Telt",
+   "stotte": "telt",
+   "kjelde": "kant",
+   "rille": "kryss",
+   "bak": 0.0,
+   "bakstripe": 0.25,
+   "ruter": [
+    {
+     "w": 0.48,
+     "h": 0.2,
+     "hengsel": [
+      0.0,
+      0.4,
+      0.5
+     ],
+     "fraa": "kant",
+     "r": 0.02,
+     "vinkel": [
+      125,
+      0
+     ]
+    }
+   ],
+   "gest": "drei ruta om sylinderen: lent bakover som eit vindauge i stemning (125°), liggjande over feltet i arbeid (0°)",
+   "motor": "kantlys i lysleiarplate (PMMA 4 mm), to prismefilmar i kryss, det øvste loddrett"
+  },
+  "K": {
+   "namn": "Klemme",
+   "stotte": "klemme",
+   "kjelde": "kant",
+   "rille": "kryss",
+   "bak": 0.0,
+   "ruter": [
+    {
+     "w": 0.52,
+     "h": 0.2,
+     "hengsel": [
+      0.0,
+      0.24,
+      0.5
+     ],
+     "fraa": "midt",
+     "vinkel": [
+      -135,
+      0
+     ]
+    }
+   ],
+   "gest": "snu hovudet om armen: mot veggen og taket i stemning (−135°), rett ned i arbeid (0°)",
+   "motor": "kantlys i lysleiarplate (PMMA 4 mm), to prismefilmar i kryss, det øvste loddrett"
+  }
+ },
+ "emitterar": [
+  {
+   "kropp": "T",
+   "tilstand": "stemning",
+   "ies": "ies_telt_stemning.ies",
+   "W": 0.94,
+   "lm_led": 94.0,
+   "lm_ut": 48.0,
+   "CCT": 2200.0,
+   "senter": [
+    0.0,
+    0.47,
+    1.3199
+   ],
+   "normal_framside": [
+    0.0,
+    -0.8192,
+    0.5736
+   ],
+   "ex": [
+    1.0,
+    0.0,
+    0.0
+   ],
+   "ey": [
+    0.0,
+    0.5736,
+    0.8192
+   ],
+   "storleik": [
+    0.48,
+    0.2
+   ],
+   "L_rett_fram_cd_m2": 748.0,
+   "merk": "mesh-plate med emisjon for det auget ser; punktlys med IES i senteret for rommet"
+  },
+  {
+   "kropp": "T",
+   "tilstand": "arbeid",
+   "ies": "ies_telt_arbeid.ies",
+   "W": 2.78,
+   "lm_led": 278.0,
+   "lm_ut": 144.0,
+   "CCT": 2700.0,
+   "senter": [
+    0.0,
+    0.278,
+    1.22
+   ],
+   "normal_framside": [
+    0.0,
+    0.0,
+    -1.0
+   ],
+   "ex": [
+    1.0,
+    0.0,
+    0.0
+   ],
+   "ey": [
+    0.0,
+    -1.0,
+    0.0
+   ],
+   "storleik": [
+    0.48,
+    0.2
+   ],
+   "L_rett_fram_cd_m2": 2221.0,
+   "merk": "mesh-plate med emisjon for det auget ser; punktlys med IES i senteret for rommet"
+  },
+  {
+   "kropp": "K",
+   "tilstand": "stemning",
+   "ies": "ies_klemme_stemning.ies",
+   "W": 1.25,
+   "lm_led": 125.0,
+   "lm_ut": 65.0,
+   "CCT": 2200.0,
+   "senter": [
+    0.0,
+    0.24,
+    1.22
+   ],
+   "normal_framside": [
+    -0.0,
+    0.7071,
+    0.7071
+   ],
+   "ex": [
+    1.0,
+    0.0,
+    0.0
+   ],
+   "ey": [
+    0.0,
+    0.7071,
+    -0.7071
+   ],
+   "storleik": [
+    0.52,
+    0.2
+   ],
+   "L_rett_fram_cd_m2": 921.0,
+   "merk": "mesh-plate med emisjon for det auget ser; punktlys med IES i senteret for rommet"
+  },
+  {
+   "kropp": "K",
+   "tilstand": "arbeid",
+   "ies": "ies_klemme_arbeid.ies",
+   "W": 2.91,
+   "lm_led": 291.0,
+   "lm_ut": 150.0,
+   "CCT": 2700.0,
+   "senter": [
+    0.0,
+    0.24,
+    1.22
+   ],
+   "normal_framside": [
+    0.0,
+    0.0,
+    -1.0
+   ],
+   "ex": [
+    1.0,
+    0.0,
+    0.0
+   ],
+   "ey": [
+    0.0,
+    -1.0,
+    0.0
+   ],
+   "storleik": [
+    0.52,
+    0.2
+   ],
+   "L_rett_fram_cd_m2": 2145.0,
+   "merk": "mesh-plate med emisjon for det auget ser; punktlys med IES i senteret for rommet"
+  }
+ ]
+}

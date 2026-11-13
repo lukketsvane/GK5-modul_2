@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="nn">
+<head>
+<meta charset="utf-8">
+<title>11 · Konsept A · Skiva</title>
+<link rel="stylesheet" href="../01_fase1_v2/felles.css">
+<style>
+  .rad1 { display: grid; grid-template-columns: 362px 362px minmax(0, 1fr); column-gap: 14px; }
+  .rad1 figcaption { margin-top: 6px; }
+  .tal4 div { font: 400 30px/1 var(--serif); color: var(--blekk); padding: 6px 0 7px; border-top: 1px solid var(--linje); white-space: nowrap; }
+  .tal4 div:first-child { border-top: 0; padding-top: 0; }
+  .tal4 small { display: block; font: 400 9.5px/1.3 var(--mono); letter-spacing: 0.05em; text-transform: uppercase; color: var(--graa); margin-top: 4px; white-space: normal; }
+  .gest { font: italic 400 24px/1.1 var(--serif); color: var(--blekk); margin: 0 0 10px; }
+  .rad2 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 16px; margin-top: 12px; }
+  .rad2 p:not(.etikett) { font-size: 13px; line-height: 1.33; }
+  .rad2 .kvit { color: var(--blekk); }
+  ul.ikkje { list-style: none; margin: 0; padding: 0; }
+  ul.ikkje li { font-size: 13px; line-height: 1.3; color: var(--blekk); padding: 4px 0 5px; border-top: 1px solid var(--linje); }
+  svg text { font-family: var(--mono); font-size: 9.5px; }
+  svg .kv { fill: var(--blekk); }
+</style>
+</head>
+<body>
+<div class="side">
+  <header class="topp">
+    <span>GK5 · Northern · fase 2</span>
+    <span>11 · Konsept A · Skiva</span>
+    <span>Iver R. Finne · 17.11.2026</span>
+  </header>
+
+  <h1 class="tittel">Skiva lyser jamnast av dei tre, men sveipar over skjermen på veg ned.</h1>
+
+  <main class="innhald">
+    <div class="k12">
+      <div class="rad1">
+        <figure><img src="bilete/A-stemning.png" alt=""><figcaption><b>Stemning</b> · 1,25&nbsp;W · 2200&nbsp;K · veggen bak skjermen 142&nbsp;lx</figcaption></figure>
+        <figure><img src="bilete/A-arbeid.png" alt=""><figcaption><b>Arbeid</b> · 3000&nbsp;K · feltet 817&nbsp;lx ved 5&nbsp;W</figcaption></figure>
+        <section>
+          <p class="etikett">Gesten</p>
+          <p class="gest">Vipp skiva.</p>
+          <div class="tal4">
+            <div>2,14&nbsp;W<small>for 350&nbsp;lx på feltet · tak 7,5</small></div>
+            <div>0,60<small>jamnheit · referanse 0,6</small></div>
+            <div>83&nbsp;cd/m²<small>høgst mot auget, 25 til 60&nbsp;cm · F1 3000</small></div>
+            <div>7,1&nbsp;t<small>arbeidslys per 21700-celle</small></div>
+          </div>
+          <p class="etikett" style="margin-top: 10px;">Langs overgangen, lx</p>
+          <svg width="270" height="128" viewBox="0 0 270 128" xmlns="http://www.w3.org/2000/svg"><line x1="6" y1="104" x2="206" y2="104" class="strek"/><line x1="6" y1="74.1" x2="206" y2="74.1" class="haar"/><text x="6" y="71.1" class="graa">350&nbsp;lx</text><line x1="6" y1="18.5" x2="206" y2="18.5" class="haar"/><text x="6" y="15.5" class="graa">1000&nbsp;lx</text><polyline points="6.0,103.3 56.0,101.9 106.0,92.7 156.0,68.6 206.0,34.2" fill="none" stroke="#F4F4F4" stroke-width="1.6"/><circle cx="6.0" cy="103.3" r="2.2" fill="#F4F4F4"/><circle cx="56.0" cy="101.9" r="2.2" fill="#F4F4F4"/><circle cx="106.0" cy="92.7" r="2.2" fill="#F4F4F4"/><circle cx="156.0" cy="68.6" r="2.2" fill="#F4F4F4"/><circle cx="206.0" cy="34.2" r="2.2" fill="#F4F4F4"/><text x="213.0" y="37.2" fill="#F4F4F4">feltet</text><polyline points="6.0,91.9 56.0,81.3 106.0,74.1 156.0,75.7 206.0,81.1" fill="none" stroke="#9A9A9A" stroke-width="1.6" stroke-dasharray="4 3"/><circle cx="6.0" cy="91.9" r="2.2" fill="#9A9A9A"/><circle cx="56.0" cy="81.3" r="2.2" fill="#9A9A9A"/><circle cx="106.0" cy="74.1" r="2.2" fill="#9A9A9A"/><circle cx="156.0" cy="75.7" r="2.2" fill="#9A9A9A"/><circle cx="206.0" cy="81.1" r="2.2" fill="#9A9A9A"/><text x="213.0" y="84.1" fill="#9A9A9A">skjermflata</text><text x="6" y="119" class="graa">stemning</text><text x="206" y="119" class="graa" text-anchor="end">arbeid</text></svg>
+        </section>
+      </div>
+      <div class="rad2">
+        <section><p class="etikett">Prinsipp</p><p class="kvit">Ei kjelde i foten lyser opp på ei bøygd spegelskive. Skiva vippar lyset frå veggen bak skjermen ned på arbeidsfeltet.</p><p class="graa">Fot, stong og skive: tre primærformer, som Northern. Næraste nabo: Verner Panton Reflect, som har fast, kvit skive.</p></section>
+        <section><p class="etikett">Skissemodell til 18.11</p><p>Folie på papp, Ø 250&nbsp;mm, på ein printa ribbe med boge R 1,2&nbsp;m. Telefonlykta i ein svart papprull i foten. Stolpen frå projektoren held skiva 41&nbsp;cm over bordet.</p><p class="graa">Føreseiing: Med bøyen er lågaste rute over 0,5 av snittet, flat under 0,45.</p></section>
+        <section><p class="etikett">Held ikkje enno</p><ul class="ikkje"><li>Midt i overgangen sveipar strålen over skjermen: 350&nbsp;lx på skjermflata.</li><li>I stemning ligg 142&nbsp;lx på skjermflata.</li><li>Veggen bak skjermen får 14&nbsp;lx i arbeid. F6 krev 100 til 150.</li><li>F1 kviler på lobebreidda. Folie på papp kan gje 1600 til 9000&nbsp;cd/m² frå 25&nbsp;cm.</li></ul></section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="botn">
+    <span>Modell, ikkje måling: lysmotoren i konsept/lysskisse, same rom, mannekeng og budsjett (1,25&nbsp;W i stemning, 5&nbsp;W i arbeid).</span>
+    <span>Tala er skalerte til 350&nbsp;lx på feltet.</span>
+  </footer>
+</div>
+</body>
+</html>

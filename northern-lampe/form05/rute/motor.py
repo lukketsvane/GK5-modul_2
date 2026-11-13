@@ -104,7 +104,8 @@ T_SPREIAR = 0.90     # som rute.py: matt spreiar utan film slepper ut 90 %
 
 KJELDE = {'kant': dict(namn='kantlys i lysleiarplate (PMMA 4 mm)', eta_inn=ETA_KOPL * ETA_LEIAR, djupn=0.006),
           'bak': dict(namn='dioderekkje bak arket, kvitt hus og spreiar (som rute.py)', eta_inn=1.0, djupn=0.025)}
-RILLE = {'ingen': [], 'vassrett': ['x'], 'loddrett': ['y'], 'kryss': ['y', 'x']}
+RILLE = {'ingen': [], 'vassrett': ['x'], 'loddrett': ['y'], 'kryss': ['x', 'y'], 'kryss-v': ['y', 'x']}
+# kryss: det øvste arket har loddrette riller (mot auget). kryss-v: det øvste har vassrette. tab_kryss.npz er rekna som kryss-v.
 
 LAMS = np.array([430., 470., 510., 550., 590., 630., 670.])
 NB = 81                          # retningstabell i retningscosinus (u, v) over [-1, 1]
@@ -183,16 +184,16 @@ def oppslag(tab, u, v):
 
 def last_motor(kjelde, rille):
     """Luminanstabellen for kjelde og rilleretning. 'loddrett' er 'vassrett' snudd 90° (tabellen transponert)."""
-    base = 'vassrett' if rille == 'loddrett' else rille
+    base = {'loddrett': 'vassrett', 'kryss-v': 'kryss'}.get(rille, rille)
     f = os.path.join(CACHE, 'tab_%s.npz' % base)
     if not os.path.exists(f): raise SystemExit('køyr kalib først')
     z = np.load(f)
-    tab_l = z['tab'].transpose(0, 2, 1) if rille == 'loddrett' else z['tab']
+    tab_l = z['tab'].transpose(0, 2, 1) if rille in ('loddrett', 'kryss') else z['tab']
     fs = T_SPREIAR if rille == 'ingen' else 1.0
     w = vekter(2700)
     return dict(kjelde=kjelde, rille=rille, namn='%s, %s' % (KJELDE[kjelde]['namn'], {'ingen': 'diffusor utan prismefilm',
                 'vassrett': 'éin prismefilm, rillene vassrette', 'loddrett': 'éin prismefilm, rillene loddrette',
-                'kryss': 'to prismefilmar i kryss'}[rille]),
+                'kryss': 'to prismefilmar i kryss, det øvste loddrett', 'kryss-v': 'to prismefilmar i kryss, det øvste vassrett'}[rille]),
                 eta_inn=KJELDE[kjelde]['eta_inn'], tab_l=tab_l * fs, eta_l=z['eta'] * fs,
                 tab=(w[:, None, None] * tab_l).sum(0) * fs, eta_stabel=float((w * z['eta']).sum()) * fs)
 
@@ -403,7 +404,7 @@ def k_kalib():
     for base in ('ingen', 'vassrett', 'kryss'):
         tabs, etas = [], []
         for lam in LAMS:
-            L, rk = stabel(f, RILLE[base], RC, lam)
+            L, rk = stabel(f, RILLE['kryss-v' if base == 'kryss' else base], RC, lam)
             tabs.append(gaussian_filter(L, 0.6)); etas.append(rk['ut'])
         np.savez_compressed(os.path.join(CACHE, 'tab_%s.npz' % base), tab=np.array(tabs), eta=np.array(etas))
     res = {}
@@ -439,12 +440,12 @@ def skannliste():
     return [('T kryss 90>0', variant(T, rille='kryss', vinkel=(90, 0))),
             ('T kryss 110>0', variant(T, rille='kryss', vinkel=(110, 0))),
             ('T loddrett 110>0', variant(T, rille='loddrett', vinkel=(110, 0))),
-            ('T vassrett 110>0', variant(T, rille='vassrett', vinkel=(110, 0))),
+            ('T kryss-v 110>0', variant(T, rille='kryss-v', vinkel=(110, 0))),
             ('T kryss 110>15', variant(T, rille='kryss', vinkel=(110, 15))),
             ('T ingen 110>0', variant(T, rille='ingen', vinkel=(110, 0))),
             ('K kryss 180>0', variant(K, rille='kryss', vinkel=(180, 0))),
             ('K loddrett 180>0', variant(K, rille='loddrett', vinkel=(180, 0))),
-            ('K vassrett 180>0', variant(K, rille='vassrett', vinkel=(180, 0))),
+            ('K kryss-v 180>0', variant(K, rille='kryss-v', vinkel=(180, 0))),
             ('K kryss -135>0', variant(K, rille='kryss', vinkel=(-135, 0))),
             ('K loddrett 180>10', variant(K, rille='loddrett', vinkel=(180, 10)))]
 

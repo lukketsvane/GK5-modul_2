@@ -1,367 +1,614 @@
 # -*- coding: utf-8 -*-
 """
-form05  ·  «Lysrute»: lampa ER vindauget
+motor.py  ·  form05 «Lysrute»: lampa ER vindauget
 
-Ei lysleiarplate i PMMA, kantbelyst frå sylinderen (Telt) eller hovudet (Klemme), med prismefilm frå monitoren
-utanpå. Filmen er strålespora per bølgjelengd med film.py (konsept/film). Rommet, mannekengen og tala er dei same
-som for A Skiva, B Over og C Vindauge (konsept/tre/tre.py, lysskisse.py). Alt her er modell, ikkje måling.
+Ei rute som sjølv lyser: LED-ar i kanten, ei lysleiarplate i PMMA (ANTAKING, finst ikkje i byggjesettet),
+ein diffusor og éin eller to prismefilmar. Filmen er strålespora per bølgjelengd med film.py frå konsept/film.
+Rommet, watten og tala er dei same som for A, B og C (konsept/tre/tre.py, lysskisse.py).
 
-  python -B motor.py film      fordelinga ut av ruta for kvar lysmotor (film_tabell.npz) og kontroll mot film.py-tala
-  python -B motor.py sjekk     kopien av tre.rekn mot tal.md (konsept A)
-  python -B motor.py sok       kandidatar for vinklar og motor, berre endepunkta (sok.json)
-  python -B motor.py tal       dei valde: overgang, ekstra mål, tal.json, ies_*.ies, scene.json
-  python -B motor.py stripe    stripene og regnbogebandet: kva auget ser i stemning (stripe.json, auga_stemning.png)
-  python -B motor.py studie    lysstudie.png (og lysstudie_<andre>.png)
+To kroppar frå dei genererte bileta:
+  T  Telt     rund fot, bøygd arm, sylinder øvst. Ruta heng frå sylinderen og blir dreidd om han.
+  K  Klemme   stolpe klemt på bordkanten, flatt hovud på ein arm. Hovudet blir snudd om lengdeaksen.
 
-Køyr med NUMBA_CACHE_DIR peikande hit (.numba). Prosessen set seg sjølv på låg prioritet.
+Køyr med låg prioritet, éin prosess om gongen:
+  python -B motor.py kalib          filmen mot 00-vindauge-utan-linse.md, og luminanstabellane for motorane
+  python -B motor.py tretest        tre.rekn('A') mot konsept/tre/tal.md
+  python -B motor.py skann          endepunkta (stemning, arbeid) for vinklar og motorar
+  python -B motor.py rekn T|K       heile overgangen med tre.rekn, og augevolum, spegling og fint veggsnitt
+  python -B motor.py striper        stripene og regnbogebandet i stemning
+  python -B motor.py ut             ies_*.ies og scene.json
+  python -B motor.py bilete         lysstudie.png
+Alle tal blir skrivne til tal.json fortløpande, og ei linje per køyring til logg.md.
 """
 import os, sys, math, json, time
 HER = os.path.dirname(os.path.abspath(__file__))
 os.environ.setdefault('NUMBA_CACHE_DIR', os.path.join(HER, '.numba'))
-os.environ.setdefault('NUMBA_NUM_THREADS', '4')
 sys.dont_write_bytecode = True
 
-def _skaansam():          # same som rendre_blender.py: lågaste prioritet, ikkje kjerne 0 og 1
+
+def _skaansam():
+    """Låg prioritet, som _skaansam i modell/byggjesett/rendre_blender.py."""
     try:
         import ctypes
-        k = ctypes.windll.kernel32; h = k.GetCurrentProcess()
-        k.SetPriorityClass(h, 0x40); k.SetProcessAffinityMask(h, 0xFC)
+        k = ctypes.windll.kernel32
+        k.SetPriorityClass(k.GetCurrentProcess(), 0x40)          # IDLE_PRIORITY_CLASS
+        k.SetProcessAffinityMask(k.GetCurrentProcess(), 0xFC)
     except Exception:
         pass
 _skaansam()
 
 import numpy as np
-from scipy.ndimage import gaussian_filter, map_coordinates
-REPO = os.path.normpath(os.path.join(HER, '..', '..'))
-sys.path.insert(0, os.path.join(REPO, 'konsept', 'film'))
-sys.path.insert(0, os.path.join(REPO, 'konsept', 'lysskisse'))
+from scipy.ndimage import map_coordinates, gaussian_filter
+
+ROT = os.path.normpath(os.path.join(HER, '..', '..'))
+for d in (('konsept', 'film'), ('konsept', 'tre'), ('konsept', 'lysskisse')):
+    p = os.path.join(ROT, *d)
+    if p not in sys.path: sys.path.insert(0, p)
 from film import Film, prisme, analytisk_splitt
 import lysskisse as ls
-b, ZB, YV, nrm, LUM = ls.b, ls.ZB, ls.YV, ls.nrm, ls.LUM
+from lysskisse import b, ZB, YV, AUGE, nrm
 
-# ================================================================== lysmotoren: plate, kavitet, film
+CACHE = os.path.join(HER, '.cache'); os.makedirs(CACHE, exist_ok=True)
+TALFIL = os.path.join(HER, 'tal.json')
+LOGG = os.path.join(HER, 'logg.md')
+ARKET = os.path.join(ROT, 'konsept', 'vindauge', 'film', 'arket.md')
 
-FILM = Film(prisme(90.0), n_d=1.59, abbe=30.0)     # same ark som vindauge.py: ideelt 90°-prisme (ANTAKING til målt)
-LAMDA = (450.0, 555.0, 650.0)
-DU = 0.02; NB = 100                                # retningskosinus-ruter på ruta
-ETA_INN = {'lgp': 0.80, 'led': 0.85}              # ANSLÅTT: innkopling 0,90 x plate 0,89 / kvit boks med diffusor
-A_FRAMSIDE = 0.5                                   # ANTAKING: prikkane spreier like mykje mot begge sider av plata
-R_REC = 0.85                                       # ANSLÅTT: refleksjon i kaviteten for lys filmen sender attende
-T_BAK = 0.92                                       # Fresnel på to flater når lyset går attende gjennom klar plate
-MOTORAR = {'LGP-0': ('lgp', 0), 'LGP-1': ('lgp', 1), 'LGP-2': ('lgp', 2), 'LED-0': ('led', 0), 'LED-1': ('led', 1)}
+# ------------------------------------------------------------------ lagring fortløpande
 
-def _lambert(n, rng, opp=True):
-    r = np.sqrt(rng.random(n)); f = 2 * math.pi * rng.random(n)
-    z = np.sqrt(np.maximum(1 - r * r, 0))
-    return np.c_[r * np.cos(f), r * np.sin(f), z if opp else -z]
+def _j(o):
+    if isinstance(o, np.ndarray): return o.tolist()
+    if isinstance(o, (np.floating, np.integer)): return o.item()
+    if isinstance(o, np.bool_): return bool(o)
+    return str(o)
 
-def _til_f1(D): return np.c_[D[:, 1], -D[:, 0], D[:, 2]]      # film 1: riller langs u (sylinderen), x på tvers = v
-def _fraa_f1(F): return np.c_[-F[:, 1], F[:, 0], F[:, 2]]
+def lagre(nokkel, verdi):
+    d = json.load(open(TALFIL, encoding='utf-8')) if os.path.exists(TALFIL) else {}
+    d[nokkel] = verdi
+    json.dump(d, open(TALFIL, 'w', encoding='utf-8'), ensure_ascii=False, indent=1, default=_j)
 
-def _spor(D, filmnr, lam):
-    """D i rutekoordinatar (u, v, n). Film 1 har riller langs u, film 2 langs v. Rifla side vender ut (+n)."""
-    if filmnr == 1:
-        U, st = FILM.spor(_til_f1(D), lam); return _fraa_f1(U), st
-    return FILM.spor(D, lam)
+def logg(tekst):
+    with open(LOGG, 'a', encoding='utf-8') as f:
+        f.write('- ' + time.strftime('%H.%M') + ' ' + tekst + '\n')
 
-def _hist(D, w):
-    h, _, _ = np.histogram2d(D[:, 0], D[:, 1], bins=NB, range=[[-1, 1], [-1, 1]], weights=w)
-    return h
+def r2(x, n=2):
+    return round(float(x), n)
 
-def motor_mc(kjelde, filmar, tosidig, lam=555.0, N=400_000, seed=1):
-    """Monte Carlo gjennom kavitet og film. Gjev (h_fram, h_bak, F_fram, F_bak) per eining fluks ut av plata/boksen.
-    tosidig: klar plate utan reflektor. Lys som filmen kastar attende, går ut baksida (Telt).
-    Elles: kvit reflektor bak. Attendekasta lys blir spreidd lambertsk på nytt med R_REC (Klemme)."""
-    rng = np.random.default_rng(seed)
-    hf = np.zeros((NB, NB)); hb = np.zeros((NB, NB))
-    if tosidig:
-        w0 = A_FRAMSIDE
-        Db = _lambert(N, rng, opp=False); hb += _hist(Db, np.full(N, (1 - A_FRAMSIDE) / N))
-    else:
-        w0 = A_FRAMSIDE + (1 - A_FRAMSIDE) * R_REC if kjelde == 'lgp' else 1.0
-    D = _lambert(N, rng); w = np.full(N, w0 / N); st = np.zeros(N, int)    # 0 opp mot film 1, 1 opp mot film 2, 2 ned mot film 1
-    for _ in range(60):
-        if not len(D): break
-        nyD, nyw, nyst = [], [], []
-        def vidare(Dx, wx, sx):
-            nyD.append(Dx); nyw.append(wx); nyst.append(np.full(len(Dx), sx, int))
-        def kavitet(Dx, wx):            # lys på veg ned i kaviteten
-            if not len(Dx): return
-            if tosidig:
-                hb[:] += _hist(Dx, wx * T_BAK)
-            else:
-                vidare(_lambert(len(Dx), rng), wx * R_REC, 0)
-        if filmar == 0:
-            hf[:] += _hist(D, w); break
-        for s in (0, 1, 2):
-            m = st == s
-            if not m.any(): continue
-            Ds, ws = D[m], w[m]
-            fnr = 2 if s == 1 else 1
-            U, ut = _spor(Ds, fnr, lam)
-            gj, at = ut == 1, ut == -1
-            if s == 0:
-                if filmar == 1: hf[:] += _hist(U[gj], ws[gj])
-                else: vidare(U[gj], ws[gj], 1)
-                kavitet(U[at], ws[at])
-            elif s == 1:
-                hf[:] += _hist(U[gj], ws[gj]); vidare(U[at], ws[at], 2)
-            else:
-                kavitet(U[gj], ws[gj]); vidare(U[at], ws[at], 1)
-        if not nyD: break
-        D = np.concatenate(nyD); w = np.concatenate(nyw); st = np.concatenate(nyst)
-        keep = w > 1e-7 / N
-        D, w, st = D[keep], w[keep], st[keep]
-    return hf, hb, float(hf.sum()), float(hb.sum())
+# ------------------------------------------------------------------ filmen
 
-def lag_tabell():
-    """Alle motorar, tre bølgjelengder. Lrel = luminans delt på lambertsk luminans for same fluks ut av plata."""
-    ut = {}
-    for namn, (kj, nf) in MOTORAR.items():
-        for tos in ((True, False) if kj == 'lgp' else (False,)):
-            for lam in LAMDA:
-                hf, hb, Ff, Fb = motor_mc(kj, nf, tos, lam)
-                k = f'{namn}|{"tosidig" if tos else "reflektor"}|{lam:.0f}'
-                ut[k + '|fram'] = gaussian_filter(hf, 1.0) * math.pi / DU ** 2
-                ut[k + '|bak'] = gaussian_filter(hb, 1.0) * math.pi / DU ** 2
-                ut[k + '|F'] = np.array([Ff, Fb])
-                print(k, 'F_fram %.3f F_bak %.3f  aksen %.2f' % (Ff, Fb, ut[k + '|fram'][NB // 2 - 1:NB // 2 + 1, NB // 2 - 1:NB // 2 + 1].mean()), flush=True)
-    np.savez_compressed(os.path.join(HER, 'film_tabell.npz'), **ut)
-    return ut
+def filmprofil():
+    """Profilen frå konsept/vindauge/film/arket.md om dommen ligg der, elles det ideelle 90°-prismet (ANTAKING)."""
+    if os.path.exists(ARKET):
+        raise SystemExit('arket.md finst no: les profilen derifrå og set han inn her før du reknar vidare.')
+    return Film(prisme(90.0), n_d=1.59, abbe=30.0), 'ideelt 90°-prisme, n_d 1,59, Abbe 30 (ANTAKING: arket.md fanst ikkje)'
 
-_TAB = None
-def tabell():
-    global _TAB
-    if _TAB is None:
-        f = os.path.join(HER, 'film_tabell.npz')
-        _TAB = dict(np.load(f)) if os.path.exists(f) else lag_tabell()
-    return _TAB
+FILM, FILMTEKST = filmprofil()
+PITCH_UM = 50.0      # ANTAKING: vanleg pitch for prismefilm i skjermar (24 til 50 µm). Rekninga er skalafri.
 
-def Lrel(motor, tos, side, ux, uy, lam=555.0):
-    T = tabell()[f'{motor}|{"tosidig" if tos else "reflektor"}|{lam:.0f}|{side}']
-    c = np.stack([(np.asarray(ux) + 1) / DU - 0.5, (np.asarray(uy) + 1) / DU - 0.5])
-    return np.maximum(map_coordinates(T, c.reshape(2, -1), order=1, mode='nearest').reshape(np.shape(ux)), 0.0)
+# ------------------------------------------------------------------ lysmotoren: tal som ikkje er målte
 
-def F(motor, tos, lam=555.0):
-    return tabell()[f'{motor}|{"tosidig" if tos else "reflektor"}|{lam:.0f}|F']
+ETA_KOPL = 0.85      # ANTAKING: del av LED-lyset som kjem inn i plata gjennom kanten
+ETA_LEIAR = 0.85     # ANTAKING: absorpsjon i PMMA og tap i endekanten på 200 mm veg
+ETA_DIFF = 0.90      # ANTAKING: diffusoren første gong (resten går attende og kjem att)
+RC = 0.80            # ANTAKING: del av lyset filmane kastar attende som kjem ut att av kaviteten (kvit reflektor, plate, diffusor)
+ETA_BOKS = 0.80      # ANTAKING: direkte LED-rekkje i kvit boks bak diffusor
 
-def vinkelkurve(motor, tos, plan='tvers', side='fram', lam=555.0, vinklar=np.arange(-85, 86, 1.0)):
-    """Lrel mot vinkel frå normalen. 'tvers': i planet på tvers av rillene til film 1 (v–n), 'langs': u–n."""
-    s = np.sin(np.radians(vinklar))
-    return (Lrel(motor, tos, side, 0 * s, s, lam) if plan == 'tvers' else Lrel(motor, tos, side, s, 0 * s, lam))
+MOTOR = {
+    'E0': dict(namn='plate og diffusor, utan film', rillar=[], eta_inn=ETA_KOPL * ETA_LEIAR * ETA_DIFF),
+    'E1': dict(namn='plate, diffusor og éin prismefilm', rillar=['x'], eta_inn=ETA_KOPL * ETA_LEIAR * ETA_DIFF),
+    'E2': dict(namn='plate, diffusor og to prismefilmar i kryss', rillar=['y', 'x'], eta_inn=ETA_KOPL * ETA_LEIAR * ETA_DIFF),
+    'D1': dict(namn='direkte LED-rekkje bak diffusor, éin prismefilm', rillar=['x'], eta_inn=ETA_BOKS),
+    'D2': dict(namn='direkte LED-rekkje bak diffusor, to filmar i kryss', rillar=['y', 'x'], eta_inn=ETA_BOKS),
+}
 
-def kontroll_film():
-    """Sporinga mot tala i konsept/film/00-vindauge-utan-linse.md."""
-    T, R, L = FILM.lober(0, 0, 550, 'prisme')
-    Tf, Rf, Lf = FILM.lober(0, 0, 550, 'flat')
-    T30, R30, L30 = FILM.lober(30, 0, 550, 'flat')
-    lb = abs(FILM.lober(0, 0, 450, 'prisme')[2][0][0]); lr = abs(FILM.lober(0, 0, 650, 'prisme')[2][0][0])
-    D = np.tile([0, 0, -1.0], (5, 1)); U, st = FILM.spor(D, 550)        # forteikn: lys inn mot prismesida, ut på andre sida?
-    return dict(lobe_550=abs(L[0][0]), lobe_del=[round(e[1], 3) for e in L[:2]], T_prisme=T, analytisk=analytisk_splitt(float(FILM.n(550))),
-                T_flat_rett=Tf, flat30_lobe=L30[0][0] if L30 else None, flat30_T=T30, lobe_450=lb, lobe_650=lr,
-                forteikn_ut_z=float(U[st == 1][:, 2].mean()) if (st == 1).any() else None,
-                note='00-vindauge: ±30,8° (0,47 kvar, T 0,93), analytisk 30,69°, flatside rett på T 0, flatside 30°: lobe −0,8° T 0,63, 450/650 nm: 31,75/30,25°')
+LAMS = np.array([430., 470., 510., 550., 590., 630., 670.])
+NB = 81                          # retningstabell i retningscosinus (u, v) over [-1, 1]
+DU = 2.0 / NB
 
-# ================================================================== ruta som strøk i lysmotoren
+def _cmf(lam):
+    """CIE 1931 (analytisk tilnærming, same som konsept/film/kast.py)."""
+    def g(l, mu, s1, s2):
+        s = np.where(l < mu, s1, s2)
+        return np.exp(-0.5 * ((l - mu) / s) ** 2)
+    x = 1.056 * g(lam, 599.8, 37.9, 31.0) + 0.362 * g(lam, 442.0, 16.0, 26.7) - 0.065 * g(lam, 501.1, 20.4, 26.2)
+    y = 0.821 * g(lam, 568.8, 46.9, 40.5) + 0.286 * g(lam, 530.9, 16.3, 31.1)
+    z = 1.217 * g(lam, 437.0, 11.8, 36.0) + 0.681 * g(lam, 459.0, 26.0, 13.8)
+    return np.stack([x, y, z], 1)
+XYZ_RGB = np.array([[3.2406, -1.5372, -0.4986], [-0.9689, 1.8758, 0.0415], [0.0557, -0.2040, 1.0570]])
+
+def planck(lam, K):
+    l = np.asarray(lam, float) * 1e-9
+    return 1.0 / (l ** 5 * (np.exp(1.4388e-2 / (l * K)) - 1.0))
+
+def vekter(K=2700):
+    """Fotometrisk vekt per bølgjelengd: V(λ) gonger spekteret (svart lekam ved K, ANTAKING)."""
+    w = _cmf(LAMS)[:, 1] * planck(LAMS, K)
+    return w / w.sum()
+
+def lambert(N, rng):
+    u1 = rng.random(N); u2 = rng.random(N)
+    s = np.sqrt(u1); f = 2 * math.pi * u2
+    return np.stack([s * np.cos(f), s * np.sin(f), np.sqrt(1 - u1)], 1)
+
+def _M(rille):
+    """Filmaksane i rutekoordinatar (x langs kanten med LED-ane, y vekk frå kanten, z ut). Prismesida vender ut (+z)."""
+    fz = np.array([0, 0, 1.0])
+    fy = np.array([1.0, 0, 0]) if rille == 'x' else np.array([0, 1.0, 0])
+    return np.stack([np.cross(fy, fz), fy, fz])
+
+def stabel(film, rillar, Rc=RC, lam=550.0, N=200_000, frø=1, maxsteg=80):
+    """Monte Carlo gjennom kavitet og filmar. Lyset kjem lambertsk ut av diffusoren (ANTAKING). Det filmane kastar attende,
+    går ned i kaviteten, blir kvitt att med Rc og prøver på nytt. Gjev (Ltab, rekneskap): Ltab er luminansen per
+    retningscelle, normert til éin lumen inn i filmstabelen første gong, slik at integralet av Ltab du dv er verknadsgraden."""
+    rng = np.random.default_rng(frø)
+    Ms = [_M(r) for r in rillar]; m = len(Ms)
+    kant = np.linspace(-1, 1, NB + 1)
+    H = np.zeros((NB, NB)); ut = 0.0; tapt = 0.0; kav = 0.0; pass_ = 0
+    D = lambert(N, rng); w = np.ones(N); i = np.zeros(N, int)
+    for steg in range(maxsteg):
+        e = i >= m
+        if e.any():
+            H += np.histogram2d(D[e, 0], D[e, 1], bins=[kant, kant], weights=w[e])[0]
+            ut += w[e].sum()
+            D, w, i = D[~e], w[~e], i[~e]
+        if not len(w): break
+        k = i == -1
+        if k.any():
+            kav += (w[k] * (1 - Rc)).sum(); w[k] *= Rc
+            D[k] = lambert(int(k.sum()), rng); i[k] = 0; pass_ += 1
+        for j in range(m):
+            s = np.flatnonzero(i == j)
+            if not len(s): continue
+            Do, st = film.spor(D[s] @ Ms[j].T, lam)
+            Dp = Do @ Ms[j]
+            tapt += w[s[st == 0]].sum(); w[s[st == 0]] = 0.0
+            D[s] = Dp
+            i[s] = np.where(Dp[:, 2] > 0, j + 1, j - 1)
+        hald = w > 1e-4
+        tapt += w[~hald].sum()
+        D, w, i = D[hald], w[hald], i[hald]
+        if not len(w): break
+    tapt += w.sum()
+    L = H / (N * DU * DU)
+    return L, dict(ut=ut / N, kavitet=kav / N, tapt=tapt / N)
+
+def oppslag(tab, u, v):
+    iu = (np.asarray(u) + 1) / DU - 0.5; iv = (np.asarray(v) + 1) / DU - 0.5
+    return map_coordinates(tab, [np.ravel(iu), np.ravel(iv)], order=1, mode='nearest').reshape(np.shape(u))
+
+def last_motor(nokkel):
+    f = os.path.join(CACHE, 'tab_%s.npz' % nokkel)
+    if not os.path.exists(f): raise SystemExit('køyr kalib først')
+    z = np.load(f)
+    M = dict(MOTOR[nokkel]); M['tab_l'] = z['tab']; M['eta_l'] = z['eta']
+    w = vekter(2700)
+    M['tab'] = (w[:, None, None] * z['tab']).sum(0); M['eta_stabel'] = float((w * z['eta']).sum())
+    M['nokkel'] = nokkel
+    return M
+
+# ------------------------------------------------------------------ ruta som strøk i lysskisse
 
 class Rute:
-    """Lysande rute. H: midt på hengsellina. u: langs hengslet (sylinderen, rillene til film 1). e: frå hengslet mot fri kant.
-    n: framsida (filmsida). bu x bv: storleik (m). motor: nøkkel i MOTORAR. tos: klar plate (lyser òg bak)."""
-    def __init__(s, H, u, e, n, bu, bv, motor, tos, gap=0.022):
-        s.u, s.e, s.n = nrm(u), nrm(e), nrm(n)
-        s.v = s.e if (np.cross(s.u, s.e) @ s.n) > 0 else -s.e      # (u, v, n) høgrehendt
-        s.bu, s.bv, s.motor, s.tos = bu, bv, motor, tos
-        s.H0 = np.asarray(H, float) + gap * s.e
-        s.C = s.H0 + 0.5 * bv * s.e
-        s.A = bu * bv
-        kj = MOTORAR[motor][0]
-        s.eta_inn = ETA_INN[kj]
-        s.Ff, s.Fb = F(motor, tos)
-    def punkt(s, nu, nv):
-        return [s.H0 + s.u * s.bu * ((i + 0.5) / nu - 0.5) + s.e * s.bv * (j + 0.5) / nv for i in range(nu) for j in range(nv)]
-    def L_rel(s, d):
-        d = np.atleast_2d(d); dn = d @ s.n; ux, uy = d @ s.u, d @ s.v
-        return np.where(dn > 0, Lrel(s.motor, s.tos, 'fram', ux, uy), Lrel(s.motor, s.tos, 'bak', ux, uy) if (s.tos or s.Fb > 0) else 0.0)
-    def lys(s, W, K, namn='rute'):
-        lm = W * ls.LMW_KJELDE; Lref = lm * s.eta_inn / (math.pi * s.A)
-        prim = ls.Rekt(s.H0 - 0.5 * s.bu * s.u, s.u * s.bu, s.e * s.bv)
-        I = lambda d: s.A * Lref * s.L_rel(d) * np.abs(np.atleast_2d(d) @ s.n)
-        L = lambda d: Lref * s.L_rel(d)
-        l = ls.Lys(lm, K, prim, s.punkt(5, 3), I, L, namn)
-        l.mater = True; l.lm_ut = lm * s.eta_inn * (s.Ff + s.Fb); l.rute = s; l.Lref = Lref
-        return l
+    """Ei lysande rute: o er hjørnet, ex langs kanten med LED-ane, ey vekk frå kanten, ez = ex × ey er framsida.
+    Framsida har luminansen frå motoren. Baksida lyser lambertsk med delen bak (0 med kvit reflektor bak)."""
+    def __init__(s, o, ex, ey, w, h, motor, W, K, bak=0.0, namn='rute', nu=8, nv=4):
+        s.ex, s.ey = nrm(np.asarray(ex, float)), nrm(np.asarray(ey, float)); s.ez = nrm(np.cross(s.ex, s.ey))
+        s.o = np.asarray(o, float); s.w, s.h = w, h; s.A = w * h
+        s.c = s.o + s.ex * w / 2 + s.ey * h / 2
+        s.W, s.K, s.motor, s.bak, s.namn = W, K, motor, bak, namn
+        s.lm_led = W * ls.LMW_KJELDE
+        s.phi_inn = s.lm_led * motor['eta_inn']
+        s.phi_ut = s.phi_inn * motor['eta_stabel']
+        s.kf = (1 - bak) * s.phi_inn / s.A                    # framsida: L = kf · Ltab(u, v)
+        s.Lb = bak * s.phi_ut / (math.pi * s.A)
+        s.nu, s.nv = nu, nv
+    def L(s, d):
+        d = np.atleast_2d(d)
+        c = d @ s.ez
+        Lf = s.kf * oppslag(s.motor['tab'], d @ s.ex, d @ s.ey)
+        return np.where(c > 0, Lf, s.Lb)
+    def I(s, d):
+        d = np.atleast_2d(d)
+        c = d @ s.ez
+        Lf = s.kf * oppslag(s.motor['tab'], d @ s.ex, d @ s.ey)
+        return s.A * np.where(c > 0, Lf * c, s.Lb * (-c))
+    def punkt(s, nu=None, nv=None):
+        nu = nu or s.nu; nv = nv or s.nv
+        return [s.o + s.ex * s.w * (i + 0.5) / nu + s.ey * s.h * (j + 0.5) / nv for i in range(nu) for j in range(nv)]
+    def lys(s):
+        prim = ls.Rekt(s.o, s.ex * s.w, s.ey * s.h)
+        l = ls.Lys(s.lm_led, s.K, prim, s.punkt(), s.I, s.L, s.namn)
+        l.mater = True; l.lm_ut = s.phi_ut; l.rute = s
+        return [l]
 
-# ================================================================== dei to variantane
+# ------------------------------------------------------------------ kroppane (mål i meter, romkoordinatar; h over bordet)
 
-def rot_x(v, a):
-    c, s_ = math.cos(a), math.sin(a)
-    return np.array([v[0], v[1] * c - v[2] * s_, v[1] * s_ + v[2] * c])
+TELT = dict(H=0.50, yc=0.40, r=0.020, w=0.48, h=0.20, xarm=0.31, fot=(0.31, 0.36), rfot=0.12)
+KLEMME = dict(H=0.50, yc=0.24, w=0.52, h=0.20, xstolpe=0.66)
 
-TELT = dict(                         # mål i meter i romkoordinatane til lysskisse (x mot høgre, y mot veggen, z opp, ZB = bordplata)
-    fot=(0.44, 0.52), fot_r=0.130, fot_t=0.010,          # Ø 260 x 10 stål: tippar ikkje (sjå tal.json, stabilitet)
-    arm_x=0.32,                                          # flattstål 60 x 8 alu, 5 cm til høgre for skjermkanten (0,27)
-    syl_y=0.42, syl_z=0.58, syl_r=0.020, syl_x=(-0.24, 0.32),   # Ø 40 x 560: LED-list, drivar, kodar i knotten
-    bu=0.48, bv=0.26,                                    # ruta 480 x 260 x 4 PMMA: feltet er 600 x 400, og 0,125 m² held stemninga under 500 cd/m²
-    motor='LGP-1', tos=True, beta_a=15.0, beta_s=90.0)   # beta: vinkelen til ruta over vassrett mot brukaren
-KLEMME = dict(
-    klemme=(0.70, 0.30), stong_r=0.0125, stong_h=0.62,  # klemt på høgre sidekant, Ø 25 stong
-    lengd=0.60, breidd=0.22, x_ende=0.62,               # hovudet 600 x 220 mot venstre frå stonga
-    motor='LGP-1', tos=False, rho_a=15.0, rho_s=-70.0)  # rho: rull om lengdeaksen, + mot brukaren
+def telt(phi, motor, W, K, bak=0.0):
+    """Ruta heng frå sylinderen. phi er vinkelen frå vassrett mot brukaren: 0 lyser ned, 90 står og lyser mot brukaren."""
+    T = TELT; f = math.radians(phi)
+    hengsel = b(0.0, T['yc'], T['H'])
+    ex = np.array([1.0, 0, 0]); ey = np.array([0.0, -math.cos(f), math.sin(f)])
+    o = hengsel + (T['r'] + 0.002) * ey - ex * T['w'] / 2
+    r = Rute(o, ex, ey, T['w'], T['h'], motor, W, K, bak, 'telt')
+    xa, (fx, fy) = T['xarm'], T['fot']
+    kropp = [ls.Syl(b(-T['w'] / 2 - 0.015, T['yc'], T['H']), b(T['w'] / 2 + 0.015, T['yc'], T['H']), T['r'], rho=(0.30, 0.06, 0.07)),
+             ls.Syl(b(T['w'] / 2 + 0.015, T['yc'], T['H']), b(xa + 0.012, T['yc'], T['H']), 0.028, rho=(0.55, 0.55, 0.56)),
+             ls.Syl(b(xa, fy + 0.04, 0.018), b(xa, T['yc'], T['H'] - 0.03), 0.010, rho=(0.55, 0.55, 0.56)),
+             ls.Syl(b(fx, fy, 0.0), b(fx, fy, 0.018), T['rfot'], rho=(0.30, 0.06, 0.07))]
+    return r, kropp
 
-def telt_rute(P, beta):
-    bt = math.radians(beta)
-    e = np.array([0.0, -math.cos(bt), math.sin(bt)]); n = np.array([0.0, -math.sin(bt), -math.cos(bt)])
-    H = b(0.5 * (P['syl_x'][0] + P['syl_x'][1]), P['syl_y'], P['syl_z'])
-    return Rute(H, (1, 0, 0), e, n, P['bu'], P['bv'], P['motor'], P['tos'])
+def klemme(psi, motor, W, K, bak=0.0):
+    """Hovudet sit på ein arm langs x og blir snudd om han. psi = 0 lyser ned, 90 mot brukaren, 180 opp, -90 mot veggen."""
+    T = KLEMME; p = math.radians(psi)
+    C = b(0.0, T['yc'], T['H'])
+    ex = np.array([1.0, 0, 0]); n = np.array([0.0, -math.sin(p), -math.cos(p)])
+    ey = nrm(np.cross(n, ex))
+    o = C - ex * T['w'] / 2 - ey * T['h'] / 2
+    r = Rute(o, ex, ey, T['w'], T['h'], motor, W, K, bak, 'klemme')
+    xs = T['xstolpe']
+    kropp = [ls.Syl(b(T['w'] / 2 + 0.005, T['yc'], T['H']), b(xs, T['yc'], T['H']), 0.010, rho=(0.40, 0.38, 0.36)),
+             ls.Syl(b(xs, T['yc'], 0.0), b(xs, T['yc'], T['H'] + 0.015), 0.012, rho=(0.40, 0.38, 0.36)),
+             ls.Syl(b(xs, T['yc'], 0.0), b(xs, T['yc'], 0.01), 0.03, rho=(0.40, 0.38, 0.36))]
+    return r, kropp
 
-def telt_kropp(P):
-    x0, x1 = P['syl_x']; y, z = P['syl_y'], P['syl_z']; fx, fy = P['fot']
-    alu = (0.62, 0.62, 0.60); burg = (0.25, 0.06, 0.07)
-    syl = ls.Syl(b(x0, y, z), b(x1, y, z), P['syl_r'], rho=burg)
-    knott = ls.Syl(b(x1, y, z), b(x1 + 0.022, y, z), 0.028, rho=alu)
-    kne = b(P['arm_x'] + 0.04, y + 0.04, 0.30)
-    arm = [ls.Syl(b(fx, fy, P['fot_t']), kne, 0.010, rho=alu), ls.Syl(kne, b(x1 + 0.011, y, z - 0.03), 0.010, rho=alu)]
-    fot = ls.Skive(b(fx, fy, P['fot_t']), (0, 0, 1), P['fot_r'], rho=burg)
-    return [syl, knott, fot] + arm
+def watt_k(t):
+    """Same watt som A, B og C (1,25 W til 5 W), men 2200 K i stemning og 2700 K i arbeid (oppgåva)."""
+    return 1.25 * 4.0 ** float(t), 2200.0 + 500.0 * float(t)
 
-def klemme_rute(P, rho):
-    r = math.radians(rho)
-    n = np.array([0.0, -math.sin(r), -math.cos(r)]); u = np.array([-1.0, 0, 0])
-    e = np.array([0.0, math.cos(r), -math.sin(r)]) * -1          # breidda står vinkelrett på n og u
-    kx, ky = P['klemme']
-    H = b(P['x_ende'] - 0.5 * P['lengd'], ky, P['stong_h'] - 0.015) - 0.5 * P['breidd'] * e
-    return Rute(H, u, e, n, P['lengd'], P['breidd'], P['motor'], P['tos'], gap=0.0)
-
-def klemme_kropp(P, rute):
-    kx, ky = P['klemme']; alu = (0.55, 0.53, 0.50)
-    sx = kx - 0.04
-    stong = ls.Syl(b(sx, ky, -0.03), b(sx, ky, P['stong_h']), P['stong_r'], rho=alu)
-    ledd = ls.Syl(b(sx - 0.02, ky, P['stong_h']), b(P['x_ende'], ky, P['stong_h']), 0.016, rho=alu)
-    skal = ls.Rekt(rute.H0 - 0.5 * rute.bu * rute.u - 0.014 * rute.n, rute.u * rute.bu, rute.e * rute.bv, rho=alu)
-    return [stong, ledd, skal]
-
-def g_telt(P=TELT, beta_a=None, beta_s=None, motor=None):
-    P = dict(P);
-    if motor: P['motor'] = motor
-    ba = P['beta_a'] if beta_a is None else beta_a; bs = P['beta_s'] if beta_s is None else beta_s
-    kropp = telt_kropp(P)
+def grep(kropp_fn, motor, v_s, v_a, bak=0.0):
     def g(t):
-        W = 1.25 * 4.0 ** float(t); K = 2200 + 500 * float(t)      # 2200 K i stemning, 2700 K i arbeid
-        r = telt_rute(P, bs + (ba - bs) * float(t)); g.rute = r
-        return [r.lys(W, K, 'telt')], kropp
-    g.P = P; return g
+        W, K = watt_k(t)
+        v = v_s + (v_a - v_s) * float(t)
+        r, kr = kropp_fn(v, motor, W, K, bak)
+        g.siste = r
+        return r.lys(), kr
+    return g
 
-def g_klemme(P=KLEMME, rho_a=None, rho_s=None, motor=None):
-    P = dict(P)
-    if motor: P['motor'] = motor
-    ra = P['rho_a'] if rho_a is None else rho_a; rs = P['rho_s'] if rho_s is None else rho_s
-    def g(t):
-        W = 1.25 * 4.0 ** float(t); K = 2200 + 500 * float(t)
-        r = klemme_rute(P, rs + (ra - rs) * float(t)); g.rute = r
-        return [r.lys(W, K, 'klemme')], klemme_kropp(P, r)
-    g.P = P; return g
+# ------------------------------------------------------------------ tal (same rader som tre.rekn)
 
-# ================================================================== tal: kopi av tre.rekn, og dei tre måla frå granskinga
-
-def rekn(g, n=5):
-    """Kopi av tre.rekn (konsept/tre/tre.py), prøvd mot tal.md med 'sjekk'."""
-    R, m = ls.overgang(g, n=n)
-    s, a = R[0], R[-1]
+def rad(s, a):
     f = 350.0 / max(a['E_felt'], 1e-9)
     La = lambda d: max(d['L_lampe'], d['L_flate'])
-    return dict(W350=a['W'] * f, timar=ls.CELLE / (a['W'] * f), jamnheit=a['U'], lm_ut=a['lm'], verknad=a['lm'] / (a['W'] * 100),
-                vegg350=a['E_vegg'] * f, bak350=a['E_bak'] * f, ansikt350=a['E_ansikt'] * f, skjerm350=a['E_skjerm'] * f,
+    return dict(W350=a['W'] * f, jamnheit=a['U'], felt_a=a['E_felt'], bak350=a['E_bak'] * f, vegg350=a['E_vegg'] * f,
+                skjerm350=a['E_skjerm'] * f, ansikt350=a['E_ansikt'] * f,
                 auge25=max(a['L_auge25'], a['L_flate']) * f, auge47=La(a) * f, auge60=max(a['L_auge60'], a['L_flate']) * f,
-                s_W=s['W'], s_lm=s['lm'], s_felt=s['E_felt'], s_vegg=s['E_vegg'], s_bak=s['E_bak'], s_skjerm=s['E_skjerm'],
+                s_W=s['W'], s_felt=s['E_felt'], s_vegg=s['E_vegg'], s_bak=s['E_bak'], s_skjerm=s['E_skjerm'],
                 s_auge25=max(s['L_auge25'], s['L_flate']), s_auge47=La(s), s_auge60=max(s['L_auge60'], s['L_flate']),
-                likskap=ls.likskap(s['_fordeling'], a['_fordeling']), topp=m['topp'], sprang=m['sprang'], jamn_auke=m['jamn_auke'],
-                veg_felt=[r['E_felt'] for r in R], veg_skjerm=[r['E_skjerm'] for r in R], veg_auge=[La(r) for r in R], veg_W=[r['W'] for r in R])
+                s_ansikt=s['E_ansikt'], likskap=ls.likskap(s['_fordeling'], a['_fordeling']), lm_ut_a=a['lm'] * f, lm_ut_s=s['lm'])
 
-AUGEVOLUM = [b(x, y, h) for x in (-0.15, 0.0, 0.15) for y in (-0.15, 0.0) for h in (0.42, 0.47, 0.52)]
+def kort(r):
+    return ('W350 %.2f U %.2f auge %4.0f/%4.0f/%4.0f bak %3.0f skjerm %3.0f | st: auge %3.0f/%3.0f/%3.0f bak %3.0f felt %3.0f skjerm %3.1f | lik %.2f'
+            % (r['W350'], r['jamnheit'], r['auge25'], r['auge47'], r['auge60'], r['bak350'], r['skjerm350'],
+               r['s_auge25'], r['s_auge47'], r['s_auge60'], r['s_bak'], r['s_felt'], r['s_skjerm'], r['likskap']))
 
-def ekstra(lys, kropp):
-    """F6 som arealsnitt på 4 cm, spegling i skjermen tilta 0–20°, og største luminans frå ruta i augevolumet."""
-    R = ls.rom(); okkl = ls.STATISK + list(kropp) + [l.prim for l in lys]
-    Ed = ls.E_direkte(R.P, R.N, lys, okkl); Ei, B = R.radiositet(Ed)
-    kv = R.kart[1]; Eiv = Ei[kv.sl].reshape(kv.nu, kv.nv, 3)
-    xs = np.arange(-0.33, 0.35, 0.04); zs = ZB + np.arange(0.07, 0.65, 0.04)
-    P = np.array([[x, YV - 1e-4, z] for x in xs for z in zs]); N = np.tile([0, -1.0, 0], (len(P), 1))
-    Ew = (ls.E_direkte(P, N, lys, okkl) + kv.oppslag(P, Eiv)) @ LUM
-    r = lys[0].rute; pts = r.punkt(9, 5)
-    okkl_a = [p for p in okkl if p not in ls.PERSON]
-    Lmax = 0.0; EV = np.array(AUGEVOLUM)
-    for S in pts:
-        vis = ls.synleg(EV, S, okkl_a, lys[0].prim)
-        if vis.any():
-            d = EV[vis] - S; d /= np.linalg.norm(d, axis=1)[:, None]
-            Lmax = max(Lmax, float(lys[0].L(d).max()))
-    spegl = {}
-    for tau in (0, 5, 10, 15, 20):
-        ta = math.radians(tau)
-        Q0 = b(0.0, 0.45, 0.11); ns = np.array([0, -math.cos(ta), math.sin(ta)]); opp = np.array([0, math.sin(ta), math.cos(ta)])
+def bak_fin(lys, kropp, celle=0.02):
+    """Veggen bak skjermen som arealsnitt med celler på 2 cm: tal() sitt snitt (10 cm-celler), der det direkte lyset
+    er bytt ut med eit fint gitter. Det indirekte lyset er glatt og blir ståande."""
+    T = ls.tal(lys, kropp)
+    okkl = ls.STATISK + list(kropp) + [l.prim for l in lys]
+    R = ls.rom(); kv = R.kart[1]; Pv = R.P[kv.sl]; Nv = R.N[kv.sl]
+    mb = (np.abs(Pv[:, 0]) < 0.35) & (Pv[:, 2] > ZB + 0.05) & (Pv[:, 2] < ZB + 0.65)
+    Edc = float((ls.E_direkte(Pv[mb], Nv[mb], lys, okkl) @ ls.LUM).mean())
+    xs = np.arange(-0.35 + celle / 2, 0.35, celle); zs = ZB + np.arange(0.05 + celle / 2, 0.65, celle)
+    P = np.array([[x, YV - 1e-4, z] for x in xs for z in zs]); N = np.tile([0.0, -1.0, 0.0], (len(P), 1))
+    Edf = float((ls.E_direkte(P, N, lys, okkl) @ ls.LUM).mean())
+    return dict(bak_tal=T['E_bak'], bak_fin=T['E_bak'] - Edc + Edf, felt=T['E_felt'])
+
+AUGEVOLUM = [b(x, y, z) for x in (-0.15, 0.0, 0.15) for y in (-0.15, -0.075, 0.0) for z in (0.25, 0.37, 0.42, 0.47, 0.52, 0.60)]
+
+def augevolum(r):
+    """Høgaste luminans frå ruta mot auget i volumet ±15 cm sidevegs, 15 cm fram, 25 til 60 cm over bordet.
+    Ingen skugge frå kroppen (konservativt). Gjev (maks, punktet)."""
+    S = np.array(r.punkt(24, 10)); best = (0.0, None)
+    for E in AUGEVOLUM:
+        d = E - S; d /= np.linalg.norm(d, axis=1)[:, None]
+        L = float(r.L(d).max())
+        if L > best[0]: best = (L, E)
+    return best
+
+def spegling(r, tiltar=(0, 5, 10, 15, 20)):
+    """Luminansen av ruta slik auget ser henne spegla i skjermen, tilta 0 til 20° bakover om underkanten.
+    Gjev luminansen før refleksjon (gang med ρ: 0,04 blank, 0,01 matt) per tilt."""
+    S = np.array(r.punkt(24, 10))
+    ut = {}
+    auge = [b(x, y, z) for x in (-0.15, 0.0, 0.15) for y in (-0.15, 0.0) for z in (0.37, 0.47, 0.57)]
+    for tau in tiltar:
+        t = math.radians(tau)
+        P0 = b(-0.27, 0.45, 0.11); ex = np.array([1.0, 0, 0]); td = np.array([0.0, math.sin(t), math.cos(t)])
+        n = np.array([0.0, -math.cos(t), math.sin(t)])
         best = 0.0
-        for E in AUGEVOLUM:
-            M = E - 2 * ((E - Q0) @ ns) * ns
-            for S in pts:
-                if (S - Q0) @ ns <= 0: continue
-                t = ((Q0 - M) @ ns) / ((S - M) @ ns); X = M + t * (S - M)
-                if 0 < t < 1 and abs(X[0]) < 0.27 and 0 < (X - Q0) @ opp < 0.31:
-                    best = max(best, float(lys[0].L(nrm(X - S)[None])[0]))
-        spegl[tau] = best
-    return dict(bak_4cm=float(Ew.mean()), bak_4cm_min=float(Ew.min()), L_augevolum=Lmax, spegl=spegl, spegl_maks=max(spegl.values()))
+        for E in auge:
+            if (E - P0) @ n <= 0: continue
+            Em = E - 2 * ((E - P0) @ n) * n
+            foran = (S - P0) @ n > 0
+            Sv = S[foran]
+            if not len(Sv): continue
+            dv = Em - Sv
+            tt = ((P0 - Sv) @ n) / (dv @ n)
+            X = Sv + tt[:, None] * dv
+            a = (X - P0) @ ex; bb = (X - P0) @ td
+            ok = (tt > 0) & (tt < 1) & (a >= 0) & (a <= 0.54) & (bb >= 0) & (bb <= 0.31)
+            if not ok.any(): continue
+            d = X[ok] - Sv[ok]; d /= np.linalg.norm(d, axis=1)[:, None]
+            best = max(best, float(r.L(d).max()))
+        ut[tau] = best
+    return ut
 
-def endepunkt(g, t):
-    lys, kropp = g(t)
-    d = ls.tal(lys, kropp); x = ekstra(lys, kropp)
-    return d, x, lys
+# ------------------------------------------------------------------ kommandoane
 
-def kort(d, x, W350=None):
-    f = 350.0 / max(d['E_felt'], 1e-9) if W350 else 1.0
-    return dict(W=d['W'] * f, E_felt=d['E_felt'] * f, U=d['U'], bak=d['E_bak'] * f, bak4=x['bak_4cm'] * f, skjerm=d['E_skjerm'] * f,
-                auge=max(d['L_auge25'], d['L_auge47'], d['L_auge60'], d['L_flate']) * f, augevol=x['L_augevolum'] * f,
-                spegl=x['spegl_maks'] * f, lm=d['lm'] * f, ansikt=d['E_ansikt'] * f)
+def k_kalib():
+    t0 = time.time()
+    f = FILM
+    sjekk = {}
+    T, R, L = f.lober(0, 0, 550, 'prisme'); sjekk['prisme_0'] = dict(T=r2(T), lober=[(r2(a, 1), r2(d)) for a, d in L[:2]])
+    T, R, L = f.lober(0, 0, 550, 'flat'); sjekk['flat_0'] = dict(T=r2(T), R=r2(R))
+    T, R, L = f.lober(30, 0, 550, 'flat'); sjekk['flat_30'] = dict(T=r2(T), lober=[(r2(a, 1), r2(d)) for a, d in L[:1]])
+    sjekk['farge_450_650'] = [r2(abs(f.lober(0, 0, l, 'prisme')[2][0][0]), 2) for l in (450, 650)]
+    sjekk['analytisk_550'] = r2(analytisk_splitt(float(f.n(550))), 2)
+    sjekk['maal_frå_00-vindauge'] = 'prisme rett på: ±30,8°, 0,47 kvar, T 0,93; flat rett på: T 0; flat 30°: −0,8°, 0,63; 450/650 nm: 31,75°/30,25°'
+    print(json.dumps(sjekk, ensure_ascii=False), flush=True)
+    res = {}
+    for nk in ('E0', 'E1', 'E2'):
+        M = MOTOR[nk]
+        tabs, etas, rek = [], [], []
+        for lam in LAMS:
+            L, rk = stabel(f, M['rillar'], RC, lam)
+            tabs.append(gaussian_filter(L, 0.6)); etas.append(rk['ut']); rek.append(rk)
+        np.savez_compressed(os.path.join(CACHE, 'tab_%s.npz' % nk), tab=np.array(tabs), eta=np.array(etas))
+        # D1/D2 har same vinkelfordeling som E1/E2 (lambertsk inn i filmen), berre anna eta_inn
+        if nk in ('E1', 'E2'):
+            np.savez_compressed(os.path.join(CACHE, 'tab_%s.npz' % ('D' + nk[1])), tab=np.array(tabs), eta=np.array(etas))
+        M2 = last_motor(nk)
+        tab = M2['tab']
+        c = NB // 2
+        L0 = tab[c, c]; gain = L0 * math.pi            # luminans rett fram mot lambertsk med same fluks inn
+        # snitt i planet på tvers av rillene til den øvste filmen (y-z-planet, v-aksen)
+        th = np.arange(0, 90, 1.0); vv = np.sin(np.radians(th))
+        prof = oppslag(tab, np.zeros_like(vv), vv) / max(L0, 1e-9)
+        prof_x = oppslag(tab, vv, np.zeros_like(vv)) / max(L0, 1e-9)
+        def halv(p):
+            k = np.flatnonzero(p < 0.5); return float(th[k[0]]) if len(k) else 90.0
+        cut = {}
+        for li, lam in enumerate(LAMS):
+            pl = oppslag(M2['tab_l'][li], np.zeros_like(vv), vv) / max(M2['tab_l'][li][c, c], 1e-9)
+            cut[int(lam)] = halv(pl)
+        res[nk] = dict(namn=M['namn'], eta_stabel=r2(M2['eta_stabel'], 3), eta_inn=r2(M['eta_inn'], 3),
+                       eta_total=r2(M['eta_inn'] * M2['eta_stabel'], 3), lm_per_W=r2(100 * M['eta_inn'] * M2['eta_stabel'], 1),
+                       gain_rett_fram=r2(gain), halvvinkel_yz=halv(prof), halvvinkel_xz=halv(prof_x),
+                       cutoff_per_lam=cut, profil_yz_10gr=[r2(x, 3) for x in prof[::10]], profil_xz_10gr=[r2(x, 3) for x in prof_x[::10]],
+                       rekneskap_550=[r2(v, 3) for v in rek[3].values()])
+        print(nk, json.dumps(res[nk], ensure_ascii=False), flush=True)
+    # følsemd for Rc (gain rett fram og verknadsgrad, 550 nm)
+    fol = {}
+    for nk in ('E1', 'E2'):
+        for Rc in (0.7, 0.9):
+            L, rk = stabel(f, MOTOR[nk]['rillar'], Rc, 550.0, N=100_000)
+            L = gaussian_filter(L, 0.6)
+            fol['%s_Rc%.1f' % (nk, Rc)] = dict(eta=r2(rk['ut'], 3), gain=r2(L[NB // 2, NB // 2] * math.pi))
+    res['folsemd_Rc'] = fol
+    for nk in ('D1', 'D2'):
+        M2 = last_motor(nk)
+        res[nk] = dict(namn=MOTOR[nk]['namn'], eta_total=r2(MOTOR[nk]['eta_inn'] * M2['eta_stabel'], 3),
+                       lm_per_W=r2(100 * MOTOR[nk]['eta_inn'] * M2['eta_stabel'], 1))
+    lagre('film_sjekk', sjekk); lagre('motor', res)
+    logg('kalib (%.0f s): film.py stemmer med 00-vindauge (%s). Motorane: %s' % (
+        time.time() - t0, ', '.join('%s %s' % (k, v) for k, v in sjekk.items() if k.startswith(('prisme', 'flat', 'farge'))),
+        '; '.join('%s η %.2f, gain %.2f, halvvinkel y-z %.0f°' % (k, res[k]['eta_total'], res[k]['gain_rett_fram'], res[k]['halvvinkel_yz'])
+                  for k in ('E0', 'E1', 'E2'))))
 
-# ================================================================== modusar
-
-def m_sok():
-    ut = []
-    def logg(namn, t, g):
-        t0 = time.time(); d, x, lys = endepunkt(g, t)
-        k = kort(d, x, W350=(t == 1))
-        k.update(namn=namn, t=t, sek=round(time.time() - t0, 1)); ut.append(k)
-        print(namn, {a: (round(v, 2) if isinstance(v, float) else v) for a, v in k.items()}, flush=True)
-    for mo in ('LGP-0', 'LGP-1', 'LGP-2'):
-        for ba in (-15.0, 0.0, 15.0, 30.0):
-            logg(f'telt {mo} beta_a {ba:+.0f}', 1, g_telt(beta_a=ba, motor=mo))
-    for bs in (90.0, 115.0):
-        logg(f'telt LGP-1 beta_s {bs:.0f}', 0, g_telt(beta_s=bs))
-    for mo in ('LGP-0', 'LGP-1', 'LGP-2', 'LED-0', 'LED-1'):
-        for ra in (0.0, 15.0, 30.0):
-            logg(f'klemme {mo} rho_a {ra:+.0f}', 1, g_klemme(rho_a=ra, motor=mo))
-    for rs in (-70.0, 70.0):
-        logg(f'klemme LGP-1 rho_s {rs:+.0f}', 0, g_klemme(rho_s=rs))
-    json.dump(ut, open(os.path.join(HER, 'sok.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
-
-def m_sjekk():
-    sys.path.insert(0, os.path.join(REPO, 'konsept', 'tre'))
+def k_tretest():
     import tre
-    t0 = time.time(); r = rekn(tre.KONSEPT['A']['g'])
-    ref = json.load(open(os.path.join(REPO, 'konsept', 'tre', 'tal-A.json'), encoding='utf-8'))
-    nk = ('W350', 'jamnheit', 'auge25', 'auge47', 'skjerm350', 'bak350', 's_auge25', 's_bak', 's_skjerm', 'likskap', 'sprang')
-    av = {k: (round(float(r[k]), 3), round(float(ref.get('bak350_grovt' if k == 'bak350' else k)), 3)) for k in nk}
-    print('kopien mot tal-A.json (bak350 mot bak350_grovt):', av, 'sek', round(time.time() - t0))
-    json.dump(av, open(os.path.join(HER, 'sjekk.json'), 'w', encoding='utf-8'), indent=1)
+    t0 = time.time()
+    r = tre.rekn('A')
+    venta = dict(W350=2.99, jamnheit=0.62, auge25=1013, auge47=103, bak350=109, skjerm350=115, s_auge25=424, s_bak=131, likskap=0.60)
+    avvik = {k: (r2(r[k]), v) for k, v in venta.items()}
+    print(avvik, flush=True)
+    lagre('tretest_A', dict(rekna=avvik, sekund=r2(time.time() - t0, 0)))
+    logg('tretest: tre.rekn(\'A\') gav ' + ', '.join('%s %s (tal.md %s)' % (k, a, v) for k, (a, v) in avvik.items()) + ' på %.0f s' % (time.time() - t0))
+
+def ende(g):
+    s = ls.tal(*g(0.0)); a = ls.tal(*g(1.0))
+    return rad(s, a)
+
+def k_skann():
+    t0 = time.time()
+    ut = {}
+    jobbar = []
+    for nk in ('E1', 'E2', 'E0'):
+        for fs in (90, 105):
+            jobbar.append(('T', nk, fs, 0, 0.0))
+    jobbar += [('T', 'E1', 90, 15, 0.0), ('T', 'E2', 90, 15, 0.0), ('T', 'E2', 90, 0, 0.3)]
+    for nk in ('E1', 'E2', 'E0'):
+        jobbar.append(('K', nk, 180, 0, 0.0))
+    jobbar += [('K', 'E2', -135, 0, 0.0), ('K', 'E2', 180, 10, 0.0), ('K', 'E2', 180, 0, 0.3)]
+    for kv, nk, vs, va, bk in jobbar:
+        M = last_motor(nk)
+        fn = telt if kv == 'T' else klemme
+        r = ende(grep(fn, M, vs, va, bk))
+        namn = '%s %s s%d a%d bak%.1f' % (kv, nk, vs, va, bk)
+        ut[namn] = {k: r2(v, 2) for k, v in r.items()}
+        print('%-26s %s' % (namn, kort(r)), flush=True)
+        lagre('skann', ut)
+        if time.time() - t0 > 320: print('stoppar før 6 min'); break
+    logg('skann (%.0f s): %d endepunktpar rekna, sjå tal.json["skann"]' % (time.time() - t0, len(ut)))
+
+VAL = {}   # fylt ut etter skannet: kva vinkel og motor kvar kropp får
+def valt(kv):
+    v = json.load(open(TALFIL, encoding='utf-8')).get('val', {})
+    return v[kv]
+
+def k_rekn(kv):
+    import tre
+    t0 = time.time()
+    v = valt(kv)
+    M = last_motor(v['motor'])
+    fn = telt if kv == 'T' else klemme
+    g = grep(fn, M, v['s'], v['a'], v.get('bak', 0.0))
+    tre.KONSEPT[kv] = dict(namn={'T': 'Telt', 'K': 'Klemme'}[kv], g=g)
+    r = tre.rekn(kv)
+    ut = {k: (r2(x, 3) if not isinstance(x, (list, str)) else x) for k, x in r.items()}
+    lagre('rekn_' + kv, ut)
+    print(kv, kort(dict(r, **{})) if 'bak350' in r else r, flush=True)
+    ekstra = {}
+    for t, m in ((0.0, 'stemning'), (1.0, 'arbeid')):
+        lys, kr = g(t); ru = g.siste
+        bf = bak_fin(lys, kr)
+        f = 350.0 / bf['felt'] if m == 'arbeid' else 1.0
+        La, Ea = augevolum(ru)
+        sp = spegling(ru)
+        ekstra[m] = dict(W=r2(ru.W * f, 2), lm_led=r2(ru.lm_led * f, 0), lm_ut=r2(ru.phi_ut * f, 0),
+                         L_rute_rett_fram=r2(ru.kf * M['tab'][NB // 2, NB // 2] * f, 0),
+                         bak_tal=r2(bf['bak_tal'] * f, 1), bak_fin_2cm=r2(bf['bak_fin'] * f, 1),
+                         augevolum_maks=r2(La * f, 0), augevolum_punkt=[r2(x, 3) for x in (Ea - b(0, 0, 0) if Ea is not None else [0, 0, 0])],
+                         spegling_L=dict((str(k), r2(x * f, 0)) for k, x in sp.items()),
+                         spegling_blank_004=r2(max(sp.values()) * f * 0.04, 1), spegling_matt_001=r2(max(sp.values()) * f * 0.01, 2))
+        print(m, ekstra[m], flush=True)
+    lagre('ekstra_' + kv, ekstra)
+    logg('rekn %s (%.0f s): %s. Stemning: augevolum %s cd/m², spegling blank %s. Arbeid: augevolum %s, bak 2 cm %s lx (tal() %s), spegling blank %s cd/m².' % (
+        kv, time.time() - t0, kort(r), ekstra['stemning']['augevolum_maks'], ekstra['stemning']['spegling_blank_004'],
+        ekstra['arbeid']['augevolum_maks'], ekstra['arbeid']['bak_fin_2cm'], ekstra['arbeid']['bak_tal'], ekstra['arbeid']['spegling_blank_004']))
+
+# ------------------------------------------------------------------ stripene
+
+def stripekart(w, h, pitch, sigma=None, nx=241, ny=101, y0=0.004):
+    """Luminansen i plata (relativ, snitt 1) frå LED-ar i kanten y = 0 med avstand pitch. sigma = None er naken LED
+    (lambertsk inn i kanten, ±42° i PMMA, I ∝ cos ψ). Elles ei gaussisk vifte med sigma grader i planet (LED med
+    smal innkopling). 2D-modell: fluksen per lengd fell som 1/r, uttaket er jamt (ANTAKING). Speglar i sidekantane."""
+    xs = np.linspace(0, w, nx); ys = np.linspace(y0, h, ny)
+    X, Y = np.meshgrid(xs, ys, indexing='ij')
+    n_led = int(round(w / pitch)); xl = (np.arange(n_led) + 0.5) * pitch
+    xl = np.concatenate([xl, -xl, 2 * w - xl])
+    L = np.zeros_like(X)
+    for x0 in xl:
+        dx = X - x0; r = np.hypot(dx, Y); psi = np.arctan2(dx, Y)
+        if sigma is None:
+            I = np.where(np.abs(psi) < math.asin(1 / 1.49), np.cos(psi), 0.0)
+        else:
+            I = np.exp(-0.5 * (np.degrees(psi) / sigma) ** 2)
+        L += I / r
+    return xs, ys, L / L.mean()
+
+def kontrast(xs, ys, L, y):
+    j = int(np.argmin(np.abs(ys - y))); m = (xs > 0.25 * xs[-1]) & (xs < 0.75 * xs[-1])
+    p = L[m, j]; return float((p.max() - p.min()) / (p.max() + p.min())), float(p.max() / p.mean())
+
+def k_striper():
+    t0 = time.time()
+    v = json.load(open(TALFIL, encoding='utf-8')).get('val', {}).get('T', dict(motor='E2', s=90, a=0))
+    M = last_motor(v['motor'])
+    w, h = TELT['w'], TELT['h']
+    variantar = {'arbeid: 60 LED, 8 mm, nakne': (0.008, None), 'stemning: 12 LED, 40 mm, nakne': (0.040, None),
+                 'stemning: 12 LED, 40 mm, vifte 6°': (0.040, 6.0), 'stemning: 20 LED, 24 mm, vifte 6°': (0.024, 6.0),
+                 'stemning: 12 LED, 40 mm, vifte 3°': (0.040, 3.0)}
+    ut = {}
+    for namn, (p, s) in variantar.items():
+        xs, ys, L = stripekart(w, h, p, s)
+        ut[namn] = {('%d mm' % round(y * 1000)): [r2(c, 2), r2(m, 2)] for y in (0.01, 0.03, 0.06, 0.10, 0.15, 0.19)
+                    for c, m in [kontrast(xs, ys, L, y)]}
+        np.save(os.path.join(CACHE, 'stripe_%d_%s.npy' % (round(p * 1000), 'n' if s is None else '%g' % s)), L.astype(np.float32))
+        print(namn, ut[namn], flush=True)
+    # regnbogebandet: kvar på ruta auget ser cut-off, per bølgjelengd
+    W, K = watt_k(0.0)
+    r, kr = telt(v['s'], M, W, K, v.get('bak', 0.0))
+    band = {}
+    rgbw = (_cmf(LAMS) @ XYZ_RGB.T) * planck(LAMS, K)[:, None]
+    for navn, E in (('auge 47 cm', AUGE), ('auge 25 cm', b(0, -0.15, 0.25)), ('auge 60 cm', b(0, -0.15, 0.60)), ('auge 47 cm, 15 cm fram', b(0, 0.0, 0.47))):
+        yy = np.linspace(0.002, h - 0.002, 200)
+        P = r.o[None] + r.ex * w / 2 + yy[:, None] * r.ey
+        d = E - P; d /= np.linalg.norm(d, axis=1)[:, None]
+        u, vv = d @ r.ex, d @ r.ey
+        Ll = np.array([oppslag(M['tab_l'][i], u, vv) for i in range(len(LAMS))]) * r.kf     # (lam, y)
+        Lm = (vekter(K)[:, None] * Ll).sum(0)
+        rgb = np.clip(Ll.T @ rgbw, 0, None); rgb0 = np.clip(np.outer(Lm, rgbw.sum(0) / (vekter(K) @ np.ones(len(LAMS)))), 1e-12, None)
+        m = rgb / np.maximum(rgb.sum(1, keepdims=True), 1e-12) / (rgbw.sum(0) / rgbw.sum())
+        farga = np.abs(m - 1).max(1) > 0.15
+        th = np.degrees(np.arccos(np.clip(d @ r.ez, -1, 1)))
+        band[navn] = dict(L_maks=r2(Lm.max(), 0), L_min=r2(Lm.min(), 0), vinkel_frå_normal=[r2(th.min(), 1), r2(th.max(), 1)],
+                          farga_mm=[r2(yy[k] * 1000, 0) for k in np.flatnonzero(farga)[[0, -1]]] if farga.any() else [],
+                          farga_breidd_mm=r2(farga.sum() * (yy[1] - yy[0]) * 1000, 0))
+        print(navn, band[navn], flush=True)
+    # kva auget ser i stemning: snittluminans gonger stripene
+    xs, ys, Ls = stripekart(w, h, 0.040, 6.0)
+    S = np.array(r.punkt(24, 10)); d = AUGE - S; d /= np.linalg.norm(d, axis=1)[:, None]
+    Lsnitt = float(r.L(d).mean())
+    auge = dict(L_snitt=r2(Lsnitt, 0), L_stripe_topp=r2(Lsnitt * float(Ls[:, ys > 0.01].max()), 0),
+                L_stripe_topp_frå_30mm=r2(Lsnitt * float(Ls[:, ys > 0.03].max()), 0))
+    print('auget i stemning', auge, flush=True)
+    lagre('striper', dict(kontrast_og_topp_per_avstand=ut, regnbogeband=band, auget_stemning=auge,
+                          merk='kontrast = (maks − min)/(maks + min) på tvers av stripene i midtre halvdel; topp = maks/snitt'))
+    logg('striper (%.0f s): sjå tal.json["striper"]. Auget 47 cm i stemning: snitt %s cd/m², stripetopp %s (frå 30 mm %s).' % (
+        time.time() - t0, auge['L_snitt'], auge['L_stripe_topp'], auge['L_stripe_topp_frå_30mm']))
+
+# ------------------------------------------------------------------ IES og scene
+
+def skriv_ies(r, fil, tittel, lm):
+    """LM-63-2002, type C, i romkoordinatar: γ = 0 er rett ned (−z), C = 0 er +x (til høgre), C = 90 er +y (mot veggen).
+    Absolutt fotometri (lumen −1): candela for tilstanden slik han er rekna."""
+    V = np.arange(0, 180.01, 2.5); Hh = np.arange(0, 360, 5.0)
+    G, C = np.meshgrid(np.radians(V), np.radians(Hh), indexing='ij')
+    d = np.stack([np.sin(G) * np.cos(C), np.sin(G) * np.sin(C), -np.cos(G)], -1).reshape(-1, 3)
+    I = r.I(d).reshape(len(V), len(Hh))
+    with open(fil, 'w', encoding='ascii', newline='\r\n') as f:
+        f.write('IESNA:LM-63-2002\n[TEST] Rekna i northern-lampe/form05/motor.py, ikkje maalt\n')
+        f.write('[MANUFAC] Northern-lampe, skuleprosjekt\n[LUMCAT] %s\n[LUMINAIRE] %s\n' % (os.path.basename(fil), tittel))
+        f.write('[LAMP] LED %.0f K, %.0f lm ut av ruta (%.0f lm ved LED-ane)\n[OTHER] gamma 0 = -z (ned), C 0 = +x, C 90 = +y; romkoordinatar\n' % (r.K, lm, r.lm_led))
+        f.write('TILT=NONE\n')
+        f.write('1 -1 1 %d %d 1 2 %.3f %.3f 0.006\n' % (len(V), len(Hh), r.w, r.h))
+        f.write('1 1 %.2f\n' % r.W)
+        def rader(x):
+            s = ['%.1f' % v for v in x]
+            return '\n'.join(' '.join(s[i:i + 10]) for i in range(0, len(s), 10)) + '\n'
+        f.write(rader(V)); f.write(rader(Hh))
+        for j in range(len(Hh)): f.write(rader(I[:, j]))
+
+def k_ut():
+    tal = json.load(open(TALFIL, encoding='utf-8'))
+    val = tal['val']
+    sc = dict(merk='Romkoordinatar i meter som lysskisse.py: x til høgre, y mot veggen (veggen y = 0,70), z opp, bordplata z = 0,72. '
+                    'Lyset i IES-filene er i romkoordinatar (γ 0 = ned, C 0 = +x, C 90 = +y): set punktlyset utan rotasjon. '
+                    'IES-filene er rekna frå luminanstabellen til motoren, ikkje målte.',
+              rom=dict(bord=dict(z=ZB, x=[-0.7, 0.7], y=[0.0, 0.7], rho=[0.50, 0.40, 0.30]), vegg_y=YV,
+                       skjerm=dict(senter=[0.0, 0.45, ZB + 0.265], storleik=[0.54, 0.31], luminans_cd_m2=40, tilt_sjekka_grader=[0, 20])),
+              augepunkt=dict(auge=list(map(float, AUGE)), volum='±0,15 m sidevegs, 0,15 m fram, 0,25 til 0,60 m over bordet'),
+              materiale=dict(prismefilm=dict(profil=FILMTEKST, pitch_um=PITCH_UM, pitch_merk='ANTAKING, ikkje målt',
+                                              n_d=FILM.n_d, abbe=FILM.abbe, cauchy_A=r2(FILM.A, 5), cauchy_B_nm2=r2(FILM.B, 1),
+                                              n=dict((str(int(l)), r2(FILM.n(l), 4)) for l in (450, 550, 650)),
+                                              orientering='prismesida ut frå plata; rillene i den øvste filmen langs x (kanten med LED-ane)'),
+                             lysleiarplate=dict(materiale='PMMA, klar', tjukn_mm=4, uttak='kvite prikkar på baksida, tettare mot enden (ANTAKING)', n_d=1.49),
+                             diffusor='volumdiffusor, om lag 60 % gjennom første gong (ANTAKING)',
+                             reflektor='kvit PET bak plata, ρ 0,95 (ANTAKING)',
+                             burgunder=[0.30, 0.06, 0.07], aluminium_borsta=dict(farge=[0.55, 0.55, 0.56], ruheit=0.35)),
+              kamera=dict(telt=dict(pos=[-0.45, -0.85, ZB + 0.30], mot=[0.02, 0.38, ZB + 0.40], fov_grader=38, merk='anslått frå det genererte biletet «Telt»'),
+                          klemme=dict(pos=[-0.60, -0.55, ZB + 0.32], mot=[0.35, 0.25, ZB + 0.35], fov_grader=45, merk='anslått frå det genererte biletet «Klemme»'),
+                          rom=dict(pos=list(map(float, ls.KAM.C)), merk='kameraet til A, B og C i lysskisse.py')),
+              kroppar={}, emitterar=[])
+    for kv, fn, T in (('T', telt, TELT), ('K', klemme, KLEMME)):
+        v = val[kv]; M = last_motor(v['motor']); ek = tal.get('ekstra_' + kv, {})
+        sc['kroppar'][kv] = dict(namn={'T': 'Telt', 'K': 'Klemme'}[kv], mål_m={k: x for k, x in T.items()}, motor=M['namn'],
+                                gest=v.get('gest', ''), vinkel_stemning=v['s'], vinkel_arbeid=v['a'])
+        for t, m in ((0.0, 'stemning'), (1.0, 'arbeid')):
+            W, K = watt_k(t)
+            if m == 'arbeid' and 'arbeid' in ek: W = ek['arbeid']['W']
+            r, kr = fn(v['s'] if t == 0 else v['a'], M, W, K, v.get('bak', 0.0))
+            fil = 'ies_%s_%s.ies' % ({'T': 'telt', 'K': 'klemme'}[kv], m)
+            skriv_ies(r, os.path.join(HER, fil), '%s, %s, %.0f K' % (sc['kroppar'][kv]['namn'], m, K), r.phi_ut)
+            sc['emitterar'].append(dict(kropp=kv, tilstand=m, ies=fil, W=r2(W, 2), lm_led=r2(r.lm_led, 0), lm_ut=r2(r.phi_ut, 0),
+                                        CCT=K, senter=[r2(x, 4) for x in r.c], normal_framside=[r2(x, 4) for x in r.ez],
+                                        ex=[r2(x, 4) for x in r.ex], ey=[r2(x, 4) for x in r.ey], storleik=[r.w, r.h],
+                                        L_rett_fram_cd_m2=r2(r.kf * M['tab'][NB // 2, NB // 2], 0),
+                                        merk='Mesh-plate med emisjon for det auget ser, punktlys med IES i senteret for rommet'))
+    json.dump(sc, open(os.path.join(HER, 'scene.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1, default=_j)
+    logg('ut: ies_*.ies (4 stk) og scene.json skrivne')
 
 if __name__ == '__main__':
     try: sys.stdout.reconfigure(encoding='utf-8')
     except Exception: pass
     a = sys.argv[1:]
-    if a and a[0] == 'film':
-        print(kontroll_film()); lag_tabell()
-    elif a and a[0] == 'sjekk':
-        m_sjekk()
-    elif a and a[0] == 'sok':
-        m_sok()
-    elif a and a[0] in ('tal', 'stripe', 'studie'):
-        import motor_ut
-        getattr(motor_ut, 'm_' + a[0])()
+    if not a: print(__doc__); sys.exit()
+    {'kalib': k_kalib, 'tretest': k_tretest, 'skann': k_skann, 'striper': k_striper, 'ut': k_ut}.get(a[0], lambda: None)()
+    if a[0] == 'rekn': k_rekn(a[1])
+    if a[0] == 'bilete':
+        import studie
+        studie.lag()

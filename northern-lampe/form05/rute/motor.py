@@ -257,11 +257,11 @@ def stotte(spec):
     farge = BURG if s == 'telt' else GRA
     if any(r['fraa'] == 'kant' for r in R):          # huset for LED-ane langs hengslet
         p.append(ls.Syl(b(xl - 0.015, yc, H), b(xr + 0.015, yc, H), R[0].get('r', 0.020), rho=farge))
-    if s == 'telt':
-        xa = xr + 0.05
+    if s == 'telt':                                     # foten står utanfor feltet (x over 0,30 + radius)
+        xa = xr + 0.05; xf = max(xa, 0.44)
         p += [ls.Syl(b(xr + 0.015, yc, H), b(xa + 0.012, yc, H), 0.028, rho=ALU),
-              ls.Syl(b(xa, yc - 0.04, 0.018), b(xa, yc, H - 0.03), 0.010, rho=ALU),
-              ls.Syl(b(xa, yc - 0.04, 0.0), b(xa, yc - 0.04, 0.018), 0.12, rho=BURG)]
+              ls.Syl(b(xf, yc, 0.018), b(xa, yc, H - 0.03), 0.010, rho=ALU),
+              ls.Syl(b(xf, yc, 0.0), b(xf, yc, 0.018), 0.12, rho=BURG)]
     elif s == 'klemme':
         xs = 0.66
         p += [ls.Syl(b(xr + 0.005, yc, H), b(xs, yc, H), 0.010, rho=GRA),
@@ -289,6 +289,15 @@ def bygg(spec, t, W=None, K=None):
     M = last_motor(spec['kjelde'], spec['rille'])
     A = sum(r['w'] * r['h'] for r in spec['ruter'])
     ruter, kropp = [], stotte(spec)
+    q = spec.get('bakstripe', 0.0)
+    if q > 0:                                           # stripe dioder på hengslet, vend mot veggen bak skjermen (som rute.py)
+        R0 = spec['ruter'][0]; sn = nrm(np.array([0.0, 1.0, -0.3])); xr = max(r['hengsel'][0] + r['w'] / 2 for r in spec['ruter'])
+        xl = min(r['hengsel'][0] - r['w'] / 2 for r in spec['ruter'])
+        fl = ls.flate(b(*R0['hengsel']) + sn * (R0.get('r', 0.012) + 0.004), sn, (xr - xl, 0.02), q * W * ls.LMW_KJELDE * 0.9, K, opp=(0, 0, 1))
+        fl.lm_ut = fl.lm; fl.lm = q * W * ls.LMW_KJELDE; fl.mater = True
+        stripe = [fl]; W = W * (1 - q)
+    else:
+        stripe = []
     for r in spec['ruter']:
         phi = r['vinkel'][0] + (r['vinkel'][1] - r['vinkel'][0]) * float(t)
         o, ex, ey = rute_pose(r, phi)
@@ -297,13 +306,14 @@ def bygg(spec, t, W=None, K=None):
         if spec['kjelde'] == 'bak':                     # boksen bak arket
             d = KJELDE['bak']['djupn']
             kropp.append(ls.Rekt(o - d * ru.ez, ex * r['w'], ey * r['h'], rho=SVARTK))
+    bygg.stripe = stripe
     return ruter, kropp
 
 def grep(spec):
     def g(t):
         ruter, kr = bygg(spec, t)
         g.siste = ruter
-        return sum([r.lys() for r in ruter], []), kr
+        return sum([r.lys() for r in ruter], []) + bygg.stripe, kr
     return g
 
 def variant(spec, **endr):
@@ -436,18 +446,14 @@ def ende(spec):
     return ende_g(grep(spec))
 
 def skannliste():
+    """Runde 1 (15.44) hadde foten til Telt inne i feltet (jamnheit 0,01). Runde 2 under har foten utanfor."""
     T, K = KROPPAR['T'], KROPPAR['K']
-    return [('T kryss 90>0', variant(T, rille='kryss', vinkel=(90, 0))),
-            ('T kryss 110>0', variant(T, rille='kryss', vinkel=(110, 0))),
-            ('T loddrett 110>0', variant(T, rille='loddrett', vinkel=(110, 0))),
-            ('T kryss-v 110>0', variant(T, rille='kryss-v', vinkel=(110, 0))),
-            ('T kryss 110>15', variant(T, rille='kryss', vinkel=(110, 15))),
-            ('T ingen 110>0', variant(T, rille='ingen', vinkel=(110, 0))),
-            ('K kryss 180>0', variant(K, rille='kryss', vinkel=(180, 0))),
-            ('K loddrett 180>0', variant(K, rille='loddrett', vinkel=(180, 0))),
-            ('K kryss-v 180>0', variant(K, rille='kryss-v', vinkel=(180, 0))),
-            ('K kryss -135>0', variant(K, rille='kryss', vinkel=(-135, 0))),
-            ('K loddrett 180>10', variant(K, rille='loddrett', vinkel=(180, 10)))]
+    return [('T2 kryss 110>0', variant(T, rille='kryss', vinkel=(110, 0))),
+            ('T2 kryss 125>0', variant(T, rille='kryss', vinkel=(125, 0))),
+            ('T2 kryss 125>0 stripe0.2', variant(T, rille='kryss', vinkel=(125, 0), bakstripe=0.2)),
+            ('T2 kryss 125>0 bak0.3', variant(T, rille='kryss', vinkel=(125, 0), bak=0.3)),
+            ('K kryss -135>0 stripe0.2', variant(K, rille='kryss', vinkel=(-135, 0), bakstripe=0.2)),
+            ('K kryss 180>0 stripe0.2', variant(K, rille='kryss', vinkel=(180, 0), bakstripe=0.2))]
 
 def k_skann():
     t0 = time.time()
@@ -660,12 +666,12 @@ def k_ut():
 # ------------------------------------------------------------------ kroppane (sjå toppen av fila)
 
 KROPPAR = {
-    'T': dict(namn='Telt', stotte='telt', kjelde='kant', rille='kryss', bak=0.0,
-              ruter=[dict(w=0.48, h=0.20, hengsel=(0.0, 0.40, 0.50), fraa='kant', r=0.020, vinkel=(90, 0))],
-              gest='drei ruta om sylinderen: ståande vindauge i stemning, liggjande over feltet i arbeid'),
+    'T': dict(namn='Telt', stotte='telt', kjelde='kant', rille='kryss', bak=0.0, bakstripe=0.25,
+              ruter=[dict(w=0.48, h=0.20, hengsel=(0.0, 0.40, 0.50), fraa='kant', r=0.020, vinkel=(125, 0))],
+              gest='drei ruta om sylinderen: lent bakover som eit vindauge i stemning (125°), liggjande over feltet i arbeid (0°)'),
     'K': dict(namn='Klemme', stotte='klemme', kjelde='kant', rille='kryss', bak=0.0,
-              ruter=[dict(w=0.52, h=0.20, hengsel=(0.0, 0.24, 0.50), fraa='midt', vinkel=(180, 0))],
-              gest='snu hovudet om armen: lyser opp i stemning, ned i arbeid'),
+              ruter=[dict(w=0.52, h=0.20, hengsel=(0.0, 0.24, 0.50), fraa='midt', vinkel=(-135, 0))],
+              gest='snu hovudet om armen: mot veggen og taket i stemning (−135°), rett ned i arbeid (0°)'),
 }
 
 if __name__ == '__main__':

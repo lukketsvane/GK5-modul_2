@@ -28,3 +28,23 @@ Dato: 13.11.2026. Lampa ER vindauget: ei rute som sjølv lyser, med lysleiarplat
 - 15.43 skann K kryss 180>0: W350 2.91 U 0.56 auge  552/  82/  74 bak   8 skjerm  83 | st: auge   5/  5/ 49 bak   2 felt   4 skjerm 1.3 | lik 0.06
 - 15.43 skann K loddrett 180>0: W350 3.43 U 0.68 auge  532/  65/  65 bak  11 skjerm 180 | st: auge   9/  9/ 64 bak   2 felt   5 skjerm 1.5 | lik 0.12
 - 15.43 skann K kryss-v 180>0: W350 2.91 U 0.55 auge  365/1654/  77 bak  19 skjerm  93 | st: auge   9/  9/689 bak   7 felt   4 skjerm 1.3 | lik 0.04
+- 15.43 skann K kryss -135>0: W350 2.91 U 0.56 auge  552/  82/  74 bak   8 skjerm  83 | st: auge  34/ 34/ 34 bak  13 felt   3 skjerm 1.8 | lik 0.07
+- 15.43 skann K loddrett 180>10: W350 3.56 U 0.59 auge 1547/ 145/  66 bak   9 skjerm 114 | st: auge   9/  9/ 64 bak   2 felt   5 skjerm 1.5 | lik 0.13
+- 15.44 skann T2 kryss 110>0: W350 2.88 U 0.47 auge  312/  78/  78 bak  10 skjerm 110 | st: auge 322/306/940 bak   0 felt   1 skjerm 0.5 | lik 0.37
+- 15.44 skann T2 kryss 125>0: W350 2.88 U 0.47 auge  312/  78/  78 bak  10 skjerm 110 | st: auge  49/331/259 bak   1 felt   2 skjerm 1.1 | lik 0.23
+- 15.44 skann T2 kryss 125>0 stripe0.2: W350 3.51 U 0.47 auge  304/  77/  77 bak  96 skjerm 129 | st: auge  39/265/207 bak  31 felt   5 skjerm 8.8 | lik 0.41
+- 15.44 skann T2 kryss 125>0 bak0.3: W350 4.09 U 0.48 auge  310/  78/ 210 bak  14 skjerm 110 | st: auge  34/232/181 bak  26 felt   5 skjerm 2.1 | lik 0.53
+- 15.44 skann K kryss -135>0 stripe0.2: W350 3.46 U 0.59 auge  524/  78/  73 bak  30 skjerm 169 | st: auge  30/ 30/ 30 bak  25 felt   3 skjerm 21.6 | lik 0.28
+- 15.44 skann K kryss 180>0 stripe0.2: W350 3.46 U 0.59 auge  524/  78/  73 bak  30 skjerm 169 | st: auge   7/  7/ 39 bak  10 felt  10 skjerm 33.3 | lik 0.33
+- 15.49 **Skann runde 1 (rekna), det som fall:**
+  - Telt: jamnheit 0,01 i alle variantar. Årsaka var foten (Ø 240 mm), som stod inne i feltet og skugga rutene under seg. Foten er flytt til x = 0,44 (utanfor feltet), og armen går skrått opp. Det er ein formregel: den runde foten frå biletet kan ikkje stå på feltet.
+  - Telt ståande (90°) i stemning: 973 til 995 cd/m² mot auget 47 og 60 cm (krav 500). Ruta lyser rett mot auget. Lent 20° bakover (110°) er det framleis 940 for auget 60 cm. Neste prøve er 125°.
+  - Telt og Klemme med det øvste arket vassrett (kryss-v): 1949 og 1654 cd/m² mot auget 47 cm i arbeid. Det er sidelobane. Rillene i det øvste arket må peike mot brukaren.
+  - Telt utan film (matt spreiar): 6,7 W og 1884 cd/m², same funn som rute.py (6,6 W og om lag 2000).
+  - Begge: veggen bak skjermen 5 til 20 lx i arbeid (F6 100 til 150). Ruta lyser ikkje dit. Neste prøve er ei diodestripe mot veggen på hengslet (20 % av watten, som i rute.py).
+  - Klemme snudd opp i stemning: 2 lx bak skjermen og 4 lx på feltet, så stemninga blir nesten borte (likskap 0,06). Snudd via veggen (−135°) gjev 13 lx bak skjermen og 34 cd/m² mot auget.
+  - Det som held: Klemme i arbeid med kryss gjev 2,9 W, jamnheit 0,56 og 552 / 82 / 74 cd/m² mot auget. Telt i arbeid gjev om lag 3,1 W og 338 / 85 / 85 cd/m².
+- 15.55 **Skann runde 2 (rekna), foten utanfor feltet:** Telt kryss 125°→0° gjev 2,88 W, jamnheit 0,47, auget 312 / 78 / 78 cd/m² i arbeid og 49 / 331 / 259 i stemning (krav 500 held). Stripa mot veggen (20 %) løftar veggen bak skjermen frå 10 til 96 lx og kostar 3,51 W. Lys ut baksida (30 %) gav berre 14 lx og 4,09 W, og fall. For Klemme lyser same stripe på skjermflata (169 lx) fordi hovudet heng framfor skjermen, og veggen får berre 30 lx: stripa fall for Klemme.
+- 15.56 **Val:** Telt = kryss, 125° → 0°, stripe 25 % (rekna fram til om lag 128 lx bak skjermen). Klemme = kryss, −135° → 0° (via veggen), utan stripe. Grunngjeving i konsept.md.
+- 15.45 rekn T (5 s): W350 3.71 U 0.47 auge  301/  76/  76 bak 123 skjerm 135 | st: auge  37/248/194 bak  39 felt   5 skjerm 10.7 | lik 0.49. Stemning: augevolum 331.0 cd/m², spegling blank 0.0. Arbeid: 2.78 W, augevolum 870.0 cd/m², bak 2 cm 120.8 lx (tal() 123.5), spegling blank 28.2 cd/m².
+- 15.45 rekn K (4 s): W350 2.91 U 0.56 auge  552/  82/  74 bak   8 skjerm  83 | st: auge  34/ 34/ 34 bak  13 felt   3 skjerm 1.8 | lik 0.07. Stemning: augevolum 0.0 cd/m², spegling blank 9.7. Arbeid: 2.91 W, augevolum 849.0 cd/m², bak 2 cm 8.4 lx (tal() 8.4), spegling blank 19.4 cd/m².

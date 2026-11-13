@@ -4,8 +4,8 @@
 Éin kropp stor på svart: arbeid og stemning side om side med same kamera og same låste eksponering, mannekengen,
 bordet, skjermen og veggen, isolux-kurver med lux-merke på bord og vegg, lysfordelinga i snitt (cd/klm) og tala i
 små kursive liner under kvart bilete. Oppsettet er henta frå k_studie() i northern-lampe/form05/gen_d/val.py.
-Rommet, kameraet, eksponeringa og tal() er lysmotoren sine (konsept/lysskisse/lysskisse.py), og kurvene og polarsnittet
-er funksjonane i konsept/lysskisse/studie.py (importerte, ikkje kopierte).
+Rommet, kameraet, eksponeringa og tal() er lysmotoren sine (konsept/lysskisse/lysskisse.py). Lux-feltet og polarsnittet er
+funksjonane i konsept/lysskisse/studie.py (importerte). Kurveteikninga er ein kopi derifrå med betre plass til merka.
 
   import studie
   r = studie.studie(g, 'Namn på lampa · kva ho er laga av', 'studie.png')
@@ -81,6 +81,50 @@ def _auge(d):
     return max(d.get('L_auge25', 0.0), d.get('L_auge47', d['L_lampe']), d.get('L_auge60', 0.0), d['L_flate'])
 
 
+def _isolux(im, F, niv_bord, niv_vegg, font):
+    """Isolux-kurver med lux-merke på bord og vegg.
+    KOPI av _teikn_isolux i konsept/lysskisse/studie.py (13.11.2026): same kurver, same farge og strek. Endra berre
+    plasseringa av merka: originalen prøver éin plass per kurve og hoppar over merket om plassen er oppteken. Her prøver
+    kvart merke fleire plassar langs kurva, så alle nivå som finst i biletet, får merke."""
+    from skimage.measure import find_contours
+    st = _st(); n = im.size[0]
+    dr = ImageDraw.Draw(im, 'RGBA'); sett = []
+    okkl = [q for q in F['okkl'] if q not in (ls.BORD, ls.VEGG, ls.ARK)]
+    fs = font.size
+
+    def fri(x, y, w):
+        if not (2 < x < n - w - 2 and 2 < y < n - fs - 4): return False
+        return all(x + w + 6 < a or a + bw + 6 < x or y + fs + 2 < c or c + fs + 2 < y for a, c, bw in sett)
+
+    for E, ax0, ax1, niv, plan in ((F['Eb'], F['bx'], F['by'], niv_bord, 'bord'), (F['Ev'], F['vx'], F['vz'], niv_vegg, 'vegg')):
+        for lv in niv:
+            beste = None
+            for c in find_contours(E, lv):
+                a = np.interp(c[:, 0], np.arange(len(ax0)), ax0); bb = np.interp(c[:, 1], np.arange(len(ax1)), ax1)
+                W = np.stack([a, bb, np.full(len(a), ls.ZB + 0.002)], 1) if plan == 'bord' else np.stack([a, np.full(len(a), ls.YV - 0.002), bb], 1)
+                pp, z = st._prosjiser(W, n)
+                ok = ls.synleg(W, ls.KAM.C, okkl) & (z > 0)
+                seg = []
+                for (x, y), v in zip(pp, ok):
+                    if v: seg.append((x, y))
+                    else:
+                        if len(seg) > 1: dr.line(seg, fill=(235, 232, 225, 120), width=max(1, n // 400))
+                        seg = []
+                if len(seg) > 1: dr.line(seg, fill=(235, 232, 225, 120), width=max(1, n // 400))
+                syn = pp[ok]
+                if len(syn) > 12 and (beste is None or len(syn) > len(beste)): beste = syn
+            if beste is None: continue
+            tekst = f'{lv:g} lx'; w = dr.textlength(tekst, font=font)
+            hogre, venstre = beste[np.argmax(beste[:, 0])], beste[np.argmin(beste[:, 0])]
+            topp, botn = beste[np.argmin(beste[:, 1])], beste[np.argmax(beste[:, 1])]
+            kand = [(hogre[0] + 6, hogre[1] - fs // 2), (botn[0] - w / 2, botn[1] + 4), (venstre[0] - w - 6, venstre[1] - fs // 2), (topp[0] - w / 2, topp[1] - fs - 4)]
+            if plan == 'vegg': kand = [(topp[0] - fs, topp[1] - fs - 4), kand[0], kand[2], kand[1]]
+            kand += [(q[0] + 6, q[1] - fs - 2) for q in beste[np.linspace(0, len(beste) - 1, 9).astype(int)[1:-1]]]
+            for x, y in kand:
+                if fri(x, y, w):
+                    dr.text((x, y), tekst, font=font, fill=(235, 232, 225, 190)); sett.append((x, y, w)); break
+
+
 def rekn(g):
     """tal() for arbeid (t = 1) og stemning (t = 0), og dei avleidde tala arket viser.
     Gjev dict(arbeid, stemning, W350, ved350, likskap, krav). Arbeid og stemning er tal() ved watten lysgrepet sjølv gjev.
@@ -150,7 +194,7 @@ def studie(g, tittel, fil, nett=None, px=560, tal=None, ekstra_arbeid=(), ekstra
         hdr = ls.luminans(lys, kb, px, 1)
         im = Image.fromarray(ls.framkall(hdr, px)).resize((1200, 1200), Image.LANCZOS)      # låst eksponering, same kamera
         F = st._felt(lys, kb)
-        st._teikn_isolux(im, F, tuple(niv), tuple(niv), fnt)
+        _isolux(im, F, tuple(niv), tuple(niv), fnt)
         ix = (np.abs(F['bx']) <= 0.3 + 1e-9); iy = (F['by'] >= 0.05 - 1e-9) & (F['by'] <= 0.45 + 1e-9)
         panel[lab] = dict(im=im, polar=st.polar(lys), E_felt_bilete=float(F['Eb'][np.ix_(ix, iy)].mean()))
         if not stille: print('  studie: %s ferdig (%.0f s)' % (lab, time.time() - t0), flush=True)

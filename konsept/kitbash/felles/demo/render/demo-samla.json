@@ -1,0 +1,70 @@
+{
+ "scene": "demo-samla",
+ "w": 1600,
+ "h": 1000,
+ "delar": [
+  {
+   "namn": "fot",
+   "slag": "print",
+   "del_": "ny",
+   "px": [
+    800.0,
+    829.4
+   ]
+  },
+  {
+   "namn": "hylse",
+   "slag": "print",
+   "del_": "ny",
+   "px": [
+    800.0,
+    764.3
+   ]
+  },
+  {
+   "namn": "ballast",
+   "slag": "kjopt",
+   "del_": "ny",
+   "px": [
+    800.0,
+    840.9
+   ]
+  },
+  {
+   "namn": "arm",
+   "slag": "sett",
+   "del_": "P01",
+   "px": [
+    774.6,
+    263.2
+   ]
+  },
+  {
+   "namn": "nav",
+   "slag": "print",
+   "del_": "ny",
+   "px": [
+    760.6,
+    124.6
+   ]
+  },
+  {
+   "namn": "kjoleplate",
+   "slag": "kjopt",
+   "del_": "ny",
+   "px": [
+    778.3,
+    198.5
+   ]
+  },
+  {
+   "namn": "led",
+   "slag": "kjopt",
+   "del_": "ny",
+   "px": [
+    778.3,
+    203.8
+   ]
+  }
+ ]
+}

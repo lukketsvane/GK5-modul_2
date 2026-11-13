@@ -7,6 +7,7 @@ Alt er rekna, ikkje målt. Måla på delane frå settet er anslag frå foto, så
   masse(delar)                  masse per del, total og tyngdepunkt
   kontakt(delar)                omrisset lampa står på (konveks hylster av det som rører bordet)
   velt(delar, punkt)            minste vassrette dytt i punktet som veltar lampa, og veltevinkelen
+  moment(delar, punkt, akse)    for lamper som heng på skjermkant eller vegg: massen og momentet om støtteaksen
   tippkraft(delar, punkt, retning)   krafta i ei vald retning (til dømes rett ned på ein utkragar)
   varme(delar)                  kvar LED-en sit (metall eller print) og kor varm kjøleflata blir
   utskrift(delar)               trykte delar mot 256 x 256 x 256 mm, overheng og gram
@@ -136,8 +137,10 @@ def _underdelmasse(d, u, mesh_lokal, mat):
 
 
 def masse(delar):
-    """Masse og tyngdepunkt. Gjev dict(total_g, pm_g, tp_mm, rader=[dict(namn, slag, g, tp_mm, kjelde)])."""
-    rader = []; M = 0.0; mom = np.zeros(3); var = 0.0
+    """Masse og tyngdepunkt. Gjev dict(total_g, pm_g, tp_mm, lampe_g, lampe_tp_mm, rader=[dict(namn, slag, g, tp_mm, kjelde)]).
+    total_g og tp_mm gjeld alt i lista (det velt() reknar med). lampe_g og lampe_tp_mm er utan delar merkte omgjevnad
+    (skjermen): det er massen kravet F8 gjeld."""
+    rader = []; M = 0.0; mom = np.zeros(3); var = 0.0; Ml = 0.0; moml = np.zeros(3)
     for d in delar:
         if d.vekt_g is not None:
             g = float(d.vekt_g); c = d.mesh().center_mass if d.mesh().is_volume else d.mesh().centroid
@@ -150,9 +153,12 @@ def masse(delar):
                 ci = mv.center_mass if mv.is_volume else mv.centroid
                 g += gi; cm += gi * np.asarray(ci); merk.append(tekst)
             c = cm / max(g, 1e-12); kjelde = '; '.join(sorted(set(merk))); rel = USIKKER[d.slag]
-        rader.append(dict(namn=d.namn, slag=d.slag, pid=d.pid, g=round(g, 1), tp_mm=[round(float(x), 1) for x in c], kjelde=kjelde, pm_g=round(rel * g, 1)))
+        rader.append(dict(namn=d.namn, slag=d.slag, pid=d.pid, g=round(g, 1), tp_mm=[round(float(x), 1) for x in c], kjelde=kjelde, pm_g=round(rel * g, 1),
+                          omgjevnad=bool(d.omgjevnad)))
         M += g; mom += g * np.asarray(c); var += (rel * g) ** 2
-    return dict(total_g=round(M, 1), pm_g=round(math.sqrt(var), 1), tp_mm=[round(float(x), 1) for x in mom / max(M, 1e-12)], rader=rader)
+        if not d.omgjevnad: Ml += g; moml += g * np.asarray(c)
+    return dict(total_g=round(M, 1), pm_g=round(math.sqrt(var), 1), tp_mm=[round(float(x), 1) for x in mom / max(M, 1e-12)], rader=rader,
+                lampe_g=round(Ml, 1), lampe_tp_mm=[round(float(x), 1) for x in moml / max(Ml, 1e-12)])
 
 # ------------------------------------------------------------------ velt
 
@@ -237,6 +243,26 @@ def velt(delar, punkt, krav_N=5.0, n_retn=72):
                 tp_innanfor_mm=round(min(inn), 1), fot_cm2=round(k['areal_cm2'], 1), masse_g=m['total_g'], masse_pm_g=m['pm_g'],
                 tp_mm=m['tp_mm'], z0_mm=round(k['z0'], 2),
                 merknad='rekna: stiv kropp på stivt bord, friksjon %s (ANTAKING). dytt_N_lett er med massen i nedre kant av usikkerheita.' % _nn(MY, 1))
+
+def moment(delar, punkt, akse=(1, 0, 0), dytt=None):
+    """For ei lampe som heng på noko (skjermkant, hylle, vegg) i staden for å stå: massen støtta må bere, og momentet
+    tyngda gjev om ein akse gjennom `punkt` (mm). akse: retninga til aksen, t.d. (1, 0, 0) langs skjermkanten.
+    dytt: (punkt_mm, retning, N) legg til momentet frå ei kraft, t.d. 5 N ned i handtaket.
+    Gjev dict(masse_g, arm_mm, moment_Nm, moment_dytt_Nm, moment_samla_Nm). Forteiknet følgjer høgrehandsregelen om aksen.
+    Delar merkte omgjevnad er ikkje med. Om klypa eller skjermen toler momentet, må prøvast: det reknar ikkje verktøyet."""
+    m = masse([d for d in delar if not d.omgjevnad])
+    a = np.asarray(akse, float); a = a / np.linalg.norm(a)
+    r = (np.asarray(m['tp_mm'], float) - np.asarray(punkt, float)) / 1000.0
+    Mg = float(np.cross(r, [0.0, 0.0, -m['total_g'] / 1000.0 * G]) @ a)
+    vass = r - (r @ a) * a; vass[2] = 0.0
+    ut = dict(masse_g=m['total_g'], pm_g=m['pm_g'], arm_mm=round(float(np.linalg.norm(vass)) * 1000, 1), moment_Nm=round(Mg, 3))
+    Md = 0.0
+    if dytt is not None:
+        pd, rd, F = dytt
+        rd = np.asarray(rd, float); rd = rd / np.linalg.norm(rd)
+        Md = float(np.cross((np.asarray(pd, float) - np.asarray(punkt, float)) / 1000.0, rd * float(F)) @ a)
+    ut.update(moment_dytt_Nm=round(Md, 3), moment_samla_Nm=round(Mg + Md, 3))
+    return ut
 
 # ------------------------------------------------------------------ varme
 
@@ -344,6 +370,7 @@ def eksporter(delar, mappe, namn='lampe'):
     sc = trimesh.Scene()
     til_gltf = np.array([[1, 0, 0, 0], [0, 0, 1, 0], [0, -1, 0, 0], [0, 0, 0, 1.0]]) @ np.diag([0.001, 0.001, 0.001, 1.0])
     for d, u, m, mat in K.alle_under(delar):
+        if d.omgjevnad: continue
         m = m.copy(); m.apply_transform(til_gltf)
         m.visual.face_colors = (*FARGAR.get(mat, (180, 180, 180)), 255)
         sc.add_geometry(m, node_name='%s_%s_%s' % (d.slag, d.namn, u))
@@ -390,9 +417,9 @@ def rapport(byggjar, mappe, namn='lampe', stillingar=(0.0, 0.25, 0.5, 0.75, 1.0)
     if any(a is not b for a, b in zip(staal, delar)):
         ms = masse(staal); p1 = ut['stillingar'][-1]['velt'].get('punkt_mm')
         vs = velt(staal, p1, krav_N) if p1 else {}
-        ut['om_armen_er_staal'] = dict(total_g=ms['total_g'], pm_g=ms['pm_g'], tp_mm=ms['tp_mm'], dytt_N=vs.get('dytt_N'), veltevinkel=vs.get('veltevinkel'),
+        ut['om_armen_er_staal'] = dict(total_g=ms['lampe_g'], pm_g=ms['pm_g'], tp_mm=ms['lampe_tp_mm'], dytt_N=vs.get('dytt_N'), veltevinkel=vs.get('veltevinkel'),
                                        held=vs.get('held'), merknad='armprofilen P01 rekna som stål 7,85 g/cm³ i staden for aluminium 2,70. Prøv med magnet, og vei armen.')
-    lo, hi = K.grenser(delar)
+    lo, hi = K.grenser([d for d in delar if not d.omgjevnad])
     ut['maal_mm'] = [round(float(x), 1) for x in hi - lo]
     ut['settdelar'] = sorted({d.pid for d in delar if d.pid})
     ut['eksport'] = {k: ([os.path.relpath(f, mappe).replace('\\', '/') for f in v] if isinstance(v, list) else os.path.relpath(v, mappe).replace('\\', '/'))
@@ -404,8 +431,11 @@ def rapport(byggjar, mappe, namn='lampe', stillingar=(0.0, 0.25, 0.5, 0.75, 1.0)
     m = ut['masse']
     L += ['## Masse', '', '| Del | Slag | Gram | ± | Kjelde |', '| --- | --- | --- | --- | --- |']
     L += ['| %s | %s | %s | %s | %s |' % (r['namn'], r['slag'] + (' ' + r['pid'] if r['pid'] else ''), _nn(r['g']), _nn(r['pm_g']), r['kjelde']) for r in m['rader']]
-    L += ['', 'Samla %s g ± %s (rekna; ± er ANTAKING: 35 %% på delar frå settet, 15 %% på trykte, 10 %% på kjøpte). Kravet F8 er høgst 1 200 g: %s. Tyngdepunkt (%s) mm. Ytre mål %s mm.' % (
-        _nn(m['total_g']), _nn(m['pm_g']), 'held' if m['total_g'] <= 1200 else 'held ikkje', ', '.join(_nn(x) for x in m['tp_mm']), ' × '.join(_nn(x) for x in ut['maal_mm'])), '']
+    L += ['', 'Lampa veg %s g (rekna; ± %s er ANTAKING: 35 %% på delar frå settet, 15 %% på trykte, 10 %% på kjøpte). Kravet F8 er høgst 1 200 g: %s. Tyngdepunkt (%s) mm. Ytre mål %s mm.' % (
+        _nn(m['lampe_g']), _nn(m['pm_g']), 'held' if m['lampe_g'] <= 1200 else 'held ikkje', ', '.join(_nn(x) for x in m['lampe_tp_mm']), ' × '.join(_nn(x) for x in ut['maal_mm'])), '']
+    if m['lampe_g'] != m['total_g']:
+        L += ['Med omgjevnaden (%s) er det %s g som står på bordet, med tyngdepunkt (%s) mm. Velt er rekna for det.' % (
+            ', '.join(r['namn'] for r in m['rader'] if r.get('omgjevnad')), _nn(m['total_g']), ', '.join(_nn(x) for x in m['tp_mm'])), '']
     if 'om_armen_er_staal' in ut:
         o = ut['om_armen_er_staal']
         L += ['Armprofilen (P01) er merkt aluminium i `modell/byggjesett/delar.py`, medan oppdraget kallar han stål. Er han stål, veg lampa %s g ± %s (F8: %s), tyngdepunktet ligg i (%s) mm, og ho toler %s N dytt i arbeidsstillinga. Prøv med ein magnet og vei armen: set `vekt_g=` i `sett()`.' % (
@@ -469,6 +499,12 @@ def sjolvprove():
     rund = K.Del('rund', 'sett', [('rund', K.sylinder(120, 300), 'aluminium')])                  # rund fot: hylsteret er ein mangekant
     vr = velt([rund], (0, 0, 300)); mr = math.pi * 6 ** 2 * 30 * 2.70 / 1000
     linje('velt: rund søyle Ø120 x 300, dytt i toppen, N (m g 60 / 300)', vr['dytt_N'], mr * G * 60 / 300, 0.15)
+    mo = moment([kloss], (0, 150, 0), (1, 0, 0), dytt=((0, 0, 200), (0, 0, -1), 5.0))                # klossen heng 150 mm framfor ein akse
+    linje('moment: tyngda om ein akse 150 mm unna, Nm (m g 0,15)', mo['moment_Nm'], 15.7 * G * 0.15, 0.02)
+    linje('moment: 5 N ned 150 mm framfor aksen, Nm', mo['moment_dytt_Nm'], 5.0 * 0.15, 0.001)
+    skj = K.kjopt('skjerm', K.boks(100, 100, 10, (0, 0, 5)), 'plast_svart', 4000.0, omgjevnad=True)
+    linje('omgjevnad: massen til lampa utan skjermen, g', masse([kloss, skj])['lampe_g'], 15700.0, 5.0)
+    linje('omgjevnad: massen som står på bordet, g', masse([kloss, skj])['total_g'], 19700.0, 5.0)
     lang = K.trykt('lang', K.boks(300, 20, 10, (0, 0, 5)))
     bru_ = K.trykt('bru', K.pluss(K.boks(10, 20, 30, (-20, 0, 15)), K.boks(10, 20, 30, (20, 0, 15)), K.boks(50, 20, 5, (0, 0, 32.5))))
     u = utskrift([lang, bru_])

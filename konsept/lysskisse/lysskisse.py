@@ -11,6 +11,7 @@ Motor: lysgrep (strøk + svart kropp) -> rom -> luminansbilete (cd/m²) + tal().
   python lysskisse.py --px 200      rask prøve
   python lysskisse.py --sjekk       kontroll mot analytiske svar
   python lysskisse.py --eitt vend   eitt lysgrep, stemning og arbeid
+  LYSSKISSE_POLGE=1 python ...      med pølge-mannekengen som ryggfigur (modell/polge.py)
   python lysskisse.py --tal         berre tala
 
 Einingar: meter, lumen, lux, cd/m². x mot høgre, y mot veggen, z opp.
@@ -1043,6 +1044,22 @@ def sjekk():
     Ed = E_direkte(R.P[kb.sl], R.N[kb.sl], [l], []) @ LUM
     print(f'5 maska legg {float((Ed*R.A[kb.sl]).sum()):.0f} av 400 lm på bordet (ventar om lag 400)')
     print(f'6 formfaktor: største radsum {float(R.F.sum(1).max()):.2f} (skal vere under 1)')
+
+# ------------------------------------------------------------------ mannekengen
+
+def bruk_polge(**kw):
+    """Byt ryggfiguren av kuler og sylindrar ut med pølge-mannekengen frå modell/polge.py.
+    Må kallast før rom(). Set LYSSKISSE_POLGE=1 i miljøet for å slå han på overalt, òg i
+    prosessane til lag_brett(). Tala for lampa åleine hoppar over figuren som før."""
+    if _ROM is not None:
+        raise RuntimeError('bruk_polge() må kallast før rom()')
+    d = os.path.normpath(os.path.join(_HER, '..', '..', 'modell'))
+    if d not in sys.path: sys.path.insert(0, d)
+    import polge
+    return polge.byt(sys.modules[__name__], **kw)
+
+if os.environ.get('LYSSKISSE_POLGE') == '1':
+    bruk_polge()
 
 # ------------------------------------------------------------------ hovud
 

@@ -41,3 +41,9 @@ Køyrd etter avbrotet (13.11, `kjor_gen3.py`, 394 s på prioritet Idle). Tal i `
 - kryss (tre kreppar som kryssar): strekk 48 %, rift 20 mm. Kan ikkje lagast.
 - Radius: éin fald R 80 mm kostar 2 % (5,34 mot 5,22 W). Z R 40 mm kostar 7 %. Seks faldar R 40 mm kostar 25 %. Kostnaden følgjer delen av lyset som treff bøyane, ikkje radiusen åleine.
 - Ingen fleire generasjonar. Siste generasjon = gen 3. Tre beste: Z-spreidd, rund-bok, tak-vipp.
+
+## Feil og veikskapar i lysmotoren (meldt, ikkje retta)
+- `Ark.__init__` set `k.lm_ut = k.lm - inn` for kvart ark. Når to ark deler éi kjelde, skriv det andre over det første, og `lm ut` og lysnytte i `tal()` tel lyset to gonger. Luxtala blir ikkje råka. fresnel_floy rettar det for hand.
+- `a.strekk` måler berre lokal tøying. Han ser ikkje rifter: valm har rift 16 mm og strekk 0,00 %. Kryss fekk 48 % berre fordi to mjuke bøysoner overlappar.
+- `overgang()['topp']` blir 0,70 til 0,71 for alle med faldevinkel som overgang, fordi luminansen følgjer watt(t). Han fangar berre blending undervegs som er over 41 % sterkare enn watten.
+- Rundt ark blir teikna med takka kant ved n = 22 (heile fliser utanfor sirkelen fell bort).

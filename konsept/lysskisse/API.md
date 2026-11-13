@@ -100,6 +100,10 @@ Lyset på skjermflata blir samanlikna som forholdet til lyset på feltet, så ul
 | B3 | 7,5 W på leidning er taket |
 | F8, F9 | høgst 1,2 kg og 200 cm² fotavtrykk |
 
+## Ryggfiguren
+
+Iver vil ha pølge-mannekengen frå `modell/polge.py` i alle romrendringar. Set `LYSSKISSE_POLGE=1` i miljøet, eller kall `bruk_polge()` før første `rom()`. Han krev numba og legg om lag 4 s til `rom()`. Tala for lampa åleine hoppar over figuren som før. Standarden er den gamle figuren til formfamiliane i arbeidsflyten er ferdige.
+
 ## Fart
 
 - Søk med `tal()` og `familie(..., px=0)`. Lag brett med `px=200` først når familien står.

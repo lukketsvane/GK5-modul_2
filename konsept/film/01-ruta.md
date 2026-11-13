@@ -52,4 +52,4 @@ Til samanlikning: A 3,0 W og jamnheit 0,62, B 3,6 W og 0,41, C 5,8 W og 0,62.
 - Mønsteret på veggen når ruta lyser gjennom filmen utan spreiar (ei rad dioder gjev truleg to band med fargekant).
 - Kva auget ser i ruta, som bilete.
 - Kva arket faktisk er. Tala kviler på eit ideelt 90°-prisme og eit hus som sender 90 % attende.
-- Mekanikken: svingen frå bak skjermen til tak er om lag 100°, og ruta må gå klar av skjermkanten.
+- Mekanikken var feil tenkt: med bjelken 50 cm over bordet går svingen frå bak skjermen til tak gjennom skjermkanten. Ruta står difor fast i `02-D-ruta.md`, og vindauget på veggen kjem frå ei eiga diode. Tala for arbeid er dei same.

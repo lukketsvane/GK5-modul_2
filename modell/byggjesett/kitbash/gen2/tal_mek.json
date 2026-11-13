@@ -1,0 +1,443 @@
+[
+ {
+  "id": 1,
+  "namn": "Klype lett",
+  "stotte": "klype",
+  "organ": "",
+  "handling": "vri knotten",
+  "setning": "Bandlampa utan armen frå projektoren: trykt klype, mast av røyr og ei ryggskjene som plata heng under.",
+  "lys": "over-band-vindauge-q30",
+  "masse_g": 689,
+  "tyngdepunkt": [
+   12.0,
+   407.3,
+   556.4
+  ],
+  "hogd_mm": 652,
+  "masse_sett_g": 306,
+  "masse_cad_g": 0,
+  "masse_ny_g": 383,
+  "delar_sett": [
+   "P05"
+  ],
+  "delar_cad": [],
+  "nye": [
+   "LED-stripe, 24 cm",
+   "dreieknott for to kanalar",
+   "hals til renna",
+   "klemskrue",
+   "klype over skjermkanten",
+   "mast, røyr Ø12 × 1, 210 mm",
+   "renne for LED-stripa, 250 mm",
+   "ryggskjene, flatstong 20 × 5",
+   "skulder mellom mast og skjene",
+   "to klips som held plata under skjena",
+   "vindaugsdiode med maske"
+  ],
+  "handtak": "knotten på renna",
+  "rekk_mm": 660,
+  "fotavtrykk_cm2": 0.0,
+  "tipp_grader": null,
+  "dytt_N": null,
+  "trykk_N": null,
+  "last_skjerm_g": 689,
+  "moment_skjerm_Nm": -0.46,
+  "trykk_moment_Nm": -0.33,
+  "flagg": [
+   "lastar skjermen (må prøvast)"
+  ],
+  "key": "g2-1",
+  "nye_g": {
+   "ryggskjene, flatstong 20 × 5": 86,
+   "to klips som held plata under skjena": 7,
+   "renne for LED-stripa, 250 mm": 34,
+   "LED-stripe, 24 cm": 5,
+   "dreieknott for to kanalar": 63,
+   "klype over skjermkanten": 112,
+   "klemskrue": 30,
+   "mast, røyr Ø12 × 1, 210 mm": 19,
+   "skulder mellom mast og skjene": 12,
+   "hals til renna": 3,
+   "vindaugsdiode med maske": 12
+  },
+  "trykt_g": 180,
+  "trykte": [
+   "hals til renna",
+   "klype over skjermkanten",
+   "renne for LED-stripa, 250 mm",
+   "skulder mellom mast og skjene",
+   "to klips som held plata under skjena",
+   "vindaugsdiode med maske"
+  ],
+  "kjopt": [
+   "LED-stripe, 24 cm",
+   "dreieknott for to kanalar",
+   "klemskrue",
+   "mast, røyr Ø12 × 1, 210 mm",
+   "ryggskjene, flatstong 20 × 5"
+  ]
+ },
+ {
+  "id": 2,
+  "namn": "Klype med arm",
+  "stotte": "klype",
+  "organ": "",
+  "handling": "vri knotten",
+  "setning": "Same lyshovud på armen og hengselet frå projektoren. Armen kan leggjast ned i hengselet.",
+  "lys": "over-band-vindauge-q30",
+  "masse_g": 1094,
+  "tyngdepunkt": [
+   7.6,
+   468.9,
+   499.8
+  ],
+  "hogd_mm": 657,
+  "masse_sett_g": 728,
+  "masse_cad_g": 0,
+  "masse_ny_g": 366,
+  "delar_sett": [
+   "P01",
+   "P02",
+   "P05"
+  ],
+  "delar_cad": [],
+  "nye": [
+   "LED-stripe, 24 cm",
+   "dreieknott for to kanalar",
+   "hals til renna",
+   "renne for LED-stripa, 250 mm",
+   "ryggskjene, flatstong 20 × 5",
+   "sal over kappa på armen",
+   "skjermklype med hylle",
+   "to klips som held plata under skjena",
+   "vindaugsdiode med maske"
+  ],
+  "handtak": "knotten på renna",
+  "rekk_mm": 660,
+  "fotavtrykk_cm2": 0.0,
+  "tipp_grader": null,
+  "dytt_N": null,
+  "trykk_N": null,
+  "last_skjerm_g": 1094,
+  "moment_skjerm_Nm": -0.07,
+  "trykk_moment_Nm": -0.33,
+  "flagg": [
+   "lastar skjermen (må prøvast)"
+  ],
+  "key": "g2-2",
+  "nye_g": {
+   "skjermklype med hylle": 112,
+   "ryggskjene, flatstong 20 × 5": 104,
+   "to klips som held plata under skjena": 7,
+   "renne for LED-stripa, 250 mm": 34,
+   "LED-stripe, 24 cm": 5,
+   "dreieknott for to kanalar": 63,
+   "sal over kappa på armen": 24,
+   "hals til renna": 5,
+   "vindaugsdiode med maske": 12
+  },
+  "trykt_g": 194,
+  "trykte": [
+   "hals til renna",
+   "renne for LED-stripa, 250 mm",
+   "sal over kappa på armen",
+   "skjermklype med hylle",
+   "to klips som held plata under skjena",
+   "vindaugsdiode med maske"
+  ],
+  "kjopt": [
+   "LED-stripe, 24 cm",
+   "dreieknott for to kanalar",
+   "ryggskjene, flatstong 20 × 5"
+  ]
+ },
+ {
+  "id": 3,
+  "namn": "VESA",
+  "stotte": "klype",
+  "organ": "",
+  "handling": "vri knotten",
+  "setning": "Armen står på ei hylle på VESA-festet bak på skjermen. Overkanten av skjermen ber ingenting.",
+  "lys": "over-band-vindauge-q30",
+  "masse_g": 1374,
+  "tyngdepunkt": [
+   6.0,
+   477.3,
+   444.1
+  ],
+  "hogd_mm": 657,
+  "masse_sett_g": 728,
+  "masse_cad_g": 0,
+  "masse_ny_g": 646,
+  "delar_sett": [
+   "P01",
+   "P02",
+   "P05"
+  ],
+  "delar_cad": [],
+  "nye": [
+   "LED-stripe, 24 cm",
+   "VESA-plate 120 × 120 × 3",
+   "dreieknott for to kanalar",
+   "hals til renna",
+   "hylle på VESA-plata",
+   "renne for LED-stripa, 250 mm",
+   "ryggskjene, flatstong 20 × 5",
+   "sal over kappa på armen",
+   "to klips som held plata under skjena",
+   "vindaugsdiode med maske"
+  ],
+  "handtak": "knotten på renna",
+  "rekk_mm": 660,
+  "fotavtrykk_cm2": 0.0,
+  "tipp_grader": null,
+  "dytt_N": null,
+  "trykk_N": null,
+  "last_skjerm_g": 1374,
+  "moment_skjerm_Nm": 0.03,
+  "trykk_moment_Nm": -0.33,
+  "flagg": [
+   "lastar skjermen (må prøvast)",
+   "bryt F8 (1,2 kg)"
+  ],
+  "key": "g2-3",
+  "nye_g": {
+   "VESA-plate 120 × 120 × 3": 339,
+   "hylle på VESA-plata": 53,
+   "ryggskjene, flatstong 20 × 5": 104,
+   "to klips som held plata under skjena": 7,
+   "renne for LED-stripa, 250 mm": 34,
+   "LED-stripe, 24 cm": 5,
+   "dreieknott for to kanalar": 63,
+   "sal over kappa på armen": 24,
+   "hals til renna": 5,
+   "vindaugsdiode med maske": 12
+  },
+  "trykt_g": 135,
+  "trykte": [
+   "hals til renna",
+   "hylle på VESA-plata",
+   "renne for LED-stripa, 250 mm",
+   "sal over kappa på armen",
+   "to klips som held plata under skjena",
+   "vindaugsdiode med maske"
+  ],
+  "kjopt": [
+   "LED-stripe, 24 cm",
+   "VESA-plate 120 × 120 × 3",
+   "dreieknott for to kanalar",
+   "ryggskjene, flatstong 20 × 5"
+  ]
+ },
+ {
+  "id": 4,
+  "namn": "Under",
+  "stotte": "under",
+  "organ": "",
+  "handling": "vri knotten",
+  "setning": "Armen står på eit røyr frå ei stålplate under skjermfoten. Lampa står sjølv.",
+  "lys": "over-band-vindauge-q30",
+  "masse_g": 2211,
+  "tyngdepunkt": [
+   3.7,
+   524.4,
+   242.7
+  ],
+  "hogd_mm": 657,
+  "masse_sett_g": 728,
+  "masse_cad_g": 0,
+  "masse_ny_g": 1484,
+  "delar_sett": [
+   "P01",
+   "P02",
+   "P05"
+  ],
+  "delar_cad": [],
+  "nye": [
+   "LED-stripe, 24 cm",
+   "dreieknott for to kanalar",
+   "hals til renna",
+   "hylle med krage",
+   "renne for LED-stripa, 250 mm",
+   "ryggskjene, flatstong 20 × 5",
+   "røyr Ø25 × 1,5, 280 mm",
+   "sal over kappa på armen",
+   "stålplate under skjermfoten, 300 × 230 × 2",
+   "to klips som held plata under skjena",
+   "vindaugsdiode med maske"
+  ],
+  "handtak": "knotten på renna",
+  "rekk_mm": 660,
+  "fotavtrykk_cm2": 690.0,
+  "tipp_grader": 15.3,
+  "dytt_N": 7.0,
+  "trykk_N": 86.7,
+  "flagg": [
+   "bryt F9 (200 cm²)",
+   "bryt F8 (1,2 kg)"
+  ],
+  "key": "g2-4",
+  "nye_g": {
+   "stålplate under skjermfoten, 300 × 230 × 2": 1083,
+   "røyr Ø25 × 1,5, 280 mm": 83,
+   "hylle med krage": 63,
+   "ryggskjene, flatstong 20 × 5": 104,
+   "to klips som held plata under skjena": 7,
+   "renne for LED-stripa, 250 mm": 34,
+   "LED-stripe, 24 cm": 5,
+   "dreieknott for to kanalar": 63,
+   "sal over kappa på armen": 24,
+   "hals til renna": 5,
+   "vindaugsdiode med maske": 12
+  },
+  "trykt_g": 145,
+  "trykte": [
+   "hals til renna",
+   "hylle med krage",
+   "renne for LED-stripa, 250 mm",
+   "sal over kappa på armen",
+   "to klips som held plata under skjena",
+   "vindaugsdiode med maske"
+  ],
+  "kjopt": [
+   "LED-stripe, 24 cm",
+   "dreieknott for to kanalar",
+   "ryggskjene, flatstong 20 × 5",
+   "røyr Ø25 × 1,5, 280 mm",
+   "stålplate under skjermfoten, 300 × 230 × 2"
+  ]
+ },
+ {
+  "id": 5,
+  "namn": "Fot · knekk",
+  "stotte": "fot",
+  "organ": "",
+  "handling": "vipp plata",
+  "setning": "Plata på fot med flik, til høgre for skjermen. Dioden med glaslinsa står på foten.",
+  "lys": "fot-knekk",
+  "masse_g": 1293,
+  "tyngdepunkt": [
+   439.0,
+   430.2,
+   216.8
+  ],
+  "hogd_mm": 588,
+  "masse_sett_g": 757,
+  "masse_cad_g": 350,
+  "masse_ny_g": 186,
+  "delar_sett": [
+   "P01",
+   "P02",
+   "P05",
+   "P06"
+  ],
+  "delar_cad": [
+   "R01",
+   "R02",
+   "R03"
+  ],
+  "nye": [
+   "blank flik 285 × 100 mm",
+   "bøyel Ø6",
+   "diode på foten",
+   "linsehaldar"
+  ],
+  "handtak": "framkanten av plata",
+  "rekk_mm": 549,
+  "fotavtrykk_cm2": 195.9,
+  "tipp_grader": 17.7,
+  "dytt_N": 1.9,
+  "trykk_N": 6.2,
+  "flagg": [
+   "veltar ved dytt under 3 N",
+   "bryt F8 (1,2 kg)"
+  ],
+  "key": "g2-5",
+  "nye_g": {
+   "bøyel Ø6": 49,
+   "blank flik 285 × 100 mm": 115,
+   "diode på foten": 14,
+   "linsehaldar": 8
+  },
+  "trykt_g": 93,
+  "trykte": [
+   "R01 fot",
+   "R02 botnlok",
+   "linsehaldar"
+  ],
+  "kjopt": [
+   "blank flik 285 × 100 mm",
+   "bøyel Ø6",
+   "diode på foten"
+  ]
+ },
+ {
+  "id": 6,
+  "namn": "Projektoren snudd",
+  "stotte": "fot",
+  "organ": "",
+  "handling": "vipp plata i hengselet",
+  "setning": "Hovudet er fot og lyshus, armen står opp ned, og hengselet øvst vippar plata. Fem delar frå projektoren i ny rekkjefølgje.",
+  "lys": "snudd-knekk",
+  "masse_g": 1555,
+  "tyngdepunkt": [
+   484.9,
+   434.9,
+   252.5
+  ],
+  "hogd_mm": 572,
+  "masse_sett_g": 1244,
+  "masse_cad_g": 0,
+  "masse_ny_g": 311,
+  "delar_sett": [
+   "P01",
+   "P02",
+   "P03",
+   "P05",
+   "P06"
+  ],
+  "delar_cad": [],
+  "nye": [
+   "bjelke som klemmer platekanten, 280 mm",
+   "blank flik 285 × 100 mm",
+   "diode i hovudet",
+   "gummipute under hovudet",
+   "linsehaldar i hovudet",
+   "sokkel på festeplata",
+   "stolpe Ø10 frå hengselet til bjelken"
+  ],
+  "handtak": "framkanten av plata",
+  "rekk_mm": 582,
+  "fotavtrykk_cm2": 109.2,
+  "tipp_grader": 5.7,
+  "dytt_N": 0.8,
+  "trykk_N": 4.2,
+  "flagg": [
+   "veltar ved dytt under 3 N",
+   "veltar ved trykk under 5 N",
+   "bryt F8 (1,2 kg)"
+  ],
+  "key": "g2-6",
+  "nye_g": {
+   "gummipute under hovudet": 18,
+   "blank flik 285 × 100 mm": 102,
+   "bjelke som klemmer platekanten, 280 mm": 129,
+   "stolpe Ø10 frå hengselet til bjelken": 15,
+   "sokkel på festeplata": 15,
+   "diode i hovudet": 14,
+   "linsehaldar i hovudet": 19
+  },
+  "trykt_g": 162,
+  "trykte": [
+   "bjelke som klemmer platekanten, 280 mm",
+   "linsehaldar i hovudet",
+   "sokkel på festeplata"
+  ],
+  "kjopt": [
+   "blank flik 285 × 100 mm",
+   "diode i hovudet",
+   "gummipute under hovudet",
+   "stolpe Ø10 frå hengselet til bjelken"
+  ]
+ }
+]

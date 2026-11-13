@@ -53,12 +53,12 @@ XC = ROYR_FOT[0] + (AKSE_H - FOT_H) * math.tan(_f)           # der skråbeinet v
 _t = ROYR_BOGE * math.tan(math.radians(90.0 + ROYR_HELL) / 2)
 T1 = (XC - _t * math.sin(_f), AKSE_H - _t * math.cos(_f))    # bogen startar
 T2 = (XC - _t, AKSE_H)                                       # bogen sluttar, det vassrette løpet startar
-RING_B = 8.0                                                 # klemringen på røyret, mellom bjelken og bogen
-X1 = T2[0] - RING_B - 3.0                                    # høgre ende av bjelken
-ENDE_V, ENDE_H = 14.0, 6.0                                   # endeveggene: venstre har rom til dimmaren
+X1 = T2[0] - 3.0                                             # høgre ende av bjelken, 3 mm før bogen startar
+ENDE_V, ENDE_H = 14.0, 9.0                                   # endeveggene: venstre har rom til dimmaren, høgre til stoppsporet
 X0 = X1 - RUTE_B - ENDE_V - ENDE_H                           # venstre ende
 XR0, XR1 = X0 + ENDE_V, X1 - ENDE_H                          # ruta
-STOPP_R = (8.0, 11.5)                                        # sporet til stopptappen i høgre endevegg, radius frå røyret
+STOPP_X = X1 - 4.5                                           # stoppskruen: står i røyret og går i eit spor inni høgre endevegg
+STOPP_UT = 2.6                                               # så langt står han ut av røyret
 BREMS_X = X1 - 40.0                                          # bremseskruen under bjelken
 SKRUAR_X = [XR0 + f * RUTE_B for f in (0.08, 0.36, 0.64, 0.92)]
 TOPP_T, VEGG = 2.4, 6.0
@@ -84,7 +84,8 @@ def royr():
     slutt = (X0 + 32.0, AKSE_H)
     veg = cq.Workplane('XZ', origin=(0, YT, 0)).moveTo(*P0).lineTo(*T1).threePointArc(M, T2).lineTo(*slutt)
     plan = cq.Plane(origin=(P0[0], YT, P0[1]), xDir=(0, 1, 0), normal=(dl[0], 0, dl[1]))
-    return cq.Workplane(plan).circle(ROYR_D / 2).circle(ROYR_D / 2 - ROYR_T).sweep(veg)
+    r = cq.Workplane(plan).circle(ROYR_D / 2).circle(ROYR_D / 2 - ROYR_T).sweep(veg)
+    return r.cut(paa_plass(L._syl_z(3.0, 2.0, ROYR_D / 2 + 1.0, STOPP_X, -EKS), 0.0))    # gjenga hol M3 på undersida, til stoppskruen
 
 def _bjelke_lokal():
     """Snittet: røyret bak, LED-stripa i midten, plata i ei spalte framme. Loket sit på undersida, så oversida er heil."""
@@ -97,12 +98,15 @@ def _bjelke_lokal():
     hol = hol.union(L._boks(X0 + 34.0, X0 + 70.0, -EKS, -1.2, -2.0, 2.0))            # leidningen frå røyret inn til stripa
     hol = hol.union(L._syl_x(DIMMER_D + 1.0, X0 + 2.8, X0 + ENDE_V - 2.0, 0, 0))      # rom til dimmarkortet bak messingpunktet
     hol = hol.union(L._boks(X0 + ENDE_V - 2.5, XR0 + 1.0, 0.8, 3.0, -2.0, 2.0))       # leidningen frå dimmaren til stripa
-    # stoppspor i høgre endevegg: tappen på klemringen går her. Ringen står som bjelken ved 10° helling, så tappen
-    # ligg ved vinkelen (helling − 10°) i sporet. Tappen er ±11° brei, og sporet gjev 2° til før han stoppar
-    a0, a1 = VINKEL_OMRAADE[0] - 10.0 - 13.0, VINKEL_OMRAADE[1] - 10.0 + 13.0
-    pk = [(-EKS + STOPP_R[0] * math.cos(math.radians(a)), -STOPP_R[0] * math.sin(math.radians(a))) for a in [a0 + (a1 - a0) * i / 16 for i in range(17)]]
-    pk += [(-EKS + STOPP_R[1] * math.cos(math.radians(a)), -STOPP_R[1] * math.sin(math.radians(a))) for a in [a1 - (a1 - a0) * i / 16 for i in range(17)]]
-    hol = hol.union(cq.Workplane('YZ', origin=(X1 - 4.0, 0, 0)).polyline(pk).close().extrude(4.1))
+    # stoppspor inni høgre endevegg. Stoppskruen står rett ned frå røyret og står i ro. Sett frå bjelken ligg han ved
+    # vinkelen lik hellinga, målt frå undersida og inn mot ruta. Sporet er ein sektor med parallelle endar
+    def _radial(d, r0, r1, beta):
+        return L._syl_z(d, r0, r1, STOPP_X, -EKS).rotate((0, -EKS, 0), (1, -EKS, 0), -beta)
+    b0, b1 = VINKEL_OMRAADE; r0, r1 = ROYR_D / 2 - 0.5, ROYR_D / 2 + STOPP_UT + 0.4
+    pk = [(-EKS, 0.0)] + [(-EKS + r1 * math.sin(math.radians(a)), r1 * math.cos(math.radians(a))) for a in [b0 + (b1 - b0) * i / 20 for i in range(21)]]
+    spor = cq.Workplane('YZ', origin=(STOPP_X - 1.75, 0, 0)).polyline(pk).close().extrude(3.5)
+    spor = spor.union(_radial(3.5, r0, r1, b0)).union(_radial(3.5, r0, r1, b1))
+    hol = hol.union(spor).union(L._syl_z(3.6, r1 - 0.5, R + 1, STOPP_X, -EKS))        # og eit hol nedanfrå til å setje skruen inn ved helling 0°
     lokkrom = L._boks(X0 + 3.0, X1 - 3.0, -1.3, R + 2, h, R + 2)                     # loket: undersida, mellom endeveggene
     kropp = syl.cut(lokkrom).cut(hol)
     lokk = syl.intersect(L._boks(X0 + 3.2, X1 - 3.2, -1.3 + 0.15, R + 2, h, R + 2)).cut(hol)
@@ -130,17 +134,10 @@ def _bjelke_lokal():
     led = L._boks(XR0 + 2, XR1 - 2, 0.8, 2.8, -L.LED_B / 2, L.LED_B / 2)
     alu = L._boks(XR0 + 2, XR1 - 2, -1.2, 0.8, -L.ALU_B / 2, L.ALU_B / 2)
     dimmer = L._syl_x(DIMMER_D, X0 - 1.0, X0 + 2.8, 0, 0).faces('<X').edges().chamfer(0.6)
-    # klemringen: sit fast på røyret rett utanfor bjelken. Held bjelken på plass og stoppar hellinga med ein tapp
-    ring = L._syl_x(BJELKE_D - 14.0, X1 + 1.0, X1 + 1.0 + RING_B, -EKS, 0.0).cut(L._syl_x(ROYR_D + 0.1, X1, X1 + RING_B + 2, -EKS, 0.0))
-    ring = ring.cut(L._boks(X1, X1 + RING_B + 2, -EKS - 0.6, -EKS + 0.6, 4.0, 12.0))      # klemspalte nedst
+    # stoppskruen: settskrue M3 med tapp, gjenga i røyrveggen. Held bjelken på røyret og stoppar hellinga i begge endar
+    stopp = L._syl_z(2.9, ROYR_D / 2 - ROYR_T, ROYR_D / 2 + STOPP_UT, STOPP_X, -EKS)
     brems = L._syl_z(4.0, ROYR_D / 2 + 0.2, R - 1.0, BREMS_X, -EKS)                      # bremseskruen, med nylonspiss
-    return dict(kropp=kropp, lokk=lokk, plate=plate, film=film, led=led, alu=alu, skruar=skruar, dimmer=dimmer, ring=ring, brems=brems)
-
-def ring_paa_plass(ring):
-    """Klemringen følgjer røyret, ikkje bjelken: han står i ro når ruta vippar. Tappen peikar fram og 10° opp."""
-    tapp = L._boks(X1 - 3.4, X1 + 1.5, -EKS + STOPP_R[0] + 0.3, -EKS + STOPP_R[1] - 0.3, -1.6, 1.6)
-    r = ring.union(tapp)
-    return r.translate((0, EKS, 0)).rotate((0, 0, 0), (1, 0, 0), 180.0 + 10.0).translate((0, YT, AKSE_H))
+    return dict(kropp=kropp, lokk=lokk, plate=plate, film=film, led=led, alu=alu, skruar=skruar, dimmer=dimmer, stopp=stopp, brems=brems)
 
 def fot():
     f = L._syl_z(FOT_D, 0, FOT_H).faces('>Z').edges().fillet(3.0)
@@ -198,7 +195,7 @@ def delar(vinkel=VINKEL):
         ('09', 'flatstong', P(B['alu']), 'alu', 'staal', 1, 'aluminium 12 × 2'),
         ('10', 'led-stripe', P(B['led']), 'gummi', 'led', 1, 'KJØP: COB 5 V, 2700 K, 8 mm'),
         ('11', 'dimmer', P(B['dimmer']), 'messing', 'messing', 1, 'touch-dimmer i børsta messing, Ø %g' % DIMMER_D),
-        ('12', 'klemring', ring_paa_plass(B['ring']), 'petg', 'kropp', 1, 'sit fast på røyret. Tappen stoppar hellinga ved %g° og %g°' % VINKEL_OMRAADE),
+        ('12', 'stoppskrue', paa_plass(B['stopp'], 0.0), 'staal', 'staal', 1, 'settskrue M3 × 5 med tapp, gjenga i røyret nedanfrå. Stoppar hellinga ved %g° og %g° og held bjelken på røyret' % VINKEL_OMRAADE),
         ('13', 'bremseskrue', P(B['brems']), 'staal', 'staal', 1, 'M4 med nylonspiss, nedanfrå. Set friksjonen éin gong'),
         ('E', 'skrue M3 × 12 senk', P(B['skruar']), 'staal', 'staal', 4, 'nedanfrå, med innpressmutter'),
     ]
@@ -276,7 +273,7 @@ def eksporter():
         exporters.export(f, os.path.join(UT, 'stl', namn + '.stl'), tolerance=0.02, angularTolerance=0.1)
         bb = f.val().BoundingBox(); print('  stl %-22s %5.0f x %5.0f x %5.0f mm' % (namn, bb.xlen, bb.ylen, bb.zlen))
     # røyret: rett lengd før bøying
-    lengd = math.hypot(T1[0] - (ROYR_FOT[0] - (FOT_H - Z0) * math.tan(_f)), T1[1] - Z0) + ROYR_BOGE * math.radians(90.0 + ROYR_HELL) + (T2[0] - (X0 + 22.0))
+    lengd = math.hypot(T1[0] - (ROYR_FOT[0] - (FOT_H - Z0) * math.tan(_f)), T1[1] - Z0) + ROYR_BOGE * math.radians(90.0 + ROYR_HELL) + (T2[0] - (X0 + 32.0))
     print('  røyret: %.0f mm langt før bøying, éin boge på %.0f° med radius %.0f mm i senterlina' % (lengd, 90.0 + ROYR_HELL, ROYR_BOGE))
     return lengd
 

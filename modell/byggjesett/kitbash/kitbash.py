@@ -132,7 +132,8 @@ def sett(pid, M, utan=(), berre=None):
         if under in utan or (berre and under not in berre):
             continue
         m = mesh.copy(); m.apply_transform(M)
-        ut.append(dict(namn=f'{pid} {D.DIMS[pid]["namn"]} · {under}', mesh=m, mat=mat, kjelde='sett', pid=pid))
+        ut.append(dict(namn=f'{pid} {D.DIMS[pid]["namn"]} · {under}', mesh=m, mat=mat, kjelde='sett', pid=pid,
+                       fil=f'stl/{pid}_{D.DIMS[pid]["namn"]}_{under}.stl', M=np.array(M, float)))
     return ut
 
 
@@ -151,7 +152,8 @@ def cad(ids, M):
         if i not in _CAD:
             _CAD[i] = trimesh.load(os.path.join(CAD, 'samla', i + '.stl'), force='mesh')
         m = _CAD[i].copy(); m.apply_transform(M)
-        ut.append(dict(namn=f'R{i} {CAD_NAMN[i]}', mesh=m, mat=CAD_MAT[i], kjelde='cad', pid='R' + i, masse_g=CAD_MASSE[i]))
+        ut.append(dict(namn=f'R{i} {CAD_NAMN[i]}', mesh=m, mat=CAD_MAT[i], kjelde='cad', pid='R' + i, masse_g=CAD_MASSE[i],
+                       fil='../../konsept/film/cad/ut/samla/' + i + '.stl', M=np.array(M, float)))
     return ut
 
 

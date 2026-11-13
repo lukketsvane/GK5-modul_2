@@ -3,7 +3,7 @@
   {
    "id": "01",
    "namn": "fot",
-   "masse_g": 65.1,
+   "masse_g": 64.9,
    "gyldig": true
   },
   {
@@ -21,19 +21,19 @@
   {
    "id": "04",
    "namn": "røyr",
-   "masse_g": 235.0,
+   "masse_g": 237.7,
    "gyldig": true
   },
   {
    "id": "05",
    "namn": "bjelke",
-   "masse_g": 125.1,
+   "masse_g": 128.5,
    "gyldig": true
   },
   {
    "id": "06",
    "namn": "bjelkelok",
-   "masse_g": 47.2,
+   "masse_g": 48.5,
    "gyldig": true
   },
   {
@@ -67,6 +67,18 @@
    "gyldig": true
   },
   {
+   "id": "12",
+   "namn": "klemring",
+   "masse_g": 1.5,
+   "gyldig": true
+  },
+  {
+   "id": "13",
+   "namn": "bremseskrue",
+   "masse_g": 1.1,
+   "gyldig": true
+  },
+  {
    "id": "E",
    "namn": "skrue M3 × 12 senk",
    "masse_g": 3.5,
@@ -77,14 +89,14 @@
  "rorsle": [
   {
    "vinkel": 0,
-   "kollisjon_mm3": 0.0,
-   "kven": "",
+   "kollisjon_mm3": 27.5,
+   "kven": "bjelke mot klemring",
    "laagaste_punkt": 242.0
   },
   {
    "vinkel": 10,
-   "kollisjon_mm3": 0.0,
-   "kven": "",
+   "kollisjon_mm3": 12.4,
+   "kven": "bjelke mot klemring",
    "laagaste_punkt": 223.1
   },
   {
@@ -130,18 +142,18 @@
    "laagaste_punkt": 59.4
   }
  ],
- "masse_g": 1104,
+ "masse_g": 1113,
  "tyngdepunkt": [
-  -1.7,
-  -6.2,
-  133.8
+  -5.9,
+  -6.0,
+  134.9
  ],
  "fotavtrykk_cm2": 196.1,
- "veltevinkel": 28.5,
- "velt_venstre_N": 7.7,
- "velt_framme_N": 12.0,
+ "veltevinkel": 27.6,
+ "velt_venstre_N": 6.8,
+ "velt_framme_N": 12.2,
  "velt_dytt_topp_N": 3.0,
- "delar_i_alt": 12,
+ "delar_i_alt": 14,
  "stykkliste": [
   {
    "id": "01",
@@ -221,6 +233,20 @@
    "framstilling": "touch-dimmer i børsta messing, Ø 20"
   },
   {
+   "id": "12",
+   "namn": "klemring",
+   "tal": 1,
+   "materiale": "petg",
+   "framstilling": "sit fast på røyret. Tappen stoppar hellinga ved 0° og 80°"
+  },
+  {
+   "id": "13",
+   "namn": "bremseskrue",
+   "tal": 1,
+   "materiale": "staal",
+   "framstilling": "M4 med nylonspiss, nedanfrå. Set friksjonen éin gong"
+  },
+  {
    "id": "E",
    "namn": "skrue M3 × 12 senk",
    "tal": 4,
@@ -228,5 +254,5 @@
    "framstilling": "nedanfrå, med innpressmutter"
   }
  ],
- "royr_lengd": 605
+ "royr_lengd": 622
 }

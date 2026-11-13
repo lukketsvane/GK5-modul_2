@@ -96,6 +96,7 @@ python demo/demo.py sett                       alle delane frå settet og eit fi
 python demo/demo.py kryss                      fresnelplata gjennom kit og bru, mot talet til søkjebrettet            10 s
 python demo/minste/lampe.py                    det minste dømet, alt på éin gong                                       2 min 20 s
 python rendre.py <mappe> [scene ...] [--prove] rendre scener som alt står i <mappe>/scener.json
+python rendre.py demo demo-del                 delbanken i full storleik (4 px per mm, gjennomsiktig)                 30 s
 ```
 
 Blender ligg i `C:/Users/Iver/Documents/verktoy/blender-5.1.2-windows-x64/blender.exe` (miljøvariabelen `KITBASH_BLENDER` byter stien). Éin tung prosess om gongen. Prøv med `prove=True` og `px=300` først.
@@ -144,7 +145,7 @@ Rekna frå dei anslåtte måla (`python demo/demo.py sett`), ± 35 % (ANTAKING) 
 ## Kontroll av verktøya
 
 - `python sjekk.py`: to boksar 5 mm inn i kvarandre gjev 2 000 mm³, ein stålkloss på 2 000 cm³ veg 15 700 g, dyttet som veltar han er m g 50 / 200 = 38,5 N, ei rund søyle 17,95 mot 17,97 N, momentet om ein akse 150 mm unna 23,1 Nm. Alt stemmer.
-- `python demo/demo.py kryss`: fresnelplata plassert med `kit` og sett i rommet med `bru`, same grep som «over-vipp» på søkjebrettet (`modell/byggjesett/kitbash/tal_lys.json`). Søkjebrettet: 1,73 W for 350 lx, jamnheit 0,47, 15,8 lx bak skjermen, 79,0 lx på skjermflata, 227 / 75 / 75 cd/m² mot auget. Her: 1,73 W, 0,48, 15,8 lx, 79,1 lx, 237 / 77 / 75 cd/m². Skilnaden mot auget (4 %) kjem av at reflektoren ligg 1 mm framfor spegelflata. Skorne hjørne på plata endrar ingenting som syner. Med ein stolpe bak skjermen i kroppen fell veggen bak skjermen frå 15,8 til 14,7 lx: kroppen skuggar, og søkjebrettet rekna dette grepet utan kropp.
+- `python demo/demo.py kryss`: fresnelplata plassert med `kit` og sett i rommet med `bru`, same grep som «over-vipp» på søkjebrettet (`modell/byggjesett/kitbash/tal_lys.json`). Søkjebrettet: 1,73 W for 350 lx, jamnheit 0,47, 15,8 lx bak skjermen, 79,0 lx på skjermflata, 227 / 75 / 75 cd/m² mot auget. Her: 1,73 W, 0,48, 15,8 lx, 79,1 lx, 237 / 77 / 75 cd/m². Skilnaden mot auget (4 %) kjem av at reflektoren ligg 1 mm framfor spegelflata. Skorne hjørne på plata endrar ingenting som syner. Med ein stolpe bak skjermen i kroppen fell veggen bak skjermen om lag 5 % (15,5 til 14,7 lx med 22 fliser): kroppen skuggar, og søkjebrettet rekna dette grepet utan kropp. Talet på fliser i plata (16 eller 22) flyttar same tal 2 %.
 
 ## Kva verktøya går ut frå
 

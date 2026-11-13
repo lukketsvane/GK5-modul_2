@@ -1165,5 +1165,46 @@
    "L_stripe_topp_frå_30mm": 349.0
   },
   "merk": "kontrast = (maks − min)/(maks + min) på tvers av stripene i midtre halvdel; topp = maks/snitt"
+ },
+ "tretest_A": {
+  "rekna_og_talmd": {
+   "W350": [
+    2.99,
+    2.99
+   ],
+   "jamnheit": [
+    0.62,
+    0.62
+   ],
+   "auge25": [
+    1013.4,
+    1013
+   ],
+   "auge47": [
+    102.74,
+    103
+   ],
+   "bak350": [
+    107.73,
+    109
+   ],
+   "skjerm350": [
+    115.39,
+    115
+   ],
+   "s_auge25": [
+    424.18,
+    424
+   ],
+   "s_bak": [
+    130.85,
+    131
+   ],
+   "likskap": [
+    0.6,
+    0.6
+   ]
+  },
+  "sekund": 23.0
  }
 }

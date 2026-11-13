@@ -479,7 +479,6 @@ def profilar():
     P["linse_R06"] = profil_linse(0.6)
     P["linse_R10"] = profil_linse(1.0)
     P["ru12"] = profil_ru(12.0)
-    P["ru06"] = profil_ru(6.0)
     P["flat"] = profil_flat()
     return P
 
@@ -498,7 +497,7 @@ def kandidatar():
     K["d_einveg"] = dict(tekst="(d) einvegsdiffusor, sigma 12", profil="ru12", modus="1d")
     K["e_diffusor"] = dict(tekst="(e) vanleg diffusor (2D), sigma 12", profil="ru12", modus="2d")
     K["f_polarisator"] = dict(tekst="(f) refl. polarisator (plan, 50 %)", profil="flat", modus="1d", faktor=0.5)
-    K["f_polarisator_matt"] = dict(tekst="(f) refl. polarisator + matt lag", profil="ru06", modus="2d", faktor=0.5)
+    K["f_polarisator_matt"] = dict(tekst="(f) refl. polarisator + matt lag sigma 4", profil="flat", modus="1d", faktor=0.5, gauss2d=4.0)
     K["g_mikrolinse"] = dict(tekst="(g) mikrolinsefilm (2D) R=0,6p", profil="linse_R06", modus="2d")
     K["h_prisme90_matt"] = dict(tekst="(h) prisme 90 + matt bakside sigma 3", profil="prisme90", modus="1d", gauss2d=3.0)
     K["h_prisme_kryss"] = dict(tekst="(h) to prismefilmar i kryss", profil="prisme90", modus="kryss")
@@ -594,9 +593,10 @@ def spektrum_til_srgb(S, eksponering=1.0):
     xyz = np.stack([X, Y, Z], axis=-1)
     rgb = xyz @ M_XYZ_RGB.T / _KVIT
     rgb = rgb * eksponering
-    # mjuk avrulling mot kvitt i staden for hard klipping
+    # mjuk skulder over 0,7 i staden for hard klipping
     rgb = np.clip(rgb, 0.0, None)
-    rgb = rgb / (1.0 + 0.18 * rgb ** 2) ** 0.5 * (1.0 + 0.18) ** 0.5 * 0.999
+    hog = rgb > 0.7
+    rgb = np.where(hog, 0.7 + 0.3 * (1.0 - np.exp(-(rgb - 0.7) / 0.3)), rgb)
     rgb = np.clip(rgb, 0.0, 1.0)
     return np.where(rgb <= 0.0031308, 12.92 * rgb, 1.055 * rgb ** (1 / 2.4) - 0.055)
 
@@ -661,7 +661,7 @@ def scene(snokant=False, froe=3):
                 # vindaugsband: moerkare loddrette felt
                 felt = 0.75 + 0.25 * math.cos(2 * math.pi * az / 0.9)
                 if el > skugge[j]:
-                    L[i, j] = 2.6 * felt * sol * refl / np.sum(sol * refl * _Y) * np.sum(refl * _Y * dag) * 1.4
+                    L[i, j] = 2.0 * felt * sol * refl / np.sum(sol * refl * _Y) * np.sum(refl * _Y * dag)
                 else:
                     L[i, j] = 0.16 * felt * snoskugge * refl / 0.5
             elif el > -1.0:
@@ -693,25 +693,20 @@ ROM = 0.035        # ANTAKING: radians i rommet bak kamera (det som blir spegla)
 # Syntetisk gjennomsyn
 # --------------------------------------------------------------------------
 
-def _gauss_kjerne(sigma_grad, steg):
-    n = int(math.ceil(4 * sigma_grad / steg))
-    x = np.arange(-n, n + 1) * steg
-    k = np.exp(-0.5 * (x / sigma_grad) ** 2)
-    return k / k.sum()
+APP = np.arange(-70.0, 70.01, 0.25)      # tilsynelatande elevasjon (kamerastraalen)
 
 
 def _flytt_kjerne(Tl, helling):
     """Kjerne i verdsvinklar for eit ark som hallar. helling > 0: toppen
     lener seg bort fraa kamera (mot vindauget), dvs. normalen mot scena
-    peikar `helling` grader nedover. Verdsvinkel = lokal vinkel - helling.
-    Returnerer K[a_verd, e_verd] paa netta (APP, EL)."""
-    # lokal innfallsvinkel for kvar verdsvinkel
+    peikar `helling` grader nedover. Lokal vinkel = verdsvinkel + helling.
+    Returnerer K[APP, EL] og indeksane inn i ALFA."""
     a_lok = APP + helling
-    ia = np.clip(np.round((a_lok - ALFA[0]) / 0.5).astype(int), 0, len(ALFA) - 1)
-    gyldig = (a_lok >= ALFA[0]) & (a_lok <= ALFA[-1])
+    ia = np.round((a_lok - ALFA[0]) / DALFA).astype(int)
+    gyldig = (ia >= 0) & (ia < len(ALFA))
+    ia = np.clip(ia, 0, len(ALFA) - 1)
     K = Tl[ia] * gyldig[:, None]
-    # flytt utvinkelen: e_verd = b_lok - helling
-    sk = int(round(helling / (180.0 / NB)))
+    sk = int(round(helling / (180.0 / NB)))     # e_verd = b_lok - helling
     if sk != 0:
         K2 = np.zeros_like(K)
         if sk > 0:
@@ -719,79 +714,219 @@ def _flytt_kjerne(Tl, helling):
         else:
             K2[:, -sk:] = K[:, :sk]
         K = K2
-    return K
+    return K, ia, gyldig
 
 
-APP = np.arange(-70.0, 70.01, 0.25)      # tilsynelatande elevasjon (kamerastraalen)
-
-
-def gjennomsyn(namn, side, L, helling=0.0, npos=500, skeiv_korr=False):
-    """Bilete [APP, AZ, 3] (sRGB) av scena L sett gjennom kandidaten.
-    Ryggane ligg vassrett. Kjernen verkar loddrett i kvar kolonne (skeiv = 0),
-    pluss tilleggsledd etter kandidaten sin modus."""
+def gjennomsyn(namn, side, L, helling=0.0, nd=ND_HARPIKS):
+    """Spektralt bilete [APP, AZ, 16] av scena L sett gjennom kandidaten.
+    Ryggane ligg vassrett. Kjernen verkar loddrett i kvar kolonne (straalar
+    i loddrett plan, skeiv = 0), pluss tilleggsledd etter kandidaten sin modus."""
+    from scipy.ndimage import convolve1d, gaussian_filter1d
     kand = kandidatar()[namn]
-    T, R = kjerne_spektral(namn, side, npos=npos)
+    T, R = kjerne_spektral(kand["profil"], side, nd=nd)
     faktor = kand.get("faktor", 1.0)
     modus = kand["modus"]
     nel, naz, nl = L.shape
     ut = np.zeros((len(APP), naz, nl))
-    dag = norm_y(planck(LAM, 4500.0))
+    romspekter = norm_y(planck(LAM, 4500.0))
+    steg_az = AZ[1] - AZ[0]
+    i0 = int(np.argmin(np.abs(ALFA)))
     for il in range(nl):
-        K = _flytt_kjerne(T[il].astype(np.float64), helling)      # [APP, EL]
-        bilete = K @ L[:, :, il]                                  # [APP, AZ]
-        # spegla del: rommet bak kamera, jamt moerkt
-        ia = np.clip(np.round((APP + helling - ALFA[0]) / 0.5).astype(int), 0, len(ALFA) - 1)
-        refl = R[il][ia].sum(axis=1)
+        K, ia, gyldig = _flytt_kjerne(T[il].astype(np.float64), helling)
+        bilete = K @ L[:, :, il]
+        refl = R[il][ia].sum(axis=1) * gyldig
         if modus == "2d":
-            # same kjerne vassrett: bruk kjernen ved normalt innfall som
-            # vassrett spreiefunksjon (separabel tilnaerming, ANTAKING)
-            k0 = T[il][len(ALFA) // 2].astype(np.float64)
-            k0 = k0 / max(k0.sum(), 1e-12)
-            steg_az = AZ[1] - AZ[0]
-            # resample k0 (0,25 grader) til asimutsteget
-            xk = BETA
+            # isotrop struktur: bruk kjernen ved normalt innfall som vassrett
+            # spreiefunksjon (separabel tilnaerming, ANTAKING)
+            k0 = T[il][i0].astype(np.float64)
             xs = np.arange(-45.0, 45.01, steg_az)
-            ks = np.interp(xs, xk, k0)
-            ks = ks / ks.sum()
-            bilete = np.apply_along_axis(lambda v: np.convolve(np.pad(v, len(ks) // 2, mode="edge"), ks, mode="valid"), 1, bilete)
-        elif modus == "kryss":
-            # film 2 med loddrette ryggar: to kopiar forskyvde vassrett.
-            # Tilnaerming: kjernen ved normalt innfall brukt vassrett.
-            k0 = T[il][len(ALFA) // 2].astype(np.float64)
-            steg_az = AZ[1] - AZ[0]
-            xs = np.arange(-60.0, 60.01, steg_az)
             ks = np.interp(xs, BETA, k0)
-            ks = ks / max(k0.sum() * (steg_az / 0.25), 1e-12)
-            bilete = np.apply_along_axis(lambda v: np.convolve(np.pad(v, len(ks) // 2, mode="reflect"), ks, mode="valid"), 1, bilete)
+            ks = ks / ks.sum()
+            bilete = convolve1d(bilete, ks, axis=1, mode="nearest")
+        elif modus == "kryss":
+            # film nummer to har loddrette ryggar: kopiar forskyvde vassrett.
+            # Tilnaerming: kjernen ved normalt innfall brukt vassrett, scena
+            # spegla utanfor biletkanten.
+            k0 = T[il][i0].astype(np.float64)
+            xs = np.arange(-58.0, 58.01, steg_az)
+            ks = np.interp(xs, BETA, k0) * (steg_az / 0.25)
+            bilete = convolve1d(bilete, ks, axis=1, mode="reflect")
         g = kand.get("gauss2d", 0.0)
         if g > 0:
-            kv = _gauss_kjerne(g, 0.25)
-            kh = _gauss_kjerne(g, AZ[1] - AZ[0])
-            bilete = np.apply_along_axis(lambda v: np.convolve(np.pad(v, len(kv) // 2, mode="edge"), kv, mode="valid"), 0, bilete)
-            bilete = np.apply_along_axis(lambda v: np.convolve(np.pad(v, len(kh) // 2, mode="edge"), kh, mode="valid"), 1, bilete)
-        ut[:, :, il] = faktor * bilete + (refl[:, None] + (1 - faktor) * 0.5) * ROM * dag[il]
+            bilete = gaussian_filter1d(bilete, g / 0.25, axis=0, mode="nearest")
+            bilete = gaussian_filter1d(bilete, g / steg_az, axis=1, mode="nearest")
+        ut[:, :, il] = faktor * bilete + (faktor * refl[:, None] + (1.0 - faktor)) * ROM * romspekter[il]
     return ut
 
 
 def direkte(L):
     """Scena utan ark, paa same nett som gjennomsynet."""
-    ie = np.round((APP + 90.0) / 0.25 - 0.5).astype(int)
+    ie = np.floor((APP + 90.0) / 0.25 + 1e-9).astype(int)
     return L[np.clip(ie, 0, len(EL) - 1)]
 
 
-def lagre_bilete(S, fil, eksponering=0.9, skala=2, tekst=None):
+def til_bilete(S, eksponering=1.15, skala=1, tekst=None, merke=None):
+    """Spektralt bilete -> PIL-bilete. merke: liste av (elevasjon, farge) som
+    blir teikna som korte strekar i venstre kant."""
     from PIL import Image, ImageDraw
-    rgb = spektrum_til_srgb(S, eksponering)
-    rgb = rgb[::-1]                                   # elevasjon opp
+    rgb = spektrum_til_srgb(S, eksponering)[::-1]          # elevasjon opp
     im = Image.fromarray((rgb * 255 + 0.5).astype(np.uint8))
     if skala != 1:
-        im = im.resize((im.width * skala, im.height * skala), Image.BILINEAR)
+        im = im.resize((int(im.width * skala), int(im.height * skala)), Image.BILINEAR)
+    d = ImageDraw.Draw(im)
+    if merke:
+        for el, farge in merke:
+            y = (APP[-1] - el) / (APP[-1] - APP[0]) * (im.height - 1)
+            d.line([0, y, 14 * skala, y], fill=farge, width=max(1, int(skala)))
     if tekst:
-        d = ImageDraw.Draw(im)
-        d.rectangle([0, 0, im.width, 15], fill=(0, 0, 0))
-        d.text((4, 2), tekst, fill=(255, 255, 255))
-    im.save(fil)
+        d.rectangle([0, 0, im.width, 13], fill=(0, 0, 0))
+        d.text((3, 1), tekst, fill=(255, 255, 255))
     return im
+
+
+def _skala_stripe(hogd, breidd=34):
+    """Smal stripe med elevasjonsskala (kvar 10. grad)."""
+    from PIL import Image, ImageDraw
+    im = Image.new("RGB", (breidd, hogd), (20, 20, 20))
+    d = ImageDraw.Draw(im)
+    for el in range(-70, 71, 10):
+        y = (APP[-1] - el) / (APP[-1] - APP[0]) * (hogd - 1)
+        d.line([breidd - 6, y, breidd, y], fill=(230, 230, 230))
+        d.text((1, y - 5), "%+d" % el, fill=(230, 230, 230))
+    return im
+
+
+def bilete(helling=0.0):
+    """Syntetiske gjennomsyn for alle kandidatar og begge orienteringar."""
+    from PIL import Image
+    os.makedirs(UT, exist_ok=True)
+    L = scene(snokant=False)
+    dir_im = til_bilete(direkte(L), tekst="scena utan ark")
+    dir_im.save(os.path.join(UT, "scene_direkte.png"))
+    K = kandidatar()
+    for side in ("kamera", "vindauge"):
+        panel = [_skala_stripe(dir_im.height), dir_im]
+        for namn, kand in K.items():
+            if kand["profil"] == "flat" and side == "vindauge":
+                S = gjennomsyn(namn, "kamera", L, helling)
+            else:
+                S = gjennomsyn(namn, side, L, helling)
+            im = til_bilete(S, tekst=kand["tekst"])
+            im.save(os.path.join(UT, "syn_%s_%s.png" % (namn, side)))
+            panel.append(im)
+        # oversynsark: 2 rader
+        n = len(panel)
+        per_rad = (n + 1) // 2
+        w = max(p.width for p in panel) + 4
+        h = dir_im.height + 4
+        ark = Image.new("RGB", (per_rad * w, 2 * h), (0, 0, 0))
+        for i, pm in enumerate(panel):
+            ark.paste(pm, ((i % per_rad) * w, (i // per_rad) * h))
+        ark.save(os.path.join(UT, "oversyn_struktur_mot_%s.png" % side))
+        print("lagra oversyn for struktur mot", side, flush=True)
+    # dei beste kandidatane i stoerre format, med snoekant og helling
+    Ls = scene(snokant=True)
+    rad = [_skala_stripe(dir_im.height * 2), til_bilete(direkte(Ls), skala=2, tekst="scena utan ark (med snoekant under vindauget)")]
+    for namn, side, hell, tekst in (
+            ("a_prisme90", "kamera", 0.0, "(a) prisme 90, struktur mot kamera, loddrett"),
+            ("a_prisme90", "kamera", 8.0, "(a) same, arket lener 8 grader mot vindauget"),
+            ("b_prisme90_r08", "kamera", 0.0, "(b) runda topp r=0,08p, struktur mot kamera"),
+            ("a_prisme90", "vindauge", 0.0, "(a) prisme 90, struktur mot vindauget")):
+        S = gjennomsyn(namn, side, Ls, hell)
+        n_g = float(n_harpiks(550.0))
+        merke = None
+        if side == "kamera":
+            merke = [(prisme_tir_grense(n_g) - hell, (255, 0, 255)), (-45.0 - hell, (0, 255, 255))]
+        rad.append(til_bilete(S, skala=2, tekst=tekst, merke=merke))
+    w = sum(r.width + 6 for r in rad)
+    ark = Image.new("RGB", (w, rad[1].height), (0, 0, 0))
+    x = 0
+    for r in rad:
+        ark.paste(r, (x, 0)); x += r.width + 6
+    ark.save(os.path.join(UT, "beste_kandidatar.png"))
+    print("lagra beste_kandidatar.png", flush=True)
+
+
+# --------------------------------------------------------------------------
+# Avbildingskart: sann elevasjon -> tilsynelatande elevasjon
+# --------------------------------------------------------------------------
+
+def _klynger(vinklar, vekt, gap=1.0, minvekt=0.01):
+    """Samanhengande grupper i eit histogram -> (tyngdepunkt, fraa, til, vekt)."""
+    idx = np.nonzero(vekt > 1e-5)[0]
+    ut = []
+    if len(idx) == 0:
+        return ut
+    steg = vinklar[1] - vinklar[0]
+    grupper = np.split(idx, np.nonzero(np.diff(idx) > gap / steg)[0] + 1)
+    for g in grupper:
+        w = float(vekt[g].sum())
+        if w >= minvekt:
+            ut.append((float((vinklar[g] * vekt[g]).sum() / w), float(vinklar[g].min() - steg / 2),
+                       float(vinklar[g].max() + steg / 2), w))
+    return ut
+
+
+def kart():
+    """1. Figurar: for kvar profil og orientering eit kart med sann elevasjon
+       vassrett og tilsynelatande elevasjon loddrett (loddrett ark). Fargen er
+       summen over dei 16 bolgjelengdene, saa dispersjon syner som fargekantar.
+       2. kart.csv: lys fraa sann elevasjon t (kvar 5. grad, -70..70) spora
+       framover gjennom arket; kvar grein med tilsynelatande elevasjon og del
+       av innfallande fluks, for kvar av dei 16 bolgjelengdene."""
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    os.makedirs(UT, exist_ok=True)
+    P = profilar()
+    grupper = (("kart_prisme.png", ["prisme90", "prisme90_r08", "prisme90_r20", "prisme80", "prisme100", "prisme110", "prisme90_ujamn"]),
+               ("kart_andre.png", ["linse_R06", "linse_R10", "ru12", "flat"]))
+    ja = np.nonzero((ALFA >= -70.0) & (ALFA <= 70.0))[0]
+    jb = np.nonzero((BETA >= -70.0) & (BETA <= 70.0))[0]
+    for fil, namn in grupper:
+        fig, axs = plt.subplots(len(namn), 2, figsize=(9.0, 4.3 * len(namn)), squeeze=False)
+        for i, pn in enumerate(namn):
+            for j, side in enumerate(("kamera", "vindauge")):
+                T, R = kjerne_spektral(pn, "kamera" if pn == "flat" else side)
+                S = np.moveaxis(T[:, ja][:, :, jb].astype(np.float64), 0, -1)     # [app, sann, lam]
+                S = S * _D65[None, None, :]          # kvitt lys: T = 1 gjev luminans 1
+                rgb = spektrum_til_srgb(S, eksponering=3.0)
+                ax = axs[i, j]
+                ax.imshow(rgb, origin="lower", extent=[-70, 70, -70, 70], aspect="equal", interpolation="nearest")
+                ax.plot([-70, 70], [-70, 70], color=(0.4, 0.4, 0.4), lw=0.5, ls=":")
+                ax.set_title("%s, struktur mot %s" % (pn, side), fontsize=9)
+                ax.set_xlabel("sann elevasjon (grader)", fontsize=8)
+                ax.set_ylabel("tilsynelatande elevasjon (grader)", fontsize=8)
+                ax.set_xticks(range(-60, 61, 20)); ax.set_yticks(range(-60, 61, 20))
+                ax.tick_params(labelsize=7)
+                ax.set_facecolor("black")
+        fig.tight_layout()
+        fig.savefig(os.path.join(UT, fil), dpi=110)
+        plt.close(fig)
+        print("lagra", fil, flush=True)
+    # tabell, framover-sporing
+    sann = np.arange(-70.0, 70.01, 5.0)
+    linjer = ["profil;struktur_mot;bolgjelengd_nm;sann_elevasjon;tilsynelatande_elevasjon;fraa;til;del_av_fluks;sum_gjennom;sum_attende"]
+    for pn in P:
+        for side in ("kamera", "vindauge"):
+            if pn == "flat" and side == "vindauge":
+                continue
+            npos = 600 if pn.startswith("ru") else 2000
+            for lam in LAM:
+                # lys fraa elevasjon t reiser nedover: innfallsvinkel -t paa
+                # vindaugssida. Kjem ut mot kamera med vinkel b; kamera ser
+                # det i elevasjon -b.
+                t, r, l = kjerne(P[pn], float(n_harpiks(lam)), float(n_pet(lam)), -sann,
+                                 fra_topp=(side != "kamera"), npos=npos, nb=NB, wmin=1e-5)
+                for k, tv in enumerate(sann):
+                    kl = _klynger(-BETA[::-1], t[k][::-1])
+                    for c, a0, a1, w in kl:
+                        linjer.append("%s;%s;%.0f;%+.0f;%+.2f;%+.2f;%+.2f;%.4f;%.4f;%.4f" % (
+                            pn, side, lam, tv, c, a0, a1, w, t[k].sum(), r[k].sum()))
+        print("  tabell:", pn, flush=True)
+    with open(os.path.join(UT, "kart.csv"), "w", encoding="utf-8") as f:
+        f.write("\n".join(linjer) + "\n")
+    print("lagra kart.csv (%d linjer)" % len(linjer), flush=True)
 
 
 # --------------------------------------------------------------------------
@@ -984,6 +1119,354 @@ def test():
     return ok
 
 
+# --------------------------------------------------------------------------
+# Rekna tal til dokumentet
+# --------------------------------------------------------------------------
+
+def _a_for_e(e, n, topp):
+    """Kameravinkelen der den fjerne flata syner sceneelevasjon e (struktur mot kamera)."""
+    a = np.arange(-(topp / 2.0) + 0.01, 40.0, 0.01)
+    ee = np.array([prisme_fjern_flate(x, n, topp) for x in a])
+    m = np.isfinite(ee)
+    if m.sum() < 2 or e < ee[m].min() or e > ee[m].max():
+        return float("nan")
+    return float(np.interp(e, ee[m], a[m]))
+
+
+def _kantar(I, minsprang=0.04):
+    """Finn kopiar av ein kant i eit bileteprofil I(APP): toppar i |dI/da|.
+    Returnerer liste (elevasjon, sprang, breidd 10-90 i grader)."""
+    d = np.diff(I)
+    a = 0.5 * (APP[1:] + APP[:-1])
+    ut = []
+    aktiv = np.abs(d) > 0.002
+    i = 0
+    while i < len(d):
+        if aktiv[i]:
+            j = i
+            while j + 1 < len(d) and aktiv[j + 1] and np.sign(d[j + 1]) == np.sign(d[i]):
+                j += 1
+            sprang = d[i:j + 1].sum()
+            if abs(sprang) >= minsprang:
+                c = np.cumsum(d[i:j + 1]) / sprang
+                a10 = a[i:j + 1][np.searchsorted(c, 0.1)]
+                a90 = a[i:j + 1][min(np.searchsorted(c, 0.9), j - i)]
+                a50 = a[i:j + 1][min(np.searchsorted(c, 0.5), j - i)]
+                ut.append((float(a50), float(sprang), float(abs(a90 - a10) + 0.25)))
+            i = j + 1
+        else:
+            i += 1
+    return ut
+
+
+def tal():
+    os.makedirs(UT, exist_ok=True)
+    res = {}
+    # ---- 1. prismefamilien analytisk (struktur mot kamera)
+    rader = []
+    print("\n== PRISME, STRUKTUR MOT KAMERA (rekna, analytisk) ==")
+    print("topp  n_d   a_TIR  b ved lina  avboeying D  strekk ved lina  strekk 10 over  fargekant R-B  linetjukn B-R")
+    for topp in (80, 85, 90, 95, 100, 110):
+        for nd in (1.50, 1.59, 1.65):
+            ng = float(n_harpiks(550.0, nd)); nb = float(n_harpiks(460.0, nd)); nr = float(n_harpiks(600.0, nd))
+            at = prisme_tir_grense(ng, topp)
+            a1 = at + 0.6
+            e1 = prisme_fjern_flate(a1, ng, topp)
+            D = e1 - a1
+            def strekk(a):
+                return 1.0 / (prisme_fjern_flate(a + 0.25, ng, topp) - prisme_fjern_flate(a - 0.25, ng, topp)) * 0.5
+            fr = _a_for_e(e1, nr, topp) - _a_for_e(e1, nb, topp)
+            tl = prisme_tir_grense(nb, topp) - prisme_tir_grense(nr, topp)
+            rader.append(dict(toppvinkel=topp, n_d=nd, a_tir=at, b_ved_lina=e1, avboeying=D,
+                              strekk_ved_lina=strekk(a1), strekk_10_over=strekk(a1 + 10.0),
+                              fargekant_R_minus_B=fr, linetjukn_B_minus_R=tl))
+            print("%4d  %.2f  %6.2f   %6.2f      %6.2f        %5.2f           %5.2f         %5.2f          %5.2f" % (
+                topp, nd, at, e1, D, strekk(a1), strekk(a1 + 10.0), fr, tl))
+    res["prisme_struktur_mot_kamera"] = rader
+    # ---- 2. greiner fraa kjernane (550 nm)
+    il = int(np.argmin(np.abs(LAM - 550.0)))
+    il_b = int(np.argmin(np.abs(LAM - 460.0)))
+    il_r = int(np.argmin(np.abs(LAM - 640.0)))
+    grein = {}
+    print("\n== GREINER VED %.0f nm: kameravinkel a -> (sceneelevasjon, vekt) ==" % LAM[il])
+    for pn in profilar():
+        for side in ("kamera", "vindauge"):
+            if pn == "flat" and side == "vindauge":
+                continue
+            T, R = kjerne_spektral(pn, side)
+            d = {}
+            linje = "%-15s %-8s" % (pn, side)
+            for a in (10.0, 0.0, -10.0, -20.0, -30.0, -40.0, -50.0):
+                ia = int(round((a - ALFA[0]) / DALFA))
+                kl = _klynger(BETA, T[il, ia].astype(np.float64), gap=1.5, minvekt=0.02)
+                d["%+.0f" % a] = dict(gjennom=float(T[il, ia].sum()), attende=float(R[il, ia].sum()),
+                                      greiner=[dict(elevasjon=round(c, 2), fraa=round(a0, 2), til=round(a1, 2), vekt=round(w, 3)) for c, a0, a1, w in kl])
+                linje += "  a=%+.0f T=%.2f:" % (a, T[il, ia].sum()) + ",".join("%+.0f(%.2f)" % (c, w) for c, a0, a1, w in kl)
+            grein[pn + "_" + side] = d
+            print(linje)
+    res["greiner_%.0fnm" % LAM[il]] = grein
+    # ---- 3. dei fire observasjonane, rekna for kvar profil og side
+    # Proevescene: himmel (1) over E0 = 12 grader, moerkt under. Loddrett ark.
+    E0 = 12.0
+    over = (BETA > E0).astype(np.float64)
+    ia_app = np.round((APP - ALFA[0]) / DALFA).astype(int)
+    fakta = {}
+    print("\n== DEI FIRE OBSERVASJONANE (rekna; himmel over %.0f grader, loddrett ark) ==" % E0)
+    print("profil          side      himmel synleg ned til   kantkopiar (elevasjon: sprang, breidd)            fargekant a(640)-a(460)")
+    for pn in profilar():
+        for side in ("kamera", "vindauge"):
+            if pn == "flat" and side == "vindauge":
+                continue
+            T, R = kjerne_spektral(pn, side)
+            I = T[il][ia_app].astype(np.float64) @ over
+            Ib = T[il_b][ia_app].astype(np.float64) @ over
+            Ir = T[il_r][ia_app].astype(np.float64) @ over
+            under = APP < E0
+            syn = APP[under & (I >= 0.10)]
+            ned_til = float(syn.min()) if len(syn) else float("nan")
+            # samanhengande himmelsone rett under den sanne horisonten?
+            k = _kantar(I)
+            kb = _kantar(Ib); kr = _kantar(Ir)
+            # fargekant for den sterkaste kanten under horisonten
+            frynse = float("nan")
+            under_k = [x for x in k if x[0] < E0 - 1.0 and x[1] > 0]
+            if under_k:
+                hoved = max(under_k, key=lambda x: x[1])
+                fb = [x for x in kb if abs(x[0] - hoved[0]) < 8 and x[1] > 0]
+                fr_ = [x for x in kr if abs(x[0] - hoved[0]) < 8 and x[1] > 0]
+                if fb and fr_:
+                    frynse = max(fr_, key=lambda x: x[1])[0] - max(fb, key=lambda x: x[1])[0]
+            fakta[pn + "_" + side] = dict(himmel_synleg_ned_til=ned_til,
+                                          kantkopiar=[dict(elevasjon=x[0], sprang=round(x[1], 3), breidd=x[2]) for x in k],
+                                          fargekant_640_minus_460=frynse,
+                                          himmeldel_ved_minus10=float(I[int(round((-10.0 - APP[0]) / 0.25))]),
+                                          himmeldel_ved_minus25=float(I[int(round((-25.0 - APP[0]) / 0.25))]))
+            print("%-15s %-8s  %+6.1f                 %-50s %+.2f" % (
+                pn, side, ned_til, " ".join("%+.1f:%+.2f,%.1f" % x for x in k)[:50], frynse))
+    res["fire_observasjonar"] = fakta
+    # ---- 4. naerfelt: kor mykje flyttar ein ting som ligg d mm bak arket seg
+    ng = float(n_harpiks(550.0))
+    b0 = prisme_fjern_flate(0.0, ng)
+    res["naerfelt_prisme90"] = dict(avboeying_normalt=b0,
+                                    forskyving_mm_ved_1mm=math.tan(math.radians(b0)) * 1.0,
+                                    forskyving_mm_ved_10mm=math.tan(math.radians(b0)) * 10.0,
+                                    forskyving_mm_ved_100mm=math.tan(math.radians(b0)) * 100.0)
+    print("\nnaerfelt, prisme 90: avboeying %.1f grader -> forskyving %.1f mm ved 1 mm, %.1f mm ved 10 mm, %.0f mm ved 100 mm avstand" % (
+        b0, math.tan(math.radians(b0)), math.tan(math.radians(b0)) * 10, math.tan(math.radians(b0)) * 100))
+    with open(os.path.join(UT, "tal.json"), "w", encoding="utf-8") as f:
+        json.dump(res, f, indent=1)
+    print("lagra tal.json")
+    return res
+
+
+# --------------------------------------------------------------------------
+# Maal i fotoa (alt som kjem fraa fotoa blir skrive til context/delar-foto/analyse/)
+# --------------------------------------------------------------------------
+F35 = 26.0      # ANTAKING: hovudkamera paa telefon, 26 mm ekvivalent, ingen zoom, ingen linsekorreksjon
+
+
+def _foto(navn):
+    from PIL import Image
+    im = np.asarray(Image.open(os.path.join(FOTO, navn)).convert("RGB")).astype(np.float64) / 255.0
+    return np.where(im <= 0.04045, im / 12.92, ((im + 0.055) / 1.055) ** 2.4)
+
+
+def _glatt(v, n=9):
+    k = np.ones(n) / n
+    return np.convolve(np.pad(v, n // 2, mode="edge"), k, mode="valid")
+
+
+def foto():
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    from PIL import Image
+    if not os.path.exists(os.path.join(FOTO, "07-prismefilm-heil-mot-vindauge.jpg")):
+        print("fotoa finst ikkje her; hoppar over")
+        return None
+    os.makedirs(ANALYSE, exist_ok=True)
+    res = {"f35_mm_ANTAKING": F35}
+    ng = float(n_harpiks(550.0))
+    a_tir = prisme_tir_grense(ng)
+
+    def oppsett(arr):
+        H, W = arr.shape[:2]
+        fpx = F35 / 43.27 * math.hypot(W, H)
+        cy = (H - 1) / 2.0
+        return fpx, cy
+
+    def vinkel(y, fpx, cy):
+        return math.degrees(math.atan((cy - y) / fpx))
+
+    def kantrad(v, y0, y1, forteikn):
+        """Rad for sterkaste glatta gradient med gitt forteikn i [y0, y1]."""
+        g = np.diff(_glatt(v, 15))
+        seg = g[y0:y1] * forteikn
+        return y0 + int(np.argmax(seg)) + 0.5
+
+    def tyngdepunkt_fall(v, y0, y1, forteikn=-1):
+        g = np.diff(_glatt(v, 15))[y0:y1] * forteikn
+        g = np.clip(g, 0, None)
+        return y0 + float((np.arange(len(g)) * g).sum() / g.sum()) + 0.5
+
+    def topp_rad(v, y0, y1):
+        seg = _glatt(v, 5)[y0:y1]
+        grunn = np.linspace(seg[0], seg[-1], len(seg))
+        return y0 + int(np.argmax(seg - grunn))
+
+    # ---------------- foto 07
+    A = _foto("07-prismefilm-heil-mot-vindauge.jpg")
+    fpx, cy = oppsett(A)
+    lum = lambda P: 0.2126 * P[:, 0] + 0.7152 * P[:, 1] + 0.0722 * P[:, 2]
+    pA = A[:, 950:1080].mean(axis=1)       # kolonne gjennom den gule blokka
+    pB = A[:, 420:520].mean(axis=1)        # kolonne der himmelen rekk laagast
+    m = {}
+    m["arktopp"] = kantrad(lum(pA), 120, 260, +1)
+    m["karm"] = kantrad(lum(pA), 1950, 2100, -1)
+    m["linje_R"] = topp_rad(pA[:, 0], 1760, 1870)
+    m["linje_G"] = topp_rad(pA[:, 1], 1760, 1870)
+    m["linje_B"] = topp_rad(pA[:, 2], 1760, 1870)
+    m["gul_topp_R_stig"] = tyngdepunkt_fall(pA[:, 0], 1300, 1500, +1)
+    m["gul_topp_B_fell"] = tyngdepunkt_fall(pA[:, 2], 1300, 1500, -1)
+    m["himmelkant_R"] = tyngdepunkt_fall(pB[:, 0], 1600, 1990)
+    m["himmelkant_G"] = tyngdepunkt_fall(pB[:, 1], 1600, 1990)
+    m["himmelkant_B"] = tyngdepunkt_fall(pB[:, 2], 1600, 1990)
+    m["linje_G_venstre"] = topp_rad(pB[:, 1], 1780, 1850)
+    m["direkte_silhuett_venstre"] = kantrad(lum(A[:, 430:520].mean(axis=1)), 40, 150, -1)
+    v = {k: vinkel(y, fpx, cy) for k, y in m.items()}
+    r07 = dict(rader=m, vinklar_fraa_biletaksen=v)
+    r07["himmelsone_arktopp_til_gul_topp"] = v["arktopp"] - v["gul_topp_R_stig"]
+    r07["himmelsone_arktopp_til_himmelkant_venstre"] = v["arktopp"] - v["himmelkant_G"]
+    r07["gul_topp_til_linje"] = v["gul_topp_R_stig"] - v["linje_G"]
+    r07["linje_til_karm"] = v["linje_G"] - v["karm"]
+    r07["fargekant_himmelkant_R_minus_B"] = v["himmelkant_R"] - v["himmelkant_B"]
+    r07["linje_B_minus_R"] = v["linje_B"] - v["linje_R"]
+    # invariant: avboeying ved lina. Silhuetten til venstre sett direkte (over arket) og gjennom arket.
+    D_obs = v["direkte_silhuett_venstre"] - v["himmelkant_G"]
+    a_bilete = a_tir + (v["himmelkant_G"] - v["linje_G"])
+    D_mod = prisme_fjern_flate(a_bilete, ng) - a_bilete
+    r07["avboeying_silhuett_observert"] = D_obs
+    r07["avboeying_silhuett_modell_prisme90"] = D_mod
+    r07["lokal_vinkel_for_silhuettbiletet"] = a_bilete
+    # kva toppvinkel gjev den observerte avboeyinga (n_d 1,59)?
+    tv = np.arange(70.0, 120.01, 0.25)
+    Dm = []
+    for t in tv:
+        at = prisme_tir_grense(ng, t)
+        ab = at + (v["himmelkant_G"] - v["linje_G"])
+        Dm.append(prisme_fjern_flate(ab, ng, t) - ab)
+    Dm = np.array(Dm)
+    ok = np.isfinite(Dm)
+    r07["toppvinkel_som_gjev_observert_avboeying"] = float(np.interp(-D_obs, -Dm[ok], tv[ok]))
+    r07["toppvinkel_ved_24mm_linse"] = None
+    # same med 24 mm: alle vinklar blir stoerre
+    f24 = 24.0 / 43.27 * math.hypot(A.shape[1], A.shape[0])
+    v24 = {k: vinkel(y, f24, cy) for k, y in m.items()}
+    D24 = v24["direkte_silhuett_venstre"] - v24["himmelkant_G"]
+    Dm24 = []
+    for t in tv:
+        at = prisme_tir_grense(ng, t)
+        ab = at + (v24["himmelkant_G"] - v24["linje_G"])
+        Dm24.append(prisme_fjern_flate(ab, ng, t) - ab)
+    Dm24 = np.array(Dm24); ok = np.isfinite(Dm24)
+    r07["avboeying_silhuett_observert_24mm"] = D24
+    r07["toppvinkel_ved_24mm_linse"] = float(np.interp(-D24, -Dm24[ok], tv[ok]))
+    # toppen av den gule blokka: kvar skal han liggje i direkte syn etter modellen?
+    a_gul = a_tir + (v["gul_topp_R_stig"] - v["linje_G"])
+    D_gul = prisme_fjern_flate(a_gul, float(n_harpiks(600.0))) - a_gul
+    y_dir = cy - fpx * math.tan(math.radians(v["gul_topp_R_stig"] + D_gul))
+    r07["gul_topp_modell_rad_i_direkte_syn"] = y_dir
+    res["foto07"] = r07
+
+    # ---------------- foto 01
+    B = _foto("01-prismefilm-mot-vindauge.jpg")
+    fpx1, cy1 = oppsett(B)
+    qA = B[:, 1000:1100].mean(axis=1)
+    m1 = {}
+    m1["arktopp"] = kantrad(lum(qA), 420, 520, +1)
+    m1["linje_R"] = topp_rad(qA[:, 0], 1620, 1720)
+    m1["linje_G"] = topp_rad(qA[:, 1], 1620, 1720)
+    m1["linje_B"] = topp_rad(qA[:, 2], 1620, 1720)
+    m1["gul_topp_R_stig"] = tyngdepunkt_fall(qA[:, 0], 1230, 1400, +1)
+    m1["karm"] = kantrad(lum(qA), 1800, 1960, -1)
+    v1 = {k: vinkel(y, fpx1, cy1) for k, y in m1.items()}
+    r01 = dict(rader=m1, vinklar_fraa_biletaksen=v1)
+    r01["himmelsone_arktopp_til_gul_topp"] = v1["arktopp"] - v1["gul_topp_R_stig"]
+    r01["gul_topp_til_linje"] = v1["gul_topp_R_stig"] - v1["linje_G"]
+    r01["linje_til_karm"] = v1["linje_G"] - v1["karm"]
+    r01["linje_B_minus_R"] = v1["linje_B"] - v1["linje_R"]
+    a_gul1 = a_tir + (v1["gul_topp_R_stig"] - v1["linje_G"])
+    D_gul1 = prisme_fjern_flate(a_gul1, float(n_harpiks(600.0))) - a_gul1
+    r01["gul_topp_modell_rad_i_direkte_syn"] = cy1 - fpx1 * math.tan(math.radians(v1["gul_topp_R_stig"] + D_gul1))
+    res["foto01"] = r01
+
+    # ---------------- modellprofil mot fotoprofil (himmelkanten til venstre i 07)
+    T, R = kjerne_spektral("prisme90", "kamera")
+    ia_app = np.round((APP - ALFA[0]) / DALFA).astype(int)
+    E_s = prisme_fjern_flate(a_bilete, ng)                 # silhuetten sin lokale elevasjon
+    dag = norm_y(planck(LAM, 6500.0)); blaa = norm_y(planck(LAM, 6500.0) * (550.0 / LAM) ** 3.0)
+    sno = norm_y(planck(LAM, 6500.0) * (550.0 / LAM) ** 1.6)
+    Lk = np.zeros((len(EL), len(LAM)))
+    Lk[EL > E_s] = 0.6 * dag + 0.4 * blaa
+    Lk[(EL <= E_s) & (EL > 0)] = 0.12 * dag
+    Lk[EL <= 0] = 0.40 * sno
+    Lk[EL <= -75] = 0.03 * dag
+    rom = norm_y(planck(LAM, 4500.0))
+    Smod = np.zeros((len(APP), len(LAM)))
+    for il in range(len(LAM)):
+        Smod[:, il] = T[il][ia_app].astype(np.float64) @ Lk[:, il] + R[il][ia_app].sum(axis=1) * 0.10 * rom[il]
+    X = Smod @ _X; Y = Smod @ _Y; Z = Smod @ _Z
+    rgbm = np.stack([X, Y, Z], axis=-1) @ M_XYZ_RGB.T / _KVIT
+    fig, axs = plt.subplots(1, 2, figsize=(15, 5.5))
+    yy = np.arange(len(pB))
+    th = np.degrees(np.arctan((cy - yy) / fpx)) - v["linje_G"]
+    for c, col in enumerate("rgb"):
+        axs[0].plot(th, pB[:, c], col, lw=1.0)
+        axs[0].plot(th, pA[:, c], col, lw=0.6, ls="--")
+    axs[0].set_xlim(12, -8); axs[0].set_xlabel("vinkel over den lyse lina (grader, 26 mm ANTAKING)")
+    axs[0].set_title("foto 07: heil = x 420-520 (himmelkant), stipla = x 950-1080 (gul blokk)")
+    axs[0].grid(alpha=0.3)
+    for c, col in enumerate("rgb"):
+        axs[1].plot(APP - a_tir, rgbm[:, c], col, lw=1.0)
+    axs[1].set_xlim(12, -8); axs[1].set_xlabel("vinkel over totalrefleksjonsgrensa (grader)")
+    axs[1].set_title("modell: prisme 90, struktur mot kamera, himmelkant ved %.1f grader" % E_s)
+    axs[1].grid(alpha=0.3)
+    fig.tight_layout(); fig.savefig(os.path.join(ANALYSE, "fysikk-maal-profil.png"), dpi=90); plt.close(fig)
+    # modellen sin fargekant med same definisjon som i fotoet
+    def tp(vv, a0, a1):
+        rel = APP - a_tir
+        g = np.clip(np.diff(vv), 0, None)
+        am = 0.5 * (rel[1:] + rel[:-1])
+        mm = (am >= a0) & (am <= a1)
+        return float((am[mm] * g[mm]).sum() / g[mm].sum())
+    lo = vinkel(1990, fpx, cy) - v["linje_G"]; hi = vinkel(1600, fpx, cy) - v["linje_G"]
+    res["modell_fargekant_R_minus_B_same_definisjon"] = tp(rgbm[:, 0], lo, hi) - tp(rgbm[:, 2], lo, hi)
+
+    # ---------------- side om side: foto 07 og modell (berre til analyse-mappa)
+    Ls = scene(snokant=True)
+    S = gjennomsyn("a_prisme90", "kamera", Ls, 0.0)
+    y0, y1 = int(m["arktopp"]), int(m["karm"]) + 60
+    utsnitt = Image.open(os.path.join(FOTO, "07-prismefilm-heil-mot-vindauge.jpg")).crop((300, y0, 1560, y1))
+    # modellen: same vinkelomraade, lokal vinkel = a_tir + (vinkel - vinkel_linje)
+    a_topp = a_tir + (v["arktopp"] - v["linje_G"]); a_botn = a_tir + (vinkel(y1, fpx, cy) - v["linje_G"])
+    i_t = int(round((a_topp - APP[0]) / 0.25)); i_b = int(round((a_botn - APP[0]) / 0.25))
+    rgb = spektrum_til_srgb(S[i_b:i_t + 1][::-1], 0.9)
+    mod = Image.fromarray((rgb * 255 + 0.5).astype(np.uint8))
+    # tangensprojeksjon: radene i fotoet er ikkje jamne i vinkel; resample modellen
+    rad_v = np.array([vinkel(y, fpx, cy) for y in range(y0, y1)])
+    a_rad = a_tir + (rad_v - v["linje_G"])
+    idx = np.clip(np.round((a_topp - a_rad) / 0.25).astype(int), 0, rgb.shape[0] - 1)
+    mod2 = Image.fromarray((rgb[idx] * 255 + 0.5).astype(np.uint8)).resize((utsnitt.width * 2 // 3, utsnitt.height), Image.BILINEAR)
+    ark = Image.new("RGB", (utsnitt.width + mod2.width + 10, utsnitt.height), (0, 0, 0))
+    ark.paste(utsnitt, (0, 0)); ark.paste(mod2, (utsnitt.width + 10, 0))
+    ark.save(os.path.join(ANALYSE, "fysikk-side-om-side-07.png"))
+    with open(os.path.join(ANALYSE, "fysikk-maal.json"), "w", encoding="utf-8") as f:
+        json.dump(res, f, indent=1)
+    print(json.dumps(res, indent=1))
+    return res
+
+
+
 if __name__ == "__main__":
     kva = sys.argv[1] if len(sys.argv) > 1 else "test"
     if kva in ("test", "alt"):
@@ -991,3 +1474,11 @@ if __name__ == "__main__":
             sys.exit(1)
     if kva in ("kjernar", "alt"):
         alle_kjernar()
+    if kva in ("kart", "alt"):
+        kart()
+    if kva in ("bilete", "alt"):
+        bilete()
+    if kva in ("tal", "alt"):
+        tal()
+    if kva in ("foto", "alt"):
+        foto()

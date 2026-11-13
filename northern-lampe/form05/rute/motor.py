@@ -625,7 +625,7 @@ def skriv_ies(ruter, fil, tittel):
         for j in range(len(Hh)): f.write(rader(I[:, j]))
     return float(lm)
 
-KAMERA = dict(T=dict(pos=[-0.45, -0.85, ZB + 0.30], mot=[0.02, 0.38, ZB + 0.42], fov_grader=38, merk='anslått frå det genererte biletet «Telt»'),
+KAMERA = dict(T=dict(pos=[-0.62, -1.05, ZB + 0.34], mot=[0.08, 0.36, ZB + 0.33], fov_grader=40, merk='anslått frå det genererte biletet «Telt»'),
               K=dict(pos=[-0.60, -0.55, ZB + 0.32], mot=[0.30, 0.24, ZB + 0.38], fov_grader=45, merk='anslått frå det genererte biletet «Klemme»'))
 
 def k_ut():
@@ -660,6 +660,13 @@ def k_ut():
                                             ex=[r2(x, 4) for x in r.ex], ey=[r2(x, 4) for x in r.ey], storleik=[r.w, r.h],
                                             L_rett_fram_cd_m2=r2(r.kf * r.motor['tab'][NB // 2, NB // 2], 0),
                                             merk='mesh-plate med emisjon for det auget ser; punktlys med IES i senteret for rommet'))
+            for fl in bygg.stripe:
+                c = fl.prim.o + fl.prim.u / 2 + fl.prim.v / 2
+                sc['emitterar'].append(dict(kropp=kv, tilstand=m, ies=None, type='diodestripe mot veggen, lambertsk flate',
+                                            lm_led=r2(fl.lm, 0), lm_ut=r2(fl.lm_ut, 0), W=r2(fl.lm / ls.LMW_KJELDE, 2), CCT=fl.K,
+                                            senter=[r2(x, 4) for x in c], normal=[r2(x, 4) for x in fl.prim.n],
+                                            storleik=[r2(np.linalg.norm(fl.prim.u), 3), r2(np.linalg.norm(fl.prim.v), 3)],
+                                            merk='flatelys (area light) i Blender med denne lumen, utan IES'))
     json.dump(sc, open(os.path.join(HER, 'scene.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1, default=_j)
     logg('ut: ies_*.ies og scene.json skrivne')
 

@@ -98,8 +98,7 @@ def polar(dr, ruter_a, ruter_s, x0, y0, R, f):
     dr.line([x0 - R, y0, x0 + R, y0], fill=(45, 45, 45)); dr.line([x0, y0 - R, x0, y0 + R], fill=(45, 45, 45))
     for ruter, farge, namn in ((ruter_a, (235, 228, 215), 'arbeid'), (ruter_s, (230, 150, 70), 'stemning')):
         I = sum(r.I(d) for r in ruter); top = I.max()
-        pts = [(x0 + R * I[i] / top * (-d[i, 1]) * -1, y0 + R * I[i] / top * (-d[i, 2])) for i in range(len(th))]
-        pts = [(x0 - R * I[i] / top * d[i, 1], y0 - R * I[i] / top * d[i, 2]) for i in range(len(th))]
+        pts = [(x0 + R * I[i] / top * d[i, 1], y0 - R * I[i] / top * d[i, 2]) for i in range(len(th))]
         dr.line(pts + [pts[0]], fill=farge, width=2)
     dr.text((x0 - R, y0 + R + 8), 'lysstyrke sett frå sida, normert', font=f, fill=(140, 140, 140))
     dr.text((x0 - R, y0 + R + 30), 'brukaren til venstre, veggen til høgre', font=f, fill=(110, 110, 110))
@@ -120,7 +119,7 @@ def lag(kv='T'):
     S = ek.get('stemning', {}); A = ek.get('arbeid', {})
     dr.text((40, 84), 'stemning · 2200 K · 1,25 W · %s lm ut av ruta' % f'{sum(r.phi_ut for r in ruter_s):.0f}',
             font=f2, fill=(220, 160, 95))
-    dr.text((n + 30, 34), 'arbeid · 2700 K · %.1f W · %.0f lm ut' % (Wa, sum(r.phi_ut for r in ruter_a)), font=f2, fill=(225, 220, 210))
+    dr.text((n + 30, 34), ('arbeid · 2700 K · %.1f W · %.0f lm ut' % (Wa, sum(r.phi_ut for r in ruter_a) + sum(getattr(s_, 'lm_ut', 0) for s_ in m.bygg.stripe))).replace('.', ','), font=f2, fill=(225, 220, 210))
     polar(dr, ruter_a, ruter_s, n + 30 + na // 2, 70 + na + 150, 120, f3)
     y = 70 + na + 330
     rk = m.les('rekn_' + kv, {})
@@ -133,6 +132,7 @@ def lag(kv='T'):
     linjer += ['%s, %s' % (m.KJELDE[spec['kjelde']]['namn'], spec['rille'] + ' riller'),
                'rekna, ikkje målt · prismet er ideelt (antaking)']
     for l in linjer:
+        l = l.replace('.', ',')
         dr.text((n + 30, y), l, font=f3, fill=(170, 165, 158)); y += 24
     dr.text((40, n - 46), spec.get('gest', ''), font=f3, fill=(150, 145, 138))
     ark.save(os.path.join(HER, 'lysstudie.png'))

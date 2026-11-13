@@ -1,0 +1,972 @@
+{
+ "a_stab": {
+  "masse": 1.23305,
+  "com": [
+   0.01557,
+   0.18,
+   0.4737
+  ],
+  "tipp_deg": 17.57059,
+  "M_res_y": 1.81444,
+  "M_res_x": 6.77908,
+  "F_tipp_y": 2.92651,
+  "F_tipp_x": 10.934,
+  "E_velt_J": 0.28041
+ },
+ "c_stab": {
+  "aleine": {
+   "masse": 2.70308,
+   "com": [
+    0.0,
+    0.37409,
+    0.36201
+   ],
+   "tipp_deg": 18.33947,
+   "tipp_fram": 20.04653,
+   "tipp_side": 18.33947,
+   "tipp_bak": 24.88265
+  },
+  "med skjerm 4 kg": {
+   "masse": 6.70308,
+   "com": [
+    0.0,
+    0.44923,
+    0.26533
+   ],
+   "tipp_deg": 19.27209,
+   "tipp_fram": 37.99022,
+   "tipp_side": 24.33551,
+   "tipp_bak": 19.27209
+  },
+  "lgp": {
+   "m_lgp": 0.5355,
+   "masse": 3.18858,
+   "tipp_fram": 15.84011,
+   "tipp_side": 16.52994
+  }
+ },
+ "a_svikt": {
+  "hand_bein": 0.78604,
+  "hand_riegel": 0.13801,
+  "ramme_10N_x": 0.93312,
+  "motor": 0.82308,
+  "M_nav": 3.05,
+  "sig_bein_MPa": 4.18318,
+  "slark_005": 0.92424,
+  "vriding_spalte_deg": 0.78392,
+  "J_ope_over_lukka": 0.0009
+ },
+ "b": {
+  "D23": {
+   "ut_av_plan": 2.3393,
+   "i_plan": 0.652,
+   "ut_av_plan_GJ_lik_EI": 1.98577,
+   "grep": {
+    "x": 0.0026,
+    "y": 0.00215,
+    "z": 0.00248
+   },
+   "ned_eigenvekt": 2.25237,
+   "stup_deg": 0.29032,
+   "m_arm": 0.30212
+  },
+  "D24": {
+   "ut_av_plan": 2.04191,
+   "i_plan": 0.56913,
+   "ut_av_plan_GJ_lik_EI": 1.73331,
+   "grep": {
+    "x": 0.00227,
+    "y": 0.00188,
+    "z": 0.00216
+   },
+   "ned_eigenvekt": 1.97795,
+   "stup_deg": 0.25488,
+   "m_arm": 0.31617
+  },
+  "D25": {
+   "ut_av_plan": 1.79283,
+   "i_plan": 0.49972,
+   "ut_av_plan_GJ_lik_EI": 1.52187,
+   "grep": {
+    "x": 0.00199,
+    "y": 0.00165,
+    "z": 0.0019
+   },
+   "ned_eigenvekt": 1.74715,
+   "stup_deg": 0.22508,
+   "m_arm": 0.33023
+  },
+  "D26": {
+   "ut_av_plan": 1.58265,
+   "i_plan": 0.44115,
+   "ut_av_plan_GJ_lik_EI": 1.34347,
+   "grep": {
+    "x": 0.00176,
+    "y": 0.00146,
+    "z": 0.00168
+   },
+   "ned_eigenvekt": 1.55157,
+   "stup_deg": 0.19984,
+   "m_arm": 0.34428
+  },
+  "klemme": {
+   "M_fram": 8.57966,
+   "M_bak": 3.58037,
+   "M_side": 6.08003,
+   "M_vri": 4.90002,
+   "P_fram": 157.84098,
+   "P_bak": 116.07132,
+   "P_side": 233.37814,
+   "P_vri_mu03": 497.97,
+   "P_SF2": 995.94,
+   "V": 9.82308
+  },
+  "reaksjonar": {
+   "eigenvekt": {
+    "Fz": 7.37058,
+    "Mx": -2.49965,
+    "My": -0.0,
+    "Mz": -0.0,
+    "vm": 4.88654
+   },
+   "+10 N mot brukar (−y) i røyret": {
+    "Fz": 7.37058,
+    "Mx": -8.57966,
+    "My": -0.0,
+    "Mz": -0.0,
+    "vm": 16.7723
+   },
+   "+10 N mot vegg (+y) i røyret": {
+    "Fz": 7.37058,
+    "Mx": 3.58037,
+    "My": -0.0,
+    "Mz": 0.0,
+    "vm": 6.99923
+   },
+   "+10 N langs røyret (x)": {
+    "Fz": 7.37058,
+    "Mx": -2.49965,
+    "My": -6.08003,
+    "Mz": -4.90002,
+    "vm": 15.29603
+   },
+   "+10 N i y i grepet": {
+    "Fz": 7.37059,
+    "Mx": -8.57966,
+    "My": 2e-05,
+    "Mz": 3.35001,
+    "vm": 17.70527
+   },
+   "+10 N ned i grepet": {
+    "Fz": 17.3706,
+    "Mx": -7.39967,
+    "My": -3.35,
+    "Mz": -0.0,
+    "vm": 15.87892
+   },
+   "+3 N i y i grepet (éin finger)": {
+    "Fz": 7.37058,
+    "Mx": -4.32365,
+    "My": 1e-05,
+    "Mz": 1.005,
+    "vm": 8.62182
+   }
+  },
+  "f_side_Hz": 7.868,
+  "masse": 1.00133
+ },
+ "c_svikt": {
+  "arb_midt": {
+   "U": 0.22033,
+   "U_kv": 0.22033,
+   "kasse": 0.06147,
+   "vriding_soyle_deg": 0.0,
+   "Mz_fot": 0.0,
+   "Mx_fot": -0.96148,
+   "My_fot": 0.0
+  },
+  "arb_hjorne": {
+   "U": 5.68782,
+   "U_kv": 0.68126,
+   "kasse": 0.07313,
+   "vriding_soyle_deg": -0.0,
+   "Mz_fot": 0.0,
+   "Mx_fot": -0.96148,
+   "My_fot": -0.72
+  },
+  "stem_topp_midt": {
+   "U": 0.24717,
+   "U_kv": 0.24717,
+   "kasse": 0.06895,
+   "vriding_soyle_deg": 0.0,
+   "Mz_fot": 0.0,
+   "Mx_fot": -1.8264,
+   "My_fot": 0.0
+  },
+  "stem_topp_hjorne": {
+   "U": 18.37151,
+   "U_kv": 6.49232,
+   "kasse": 0.09413,
+   "vriding_soyle_deg": -2.56097,
+   "Mz_fot": 0.71999,
+   "Mx_fot": -1.8264,
+   "My_fot": 0.0
+  },
+  "ende_akse": {
+   "U": 70.12937,
+   "U_kv": 24.27721,
+   "kasse": 0.14104,
+   "vriding_soyle_deg": 9.80341,
+   "Mz_fot": -2.75614,
+   "Mx_fot": 0.0,
+   "My_fot": -6.35997
+  },
+  "f_vri_Hz": [
+   1.8478,
+   3.13447
+  ],
+  "fotplate_utan": {
+   "theta_stat_mrad": 1.97688,
+   "nav_ned_mm": 0.54486,
+   "gest_mm": 2.7705
+  },
+  "fotplate_med": {
+   "theta_stat_mrad": 1.44748,
+   "nav_ned_mm": 0.39895,
+   "gest_mm": 1.47504
+  },
+  "brett_vri_mm": 1.04828,
+  "ned_brett": 0.34058,
+  "ned_brett_arm": 0.3783,
+  "M_fot_stat": 2.93739,
+  "kv_s": 2.8775,
+  "kv_a": 11.45523,
+  "J_U": 0.0,
+  "J_kasse": 0.0,
+  "F_g": 2.4
+ },
+ "varme": {
+  "a|eloksert/lakka ε 0,85|all effekt som varme": {
+   "h": 9.91891,
+   "A_eff_cm2": 1082.25551,
+   "dT": 11.69321,
+   "T_led": 42.96608
+  },
+  "a|eloksert/lakka ε 0,85|utan utstrålt lys": {
+   "h": 9.62638,
+   "A_eff_cm2": 1087.75188,
+   "dT": 9.48297,
+   "T_led": 39.44518
+  },
+  "a|blank alu ε 0,10|all effekt som varme": {
+   "h": 5.73036,
+   "A_eff_cm2": 1178.09479,
+   "dT": 18.59369,
+   "T_led": 49.86656
+  },
+  "a|blank alu ε 0,10|utan utstrålt lys": {
+   "h": 5.47511,
+   "A_eff_cm2": 1185.46625,
+   "dT": 15.29874,
+   "T_led": 45.26095
+  },
+  "a|h10": {
+   "A_eff_cm2": 1080.75673,
+   "margin": 2.58298,
+   "margin_motor": 3.42465
+  },
+  "b|eloksert/lakka ε 0,85|all effekt som varme": {
+   "h": 10.51228,
+   "A_eff_cm2": 734.0185,
+   "dT": 16.9941,
+   "T_led": 48.53316
+  },
+  "b|eloksert/lakka ε 0,85|utan utstrålt lys": {
+   "h": 10.17712,
+   "A_eff_cm2": 735.07637,
+   "dT": 13.8661,
+   "T_led": 44.03889
+  },
+  "b|blank alu ε 0,10|all effekt som varme": {
+   "h": 6.3034,
+   "A_eff_cm2": 747.59303,
+   "dT": 27.8267,
+   "T_led": 59.36576
+  },
+  "b|blank alu ε 0,10|utan utstrålt lys": {
+   "h": 6.02491,
+   "A_eff_cm2": 748.51398,
+   "dT": 23.00174,
+   "T_led": 53.17453
+  },
+  "b|h10": {
+   "A_eff_cm2": 735.63698,
+   "margin": 1.68299,
+   "margin_motor": 1.75972
+  },
+  "c|eloksert/lakka ε 0,85": {
+   "h": 9.362,
+   "A_eff_cm2": 1601.9129,
+   "dT": 6.69112,
+   "T_led": 34.19981
+  },
+  "c|blank alu ε 0,10": {
+   "h": 5.28188,
+   "A_eff_cm2": 1682.07044,
+   "dT": 11.29467,
+   "T_led": 38.80336
+  },
+  "c|motor": {
+   "mL": 1.02062,
+   "eta": 0.75456,
+   "A_cm2": 2263.67902,
+   "A_rygg_cm2": 1590.39264,
+   "margin_rygg": 3.72289
+  }
+ },
+ "a_gest": {
+  "éin finger øvst på grepet, 3.08 N mot brukar": 0.91284,
+  "éin finger øvst på grepet, 3.08 N mot vegg": 0.91284,
+  "éin finger framme på grepet, 3.08 N ned": 75.97244,
+  "éin finger framme på grepet, 3.08 N opp": 1.9692,
+  "10 N dytt i y i aksehøgd": 0.29265,
+  "10 N dytt i x i aksehøgd": 1.0934
+ },
+ "vri": {
+  "ubalanse": 0.02546,
+  "faktor": 3.14171
+ },
+ "c_gest": {
+  "aleine": {
+   "tryggleik": 1.90782,
+   "fall": "α -90°, bakkant, x 0.00, kraft mot lysnormalen"
+  },
+  "med skjerm": {
+   "tryggleik": 3.08399,
+   "fall": "α -115°, bakkant, x 0.00, kraft med lysnormalen"
+  },
+  "aleine, PMMA-lysleiar": {
+   "tryggleik": 1.95452,
+   "fall": "α -90°, bakkant, x 0.00, kraft mot lysnormalen"
+  }
+ },
+ "vipp": {
+  "ubalanse": 0.02375,
+  "T_SF2_utan_skjerm": 0.28617
+ },
+ "_merknad": "c_stab, c_svikt, c_gest, vipp og varme[\"c|...\"] er rekna for det GAMLE (c) flak (form03) i mekanikk.py. Prisme (form04) står under c_prisme, rekna i mekanikk_ut.py. a_dytt, b_arm, b_klemme og varme_inne er òg frå mekanikk_ut.py.",
+ "a_dytt": {
+  "masse": 1.23305,
+  "com": [
+   0.01557,
+   0.18,
+   0.4737
+  ],
+  "tipp_fram": 17.57059,
+  "M_res_fram": 1.81444,
+  "last": {
+   "10 N mot brukar i aksehøgd": 0.29265,
+   "10 N mot vegg i aksehøgd": 0.29265,
+   "10 N mot brukar på grepet": 0.28087,
+   "finger øvst på grepet 3.08 N mot brukar": 0.91284,
+   "finger øvst på grepet 3.08 N mot vegg": 0.91284,
+   "finger framme på grepet 3.08 N ned": 75.97244,
+   "finger framme på grepet 3.08 N opp": 1.9692,
+   "10 N sidevegs i aksehøgd": 1.0934
+  },
+  "F_lyft_10N_akse": 2.92651,
+  "E_velt_J": 0.28041,
+  "landar_y": -0.60789,
+  "rettingar": {
+   "stålmeie 40×8×340 per side": {
+    "m_ekstra": 1.70816,
+    "masse": 2.94121,
+    "lam_finger": 2.1774,
+    "F_lyft_akse": 6.98063,
+    "tipp": 36.74444
+   },
+   "stålmeie 40×10×340 per side": {
+    "m_ekstra": 2.1352,
+    "masse": 3.36825,
+    "lam_finger": 2.49354,
+    "F_lyft_akse": 7.99416,
+    "tipp": 40.34649
+   },
+   "stålmeie 50×12×340 per side": {
+    "m_ekstra": 3.2028,
+    "masse": 4.43585,
+    "lam_finger": 3.28389,
+    "F_lyft_akse": 10.52799,
+    "tipp": 47.80047
+   },
+   "føter 0,01–0,60": {
+    "10 N mot brukar i aksehøgd": 0.33167,
+    "10 N mot vegg i aksehøgd": 0.81942,
+    "10 N mot brukar på grepet": 0.31832,
+    "finger øvst på grepet 3.08 N mot brukar": 1.03455,
+    "finger øvst på grepet 3.08 N mot vegg": 2.55594,
+    "finger framme på grepet 3.08 N ned": 75.97244,
+    "finger framme på grepet 3.08 N opp": 1.9692,
+    "10 N sidevegs i aksehøgd": 1.0934
+   },
+   "tunge r26": {
+    "ned": 75.97244,
+    "opp": 1.9692
+   },
+   "tunge r40": {
+    "ned": 116.88068,
+    "opp": 3.02954
+   }
+  },
+  "m_krav_finger": 2.70159,
+  "m_krav_10N": 4.21339
+ },
+ "b_arm": {
+  "23x1.5": {
+   "spiss_x": 2.33932,
+   "spiss_x_boy": 0.91442,
+   "spiss_x_vri": 1.4249,
+   "spiss_y": 0.6518,
+   "grep_x": 2.24317,
+   "grep_y": 1.62481,
+   "grep_z": 2.36337,
+   "finger_y": 1.7373,
+   "ned_eigenvekt": 2.25181,
+   "m_arm": 0.30212,
+   "grep_norm": {
+    "x": 2.59884,
+    "y": 2.1533,
+    "z": 2.47922
+   },
+   "f_side_Hz": 7.86796
+  },
+  "24x1.5": {
+   "spiss_x": 2.04193,
+   "spiss_x_boy": 0.79818,
+   "spiss_x_vri": 1.24375,
+   "spiss_y": 0.56894,
+   "grep_x": 1.958,
+   "grep_y": 1.41825,
+   "grep_z": 2.06292,
+   "finger_y": 1.51644,
+   "ned_eigenvekt": 1.97741,
+   "m_arm": 0.31618,
+   "grep_norm": {
+    "x": 2.26845,
+    "y": 1.87956,
+    "z": 2.16405
+   }
+  },
+  "25x1.5": {
+   "spiss_x": 1.79285,
+   "spiss_x_boy": 0.70081,
+   "spiss_x_vri": 1.09204,
+   "spiss_y": 0.49954,
+   "grep_x": 1.71916,
+   "grep_y": 1.24525,
+   "grep_z": 1.81128,
+   "finger_y": 1.33147,
+   "ned_eigenvekt": 1.74663,
+   "m_arm": 0.33023,
+   "grep_norm": {
+    "x": 1.99175,
+    "y": 1.65029,
+    "z": 1.90007
+   },
+   "f_side_Hz": 8.92784
+  },
+  "26x1.5": {
+   "spiss_x": 1.58267,
+   "spiss_x_boy": 0.61866,
+   "spiss_x_vri": 0.96402,
+   "spiss_y": 0.44098,
+   "grep_x": 1.51762,
+   "grep_y": 1.09927,
+   "grep_z": 1.59894,
+   "finger_y": 1.17537,
+   "ned_eigenvekt": 1.55106,
+   "m_arm": 0.34428,
+   "grep_norm": {
+    "x": 1.75825,
+    "y": 1.45682,
+    "z": 1.67732
+   }
+  },
+  "25x2.0": {
+   "spiss_x": 1.42929,
+   "spiss_x_boy": 0.5587,
+   "spiss_x_vri": 0.87059,
+   "spiss_y": 0.39824,
+   "grep_x": 1.37054,
+   "grep_y": 0.99273,
+   "grep_z": 1.44398,
+   "finger_y": 1.06146,
+   "ned_eigenvekt": 1.45197,
+   "m_arm": 0.43094,
+   "grep_norm": {
+    "x": 1.58785,
+    "y": 1.31564,
+    "z": 1.51477
+   }
+  },
+  "28x1.5": {
+   "spiss_x": 1.25138,
+   "spiss_x_boy": 0.48915,
+   "spiss_x_vri": 0.76222,
+   "spiss_y": 0.34867,
+   "grep_x": 1.19994,
+   "grep_y": 0.86916,
+   "grep_z": 1.26424,
+   "finger_y": 0.92934,
+   "ned_eigenvekt": 1.24093,
+   "m_arm": 0.37239,
+   "grep_norm": {
+    "x": 1.3902,
+    "y": 1.15187,
+    "z": 1.32621
+   }
+  },
+  "30x1.5": {
+   "spiss_x": 1.00642,
+   "spiss_x_boy": 0.3934,
+   "spiss_x_vri": 0.61302,
+   "spiss_y": 0.28042,
+   "grep_x": 0.96505,
+   "grep_y": 0.69902,
+   "grep_z": 1.01676,
+   "finger_y": 0.74742,
+   "ned_eigenvekt": 1.00971,
+   "m_arm": 0.40049,
+   "grep_norm": {
+    "x": 1.11807,
+    "y": 0.92639,
+    "z": 1.06661
+   }
+  }
+ },
+ "b_klemme": {
+  "fall": {
+   "eigenvekt": {
+    "V": 9.82311,
+    "Mx": 2.37675,
+    "My": 0.0,
+    "Mz": 0.0,
+    "H": 0.0,
+    "P_vipp": 37.71181,
+    "P_vri_03": 0.0,
+    "P_vri_06": 0.0,
+    "P_vri_03_pad40": 0.0
+   },
+   "10 N mot brukar i røyret": {
+    "V": 9.82311,
+    "Mx": 8.57675,
+    "My": 0.0,
+    "Mz": 0.0,
+    "H": 10.0,
+    "P_vipp": 161.71181,
+    "P_vri_03": 11.75511,
+    "P_vri_06": 3.42178,
+    "P_vri_03_pad40": 11.75511
+   },
+   "10 N mot vegg i røyret": {
+    "V": 9.82311,
+    "Mx": -3.82325,
+    "My": 0.0,
+    "Mz": 0.0,
+    "H": 10.0,
+    "P_vipp": 117.61869,
+    "P_vri_03": 11.75511,
+    "P_vri_06": 3.42178,
+    "P_vri_03_pad40": 11.75511
+   },
+   "10 N langs røyret (x)": {
+    "V": 9.82311,
+    "Mx": 2.37675,
+    "My": 6.2,
+    "Mz": 4.7,
+    "H": 10.0,
+    "P_vipp": 238.17689,
+    "P_vri_03": 456.22373,
+    "P_vri_06": 224.41154,
+    "P_vri_03_pad40": 397.41947
+   },
+   "10 N ned i grepsenden": {
+    "V": 19.82311,
+    "Mx": 7.07675,
+    "My": 3.35,
+    "Mz": 0.0,
+    "H": 0.0,
+    "P_vipp": 121.71181,
+    "P_vri_03": 0.0,
+    "P_vri_06": 0.0,
+    "P_vri_03_pad40": 0.0
+   },
+   "10 N langs røyret i grepsenden": {
+    "V": 9.82311,
+    "Mx": 2.37675,
+    "My": 6.2,
+    "Mz": 4.7,
+    "H": 10.0,
+    "P_vipp": 238.17689,
+    "P_vri_03": 456.22373,
+    "P_vri_06": 224.41154,
+    "P_vri_03_pad40": 397.41947
+   },
+   "finger 3,08 N mot brukar øvst på grepet": {
+    "V": 9.82311,
+    "Mx": 4.36444,
+    "My": 0.0,
+    "Mz": -1.03077,
+    "H": 3.07692,
+    "P_vipp": 77.46566,
+    "P_vri_03": 94.27802,
+    "P_vri_06": 43.43869,
+    "P_vri_03_pad40": 82.1262
+   }
+  },
+  "P_SF1_mu03": 456.22373,
+  "P_SF1_mu06": 238.17689,
+  "P_SF1_svivel": 238.17689,
+  "P_SF2": 912.44746,
+  "trykk_MPa": {
+   "toppkjeft 50×80": 0.22811,
+   "pute Ø25": 1.85882,
+   "pute Ø40": 0.7261,
+   "stålplate 60×60 under": 0.25346
+  },
+  "kanttrykk_MPa": 0.39138,
+  "r_top": 0.02546
+ },
+ "c_prisme": {
+  "motor|aleine": {
+   "masse": 3.11277,
+   "com": [
+    0.0,
+    0.39949,
+    0.28941
+   ],
+   "tipp_fram": 22.09531,
+   "tipp_side": 22.52055,
+   "tipp_bak": 32.23643,
+   "F_lyft_fram": 5.37863,
+   "F_lyft_bak": 8.35516,
+   "F_lyft_side": 5.49351,
+   "F_tipp_motorformel": 5.12531
+  },
+  "motor|med skjerm": {
+   "masse": 7.11277,
+   "com": [
+    0.0,
+    0.45601,
+    0.23913
+   ],
+   "tipp_fram": 36.04329,
+   "tipp_side": 26.64842,
+   "tipp_bak": 27.78264,
+   "F_lyft_fram": 18.20308,
+   "F_lyft_bak": 13.17903,
+   "F_lyft_side": 12.55284,
+   "F_tipp_motorformel": 11.96164
+  },
+  "geometri|aleine": {
+   "masse": 3.20156,
+   "com": [
+    0.0,
+    0.39377,
+    0.30451
+   ],
+   "tipp_fram": 20.15623,
+   "tipp_side": 21.50826,
+   "tipp_bak": 31.72151,
+   "F_lyft_fram": 5.26286,
+   "F_lyft_bak": 8.86266,
+   "F_lyft_side": 5.65021,
+   "F_tipp_motorformel": 5.015
+  },
+  "geometri|med skjerm": {
+   "masse": 7.20156,
+   "com": [
+    0.0,
+    0.45278,
+    0.24646
+   ],
+   "tipp_fram": 34.7185,
+   "tipp_side": 25.9611,
+   "tipp_bak": 27.66894,
+   "F_lyft_fram": 18.08731,
+   "F_lyft_bak": 13.68654,
+   "F_lyft_side": 12.70954,
+   "F_tipp_motorformel": 12.11096
+  },
+  "gest": {
+   "T0.20|aleine": {
+    "lam": 1.95335,
+    "alfa": -105.0,
+    "kant": "bakkant",
+    "x": 0.0,
+    "F": 2.4452,
+    "z": 0.74871,
+    "y": 0.21575,
+    "Fy": -2.44189,
+    "Fz": -0.12716
+   },
+   "T0.20|med skjerm": {
+    "lam": 4.27752,
+    "alfa": 75.0,
+    "kant": "framkant",
+    "x": 0.0,
+    "F": 2.4452,
+    "z": 0.7399,
+    "y": 0.18284,
+    "Fy": 2.17832,
+    "Fz": 1.11082
+   },
+   "T0.30|aleine": {
+    "lam": 1.30223,
+    "alfa": -105.0,
+    "kant": "bakkant",
+    "x": 0.0,
+    "F": 3.6678,
+    "z": 0.74871,
+    "y": 0.21575,
+    "Fy": -3.66283,
+    "Fz": -0.19075
+   },
+   "T0.30|med skjerm": {
+    "lam": 2.85168,
+    "alfa": 75.0,
+    "kant": "framkant",
+    "x": 0.0,
+    "F": 3.6678,
+    "z": 0.7399,
+    "y": 0.18284,
+    "Fy": 3.26748,
+    "Fz": 1.66623
+   }
+  },
+  "fot": {
+   "T0.20": {
+    "t_motorformel_mm": 7,
+    "t_rett_mm": 8,
+    "masse_rett": 3.30717
+   },
+   "T0.30": {
+    "t_motorformel_mm": 14,
+    "t_rett_mm": 14,
+    "masse_rett": 4.47357
+   }
+  },
+  "fot_10N_mm": 18,
+  "svikt": {
+   "T0.20|arbeid, framkant midt, 2.45 N ned": {
+    "U": 0.15753,
+    "U_kv": 0.15753,
+    "lukka2": 0.041,
+    "lukka15": 0.05251,
+    "soyle_vri_deg": 0.0,
+    "arm_vri_deg": 0.0
+   },
+   "T0.20|arbeid, framkant i enden (x 0,30)": {
+    "U": 6.88309,
+    "U_kv": 1.08732,
+    "lukka2": 0.05627,
+    "lukka15": 0.0722,
+    "soyle_vri_deg": 0.5969,
+    "arm_vri_deg": 1.18617
+   },
+   "T0.20|stemning, øvre kant midt, mot brukar": {
+    "U": 0.21523,
+    "U_kv": 0.21523,
+    "lukka2": 0.05995,
+    "lukka15": 0.07678,
+    "soyle_vri_deg": 0.0,
+    "arm_vri_deg": 0.0
+   },
+   "T0.20|stemning, øvre kant i enden (x 0,30)": {
+    "U": 15.2028,
+    "U_kv": 6.00634,
+    "lukka2": 0.08739,
+    "lukka15": 0.11205,
+    "soyle_vri_deg": -2.86258,
+    "arm_vri_deg": 0.06307
+   },
+   "T0.20|10 N sidevegs (x) i hovudenden": {
+    "U": 70.13279,
+    "U_kv": 26.53992,
+    "lukka2": 0.13943,
+    "lukka15": 0.1796,
+    "soyle_vri_deg": 12.33298,
+    "arm_vri_deg": -1.4262
+   },
+   "T0.20|10 N mot brukar i aksen": {
+    "U": 0.59753,
+    "U_kv": 0.59753,
+    "lukka2": 0.16576,
+    "lukka15": 0.21229,
+    "soyle_vri_deg": 0.0,
+    "arm_vri_deg": 0.0
+   },
+   "T0.30|arbeid, framkant midt, 3.67 N ned": {
+    "U": 0.23629,
+    "U_kv": 0.23629,
+    "lukka2": 0.0615,
+    "lukka15": 0.07876,
+    "soyle_vri_deg": 0.0,
+    "arm_vri_deg": 0.0
+   },
+   "T0.30|arbeid, framkant i enden (x 0,30)": {
+    "U": 10.32463,
+    "U_kv": 1.63097,
+    "lukka2": 0.08441,
+    "lukka15": 0.10831,
+    "soyle_vri_deg": 0.89535,
+    "arm_vri_deg": 1.77926
+   },
+   "T0.30|stemning, øvre kant midt, mot brukar": {
+    "U": 0.32284,
+    "U_kv": 0.32284,
+    "lukka2": 0.08993,
+    "lukka15": 0.11517,
+    "soyle_vri_deg": 0.0,
+    "arm_vri_deg": 0.0
+   },
+   "T0.30|stemning, øvre kant i enden (x 0,30)": {
+    "U": 22.8042,
+    "U_kv": 9.00951,
+    "lukka2": 0.13109,
+    "lukka15": 0.16807,
+    "soyle_vri_deg": -4.29386,
+    "arm_vri_deg": 0.0946
+   }
+  },
+  "f_vri_Hz": {
+   "U fri": 1.94014,
+   "U kvelv.": 3.1199,
+   "lukka 2": 45.34966,
+   "lukka 1,5": 40.00024
+  },
+  "ned_hovud_mm": 0.41556,
+  "M_fot_stat": 2.55738,
+  "hovud_vri": {
+   "T0.20": {
+    "grad": 1.40974,
+    "kant_mm": 1.96837
+   },
+   "T0.30": {
+    "grad": 2.11461,
+    "kant_mm": 2.95255
+   }
+  },
+  "plate_sag_mm": {
+   "3 mm, kinn i endane (0,60 m), kort tid": 11.6739,
+   "3,5 mm snitt med riller, kort tid": 7.35149,
+   "3 mm, kryp 1 år (E ≈ 2,0 GPa)": 17.51085,
+   "3 mm, to hengjarar ved x ±0,10 (spenn 0,20 / utkrag 0,20)": 0.07637,
+   "6 mm, kinn i endane": 2.55367
+  },
+  "gest_pendel_T0.45": 0.98174,
+  "gest_pendel_T0.67": 0.66284,
+  "T_pendel_LEDakse": 0.2165,
+  "masse_lukka_2.0": 3.74951,
+  "masse_lukka_1.5": 3.39848
+ },
+ "varme_inne": {
+  "a|eloksert/lakka ε 0,85|R0.1": {
+   "dT": 9.33793,
+   "T_s": 35.73887,
+   "h": 9.60586,
+   "A_eff_cm2": 1088.14285
+  },
+  "a|eloksert/lakka ε 0,85|R0.3": {
+   "dT": 9.33793,
+   "T_s": 38.54076,
+   "h": 9.60586,
+   "A_eff_cm2": 1088.14285
+  },
+  "a|blank alu ε 0,10|R0.1": {
+   "dT": 15.08136,
+   "T_s": 41.4823,
+   "h": 5.45692,
+   "A_eff_cm2": 1186.00021
+  },
+  "a|blank alu ε 0,10|R0.3": {
+   "dT": 15.08136,
+   "T_s": 44.28418,
+   "h": 5.45692,
+   "A_eff_cm2": 1186.00021
+  },
+  "a|qm": 20.90957,
+  "b|eloksert/lakka ε 0,85|R0.1": {
+   "dT": 14.19728,
+   "T_s": 40.73431,
+   "h": 10.21443,
+   "A_eff_cm2": 703.11731
+  },
+  "b|eloksert/lakka ε 0,85|R0.3": {
+   "dT": 14.19728,
+   "T_s": 43.80839,
+   "h": 10.21443,
+   "A_eff_cm2": 703.11731
+  },
+  "b|blank alu ε 0,10|R0.1": {
+   "dT": 23.51589,
+   "T_s": 50.05292,
+   "h": 6.05651,
+   "A_eff_cm2": 715.91755
+  },
+  "b|blank alu ε 0,10|R0.3": {
+   "dT": 23.51589,
+   "T_s": 53.127,
+   "h": 6.05651,
+   "A_eff_cm2": 715.91755
+  },
+  "b|qm": 22.94086,
+  "c|eloksert/lakka ε 0,85|R0.1": {
+   "dT": 8.33329,
+   "T_s": 33.81652,
+   "h": 10.60983,
+   "A_cm2": 336.0
+  },
+  "c|eloksert/lakka ε 0,85|R0.3": {
+   "dT": 8.33329,
+   "T_s": 34.78296,
+   "h": 10.60983,
+   "A_cm2": 336.0
+  },
+  "c|blank alu ε 0,10|R0.1": {
+   "dT": 13.51115,
+   "T_s": 38.99438,
+   "h": 6.54384,
+   "A_cm2": 336.0
+  },
+  "c|blank alu ε 0,10|R0.3": {
+   "dT": 13.51115,
+   "T_s": 39.96082,
+   "h": 6.54384,
+   "A_cm2": 336.0
+  },
+  "c|qm": 7.21228,
+  "trygg_W_per_m": {
+   "ε 0,85|R0.1": {
+    "ror44": 50.61284,
+    "renne": 31.83037,
+    "renne_inn": 47.17716
+   },
+   "ε 0,85|R0.3": {
+    "ror44": 43.30471,
+    "renne": 30.42622,
+    "renne_inn": 41.13567
+   },
+   "ε 0,10|R0.1": {
+    "ror44": 28.57445,
+    "renne": 19.03649,
+    "renne_inn": 28.2148
+   },
+   "ε 0,10|R0.3": {
+    "ror44": 27.87022,
+    "renne": 19.03649,
+    "renne_inn": 27.58968
+   }
+  }
+ }
+}

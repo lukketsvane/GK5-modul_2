@@ -174,8 +174,8 @@ def k4():
 LAMPER = {
     'k1': dict(fn=k1, namn='Ruta på armen', tekst=['FRÅ SETTET: P01 ARM · P02 HENGSEL · P08 ARK', 'TRYKT: FOT MED SOKKEL · BJELKE · LOK · KOPLING',
                                                       'ELLES: LYSLEIARPLATE · LED-STRIPE', 'ARMEN KAN LEGGJAST NED I HENGSELET']),
-    'k2': dict(fn=k2, namn='Vindauget med glaslinsa', tekst=['FRÅ SETTET: P01 · P02 · P06 GLASLINSE', 'TRYKT: FOT · RØYR MED KJØLERIBBER · MASKE',
-                                                                'ELLES: ÉI DIODE', 'MASKA 46 MM BAK LINSA TEIKNAR VINDAUGET']),
+    'k2': dict(fn=k2, namn='Vindauget med glaslinsa', tekst=['FRÅ SETTET: P01 · P02 · P06', 'TRYKT: FOT · RØYR · MASKE',
+                                                                'ELLES: ÉI DIODE', 'MASKA 46 MM BAK LINSA']),
     'k3': dict(fn=k3, namn='Spegelen på armen', tekst=['FRÅ SETTET: P01 · P02 · P05 FRESNELSPEGEL', 'TRYKT: FOT · BJELKE · KOPP MED STRUT',
                                                           'ELLES: ÉI DIODE I KOPPEN', 'ALDRI I SOL']),
     'k4': dict(fn=k4, namn='Projektoren ombygd', tekst=['FRÅ SETTET: P04 BRETT · P02 · P01 · P03 HOVUD', 'TRYKT: RAMME · BERAR TIL STRIPA',
@@ -214,7 +214,7 @@ if __name__ == '__main__':
         ims = {k: Image.open(os.path.join(HER, 'render', k + '.png')).convert('RGBA') for k in LAMPER}
         mx = max(m['hogd_mm'] for m in meta.values()); bx = sum(m['breidd_mm'] for m in meta.values())
         sk = min((H - 250 - 330) / mx, (W - 176 - 3 * 50) / bx)                     # px på arket per mm
-        x = 88; y_botn = H - 300
+        x = 88; y_botn = 230 + (H - 100 - 230 - int(mx * sk) - 150) // 2 + int(mx * sk)
         for k, L_ in LAMPER.items():
             m = meta[k]; im = ims[k]
             f = sk / m['px_per_mm']
@@ -225,9 +225,10 @@ if __name__ == '__main__':
             for i, tx in enumerate(L_['tekst']):
                 dr.text((x, y_botn + 26 + 30 * (i + 1)), tx, font=mono(17), fill=kvit if i == 3 else graa)
             x += cw + 50
-        lx = int(100 * sk); dr.line([W - 88 - lx, y_botn + 40, W - 88, y_botn + 40], fill=kvit, width=2)
-        for xx in (W - 88 - lx, W - 88): dr.line([xx, y_botn + 32, xx, y_botn + 48], fill=kvit, width=2)
-        dr.text((W - 88 - lx, y_botn + 56), '100 MM', font=mono(17), fill=kvit)
+        lx = int(100 * sk); ys = 168
+        dr.line([W - 88 - lx, ys, W - 88, ys], fill=kvit, width=2)
+        for xx in (W - 88 - lx, W - 88): dr.line([xx, ys - 8, xx, ys + 8], fill=kvit, width=2)
+        dr.text((W - 88 - lx, ys + 16), '100 MM', font=mono(17), fill=kvit)
         dr.line([88, H - 84, W - 88, H - 84], fill=(70, 70, 70), width=2)
         dr.text((88, H - 66), 'Raudt er trykt. Resten er delar frå settet, med måla frå foto. Rendra med same oppsett som delbanken, 4 pikslar per mm.', font=mono(17), fill=graa)
         t = 'Ingenting er bygd eller målt enno.'; dr.text((W - 88 - dr.textlength(t, font=mono(17)), H - 66), t, font=mono(17), fill=graa)

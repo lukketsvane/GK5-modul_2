@@ -30,6 +30,8 @@ Første framlegg var ei rute som svinga frå bak skjermen til tak. Svingen går 
 | Likskap stemning og arbeid (over 0,9 er dimmar) | 0,60 | 0,71 | 0,54 | 0,42 |
 | Største sprang langs overgangen | 0,08 | 0,12 | 0,05 | 0,10 |
 
+Arket er rendra med fleire foton enn tabellen, så nokre tal skil seg med få prosent (989 mot 1040 cd/m² mot auget).
+
 ¹ Rekna på 10 cm gitter. For B låg det grove gitteret 15 % for høgt, så talet for D kan vere noko lågare.
 
 ## Vindauget på veggen

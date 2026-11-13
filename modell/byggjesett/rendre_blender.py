@@ -89,9 +89,17 @@ def materiale():
     M['keramikk'], _ = _principled('keramikk', (0.86, 0.84, 0.80), 0.0, 0.45)
     m, p = _principled('fresnel', (0.92, 0.93, 0.95), 1.0, 0.12); _ringar(m, p, 0.0018); M['fresnel'] = m
     M['glas'], _ = _principled('glas', (0.96, 1.0, 0.98), 0.0, 0.0, trans=1.0, ior=1.52)
-    # Prismefilmen: klar plast med fine lineære prisme. Han ser sølvaktig ut fordi prisma speglar mykje,
-    # så han er sett halvt gjennomskinleg og blank, ikkje som klart glas (som berre vart kvitt i baklys).
-    m, p = _principled('film', (0.80, 0.83, 0.88), 0.0, 0.16, trans=0.55, ior=1.58); _liner(m, p, 0.0006); M['film'] = m
+    # Prismefilmen: tynn, klar plast med ein blank, sølvaktig glans. Han er sett som ein miks av gjennomsiktig
+    # (lyset går rett gjennom ein så tynn film) og ei blank flate. Prisma (om lag 0,05 mm) er for små til å synast.
+    # Lyset bak arket i den første utgåva gjorde han heilt kvit, så scena «arket» har ikkje baklys lenger.
+    m = bpy.data.materials.new('film'); m.use_nodes = True; nt = m.node_tree
+    p = nt.nodes['Principled BSDF']
+    p.inputs['Base Color'].default_value = (0.25, 0.26, 0.28, 1.0); p.inputs['Roughness'].default_value = 0.12
+    tr = nt.nodes.new('ShaderNodeBsdfTransparent'); mix = nt.nodes.new('ShaderNodeMixShader')
+    mix.inputs['Fac'].default_value = 0.35
+    nt.links.new(tr.outputs[0], mix.inputs[1]); nt.links.new(p.outputs[0], mix.inputs[2])
+    nt.links.new(mix.outputs[0], nt.nodes['Material Output'].inputs['Surface'])
+    M['film'] = m
     M['golv'], _ = _principled('golv', (0.014, 0.014, 0.016), 0.0, 0.6)
     return M
 
@@ -140,6 +148,22 @@ def _importer(fil, M, mat):
     except Exception:
         pass
     return ob
+
+
+def _film_rutenett(ob):
+    """Byt arket (eit ekstrudert rektangel med hjørnepunkt berre) med eit tett rutenett i same omriss, så bøyen blir jamn.
+    Flikane (1,6 mm) fell bort, dei synest ikkje i denne målestokken."""
+    me = ob.data
+    xs = [v.co.x for v in me.vertices]; ys = [v.co.y for v in me.vertices]
+    x0, x1, y0, y1 = min(xs), max(xs), min(ys), max(ys) - 0.0016
+    n = 64
+    vx = [(x0 + (x1 - x0) * i / n, y, 0.0) for y in (y0, y1) for i in range(n + 1)]
+    fl = [(i, i + 1, n + 2 + i, n + 1 + i) for i in range(n)]
+    ny = bpy.data.meshes.new('film'); ny.from_pydata(vx, [], fl); ny.update()
+    for pg in ny.polygons:
+        pg.use_smooth = True
+    ny.materials.append(me.materials[0])
+    ob.data = ny
 
 
 def _verd(s):
@@ -196,16 +220,23 @@ def rendre(namn, sc):
     if bank:
         # Ortografisk: biletet blir akkurat så stort som delen, med px_per_mm pikslar per mm, så alle delane har same målestokk.
         cd.type = 'ORTHO'
+        for ob, o in zip(objekt, sc['objekt']):
+            if o.get('del_') == 'P08':                                  # filmen er mjuk: ein svak bøy får han til å lese som film
+                _film_rutenett(ob)
+                md = ob.modifiers.new('boy', 'SIMPLE_DEFORM'); md.deform_method = 'BEND'; md.deform_axis = 'Y'
+                md.angle = math.radians(-26)
         cam.rotation_euler = (-retn).to_track_quat('-Z', 'Y').to_euler()
         bpy.context.view_layer.update()
         R3 = cam.matrix_world.to_3x3()
         hogre, opp, fram = R3.col[0].normalized(), R3.col[1].normalized(), -R3.col[2].normalized()
         us, ws, fs = [], [], []
+        dg = bpy.context.evaluated_depsgraph_get()
         for ob in objekt:
-            mw = ob.matrix_world
-            for vx in ob.data.vertices:
+            oe = ob.evaluated_get(dg); me = oe.to_mesh(); mw = oe.matrix_world
+            for vx in me.vertices:
                 p = mw @ vx.co
                 us.append(p.dot(hogre)); ws.append(p.dot(opp)); fs.append(p.dot(fram))
+            oe.to_mesh_clear()
         ppmm = bank['px_per_mm'] / (3 if PROVE else 1)
         px_m = 0.001 / ppmm; marg = 12
         W = math.ceil((max(us) - min(us)) / px_m) + 2 * marg
@@ -226,6 +257,16 @@ def rendre(namn, sc):
     if not bank:
         kant.y = min(kant.y, y_bak - 0.03)                              # framfor bakveggen, elles skuggar veggen lyset
     _lys('kant', kant, mal, 1.0 * d * 2, 85 * (d / 0.3) ** 2, (1.0, 0.93, 0.85))
+    if bank:
+        for o in sc['objekt']:
+            if o.get('del_') == 'P08':
+                # Refleks: ei stor lysflate der arket speglar kameraretninga, så filmen får ein blank glans som skiftar over bøyen
+                n = (Matrix(o['M']).to_3x3() @ Vector((0, 0, 1))).normalized()
+                dv = -retn
+                if dv.dot(n) > 0:
+                    n = -n
+                r = dv - 2 * dv.dot(n) * n
+                _lys('refleks', mal + r * 1.2, mal, 1.0, 400 * (d / 0.3) ** 2)
     if sc.get('baklys'):                                                # lys gjennom arket bakfrå
         bak = Vector((mal.x, min(hi.y + 0.25, y_bak - 0.03), mal.z))
         _lys('baklys', bak, mal, 0.9 * d * 2, 30 * (d / 0.3) ** 2, (1.0, 0.95, 0.88))

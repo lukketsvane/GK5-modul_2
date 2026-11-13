@@ -255,6 +255,8 @@ def straale(pos, mot, lm, K=2700, spreiing=20, flat=None, kutt=None, horisont=No
     I = lambda d: lm * ((1 - sprut) * g(d) / G + sprut * np.maximum(d @ n, 0) / PI) * vegg(d)
     L = lambda d: np.where(d @ n > 0, I(d) / (A * np.maximum(d @ n, 0.08)), 0.0)
     l = Lys(lm, K, prim, pts, I, L, 'stråle'); l.akse = n
+    if bronn is not None:      # lyset brønnen stoppar, er tapt: watten står, lumen ut minkar
+        l.lm_ut = float(4 * PI * I(FIB).mean())
     return l
 
 # ------------------------------------------------------------------ rommet
@@ -558,6 +560,7 @@ def ark(kjelde, senter, normal, storleik=0.25, form=None, klipp=None, n=22, opp=
         n_opt = ret(no)[hald]
     w00, w10, w01, w11 = verd(p00)[hald], verd(p10)[hald], verd(p01)[hald], verd(p11)[hald]
     F = len(Pf); fi = np.arange(F)
+    if F == 0: raise ValueError('ark(): alt er klipt bort, arket har inga flate')
     tri = (np.concatenate([w00, w00]), np.concatenate([w10, w11]), np.concatenate([w11, w01]))
     ii, jj = np.nonzero(hald)
     klynge = (ii * 3 // nu) * 3 + (jj * 3 // nv)

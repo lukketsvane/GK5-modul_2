@@ -49,7 +49,7 @@ def film_materiale():
     nt.links.new(no.outputs['Fac'], cr.inputs['Fac'])
     sep = nt.nodes.new('ShaderNodeSeparateXYZ'); nt.links.new(tc.outputs['Object'], sep.inputs[0])
     mr = nt.nodes.new('ShaderNodeMapRange'); mr.inputs['From Min'].default_value = 0.26; mr.inputs['From Max'].default_value = 0.15
-    mr.inputs['To Min'].default_value = 0.5; mr.inputs['To Max'].default_value = 3.2
+    mr.inputs['To Min'].default_value = 0.3; mr.inputs['To Max'].default_value = 2.0
     nt.links.new(sep.outputs['Z'], mr.inputs['Value'])
     m2 = nt.nodes.new('ShaderNodeMath'); m2.operation = 'MULTIPLY'
     nt.links.new(no.outputs['Fac'], m2.inputs[0]); nt.links.new(mr.outputs['Result'], m2.inputs[1])
@@ -84,7 +84,7 @@ def scene(farge, storleik, prover, fil):
     s.render.engine = 'CYCLES'; s.cycles.device = 'CPU'; s.render.threads_mode = 'FIXED'; s.render.threads = 4
     s.cycles.samples = prover; s.cycles.use_denoising = True
     s.render.resolution_x, s.render.resolution_y = storleik
-    s.view_settings.view_transform = 'AgX'; s.view_settings.look = 'AgX - Medium High Contrast'; s.view_settings.exposure = -0.2
+    s.view_settings.view_transform = 'AgX'; s.view_settings.look = 'AgX - Medium High Contrast'; s.view_settings.exposure = -0.35
     kropp = mat('kropp', farge, 0.0, 0.58)                                     # matt pulverlakk, éin farge over heile lekamen
     messing = mat('messing', (0.80, 0.60, 0.30), 1.0, 0.32)
     staal = mat('staal', (0.6, 0.6, 0.6), 1.0, 0.35)
@@ -96,16 +96,16 @@ def scene(farge, storleik, prover, fil):
     for i, m in M.items():
         f = os.path.join(UT, 'samla', i + '.stl')
         if os.path.exists(f): importer(f, m)
-    eik = mat('eik', (0.46, 0.33, 0.20), 0.0, 0.5)
-    vegg = mat('vegg', (0.62, 0.56, 0.47), 0.0, 0.95)
+    eik = mat('eik', (0.36, 0.25, 0.15), 0.0, 0.5)
+    vegg = mat('vegg', (0.42, 0.34, 0.23), 0.0, 0.95)
     boks('bord', (6.0, 6.0, 0.04), (0, 0, -0.02), eik)
     boks('vegg', (6.0, 0.04, 4.0), (0, 0.75, 1.0), vegg)
     lin = mat('lin', (0.20, 0.23, 0.26), 0.0, 0.9); ark = mat('ark', (0.82, 0.80, 0.74), 0.0, 0.8)
-    boks('bok', (0.150, 0.210, 0.016), (-0.215, -0.13, 0.009), lin, (0, 0, math.radians(14)))        # éi bok, slik miljøbileta har
-    boks('blokk', (0.142, 0.202, 0.012), (-0.2145, -0.1295, 0.009), ark, (0, 0, math.radians(14)))
+    boks('bok', (0.150, 0.210, 0.016), (0.20, -0.06, 0.009), lin, (0, 0, math.radians(-12)))        # éi bok, slik miljøbileta har
+    boks('blokk', (0.142, 0.202, 0.012), (0.1995, -0.0595, 0.009), ark, (0, 0, math.radians(-12)))
     # dagslys frå eit vindauge til venstre, og gløden under ruta
-    lys('vindauge', (-1.6, -0.5, 0.9), (0.0, 0.0, 0.15), 1.6, 140.0, (0.93, 0.96, 1.0))
-    lys('fyll', (0.9, -1.2, 0.8), (0, 0, 0.15), 1.5, 14.0, (1.0, 0.95, 0.9))
+    lys('vindauge', (-1.6, -0.5, 0.9), (0.0, 0.0, 0.15), 1.6, 62.0, (0.93, 0.96, 1.0))
+    lys('fyll', (0.9, -1.2, 0.8), (0, 0, 0.15), 1.5, 7.0, (1.0, 0.95, 0.9))
     u = lys('under', (-0.02, -0.11, 0.15), (-0.02, -0.20, 0.0), 0.20, 1.6, (1.0, 0.64, 0.32))
     u.visible_camera = False; u.visible_transmission = False; u.visible_glossy = False
     verd = bpy.data.worlds.new('verd'); s.world = verd; verd.use_nodes = True

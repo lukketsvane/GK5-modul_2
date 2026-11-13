@@ -1,0 +1,5 @@
+.numba/
+__pycache__/
+*.exr
+*.blend1
+render/pass/

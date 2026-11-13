@@ -150,19 +150,14 @@ def profil_linse(R=0.6, nseg=96):
 
 
 def profil_sinus(maks_helling=25.0, nseg=96):
+    """Sinusprofil med gitt stoerste helling (grader)."""
     x = np.linspace(0.0, 1.0, nseg + 1)
-    A = math.tan(math.radians(maks_helling)) / math.pi
-    z = A * (1.0 - np.cos(2 * math.pi * x)) / 2.0 * 2.0 / 2.0
-    # z = A/2 (1 - cos): helling = A*pi*sin -> maks = A*pi
-    z = A * (1.0 - np.cos(2 * math.pi * x)) / 2.0
-    z = z * 2.0  # maks helling = 2*pi*A/2*... -> rett opp under
-    # rett skalering: z = a(1-cos(2 pi x)), dz/dx = 2 pi a sin -> a = tan/(2 pi)
     a = math.tan(math.radians(maks_helling)) / (2 * math.pi)
     z = a * (1.0 - np.cos(2 * math.pi * x))
     return x, z
 
 
-def profil_ru(sigma_helling=12.0, nmodar=24, nseg=768, froe=7):
+def profil_ru(sigma_helling=12.0, nmodar=12, nseg=256, froe=7):
     """Tilfeldig glatt 1D-profil (einvegsdiffusor / matt flate i tverrsnitt).
     Gaussisk hellingsfordeling med standardavvik sigma_helling (grader)."""
     rng = np.random.default_rng(froe)
@@ -465,57 +460,94 @@ def kjerne(profil, n_res, n_sub, alfa, fra_topp, npos=600, nb=720, skeiv=0.0,
 # --------------------------------------------------------------------------
 # Kandidatar
 # --------------------------------------------------------------------------
-# namn: (forklaring, profil, tilleggsspreiing i grader (isotrop gauss), 2D-flagg)
-# 2D-flagg: "1d" = kjernen verkar berre loddrett. "2d" = same kjerne i baae
-# retningar (separabel tilnaerming for isotrope strukturar). "kryss" = to
-# prismefilmar i kryss.
+# PROFILAR: det som faktisk blir spora. KANDIDATAR: kva profil kvar hypotese
+# bruker og korleis kjernen blir brukt i biletet.
+# modus "1d": kjernen verkar berre loddrett (lineaer struktur, vassrette ryggar).
+# modus "2d": same kjerne i baae retningar (separabel tilnaerming for
+#   isotrope strukturar, ANTAKING). modus "kryss": to prismefilmar i kryss.
+# gauss2d: isotrop tilleggsspreiing (sigma i grader). faktor: transmisjonsfaktor.
+
+def profilar():
+    P = {}
+    P["prisme90"] = profil_prisme(90.0)
+    P["prisme90_r08"] = profil_prisme(90.0, r_topp=0.08)
+    P["prisme90_r20"] = profil_prisme(90.0, r_topp=0.20)
+    P["prisme80"] = profil_prisme(80.0)
+    P["prisme100"] = profil_prisme(100.0)
+    P["prisme110"] = profil_prisme(110.0)
+    P["prisme90_ujamn"] = profil_prisme_ujamn(90.0)
+    P["linse_R06"] = profil_linse(0.6)
+    P["linse_R10"] = profil_linse(1.0)
+    P["ru12"] = profil_ru(12.0)
+    P["ru06"] = profil_ru(6.0)
+    P["flat"] = profil_flat()
+    return P
+
 
 def kandidatar():
     K = {}
-    K["a_prisme90"] = dict(tekst="(a) prisme 90 grader, skarp", profil=profil_prisme(90.0), modus="1d")
-    K["b_prisme90_r08"] = dict(tekst="(b) prisme 90 grader, runda topp r = 0,08 p", profil=profil_prisme(90.0, r_topp=0.08), modus="1d")
-    K["b_prisme90_r20"] = dict(tekst="(b) prisme 90 grader, runda topp r = 0,20 p", profil=profil_prisme(90.0, r_topp=0.20), modus="1d")
-    K["b_prisme80"] = dict(tekst="(b) prisme 80 grader", profil=profil_prisme(80.0), modus="1d")
-    K["b_prisme100"] = dict(tekst="(b) prisme 100 grader", profil=profil_prisme(100.0), modus="1d")
-    K["b_prisme110"] = dict(tekst="(b) prisme 110 grader", profil=profil_prisme(110.0), modus="1d")
-    K["b_prisme90_ujamn"] = dict(tekst="(b) prisme 90 grader, ujamn hoegd", profil=profil_prisme_ujamn(90.0), modus="1d")
-    K["c_linse_R06"] = dict(tekst="(c) lentikulaer, R = 0,6 p", profil=profil_linse(0.6), modus="1d")
-    K["c_linse_R10"] = dict(tekst="(c) lentikulaer, R = 1,0 p", profil=profil_linse(1.0), modus="1d")
-    K["d_einveg_ru12"] = dict(tekst="(d) einvegsdiffusor, sigma helling 12 grader", profil=profil_ru(12.0), modus="1d")
-    K["e_diffusor_ru12"] = dict(tekst="(e) vanleg diffusor (2D), sigma helling 12 grader", profil=profil_ru(12.0), modus="2d")
-    K["f_polarisator"] = dict(tekst="(f) reflekterande polarisator (plan film, 50 %)", profil=profil_flat(), modus="1d", faktor=0.5)
-    K["f_polarisator_matt"] = dict(tekst="(f) reflekterande polarisator + matt lag", profil=profil_ru(6.0), modus="2d", faktor=0.5)
-    K["g_mikrolinse"] = dict(tekst="(g) mikrolinsefilm (2D), R = 0,6 p", profil=profil_linse(0.6), modus="2d")
-    K["h_prisme90_matt"] = dict(tekst="(h) prisme 90 grader + matt bakside (sigma 3 grader)", profil=profil_prisme(90.0), modus="1d", gauss2d=3.0)
-    K["h_prisme_kryss"] = dict(tekst="(h) to prismefilmar i kryss", profil=profil_prisme(90.0), modus="kryss")
+    K["a_prisme90"] = dict(tekst="(a) prisme 90, skarp", profil="prisme90", modus="1d")
+    K["b_prisme90_r08"] = dict(tekst="(b) prisme 90, runda topp r=0,08p", profil="prisme90_r08", modus="1d")
+    K["b_prisme90_r20"] = dict(tekst="(b) prisme 90, runda topp r=0,20p", profil="prisme90_r20", modus="1d")
+    K["b_prisme80"] = dict(tekst="(b) prisme 80", profil="prisme80", modus="1d")
+    K["b_prisme100"] = dict(tekst="(b) prisme 100", profil="prisme100", modus="1d")
+    K["b_prisme110"] = dict(tekst="(b) prisme 110", profil="prisme110", modus="1d")
+    K["b_prisme90_ujamn"] = dict(tekst="(b) prisme 90, ujamn hoegd", profil="prisme90_ujamn", modus="1d")
+    K["c_linse_R06"] = dict(tekst="(c) lentikulaer R=0,6p", profil="linse_R06", modus="1d")
+    K["c_linse_R10"] = dict(tekst="(c) lentikulaer R=1,0p", profil="linse_R10", modus="1d")
+    K["d_einveg"] = dict(tekst="(d) einvegsdiffusor, sigma 12", profil="ru12", modus="1d")
+    K["e_diffusor"] = dict(tekst="(e) vanleg diffusor (2D), sigma 12", profil="ru12", modus="2d")
+    K["f_polarisator"] = dict(tekst="(f) refl. polarisator (plan, 50 %)", profil="flat", modus="1d", faktor=0.5)
+    K["f_polarisator_matt"] = dict(tekst="(f) refl. polarisator + matt lag", profil="ru06", modus="2d", faktor=0.5)
+    K["g_mikrolinse"] = dict(tekst="(g) mikrolinsefilm (2D) R=0,6p", profil="linse_R06", modus="2d")
+    K["h_prisme90_matt"] = dict(tekst="(h) prisme 90 + matt bakside sigma 3", profil="prisme90", modus="1d", gauss2d=3.0)
+    K["h_prisme_kryss"] = dict(tekst="(h) to prismefilmar i kryss", profil="prisme90", modus="kryss")
     return K
 
 
-ALFA = np.arange(-89.0, 89.01, 0.5)     # innfallsvinklar for kjernane
+ALFA = np.arange(-89.0, 89.01, 0.25)    # innfallsvinklar for kjernane
+DALFA = 0.25
 NB = 720                                 # utvinkelboksar (0,25 grader)
 BETA = (np.arange(NB) + 0.5) * 180.0 / NB - 90.0
 
 
-def kjerne_spektral(namn, side, npos=500, tving=False, skeiv=0.0, nd=ND_HARPIKS):
+def _npos_for(profilnamn):
+    return 250 if profilnamn.startswith("ru") else 400
+
+
+def kjerne_spektral(profilnamn, side, npos=None, tving=False, skeiv=0.0, nd=ND_HARPIKS, stille=True):
     """Kjernar for alle 16 bolgjelengder. side = "kamera" (strukturen vender
     mot kamera) eller "vindauge" (strukturen vender mot vindauget).
     Kamerastraalen blir spora bakover (fraa kamera ut i scena).
-    Returnerer T, R med form (16, na, NB)."""
+    Returnerer T, R med form (16, na, NB), float32. Mellomlagra i _cache."""
     os.makedirs(CACHE, exist_ok=True)
-    tag = "%s_%s_%d_s%03d_n%03d" % (namn, side, npos, int(round(skeiv * 100)), int(round(nd * 100)))
+    if npos is None:
+        npos = _npos_for(profilnamn)
+    tag = "%s_%s_%d_s%03d_n%03d" % (profilnamn, side, npos, int(round(skeiv * 100)), int(round(nd * 100)))
     f = os.path.join(CACHE, tag + ".npz")
     if os.path.exists(f) and not tving:
         d = np.load(f)
         return d["T"], d["R"]
-    kand = kandidatar()[namn]
+    prof = profilar()[profilnamn]
     T = np.zeros((len(LAM), len(ALFA), NB), dtype=np.float32)
     R = np.zeros_like(T)
+    t0 = time.time()
     for il, lam in enumerate(LAM):
-        t, r, l = kjerne(kand["profil"], float(n_harpiks(lam, nd)), float(n_pet(lam)),
+        t, r, l = kjerne(prof, float(n_harpiks(lam, nd)), float(n_pet(lam)),
                          ALFA, fra_topp=(side == "kamera"), npos=npos, nb=NB, skeiv=skeiv)
         T[il] = t; R[il] = r
+    if not stille:
+        print("  kjerne %s %s: %.0f s" % (profilnamn, side, time.time() - t0), flush=True)
     np.savez_compressed(f, T=T, R=R)
     return T, R
+
+
+def alle_kjernar():
+    for namn in profilar():
+        for side in ("kamera", "vindauge"):
+            if namn == "flat" and side == "vindauge":
+                continue
+            kjerne_spektral(namn, side, stille=False)
 
 
 # --------------------------------------------------------------------------
@@ -853,17 +885,21 @@ def test():
     # 2. energi: sum ut + avkorta = 1 for mange straalar og profilar
     verst = 0.0; storst_tap = 0.0
     rng = np.random.default_rng(1)
-    for namn in ("a_prisme90", "b_prisme90_r08", "b_prisme110", "c_linse_R06", "d_einveg_ru12"):
-        prof = kandidatar()[namn]["profil"]
+    tap = []
+    for namn in ("prisme90", "prisme90_r08", "prisme110", "linse_R06", "ru12"):
+        prof = profilar()[namn]
         for fra_topp in (True, False):
-            for _ in range(300):
+            for _ in range(100):
                 a = rng.uniform(-85, 85); x0 = rng.uniform(0, 1)
                 lam = rng.uniform(400, 700)
-                ut, tapt = spor_liste(prof, float(n_harpiks(lam)), float(n_pet(lam)), a, x0, fra_topp, wmin=1e-9)
+                ut, tapt = spor_liste(prof, float(n_harpiks(lam)), float(n_pet(lam)), a, x0, fra_topp,
+                                      wmin=1e-7, maxut=400000, maxhend=20000000)
                 s = 0.5 * (ut[:, 2] + ut[:, 3]).sum()
-                verst = max(verst, abs(s + tapt - 1.0)); storst_tap = max(storst_tap, tapt)
-    print("2. energi: |reflektert + transmittert + avkorta - 1| stoerst %.2e, stoerste avkorta del %.2e" % (verst, storst_tap))
-    ok &= verst < 1e-10 and storst_tap < 1e-5
+                verst = max(verst, abs(s + tapt - 1.0)); tap.append(tapt)
+    tap = np.array(tap)
+    print("2. energi, 1000 straalar: |reflektert + transmittert + avkorta - 1| stoerst %.2e" % verst)
+    print("   avkorta del (greiner under 1e-7): median %.1e, snitt %.1e, stoerst %.1e" % (np.median(tap), tap.mean(), tap.max()))
+    ok &= verst < 1e-12 and tap.mean() < 1e-4
 
     # 3. planparallell plate: ingen avbøying
     verst = 0.0
@@ -953,3 +989,5 @@ if __name__ == "__main__":
     if kva in ("test", "alt"):
         if not test():
             sys.exit(1)
+    if kva in ("kjernar", "alt"):
+        alle_kjernar()

@@ -319,5 +319,8 @@ def del_M(n=700_000):
 
 if __name__ == '__main__':
     m = sys.argv[1] if len(sys.argv) > 1 else 'L'
-    {'L': del_L, 'S': del_S, 'M': del_M}[m]()
+    if m == 'M' and len(sys.argv) > 2:
+        del_M(int(sys.argv[2]))
+    else:
+        {'L': del_L, 'S': del_S, 'M': del_M}[m]()
     print(f'ferdig ({time.time()-T0:.0f} s)')

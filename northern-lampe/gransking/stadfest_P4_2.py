@@ -68,6 +68,9 @@ def profil(slipp=False, p=0.0008):
                 tau=tau, beta=beta, K=K)
 
 
+WC = 1e-4 if 'fin' not in sys.argv else 1e-6
+
+
 @njit(cache=False)
 def spor(s0, z0, x0, dx0, ds0, dz0, SA, SB, nn, w, Lh, zc, cw, dtop, sig, modus):
     """Sum av vekt som endar på LED-stripa. modus 0: skarp. modus 1: gauss sig på vinkelen ut av oversida (erf)."""
@@ -83,7 +86,7 @@ def spor(s0, z0, x0, dx0, ds0, dz0, SA, SB, nn, w, Lh, zc, cw, dtop, sig, modus)
         sp -= 1
         s = st[sp, 0]; z = st[sp, 1]; x = st[sp, 2]; dx = st[sp, 3]; ds = st[sp, 4]; dz = st[sp, 5]
         med = int(st[sp, 6]); wt = st[sp, 7]; last = int(st[sp, 8])
-        for b in range(200):
+        for b in range(80):
             tb = 1e30; g = -1
             for k in range(SA.shape[0]):
                 if k == last:
@@ -142,7 +145,7 @@ def spor(s0, z0, x0, dx0, ds0, dz0, SA, SB, nn, w, Lh, zc, cw, dtop, sig, modus)
                 rp = ((n1 * ct - n2 * ci) / (n1 * ct + n2 * ci)) ** 2
                 R = 0.5 * (rs + rp)
             # transmisjon på stabelen, refleksjon vidare her
-            if R < 1.0 and wt * (1 - R) > 1e-6 and sp < M:
+            if R < 1.0 and wt * (1 - R) > WC and sp < M:
                 ct = math.sqrt(k2)
                 tx = rr * dx; ts = rr * ds + (rr * ci - ct) * Ns; tz = rr * dz + (rr * ci - ct) * Nz
                 q = math.sqrt(tx * tx + ts * ts + tz * tz)
@@ -150,7 +153,7 @@ def spor(s0, z0, x0, dx0, ds0, dz0, SA, SB, nn, w, Lh, zc, cw, dtop, sig, modus)
                 st[sp, 6] = 1 - med; st[sp, 7] = wt * (1 - R); st[sp, 8] = g
                 sp += 1
             wt = wt * R
-            if wt < 1e-6:
+            if wt < WC:
                 break
             ds = ds + 2.0 * ci * Ns; dz = dz + 2.0 * ci * Nz
             q = math.sqrt(dx * dx + ds * ds + dz * dz); dx /= q; ds /= q; dz /= q
@@ -225,39 +228,42 @@ if 'test' in sys.argv:
 # Phi for 500 lx: granskaren sin (prisme.json, nærfelt) og motoren sin
 PH = {('loddrett', 0.005): 459.351, ('loddrett', 0.010): 482.377, ('slipp', 0.005): 431.586, ('slipp', 0.010): 454.545}
 eye = fe.EYES[0]
-UT['linje_x0'] = {}
+UT['linje'] = {}
 _ = profilL(PROF['loddrett'], eye, 0.0, 0.005, matt='ingen', ds_=0.004)          # kompiler
-for pn in ('loddrett', 'slipp'):
-    for w in (0.005, 0.010):
+# fin køyring (del 1, WC 1e-6, 0,1 mm × 0,25°) gav for loddrett 5 mm: blank 0,5137 / 0,092 / 0,0066; auge 4°: 0,0486 / 0,0412 / 0,0063;
+# overside 4°: 0,1659 / 0,0829 / 0,0063; 10 mm blank 0,6062 / 0,1761 / 0,0122  (topp 1 mm / topp 1 cm / snitt, delar av L_LED)
+DEL = [a for a in sys.argv[1:] if a.startswith('del')]
+JOBB = {
+    'del2': [('loddrett', 0.005, 'auge', 4.0, 0.0), ('loddrett', 0.010, 'auge', 4.0, 0.0), ('loddrett', 0.005, 'overside', 12.0, 0.0),
+             ('loddrett', 0.005, 'auge', 4.0, 0.25),
+             ('slipp', 0.005, 'ingen', 4.0, 0.0), ('slipp', 0.005, 'auge', 4.0, 0.0), ('slipp', 0.010, 'auge', 4.0, 0.0),
+             ('slipp', 0.005, 'auge', 4.0, 0.25), ('slipp', 0.010, 'auge', 4.0, 0.25)],
+}
+for dn in DEL:
+    for pn, w, matt, sgd, xt in JOBB.get(dn, []):
         LL = 1 / (math.pi * w * L)
-        for matt, kw in (('ingen', dict(ds_=0.00002)), ('auge', dict(ds_=0.0001, gstep=0.25)), ('overside', dict(ds_=0.00002))):
-            t1 = time.time()
-            sc, prof, nf = profilL(PROF[pn], eye, 0.0, w, matt=matt, **kw)
-            q = tal(sc, prof)
-            out = dict(q, **{k + '_cdm2': q[k] * LL * PH[(pn, w)] for k in ('topp_1mm', 'topp_1cm', 'snitt')},
-                       **{k + '_cdm2_motorPhi': q[k] * LL * PHI_M for k in ('topp_1mm', 'topp_1cm', 'snitt')}, feil=int(nf))
-            UT['linje_x0'][f'{pn}_w{int(w*1000)}_{matt}'] = out
-            print(pn, w, matt, {k: (round(v, 4) if isinstance(v, float) else v) for k, v in out.items()}, f'{time.time()-t1:.1f}s', flush=True)
-            if pn == 'loddrett' and w == 0.005 and matt == 'auge':
-                # kvar på plata: snitt per cm
-                bins = np.arange(-8, 8.01, 1)
-                hcm = np.histogram(sc * 100, bins=bins, weights=prof)[0] / np.histogram(sc * 100, bins=bins)[0]
-                UT['per_cm_loddrett_w5_auge_cdm2'] = (hcm * LL * PH[(pn, w)]).round(1).tolist()
-                print('per cm (s -8..8):', UT['per_cm_loddrett_w5_auge_cdm2'], flush=True)
+        t1 = time.time()
+        kw = dict(ds_=0.00002) if matt != 'auge' else dict(ds_=0.0002, gstep=0.5)
+        sc, prof, nf = profilL(PROF[pn], eye, xt, w, sig_deg=sgd, matt=matt, **kw)
+        q = tal(sc, prof)
+        out = dict(q, **{k + '_cdm2': q[k] * LL * PH[(pn, w)] for k in ('topp_1mm', 'topp_1cm', 'snitt')}, feil=int(nf))
+        UT['linje'][f'{pn}_w{int(w*1000)}_{matt}{sgd:.0f}_x{xt}'] = out
+        print(pn, w, matt, sgd, 'x', xt, {k: (round(v, 4) if isinstance(v, float) else v) for k, v in out.items()}, f'{time.time()-t1:.1f}s', flush=True)
 
-# ---- heile plata (alle x) frå midtauga, 4° på augesida, 5 mm: same definisjon som L_mot (snitt over flata) ----
-UT['heile_plata'] = {}
-for pn in ('loddrett', 'slipp'):
-    w = 0.005; LL = 1 / (math.pi * w * L)
-    XG = np.linspace(-0.27, 0.27, 7)
-    sn = []; t1m = []
-    for xt in XG:
-        sc, prof, nf = profilL(PROF[pn], eye, xt, w, matt='auge', ds_=0.0002, gstep=0.5)
-        q = tal(sc, prof); sn.append(q['snitt']); t1m.append(q['topp_1mm'])
-    UT['heile_plata'][pn] = dict(x=XG.tolist(), snitt_per_x_cdm2=(np.array(sn) * LL * PH[(pn, w)]).round(1).tolist(),
-                                 snitt_cdm2=float(np.mean(sn) * LL * PH[(pn, w)]), topp_1mm_per_x_cdm2=(np.array(t1m) * LL * PH[(pn, w)]).round(0).tolist())
-    print('heile plata', pn, UT['heile_plata'][pn], flush=True)
+if 'del3' in DEL:
+    # heile plata (alle x) frå midtauga, 4° på augesida, 5 mm: same definisjon som L_mot (snitt over flata)
+    UT['heile_plata'] = {}
+    for pn in ('loddrett', 'slipp'):
+        w = 0.005; LL = 1 / (math.pi * w * L)
+        XG = np.linspace(-0.27, 0.27, 7)
+        sn = []; t1m = []
+        t1 = time.time()
+        for xt in XG:
+            sc, prof, nf = profilL(PROF[pn], eye, xt, w, matt='auge', ds_=0.0004, gstep=1.0)
+            q = tal(sc, prof); sn.append(q['snitt']); t1m.append(q['topp_1mm'])
+        UT['heile_plata'][pn] = dict(x=XG.tolist(), snitt_per_x_cdm2=(np.array(sn) * LL * PH[(pn, w)]).round(1).tolist(),
+                                     snitt_cdm2=float(np.mean(sn) * LL * PH[(pn, w)]), topp_1mm_per_x_cdm2=(np.array(t1m) * LL * PH[(pn, w)]).round(0).tolist())
+        print('heile plata', pn, UT['heile_plata'][pn], f'{time.time()-t1:.1f}s', flush=True)
 
 UT['tid_s'] = time.time() - t0
-print(json.dumps(UT, ensure_ascii=False))
 print(f'ferdig {time.time()-t0:.0f} s')

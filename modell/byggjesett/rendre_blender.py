@@ -180,7 +180,7 @@ def rendre(namn, sc):
     _lys('kant', kant, mal, 1.0 * d * 2, 85 * (d / 0.3) ** 2, (1.0, 0.93, 0.85))
     if sc.get('baklys'):                                                # lys gjennom arket bakfrå
         bak = Vector((mal.x, min(hi.y + 0.25, y_bak - 0.03), mal.z))
-        _lys('baklys', bak, mal, 0.9 * d * 2, 160 * (d / 0.3) ** 2, (1.0, 0.95, 0.88))
+        _lys('baklys', bak, mal, 0.9 * d * 2, 30 * (d / 0.3) ** 2, (1.0, 0.95, 0.88))
     os.makedirs(UT, exist_ok=True)
     s.render.filepath = os.path.join(UT, namn + ('-prove' if PROVE else '') + '.png')
     bpy.ops.render.render(write_still=True)

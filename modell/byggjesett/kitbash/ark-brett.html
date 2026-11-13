@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="nn">
+<head>
+<meta charset="utf-8">
+<title>Kitbash · brett</title>
+<link rel="stylesheet" href="../../../leveransar/01_fase1_v2/felles.css">
+<style>
+  .to { display: grid; grid-template-columns: 526px minmax(0, 1fr); column-gap: 36px; }
+  .brett { position: relative; width: 526px; height: 607px; }
+  .brett img { position: absolute; left: 0; top: 0; width: 526.1px; height: 606.7px; display: block; }
+  .brett .m { position: absolute; font: 400 8px/10.5px var(--mono); letter-spacing: 0.02em; color: var(--graa); white-space: nowrap; text-transform: uppercase; }
+  .brett .m b { color: var(--blekk); }
+  .tal4 { display: flex; gap: 24px; margin: 0 0 16px; }
+  .tal4 div { font: 400 34px/1 var(--serif); color: var(--blekk); white-space: nowrap; }
+  .tal4 small { display: block; font: 400 9px/1.2 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--graa); margin-top: 5px; }
+</style>
+</head>
+<body>
+<div class="side">
+  <header class="topp">
+    <span>GK5 · Northern · kitbash</span>
+    <span>Generasjon 1 · 16 kroppar</span>
+    <span>Iver R. Finne · 13.11.2026</span>
+  </header>
+
+  <h1 class="tittel">Eitt grep held alle lyskrava: LED-stripa mot fresnelplata over skjermkanten.</h1>
+
+  <main class="innhald" style="display: block;">
+    <div class="to">
+      <div class="brett">
+        <img src="brett-ark.png" alt="">
+      <div class="m" style="left:0.0px;top:125.9px"><b>1 Klype · vipp</b><br>1,7 W · U0 0,47 · 16 lx</div>
+      <div class="m" style="left:134.4px;top:125.9px"><b>2 Klype · flik</b><br>3,6 W · U0 0,41 · 134 lx</div>
+      <div class="m" style="left:268.8px;top:125.9px"><b>3 Klype · vindauge</b><br>2,5 W · U0 0,47 · 106 lx</div>
+      <div class="m" style="left:403.2px;top:125.9px"><b>4 Klype · band</b><br>2,9 W · U0 0,70 · 132 lx</div>
+      <div class="m" style="left:0.0px;top:277.6px"><b>5 Klype · rute</b><br>4,0 W · U0 0,65 · 185 lx</div>
+      <div class="m" style="left:134.4px;top:277.6px"><b>6 Under · vipp</b><br>1,7 W · U0 0,47 · 16 lx</div>
+      <div class="m" style="left:268.8px;top:277.6px"><b>7 Under · vindauge</b><br>2,5 W · U0 0,47 · 106 lx</div>
+      <div class="m" style="left:403.2px;top:277.6px"><b>8 Vegg · vipp</b><br>1,7 W · U0 0,47 · 16 lx</div>
+      <div class="m" style="left:0.0px;top:429.2px"><b>9 Fot · vipp</b><br>1,7 W · U0 0,31 · 10 lx</div>
+      <div class="m" style="left:134.4px;top:429.2px"><b>10 Fot · knekk</b><br>2,8 W · U0 0,29 · 123 lx</div>
+      <div class="m" style="left:268.8px;top:429.2px"><b>11 Fot · vindauge</b><br>2,1 W · U0 0,31 · 26 lx</div>
+      <div class="m" style="left:403.2px;top:429.2px"><b>12 Fot · skive</b><br>2,4 W · U0 0,39 · 13 lx</div>
+      <div class="m" style="left:0.0px;top:580.9px"><b>13 Fot · rute</b><br>12,4 W · U0 0,07 · 84 lx</div>
+      <div class="m" style="left:134.4px;top:580.9px"><b>14 Fot · linse</b><br>5,8 W · U0 0,62 · 123 lx</div>
+      <div class="m" style="left:268.8px;top:580.9px"><b>15 Fot · hovud</b><br>2,4 W · U0 0,23 · 11 lx</div>
+      <div class="m" style="left:403.2px;top:580.9px"><b>16 Fot · røyr</b><br>24,4 W · U0 0,32 · 569 lx</div>
+      </div>
+      <section>
+        <p class="etikett">Kropp 4 · Klype · band</p>
+        <div class="tal4">
+          <div>2,9 W<small>for 350 lx</small></div>
+          <div>0,70<small>jamnheit</small></div>
+          <div>132 lx<small>veggen bak</small></div>
+          <div>317<small>cd/m² mot auget</small></div>
+        </div>
+        <p class="etikett">Kva tala seier</p>
+        <div class="punkt"><span class="nr">01</span><p>Over skjermkanten slår fot. Jamnheita er 0,41 til 0,70 der, mot 0,29 til 0,39 for plata på fot.</p></div>
+        <div class="punkt"><span class="nr">02</span><p>LED-stripa i staden for éi diode løftar jamnheita frå 0,47 til 0,70, utan diffusorark på plata.</p></div>
+        <div class="punkt"><span class="nr">03</span><p>Vindaugsdioden held veggen lys utan at noko sveipar over skjermen: sprang 0,07, mot 0,37 når plata vippar.</p></div>
+        <div class="punkt"><span class="nr">04</span><p>Ruta på fot treng 12,4 W. Plata på fot held veggen med flik, men jamnheita blir 0,29, og ho veltar ved 1,9 N.</p></div>
+        <div class="punkt"><span class="nr">05</span><p>Kropp 4 fell på éin ting: 1143 g på skjermen. Armen og hengselet frå projektoren er 421 g av det.</p></div>
+        <p class="liten graa" style="margin-top: 10px;">A, B, C og D til samanlikning: 3,0, 3,6, 5,8 og 3,7 W, jamnheit 0,62, 0,41, 0,62 og 0,62.</p>
+      </section>
+    </div>
+  </main>
+
+  <footer class="botn">
+    <span>Under kvar kropp: watt for 350 lx på feltet, jamnheit og lux på veggen bak skjermen. Modell i lysmotoren, mekanikk frå CAD-en. Skjermen er skugge.</span>
+    <span>Ingenting er bygt eller målt.</span>
+  </footer>
+</div>
+</body>
+</html>

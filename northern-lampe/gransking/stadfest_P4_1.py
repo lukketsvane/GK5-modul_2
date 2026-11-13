@@ -330,3 +330,50 @@ for pn in ('loddrett',):
 UT['tid_s'] = time.time() - t0
 print(json.dumps({k: v for k, v in UT.items() if k != 'bakover'}, ensure_ascii=False))
 print(f'ferdig {time.time()-t0:.0f} s')
+
+
+# ---------- diagnose (køyr med argumentet diag): kvar på plata kjem E frå, framover mot bakover ----------
+if 'diag' in sys.argv:
+    Pr = PROF['loddrett']
+    eye = fe.EYES[0]
+    # bakover: bidrag til E per 5 mm av sikta s (start-planet), summert over x
+    nx = 13
+    xs_ = np.linspace(-L / 2, L / 2, nx + 1); xc = (xs_[:-1] + xs_[1:]) / 2; dxw = xs_[1] - xs_[0]
+    s0, s1 = -0.10, 0.12
+    bins = np.arange(-0.10, 0.1201, 0.01)
+    Eb = np.zeros(len(bins) - 1)
+    for j, xt in enumerate(xc):
+        rr = luminans(Pr, eye, xt, sig_deg=4.0, ns=220, per=300, seed=500 + j, s0=s0, s1=s1)
+        sc = rr['sc']; ds_ = sc[1] - sc[0]
+        Py = ys - sc; Pz = zs - (ZB + Pr['hmax'] + 0.0005)
+        v = np.c_[np.full(len(sc), xt - eye[0]), Py - eye[1], np.full(len(sc), Pz - eye[2])]
+        r2 = (v ** 2).sum(1); rn = np.sqrt(r2)
+        dE = rr['prof'] * LL * (v[:, 1] / rn) * ((Pz - eye[2]) / rn) / r2 * dxw * ds_
+        Eb += np.histogram(sc, bins=bins, weights=dE)[0]
+    print('bakover E per 1 cm sikta s (start-planet):', {f'{a*100:+.0f}': round(float(e), 5) for a, e in zip(bins[:-1], Eb)}, 'sum', round(float(Eb.sum()), 5))
+    # bakover med treffpunkt: same, men logg kvar strålen først treffer plata
+    # framover: vindauge ±1 cm og ±3 cm, og s ved utgang projisert til start-planet langs strålen
+    OUT = np.zeros((6_000_000, 7))
+    fram(len(OUT), W, Pr['SA'], Pr['SB'], n, ZC, CW, 21, OUT)
+    o = OUT[OUT[:, 6] == 0]
+    rng = np.random.default_rng(21)
+    xe = (rng.random(len(o)) - 0.5) * L + o[:, 2]
+    keep = np.abs(xe) <= L / 2
+    ds, dz = o[:, 4], o[:, 5]
+    g = rng.normal(0, math.radians(4.0), len(o)); cg, sg = np.cos(g), np.sin(g)
+    ds, dz = ds * cg + dz * sg, -ds * sg + dz * cg
+    Py = ys - o[:, 0]; Pz = zs - o[:, 1]
+    Vx, Vy, Vz = o[:, 3], -ds, -dz
+    with np.errstate(divide='ignore', invalid='ignore'):
+        t = (eye[1] - Py) / Vy
+    X = xe + t * Vx; Z = Pz + t * Vz
+    zq = ZB + Pr['hmax'] + 0.0005
+    s_proj = o[:, 0] + (zq - o[:, 1]) * ds / dz                 # utgangsstrålen forlengd ned til start-planet
+    for he in (0.01, 0.03):
+        hit = keep & (Vy < 0) & (t > 0) & (np.abs(X - eye[0]) < he) & (np.abs(Z - eye[2]) < he)
+        Ef = hit.sum() / len(OUT) / (2 * he) ** 2
+        h1 = np.histogram(s_proj[hit], bins=bins)[0] / len(OUT) / (2 * he) ** 2
+        h2 = np.histogram(o[hit, 0], bins=bins)[0] / len(OUT) / (2 * he) ** 2
+        print(f'framover ±{he*100:.0f} cm: E', round(float(Ef), 5), 'treff', int(hit.sum()))
+        print('   per 1 cm, projisert til start-planet:', {f'{a*100:+.0f}': round(float(e), 5) for a, e in zip(bins[:-1], h1)})
+        print('   per 1 cm, utgangsstad på plata:     ', {f'{a*100:+.0f}': round(float(e), 5) for a, e in zip(bins[:-1], h2)})

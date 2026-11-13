@@ -25,7 +25,7 @@
    "id": "04",
    "namn": "arm",
    "volum_cm3": 61.3,
-   "masse_g": 165.6,
+   "masse_g": 165.5,
    "gyldig": true
   },
   {
@@ -193,7 +193,7 @@
  ],
  "masse_g": 1184,
  "tyngdepunkt": [
-  9.3,
+  9.2,
   4.3,
   150.8
  ],

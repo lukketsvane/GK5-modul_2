@@ -2,7 +2,9 @@
 """rendre_blender.py · studiorendrar av byggjesettet med Cycles (Blender 5.1, hovudlaust)
 
 Les scener.json (skrive av delar.py: STL-filer, materiale, plassering og kamera per scene) og rendrar kvar scene
-til render/<scene>.png. Glas, blankt metall og fresnelringar er ekte i Cycles; fargespalting i prismearket er ikkje med.
+til render/<scene>.png. Glas, blankt metall og fresnelringar er ekte i Cycles; prisma og fargespalting i prismearket er ikkje med.
+Scener med «delbank» (del-P01 … del-samla) blir rendra ortografisk med gjennomsiktig bakgrunn og fast tal pikslar per mm,
+med storleiken i render/<scene>.json.
 
   blender.exe -b -P rendre_blender.py -- [scene ...] [--prove]
 
@@ -94,9 +96,9 @@ def materiale():
     # Lyset bak arket i den første utgåva gjorde han heilt kvit, så scena «arket» har ikkje baklys lenger.
     m = bpy.data.materials.new('film'); m.use_nodes = True; nt = m.node_tree
     p = nt.nodes['Principled BSDF']
-    p.inputs['Base Color'].default_value = (0.25, 0.26, 0.28, 1.0); p.inputs['Roughness'].default_value = 0.12
+    p.inputs['Base Color'].default_value = (0.02, 0.02, 0.022, 1.0); p.inputs['Roughness'].default_value = 0.06
     tr = nt.nodes.new('ShaderNodeBsdfTransparent'); mix = nt.nodes.new('ShaderNodeMixShader')
-    mix.inputs['Fac'].default_value = 0.35
+    mix.inputs['Fac'].default_value = 0.3
     nt.links.new(tr.outputs[0], mix.inputs[1]); nt.links.new(p.outputs[0], mix.inputs[2])
     nt.links.new(mix.outputs[0], nt.nodes['Material Output'].inputs['Surface'])
     M['film'] = m
@@ -114,6 +116,19 @@ def _lys(namn, pos, mal, storleik, styrke, farge=(1.0, 1.0, 1.0)):
     ld = bpy.data.lights.new(namn, 'AREA'); ld.size = storleik; ld.energy = styrke; ld.color = farge
     ob = bpy.data.objects.new(namn, ld); bpy.context.collection.objects.link(ob)
     ob.location = pos; _peik(ob, mal)
+    return ob
+
+
+def _kort(namn, pos, mal, storleik, styrke):
+    """Lysande flate utanfor biletet (refleks). Synest i speglingar, der eit lys berre gjev ein liten flekk."""
+    h = storleik / 2
+    me = bpy.data.meshes.new(namn); me.from_pydata([(-h, -h, 0), (h, -h, 0), (h, h, 0), (-h, h, 0)], [], [(0, 1, 2, 3)]); me.update()
+    m = bpy.data.materials.new(namn); m.use_nodes = True; nt = m.node_tree; nt.nodes.clear()
+    e = nt.nodes.new('ShaderNodeEmission'); e.inputs['Strength'].default_value = styrke
+    ut = nt.nodes.new('ShaderNodeOutputMaterial'); nt.links.new(e.outputs[0], ut.inputs['Surface'])
+    me.materials.append(m)
+    ob = bpy.data.objects.new(namn, me); bpy.context.collection.objects.link(ob)
+    ob.location = pos; _peik(ob, mal); ob.visible_camera = False
     return ob
 
 
@@ -150,14 +165,18 @@ def _importer(fil, M, mat):
     return ob
 
 
-def _film_rutenett(ob):
-    """Byt arket (eit ekstrudert rektangel med hjørnepunkt berre) med eit tett rutenett i same omriss, så bøyen blir jamn.
-    Flikane (1,6 mm) fell bort, dei synest ikkje i denne målestokken."""
+def _film_rutenett(ob, boy=26.0):
+    """Byt arket (eit ekstrudert rektangel med hjørnepunkt berre) med eit tett rutenett i same omriss, lagt på ein svak
+    boge (boy grader over breidda), så filmen les som film. Flikane (1,6 mm) fell bort, dei synest ikkje i denne målestokken."""
     me = ob.data
     xs = [v.co.x for v in me.vertices]; ys = [v.co.y for v in me.vertices]
     x0, x1, y0, y1 = min(xs), max(xs), min(ys), max(ys) - 0.0016
     n = 64
-    vx = [(x0 + (x1 - x0) * i / n, y, 0.0) for y in (y0, y1) for i in range(n + 1)]
+    rho = (x1 - x0) / math.radians(boy); xc = (x0 + x1) / 2
+    def punkt(i, y):
+        a = (x0 + (x1 - x0) * i / n - xc) / rho
+        return (xc + rho * math.sin(a), y, -rho * (1 - math.cos(a)))
+    vx = [punkt(i, y) for y in (y0, y1) for i in range(n + 1)]
     fl = [(i, i + 1, n + 2 + i, n + 1 + i) for i in range(n)]
     ny = bpy.data.meshes.new('film'); ny.from_pydata(vx, [], fl); ny.update()
     for pg in ny.polygons:
@@ -223,8 +242,6 @@ def rendre(namn, sc):
         for ob, o in zip(objekt, sc['objekt']):
             if o.get('del_') == 'P08':                                  # filmen er mjuk: ein svak bøy får han til å lese som film
                 _film_rutenett(ob)
-                md = ob.modifiers.new('boy', 'SIMPLE_DEFORM'); md.deform_method = 'BEND'; md.deform_axis = 'Y'
-                md.angle = math.radians(-26)
         cam.rotation_euler = (-retn).to_track_quat('-Z', 'Y').to_euler()
         bpy.context.view_layer.update()
         R3 = cam.matrix_world.to_3x3()
@@ -266,7 +283,7 @@ def rendre(namn, sc):
                 if dv.dot(n) > 0:
                     n = -n
                 r = dv - 2 * dv.dot(n) * n
-                _lys('refleks', mal + r * 1.2, mal, 1.0, 400 * (d / 0.3) ** 2)
+                _kort('refleks', mal + r * 1.2, mal, 1.2, 40.0)
     if sc.get('baklys'):                                                # lys gjennom arket bakfrå
         bak = Vector((mal.x, min(hi.y + 0.25, y_bak - 0.03), mal.z))
         _lys('baklys', bak, mal, 0.9 * d * 2, 30 * (d / 0.3) ** 2, (1.0, 0.95, 0.88))
@@ -278,5 +295,6 @@ def rendre(namn, sc):
     print('RENDRA', s.render.filepath, flush=True)
 
 
-for namn in VALDE:
-    rendre(namn, SCENER[namn])
+if __name__ == '__main__':
+    for namn in VALDE:
+        rendre(namn, SCENER[namn])

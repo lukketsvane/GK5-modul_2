@@ -1,2 +1,3 @@
 - 16.30 kalib (10 s): W350 3.681 / 3.680 / 3.681 mot 3.688; auge25 1087 / 1087 / 1087 mot 1040; utkraga 0.060 mot 0.060 mm
 - 16.36 tal (338 s): 16 kroppar rekna, tal.csv skriven
+- 16.40 tal (213 s): 9 kroppar rekna, tal.csv skriven

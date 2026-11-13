@@ -45,13 +45,13 @@ Skiva er ei bøygd spegelflate, og lyset kjem frå ei lykt i foten. A brukar min
 
 *Vis: vipp plata.*
 
-Fresnelplata frå overheadprojektoren ligg over skjermkanten og er knekt. Den store delen legg lyset på bordet, og fliken held veggen lys. I stemning held B lyset av skjermen, berre 5 lux. Plata lyser likevel ujamnt. Jamnheita stoppar på 0,41, og ingen variant nådde 0,6 utan å blende. Det er eit funn om fresnelplata, ikkje ein feil i oppsettet.
+Fresnelplata frå overheadprojektoren ligg over skjermkanten og er knekt. Den store delen legg lyset på bordet, og fliken held veggen lys. I stemning held B lyset av skjermen, berre 5 lux. Plata lyser likevel ujamnt. Jamnheita stoppar på 0,41, og ingen variant nådde 0,6 utan å blende. Det er eit funn om fresnelplata, ikkje ein feil i oppsettet. Er skjermen tilta 20° bakover, speglar plata seg i han, så ho treng avskjerming på skjermsida.
 
 ## 9 C Vindauge
 
 *Vis: skyv spegelen inn.*
 
-Ei glaskule fylt med vatn teiknar eit vindauge av lys på veggen. Når spegelen glir inn, tek han 65 prosent av strålen ned på bordet, og vindauget blir ståande. C legg minst lys på skjermen, høgst 34 lux gjennom heile skiftet, og har det mjukaste skiftet. C brukar derimot 5,8 watt og held 2,6 timar per celle. Hovudet står 70 cm over bordet, høgare enn ei vanleg bordlampe.
+Ei glaskule fylt med vatn teiknar eit vindauge av lys på veggen. Når spegelen glir inn, tek han 65 prosent av strålen ned på bordet, og vindauget blir ståande. C legg minst lys på skjermen, høgst 39 lux gjennom heile skiftet, og har det mjukaste skiftet. C brukar derimot 5,8 watt og held 2,6 timar per celle. Hovudet står 70 cm over bordet, høgare enn ei vanleg bordlampe.
 
 ## 10 Valet står mellom straum og lys på skjermen
 
@@ -66,7 +66,7 @@ Dei kvite tala er best av dei tre.
 
 Dette er mi lesing, ikkje eit val:
 - A ligg nærast Northern og er enklast å byggje, men er òg det minst nye. Snur du skiva, gjev den kvite baksida møtelys på ansiktet. Skiva må snu den korte vegen, så leddet treng eit stopp. Den lange vegen kastar spegelstrålen i auga.
-- B er den einaste som ligg over skjermen og lèt bordet vere fritt. Prisen er ujamt lys og ein mekanikk som kan verke teknisk.
+- B er den einaste som ligg over skjermen og lèt bordet vere fritt. Prisen er ujamt lys, ein mekanikk som kan verke teknisk, og at plata speglar seg i ein skjerm som er tilta bakover.
 - C er det nyaste og lyser reinast, men brukar mest straum og står høgt.
 
 Felles for alle tre: eit dytt veltar lampa. Handlinga må difor vere eit kraftpar, med ein knott i leddet eller ein spak ved foten.

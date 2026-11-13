@@ -298,7 +298,7 @@ def skala():
                 g.append(f'<text x="{m:.1f}" y="{by + 15}" class="kv" text-anchor="middle">{e[1]}</text>')
                 g.append(f'<text x="{m:.1f}" y="{by + 28}" class="graa" text-anchor="middle">{e[2]}</text>')
             x += w
-    g.append(f'<text x="0" y="{H - 3}" class="graa">← ENDRING · poeng: kjernereglane R1 til R5 (0 til 5), paletten (0 eller 1), proporsjonane (0 eller 1) · ATTKJENNING →</text>')
+    g.append(f'<text x="0" y="{H - 3}" class="graa">← ENDRING · poeng: reglane R1 til R5 (0 til 5), paletten (0 eller 1), proporsjonane (0 eller 1) · ATTKJENNING →</text>')
     return f'<svg width="{W}" height="{H}" viewBox="0 0 {W} {H}" xmlns="http://www.w3.org/2000/svg">\n        ' + '\n        '.join(g) + '\n      </svg>'
 
 

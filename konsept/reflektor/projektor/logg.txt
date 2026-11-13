@@ -9,3 +9,5 @@
   ut frå lengste stråle i det aktuelle siktet, så filteret endra seg når hovudet vippa (vipp-fyll gav 1 lx i stemning).
   No er filteret fast i maskeplanet (gradert()). G2 sin kort60-jamn har same feil og står som han stod.
 - Val: dele-vindauge, golv-dele, zoom. Nest: vipp-vindauge (sveipar over skjermen, sprang 0,35, vegg 23 lx i arbeid).
+- Brett px=200 og par for dei tre beste laga (101 s). Motoren hadde fått to nye kolonnar (skjermflata) kl. 10.33 frå ei anna økt.
+  Dei andre kolonnane er like i tal.md og g4/tal.md. funn.md skriven. Ferdig.

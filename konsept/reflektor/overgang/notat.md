@@ -69,3 +69,33 @@ Lesing av settet:
 - Rekninga bak: veggsona er om lag 1 m², feltet 0,24 m². 100 lx på veggen er om lag 100 lm, 350 lx på feltet om lag 84 lm. Når stemninga bur på veggen nær skjermen, må arbeidet ha minst like mykje lys der, og då blir cosinus 0,6 eller meir. Det er geometri, ikkje mekanisme.
 - Open spørsmål som avgjer dei tre beste: kan stemninga bu ein annan stad (tak, høg vegg, bordet) slik at arbeidet kan ha både felt og veggstrøk og likevel likskap under 0,3?
 - Settet har stivna rundt adressa «veggen nær skjermen» i stemning. Byte av grep til generasjon 3: flytt adressa til stemninga.
+
+## Generasjon 3: stemninga flyttar adresse
+
+Arbeid er felt + veggstrøk. Stemninga bur i taket, høgt på veggen (over sona, 115 cm over bordet), eller på bordet framfor foten. Nye grep: kryss3 (kryssdimme tre adresser), fald3 (opne ein fald med to vengar, faldlinja parallell med vippeaksen), vipp3 (kontroll), spjeld3 (oppstilling B, dreie arket frå tvers i strålen til arbeidsvinkelen).
+
+Feil undervegs: i første køyring av kryss-* og VELT glod-kryss fanst ikkje arket i stemningssteget (t = 0), berre frå t > 0. Då skugga arket ulikt i ulike steg, og glødeperla bak arket vart borte for auget frå steg 1 (17590 til 29 cd/m²). Retta: arket står der i alle steg, og stemningsstrøket sit på toppen av lampa (57 cm), over arket. Dei gamle linjene ligg i journal-gen3-feil.jsonl. Same feil finst i kryss og kryss-43 frå generasjon 1 og 2 (vaskaren står bak arket og er lite påverka); dei er ikkje køyrde på nytt.
+
+| Mekanisme | topp | sprang | jamn auke | likskap | W350 | vegg i arbeid | stemning: mot auget / vegg | skjermlux maks undervegs |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| kryss-tak | 0,66 | 0,06 | 1,00 | 0,23 | 4,46 | 126 | 10 / 3 | 66 |
+| kryss-tak-30 | 0,66 | 0,06 | 1,00 | 0,22 | 3,70 | 98 | 10 / 3 | 81 |
+| kryss-hog | 0,66 | 0,04 | 1,00 | 0,28 | 4,46 | 126 | 148 / 6 | 66 |
+| kryss-bord | 0,67 | 0,06 | 1,00 | 0,42 | 4,46 | 126 | 356 / 5 | 66 |
+| fald-hog | 0,79 | 0,06 | 1,00 | 0,72 | 4,51 | 148 | 54 / 33 | 619 |
+| fald-tak | 0,79 | 0,10 | 1,00 | 0,50 | 4,51 | 148 | 11 / 9 | 702 |
+| fald-tak-veng | 0,83 | 0,10 | 1,00 | 0,50 | 6,90 | 186 | 11 / 9 | 573 |
+| vipp-tak | 0,78 | 0,29 | 1,00 | 0,19 | 2,64 | 32 | 11 / 8 | 851 |
+| spjeld-tak | 5,01 | 0,37 | 0,67 | 0,09 | 2,23 | 28 | 235 / 8 | 119 |
+| spjeld-tak-sm | 5,02 | 0,37 | 0,67 | 0,19 | 2,32 | 53 | 235 / 18 | 115 |
+| VELT glod-kryss | 1,06 | 0,01 | 1,00 | 0,74 | 4,46 | 126 | 17590 / 22 | 66 |
+| UMOGLEG fald-kuppel (strekk 30,5 %) | 0,13 | 0,11 | 1,00 | 0,36 | 7,88 | 154 | 93 / 6 | 1432 |
+
+Lesing av settet:
+
+- Spørsmålet frå generasjon 2 er svart: når stemninga bur i taket eller høgt på veggen, går likskap under 0,3 og 100 lx på veggen i arbeid saman (kryss-tak 0,23 og 126 lx, kryss-hog 0,28 og 126 lx).
+- Berre kryssdimminga gjer det utan å sveipe. Alle mekaniske grep som flyttar strålen frå taket eller den høge veggen ned til feltet, må gå gjennom romet imellom: der står skjermen (fald og vipp: 570 til 850 lx på skjermflata midt i overgangen) eller auget (spjeld-tak: 6690 cd/m² ved t = 0,67, topp 5,0).
+- Taket som stemning er nesten usynleg frå stolen: 10 cd/m² mot auget og 3 lx på veggsona. Den høge veggen er synleg (148 cd/m²) og gjev same arbeid. Difor er kryss-hog betre stemning enn kryss-tak, med likskap 0,28 mot 0,23.
+- Bordet som adresse deler sone med spillet frå arbeidet (bordet utanfor feltet får 14 % i arbeid), så likskapen blir 0,42.
+- Kostnaden: W350 4,46 mot 2,25 for skjer. Vaskaren og stemningsstrøket er strøk rett ut (80 lm/W), og vaskaren brukar 43 % av watten på veggen.
+- Glødeperla (VELT) syner at topp er relativ: blending i eit endepunkt gjev topp 1,06, ikkje eit varsel. Auget må lesast steg for steg.

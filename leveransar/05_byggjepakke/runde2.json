@@ -1,30 +1,31 @@
 {
  "A": {
   "flik_senter_cm": [
-   47.0,
+   43.5,
    42.5,
    30.0
   ],
+  "flik_dx_cm": -3.5,
   "flik_mm": [
    120,
    84
   ],
-  "flik_tilt_grader": 51.5,
+  "flik_tilt_grader": 51.9,
   "flik_normal": [
-   -0.71,
-   0.33,
-   -0.622
+   -0.701,
+   0.357,
+   -0.618
   ],
   "lykt2_cm": [
-   47.0,
+   43.5,
    40.0,
    5.0
   ],
-  "lykt2_sigma": 8,
-  "lykt2_kutt": 16,
+  "lykt2_sigma": 5,
+  "lykt2_kutt": 10,
   "lykt2_til_flik_cm": 25.1,
   "lykt2_vinkel_fram_frå_loddrett": 5.7,
-  "q": 0.4,
+  "q": 0.3,
   "hovudlykt_vinkel_fram_frå_loddrett": 12.5,
   "hovudlykt_til_skive_cm": 36.9
  },

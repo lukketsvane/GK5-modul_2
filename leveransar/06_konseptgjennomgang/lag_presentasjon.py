@@ -151,9 +151,19 @@ def kropp():
     return ut
 
 
+def f10():
+    """Møtelyset (F10) frå konsept/tre/f10.json: A med kjelde 18° og C med alt lyset på veggen."""
+    F = json.load(open(os.path.join(TRE, 'f10.json'), encoding='utf-8'))
+    a18 = [r for r in F if r['namn'].startswith('A matt bakside mot auget') and r['namn'].endswith('18°')]
+    c = [r for r in F if r['namn'].startswith('C ')]
+    assert len(a18) == 1 and len(c) == 1, 'f10.json manglar A med kjelde 18° eller C'
+    return a18[0], c[0]
+
+
 def l_valet():
     """Kva valet står på, etter valtabellen i konsept/tre/val-18-11.md."""
     Kr = kropp()
+    a18, cveg = f10()
     def kol(k, rolle, faar, pris):
         K, kr = KO.KONSEPT[k], Kr[k]
         velt = f'veltar ved {f1(kr["velt_N"])}{NB}N' if kr['velt_N'] > 0 else 'veltar av seg sjølv på fot'
@@ -165,7 +175,7 @@ def l_valet():
     inn = ('<div class="tre-val">' +
            kol('A', 'nærast Northern, enklast å byggje',
                [f'{f2(A["W350"])}{NB}W for 350{NB}lx, {f1(A["timar"])} timar per celle', f'jamt lys på feltet ({f2(A["jamnheit"])})',
-                f'møtelys: vend skiva, 50{NB}lx på ansiktet ved 3,9{NB}W', 'fot, stong og skive, nær Snowball og Ombre'],
+                f'møtelys: vend skiva, 50{NB}lx på ansiktet ved {f1(a18["W_for_50"])}{NB}W', 'fot, stong og skive, nær Snowball og Ombre'],
                [f'skjermflata får {f2(A["skjerm350"] / 350)} av lyset på feltet', 'minst nytt: Verner Panton Reflect er nær nabo',
                 'skiva må ha lobe under 4,5°']) +
            kol('B', 'den einaste over skjermen',
@@ -175,7 +185,7 @@ def l_valet():
            kol('C', 'det nyaste, lyser reinast',
                [f'høgst {f0(max(C["veg_skjerm"]))}{NB}lx på skjermen gjennom skiftet', f'{f0(C["auge25"])}{NB}cd/m² mot auget, lågast av dei tre',
                 'vindauget står i ro på veggen'],
-               [f'{f1(C["W350"])}{NB}W og {f1(C["timar"])} timar per celle', f'møtelys berre via veggen: om lag 40{NB}lx ved 7,5{NB}W',
+               [f'{f1(C["W350"])}{NB}W og {f1(C["timar"])} timar per celle', f'møtelys berre via veggen: om lag {f0(cveg["lx_per_W"] * 7.5)}{NB}lx ved 7,5{NB}W',
                 'hovudet 70' + NB + 'cm over bordet', 'optikk som må stå nøyaktig']) +
            '</div><p class="graa liten" style="margin-top:12px">Felles: eit dytt på 5' + NB +
            'N veltar alle tre. Vippen og skyvet må vere eit kraftpar, med ein knott i leddet eller ein spak ved foten.</p>')

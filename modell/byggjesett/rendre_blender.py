@@ -31,7 +31,16 @@ HER = os.path.dirname(os.path.abspath(__file__))
 UT = os.path.join(HER, 'render')
 ARG = sys.argv[sys.argv.index('--') + 1:] if '--' in sys.argv else []
 PROVE = '--prove' in ARG
-SCENER = json.load(open(os.path.join(HER, 'scener.json'), encoding='utf-8'))
+def _val(namn, std):
+    for a in ARG:
+        if a.startswith('--' + namn + '='):
+            return os.path.join(HER, a.split('=', 1)[1])
+    return std
+
+
+# --scener=kitbash/gen2/scener.json og --ut=kitbash/gen2/render lèt andre mapper bruke same rendrar og same innstillingar
+SCENER = json.load(open(_val('scener', os.path.join(HER, 'scener.json')), encoding='utf-8'))
+UT = _val('ut', UT)
 VALDE = [a for a in ARG if not a.startswith('--')] or list(SCENER)
 
 
@@ -103,6 +112,15 @@ def materiale():
     nt.links.new(mix.outputs[0], nt.nodes['Material Output'].inputs['Surface'])
     M['film'] = m
     M['golv'], _ = _principled('golv', (0.014, 0.014, 0.016), 0.0, 0.6)
+    # Til kitbash-lampene. Trykte delar er matt raudbrune, fargen Iver brukte i konsept/film/cad/render.py. Verdien er den
+    # styringsøkta kalibrerte mot dette studiolyset (konsept/kitbash/felles/rendre_blender.py), så alle lampene får same raudfarge.
+    M['print'], pp = _principled('print', (0.07, 0.010, 0.006), 0.0, 0.75)
+    pp.inputs['Specular IOR Level'].default_value = 0.25
+    m, p = _principled('led', (1.0, 0.86, 0.62), 0.0, 0.5)                # lyser svakt varmt, så ho les som tend
+    p.inputs['Emission Color'].default_value = (1.0, 0.74, 0.42, 1.0); p.inputs['Emission Strength'].default_value = 2.5
+    M['led'] = m
+    M['messing'], _ = _principled('messing', (0.78, 0.57, 0.24), 1.0, 0.28)
+    M['pmma'], _ = _principled('pmma', (0.97, 0.98, 0.98), 0.0, 0.02, trans=1.0, ior=1.49)
     return M
 
 
@@ -263,7 +281,9 @@ def rendre(namn, sc):
         cam.location = hogre * (max(us) + min(us)) / 2 + opp * (max(ws) + min(ws)) / 2 + fram * (min(fs) - 1.0)
         cd.clip_start = 0.01; cd.clip_end = (max(fs) - min(fs)) + 2.0
         meta = dict(scene=namn, px_per_mm=ppmm, w=W, h=H, marg=marg, azimut=k['azimut'], elevasjon=k['elevasjon'],
-                    breidd_mm=round((max(us) - min(us)) * 1000, 1), hogd_mm=round((max(ws) - min(ws)) * 1000, 1))
+                    breidd_mm=round((max(us) - min(us)) * 1000, 1), hogd_mm=round((max(ws) - min(ws)) * 1000, 1),
+                    # kameraet, så punkt i rommet (m) kan leggjast oppå biletet: x = (p·hogre - u0) / px_m + marg, y = (w1 - p·opp) / px_m + marg
+                    hogre=list(hogre), opp=list(opp), u0=min(us), w1=max(ws), px_m=px_m)
     else:
         halv_v = math.atan((36.0 * H / W / 2) / cd.lens)            # halve vertikale synsvinkelen
         cam.location = mal + retn * (k.get('faktor', 1.0) * R / math.sin(halv_v)); _peik(cam, mal)

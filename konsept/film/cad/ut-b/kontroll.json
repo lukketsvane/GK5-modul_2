@@ -21,19 +21,19 @@
   {
    "id": "04",
    "namn": "røyr",
-   "masse_g": 237.7,
+   "masse_g": 235.7,
    "gyldig": true
   },
   {
    "id": "05",
    "namn": "bjelke",
-   "masse_g": 128.5,
+   "masse_g": 129.9,
    "gyldig": true
   },
   {
    "id": "06",
    "namn": "bjelkelok",
-   "masse_g": 48.5,
+   "masse_g": 49.0,
    "gyldig": true
   },
   {
@@ -68,8 +68,8 @@
   },
   {
    "id": "12",
-   "namn": "klemring",
-   "masse_g": 1.5,
+   "namn": "stoppskrue",
+   "masse_g": 0.2,
    "gyldig": true
   },
   {
@@ -142,16 +142,16 @@
    "laagaste_punkt": 59.4
   }
  ],
- "masse_g": 1113,
+ "masse_g": 1112,
  "tyngdepunkt": [
-  -5.9,
+  -3.6,
   -6.0,
-  134.9
+  134.7
  ],
  "fotavtrykk_cm2": 196.1,
- "veltevinkel": 27.6,
- "velt_venstre_N": 6.8,
- "velt_framme_N": 12.2,
+ "veltevinkel": 28.1,
+ "velt_venstre_N": 7.3,
+ "velt_framme_N": 12.1,
  "velt_dytt_topp_N": 3.0,
  "delar_i_alt": 14,
  "stykkliste": [
@@ -234,10 +234,10 @@
   },
   {
    "id": "12",
-   "namn": "klemring",
+   "namn": "stoppskrue",
    "tal": 1,
-   "materiale": "petg",
-   "framstilling": "sit fast på røyret. Tappen stoppar hellinga ved 0° og 80°"
+   "materiale": "staal",
+   "framstilling": "settskrue M3 × 5 med tapp, gjenga i røyret nedanfrå. Stoppar hellinga ved 0° og 80° og held bjelken på røyret"
   },
   {
    "id": "13",
@@ -254,5 +254,5 @@
    "framstilling": "nedanfrå, med innpressmutter"
   }
  ],
- "royr_lengd": 622
+ "royr_lengd": 607
 }

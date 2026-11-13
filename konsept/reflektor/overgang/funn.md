@@ -61,4 +61,6 @@ Måla med lux-app på telefon. Tala er forhold, så lumen i lykta fell bort.
 - Kryss-hog brukar strøk rett ut (80 lm/W), så W350 4,46 er ein kostnad, ikkje ein feil. 5 W gjev 393 lx, nær kravet.
 - To ark på éi kjelde: motoren trekkjer berre det siste arket frå kjelda (`k.lm_ut` blir overskriven i `Ark.__init__`). Eg rettar for hand i fald3, ring, drei-to og fald-kuppel. Lysfordelinga kan gå over 1 (tak 1,07 for fald-kuppel ved t = 0) når eit holt ark samlar lyset i ei flekk på det grove taknettet.
 - Kryss og kryss-43 i gen. 1 og 2 manglar arket i stemningssteget. Retta i gen. 3, ikkje køyrt på nytt.
+- Kontroll mot bileta (brett og par): skjer og drei-snigel har i arbeid ein lys krans høgt på veggen, over sona. Kanten av strålen går forbi arket. Veggen er altså ikkje mørk i arbeid, men lyset ligg over sona som F6 måler (29 og 55 lx). Kryss-hog lyser veggen til høgre for skjermen, ikkje bak han: vaskaren står ved foten.
+- Klippekanten blir oppløyst i fliser på om lag 1,6 cm (n = 22). Spiralkanten på drei-snigel blir ei sag i biletet, så sprang 0,11 er usikkert i andre desimal.
 - Kva handling ein les av forma, er skjønn, ikkje rekna: skjer (plata inn i strålen) og vipp les seg sjølv. Drei-snigel les som ein knapp. Kryss-hog les som ein dimmar og fortel ikkje at lyset byter adresse.

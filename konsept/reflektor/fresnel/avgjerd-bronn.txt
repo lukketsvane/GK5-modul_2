@@ -1,0 +1,8 @@
+kjelde (40, 62, 64) t=0: felt    6 lx  U 0.52  vegg  82  auge  165  stemning/arbeid  | vinkel til auget 70 grader, til kameraet 61 grader, dioden mot kameraet 14186 cd/m2
+kjelde (40, 62, 64) t=1: felt  867 lx  U 0.46  vegg  31  auge  183  stemning/arbeid  | vinkel til auget 70 grader, til kameraet 61 grader, dioden mot kameraet 56743 cd/m2
+kjelde (40, 50, 50) t=0: felt    6 lx  U 0.50  vegg  90  auge  200  stemning/arbeid  | vinkel til auget 70 grader, til kameraet 61 grader, dioden mot kameraet 0 cd/m2
+kjelde (40, 50, 50) t=1: felt 1019 lx  U 0.47  vegg  29  auge  221  stemning/arbeid  | vinkel til auget 70 grader, til kameraet 61 grader, dioden mot kameraet 0 cd/m2
+kjelde (30, 45, 45) t=0: felt    6 lx  U 0.47  vegg  96  auge  250  stemning/arbeid  | vinkel til auget 70 grader, til kameraet 61 grader, dioden mot kameraet 0 cd/m2
+kjelde (30, 45, 45) t=1: felt 1117 lx  U 0.44  vegg  27  auge  305  stemning/arbeid  | vinkel til auget 70 grader, til kameraet 61 grader, dioden mot kameraet 0 cd/m2
+kjelde (25, 40, 40) t=0: felt    6 lx  U 0.44  vegg 100  auge  296  stemning/arbeid  | vinkel til auget 70 grader, til kameraet 61 grader, dioden mot kameraet 0 cd/m2
+kjelde (25, 40, 40) t=1: felt 1178 lx  U 0.41  vegg  26  auge  398  stemning/arbeid  | vinkel til auget 70 grader, til kameraet 61 grader, dioden mot kameraet 0 cd/m2

@@ -1,5 +1,5 @@
 {
- "veggstrok_lm": 244.6,
+ "veggstrok_lm": 244.1,
  "stemning": {
   "t": 0.0,
   "K": 2200.0,
@@ -13,21 +13,21 @@
  "paa-veg": {
   "t": 0.5,
   "K": 2600.0,
-  "lm": 214.3,
-  "felt_lx": 173.9,
+  "lm": 215.9,
+  "felt_lx": 180.9,
   "jamnheit": 0.81,
   "vegg_lx": 81.2,
-  "ansikt_lx": 27.4,
+  "ansikt_lx": 27.6,
   "lysaste_flate_cd": 67.9
  },
  "arbeid": {
   "t": 1.0,
   "K": 3000.0,
-  "lm": 328.6,
-  "felt_lx": 335.4,
+  "lm": 331.8,
+  "felt_lx": 349.4,
   "jamnheit": 0.83,
   "vegg_lx": 100.0,
-  "ansikt_lx": 47.3,
-  "lysaste_flate_cd": 50.5
+  "ansikt_lx": 47.8,
+  "lysaste_flate_cd": 52.6
  }
 }

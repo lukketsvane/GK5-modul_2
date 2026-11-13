@@ -53,3 +53,52 @@
   auge 0.47 t=1.0: L_lampe    193  L_flate   205  ark i skjermen     0  ansikt  61 
   auge 0.47 t=0.5: L_lampe     88  L_flate   187  ark i skjermen     0  ansikt  34 
   auge 0.47 t=0.0: L_lampe     30  L_flate    94  ark i skjermen     0  ansikt  17 
+  auge 0.60 t=1.0: L_lampe    193  L_flate   205  ark i skjermen     0  ansikt  51 
+  auge 0.60 t=0.5: L_lampe     71  L_flate   187  ark i skjermen     0  ansikt  32 
+  auge 0.60 t=0.0: L_lampe     21  L_flate    94  ark i skjermen     0  ansikt  17 
+== to-spegel-kryss
+  W350      funn     3.32  no     3.32  avvik   0.0 % 
+  felt      funn   527.00  no   527.08  avvik   0.0 % 
+  jamnheit  funn     0.33  no     0.33  avvik   0.3 % 
+  auge      funn   224.00  no   223.91  avvik   0.0 % 
+  vegg      funn   114.00  no   114.32  avvik   0.3 % 
+  ansikt    funn    60.00  no    59.98  avvik   0.0 % 
+  s_auge    funn   139.00  no   139.13  avvik   0.1 % 
+  s_vegg    funn    50.00  no    50.24  avvik   0.5 % 
+  likskap   funn     0.74  no     0.74  avvik   0.0 % 
+  topp      funn     0.97  no     0.97  avvik   0.1 % 
+  sprang    funn     0.02  no     0.02  avvik   9.2 % 
+  strekk 0.0000  jamn_auke 1.00  skjerm 241 lx  s_skjerm 42 lx  s_felt 19
+  overgang auge [139, 167, 195, 217, 224] felt [19, 67, 151, 293, 527] vegg [50, 63, 79, 96, 114]
+  t=0 geometri: strekk 0.0000  spill forbi arket 48 %  ark x 0.35..0.62  y 0.08..0.49  h 0.32..0.57
+       fordeling felt 0.03 bord 0.02 veggnær 0.40 veggelles 0.21 tak 0.22 tapt 0.11 | L_spegl(kjelde) 0  ark i skjermen 0 cd/m2 | U 0.29
+       kjelde i (0.47, 0.38, 0.05) mot auget 47: L 0 cd/m2
+  t=1 geometri: strekk 0.0000  spill forbi arket 23 %  ark x 0.35..0.62  y 0.08..0.49  h 0.32..0.57
+       fordeling felt 0.27 bord 0.11 veggnær 0.22 veggelles 0.09 tak 0.14 tapt 0.16 | L_spegl(kjelde) 0  ark i skjermen 0 cd/m2 | U 0.33
+       kjelde i (0.47, 0.38, 0.05) mot auget 47: L 0 cd/m2
+       kjelde i (0.47, 0.38, 0.05) mot auget 47: L 0 cd/m2
+  auge 0.25 t=1.0: L_lampe   1836  L_flate   224  ark i skjermen    20  ansikt  72 OVER 1500
+  auge 0.25 t=0.5: L_lampe    464  L_flate   195  ark i skjermen     5  ansikt  31 
+  auge 0.25 t=0.0: L_lampe     23  L_flate   139  ark i skjermen     0  ansikt  13 
+  auge 0.47 t=1.0: L_lampe    118  L_flate   224  ark i skjermen     0  ansikt  60 
+  auge 0.47 t=0.5: L_lampe     44  L_flate   195  ark i skjermen     0  ansikt  32 
+  auge 0.47 t=0.0: L_lampe     22  L_flate   139  ark i skjermen     0  ansikt  17 
+  auge 0.60 t=1.0: L_lampe    279  L_flate   224  ark i skjermen     0  ansikt  54 
+  auge 0.60 t=0.5: L_lampe     70  L_flate   195  ark i skjermen     0  ansikt  32 
+  auge 0.60 t=0.0: L_lampe     11  L_flate   139  ark i skjermen     0  ansikt  18 
+== robustheit for overflata (arbeid, auge 47 og 25)
+  spegel-kuv-1.2   BLANK    felt  817 U 0.60 W350 2.14 vegg  24 auge47   194 auge25    194 | stemning auge    0 vegg  68
+  spegel-kuv-1.2   sigma6   felt  768 U 0.62 W350 2.28 vegg  26 auge47   194 auge25   8936 | stemning auge    0 vegg  66
+  spegel-kuv-1.2   sigma14  felt  583 U 0.53 W350 3.00 vegg  32 auge47  1960 auge25  10673 | stemning auge    0 vegg  59
+  spegel-kuv-1.2   rd0.3    felt  601 U 0.59 W350 2.91 vegg  38 auge47  1936 auge25   1936 | stemning auge    0 vegg  55
+  spegel-kuv-1.2   folie    felt  787 U 0.61 W350 2.22 vegg  24 auge47   258 auge25    258 | stemning auge    0 vegg  66
+  to-spegel        BLANK    felt  741 U 0.43 W350 2.36 vegg 108 auge47   193 auge25    193 | stemning auge   30 vegg  56
+  to-spegel        sigma6   felt  685 U 0.37 W350 2.55 vegg 107 auge47   193 auge25   2009 | stemning auge   30 vegg  55
+  to-spegel        sigma14  felt  501 U 0.47 W350 3.50 vegg  99 auge47  1204 auge25   6778 | stemning auge  198 vegg  47
+  to-spegel        rd0.3    felt  551 U 0.45 W350 3.18 vegg 101 auge47  1932 auge25   1932 | stemning auge  300 vegg  45
+  to-spegel        folie    felt  711 U 0.42 W350 2.46 vegg 106 auge47   258 auge25    258 | stemning auge   40 vegg  54
+  to-spegel-kryss  BLANK    felt  527 U 0.33 W350 3.32 vegg 114 auge47   118 auge25   1836 | stemning auge   22 vegg  50
+  to-spegel-kryss  sigma6   felt  491 U 0.33 W350 3.56 vegg 112 auge47   118 auge25   5910 | stemning auge   22 vegg  49
+  to-spegel-kryss  sigma14  felt  369 U 0.42 W350 4.75 vegg 102 auge47  1155 auge25   6559 | stemning auge   22 vegg  43
+  to-spegel-kryss  rd0.3    felt  400 U 0.40 W350 4.38 vegg 102 auge47  1179 auge25   1213 | stemning auge  219 vegg  41
+  to-spegel-kryss  folie    felt  507 U 0.35 W350 3.45 vegg 111 auge47   157 auge25   2937 | stemning auge   29 vegg  49

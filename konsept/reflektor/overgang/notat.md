@@ -99,3 +99,7 @@ Lesing av settet:
 - Bordet som adresse deler sone med spillet frå arbeidet (bordet utanfor feltet får 14 % i arbeid), så likskapen blir 0,42.
 - Kostnaden: W350 4,46 mot 2,25 for skjer. Vaskaren og stemningsstrøket er strøk rett ut (80 lm/W), og vaskaren brukar 43 % av watten på veggen.
 - Glødeperla (VELT) syner at topp er relativ: blending i eit endepunkt gjev topp 1,06, ikkje eit varsel. Auget må lesast steg for steg.
+
+## Leveranse (13.11, før lunsj)
+
+Brett (px = 200) for generasjon 3 og fire referansar (skjer, drei-snigel, skjer-57, vipp), tal.md, tal.csv og overgang.csv. Par for kryss-hog, skjer og drei-snigel. Tala i tal.md er dei same som i journalane. Bileta stemmer med tala: kryss-tak er nesten svart i stemning, kryss-hog har ein varm flekk over skjermen, glødeperla syner som punkt. Skjer og drei-snigel har ein lys krans høgt på veggen i arbeid, over veggsona. Sjå funn.md.

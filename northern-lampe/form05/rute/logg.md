@@ -52,3 +52,25 @@ Dato: 13.11.2026. Lampa ER vindauget: ei rute som sjølv lyser, med lysleiarplat
 - 15.46 Augevolum (±15 cm, 15 cm fram, 25 til 60 cm): Telt 870 og Klemme 849 cd/m² i arbeid, begge for auget 25 cm over bordet, 15 cm til venstre og 15 cm fram. Under F5 (1500). Spegling i skjermen i arbeid: 0 ved loddrett skjerm, 325 / 706 cd/m² (Telt) og 238 / 485 (Klemme) ved 15 / 20° tilt før refleksjon, altså 28 og 19 cd/m² med blank skjerm (ρ 0,04) og 7 og 5 med matt (ρ 0,01).
 - 15.46 striper (0 s): sjå tal.json["striper"]. Auget 47 cm i stemning: snitt 73.0 cd/m², stripetopp 926.0 (frå 30 mm 349.0).
 - 15.46 ut: ies_*.ies og scene.json skrivne
+- 15.47 ut: ies_*.ies og scene.json skrivne
+- 15.49 **Stripene (rekna, 2D-modell av plata, ANTAKING):** arbeidsrekkja (60 LED, 8 mm) er jamn frå 30 mm (kontrast 0,05). Stemningsrekkja (kvar femte LED, 40 mm) med nakne LED-ar gjev vifter som berre syner dei første 30 mm (kontrast 0,23, så 0,14 ved 60 mm). Med smal innkopling (vifte 6° i plata) står stripene til om lag 100 mm (kontrast 0,96 ved 60 mm, 0,5 ved 100 mm) og løyser seg opp mot den frie kanten, som på biletet. Med 3° går dei over heile ruta. Auget 47 cm ser snittet 73 cd/m² og stripetoppen 926 cd/m² dei første 10 mm frå hengslet, 349 cd/m² frå 30 mm. Kravet 500 held difor berre om sylinderen dekkjer dei første 30 mm.
+- 15.49 **Regnbogen (rekna):** auget 47 cm ser ruta 40 til 52° frå normalen i stemning, altså på skråninga til cut-off. Der skil bølgjelengdene lag (cut-off flyttar seg om lag 3 til 4° frå 430 til 670 nm), og om lag 60 mm av ruta får synleg farge (over 15 % endring i kromatisitet). Flyttar auget seg 15 cm fram, flyttar bandet seg til 97–166 mm frå hengslet. Bandet går med hovudet: det er eit grep, ikkje ein feil. Auget 25 cm ser ruta 61 til 68° frå normalen, der ho er mørk.
+- 15.47 ut: ies_*.ies og scene.json skrivne
+- 15.52 Skreiv `ies_telt_arbeid.ies`, `ies_telt_stemning.ies`, `ies_klemme_arbeid.ies`, `ies_klemme_stemning.ies` (LM-63-2002, type C, romkoordinatar, absolutte candela), `scene.json` (kroppar, emitterar med lumen, CCT og plass, stripa mot veggen som eige flatelys, materiale med filmprofil, pitch 50 µm (ANTAKING) og n(λ), kamera for begge bileta og augepunkt), `lysstudie.png` (Telt i stemning stor, arbeid som innfelt, polardiagram) og `konsept.md`.
+
+## Det som fall, samla
+
+| Prøve | Kvifor det fall |
+| --- | --- |
+| Foten til Telt på feltet, som på biletet | skuggar ruta under seg, jamnheit 0,01 |
+| Telt ståande (90°) eller lent 20° (110°) i stemning | 940 til 995 cd/m² mot auget, krav 500 |
+| Det øvste arket med vassrette riller (kryss-v) | sidelobane går i auget: 1650 til 1950 cd/m² i arbeid |
+| Matt spreiar utan film | 6,7 W og 1884 cd/m² mot auget |
+| Lys ut baksida av Telt (30 %) | 14 lx bak skjermen og 4,1 W, stripa gjev 123 lx for 3,7 W |
+| Stripe mot veggen på Klemme | lyser på skjermflata (169 lx), berre 30 lx bak skjermen |
+| Klemme snudd via brukaren (180°) | stemninga blir nesten borte (2 lx bak skjermen), og ruta vender mot auget midt i gesten |
+| Gesten til Telt | blendar undervegs (985 og 1445 cd/m², topp 5,8) |
+| Gesten til Klemme | sveipar over skjermen (305 og 432 lx midt i gesten) |
+- 15.50 tretest: tre.rekn('A') gav W350 2.99 (tal.md 2.99), jamnheit 0.62 (tal.md 0.62), auge25 1013.4 (tal.md 1013), auge47 102.74 (tal.md 103), bak350 107.73 (tal.md 109), skjerm350 115.39 (tal.md 115), s_auge25 424.18 (tal.md 424), s_bak 130.85 (tal.md 131), likskap 0.6 (tal.md 0.6) på 23 s
+- 15.55 Kontroll: tre.rekn('A') herfrå gav same tal som konsept/tre/tal.md (2,99 W, jamnheit 0,62, 1013 / 103 cd/m², 108 mot 109 lx bak skjermen, 115 lx skjermflata, likskap 0,60).
+- 15.56 IES-filene integrerte til 142, 48, 149 og 64 lm, mot 144, 48, 150 og 65 lm ut av rutene (rekna). Stripa mot veggen er ikkje med i IES-fila til Telt, ho står som eige flatelys i scene.json.

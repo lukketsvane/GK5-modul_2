@@ -91,16 +91,16 @@
  "kamera": {
   "T": {
    "pos": [
-    -0.45,
-    -0.85,
-    1.02
+    -0.62,
+    -1.05,
+    1.06
    ],
    "mot": [
-    0.02,
-    0.38,
-    1.14
+    0.08,
+    0.36,
+    1.05
    ],
-   "fov_grader": 38,
+   "fov_grader": 40,
    "merk": "anslått frå det genererte biletet «Telt»"
   },
   "K": {
@@ -218,6 +218,31 @@
   },
   {
    "kropp": "T",
+   "tilstand": "stemning",
+   "ies": null,
+   "type": "diodestripe mot veggen, lambertsk flate",
+   "lm_led": 31.0,
+   "lm_ut": 28.0,
+   "W": 0.31,
+   "CCT": 2200.0,
+   "senter": [
+    0.0,
+    0.423,
+    1.2131
+   ],
+   "normal": [
+    0.0,
+    0.9578,
+    -0.2873
+   ],
+   "storleik": [
+    0.48,
+    0.02
+   ],
+   "merk": "flatelys (area light) i Blender med denne lumen, utan IES"
+  },
+  {
+   "kropp": "T",
    "tilstand": "arbeid",
    "ies": "ies_telt_arbeid.ies",
    "W": 2.78,
@@ -250,6 +275,31 @@
    ],
    "L_rett_fram_cd_m2": 2221.0,
    "merk": "mesh-plate med emisjon for det auget ser; punktlys med IES i senteret for rommet"
+  },
+  {
+   "kropp": "T",
+   "tilstand": "arbeid",
+   "ies": null,
+   "type": "diodestripe mot veggen, lambertsk flate",
+   "lm_led": 93.0,
+   "lm_ut": 83.0,
+   "W": 0.93,
+   "CCT": 2700.0,
+   "senter": [
+    0.0,
+    0.423,
+    1.2131
+   ],
+   "normal": [
+    0.0,
+    0.9578,
+    -0.2873
+   ],
+   "storleik": [
+    0.48,
+    0.02
+   ],
+   "merk": "flatelys (area light) i Blender med denne lumen, utan IES"
   },
   {
    "kropp": "K",

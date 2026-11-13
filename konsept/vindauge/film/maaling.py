@@ -554,6 +554,15 @@ def main():
             for etikett in ("flat", "krum"):
                 M = float(M_flat(fun, phi, n=ne)) if etikett == "flat" else mod[nr]["M_%s90_krum" % namn]
                 mod[nr]["frynse_%s90_%s" % (namn, etikett)] = [dd * 0.018 * M, dd * 0.025 * M]
+    # alternativ lesing: toppvinkel 90 grader fast, kva brytingsindeks gir daa maalt D?
+    def n_for_90(D_obs, phi, psi):
+        g = lambda n0: float(D_fram(phi, n=n_eff(n0, psi))) - D_obs
+        try:
+            return float(brentq(g, 1.40, 1.75))
+        except ValueError:
+            return float("nan")
+    mod["n_dersom_90_grader"] = dict(foto07=n_for_90(D07["R"], phi07, psi07), foto01=n_for_90(D01["R"], phi01, psi01))
+    print("n dersom toppvinkel = 90:", mod["n_dersom_90_grader"])
     TAL["modell"] = mod
     print("toppvinkel (fram) 07:", {k: round(v, 1) for k, v in mod["toppvinkel_fram_07"].items()})
     print("toppvinkel (fram) 01:", {k: round(v, 1) for k, v in mod["toppvinkel_fram_01"].items()})
@@ -733,6 +742,13 @@ def main():
         i = int(np.argmax(np.where(m, P, 0)))
         til[nr + "_ripling"] = dict(rute=[x0, y0, n_], periode_langs_y_px=float(n_ / i), topp_over_median=float(P[i] / np.median(P[m])),
                                     energi_y_over_x=float(P[m].sum() / Q[m].sum()))
+    # 9h naerbilete 05: same fargerekkjefolgje?  (brennvidda er ukjend her: ingen bygg aa kalibrere mot)
+    L05 = lin(les("05"))
+    ys, p = profil(L05, 420, 520, 1700, 2200)
+    k5 = dict(R=kant50(ys, p[:, 0], 1880, 1980)[0], G=kant50(ys, p[:, 1], 1920, 2030)[0], B=kant50(ys, p[:, 2], 1960, 2090)[0])
+    til["05_takline_gjennom_y"] = k5
+    til["05_takline_RB_px"] = float(k5["B"] - k5["R"])
+    til["05_takline_RB_grader_f2100_f2600"] = [float(np.degrees((k5["B"] - k5["R"]) / 2600.0)), float(np.degrees((k5["B"] - k5["R"]) / 2100.0))]
     TAL["tillegg"] = til
     for k_, v_ in til.items():
         if not k_.startswith("tiltskann"):
@@ -750,7 +766,6 @@ def main():
         ax[0].plot(ph, D_fram(ph, alfa=a_), "C0" + st, label="prisme mot kamera, topp %d" % (180 - 2 * a_))
         ax[0].plot(ph, D_bak(ph, alfa=a_), "C3" + st, label="prisme mot vindauge, topp %d" % (180 - 2 * a_))
     for nr, mk in (("07", "o"), ("01", "s")):
-        r = r_fram  # berre for feilstolpar
         ax[0].errorbar(mod[nr]["phi"], mod[nr]["D_obs"], xerr=2.5, yerr=(1.3 if nr == "07" else 2.2), fmt="k" + mk, label="maalt, foto " + nr)
     ax[0].set_xlabel("phi: kamerastraale mot arknormal (grader)"); ax[0].set_ylabel("avboying D (grader)")
     ax[0].set_ylim(25, 60); ax[0].legend(fontsize=7); ax[0].grid(alpha=0.3)

@@ -89,8 +89,8 @@ def materiale():
     M['keramikk'], _ = _principled('keramikk', (0.86, 0.84, 0.80), 0.0, 0.45)
     m, p = _principled('fresnel', (0.92, 0.93, 0.95), 1.0, 0.12); _ringar(m, p, 0.0018); M['fresnel'] = m
     M['glas'], _ = _principled('glas', (0.96, 1.0, 0.98), 0.0, 0.0, trans=1.0, ior=1.52)
-    m, p = _principled('film', (0.96, 0.98, 1.0), 0.0, 0.10, trans=1.0, ior=1.58); _liner(m, p, 0.0006); M['film'] = m
-    M['golv'], _ = _principled('golv', (0.035, 0.035, 0.038), 0.0, 0.65)
+    m, p = _principled('film', (0.96, 0.98, 1.0), 0.0, 0.32, trans=1.0, ior=1.58); _liner(m, p, 0.0006); M['film'] = m
+    M['golv'], _ = _principled('golv', (0.014, 0.014, 0.016), 0.0, 0.6)
     return M
 
 
@@ -153,6 +153,7 @@ def rendre(namn, sc):
     s.render.resolution_x, s.render.resolution_y = (W // 3, H // 3) if PROVE else (W, H)
     s.render.resolution_percentage = 100
     s.view_settings.view_transform = 'AgX'
+    s.view_settings.exposure = -0.6
     s.render.image_settings.file_format = 'PNG'
     verd = bpy.data.worlds.new('verd'); s.world = verd; verd.use_nodes = True
     verd.node_tree.nodes['Background'].inputs['Color'].default_value = (0.004, 0.004, 0.005, 1.0)
@@ -177,6 +178,9 @@ def rendre(namn, sc):
     kant = mal + Vector((0.4, 2.4, 1.8)) * d * 2.2
     kant.y = min(kant.y, y_bak - 0.03)                                  # framfor bakveggen, elles skuggar veggen lyset
     _lys('kant', kant, mal, 1.0 * d * 2, 85 * (d / 0.3) ** 2, (1.0, 0.93, 0.85))
+    if sc.get('baklys'):                                                # lys gjennom arket bakfrå
+        bak = Vector((mal.x, min(hi.y + 0.25, y_bak - 0.03), mal.z))
+        _lys('baklys', bak, mal, 0.9 * d * 2, 160 * (d / 0.3) ** 2, (1.0, 0.95, 0.88))
     os.makedirs(UT, exist_ok=True)
     s.render.filepath = os.path.join(UT, namn + ('-prove' if PROVE else '') + '.png')
     bpy.ops.render.render(write_still=True)

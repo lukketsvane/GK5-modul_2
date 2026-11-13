@@ -501,8 +501,11 @@ def mekanikk(sp, P, h):
         ut['trykk_N'] = None if best == float('inf') else round(best, 1)
         if not inne:
             flagg.append('veltar av seg sjølv')
-        elif ut['dytt_N'] < F_FINGER or (ut['trykk_N'] is not None and ut['trykk_N'] < F_FINGER):
-            flagg.append('veltar under fingerdytt')
+        else:       # måla frå formsøket (val_maal.json): dytt minst 3 N i handtaket, trykk minst 5 N
+            if ut['dytt_N'] < 3.0:
+                flagg.append('veltar ved dytt under 3 N')
+            if ut['trykk_N'] is not None and ut['trykk_N'] < F_FINGER:
+                flagg.append('veltar ved trykk under 5 N')
         if ut['fotavtrykk_cm2'] > 200:
             flagg.append('bryt F9 (200 cm²)')
     if m > 1200:

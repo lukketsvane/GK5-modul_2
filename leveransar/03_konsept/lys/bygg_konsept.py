@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 """Byggjer konseptdelen av Moodle-innleveringa 17.11: eitt oversyn og éi side per konsept.
 
-Bileta blir klipte ut av konseptarka i konsept/tre/ (stemning til venstre, arbeid til høgre),
+Bileta blir klipte ut av konseptarka i konsept/tre/ (stemning til venstre, arbeid til høgre). Ligg det foto av
+skissemodellane i foto/ (A-stemning.jpg, A-arbeid.jpg osv.), blir dei brukte i staden,
 og tala blir lesne frå tal-A.json, tal-B.json og tal-C.json same stad. Kjem det nye ark eller tal,
 køyrer ein skriptet på nytt.
 
@@ -60,6 +61,22 @@ def f1(x): return f'{x:.1f}'.replace('.', ',')
 def f2(x): return f'{x:.2f}'.replace('.', ',')
 
 
+FOTO = os.path.join(UT, 'foto')
+BILETE = {}          # (konsept, tilstand) -> (fil relativt til sida, er foto)
+
+
+def foto(k, t):
+    """Fotoet av skissemodellen om det finst (foto/A-stemning.jpg osv.), beskore kvadratisk. Elles None."""
+    for ending in ('jpg', 'jpeg', 'png', 'JPG', 'JPEG', 'PNG'):
+        f = os.path.join(FOTO, f'{k}-{t}.{ending}')
+        if os.path.exists(f):
+            im = Image.open(f).convert('RGB'); w, h = im.size; s = min(w, h)
+            im = im.crop(((w - s) // 2, (h - s) // 2, (w - s) // 2 + s, (h - s) // 2 + s)).resize((900, 900), Image.LANCZOS)
+            ut = f'bilete/{k}-{t}-foto.jpg'; im.save(os.path.join(UT, ut), quality=90)
+            return ut
+    return None
+
+
 def last():
     T = {}
     for k in KONSEPT:
@@ -68,6 +85,8 @@ def last():
         for i, t in enumerate(('stemning', 'arbeid')):
             x0 = 70 + i * 1190
             im.crop((x0, 70, x0 + 1120, 1190)).resize((900, 900), Image.LANCZOS).save(os.path.join(UT, 'bilete', f'{k}-{t}.png'))
+            f = foto(k, t)
+            BILETE[(k, t)] = (f, True) if f else (f'bilete/{k}-{t}.png', False)
     return T
 
 
@@ -127,8 +146,8 @@ def konseptside(k, r):
     auge = max(r['auge25'], r['auge47'], r['auge60'])
     innhald = f'''    <div class="k12">
       <div class="rad1">
-        <figure><img src="bilete/{k}-stemning.png" alt=""><figcaption><b>Stemning</b> · {f2(r['s_W'])}{NB}W · 2200{NB}K · veggen bak skjermen {f0(r['s_bak'])}{NB}lx</figcaption></figure>
-        <figure><img src="bilete/{k}-arbeid.png" alt=""><figcaption><b>Arbeid</b> · 3000{NB}K · feltet {f0(r['veg_felt'][-1])}{NB}lx ved 5{NB}W</figcaption></figure>
+        <figure><img src="{BILETE[(k, 'stemning')][0]}" alt=""><figcaption><b>Stemning</b> · {'foto av skissemodellen' if BILETE[(k, 'stemning')][1] else f"{f2(r['s_W'])}{NB}W · 2200{NB}K · veggen bak skjermen {f0(r['s_bak'])}{NB}lx"}</figcaption></figure>
+        <figure><img src="{BILETE[(k, 'arbeid')][0]}" alt=""><figcaption><b>Arbeid</b> · {'foto av skissemodellen' if BILETE[(k, 'arbeid')][1] else f"3000{NB}K · feltet {f0(r['veg_felt'][-1])}{NB}lx ved 5{NB}W"}</figcaption></figure>
         <section>
           <p class="etikett">Gesten</p>
           <p class="gest">{K['gest']}</p>
@@ -175,7 +194,7 @@ def oversyn(T):
             celler.append(f'<td class="tal {kl}">{fmt(v[k])}{feil}</td>')
         tr.append(f'<tr><td>{namn}<small>{krav}</small></td>{"".join(celler)}</tr>')
     tr.append('<tr><td>Ikkje prøvd enno<small>krava merkte ◆</small></td>' + ''.join('<td class="tal graa">E2, M1, B1</td>' for _ in KONSEPT) + '</tr>')
-    kolonnar = ''.join(f'''      <figure><img src="bilete/{k}-arbeid.png" alt=""><figcaption><b>{k} {K['namn']}</b> · {K['gest'].lower().rstrip('.')}</figcaption></figure>
+    kolonnar = ''.join(f'''      <figure><img src="{BILETE[(k, 'arbeid')][0]}" alt=""><figcaption><b>{k} {K['namn']}</b> · {K['gest'].lower().rstrip('.')}</figcaption></figure>
 ''' for k, K in KONSEPT.items())
     innhald = f'''    <div class="k12 tre">
 {kolonnar}    </div>

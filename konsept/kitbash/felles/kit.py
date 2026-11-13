@@ -9,7 +9,8 @@ origo midt i foten på bordflata (z = 0 er bordet), x mot høgre, y bort frå br
   trykt(namn, mesh, M)    ein del du teiknar sjølv (trimesh eller CadQuery), materiale «print»
   kjopt(namn, mesh, ...)  ein kjøpt del med oppgjeven masse: LED, ballast, kjøleplate, skruar
 
-Plassering er ei stiv transformering: plass(pos, rot), eller T() @ Rz() @ Ry() @ Rx(), eller om() for eit ledd.
+Plassering er ei stiv transformering: plass(pos, rot), eller T() @ Rz() @ Ry() @ Rx(), om() for eit ledd, og
+T(*pos) @ retta(n) for det som skal peike ein stad (speglnormal() gjev retninga ein spegel må ha).
 Usikkerheita i måla ligg i usikker() og klaring(). Køyr `python kit.py` for å sjå grensesnittmåla.
 
 TRYGGLEIK: P04 (basen med straumforsyninga, nettspenning) kan ikkje hentast herifrå. P09 (halogenpæra) heller ikkje:
@@ -25,7 +26,7 @@ from shapely.geometry import Polygon, Point, box as _sboks
 from shapely import affinity as _aff
 
 # Det `from kit import *` gjev. HER, ROT og SETT er ikkje med, så dei ikkje skriv over dine eigne.
-__all__ = ['T', 'Rx', 'Ry', 'Rz', 'om', 'plass', 'pkt', 'retn', 'usikker', 'klaring', 'GRENSESNITT', 'FILM_TRYGG', 'Del', 'sett', 'film',
+__all__ = ['T', 'Rx', 'Ry', 'Rz', 'om', 'plass', 'retta', 'speglnormal', 'pkt', 'retn', 'usikker', 'klaring', 'GRENSESNITT', 'FILM_TRYGG', 'Del', 'sett', 'film',
            'trykt', 'kjopt', 'ekstruder', 'boks', 'sylinder', 'royr', 'hylse', 'plate', 'vinkel', 'skal', 'kopp', 'dreielekam', 'minus',
            'pluss', 'snitt', 'flytta', 'fraa_cq', 'led_skive', 'led_stripe', 'alle_under', 'grenser', 'finn', 'sprengd', 'med_staalarm', 'filnamn', 'DIMS', 'MAAL',
            'PRINTER', 'MJUKNAR', 'FORBODNE']
@@ -79,6 +80,25 @@ def plass(pos=(0, 0, 0), rot=(0, 0, 0)):
     else:
         R = Rz(rot[2]) @ Ry(rot[1]) @ Rx(rot[0])
     return T(*pos) @ R
+
+def retta(z_til, x_til=None):
+    """Dreiing (4x4) som tek +z i delen til retninga z_til, og +x så nær x_til som råd. Til det som skal peike ein stad:
+    spegelsida på fresnelplata (+z), lysflata på ein LED (+z), prismesida på filmen (+z). Bruk: T(*pos) @ retta(n)."""
+    w = np.asarray(z_til, float); w = w / np.linalg.norm(w)
+    x0 = np.array((1.0, 0.0, 0.0) if x_til is None else x_til, float)
+    u = x0 - (x0 @ w) * w
+    if np.linalg.norm(u) < 1e-6:
+        u = np.array([0.0, 1.0, 0.0]) - w[1] * w
+    u = u / np.linalg.norm(u)
+    M = np.eye(4); M[:3, 0], M[:3, 1], M[:3, 2] = u, np.cross(w, u), w
+    return M
+
+def speglnormal(c, kjelde, maal):
+    """Normalen ein spegel i punktet c må ha for å sende lyset frå `kjelde` mot `maal` (tre punkt i same system)."""
+    c = np.asarray(c, float)
+    a = np.asarray(kjelde, float) - c; b = np.asarray(maal, float) - c
+    n = a / np.linalg.norm(a) + b / np.linalg.norm(b)
+    return n / np.linalg.norm(n)
 
 def pkt(M, p):
     """Punktet p (mm) gjennom transformeringa M."""

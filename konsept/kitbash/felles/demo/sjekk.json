@@ -238,7 +238,8 @@
      9.4
     ],
     "kjelde": "rekna: PETG, vegg 1,2 mm og 15 % fyll (ANTAKING), massiv 410 g",
-    "pm_g": 21.3
+    "pm_g": 21.3,
+    "omgjevnad": false
    },
    {
     "namn": "hylse",
@@ -251,7 +252,8 @@
      32.5
     ],
     "kjelde": "rekna: PETG, vegg 1,2 mm og 15 % fyll (ANTAKING), massiv 54 g",
-    "pm_g": 6.1
+    "pm_g": 6.1,
+    "omgjevnad": false
    },
    {
     "namn": "ballast",
@@ -264,7 +266,8 @@
      2.5
     ],
     "kjelde": "oppgjeven",
-    "pm_g": 60.4
+    "pm_g": 60.4,
+    "omgjevnad": false
    },
    {
     "namn": "arm",
@@ -277,7 +280,8 @@
      182.2
     ],
     "kjelde": "rekna frå volum, mål anslått frå foto; rekna som skal, vegg 2,5 mm (ANTAKING), tettleik ANTAKING",
-    "pm_g": 64.3
+    "pm_g": 64.3,
+    "omgjevnad": false
    },
    {
     "namn": "nav",
@@ -290,7 +294,8 @@
      305.4
     ],
     "kjelde": "rekna: PETG, vegg 1,2 mm og 15 % fyll (ANTAKING), massiv 14 g",
-    "pm_g": 1.1
+    "pm_g": 1.1,
+    "omgjevnad": false
    },
    {
     "namn": "kjoleplate",
@@ -303,7 +308,8 @@
      295.5
     ],
     "kjelde": "oppgjeven",
-    "pm_g": 4.2
+    "pm_g": 4.2,
+    "omgjevnad": false
    },
    {
     "namn": "led",
@@ -316,8 +322,15 @@
      293.7
     ],
     "kjelde": "oppgjeven",
-    "pm_g": 0.5
+    "pm_g": 0.5,
+    "omgjevnad": false
    }
+  ],
+  "lampe_g": 1024.6,
+  "lampe_tp_mm": [
+   -2.9,
+   -2.8,
+   52.4
   ]
  },
  "varme": [
@@ -400,7 +413,7 @@
   "dytt_N": 3.23,
   "veltevinkel": 51.8,
   "held": false,
-  "merknad": "armprofilen P01 rekna som stål 7,85 g/cm³ i staden for aluminium 2,70. Prøv med magnet, og vei armen."
+  "merknad": "armprofilen P01 rekna som stål 7,85 g/cm³ i staden for aluminium 2,70. Prøv med magnet, og veg armen."
  },
  "maal_mm": [
   181.0,

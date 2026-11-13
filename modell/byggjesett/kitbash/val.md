@@ -4,7 +4,9 @@ Dato: 13.11.2026. Tala er modell (lysmotoren, skalert til 350 lx på feltet) og 
 
 ## Svaret frå søket
 
-Lyset bur over skjermkanten. LED-stripa på skjermkanten lyser opp i den reine fresnelplata, som legg eit band av lys over feltet. Ei diode bak ei maske teiknar vindauget på veggen, og knotten flyttar watten mellom dei. Av seksten kroppar er dette den einaste som held alle lyskrava i modellen. A, B, C og D gjer det heller ikkje.
+Lyset bur over skjermkanten. LED-stripa på skjermkanten lyser opp i den reine fresnelplata, som legg eit band av lys over feltet. Ei diode bak ei maske teiknar vindauget på veggen, og knotten flyttar watten mellom dei. Av seksten kroppar er dette den einaste som held alle lyskrava i lysmotoren. A, B, C og D gjer det heller ikkje.
+
+Etterprøvinga med uavhengig kode (`etterproving.py`) held funnet, men ikkje talet: jamnheita er 0,59 i ruter på 10 cm, mot 0,70 i lysmotoren, og 0,30 i ruter på 5 cm, fordi dei fremste 5 cm av feltet er svake. Med plata sikta 3 cm nærare brukaren blir det 0,61 og 0,48. Les 0,70 som «på referansen», ikkje som trygt over.
 
 Valet som står att, er kven som ber plata og stripa: skjermen, bordet eller foten.
 
@@ -46,11 +48,12 @@ Prøv bandet før noko blir bygt. Det er éin dag med papp, og det avgjer om (a)
 
 Bygg B Over-modellen (plata i ei pappramme 20 cm over skjermkanten og 9 cm framfor skjermplanet, sjå `konsept/tre/00-tre-konsept.md`). Byt telefonlykta med ei LED-stripe i ei renne av svart papp på skjermkanten, 12 cm under plata. Ingen diffusorark. Stripa er den same som står på handlelista til ruta på fot (COB, 5 V). Mål lux i 6 × 4 ruter på feltet.
 
-1. Stripa 24 cm, rein plate: lågaste rute delt på snittet over 0,6 (modell 0,69).
-2. Same stripe dekt til 12 cm: under 0,4 (modell 0,34).
-3. Stripa flytta til 42 cm under plata: ei lys line på bordet, under 0,1 (modell 0,02).
+1. Stripa 24 cm, rein plate: lågaste rute delt på snittet mellom 0,55 og 0,70 i ruter på 10 cm (lysmotoren 0,69, uavhengig kode 0,59). Den svakaste ruta ligg i framkanten av feltet.
+2. Same stripe dekt til 12 cm: under 0,4 (lysmotoren 0,34, uavhengig kode 0,15).
+3. Stripa flytta til 42 cm under plata: ei lys line på bordet, under 0,1 (begge kodane 0,00 til 0,02).
 4. Frå stolen, med auget 25 til 60 cm over bordet, er plata mørk: ingen lys flate i henne.
-5. Midt på feltet om lag 1,2 lx per lumen frå stripa (350 lx av 290 lm).
+5. Snittet på feltet er 1,7 til 2,0 lx per lumen frå stripa.
+6. Vippar du plata så midten av lyset flyttar seg 3 cm mot deg, blir framkanten jamnare (uavhengig kode: 0,61, og 0,48 i ruter på 5 cm).
 
 Held ikkje 1 og 4, fell (a) og (b), og B Over med flik og diffusorark er att (3,6 W, jamnheit 0,41).
 

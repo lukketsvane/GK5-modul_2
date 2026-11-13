@@ -1,6 +1,6 @@
 # Kitbash generasjon 1 · logg
 
-Dato: 13.11.2026, kl. 20.10 til 21.15. Motoren er montasje: kvar kropp er sett saman av delar som alt finst som CAD. Koden er `kitbash.py`, `lys.py` og `samle.py`. Tala ligg i `tal.json`, `tal.csv` og `tal.md`, bileta i `brett.png`, `brett-merkt.png` og `velt_umogleg.png`. Ingenting er målt. Måla på delane er anslått frå foto, massane er rekna frå volum, og lyset er modell.
+Dato: 13.11.2026, kl. 20.10 til 21.20. Motoren er montasje: kvar kropp er sett saman av delar som alt finst som CAD. Koden er `kitbash.py`, `lys.py` og `samle.py`. Tala ligg i `tal.json`, `tal.csv` og `tal.md`, bileta i `brett.png`, `brett-merkt.png` og `velt_umogleg.png`. Ingenting er målt. Måla på delane er anslått frå foto, massane er rekna frå volum, og lyset er modell.
 
 ## Kvifor ein ny motor
 
@@ -34,11 +34,31 @@ Fire støtter × lysorgan. Rad 1 og 2 har armen ståande bak skjermen: klype på
 - **Lyset mot tabellen for A, B, C og D:** B (over-flik) 3,6 W og jamnheit 0,41, C (fot-linse) 5,8 W og 0,62, A 3,0 W og 0,62, D 3,7 W og 0,62. Det er same tal som i `konsept/tre/00-tre-konsept.md` og `tal-D.json`.
 - **Bandet med tre kjelder i staden for fem** gjev jamnheit 0,65 mot 0,69. Resultatet heng altså ikkje på kor mange punkt stripa er delt i.
 
+## Etterprøving med uavhengig kode
+
+`etterproving.py` sporar strålar med numpy utan lysmotoren: ei lambertsk line under ein ideell fresnelspegel, berre direkte lys på bordet, same plassar. Tala står i `etterproving.json`.
+
+| | Jamnheit, ruter 10 cm | Ruter 5 cm | Lux per lumen frå stripa | Lysmotoren |
+| --- | --- | --- | --- | --- |
+| Stripe 24 cm, rein plate | 0,59 | 0,30 | 2,0 | 0,69 (bandet åleine), 0,70 med vindauge |
+| Stripe 12 cm | 0,15 | 0,01 | 2,7 | 0,34 |
+| Éi diode, rein plate | 0,01 | 0,00 | 2,9 | |
+| Éi diode, ark 12° | 0,42 | 0,29 | 2,2 | 0,47 |
+| Stripe 30 cm | 0,68 | 0,29 | 1,6 | |
+| Stripa på fot, 42 cm under plata | 0,00 | 0,00 | 1,8 | 0,02 |
+
+- **Hovudfunnet held, talet flyttar seg.** Stripa mot rein plate er jamnare enn dioden med ark i begge kodane. Men jamnheita er 0,59 her mot 0,70 i lysmotoren, altså på referansen 0,6 og ikkje trygt over.
+- **Rutenettet avgjer.** I ruter på 5 cm fell jamnheita til 0,30. Lyskartet viser kvifor: dei fremste 5 cm av feltet, nærast brukaren, får ein firedel av midten. Formsøket fann det same for D (0,62 grovt, 0,51 fint).
+- **Sikte 3 cm nærare brukaren** (y 0,22 i staden for 0,25) gjev 0,61 og 0,48. Det er første justering for lampa som blir bygd. Ho er ikkje køyrd i lysmotoren.
+- **Dioden med rein plate er ikkje ein flekk.** Ho gjev eit felt på om lag 0,6 m med lys rand og mørke kantar. Jamnheita 0,01 kjem av kantrutene.
+- Lux per lumen: 2,0 her mot 1,7 i lysmotoren. Lysmotoren har brønn og sprut i kjelda, og denne koden har ingen tap utanom spegelen (0,85).
+
 ## Mønster i tala
 
 - **Over skjermkanten slår fot.** Plata over skjermkanten gjev jamnheit 0,41 til 0,70. Plata på fot gjev 0,29 til 0,39, fordi lyset kjem skrått inn frå sida.
 - **Stripa er jamnheita.** Éi diode mot plata krev diffusorark (12°) og gjev 0,47. LED-stripa langs skjermkanten gjev 0,69 mot rein plate, og luminansen mot auget fell frå 227 til 70 cd/m², fordi arket er borte. Dette er første fresnelgrepet over referansen 0,6. Fresnel-familien stoppa på 0,56 og konkluderte med at jamnheit og luminans er same knapp. Stripa løyser dei frå kvarandre.
 - **Å dele er betre enn å flytte.** Når plata vippar frå veggen til feltet, er spranget 0,37 til 0,42, og veggen bak skjermen får 14 til 16 lx i arbeid. Med plata fast og vindaugsdioden til veggen er spranget 0,07 til 0,11, og veggen får 106 til 132 lx.
+- **Stripa må liggje innanfor brennvidda.** På skjermkanten ligg ho 12 cm under plata (f = 18,7 cm), og kvart punkt gjev eit vidt felt. På fot, 42 cm under, avbildar plata stripa som ei line: jamnheit 0,02. Stripa på 12 cm i staden for 24 gjev 0,34.
 - **Ruta på fot er stemning.** Kropp 13 treng 12,4 W for 350 lx og har jamnheit 0,07. Same svar som formsøket.
 - **Ruta over skjermkanten (D) lyser på skjermen.** 163 lx på skjermflata, 0,47 av feltet.
 - **Hovudet og røyret er det busette.** Hovudet som skjerm blendar det låge auget (5211 cd/m²) og er ein dimmar. Røyret av prismearket er ei rein stemningslampe.
@@ -70,3 +90,5 @@ Fire støtter × lysorgan. Rad 1 og 2 har armen ståande bak skjermen: klype på
 - 20.40 lys: dei elleve raske grepa, 1 til 11 s kvar.
 - 20.42 til 20.50 lys: over-band-vindauge 151 s, over-band-vindauge-q30 150 s, over-vindauge-q30 3 s, over-band-3 79 s.
 - 20.47 brett (104 s): kropp 4 med vindaugsdiode og knott.
+- 20.50 til 20.57 lys: over-band-kort 260 s, fot-band 191 s.
+- 21.00 etterprøving (40 s): sju oppsett. 21.02 sikte, stripelengd og ark (16 oppsett, 25 s).

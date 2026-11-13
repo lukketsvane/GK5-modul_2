@@ -1,5 +1,7 @@
 # Tre konsept · Northern, heim + arbeid · 2026-11-13
 
+> **Sporet vart avslutta 13.11.2026.** Granskinga stadfesta prismefunna P1–P7 og fotometrifunna F1–F5 og R-a2 med eigen kode. F2 og P1 fall i storleik. Mekanikk og premiss vart ikkje stadfesta.
+
 > **(a) bru, (b) krok og (c) prisme er no referansespor.** Konsepta til Moodle 17.11 er A Skiva, B Over og C Vindauge i `../konsept/tre/`. Det granskinga her fann som gjeld dei, står i «Til A Skiva, B Over og C Vindauge» nedst.
 
 Alle tre er rekna i same scene med same tal() (`felles.py`): 500 lx i snitt på arbeidsflata med U0 ≥ 0,4, inga blending over 3000 cd/m², og stemning med 25 % lys der minst halvparten skal på veggen. Bilete: `konsept.png` og lysstudiane `form01/studie.png` og `form04/studie.png`. (c) er no **prisme** (form04); det førre (c), flak, ligg i form03. Designaren vel.

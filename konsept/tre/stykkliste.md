@@ -51,7 +51,7 @@ Hovuddelar (T6): fot, ballast, stamme, ledd, skive, flik, lysmodul, kretskort me
 | Emballasje (stor, flat) og bruksrettleiing | | | 3 | 6 | A |
 | Montering og test | | | 5 | 12 | A |
 | Verktøy fordelt (pressverktøy for fresnelplata i høgt, om lag 20 000 €) | | | 0 | 2,2 | A |
-| **Sum** | | **om lag 750** | **41** | **131** | |
+| **Sum** | | **om lag 750** | **41** | **121** | |
 
 Hovuddelar (T6): klemme, stolpe, arm, ledd, ramme, fresnelplate, flik, lysmodul, kretskort med celle, knott. **10.**
 
@@ -75,7 +75,7 @@ Hovuddelar (T6): klemme, stolpe, arm, ledd, ramme, fresnelplate, flik, lysmodul,
 | Emballasje og bruksrettleiing | | | 2 | 5 | K |
 | Montering, optisk justering og test | | | 6 | 15 | A |
 | Verktøy fordelt (sprøytestøypt linse og fot, om lag 15 000 €) | | | 1,7 | 1,7 | A |
-| **Sum** | | **om lag 1100** | **46** | **127** | |
+| **Sum** | | **om lag 1200** | **46** | **127** | |
 
 Hovuddelar (T6): fot, ballast, stong, hovud, lysmodul, kondensor, maske med filter, linse, spegelslede, kretskort med celle, knott. **11**, éin over målet på 10. Maske, filter og kondensor kan samlast i éin optikkassett.
 
@@ -84,7 +84,7 @@ Hovuddelar (T6): fot, ballast, stong, hovud, lysmodul, kondensor, maske med filt
 | | Produksjonskost, € | Produksjonskost, kr | Utsalspris med mva. (4 til 6 gonger) | M3 (2990 til 3990 kr) |
 | --- | --- | --- | --- | --- |
 | A Skiva | 41 til 98 | 480 til 1150 | 2400 til 8600 kr | innanfor i nedre del av spennet |
-| B Over | 41 til 131 | 480 til 1530 | 2400 til 11 500 kr | innanfor berre med fresnelplate som hyllevare |
+| B Over | 41 til 121 | 480 til 1420 | 2400 til 10 600 kr | innanfor berre med fresnelplate som hyllevare |
 | C Vindauge | 46 til 127 | 540 til 1490 | 2700 til 11 200 kr | innanfor berre med PMMA-linse og enkel montering |
 
 Alle tre kan nå Northern sitt prisnivå i nedre del av spennet. Det som avgjer, er dei mekaniske delane og finishen, ikkje elektronikken. Det same konkluderer `research/05`. A har færrast usikre postar. B står og fell på fresnelplata: eige pressverktøy løftar prisen mest. C har flest delar og den dyraste monteringa, fordi optikken må justerast.

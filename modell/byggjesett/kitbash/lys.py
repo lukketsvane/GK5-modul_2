@@ -165,6 +165,17 @@ def g_fot_vindauge(t):
     return lys, KROPP_FOT
 
 
+def g_fot_band(t, n=5, halv=0.10, spreiing=2.5):
+    """Plata på fot med LED-stripe i foten i staden for diode med linse. Stripa ligg langs vippeaksen. Rein plate."""
+    W, K = watt(t); c = C_FOT; mot = VEGG_FOT * (1 - t) + FELT * t
+    a = nrm(KP_FOT - c); til = nrm(mot - c); nn = nrm(a + til); r = nrm(np.cross(a, til)); lys = []
+    for x in np.linspace(-halv, halv, n):
+        d = x * r
+        k = straale(KP_FOT + d, c + d, W / n * LMW_KJELDE, K, spreiing=fre.SMAL[0], kutt=fre.SMAL[1], opning=(2 * halv / n, 0.008), bronn=fre.SMAL[2])
+        lys += [k, fresnelspegel(k, c, nn, spreiing=spreiing, n=fre.N, opp=r)]
+    return lys, KROPP_FOT
+
+
 def g_fot_skive(t):
     return g_fot_vipp(t, c=b(0.44, 0.36, 0.55), klipp=lambda u, v: u * u + v * v <= 0.1425 ** 2)
 
@@ -211,6 +222,7 @@ GREP = [
     # bandet er tungt (fem kjelder mot plata), så det står sist
     ('over-band', band(2.5)), ('over-band-vindauge', band_vindauge(0.2)), ('over-band-vindauge-q30', band_vindauge(0.3)),
     ('over-vindauge-q30', vindauge_q(0.3)), ('over-band-ark6', band(6.0)), ('over-band-3', band(2.5, n=3)), ('over-band-kort', band(2.5, halv=0.06)),
+    ('fot-band', g_fot_band),
 ]
 
 

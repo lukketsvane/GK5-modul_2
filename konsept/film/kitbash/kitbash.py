@@ -72,16 +72,15 @@ def stativ():
 # ------------------------------------------------------------------ K1: ruta på armen
 
 def k1():
-    import cadquery as cq
-    import lampe as L
-    D = {d[0]: d for d in L.delar(35.0)}
-    dx = TAPP_UT[0] - 3.0 - L.X_BJ1; dy = TAPP_INN[1] - L.YB; dz = LEDD_H - L.AKSE_H
-    fl = lambda f: f.translate((dx, dy, dz))
-    kopling = cq.Workplane('YZ', origin=(TAPP_UT[0] - 3.0, 0, 0)).center(TAPP_INN[1], LEDD_H).circle(16).extrude(TAPP_INN[0] - TAPP_UT[0] + 3.0)
-    ut = stativ()
-    ut += [trykt('k1_bjelke', fl(D['07'][2])), trykt('k1_lok', fl(D['08'][2])), trykt('k1_kopling', kopling),
-           trykt('k1_lysleiar', fl(D['09'][2]), 'glas'), trykt('k1_ark', fl(D['10'][2]), 'film'),
-           trykt('k1_skruar', fl(D['E'][2]), 'stål')]
+    """K1 i djupna: CAD-en i k1.py (T-form). Delane frå settet blir viste som STL-ane frå settet, ikkje som dei enkle lekamane."""
+    import k1 as K
+    M = T(K.AX, K.AY, K.AZ) @ Rz(-90) @ Ry(-90)
+    ut = fraa_settet('P02', M) + fraa_settet('P01', M)
+    MAT = {'01': 'trykt', '02': 'plast_svart', '03': 'trykt', '04': 'trykt', '05': 'trykt', '06': 'messing', '07': 'trykt', '08': 'trykt',
+           '09': 'glas', '10': 'film', '11': 'aluminium', '12': 'led', '13': 'plast_svart', 'E': 'stål', '14': 'stål'}
+    for (i, namn, form, *_r) in K.delar():
+        if i.startswith('S'): continue
+        ut.append(trykt('k1_' + i, form, MAT[i]))
     return ut
 
 # ------------------------------------------------------------------ K2: vindauget med glaslinsa
@@ -172,8 +171,8 @@ def k4():
     return ut
 
 LAMPER = {
-    'k1': dict(fn=k1, namn='Ruta på armen', tekst=['FRÅ SETTET: P01 ARM · P02 HENGSEL · P08 ARK', 'TRYKT: FOT MED SOKKEL · BJELKE · LOK · KOPLING',
-                                                      'ELLES: LYSLEIARPLATE · LED-STRIPE', 'ARMEN KAN LEGGJAST NED I HENGSELET']),
+    'k1': dict(fn=k1, namn='Ruta på armen', tekst=['FRÅ SETTET: P01 ARM · P02 HENGSEL · P08 ARK', 'TRYKT: FOT MED SOKKEL · SAL · BJELKE · LOK · KLEMMER',
+                                                      'ELLES: LYSLEIARPLATE · LED-STRIPE', 'FERDIG CAD I K1.PY · ARMEN MIDT I FOTEN']),
     'k2': dict(fn=k2, namn='Vindauget med glaslinsa', tekst=['FRÅ SETTET: P01 · P02 · P06', 'TRYKT: FOT · RØYR · MASKE',
                                                                 'ELLES: ÉI DIODE', 'MASKA 46 MM BAK LINSA']),
     'k3': dict(fn=k3, namn='Spegelen på armen', tekst=['FRÅ SETTET: P01 · P02 · P05 FRESNELSPEGEL', 'TRYKT: FOT · BJELKE · KOPP MED STRUT',

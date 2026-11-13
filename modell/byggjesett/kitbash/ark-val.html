@@ -5,15 +5,18 @@
 <title>Kitbash · val</title>
 <link rel="stylesheet" href="../../../leveransar/01_fase1_v2/felles.css">
 <style>
-  .studie img { display: block; width: 1039px; height: auto; }
-  .studie figcaption { display: flex; justify-content: space-between; }
+  .kart img { display: block; width: 1039px; height: 374px; }
+  .kart figcaption { display: grid; grid-template-columns: 505px 1fr; column-gap: 28px; }
   .tre { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 24px; margin-top: 12px; }
-  .val figure img { width: 120px; height: 120px; display: block; }
-  .val { display: grid; grid-template-columns: 120px minmax(0, 1fr); column-gap: 12px; align-items: start; }
-  .val figure { grid-row: span 4; }
-  .val .tal { font-size: 11.5px; color: var(--graa); margin: 0 0 4px; }
-  .val .liten { font-size: 12.5px; line-height: 1.3; margin: 0 0 4px; }
-  .val .m2 { font: 400 8.5px/1.35 var(--mono); letter-spacing: 0.04em; text-transform: uppercase; color: var(--graa); margin: 0; }
+  .val { display: grid; grid-template-columns: 64px minmax(0, 1fr); column-gap: 10px; align-items: start; }
+  .val img { width: 64px; height: 64px; display: block; }
+  .val .namn { font: 400 17px/1.15 var(--serif); color: var(--blekk); margin: 0 0 3px; }
+  .val .tal { font-size: 10.5px; line-height: 1.25; color: var(--graa); margin: 0 0 3px; }
+  .val .liten { font-size: 12px; line-height: 1.28; margin: 0 0 4px; }
+  .val .m2 { font: 400 8px/1.35 var(--mono); letter-spacing: 0.04em; text-transform: uppercase; color: var(--graa); margin: 0; }
+  .prove { margin-top: 12px; }
+  .prove .fire { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: 24px; }
+  .prove .punkt p { font-size: 12.5px; line-height: 1.3; }
 </style>
 </head>
 <body>
@@ -27,37 +30,52 @@
   <h1 class="tittel">Lyset er funne. Valet er kven som ber plata: skjermen, bordet eller foten.</h1>
 
   <main class="innhald" style="display: block;">
-    <figure class="studie">
-      <img src="studie-over-band-vindauge-q30.png" alt="">
-      <figcaption><span><b>Stemning</b> · 1,25 W · 2200 K · vindauget på veggen 143 lx</span><span><b>Arbeid</b> · 2,9 W · 3000 K · feltet 350 lx · veggen bak 132 lx</span></figcaption>
+    <figure class="kart">
+      <img src="lyskart.png" alt="">
+      <figcaption><span><b>LED-stripe 24 cm mot rein plate</b> · jamnheit 0,60 her, 0,70 i lysmotoren</span><span><b>Éi diode mot plata med diffusorark</b> · jamnheit 0,43 her, 0,47 i lysmotoren</span></figcaption>
     </figure>
     <div class="tre">
       <div class="val">
-        <figure><img src="flis/04.png" alt=""></figure>
-        <p class="stor" style="margin: 6px 0 4px;">(a) Klype · band</p>
-        <p class="tal"><em>293 lm · 2,9 W · 3000 K · 350 lx · U0 0,70</em></p>
-        <p class="liten">På skjermkanten. Held alle lyskrava, og bordet er fritt.</p>
-        <p class="m2">1143 g på skjermen · knotten 65 cm unna</p>
+        <img src="flis/04.png" alt="">
+        <div>
+          <p class="namn">(a) Klype · band</p>
+          <p class="tal"><em>293 lm · 2,9 W · 3000 K · 350 lx · U0 0,70</em></p>
+          <p class="liten">På skjermkanten. Held alle lyskrava i lysmotoren, og bordet er fritt.</p>
+          <p class="m2">1143 g på skjermen · knotten 65 cm unna</p>
+        </div>
       </div>
       <div class="val">
-        <figure><img src="flis/19.png" alt=""></figure>
-        <p class="stor" style="margin: 6px 0 4px;">(b) Under · band</p>
-        <p class="tal"><em>293 lm · 2,9 W · 3000 K · 350 lx · U0 0,70</em></p>
-        <p class="liten">Same lys. Står sjølv på ei stålplate under skjermfoten.</p>
-        <p class="m2">2260 g · toler 7,0 N dytt · 690 cm² under skjermen</p>
+        <img src="flis/19.png" alt="">
+        <div>
+          <p class="namn">(b) Under · band</p>
+          <p class="tal"><em>293 lm · 2,9 W · 3000 K · 350 lx · U0 0,70</em></p>
+          <p class="liten">Same lys. Står sjølv på ei stålplate under skjermfoten.</p>
+          <p class="m2">2260 g · toler 7,0 N dytt · 690 cm² under skjermen</p>
+        </div>
       </div>
       <div class="val">
-        <figure><img src="flis/10.png" alt=""></figure>
-        <p class="stor" style="margin: 6px 0 4px;">(c) Fot · knekk</p>
-        <p class="tal"><em>283 lm · 2,8 W · 3000 K · 350 lx · U0 0,29</em></p>
-        <p class="liten">Ruta på fot med spegelrute. Held veggen, men feltet blir ujamt.</p>
-        <p class="m2">1293 g · 196 cm² · veltar ved 1,9 N · auget 660 cd/m²</p>
+        <img src="flis/10.png" alt="">
+        <div>
+          <p class="namn">(c) Fot · knekk</p>
+          <p class="tal"><em>283 lm · 2,8 W · 3000 K · 350 lx · U0 0,29</em></p>
+          <p class="liten">Ruta på fot med spegelrute. Held veggen, men feltet blir ujamt.</p>
+          <p class="m2">1293 g · 196 cm² · veltar ved 1,9 N · auget 660 cd/m²</p>
+        </div>
+      </div>
+    </div>
+    <div class="prove">
+      <p class="etikett">Bandprøva i papp, før noko blir bygt · føreseiingar sette 13.11</p>
+      <div class="fire">
+        <div class="punkt"><span class="nr">01</span><p>Stripa 24 cm mot rein plate: lågaste rute delt på snittet 0,55 til 0,70.</p></div>
+        <div class="punkt"><span class="nr">02</span><p>Same stripe dekt til 12 cm: under 0,4.</p></div>
+        <div class="punkt"><span class="nr">03</span><p>Stripa 42 cm under plata, som på fot: ei lys line, under 0,1.</p></div>
+        <div class="punkt"><span class="nr">04</span><p>Sitjande ser du ikkje stripa. Ståande framfor bordet ser du ned i renna.</p></div>
       </div>
     </div>
   </main>
 
   <footer class="botn">
-    <span>Bileta er lysmotoren sitt rom for (a) og (b), same kamera og eksponering. Tala er modell, skalerte til 350 lx på feltet.</span>
+    <span>Lyset på bordet sett ovanfrå, uavhengig strålesporing, 350 lx i snitt på feltet (ramma, 0,6 × 0,4 m). Streken er skjermen, du sit nedst. Modell, ikkje måling.</span>
     <span>Designaren vel.</span>
   </footer>
 </div>

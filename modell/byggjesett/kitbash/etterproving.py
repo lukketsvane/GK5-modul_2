@@ -20,9 +20,10 @@ def unit(v):
     return v / np.linalg.norm(v, axis=-1, keepdims=True)
 
 
-def spor(c, kp, maal, halv, langs, kutt=50.0, spreiing=2.5, N=1_500_000):
+def spor(c, kp, maal, halv, langs, kutt=50.0, spreiing=2.5, N=1_500_000, treff=False):
     """c: senter i plata. kp: midt på stripa. maal: punktet midtstrålen skal treffe. halv: halve stripelengda langs «langs».
-    Gjev lux-kart på feltet (per lumen frå stripa), delen som treffer plata og delen som landar på feltet."""
+    Gjev lux-kart på feltet (per lumen frå stripa), delen som treffer plata og delen som landar på feltet.
+    treff=True gjev i staden punkta der lyset landar på bordet, og talet på strålar."""
     c, kp, maal = (np.asarray(x, float) for x in (c, kp, maal))
     a = unit(kp - c); til = unit(maal - c); nn = unit(a + til)
     u = unit(np.cross(nn, np.cross(a, til))) if np.linalg.norm(np.cross(a, til)) > 1e-9 else unit(np.cross(nn, [0, 1, 0]))
@@ -44,6 +45,8 @@ def spor(c, kp, maal, halv, langs, kutt=50.0, spreiing=2.5, N=1_500_000):
         r = unit(r + g[:, :1] * b1 + g[:, 1:] * b2)
     ned = r[:, 2] < -1e-6
     tt = -p[ned, 2] / r[ned, 2]; q = p[ned] + tt[:, None] * r[ned]
+    if treff:
+        return q, N
     kart = {}
     for nx, ny in ((6, 4), (12, 8), (15, 10)):
         H, _, _ = np.histogram2d(q[:, 0], q[:, 1], bins=[nx, ny], range=[[-0.30, 0.30], [0.05, 0.45]])

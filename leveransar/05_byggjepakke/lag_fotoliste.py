@@ -43,7 +43,8 @@ def s_oppsett(W, H):
              ('4', 'gest', 'handa i rørsla, nært, romlys på', 'presentasjonen'),
              ('5', 'kropp', 'modellen frå sida i romlys, rolig bakgrunn', 'side 10 og presentasjonen'),
              ('6', 'felt', 'arbeid, A4-arket i feltet rett ovanfrå', 'jamnheita (F3)'),
-             ('7', 'auge-25, -47, -60', 'frå augehøgda 25, 47 og 60 cm over bordet', 'blendinga (F1)')]
+             ('7', 'auge-25, -47, -60', 'frå augehøgda 25, 47 og 60 cm over bordet', 'blendinga (F1)'),
+             ('8', 'mote (berre A)', 'skiva vend, frå augehøgda 47 cm', 'møtelyset (F10)')]
     y = 56
     for s_, dx in (('NR', 0), ('FILNAMN', 7), ('KVA', 38), ('TIL', 98)):
         g.append(t(x2 + dx, y, s_, 'mono grå'))
@@ -56,7 +57,7 @@ def s_oppsett(W, H):
     g.append(tekstblokk(x2, y + 54, ['Filnamna får bokstaven til modellen først: A-stemning.jpg, B-arbeid.jpg,',
                                      'C-kropp.jpg og så vidare. Legg dei i leveransar/03_konsept/foto/.',
                                      'Bilete 1, 2 og 5 blir sette inn på sidene når konseptsidene blir laga på nytt.',
-                                     'Bilete 3, 4 og 7 er til presentasjonen 18.11. Bilete 6 er til målinga.'], 'liten', lh=4.2))
+                                     'Bilete 3, 4, 7 og 8 er til presentasjonen 18.11. Bilete 6 er til målinga.'], 'liten', lh=4.2))
     g.append(t(m, H - 24, 'Kameraplassen er rendrekameraet i lysmodellen (KAM i konsept/lysskisse/lysskisse.py). Biletvinkelen med 2× zoom er eit overslag.', 'liten'))
     return ''.join(g)
 

@@ -31,6 +31,7 @@ OVERLAPP = 8.0
 ROER_A = (ROER_D / 2) / math.tan(math.radians(20))                # 34 mm: kutt ved 20° (sigma 10°)
 ROER_FLIK = (ROER_D / 2) / math.tan(math.radians(G['A']['lykt2_kutt']))   # 71 mm: kutt ved 10° (sigma 5°)
 ROER_FLIK_15 = 7.5 / math.tan(math.radians(G['A']['lykt2_kutt']))          # 43 mm: same kutt med ei lita lommelykt Ø 15
+ROER_MOTE = (ROER_D / 2) / math.tan(math.radians(36))                       # 17 mm: møte, kjelde 18° (kutt 2 sigma), konsept/tre/f10.md
 BRONN_H = (ROER_D / 2) / math.tan(math.radians(50))               # 10,5 mm: avskjerming ved 50°
 ARM = 135.0
 
@@ -147,7 +148,7 @@ def s_oversikt(W, H):
     kol = [
         ('A SKIVA', 'vipp skiva',
          ['stolpen frå overheadprojektoren', 'reflektorfilm frå LCD-skjermen, om du har', 'ribba (3D-print, STL i mappa)'],
-         ['skive Ø 250 mm, papp med glatt folie', 'veggflik 12 × 8,4 cm, folie og bakepapir',
+         ['skive Ø 250 mm: glatt folie, kvit og matt bakside', 'veggflik 12 × 8,4 cm, folie og bakepapir',
           'papplist som held fliken ved sida av stolpen', 'arm 13,5 cm med ledd',
           f'to svarte papprull: {k(ROER_A, 0)} og {k(ROER_FLIK, 0)} mm lange', 'to lykter i foten']),
         ('B OVER', 'vipp plata',
@@ -179,7 +180,9 @@ def s_oversikt(W, H):
            '3  Byggj éin modell om gongen: det finst berre éin stolpe.',
            '     Han når 30 til 40 cm. B treng 62 cm og C 70 cm: set han på ein kloss eller ei lekt.',
            '4  B først, så A når ribba er ferdig, så C.',
-           '5  Fotografer etter fotolista. Kameraet er ein annan telefon enn lykta.']
+           '5  Fotografer etter fotolista. Kameraet er ein annan telefon enn lykta.',
+           '6  Vipp og skyv med to fingrar eller i leddet, ikkje med eit dytt. Eit dytt veltar',
+           '     alle tre, og det same gjeld produktet: handlinga må vere eit kraftpar.']
     g.append(tekstblokk(m, y + 6, rek, 'brod', lh=4.4))
     x = m + (W - 2 * m) * 0.54
     g.append(t(x, y, 'TRYGGLEIK', 'mono'))
@@ -303,13 +306,16 @@ def s_A_plassering(W, H):
             f'Fliklykta: {k(-A["flik_dx_cm"])} cm til venstre for og 2 cm bak hovudlykta, peikar nesten rett opp',
             f'     på fliken ({k(A["lykt2_til_flik_cm"], 0)} cm unna). Om lag {A["q"] * 100:.0f} % av lyset.',
             'Stemning: sikt skiveflekken midt på veggen bak skjermen. Arbeid: 10 cm til',
-            '     venstre for feltmidten. Fliken står fast i begge.']
+            '     venstre for feltmidten. Fliken står fast i begge.',
+            'Møte (F10): vend skiva så den kvite baksida ser ned mot lykta og mot ansiktet.',
+            f'     Lykta må spreie meir enn i arbeid (18° mot 10°): røyr på {k(ROER_MOTE, 0)} mm, halve hovudrøyret.']
     g.append(tekstblokk(m, 52, maal, 'brod', lh=4.4))
     x2 = m + (W - 2 * m) * 0.62
     g.append(t(x2, 46, 'BYGGING', 'mono'))
     steg = ['1  Skjer skiva i papp (side 5 og 6, eller A3).',
             '2  Lim glatt folie på, blank side ut, utan krøll.',
             '     Reflektorfilm frå LCD-skjermen er betre.',
+            '     Kvitt, matt papir på baksida (møte).',
             '3  Teip ribba bak, på tvers av kastet.',
             '4  Skjer armen og fliken (side 7). Fliken: folie',
             '     med bakepapir oppå, matt flik blendar.',

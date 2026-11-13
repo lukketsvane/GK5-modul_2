@@ -140,16 +140,58 @@ def l_samanlikning():
     return lysbilete(10, 'Alle tre held veggen. Valet står mellom straum og lys på skjermen.', inn, MODELL + ' Kvit: best av dei tre.')
 
 
+def kropp():
+    """Masse, fotavtrykk og krafta som veltar lampa, med 0,5 kg ballast, frå konsept/tre/kropp.md (rekna av kropp.py)."""
+    ut = {}
+    for l in open(os.path.join(TRE, 'kropp.md'), encoding='utf-8'):
+        c = [x.strip() for x in l.strip().strip('|').split('|')]
+        if len(c) >= 8 and c[0] and c[0] in 'ABC' and c[1] == '0.5':
+            ut[c[0]] = dict(masse=float(c[2]), velt_N=float(c[5]), fot_cm2=float(c[6]))
+    assert set(ut) == set('ABC'), 'kropp.md manglar rader med 0,5 kg ballast'
+    return ut
+
+
+def l_valet():
+    """Kva valet står på, etter valtabellen i konsept/tre/val-18-11.md."""
+    Kr = kropp()
+    def kol(k, rolle, faar, pris):
+        K, kr = KO.KONSEPT[k], Kr[k]
+        velt = f'veltar ved {f1(kr["velt_N"])}{NB}N' if kr['velt_N'] > 0 else 'veltar av seg sjølv på fot'
+        return (f'<figure><img src="{bilete(k, "arbeid")[0]}" alt=""><figcaption><b>{k} {K["namn"]}</b> · {rolle}</figcaption>'
+                '<p class="etikett">Får de</p><ul class="liste liten">' + ''.join(f'<li>{x}</li>' for x in faar) + '</ul>'
+                '<p class="etikett">Prisen</p><ul class="liste liten pris">' + ''.join(f'<li>{x}</li>' for x in pris) + '</ul>'
+                f'<p class="kroppstal">{f2(kr["masse"])}{NB}kg · {f0(kr["fot_cm2"])}{NB}cm² · {velt}</p></figure>')
+    A, B, C = T['A'], T['B'], T['C']
+    inn = ('<div class="tre-val">' +
+           kol('A', 'nærast Northern, enklast å byggje',
+               [f'{f2(A["W350"])}{NB}W for 350{NB}lx, {f1(A["timar"])} timar per celle', f'jamt lys på feltet ({f2(A["jamnheit"])})',
+                'fot, stong og skive, nær Snowball og Ombre'],
+               [f'skjermflata får {f2(A["skjerm350"] / 350)} av lyset på feltet', 'minst nytt: Verner Panton Reflect er nær nabo',
+                'skiva må ha lobe under 4,5°']) +
+           kol('B', 'den einaste over skjermen',
+               ['bordet blir fritt med ei klemme bak skjermen', f'stemninga held seg av skjermen ({f0(B["s_skjerm"])}{NB}lx)', 'ein ny type for Northern'],
+               [f'ujamt lys ({f2(B["jamnheit"])})', 'mekanikken kan bli hovudmotivet og verke teknisk', 'treng klemme: på fot veltar ho']) +
+           kol('C', 'det nyaste, lyser reinast',
+               [f'høgst {f0(max(C["veg_skjerm"]))}{NB}lx på skjermen gjennom skiftet', f'{f0(C["auge25"])}{NB}cd/m² mot auget, lågast av dei tre',
+                'vindauget står i ro på veggen'],
+               [f'{f1(C["W350"])}{NB}W og {f1(C["timar"])} timar per celle', 'hovudet 70' + NB + 'cm over bordet', 'optikk som må stå nøyaktig']) +
+           '</div><p class="graa liten" style="margin-top:12px">Felles: eit dytt på 5' + NB +
+           'N veltar alle tre. Vippen og skyvet må vere eit kraftpar, med ein knott i leddet eller ein spak ved foten.</p>')
+    return lysbilete(11, 'A er det trygge kortet, C det nye, B lampa over skjermen.', inn,
+                     'Kjelde: konsept/tre/val-18-11.md, tal-*.json og kropp.md (0,5 kg ballast). Modell og overslag, ikkje måling.')
+
+
 def l_val():
     inn = f'''<div class="to-kol"><section><p class="etikett">Det eg vil spørje dykk om</p>
-      <ol class="liste"><li>Kva vel de når det kostar: lang batteritid med lys på skjermen (A, {f1(T["A"]["timar"])} timar per celle), eller lys som held seg av skjermen (C, {f1(T["C"]["timar"])} timar)? B ligg mellom.</li>
-      <li>Kva kropp passar i sortimentet: fot og stong (A), ei plate over skjermen (B), eller eit lyshovud på ei høg stong (C)?</li>
+      <ol class="liste"><li>Kva vil de ha: det trygge kortet nær sortimentet (A), ei lampe over skjermen som lèt bordet vere fritt (B), eller ein ny type som held lyset av skjermen (C)?</li>
+      <li>Kan ei lampe over skjermen (B) eller eit lyshovud på ei høg stong (C) stå i sortimentet ved sida av Snowball og Ombre?</li>
       <li>Vil de selje batteri, elektronikk og lysmodul som reservedelar?</li>
       <li>Produksjon, årsvolum og målpris: kva ramme skal eg halde meg innanfor?</li></ol></section>
     <section><p class="etikett">Neste steg</p>
-      <ul class="liste"><li>Mål lobebreidda på folien. Ho avgjer blendinga for A.</li><li>Byggj skissemodellen av det valde konseptet om, med kropp.</li>
+      <ul class="liste"><li>Mål lobebreidda på folien. Ho avgjer blendinga for A.</li>
+      <li>Gjer handlinga til eit kraftpar, med knott eller spak, så lampa ikkje veltar.</li><li>Byggj skissemodellen av det valde konseptet om, med kropp.</li>
       <li>Formføring og handskisser til formgjennomgangen 25.11.</li><li>Konstruksjon i Fusion og 1:1-modell til 7.12.</li></ul></section></div>'''
-    return lysbilete(11, 'Kva de vel, avgjer kva eg byggjer vidare.', inn, 'Konseptgjennomgangen er der valet blir teke saman med Northern (prosjektbeskrivinga).')
+    return lysbilete(12, 'Kva de vel, avgjer kva eg byggjer vidare.', inn, 'Konseptgjennomgangen er der valet blir teke saman med Northern (prosjektbeskrivinga).')
 
 
 STIL = open(os.path.join(LEV, '01_fase1_v2', 'felles.css'), encoding='utf-8').read().replace('../01_fase1_sider/fonts/', '../01_fase1_sider/fonts/') + '''
@@ -194,6 +236,12 @@ table.sam th { font: 400 11px/1.2 var(--mono); letter-spacing: 0.08em; text-tran
 table.sam td { padding: 8px 10px 8px 0; border-bottom: 1px solid var(--linje); }
 table.sam .tal { text-align: right; width: 16%; font-family: var(--mono); font-size: 17px; color: var(--graa); }
 table.sam td.best { color: var(--blekk); }
+.tre-val { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 26px; }
+.tre-val img { width: 100%; aspect-ratio: 2.5 / 1; object-fit: cover; object-position: center 62%; }
+.tre-val .etikett { margin: 10px 0 2px; }
+.tre-val .liste.liten li { font-size: 14.5px; padding: 4px 0 5px; }
+.tre-val .liste.pris li { color: var(--graa); }
+.kroppstal { font: 400 11px/1.3 var(--mono); letter-spacing: 0.04em; color: var(--graa); margin: 8px 0 0; border-top: 1px solid var(--linje); padding-top: 7px; }
 .tittelbilete { padding: 0; display: block; }
 .tittelbilete .heil { position: absolute; right: 0; top: 0; height: 720px; width: 720px; object-fit: cover; }
 .tittelbilete .tekst { position: absolute; left: 52px; top: 0; bottom: 0; width: 500px; display: flex; flex-direction: column; justify-content: center; }
@@ -214,7 +262,7 @@ if __name__ == '__main__':
     except Exception: pass
     KO.last()                                       # bileta (og eventuelle foto) frå konseptarka
     lb = [l_tittel(), l_oppgaava(), l_marknad(), l_krav(), l_northern(), l_tre(),
-          l_konsept(7, 'A'), l_konsept(8, 'B'), l_konsept(9, 'C'), l_samanlikning(), l_val()]
+          l_konsept(7, 'A'), l_konsept(8, 'B'), l_konsept(9, 'C'), l_samanlikning(), l_valet(), l_val()]
     css = STIL.replace('url("../01_fase1_sider/fonts/', 'url("../01_fase1_sider/fonts/')
     html = ('<!doctype html><html lang="nn"><head><meta charset="utf-8"><title>Konseptgjennomgang 18.11</title><style>' + css +
             '</style></head><body style="margin:0;background:#000">' + ''.join(lb) + '</body></html>')

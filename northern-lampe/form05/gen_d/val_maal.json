@@ -1,0 +1,62 @@
+{
+ "dato": "2026-11-13",
+ "cad": "konsept/film/cad/lampe.py",
+ "kjelde": "northern-lampe/form05/gen_d/val.py (val_tal.json, sok.csv, sok2.csv); val.md for tala",
+ "svar": "nei: ingen variant av kroppen gjev 350 lx på feltet utan å velte eller blende. (a), (b) og (c) er stemnings- og sidelys.",
+ "einingar": "mm og grader, som i lampe.py. VINKEL er grader under vassrett (0 = flat, peikar mot brukaren).",
+ "kjeldekodar": {
+  "rekna": "rekna i val.py (mekanikk kalibrert mot cad/ut/kontroll.json, lys med lysmotoren i lys_sjekk.py og arket H1)",
+  "anslått": "uendra frå lampe.py; fleire er KONTROLLMÅL frå foto (sjå 00-ruta-pa-fot.md)",
+  "D": "frå D Ruta (konsept/film/02-D-ruta.md)"
+ },
+ "kropp": {
+  "RUTE_B": {"verdi": 300.0, "eining": "mm", "kjelde": "anslått", "merknad": "uendra. Går inn i arket (25 x 44 cm, arket.md) på tvers av rillene"},
+  "RUTE_D": {"verdi": 190.0, "eining": "mm", "kjelde": "anslått", "merknad": "uendra. Langs rillene, under 250 mm (kortsida på arket)"},
+  "AKSE_H": {"verdi": 220.0, "eining": "mm", "kjelde": "rekna", "merknad": "var 260. Lågare akse gjev dytt >= 3,04 N over heile hellinga (val.py heile_hellinga)"},
+  "BJELKE_D": {"verdi": 32.0, "eining": "mm", "kjelde": "anslått", "merknad": "uendra"},
+  "FOT_D": {"verdi": 158.0, "eining": "mm", "kjelde": "anslått", "merknad": "uendra. Krav F9 høgst 200 cm² (196 cm²)"},
+  "ARM_B": {"verdi": 40.0, "eining": "mm", "kjelde": "anslått", "merknad": "uendra"},
+  "ARM_T": {"verdi": 5.0, "eining": "mm", "kjelde": "anslått", "merknad": "uendra. KONTROLLMÅL"},
+  "ARM_UT": {"verdi": 78.0, "eining": "mm", "kjelde": "rekna", "merknad": "var 70. Held over 0 til 80° berre mellom 77 og 79 mm (trykk på hjørnet >= 5 N ved 0°, dytt >= 3 N ved 80°)"},
+  "KNOTT_D": {"verdi": 44.0, "eining": "mm", "kjelde": "anslått", "merknad": "uendra. Messingknotten (159 g) er motvekt mot ruta. Byt han ikkje til plast utan å rekne velten på nytt"}
+ },
+ "kontroll_rekna": {
+  "masse_g": 1164, "fotavtrykk_cm2": 196.1,
+  "over_heile_hellinga_0_til_80": {"trykk_hjorne_min_N": 5.06, "dytt_topp_min_N": 3.04, "velt_venstre_min_N": 7.31, "tipp_min_grader": 25.7},
+  "i_dag_som_teikna": {"velt_venstre_N": 6.7, "velt_dytt_topp_N": 3.1, "gjeld_ved_VINKEL": 35, "over_0_til_80": {"trykk_hjorne_min_N": 4.85, "dytt_topp_min_N": 2.70}}
+ },
+ "a": {
+  "namn": "Ved feltkanten",
+  "lampe": {"VINKEL": {"verdi": 20.0, "eining": "grader", "kjelde": "rekna", "merknad": "sidelys: mest lys på feltet med auget under 1500"}},
+  "handling": {"VINKEL_stemning": {"verdi": 80.0, "eining": "grader", "kjelde": "rekna", "merknad": "ikkje parameter i lampe.py; innanfor VINKEL_OMRAADE (0, 80)"}},
+  "plassering": {"fot_x": {"verdi": 380.0, "eining": "mm", "kjelde": "rekna", "merknad": "midt i foten, til høgre for midten av skjermen; foten tangerer feltet"},
+                 "fot_y": {"verdi": 300.0, "eining": "mm", "kjelde": "rekna", "merknad": "inn frå bordkanten (skjermplanet ligg på 450)"},
+                 "dreiing": {"verdi": 0.0, "eining": "grader", "kjelde": "rekna"}},
+  "miljo": {"RUTA_AKSE_H": "220", "RUTA_ARM_UT": "78", "RUTA_VINKEL": "20", "RUTA_UT": "ut-a"},
+  "miljo_linje": "RUTA_AKSE_H=220 RUTA_ARM_UT=78 RUTA_VINKEL=20 RUTA_UT=ut-a",
+  "tal": "120 lm · 2,0 W · 2700 K · 103 lx · U0 0,07; auget 367 cd/m²; stemning 13 lx på veggen, 244 cd/m²"
+ },
+ "b": {
+  "namn": "Langs feltkanten",
+  "lampe": {"VINKEL": {"verdi": 0.0, "eining": "grader", "kjelde": "rekna", "merknad": "sidelys: ruta flat inn over feltkanten"}},
+  "handling": {"VINKEL_stemning": {"verdi": 80.0, "eining": "grader", "kjelde": "rekna", "merknad": "ikkje parameter i lampe.py"}},
+  "plassering": {"fot_x": {"verdi": 400.0, "eining": "mm", "kjelde": "rekna"},
+                 "fot_y": {"verdi": 200.0, "eining": "mm", "kjelde": "rekna"},
+                 "dreiing": {"verdi": -90.0, "eining": "grader", "kjelde": "rekna", "merknad": "bjelken går framover langs høgre kant av feltet, ruta peikar inn over feltet"}},
+  "miljo": {"RUTA_AKSE_H": "220", "RUTA_ARM_UT": "78", "RUTA_VINKEL": "0", "RUTA_UT": "ut-b"},
+  "miljo_linje": "RUTA_AKSE_H=220 RUTA_ARM_UT=78 RUTA_VINKEL=0 RUTA_UT=ut-b",
+  "tal": "120 lm · 2,0 W · 2700 K · 91 lx · U0 0,10; auget 508 cd/m² (25 cm); stemning 5 lx på veggen, 101 cd/m²"
+ },
+ "c": {
+  "namn": "Bak skjermen",
+  "lampe": {"VINKEL": {"verdi": 60.0, "eining": "grader", "kjelde": "rekna", "merknad": "under 60° kolliderer ruta med skjermen"}},
+  "handling": {"VINKEL_stemning": {"verdi": 80.0, "eining": "grader", "kjelde": "rekna", "merknad": "ikkje parameter i lampe.py; likskap 0,98, så handlinga er ein dimmar"}},
+  "plassering": {"fot_x": {"verdi": 200.0, "eining": "mm", "kjelde": "rekna"},
+                 "fot_y": {"verdi": 610.0, "eining": "mm", "kjelde": "rekna", "merknad": "mellom skjermen (450 til 500) og veggen (700); 1 mm frå skjermfoten (ANTAKING 24 x 20 cm)"},
+                 "dreiing": {"verdi": 0.0, "eining": "grader", "kjelde": "rekna"}},
+  "miljo": {"RUTA_AKSE_H": "220", "RUTA_ARM_UT": "78", "RUTA_VINKEL": "60", "RUTA_UT": "ut-c"},
+  "miljo_linje": "RUTA_AKSE_H=220 RUTA_ARM_UT=78 RUTA_VINKEL=60 RUTA_UT=ut-c",
+  "tal": "120 lm · 2,0 W · 2700 K · 14 lx på feltet, 87 lx på veggen bak skjermen; stemning 70 lx på veggen, 270 cd/m²"
+ },
+ "merknad": "Kroppen er den same i (a), (b) og (c). Berre VINKEL i teikninga skil filene. Plassering og stemningshelling er for samanstillinga og rendringa, ikkje for delane. lampe.py les ikkje BJELKE_D, ARM_B, ARM_T eller KNOTT_D frå miljøet, men dei er uendra. Køyr `lampe.py kontroll` for kvar variant: massemodellen i val.py er kalibrert mot kontroll.json (1182 mot 1184 g), men ikkje mot cadquery for 220/78."
+}

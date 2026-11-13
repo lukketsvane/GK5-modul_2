@@ -1,0 +1,205 @@
+{
+ "delar": [
+  {
+   "id": "01",
+   "namn": "fot",
+   "volum_cm3": 88.3,
+   "masse_g": 61.7,
+   "gyldig": true
+  },
+  {
+   "id": "02",
+   "namn": "botnlok",
+   "volum_cm3": 33.0,
+   "masse_g": 23.1,
+   "gyldig": true
+  },
+  {
+   "id": "03",
+   "namn": "ballast",
+   "volum_cm3": 33.8,
+   "masse_g": 265.7,
+   "gyldig": true
+  },
+  {
+   "id": "04",
+   "namn": "arm",
+   "volum_cm3": 61.3,
+   "masse_g": 165.6,
+   "gyldig": true
+  },
+  {
+   "id": "05",
+   "namn": "kabeldeksel",
+   "volum_cm3": 6.3,
+   "masse_g": 4.4,
+   "gyldig": true
+  },
+  {
+   "id": "06",
+   "namn": "leddhus",
+   "volum_cm3": 31.8,
+   "masse_g": 22.2,
+   "gyldig": true
+  },
+  {
+   "id": "07",
+   "namn": "bjelke",
+   "volum_cm3": 173.8,
+   "masse_g": 121.4,
+   "gyldig": true
+  },
+  {
+   "id": "08",
+   "namn": "bjelkelok",
+   "volum_cm3": 55.6,
+   "masse_g": 38.8,
+   "gyldig": true
+  },
+  {
+   "id": "09",
+   "namn": "lysleiar",
+   "volum_cm3": 169.5,
+   "masse_g": 201.7,
+   "gyldig": true
+  },
+  {
+   "id": "10",
+   "namn": "prismeark",
+   "volum_cm3": 13.8,
+   "masse_g": 17.9,
+   "gyldig": true
+  },
+  {
+   "id": "11",
+   "namn": "flatstong",
+   "volum_cm3": 7.1,
+   "masse_g": 19.2,
+   "gyldig": true
+  },
+  {
+   "id": "12",
+   "namn": "led-stripe",
+   "volum_cm3": 4.7,
+   "masse_g": 5.2,
+   "gyldig": true
+  },
+  {
+   "id": "13",
+   "namn": "knott",
+   "volum_cm3": 18.7,
+   "masse_g": 159.2,
+   "gyldig": true
+  },
+  {
+   "id": "14",
+   "namn": "friksjonsskive",
+   "volum_cm3": 0.2,
+   "masse_g": 0.2,
+   "gyldig": true
+  },
+  {
+   "id": "A",
+   "namn": "bolt M8 × 70",
+   "volum_cm3": 4.3,
+   "masse_g": 33.7,
+   "gyldig": true
+  },
+  {
+   "id": "B",
+   "namn": "låsemutter M8",
+   "volum_cm3": 0.8,
+   "masse_g": 6.0,
+   "gyldig": true
+  },
+  {
+   "id": "C",
+   "namn": "skiver M8",
+   "volum_cm3": 0.5,
+   "masse_g": 4.0,
+   "gyldig": true
+  },
+  {
+   "id": "D",
+   "namn": "skrue M5 × 12 senk",
+   "volum_cm3": 0.7,
+   "masse_g": 5.4,
+   "gyldig": true
+  },
+  {
+   "id": "E",
+   "namn": "skrue M3 × 12 senk",
+   "volum_cm3": 0.5,
+   "masse_g": 3.6,
+   "gyldig": true
+  }
+ ],
+ "kollisjonar": [],
+ "rorsle": [
+  {
+   "vinkel": 0,
+   "kollisjon_mm3": 0.0,
+   "kven": "",
+   "laagaste_punkt": 244.0
+  },
+  {
+   "vinkel": 10,
+   "kollisjon_mm3": 0.0,
+   "kven": "",
+   "laagaste_punkt": 224.7
+  },
+  {
+   "vinkel": 20,
+   "kollisjon_mm3": 0.0,
+   "kven": "",
+   "laagaste_punkt": 192.1
+  },
+  {
+   "vinkel": 30,
+   "kollisjon_mm3": 0.0,
+   "kven": "",
+   "laagaste_punkt": 161.6
+  },
+  {
+   "vinkel": 40,
+   "kollisjon_mm3": 0.0,
+   "kven": "",
+   "laagaste_punkt": 134.1
+  },
+  {
+   "vinkel": 50,
+   "kollisjon_mm3": 0.0,
+   "kven": "",
+   "laagaste_punkt": 110.4
+  },
+  {
+   "vinkel": 60,
+   "kollisjon_mm3": 0.0,
+   "kven": "",
+   "laagaste_punkt": 91.3
+  },
+  {
+   "vinkel": 70,
+   "kollisjon_mm3": 0.0,
+   "kven": "",
+   "laagaste_punkt": 77.2
+  },
+  {
+   "vinkel": 80,
+   "kollisjon_mm3": 0.0,
+   "kven": "",
+   "laagaste_punkt": 68.8
+  }
+ ],
+ "masse_g": 1184,
+ "tyngdepunkt": [
+  9.3,
+  4.3,
+  150.8
+ ],
+ "fotavtrykk_cm2": 196.1,
+ "veltevinkel": 24.5,
+ "velt_venstre_N": 6.7,
+ "velt_framme_N": 10.7,
+ "velt_dytt_topp_N": 3.1
+}

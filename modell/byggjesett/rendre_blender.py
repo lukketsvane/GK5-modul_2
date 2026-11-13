@@ -89,7 +89,9 @@ def materiale():
     M['keramikk'], _ = _principled('keramikk', (0.86, 0.84, 0.80), 0.0, 0.45)
     m, p = _principled('fresnel', (0.92, 0.93, 0.95), 1.0, 0.12); _ringar(m, p, 0.0018); M['fresnel'] = m
     M['glas'], _ = _principled('glas', (0.96, 1.0, 0.98), 0.0, 0.0, trans=1.0, ior=1.52)
-    m, p = _principled('film', (0.96, 0.98, 1.0), 0.0, 0.32, trans=1.0, ior=1.58); _liner(m, p, 0.0006); M['film'] = m
+    # Prismefilmen: klar plast med fine lineære prisme. Han ser sølvaktig ut fordi prisma speglar mykje,
+    # så han er sett halvt gjennomskinleg og blank, ikkje som klart glas (som berre vart kvitt i baklys).
+    m, p = _principled('film', (0.80, 0.83, 0.88), 0.0, 0.16, trans=0.55, ior=1.58); _liner(m, p, 0.0006); M['film'] = m
     M['golv'], _ = _principled('golv', (0.014, 0.014, 0.016), 0.0, 0.6)
     return M
 
@@ -140,9 +142,26 @@ def _importer(fil, M, mat):
     return ob
 
 
+def _verd(s):
+    """Studioverd: mørk under, lys over. Blanke flater og glas får noko å spegle, også utan bakgrunn i biletet."""
+    verd = bpy.data.worlds.new('verd'); s.world = verd; verd.use_nodes = True
+    nt = verd.node_tree
+    tc = nt.nodes.new('ShaderNodeTexCoord'); sep = nt.nodes.new('ShaderNodeSeparateXYZ')
+    nt.links.new(tc.outputs['Generated'], sep.inputs[0])                # i verda er dette retninga til strålen
+    mr = nt.nodes.new('ShaderNodeMapRange'); mr.inputs['From Min'].default_value = -1.0; mr.inputs['From Max'].default_value = 1.0
+    nt.links.new(sep.outputs['Z'], mr.inputs['Value'])
+    cr = nt.nodes.new('ShaderNodeValToRGB'); nt.links.new(mr.outputs['Result'], cr.inputs['Fac'])
+    e = cr.color_ramp.elements
+    e[0].position, e[0].color = 0.0, (0.004, 0.004, 0.005, 1.0)
+    e[1].position, e[1].color = 1.0, (0.30, 0.30, 0.31, 1.0)
+    midt = e.new(0.5); midt.color = (0.05, 0.05, 0.055, 1.0)
+    nt.links.new(cr.outputs['Color'], nt.nodes['Background'].inputs['Color'])
+
+
 def rendre(namn, sc):
     bpy.ops.wm.read_factory_settings(use_empty=True)
     s = bpy.context.scene
+    bank = sc.get('delbank')                                            # delbanken: ortografisk, gjennomsiktig, fast målestokk
     s.render.engine = 'CYCLES'
     s.cycles.device = 'CPU'
     s.render.threads_mode = 'FIXED'; s.render.threads = 4
@@ -155,28 +174,57 @@ def rendre(namn, sc):
     s.view_settings.view_transform = 'AgX'
     s.view_settings.exposure = -0.6
     s.render.image_settings.file_format = 'PNG'
-    verd = bpy.data.worlds.new('verd'); s.world = verd; verd.use_nodes = True
-    verd.node_tree.nodes['Background'].inputs['Color'].default_value = (0.004, 0.004, 0.005, 1.0)
+    if bank:
+        s.render.film_transparent = True
+        s.cycles.film_transparent_glass = True
+        s.render.image_settings.color_mode = 'RGBA'
+    _verd(s)
     M = materiale()
-    for o in sc['objekt']:
-        _importer(o['fil'], o['M'], M[o['mat']])
+    objekt = [_importer(o['fil'], o['M'], M[o['mat']]) for o in sc['objekt']]
     lo, hi = Vector(sc['lo']) * 0.001, Vector(sc['hi']) * 0.001
     midt = (lo + hi) / 2; R = (hi - lo).length / 2
     y_bak = hi.y + 0.25 * R + 0.05
-    bg = _bakgrunn(lo.z, y_bak); bg.data.materials.append(M['golv'])
+    if not bank:
+        bg = _bakgrunn(lo.z, y_bak); bg.data.materials.append(M['golv'])
     k = sc['kamera']
     mal = Vector(k['mal']) * 0.001
     az, el = math.radians(k['azimut']), math.radians(k['elevasjon'])
     retn = Vector((math.sin(az) * math.cos(el), -math.cos(az) * math.cos(el), math.sin(el)))
     cd = bpy.data.cameras.new('kamera'); cd.lens = k.get('lens', 70); cd.sensor_width = 36
-    cam = bpy.data.objects.new('kamera', cd); bpy.context.collection.objects.link(cam)
-    halv_v = math.atan((36.0 * H / W / 2) / cd.lens)                # halve vertikale synsvinkelen
-    cam.location = mal + retn * (k.get('faktor', 1.0) * R / math.sin(halv_v)); _peik(cam, mal); s.camera = cam
+    cam = bpy.data.objects.new('kamera', cd); bpy.context.collection.objects.link(cam); s.camera = cam
+    meta = None
+    if bank:
+        # Ortografisk: biletet blir akkurat så stort som delen, med px_per_mm pikslar per mm, så alle delane har same målestokk.
+        cd.type = 'ORTHO'
+        cam.rotation_euler = (-retn).to_track_quat('-Z', 'Y').to_euler()
+        bpy.context.view_layer.update()
+        R3 = cam.matrix_world.to_3x3()
+        hogre, opp, fram = R3.col[0].normalized(), R3.col[1].normalized(), -R3.col[2].normalized()
+        us, ws, fs = [], [], []
+        for ob in objekt:
+            mw = ob.matrix_world
+            for vx in ob.data.vertices:
+                p = mw @ vx.co
+                us.append(p.dot(hogre)); ws.append(p.dot(opp)); fs.append(p.dot(fram))
+        ppmm = bank['px_per_mm'] / (3 if PROVE else 1)
+        px_m = 0.001 / ppmm; marg = 12
+        W = math.ceil((max(us) - min(us)) / px_m) + 2 * marg
+        H = math.ceil((max(ws) - min(ws)) / px_m) + 2 * marg
+        s.render.resolution_x, s.render.resolution_y = W, H
+        cd.ortho_scale = max(W, H) * px_m
+        cam.location = hogre * (max(us) + min(us)) / 2 + opp * (max(ws) + min(ws)) / 2 + fram * (min(fs) - 1.0)
+        cd.clip_start = 0.01; cd.clip_end = (max(fs) - min(fs)) + 2.0
+        meta = dict(scene=namn, px_per_mm=ppmm, w=W, h=H, marg=marg, azimut=k['azimut'], elevasjon=k['elevasjon'],
+                    breidd_mm=round((max(us) - min(us)) * 1000, 1), hogd_mm=round((max(ws) - min(ws)) * 1000, 1))
+    else:
+        halv_v = math.atan((36.0 * H / W / 2) / cd.lens)            # halve vertikale synsvinkelen
+        cam.location = mal + retn * (k.get('faktor', 1.0) * R / math.sin(halv_v)); _peik(cam, mal)
     d = max(R, 0.08)
     _lys('hovudlys', mal + Vector((-1.6, -1.8, 2.2)) * d * 2.2, mal, 1.4 * d * 2, 120 * (d / 0.3) ** 2)
     _lys('fyll', mal + Vector((2.2, -0.9, 0.9)) * d * 2.2, mal, 2.0 * d * 2, 28 * (d / 0.3) ** 2)
     kant = mal + Vector((0.4, 2.4, 1.8)) * d * 2.2
-    kant.y = min(kant.y, y_bak - 0.03)                                  # framfor bakveggen, elles skuggar veggen lyset
+    if not bank:
+        kant.y = min(kant.y, y_bak - 0.03)                              # framfor bakveggen, elles skuggar veggen lyset
     _lys('kant', kant, mal, 1.0 * d * 2, 85 * (d / 0.3) ** 2, (1.0, 0.93, 0.85))
     if sc.get('baklys'):                                                # lys gjennom arket bakfrå
         bak = Vector((mal.x, min(hi.y + 0.25, y_bak - 0.03), mal.z))
@@ -184,6 +232,8 @@ def rendre(namn, sc):
     os.makedirs(UT, exist_ok=True)
     s.render.filepath = os.path.join(UT, namn + ('-prove' if PROVE else '') + '.png')
     bpy.ops.render.render(write_still=True)
+    if meta:
+        json.dump(meta, open(os.path.join(UT, namn + ('-prove' if PROVE else '') + '.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
     print('RENDRA', s.render.filepath, flush=True)
 
 

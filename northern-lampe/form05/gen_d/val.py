@@ -135,7 +135,8 @@ def delar(d):
          ('ekstra', 25.0, np.zeros(3))]                       # lampe.py: 25 g i M, ikkje i momentet (kabel, mutrar)
     return D
 
-def mek(d):
+DYTT_KRAV = 3.0                     # N: dytten på knotten skal ikkje vere svakare enn i dag (3,1 N i kontroll.json, 3,08 rekna)
+def mek(d, krav=True):
     """Masse, tyngdepunkt, tipp og kreftene som veltar, med same formlar som lampe.kontroll() og som motor.F_tipp."""
     D = delar(d)
     Mg = sum(m for _, m, _ in D)
@@ -156,15 +157,16 @@ def mek(d):
     ut['trykk_ruta_N'] = min(M.F_tipp(parts, hull, q, np.array([0, 0, -1.0])) for q in hj)
     K = A + np.array([d['X_KN0'] + d['KNOTT_L'] / 2, 0, 0]) / 1000
     ut['dytt_knott_N'] = min(M.F_tipp(parts, hull, K, dd) for dd in M.RETN[:-1])
-    ut['stab_ok'] = bool(ut['veltevinkel'] >= M.TIP_MIN and ut['trykk_ruta_N'] >= M.F_DYTT and ut['dytt_knott_N'] >= 3.1)
+    ut['stab_ok'] = bool(ut['veltevinkel'] >= M.TIP_MIN and ut['trykk_ruta_N'] >= M.F_DYTT and ut['dytt_knott_N'] >= DYTT_KRAV)
     # foten som trengst (same plassering, same ballast): tipp 6°, trykk på ruta 5 N og dytt på knotten 3,1 N (som i dag)
     def ok(rr):
         hh = np.c_[rr * np.cos(th), rr * np.sin(th)]
         tip = math.degrees(math.atan2(rr - e / 1000, T[2] / 1000))
         return (tip >= M.TIP_MIN and min(M.F_tipp(parts, hh, q, np.array([0, 0, -1.0])) for q in hj) >= M.F_DYTT
-                and min(M.F_tipp(parts, hh, K, dd) for dd in M.RETN[:-1]) >= 3.1)
+                and min(M.F_tipp(parts, hh, K, dd) for dd in M.RETN[:-1]) >= DYTT_KRAV)
     lo, hi = 0.02, 0.6
-    if ok(hi):
+    if not krav: ut['fot_D_krav_mm'] = float('nan')
+    elif ok(hi):
         for _ in range(22):
             mid = (lo + hi) / 2
             if ok(mid): hi = mid
@@ -297,9 +299,11 @@ def tal_grov(d, pl, film='ark'):
     Es = float((ls.E_direkte(P3, N3, lys, okkl_s) @ ls.LUM).mean())
     av = max(M.augevolum(l, np.array(l.pts)) for l in lys[:2])
     ur = under_ruta(lys, okkl, c, s)
+    P2, N2, _ = BAK4
+    Eb = float((ls.E_direkte(P2, N2, lys, okkl) @ ls.LUM).mean())
     Ef = float(cel.mean())
     return dict(E_felt_1W=Ef, U0=float(cel.min() / max(Ef, 1e-9)), W350_dir=350.0 / max(Ef, 1e-9), E_skjerm_1W=Es,
-                augevolum_1W=av, under_ruta_1W=ur[0], under_ruta_maks_1W=ur[1])
+                augevolum_1W=av, under_ruta_1W=ur[0], under_ruta_maks_1W=ur[1], E_bak_1W=Eb)
 
 def tal_full(lys, kr):
     """ls.tal (grovt gitter med sprett, som A, B, C og D) og det fine gitteret (motor.tal_fin), same rekning."""
@@ -415,8 +419,33 @@ def k_sok():
             r['velt_venstre_N'], r['dytt_knott_N'], r['fot_D_krav_mm'], r['flagg']))
     logg('sok (%.0f s): %d variantar, %d utan flagg; lyset held i %d, av dei står %d' % (time.time() - t0, len(rader), len(ok), len(lysok), sum(r['stab_ok'] for r in lysok)))
 
+PLASSAR2 = {'teikna': (0.47, 0.30, 0.0), 'kant': (0.38, 0.30, 0.0), 'kant-bak': (0.38, 0.40, 0.0),
+            'side-inn': (0.40, 0.20, -90.0), 'bak-vegg': (0.20, 0.61, 0.0)}
+def k_sok2():
+    """Stemning og sidelys for kroppane som står: helling for sidelys (2 W) og for stemning (1,25 W) per plassering."""
+    t0 = time.time(); rader = []
+    for H in (230.0, 260.0):
+        for U in (55.0, 70.0, 85.0):
+            for V in (0.0, 20.0, 35.0, 60.0, 80.0):
+                d = variant(AKSE_H=H, VINKEL=V, ARM_UT=U); m = mek(d, krav=False)
+                for pn, pl in PLASSAR2.items():
+                    g = tal_grov(d, pl); ps = plass_sjekk(d, pl)
+                    r = dict(AKSE_H=H, ARM_UT=U, VINKEL=V, plass=pn, felt2W=2 * g['E_felt_1W'], U0=g['U0'], under2W=2 * g['under_ruta_1W'],
+                             auge2W=2 * g['augevolum_1W'], skjerm2W=2 * g['E_skjerm_1W'], bak125=1.25 * g['E_bak_1W'], auge125=1.25 * g['augevolum_1W'],
+                             W350_dir=g['W350_dir'], masse_g=m['masse_g'], veltevinkel=m['veltevinkel'], trykk_ruta_N=m['trykk_ruta_N'],
+                             dytt_knott_N=m['dytt_knott_N'], velt_venstre_N=m['velt_venstre_N'], stab_ok=m['stab_ok'],
+                             kollisjon_mm=ps['kollisjon_mm'], fot_pa_felt=ps['fot_pa_felt'], fot_star=ps['fot_pa_skjermfot'] <= 0.005 and ps['fot_utanfor_bordet'] <= 0.005,
+                             i_sikt=ps['i_sikt'])
+                    rader.append(r)
+            print('H %.0f U %.0f (%.0f s)' % (H, U, time.time() - t0), flush=True)
+    keys = list(rader[0].keys())
+    with open(os.path.join(HER, 'sok2.csv'), 'w', newline='', encoding='utf-8') as f:
+        w = csv.DictWriter(f, keys); w.writeheader()
+        for r in rader: w.writerow({k_: (round(v, 3) if isinstance(v, float) else v) for k_, v in r.items()})
+    logg('sok2 (%.0f s): %d variantar for stemning og sidelys, sok2.csv' % (time.time() - t0, len(rader)))
+
 if __name__ == '__main__':
     try: sys.stdout.reconfigure(encoding='utf-8')
     except Exception: pass
     a = sys.argv[1:]
-    {'ford': k_ford, 'kalib': k_kalib, 'sok': k_sok}[a[0]](*a[1:])
+    {'ford': k_ford, 'kalib': k_kalib, 'sok': k_sok, 'sok2': k_sok2}[a[0]](*a[1:])

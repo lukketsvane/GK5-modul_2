@@ -22,7 +22,7 @@ Same rom, same mannekeng, same watt: 1,25 W i stemning og 5 W i arbeid, skalert 
 | Timar per celle ved 350 lx | 5,1 | 4,2 | 2,6 |
 | Jamnheit (referanse 0,6) | 0,62 | 0,41 | 0,62 |
 | Mot auget ved 350 lx, auge 25 / 47 / 60 cm (F1 3000, F5 1500) | 1013 / 103 / 103 | 1124 / 196 / 196 | 155 / 122 / 122 |
-| Veggen bak skjermen ved 350 lx (F6 100 til 150) | 108 | 134 | 123 |
+| Veggen bak skjermen ved 350 lx (F6 100 til 150, snitt på 2 cm gitter) | 109 | 114 | 127 |
 | Skjermflata ved 350 lx (del av feltet) | 115 (0,33) | 60 (0,17) | 39 (0,11) |
 | Ansiktet ved 350 lx | 29 | 43 | 25 |
 | Stemning: mot auget, verste augehøgd (krav 500) | 424 | 110 | 76 |

@@ -4,7 +4,7 @@
 | Timar per celle ved 350 lx | 5,1 | 4,2 | 2,6 |
 | Jamnheit (referanse 0,6) | 0,62 | 0,41 | 0,62 |
 | Mot auget ved 350 lx, 25 / 47 / 60 cm (F1 3000, F5 1500) | 1 013 / 103 / 103 | 1 124 / 196 / 196 | 155 / 122 / 122 |
-| Veggen bak skjermen ved 350 lx (F6 100 til 150) | 108 | 134 | 123 |
+| Veggen bak skjermen ved 350 lx (F6 100 til 150) | 109 | 114 | 127 |
 | Veggsona ved 350 lx | 56 | 75 | 60 |
 | Skjermflata ved 350 lx (del av feltet) | 115 (0,33) | 60 (0,17) | 39 (0,11) |
 | Ansiktet ved 350 lx | 29 | 43 | 25 |

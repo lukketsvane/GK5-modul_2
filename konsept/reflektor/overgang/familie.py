@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """Familien OVERGANG: korleis éi og same lampe går frå stemningslys til arbeidslys.
 
-  python familie.py              tal.md, tal.csv, bretta (px=200) og par-bileta for siste generasjon
-  python familie.py sok 1        overgang(g, n=7) på generasjon 1, skriv journal-gen1.jsonl
-  python familie.py sok 2        same for generasjon 2 (og 3)
-  python familie.py tal          berre tal.md og tal.csv (px=0)
+  python familie.py              tal.md, tal.csv, overgang.csv og bretta (px=200) for GREP (generasjon 3 og fire referansar)
+  python familie.py par          par-NAMN.png for dei tre beste (px=240, steg 0, 0,5 og 1)
+  python familie.py sok 3        overgang(g, n=7) på generasjon 3, skriv journal-gen3.jsonl (1 og 2 likeins)
+  python familie.py tal          berre tal.md, tal.csv og overgang.csv (px=0)
 
 Bygd på ../_mal.py. Kroppen er underordna: flat, hol eller fresnel reflektor og enkle strøk.
 Det som varierer, er mekanismen. Eit lysgrep er g(t) -> (lys, kropp), t = 0 stemning, t = 1 arbeid.
@@ -332,7 +332,7 @@ GEN2 = [
 TAKM = b(0.30, 0.20, 1.78)              # taket over bordet (taket er 2,5 m over golvet, 1,78 m over bordplata)
 HOGM = b(0.0, YV, 1.15)                 # veggen over veggsona (sona sluttar 78 cm over bordet)
 BORDM = b(0.52, 0.10, 0.0)              # bordet framfor foten, utanfor arbeidsfeltet
-HOVUD = b(0.47, 0.42, 0.44)             # toppen av lampa, rett bak arket
+HOVUD = b(0.47, 0.42, 0.57)             # toppen av lampa, over arket (arket når 54 cm)
 
 def vaskar(lm, K, mot=VM, pos=None, vift=(28, 14)):
     """Veggvaskar frå foten: vifte mot veggen bak skjermen."""
@@ -345,7 +345,7 @@ def stemningsstrok(adresse, lm, K):
     if adresse == 'hog':
         return straale(HOVUD, HOGM, lm, K, flat=(30, 10), kutt=45, opning=(0.05, 0.02), bronn=40)
     if adresse == 'bord':
-        return straale(C, BORDM, lm, K, spreiing=10, kutt=20, opning=0.02, bronn=40)
+        return straale(C + N1 * 0.02, BORDM, lm, K, spreiing=10, kutt=20, opning=0.02, bronn=40)
     return vaskar(lm, K)
 
 def kryss3(t, adresse='tak', av=0.43):
@@ -354,10 +354,10 @@ def kryss3(t, adresse='tak', av=0.43):
     lys = []
     if t < 1 - 1e-6:
         lys.append(stemningsstrok(adresse, W * (1 - t) * (LMW_KJELDE if adresse == 'bord' else LMW), K))
-    if t > 1e-6:
-        k = straale(KP, C, W * t * (1 - av) * LMW_KJELDE, K, spreiing=10, kutt=20, opning=0.02, bronn=40)
-        lys += [k, ark(k, C, N1, 0.25, framside=SATIN)]
-        if av > 0: lys.append(vaskar(W * t * av * LMW, K))
+    # arket står der heile tida (òg i stemning, då nesten utan lys), så det skuggar likt i alle steg
+    k = straale(KP, C, max(W * t * (1 - av) * LMW_KJELDE, 1e-3), K, spreiing=10, kutt=20, opning=0.02, bronn=40)
+    lys += [k, ark(k, C, N1, 0.25, framside=SATIN)]
+    if t > 1e-6 and av > 0: lys.append(vaskar(W * t * av * LMW, K))
     return lys, KROPP
 
 def fald3(t, opp_grader=25.0, ving=0.0):
@@ -392,9 +392,9 @@ def glod_kryss(t):
     W, K = watt(t)
     lys = []
     if t < 1 - 1e-6: lys.append(glod(HOVUD, 0.012, W * (1 - t) * LMW, K))
-    if t > 1e-6:
-        k = straale(KP, C, W * t * 0.57 * LMW_KJELDE, K, spreiing=10, kutt=20, opning=0.02, bronn=40)
-        lys += [k, ark(k, C, N1, 0.25, framside=SATIN), vaskar(W * t * 0.43 * LMW, K)]
+    k = straale(KP, C, max(W * t * 0.57 * LMW_KJELDE, 1e-3), K, spreiing=10, kutt=20, opning=0.02, bronn=40)
+    lys += [k, ark(k, C, N1, 0.25, framside=SATIN)]
+    if t > 1e-6: lys.append(vaskar(W * t * 0.43 * LMW, K))
     return lys, KROPP
 
 def fald3_kuppel(t):
@@ -424,7 +424,10 @@ GEN3 = [
 ]
 
 GEN = {1: GEN1, 2: GEN2, 3: GEN3}
-GREP = GEN3
+_ALLE = dict(GEN1 + GEN2 + GEN3)
+# Brettet: heile generasjon 3, og dei beste frå generasjon 1 og 2 som referanse (16 ruter, 4 x 4).
+GREP = GEN3 + [(n, _ALLE[n]) for n in ('skjer', 'drei-snigel', 'skjer-57', 'vipp')]
+BESTE = ['kryss-hog', 'skjer', 'drei-snigel']
 
 # ------------------------------------------------------------------ søk og leveranse
 
@@ -456,6 +459,33 @@ def sok(greps, fil, n=7):
               % (namn, m['topp'], m['sprang'], m['jamn_auke'], r['likskap'], r['W350'], r['jamnheit'], r['strekk'],
                  [round(x) for x in m['auge']], [round(x) for x in m['felt']], [round(x) for x in m['vegg']], [round(x[1]) for x in sk], time.time() - t0), flush=True)
 
+def overgangstabell():
+    """Legg overgangstala frå journalane til i tal.md og skriv overgang.csv (same tal som journalane)."""
+    J = {}
+    for gen in (1, 2, 3):
+        f = os.path.join(HER, 'journal-gen%d.jsonl' % gen)
+        for l in open(f, encoding='utf-8'):
+            r = json.loads(l); r['gen'] = gen; J[r['namn']] = r
+    kol = ['namn', 'gen', 'topp', 'sprang', 'jamn_auke', 'likskap', 'W350', 'jamnheit']
+    with open(os.path.join(HER, 'overgang.csv'), 'w', encoding='utf-8', newline='') as fh:
+        import csv
+        w = csv.writer(fh); w.writerow(kol + ['auge_steg', 'felt_steg', 'vegg_steg', 'skjerm_maks_steg'])
+        for r in J.values():
+            w.writerow([r[k] if k in ('namn', 'gen') else '%.4g' % r[k] for k in kol]
+                       + [' '.join('%.0f' % x for x in r[k]) for k in ('auge', 'felt', 'vegg', 'skjerm_maks')])
+    L = ['', '## Overgangen, sju steg (overgang(g, n=7)) for lysgrepa på brettet', '',
+         '| Lysgrep | Gen. | Topp | Sprang | Jamn auke | Likskap | Mot auget, steg 0 til 6 (cd/m²) | Felt, lx | Vegg, lx | Skjermflata maks, lx |',
+         '| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |']
+    for namn, _ in GREP:
+        r = J[namn]
+        L.append('| %s | %d | %.2f | %.2f | %.2f | %.2f | %s | %s | %s | %s |' % (namn, r['gen'], r['topp'], r['sprang'], r['jamn_auke'], r['likskap'],
+                 ', '.join('%.0f' % x for x in r['auge']), ', '.join('%.0f' % x for x in r['felt']),
+                 ', '.join('%.0f' % x for x in r['vegg']), ', '.join('%.0f' % x for x in r['skjerm_maks'])))
+    L += ['', 'Topp: lysaste mellomsteg mot auget delt på lysaste endepunkt. Sprang: største endring i lysfordelinga mellom to nabosteg. '
+          'Likskap: cosinus mellom lysfordelinga i stemning og arbeid. Skjermflata maks er rekna med skjermlux() i familie.py. '
+          'Alle overgangstala for generasjon 1 til 3 ligg i overgang.csv og journal-gen*.jsonl. Modell, ikkje måling.', '']
+    open(os.path.join(HER, 'tal.md'), 'a', encoding='utf-8').write(chr(10).join(L))
+
 if __name__ == '__main__':
     try: sys.stdout.reconfigure(encoding='utf-8')
     except Exception: pass
@@ -463,9 +493,11 @@ if __name__ == '__main__':
     if a and a[0] == 'sok':
         gen = int(a[1]) if len(a) > 1 else max(GEN)
         sok(GEN[gen], os.path.join(HER, 'journal-gen%d.jsonl' % gen))
-    elif a and a[0] == 'tal':
-        familie(GREP, HER, px=0)
-        print(open(os.path.join(HER, 'tal.md'), encoding='utf-8').read())
+    elif a and a[0] == 'par':
+        for namn in BESTE:
+            par(_ALLE[namn], os.path.join(HER, 'par-%s.png' % namn), px=240, ss=1, steg=(0, 0.5, 1))
+            print('par-%s.png' % namn, flush=True)
     else:
-        familie(GREP, HER, px=200)
+        familie(GREP, HER, px=0 if (a and a[0] == 'tal') else 200)
+        overgangstabell()
         print(open(os.path.join(HER, 'tal.md'), encoding='utf-8').read())

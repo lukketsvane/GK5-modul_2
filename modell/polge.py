@@ -13,11 +13,17 @@ vend mot skjermen (+y) og skalert så hovudet får same høgd og plass som den g
 Kamera, lys og målingar er urørte. Tala i tal() som gjeld lampa åleine, hoppar framleis over figuren.
 
   python polge.py            skriv ut mål på modellen og plasseringa
-  python polge.py --prov     lite prøvebilete (bak og framme) i modell/prov-*.png
+  python polge.py --prov     lite prøvebilete (bakfrå og framanfrå) i modell/prov-*.png
 """
 import os, sys, json, struct
 import numpy as np
 from scipy.spatial import cKDTree
+
+try:
+    import numba
+    _NUMBA = True
+except Exception:                      # utan numba verkar alt, berre seinare
+    _NUMBA = False
 
 HER = os.path.dirname(os.path.abspath(__file__))
 MODELL = os.path.join(HER, 'polge_1.glb')
@@ -136,17 +142,81 @@ def plasser(V, zb, snu=False, hovudhogd=HOVUDHOGD):
     return P, s, zh + dz
 
 
+def klynger(Vn, Fn, skive=0.05):
+    """Del trekantane i små klynger (vassrette skiver gonger fire sektorar), kvar med si eiga kule.
+    Gjev sorterte trekantar, startindeksar, klyngesenter og klyngeradiar."""
+    c = Vn[Fn].mean(1)
+    iz = np.floor((c[:, 2] - c[:, 2].min()) / skive).astype(np.int64)
+    midt = np.array([c[:, 0].mean(), c[:, 1].mean()])
+    ia = (np.floor((np.arctan2(c[:, 1] - midt[1], c[:, 0] - midt[0]) + np.pi) / (np.pi / 2)).astype(np.int64)) % 4
+    kid = iz * 4 + ia
+    orden = np.argsort(kid, kind='stable')
+    Fs = Fn[orden]; kid = kid[orden]
+    _, start = np.unique(kid, return_index=True)
+    start = np.append(start, len(Fs)).astype(np.int64)
+    cc = np.zeros((len(start) - 1, 3)); cr = np.zeros(len(start) - 1)
+    for k in range(len(start) - 1):
+        pk = Vn[Fs[start[k]:start[k + 1]]].reshape(-1, 3)
+        cc[k] = 0.5 * (pk.min(0) + pk.max(0)); cr[k] = np.linalg.norm(pk - cc[k], axis=1).max() + 1e-5
+    return Fs, start, cc, cr
+
+
+if _NUMBA:
+    @numba.njit(parallel=True, fastmath=True, cache=True)
+    def _treff(O, D, c0, r0, cc, cr, start, V0, E1, E2, eps):
+        n = O.shape[0]
+        t = np.full(n, np.inf)
+        for i in numba.prange(n):
+            ox = O[i, 0]; oy = O[i, 1]; oz = O[i, 2]; dx = D[i, 0]; dy = D[i, 1]; dz = D[i, 2]
+            a = dx * dx + dy * dy + dz * dz
+            qx = ox - c0[0]; qy = oy - c0[1]; qz = oz - c0[2]
+            b = qx * dx + qy * dy + qz * dz
+            if b * b - a * (qx * qx + qy * qy + qz * qz - r0 * r0) < 0.0:
+                continue
+            best = np.inf
+            for k in range(cr.shape[0]):
+                qx = ox - cc[k, 0]; qy = oy - cc[k, 1]; qz = oz - cc[k, 2]
+                b = qx * dx + qy * dy + qz * dz
+                if b * b - a * (qx * qx + qy * qy + qz * qz - cr[k] * cr[k]) < 0.0:
+                    continue
+                for j in range(start[k], start[k + 1]):
+                    e1x = E1[j, 0]; e1y = E1[j, 1]; e1z = E1[j, 2]; e2x = E2[j, 0]; e2y = E2[j, 1]; e2z = E2[j, 2]
+                    px = dy * e2z - dz * e2y; py = dz * e2x - dx * e2z; pz = dx * e2y - dy * e2x
+                    det = e1x * px + e1y * py + e1z * pz
+                    if det > -1e-14 and det < 1e-14:
+                        continue
+                    inv = 1.0 / det
+                    tx = ox - V0[j, 0]; ty = oy - V0[j, 1]; tz = oz - V0[j, 2]
+                    u = (tx * px + ty * py + tz * pz) * inv
+                    if u < 0.0 or u > 1.0:
+                        continue
+                    wx = ty * e1z - tz * e1y; wy = tz * e1x - tx * e1z; wz = tx * e1y - ty * e1x
+                    v = (dx * wx + dy * wy + dz * wz) * inv
+                    if v < 0.0 or u + v > 1.0:
+                        continue
+                    tt = (e2x * wx + e2y * wy + e2z * wz) * inv
+                    if tt > eps and tt < best:
+                        best = tt
+            t[i] = best
+        return t
+
+
 def lag_klasse(L):
     class Kropp(L.Prim):
-        """Trekantnett som svart kropp: rask avvising mot omslutta kule, glatte normalar frå næraste hjørne."""
-        def __init__(s, V0, V1, V2, rho, tre, Nv):
-            s.V0 = V0; s.E1 = V1 - V0; s.E2 = V2 - V0
-            alle = np.concatenate([V0, V1, V2])
+        """Trekantnett som svart kropp. Klynger med omslutta kuler, glatte normalar frå næraste hjørne."""
+        def __init__(s, Vn, Fs, start, cc, cr, rho, tre, Nv):
+            s.V0 = np.ascontiguousarray(Vn[Fs[:, 0]]); s.E1 = np.ascontiguousarray(Vn[Fs[:, 1]] - s.V0)
+            s.E2 = np.ascontiguousarray(Vn[Fs[:, 2]] - s.V0)
+            s.start = start; s.cc = np.ascontiguousarray(cc); s.cr = np.ascontiguousarray(cr)
+            alle = Vn[Fs].reshape(-1, 3)
             s.c = 0.5 * (alle.min(0) + alle.max(0)); s.r = float(np.linalg.norm(alle - s.c, axis=1).max()) + 1e-4
             s.senter = s.c; s.rho = np.asarray(rho, float); s.tre = tre; s.Nv = Nv
 
         def t(s, O, D):
-            n = len(O); t = np.full(n, np.inf)
+            O = np.ascontiguousarray(O, dtype=np.float64); D = np.ascontiguousarray(D, dtype=np.float64)
+            if _NUMBA:
+                return _treff(O, D, s.c, s.r, s.cc, s.cr, s.start, s.V0, s.E1, s.E2, L.EPS)
+            n = len(O); t = np.full(n, np.inf)                      # rein numpy, sein
             with np.errstate(all='ignore'):
                 oc = O - s.c; a = (D * D).sum(1); bq = (oc * D).sum(1); c = (oc * oc).sum(1) - s.r ** 2
                 m = np.flatnonzero(bq * bq - a * c >= 0)
@@ -173,24 +243,23 @@ def lag_klasse(L):
     return Kropp
 
 
-def figur(L, fil=MODELL, celle=0.012, snu=False, skiver=10):
-    """Gjev (liste med kroppar, opplysningar). Kroppen er delt i vassrette skiver, kvar med si eiga kule."""
+def figur(L, fil=MODELL, celle=0.008, snu=False, hovudhogd=HOVUDHOGD):
+    """Gjev (liste med to kroppar: hovud og torso, opplysningar)."""
     V, F = les_glb(fil)
-    P, s, zh = plasser(V, L.ZB, snu)
+    P, s, zh = plasser(V, L.ZB, snu, hovudhogd)
     Vn, Fn, Nn = forenkle(P, F, celle)
     tre = cKDTree(Vn)
     Kropp = lag_klasse(L)
     zc = Vn[Fn].mean(1)[:, 2]
-    kantar = np.linspace(zc.min(), zc.max() + 1e-9, skiver + 1)
     delar = []
-    for a, c in zip(kantar[:-1], kantar[1:]):
-        m = (zc >= a) & (zc < c)
+    for m, rho in ((zc > zh, L._HUD), (zc <= zh, L._TOY)):
         if not m.any(): continue
-        rho = L._HUD if 0.5 * (a + c) > zh else L._TOY
-        delar.append(Kropp(Vn[Fn[m, 0]], Vn[Fn[m, 1]], Vn[Fn[m, 2]], rho, tre, Nn))
+        Fs, start, cc, cr = klynger(Vn, Fn[m])
+        delar.append(Kropp(Vn, Fs, start, cc, cr, rho, tre, Nn))
     info = dict(trekantar_inn=len(F), trekantar=len(Fn), hjorne=len(Vn), skala=round(float(s), 4),
                 hogd=round(float(np.ptp(P[:, 2])), 3), breidd=round(float(np.ptp(P[:, 0])), 3), djupn=round(float(np.ptp(P[:, 1])), 3),
                 hals_over_bordet=round(float(zh - L.ZB), 3), botn_over_golvet=round(float(P[:, 2].min()), 3),
+                klynger=sum(len(d.cr) for d in delar), numba=_NUMBA,
                 modellmaal=[round(float(x), 3) for x in np.ptp(V, axis=0)])
     return delar, info
 
@@ -209,21 +278,27 @@ def byt(L, fil=MODELL, **kw):
 if __name__ == '__main__':
     try: sys.stdout.reconfigure(encoding='utf-8')
     except Exception: pass
+    import time
     sys.path.insert(0, os.path.normpath(os.path.join(HER, '..', 'konsept', 'lysskisse')))
     import lysskisse as L
-    snu = '--snu' in sys.argv
-    info = byt(L, snu=snu)
+    kw = {}
+    if '--snu' in sys.argv: kw['snu'] = True
+    if '--hovud' in sys.argv: kw['hovudhogd'] = float(sys.argv[sys.argv.index('--hovud') + 1])
+    info = byt(L, **kw)
     print(info)
     if '--prov' in sys.argv:
         from PIL import Image
+        px = 300
         lys = [L.straale(L.b(0.0, 0.25, 1.5), L.FELT, 88.0, 3000, maske=L.maske_bord(-0.3, 0.3, 0.05, 0.45, k=0.02), opning=0.03, sprut=0.0),
                L.straale(L.b(0.0, -0.2, 1.3), L.b(0.0, L.YV, 0.45), 244.0, 3000, maske=L.maske_vegg(0.0, L.ZB + 0.45, 0.75, k=0.18), opning=0.03, sprut=0.0)]
-        px = 260
+        t0 = time.time(); L.rom(); print('rom', round(time.time() - t0, 1), 's')
+        t0 = time.time()
         Image.fromarray(L.framkall(L.luminans(lys, [], px, 1), px)).save(os.path.join(HER, 'prov-bak.png'))
-        # same rom sett framanfrå og frå sida, med lys på figuren, for å sjå kvar han vender
+        print('bilete bakfrå', px, 'px', round(time.time() - t0, 1), 's')
+        # same figur sett framanfrå frå sida, med lys på han, for å sjå kvar han vender
         gammal = L.KAM
-        L.KAM = L.Kamera((0.9, 0.35, L.ZB + 0.55), (0.0, -0.25, L.ZB + 0.35), 50)
-        fram = [L.glod(L.b(0.6, 0.3, 0.6), 0.02, 600.0, 3000)]
+        L.KAM = L.Kamera((1.0, 0.35, L.ZB + 0.45), (0.0, -0.25, L.ZB + 0.25), 55)
+        fram = [L.glod(L.b(0.8, 0.5, 0.9), 0.02, 1500.0, 3000)]
         Image.fromarray(L.framkall(L.luminans(fram, [], px, 1), px)).save(os.path.join(HER, 'prov-framme.png'))
         L.KAM = gammal
         print('prøvebilete skrivne')

@@ -27,3 +27,15 @@ Same oppstilling, same skive, same watt. Berre klippet skil.
 - Økta stoppa 02.28 før generasjon 2 gav tal. `gen2/` var tom. Generasjon 2 er skriven, men aldri køyrd.
 - Røykprøve: `ring-linse` krasja fordi `from familie import *` ikkje tek med `_bokfor`. Retta i `gen2.py`. Dei andre femten byggjer geometri utan feil.
 - Generasjon 2 er den siste. Ho svarar på det opne spørsmålet frå generasjon 1 (likskap 1,00 for alle): kva rørsle gjer klippet til ein overgang.
+
+## Generasjon 2: identiteten til rørsla (`gen2.py`, tal i `gen2/`)
+
+Merk: motoren fekk eit nytt tal (lys på skjermflata, `skjerm`) kl. 10.33, mellom generasjon 1 og 2. Dei andre tala er rekna likt.
+
+- Berre to kroppar held F3 og F6 saman (vegg/felt 0,29 til 0,43): ring-vipp 0,30 og maane-drei 0,36. halv-drei går over (1,15) og treng 9,0 W, over taket på 7,5 W.
+- Vipp er den rørsla som flyttar lyset: heil-vipp har likskap 0,37, ring-vipp 0,78. Dreiing, skyving av lag og vifter blir verande dimmarar (0,88 til 0,93).
+- ring-vipp er den einaste som både har overgang og veggstrøk: stemning felt 11 lx og vegg 63 lx (lånt frå veggen), arbeid felt 394 og vegg 117, jamnheit 0,42.
+- Klipp pluss bøy (luke, lamellar) gjev overgang (0,74 og 0,64), men flika skuggar holet sitt, så veggen får for lite (vegg/felt 0,14 og 0,18).
+- Fresnelplata samlar alt til ein flekk: jamnheit 0,01. Maska av papir gjev topp 1,25 i overgangen.
+- Velta: VELT-sveip går om ansiktet, 36 282 cd/m² midt i overgangen (topp 39). Kan ikkje lagast: kuppel med strekk 31 %.
+- Val: ring-vipp, maane-drei, luke. Tre ulike handlingar (vippe, dreie, opne). Neste: familie.py med px 200 og par.

@@ -1,0 +1,4 @@
+stemning sikte h 0.45: vegg  68 felt   9 skjerm  142 auge   83 a25   43
+stemning sikte h 0.55: vegg  69 felt   8 skjerm  108 auge   78 a25   42
+stemning sikte h 0.62: vegg  64 felt   7 skjerm   78 auge   73 a25   41
+stemning sikte h 0.70: vegg  57 felt   7 skjerm   55 auge   67 a25   40

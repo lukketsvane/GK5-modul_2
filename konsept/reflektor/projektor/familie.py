@@ -4,7 +4,8 @@
   python familie.py --g1        generasjon 1: kvar i rommet verkar linsa på 285 mm (berre tal)
   python familie.py --g2        generasjon 2: kva optikk gjev eit felt på bordet frå ein kompakt kropp (berre tal)
   python familie.py --g3        generasjon 3: forma på lyset og overgangen (berre tal)
-  python familie.py --brett     siste generasjon: tal.md, tal.csv og brett med px=200
+  python familie.py --g4        generasjon 4: avgjerdssettet (berre tal), --g4-overgang gjev g4/overgang.md
+  python familie.py --brett     siste generasjon (G4): tal.md, tal.csv og brett med px=200
   python familie.py --par       par-NAMN.png for dei tre beste
   python familie.py --rekn      reknestykka åleine (tynn linse, verknadsgrad, trakt, føreseiingar)
 

@@ -1,0 +1,57 @@
+{
+ "studie": "studie-over-band-vindauge-q30.png",
+ "a": {
+  "namn": "Klype · band",
+  "flis": "flis/04.png",
+  "lys": {
+   "W350": 2.9255019805989213,
+   "jamnheit": 0.6982302553591284,
+   "bak350": 132.49152261447438,
+   "s_bak": 143.2501782542869,
+   "auge25": 316.90276848950515,
+   "auge47": 316.90276848950515,
+   "auge60": 316.90276848950515,
+   "likskap": 0.4431710754302529,
+   "sprang": 0.06570780513654617,
+   "timar": 5.161507358442691
+  },
+  "tekst": "På skjermkanten. Held alle lyskrava, og bordet er fritt.",
+  "mek": "1143 g på skjermen · knotten 65 cm unna"
+ },
+ "b": {
+  "namn": "Under · band",
+  "flis": "flis/19.png",
+  "lys": {
+   "W350": 2.9255019805989213,
+   "jamnheit": 0.6982302553591284,
+   "bak350": 132.49152261447438,
+   "s_bak": 143.2501782542869,
+   "auge25": 316.90276848950515,
+   "auge47": 316.90276848950515,
+   "auge60": 316.90276848950515,
+   "likskap": 0.4431710754302529,
+   "sprang": 0.06570780513654617,
+   "timar": 5.161507358442691
+  },
+  "tekst": "Same lys. Står sjølv på ei stålplate under skjermfoten.",
+  "mek": "2260 g · toler 7,0 N dytt · 690 cm² under skjermen"
+ },
+ "c": {
+  "namn": "Fot · knekk",
+  "flis": "flis/10.png",
+  "lys": {
+   "W350": 2.829783931276082,
+   "jamnheit": 0.29144460706227365,
+   "bak350": 122.63572576654887,
+   "s_bak": 83.07630362322837,
+   "auge25": 659.8846349685908,
+   "auge47": 147.36377209666088,
+   "auge60": 147.36377209666088,
+   "likskap": 0.7409177375666973,
+   "sprang": 0.1604289710160146,
+   "timar": 5.33609645355174
+  },
+  "tekst": "Ruta på fot med spegelrute. Held veggen, men feltet blir ujamt.",
+  "mek": "1293 g · 196 cm² · veltar ved 1,9 N · auget 660 cd/m²"
+ }
+}

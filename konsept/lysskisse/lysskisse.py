@@ -463,7 +463,7 @@ class Ark:
                 fin = lambda key: np.where(fram, framside[key], bakside[key])
                 deler.append((Fl, nl, rr, fin('rd'), fin('rs'), np.radians(fin('sigma'))))
                 inn += float(Fl.sum())
-            k.lm_ut = max(k.lm - inn, 0.0); k.mater = True
+            k.lm_ut = max(getattr(k, 'lm_ut', k.lm) - inn, 0.0); k.mater = True   # fleire ark kan dele kjelde
             s.lm_inn += inn
         s.S = len(deler)
         s.Fl, s.nl, s.rr, s.rd, s.rs, s.sg = (np.stack([d[i] for d in deler]) for i in range(6))
@@ -679,12 +679,13 @@ def tal(lys, kropp):
     rest = (bord.sum() - felt.sum()) / (bord.size - felt.size)
     Pv = R.P[kv.sl]
     mv = (np.abs(Pv[:, 0]) < 0.7) & (Pv[:, 2] > ZB + 0.08) & (Pv[:, 2] < ZB + 0.78)
+    mb = (np.abs(Pv[:, 0]) < 0.35) & (Pv[:, 2] > ZB + 0.05) & (Pv[:, 2] < ZB + 0.65)   # rett bak skjermen (F6)
     flux = (Ed @ LUM) * R.A
     lm = sum(getattr(l, 'lm_ut', l.lm) for l in lys)
     W = sum(l.lm / (LMW_KJELDE if getattr(l, 'mater', False) else LMW) for l in lys if not isinstance(l, Ark))
     d = dict(lm=lm, W=W, strekk=max([l.strekk for l in lys if isinstance(l, Ark)] + [0.0]),
              E_felt=felt.mean(), U=celler.min() / max(celler.mean(), 1e-9),
-             E_bord=rest, E_vegg=Y[kv.sl][mv].mean(),
+             E_bord=rest, E_vegg=Y[kv.sl][mv].mean(), E_bak=Y[kv.sl][mb].mean(),
              lm_bord=flux[kb.sl].sum(), lm_vegg=flux[kv.sl].sum(), lm_tak=flux[kt.sl].sum())
     d['nytte'] = d['E_felt'] * FELTAREAL / lm
     # ansikt: loddrett flate ved auget, vend mot skjermen
@@ -699,13 +700,21 @@ def tal(lys, kropp):
     d['E_skjerm'] = float(Es.mean()) + Es_ind
     d['E_skjerm_maks'] = float(Es.max()) + Es_ind
     # luminans mot auget: lampa sjølv, og lysaste romflate
-    La = 0.0
-    for l in lys:
-        if isinstance(l, Ark):
-            La = max(La, l.L_mot(AUGE, okkl_a)); continue
-        for s in l.pts:
-            if synleg(AUGE[None], s, okkl_a, l.prim)[0]:
-                La = max(La, float(l.L(nrm(AUGE - s)[None])[0]))
+    def L_fraa(punkt):
+        best = 0.0
+        for l in lys:
+            if isinstance(l, Ark):
+                best = max(best, l.L_mot(punkt, okkl_a)); continue
+            for s in l.pts:
+                if synleg(punkt[None], s, okkl_a, l.prim)[0]:
+                    best = max(best, float(l.L(nrm(punkt - s)[None])[0]))
+        return best
+    La = L_fraa(AUGE)
+    # F1 gjeld auge 25 til 60 cm over bordet: same plass, tre høgder
+    for h in (0.25, 0.60):
+        P = AUGE.copy(); P[2] = ZB + h
+        d['L_auge%d' % round(h * 100)] = L_fraa(P)
+    d['L_auge47'] = La
     dv = R.P - AUGE
     framme = (dv[:, 1] / np.linalg.norm(dv, axis=1) > 0.2) & (np.arange(len(R.P)) < kv.sl.stop)
     d['L_lampe'] = La
@@ -1058,8 +1067,11 @@ def bruk_polge(**kw):
     import polge
     return polge.byt(sys.modules[__name__], **kw)
 
-if os.environ.get('LYSSKISSE_POLGE') == '1':
-    bruk_polge()
+if os.environ.get('LYSSKISSE_POLGE', '1') != '0':     # standard frå 13.11 kl. 12: Iver vil ha mannekengen i alle rom
+    try:
+        bruk_polge()
+    except Exception as e:
+        print('mannekengen kunne ikkje lastast, brukar den gamle figuren:', e, file=sys.stderr)
 
 # ------------------------------------------------------------------ hovud
 

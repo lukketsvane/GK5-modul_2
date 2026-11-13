@@ -97,8 +97,9 @@ def _bjelke_lokal():
     hol = hol.union(L._boks(X0 + 34.0, X0 + 70.0, -EKS, -1.2, -2.0, 2.0))            # leidningen frå røyret inn til stripa
     hol = hol.union(L._syl_x(DIMMER_D + 1.0, X0 + 2.8, X0 + ENDE_V - 2.0, 0, 0))      # rom til dimmarkortet bak messingpunktet
     hol = hol.union(L._boks(X0 + ENDE_V - 2.5, XR0 + 1.0, 0.8, 3.0, -2.0, 2.0))       # leidningen frå dimmaren til stripa
-    # stoppspor i høgre endevegg: tappen på klemringen går her. Sporet dekkjer hellingsområdet
-    a0, a1 = 10.0 + VINKEL_OMRAADE[0] - 12.0, 10.0 + VINKEL_OMRAADE[1] + 12.0
+    # stoppspor i høgre endevegg: tappen på klemringen går her. Ringen står som bjelken ved 10° helling, så tappen
+    # ligg ved vinkelen (helling − 10°) i sporet. Tappen er ±11° brei, og sporet gjev 2° til før han stoppar
+    a0, a1 = VINKEL_OMRAADE[0] - 10.0 - 13.0, VINKEL_OMRAADE[1] - 10.0 + 13.0
     pk = [(-EKS + STOPP_R[0] * math.cos(math.radians(a)), -STOPP_R[0] * math.sin(math.radians(a))) for a in [a0 + (a1 - a0) * i / 16 for i in range(17)]]
     pk += [(-EKS + STOPP_R[1] * math.cos(math.radians(a)), -STOPP_R[1] * math.sin(math.radians(a))) for a in [a1 - (a1 - a0) * i / 16 for i in range(17)]]
     hol = hol.union(cq.Workplane('YZ', origin=(X1 - 4.0, 0, 0)).polyline(pk).close().extrude(4.1))

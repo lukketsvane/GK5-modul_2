@@ -89,14 +89,14 @@
  "rorsle": [
   {
    "vinkel": 0,
-   "kollisjon_mm3": 27.5,
-   "kven": "bjelke mot klemring",
+   "kollisjon_mm3": 0.0,
+   "kven": "",
    "laagaste_punkt": 242.0
   },
   {
    "vinkel": 10,
-   "kollisjon_mm3": 12.4,
-   "kven": "bjelke mot klemring",
+   "kollisjon_mm3": 0.0,
+   "kven": "",
    "laagaste_punkt": 223.1
   },
   {

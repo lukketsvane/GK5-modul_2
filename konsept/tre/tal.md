@@ -13,5 +13,7 @@
 | Stemning: feltet / skjermflata, lx | 9 / 105 | 8 / 5 | 4 / 0 |
 | Likskap stemning og arbeid (over 0,9 er dimmar) | 0,60 | 0,71 | 0,54 |
 | Lysaste mellomsteg mot auget / største sprang | 0,71 / 0,08 | 0,48 / 0,12 | 1,03 / 0,05 |
-| Feltet langs overgangen, lx | 9 · 21 · 99 · 302 · 586 | 8 · 14 · 57 · 310 · 491 | 4 · 30 · 79 · 163 · 303 |
-| Skjermflata langs overgangen, lx | 105 · 174 · 220 · 231 · 193 | 5 · 68 · 243 · 243 · 85 | 0 · 3 · 9 · 18 · 34 |
+| Feltet langs overgangen, lx (skalert til 350 lx) | 6 · 13 · 59 · 180 · 350 | 5 · 10 · 41 · 221 · 350 | 4 · 35 · 92 · 188 · 350 |
+| Skjermflata langs overgangen, lx (skalert til 350 lx)¹ | 63 · 104 · 131 · 138 · 115 | 4 · 48 · 173 · 173 · 60 | 0 · 4 · 10 · 21 · 39 |
+
+¹ Dei to radene langs overgangen er skalerte til 350 lx på feltet i arbeid, som resten av tabellen. Uskalert, ved watten i kvart steg (1,25 til 5 W), var skjermflata: A 105 · 174 · 220 · 231 · 193; B 5 · 68 · 243 · 243 · 85; C 0 · 3 · 9 · 18 · 34 lx.

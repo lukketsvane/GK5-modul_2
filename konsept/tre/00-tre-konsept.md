@@ -30,7 +30,9 @@ Same rom, same mannekeng, same watt: 1,25 W i stemning og 5 W i arbeid, skalert 
 | Stemning: skjermflata | 105 | 5 | 0 |
 | Likskap stemning og arbeid (over 0,9 er dimmar) | 0,60 | 0,71 | 0,54 |
 | Største sprang langs overgangen | 0,08 | 0,12 | 0,05 |
-| Skjermflata langs overgangen, lx | 105 · 174 · 220 · 231 · 193 | 5 · 68 · 243 · 243 · 85 | 0 · 3 · 9 · 18 · 34 |
+| Skjermflata langs overgangen, lx (skalert til 350 lx)¹ | 63 · 104 · 131 · 138 · 115 | 4 · 48 · 173 · 173 · 60 | 0 · 4 · 10 · 21 · 39 |
+
+¹ Skalert til 350 lx på feltet i arbeid, som resten av tabellen. Uskalert, ved watten i kvart steg (1,25 til 5 W), var talet A 105 · 174 · 220 · 231 · 193, B 5 · 68 · 243 · 243 · 85 og C 0 · 3 · 9 · 18 · 34 lx.
 
 Lyset på skjermflata blir samanlikna som del av feltet. Bru og krok frå formsøket i `northern-lampe/` ligg på om lag 1,2 til 1,3, prisma på 0,02.
 
@@ -53,17 +55,17 @@ Lyset på skjermflata blir samanlikna som del av feltet. Bru og krok frå forms�
 
 ## Kvar dei står
 
-**A Skiva** er den jamnaste og brukar minst straum (3,0 W). Svakheita er skjermflata: spegelskiva legg 0,33 av feltluxen på skjermen i arbeid og om lag 220 lx midt i overgangen, og auget 25 cm over bordet ser fliken med 1013 cd/m². Næraste nabo er Verner Panton Reflect, som har fast, kvit skive og ingen flik.
+**A Skiva** er den jamnaste og brukar minst straum (3,0 W). Svakheita er skjermflata: spegelskiva legg 0,33 av feltluxen på skjermen i arbeid og 131 lx midt i overgangen, og auget 25 cm over bordet ser fliken med 1013 cd/m². Næraste nabo er Verner Panton Reflect, som har fast, kvit skive og ingen flik.
 
-**B Over** held stemninga av skjermen (5 lx), som C (0 lx). A legg 105 lx på skjermflata i stemning. Svakheita er jamnheita (0,41) og at strålen sveipar over skjermen midt i vippen (243 lx). Det låge auget ser 1124 cd/m², under F5. Næraste nabo er BenQ ScreenBar Halo.
+**B Over** held stemninga av skjermen (5 lx), som C (0 lx). A legg 105 lx på skjermflata i stemning (ved 1,25 W). Svakheita er jamnheita (0,41) og at strålen sveipar over skjermen midt i vippen (173 lx). Det låge auget ser 1124 cd/m², under F5. Næraste nabo er BenQ ScreenBar Halo.
 
-**C Vindauge** er den reinaste: lite lys på skjermen langs heile overgangen (høgst 34 lx), låg luminans mot auget i alle høgder, og vindauget på veggen står i ro. Svakheita er watten (5,8 W, 2,6 timar per celle) og hovudet 70 cm over bordet. Ingen kjend lampe deler strålen slik.
+**C Vindauge** er den reinaste: lite lys på skjermen langs heile overgangen (høgst 39 lx), låg luminans mot auget i alle høgder, og vindauget på veggen står i ro. Svakheita er watten (5,8 W, 2,6 timar per celle) og hovudet 70 cm over bordet. Ingen kjend lampe deler strålen slik.
 
 ## Det etterprøvinga i runde 1 fann
 
 1. **Lobebreidda avgjer F1.** Sjå over.
 2. **Vippe og skjere er overgang. Skyve, dreie og dimme er dimmar** (likskap 0,8 til 0,99).
-3. **Å flytte strålen frå vegg til felt sveipar over skjermen** (500 til 2700 lx på skjermflata midt i overgangen). Å dele strålen gjer det ikkje. C deler, A og B flyttar.
+3. **Å flytte strålen frå vegg til felt sveipar over skjermen** (500 til 2700 lx på skjermflata midt i overgangen, ved 5 W i overgangsfamilien). Å dele strålen gjer det ikkje. C deler, A og B flyttar.
 4. **Veggen bak skjermen kostar like mykje lys som feltet.** Lyset landar dessutan lett ved sida av skjermen, ikkje bak han.
 5. **Mjuk fald er gratis.** Éin eller to faldar med radius 40 til 80 mm kostar 2 til 7 % watt.
 6. **Linsa på 285 mm høyrer heime frå 1,1 m kast.** Kondensoren, ikkje linsa, avgjer verknadsgraden.

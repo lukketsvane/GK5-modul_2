@@ -36,14 +36,14 @@ def x3(pid, *k):
 
 
 ETIKETT = {
-    'samla': ['<b>Projektoren samla</b>', 'rekonstruksjon frå delane', 'ikkje målt'],
+    'samla': ['<b>Projektoren samla</b>', 'rekonstruksjon frå delane', 'ikkje målt', '<b>åtvaringane ved P04 til P07 gjeld òg her</b>'],
     'P01': ['<b>P01 arm</b>', x3('P01', 'profil_lengd', 'profil_breidd', 'profil_tjukk'),
             f"inntil ± {tal(pm('P01', 'profil_lengd', 'profil_breidd', 'profil_tjukk'))}"],
     'P02': ['<b>P02 hengsel</b>', x3('P02', 'lengd', 'breidd', 'hogd'), f"inntil ± {tal(pm('P02', 'lengd', 'breidd', 'hogd'))}"],
     'P03': ['<b>P03 hovud</b>', x3('P03', 'lengd', 'breidd', 'hogd'), f"inntil ± {tal(pm('P03', 'lengd', 'breidd', 'hogd'))}",
             f"vifte {tal(m('P03', 'vifte'))}, typeskilt"],
     'P04': ['<b>P04 base</b>', x3('P04', 'lengd', 'breidd', 'hogd'), f"inntil ± {tal(pm('P04', 'lengd', 'breidd', 'hogd'))}",
-            '<b>230 V: aldri kople til</b>'],
+            '<b>230 V: aldri kople til</b>', '<b>aldri i ein skissemodell</b>'],
     'P05': ['<b>P05 fresnelspegel</b>', f"vindauge {tal(m('P05', 'vindauge'))} · f {tal(round(m('P05', 'brennvidd')))}", 'deleliste',
             '<b>aldri i sol</b>'],
     'P06': ['<b>P06 glaslinse</b>', f"Ø {x3('P06', 'd', 'hogd')}", f"inntil ± {tal(pm('P06', 'd', 'hogd'))}", '<b>aldri i sol</b>'],

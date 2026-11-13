@@ -531,7 +531,7 @@ def s_prismeark(W, H):
     g.append(t(kx + 3, ly - 8, 'S', 'mono svart'))
     g.append(maallinje(lx, ly + 20, ax, ly + 20, '30 cm'))
     g.append(maallinje(ax, ly + 20, kx, ly + 20, '30 cm'))
-    steg = [('P1  HOL OG KORT, AVGJER MEST', 'mono svart'),
+    steg = [('P1  HOL OG KORT (AVGJER MEST)', 'mono svart'),
             ('1  Lykta 30 cm bak holet, rett mot det. Kortet 30 cm framfor, parallelt med arket.', 'brod'),
             ('2  Prøv begge sider mot lykta. Sida som gjev to flekkar, er prismesida.', 'brod'),
             ('3  Skriv ned tal flekkar, avstanden S mellom sentra, lyset midt mellom, ytste farge', 'brod'),
@@ -546,7 +546,8 @@ def s_prismeark(W, H):
             ('     ned frå 40 cm. Drei telefonen sakte ein halv runde: lysast mot mørkast?', 'brod'),
             ('MÅL OG FOTO', 'mono svart'),
             ('7  Lengd og breidd med målband. Kjenn med neglen kva side som er rilla.', 'brod'),
-            ('8  Foto av kortet med låst eksponering for kvart oppsett.', 'brod')]
+            ('8  Lux-appen midt på kortet i P1: utan ark, og med prismesida mot lykta.', 'brod'),
+            ('9  Foto av kortet med låst eksponering for kvart oppsett.', 'brod')]
     y = 100
     for s, kl in steg:
         if kl.startswith('mono') and y > 100:
@@ -561,7 +562,7 @@ def s_prismeark(W, H):
              'Rillene går:  langs  /  på tvers av langsida',
              'P1 prismesida:  tal flekkar ____    S ______ cm',
              '     lys midt:  ingen  /  svakt  /  tydeleg    kant ____ mm',
-             '     ytst farge ____________',
+             '     ytste farge ____________',
              'P1 flatsida:  kva er att på kortet?',
              'P2 x:  til venstre ______ cm    til høgre ______ cm',
              'P3 lysast : mørkast  ______ : 1',

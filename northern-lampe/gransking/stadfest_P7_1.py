@@ -154,7 +154,7 @@ def celle(Qa, Qb, w, ga, gb, h):
 TX, TY = np.linspace(-0.30, 0.30, 7), np.linspace(0.05, 0.40, 5)
 WX, WZ = np.linspace(-0.70, 0.70, 8), np.linspace(0.05, 1.20, 6)
 DX, DY = np.linspace(-0.68, 0.68, 8), np.linspace(0.02, 0.73, 5)
-N = 3_000_000
+N = 2_000_000
 for modus in ('2D', '3D'):
     rng = np.random.default_rng(7)
     P, V, w = spor(N, modus == '3D', rng)

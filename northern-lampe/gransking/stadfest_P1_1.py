@@ -76,8 +76,10 @@ def spor(C, N=400_000, w=0.0, d3=True, usynleg=False, seed=1):
     s5 = s0 + ZC * d[:, 1] / np.maximum(d[:, 2], 1e-12)
     ok &= np.abs(s5) < CW                                  # renna
     st_ = s0 + D * d[:, 1] / np.maximum(d[:, 2], 1e-12)
-    ok &= np.abs(st_) <= BP / 2                            # treffer plata
     samla = ok.mean()
+    forbi = ok & (np.abs(st_) > BP / 2)                    # forbi platekanten (går ned utan plate)
+    th_f = np.arctan2(d[forbi, 1], d[forbi, 2])
+    ok &= np.abs(st_) <= BP / 2                            # treffer plata
     idx = np.where(ok)[0]
     d = d[idx]; st_ = st_[idx]
     # overside
@@ -101,8 +103,6 @@ def spor(C, N=400_000, w=0.0, d3=True, usynleg=False, seed=1):
         for off in (-2, -1, 0, 1, 2):
             cc = np.clip(ca + off, 0, C['K'] - 1)
             for typ, (A, B) in (('r', (C['R0'], C['R1'])), ('f', (C['F0'], C['F1']))):
-                if typ == 'r' and usynleg:
-                    continue
                 Ax, Az = A[cc, 0], A[cc, 1]; ex, ez = B[cc, 0] - Ax, B[cc, 1] - Az
                 ln = np.hypot(ex, ez)
                 den = da[:, 1] * ez - da[:, 2] * ex
@@ -116,13 +116,29 @@ def spor(C, N=400_000, w=0.0, d3=True, usynleg=False, seed=1):
                 bnorm = np.where(hit[:, None], nn, bnorm)
                 briser = np.where(hit, typ == 'r', briser)
                 bcell = np.where(hit, cc, bcell)
-        # innanfrå og på veg opp mot z = ZB: attende i plata
+        # innanfrå og på veg opp mot z = ZB: inn i plata, til oversida (Fresnel/TIR), ned att til ZB (lysleiar)
         ia = inne[a]
         with np.errstate(divide='ignore', invalid='ignore'):
             tc = np.where(ia & (da[:, 2] < 0), (ZB - za) / da[:, 2], np.inf)
         opp = ia & (tc < best) & (tc > 0)
+        if opp.any():
+            ao = a[opp]; do = da[opp]
+            so = sa[opp] + ((D - za[opp]) / do[:, 2]) * do[:, 1]
+            kant = np.abs(so) > BP / 2
+            Nt = np.tile([0, 0, 1.0], (len(ao), 1))
+            dn, brote = fresnel_brot(do, Nt, n, 1.0, rng)
+            gaar_ut = brote | kant
+            kode[ao[gaar_ut]] = 2; ferdig[ao[gaar_ut]] = True
+            bl = ~gaar_ut
+            if bl.any():
+                ab = ao[bl]; db = dn[bl]
+                sn = so[bl] + (ZB - D) / db[:, 2] * db[:, 1]
+                ute = np.abs(sn) > BP / 2
+                kode[ab[ute]] = 2; ferdig[ab[ute]] = True
+                ab = ab[~ute]; db = db[~ute]; sn = sn[~ute]
+                s[ab] = sn; z[ab] = ZB - 1e-7; d[ab] = db
+                cell[ab] = np.clip(np.floor((sn + BP / 2) / P).astype(int), 0, C['K'] - 1)
         ingen = ~np.isfinite(best) & ~opp
-        kode[a[opp]] = 2; ferdig[a[opp]] = True
         luft_ut = ingen & ~ia
         kode[a[luft_ut]] = 1; ferdig[a[luft_ut]] = True
         feil = ingen & ia
@@ -144,7 +160,10 @@ def spor(C, N=400_000, w=0.0, d3=True, usynleg=False, seed=1):
             if mm.any():
                 dn[mm], brote[mm] = fresnel_brot(dg[mm], N3[mm], v1, v2, rng)
         d[ag] = dn
+        vart_luft = brote & inne[ag]
         inne[ag] = np.where(brote, ~inne[ag], inne[ag])
+        if usynleg:
+            kode[ag[vart_luft]] = 1; ferdig[ag[vart_luft]] = True
     kode[~ferdig] = 3
     ut = kode == 1
     th = np.arctan2(d[:, 1], d[:, 2])
@@ -152,7 +171,8 @@ def spor(C, N=400_000, w=0.0, d3=True, usynleg=False, seed=1):
     iv = ned & (th >= TH1 - math.radians(0.5)) & (th <= TH2 + math.radians(0.5))
     W = 1.0 / N
     thd = np.degrees(th[ned])
-    return dict(samla=float(samla), eta_ned=float(ned.sum() * W), i_vifta=float(iv.sum() * W), utanfor=float((ned & ~iv).sum() * W),
+    fv = (th_f >= TH1 - math.radians(0.5)) & (th_f <= TH2 + math.radians(0.5))
+    return dict(samla=float(samla), forbi_kanten=float(len(th_f) * W), eta_ned=float(ned.sum() * W), i_vifta=float(iv.sum() * W), utanfor=float((ned & ~iv).sum() * W),
                 ned_traff_stigevegg=float((ned & traff).sum() / max(ned.sum(), 1)),
                 stigevegg_i_vifta=float((iv & traff).sum() * W), stigevegg_utanfor=float((ned & ~iv & traff).sum() * W),
                 kvantil_2_5_97_5=[float(np.percentile(thd, 2.5)), float(np.percentile(thd, 97.5))],

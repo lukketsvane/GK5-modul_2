@@ -16,3 +16,66 @@ ring-vipp
   strekk 0.0000  L_spegl 0  skjermflata 50 (maks 115)  lm ut 439  lm tak 1  lm vegg 137
   t=0 vegg: sona 63  bak skjermen 72  ramme rundt 55  venstre 24  hogre 102  topp 530 lx ved x 0.45, 63 cm over bordet
        geo: ark ymax 0.520  xmin 0.402  kjelde [0.458, 0.147, 0.773]  fanga 0.49  over 100 %: False  fliser spegla i skjermen 0
+  t=1 vegg: sona 117  bak skjermen 31  ramme rundt 71  venstre 11  hogre 224  topp 2125 lx ved x 0.45, 63 cm over bordet
+       geo: ark ymax 0.506  xmin 0.360  kjelde [0.458, 0.147, 0.773]  fanga 0.61  over 100 %: False  fliser spegla i skjermen 0
+  auge 25 cm: mot auget [169, 261, 392, 1354, 5439]  (maks 5439, arbeid 5439, stemning 169)  ark spegla i skjermen (t 0, 0,5, 1): [0, 0, 0]
+  auge 60 cm: mot auget [169, 261, 392, 560, 779]  (maks 779, arbeid 779, stemning 169)  ark spegla i skjermen (t 0, 0,5, 1): [0, 0, 0]
+  tid 10 s
+======================================================================
+maane-drei
+  W350      funn     4.60  ny     4.60  avvik   0.1 %
+  felt      funn   381.00  ny   380.73  avvik   0.1 %
+  jamnheit  funn     0.21  ny     0.21  avvik   2.1 %
+  auge      funn   940.00  ny   940.20  avvik   0.0 %
+  vegg      funn   138.00  ny   138.22  avvik   0.2 %
+  ansikt    funn    55.00  ny    55.04  avvik   0.1 %
+  s_auge    funn   171.00  ny   170.86  avvik   0.1 %
+  s_vegg    funn    56.00  ny    55.93  avvik   0.1 %
+  s_felt    funn    58.00  ny    58.38  avvik   0.7 %
+  likskap   funn     0.90  ny     0.90  avvik   0.0 %
+  topp      funn     0.67  ny     0.67  avvik   0.3 %
+  sprang    funn     0.02  ny     0.02  avvik  18.0 %
+  overgang auge [171, 238, 387, 628, 940] felt [58, 76, 123, 225, 381] vegg [56, 74, 92, 120, 138]
+  strekk 0.0000  L_spegl 0  skjermflata 44 (maks 94)  lm ut 448  lm tak 1  lm vegg 167
+  t=0 vegg: sona 56  bak skjermen 4  ramme rundt 46  venstre 2  hogre 110  topp 648 lx ved x 0.55, 53 cm over bordet
+       geo: ark ymax 0.506  xmin 0.360  kjelde [0.457, 0.148, 0.773]  fanga 0.32  over 100 %: False  fliser spegla i skjermen 0
+  t=1 vegg: sona 138  bak skjermen 40  ramme rundt 79  venstre 12  hogre 265  topp 1976 lx ved x 0.55, 63 cm over bordet
+       geo: ark ymax 0.505  xmin 0.359  kjelde [0.457, 0.148, 0.773]  fanga 0.52  over 100 %: False  fliser spegla i skjermen 0
+  auge 25 cm: mot auget [367, 521, 736, 783, 942]  (maks 942, arbeid 942, stemning 367)  ark spegla i skjermen (t 0, 0,5, 1): [0, 0, 0]
+  auge 60 cm: mot auget [171, 238, 387, 628, 940]  (maks 940, arbeid 940, stemning 171)  ark spegla i skjermen (t 0, 0,5, 1): [0, 0, 0]
+  tid 17 s
+======================================================================
+luke
+  W350      funn     4.24  ny     4.24  avvik   0.0 %
+  felt      funn   413.00  ny   412.90  avvik   0.0 %
+  jamnheit  funn     0.38  ny     0.38  avvik   0.2 %
+  auge      funn  1047.00  ny  1046.67  avvik   0.0 %
+  vegg      funn    59.00  ny    58.54  avvik   0.8 %
+  ansikt    funn    55.00  ny    54.54  avvik   0.8 %
+  s_auge    funn   191.00  ny   191.42  avvik   0.2 %
+  s_vegg    funn    31.00  ny    31.27  avvik   0.9 %
+  s_felt    funn    89.00  ny    88.53  avvik   0.5 %
+  likskap   funn     0.74  ny     0.74  avvik   0.0 %
+  topp      funn     0.52  ny     0.52  avvik   0.5 %
+  sprang    funn     0.10  ny     0.10  avvik   4.8 %
+  overgang auge [191, 271, 383, 541, 1047] felt [89, 127, 180, 256, 413] vegg [31, 45, 55, 43, 59]
+  strekk 0.0000  L_spegl 0  skjermflata 56 (maks 146)  lm ut 407  lm tak 1  lm vegg 63
+  t=0 vegg: sona 31  bak skjermen 8  ramme rundt 19  venstre 3  hogre 60  topp 531 lx ved x 0.45, 63 cm over bordet
+       geo: ark ymax 0.506  xmin 0.360  kjelde [0.458, 0.147, 0.773]  fanga 0.64  over 100 %: False  fliser spegla i skjermen 0
+  t=1 vegg: sona 59  bak skjermen 56  ramme rundt 73  venstre 14  hogre 103  topp 763 lx ved x 0.35, 43 cm over bordet
+       geo: ark ymax 0.506  xmin 0.360  kjelde [0.458, 0.147, 0.773]  fanga 0.93  over 100 %: False  fliser spegla i skjermen 0
+  auge 25 cm: mot auget [1360, 1923, 2719, 3846, 5439]  (maks 5439, arbeid 5439, stemning 1360)  ark spegla i skjermen (t 0, 0,5, 1): [0, 0, 0]
+  auge 60 cm: mot auget [191, 271, 383, 541, 765]  (maks 765, arbeid 765, stemning 191)  ark spegla i skjermen (t 0, 0,5, 1): [0, 0, 0]
+  tid 68 s
+======================================================================
+SATIN som antaking (arbeid t 1 og stemning t 0)
+  sigma6   ring-vipp   W350 3.99 felt  438 U 0.44 vegg  118 v/f 0.27 auge   779 | stemn auge  169 felt  11 vegg  65 | lik 0.75
+  sigma6   maane-drei  W350 4.08 felt  428 U 0.08 vegg  138 v/f 0.32 auge   940 | stemn auge  171 felt  68 vegg  56 | lik 0.90
+  sigma6   luke        W350 3.96 felt  441 U 0.37 vegg   59 v/f 0.13 auge  1047 | stemn auge  191 felt  98 vegg  31 | lik 0.73
+  sigma14  ring-vipp   W350 5.10 felt  343 U 0.38 vegg  118 v/f 0.34 auge  1195 | stemn auge  169 felt  11 vegg  60 | lik 0.81
+  sigma14  maane-drei  W350 5.41 felt  324 U 0.26 vegg  139 v/f 0.43 auge   946 | stemn auge  190 felt  50 vegg  56 | lik 0.90
+  sigma14  luke        W350 4.63 felt  378 U 0.33 vegg   59 v/f 0.16 auge  1195 | stemn auge  299 felt  77 vegg  32 | lik 0.75
+  rd0.3    ring-vipp   W350 4.18 felt  419 U 0.41 vegg  120 v/f 0.29 auge  1559 | stemn auge  338 felt  16 vegg  65 | lik 0.78
+  rd0.3    maane-drei  W350 4.36 felt  401 U 0.23 vegg  141 v/f 0.35 auge  1880 | stemn auge  342 felt  62 vegg  56 | lik 0.90
+  rd0.3    luke        W350 3.89 felt  450 U 0.37 vegg   63 v/f 0.14 auge  2093 | stemn auge  383 felt  94 vegg  32 | lik 0.79
+tid totalt 89 s

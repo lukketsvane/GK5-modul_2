@@ -1,0 +1,558 @@
+{
+ "P": [
+  {
+   "fil": "konsept.md",
+   "pastand": "batteri (a) t = 0,9·21,6/P",
+   "tekst": 1.5,
+   "data": 1.5487,
+   "ok": true
+  },
+  {
+   "fil": "konsept.md",
+   "pastand": "batteri (b) t",
+   "tekst": 1.5,
+   "data": 1.4825,
+   "ok": true
+  },
+  {
+   "fil": "konsept.md",
+   "pastand": "batteri (c) t",
+   "tekst": 4.5,
+   "data": 4.4923,
+   "ok": true
+  },
+  {
+   "fil": "konsept.md",
+   "pastand": "(c) ein tredjedel av lyset: Φc/Φa",
+   "tekst": 0.3333333333333333,
+   "data": 0.3447,
+   "ok": true
+  },
+  {
+   "fil": "form04/logg.md",
+   "pastand": "«trefjerdedelar mindre lys»: 1 − Φc/Φa",
+   "tekst": 0.75,
+   "data": 0.6553,
+   "ok": false
+  },
+  {
+   "fil": "form04/logg.md",
+   "pastand": "«trefjerdedelar mindre lys»: 1 − Φc/Φb",
+   "tekst": 0.75,
+   "data": 0.67,
+   "ok": false
+  },
+  {
+   "fil": "konsept.md",
+   "pastand": "(c) tipp utan skjerm",
+   "tekst": 22,
+   "data": 22.0953,
+   "ok": true
+  },
+  {
+   "fil": "konsept.md",
+   "pastand": "(c) tipp i tal.csv (med skjerm 4 kg)",
+   "tekst": 22,
+   "data": 26.6484,
+   "ok": false
+  },
+  {
+   "fil": "konsept.md",
+   "pastand": "(a) tipp 2,9 N i grephøgd",
+   "tekst": 2.9,
+   "data": 2.9566,
+   "ok": true
+  },
+  {
+   "fil": "konsept.md",
+   "pastand": "tett gitter (a) Φ −5 %",
+   "tekst": -0.05,
+   "data": -0.0456,
+   "ok": true
+  },
+  {
+   "fil": "konsept.md",
+   "pastand": "tett gitter (a) U0 0,72",
+   "tekst": 0.72,
+   "data": 0.7228,
+   "ok": true
+  },
+  {
+   "fil": "konsept.md",
+   "pastand": "(a) skjerm 611 lx",
+   "tekst": 611,
+   "data": 610.649,
+   "ok": true
+  },
+  {
+   "fil": "konsept.md",
+   "pastand": "(b) skjerm 652 lx",
+   "tekst": 652,
+   "data": 651.5291,
+   "ok": true
+  },
+  {
+   "fil": "konsept.md",
+   "pastand": "(c) skjerm 9 lx",
+   "tekst": 9,
+   "data": 8.7837,
+   "ok": true
+  },
+  {
+   "fil": "konsept.md",
+   "pastand": "(b) Ø23 ut av planet 2,3 mm",
+   "tekst": 2.3,
+   "data": 2.3393,
+   "ok": true
+  },
+  {
+   "fil": "konsept.md",
+   "pastand": "(b) Ø25 1,8 mm",
+   "tekst": 1.8,
+   "data": 1.7928,
+   "ok": true
+  },
+  {
+   "fil": "konsept.md",
+   "pastand": "(b) klemme 500 N",
+   "tekst": 500,
+   "data": 497.97,
+   "ok": true
+  },
+  {
+   "fil": "konsept.md",
+   "pastand": "(b) klemme SF 2 1000 N",
+   "tekst": 1000,
+   "data": 995.94,
+   "ok": true
+  },
+  {
+   "fil": "form02/val.md",
+   "pastand": "(a)→(b) 4 % meir lys",
+   "tekst": 0.04,
+   "data": 0.0447,
+   "ok": false
+  },
+  {
+   "fil": "form02/val.md",
+   "pastand": "(a)→(b) 0,25 kg lettare",
+   "tekst": 0.25,
+   "data": 0.2444,
+   "ok": true
+  },
+  {
+   "fil": "form02/val.md",
+   "pastand": "(a)→(c gamal) 16 % mindre lys",
+   "tekst": 0.16,
+   "data": 0.1605,
+   "ok": true
+  },
+  {
+   "fil": "form02/val.md",
+   "pastand": "(a)→(c gamal) «1,4 cm² mindre kjølekrav»",
+   "tekst": 1.4,
+   "data": 67.1379,
+   "ok": false
+  },
+  {
+   "fil": "form02/val.md",
+   "pastand": "platearm 1,7 mm ved spissen",
+   "tekst": 1.7,
+   "data": 2.7142,
+   "ok": false
+  },
+  {
+   "fil": "form02/val.md",
+   "pastand": "platearm 18 mm ved klemma",
+   "tekst": 18,
+   "data": 17.7312,
+   "ok": true
+  },
+  {
+   "fil": "form02/val.md",
+   "pastand": "arm 6° over augehøgd (minste, utan stigaren)",
+   "tekst": 6,
+   "data": 6.2174,
+   "ok": true
+  },
+  {
+   "fil": "form01/logg.md",
+   "pastand": "kjøl/krav 492 cm²",
+   "tekst": 492,
+   "data": 433.2549,
+   "ok": false
+  },
+  {
+   "fil": "form01/logg.md",
+   "pastand": "krav ved 1476 lm (før endeskiver): 1476/100/300 m²",
+   "tekst": 492,
+   "data": 492.0,
+   "ok": true
+  },
+  {
+   "fil": "form01/logg.md",
+   "pastand": "fotavtrykk 0,46 m²",
+   "tekst": 0.46,
+   "data": 0.4608,
+   "ok": true
+  },
+  {
+   "fil": "form04/logg.md",
+   "pastand": "6 av 20 punkt held",
+   "tekst": 6,
+   "data": 6.0,
+   "ok": true
+  },
+  {
+   "fil": "form04/logg.md",
+   "pastand": "akse 33 mm under LED",
+   "tekst": 33,
+   "data": 32.9678,
+   "ok": true
+  },
+  {
+   "fil": "form04/logg.md",
+   "pastand": "innfall aldri over 31°",
+   "tekst": 31,
+   "data": 30.6147,
+   "ok": true
+  },
+  {
+   "fil": "form04/logg.md",
+   "pastand": "pendel 0,22 N·m = m_plate·g·d",
+   "tekst": 0.22,
+   "data": 0.2242,
+   "ok": true
+  },
+  {
+   "fil": "form04/logg.md",
+   "pastand": "gestkraft første versjon 5,3 N = (0,20+0,22)/0,08",
+   "tekst": 5.3,
+   "data": 5.302,
+   "ok": true
+  },
+  {
+   "fil": "form04/motor.py FINAL",
+   "pastand": "vald ys 0,22 zs 0,70 er minste Φ blant ok-punkta?",
+   "tekst": 432.7,
+   "data": 415.3,
+   "ok": false,
+   "merk": "minst: ys 0.18 zs 0.66"
+  }
+ ],
+ "L": {
+  "a_lamb": {
+   "Phi": 1245.3736625972797,
+   "U0": 0.7525718843902949,
+   "E_skjerm": 614.8519613042674,
+   "E_skjerm_maks": 1141.1508467798803,
+   "E_bak_skjerm": 220.06687846222223,
+   "E_bak_min": 0.0
+  },
+  "b_lamb": {
+   "Phi": 1309.84573908863,
+   "U0": 0.6724215899493767,
+   "E_skjerm": 652.6404849800772,
+   "E_skjerm_maks": 1406.193650329322,
+   "E_bak_skjerm": 318.3044350540743,
+   "E_bak_min": 0.0
+  },
+  "c_vifte": {
+   "Phi": 432.57264700657186,
+   "U0": 0.6885513777533012,
+   "E_skjerm": 7.674980895416363,
+   "E_skjerm_maks": 36.021011710086825,
+   "E_bak_skjerm": 1.889547889727217e-09,
+   "E_bak_min": 1.8291498816419707e-70
+  },
+  "a_vifte": {
+   "Phi": 396.889216488539,
+   "U0": 0.6674765561180392,
+   "E_skjerm": 3.6654862144647904,
+   "E_skjerm_maks": 25.686609463109022,
+   "E_bak_skjerm": 1.8177449892100477e-11,
+   "E_bak_min": 0.0
+  },
+  "a_vifte_eta_hulrom": {
+   "Phi": 511.7998385874791,
+   "U0": 0.667476556118039,
+   "E_skjerm": 3.665486214464789,
+   "E_skjerm_maks": 25.68660946310901,
+   "E_bak_skjerm": 1.817744989210047e-11,
+   "E_bak_min": 0.0
+  },
+  "b_vifte": {
+   "Phi": 398.82466323604166,
+   "U0": 0.6844953081076748,
+   "E_skjerm": 5.064568532870418,
+   "E_skjerm_maks": 28.668776361991092,
+   "E_bak_skjerm": 1.7348284581457838e-12,
+   "E_bak_min": 0.0
+  },
+  "c_lamb": {
+   "Phi": 1659.7329139265976,
+   "U0": 0.731235875329442,
+   "E_skjerm": 548.5514124779629,
+   "E_skjerm_maks": 1137.982527376178,
+   "E_bak_skjerm": 452.39274075108415,
+   "E_bak_min": 237.1800392856361,
+   "psi": -26
+  },
+  "stemning": {
+   "a": {
+    "R": 0.8883313318170338,
+    "Ev25_8x6": 59.971989954356324,
+    "Ev25_fin": 71.91484491112448,
+    "lm_25": 311.3434156493199,
+    "lm_10cd": 181.34673743763724,
+    "W_10cd": 1.8134673743763725
+   },
+   "b": {
+    "R": 0.9261358539195024,
+    "Ev25_8x6": 67.8092927677999,
+    "Ev25_fin": 85.64873586412007,
+    "lm_25": 327.4614347721575,
+    "lm_10cd": 160.15032055990088,
+    "W_10cd": 1.6015032055990088
+   },
+   "c": {
+    "R": 1.0,
+    "Ev25_8x6": 40.100998915416646,
+    "Ev25_fin": 42.77674723343563,
+    "lm_25": 108.14316175164296,
+    "lm_10cd": 105.89608746731497,
+    "W_10cd": 1.0589608746731498
+   }
+  },
+  "stemning_c_alfa": {
+   "-105": {
+    "R": 1.0,
+    "Ev25_8x6": 40.100998915416646,
+    "Ev25_fin": 42.77674723343563,
+    "lm_25": 108.14316175164296,
+    "lm_10cd": 105.89608746731497,
+    "W_10cd": 1.0589608746731498
+   },
+   "-60": {
+    "R": 0.9980213524139004,
+    "Ev25_8x6": 35.22610047209422,
+    "Ev25_fin": 41.06318722161206,
+    "lm_25": 108.14316175164296,
+    "lm_10cd": 110.31511368447762,
+    "W_10cd": 1.1031511368447762
+   },
+   "-50": {
+    "R": 0.9009849499212313,
+    "Ev25_8x6": 20.24380805056699,
+    "Ev25_fin": 33.622436453457844,
+    "lm_25": 108.14316175164296,
+    "lm_10cd": 134.7281947538116,
+    "W_10cd": 1.3472819475381161
+   }
+  },
+  "synleg_under_z": {
+   "a": 0.42400000000000004,
+   "b": 0.3985
+  }
+ },
+ "S": {
+  "skjerm_deg2": 912.54,
+  "sone": "|az| ≤ 20.1°, el -2.3° til 15°",
+  "a": {
+   "midt": {
+    "sone_lys_deg2": 0.0,
+    "sone_bering_deg2": 0.0,
+    "sone_alt_deg2": 0.0,
+    "heile_deg2": 633.3095442573695,
+    "lagaste_el_over_skjerm": 16.050000000000004,
+    "lys_lagaste_el": 11.350000000000001
+   },
+   "venstre": {
+    "sone_lys_deg2": 0.0,
+    "sone_bering_deg2": 0.0,
+    "sone_alt_deg2": 0.0,
+    "heile_deg2": 624.3419077087985,
+    "lagaste_el_over_skjerm": 16.050000000000004,
+    "lys_lagaste_el": 9.75
+   },
+   "hogre": {
+    "sone_lys_deg2": 0.0,
+    "sone_bering_deg2": 0.0,
+    "sone_alt_deg2": 0.0,
+    "heile_deg2": 640.1447685132547,
+    "lagaste_el_over_skjerm": 16.050000000000004,
+    "lys_lagaste_el": 9.75
+   }
+  },
+  "b": {
+   "midt": {
+    "sone_lys_deg2": 12.86,
+    "sone_bering_deg2": 25.8,
+    "sone_alt_deg2": 38.620000000000005,
+    "heile_deg2": 300.67152686160574,
+    "lagaste_el_over_skjerm": -2.25,
+    "lys_lagaste_el": 13.050000000000004
+   },
+   "venstre": {
+    "sone_lys_deg2": 11.380000000000003,
+    "sone_bering_deg2": 30.210000000000004,
+    "sone_alt_deg2": 37.760000000000005,
+    "heile_deg2": 284.2700046547769,
+    "lagaste_el_over_skjerm": -2.25,
+    "lys_lagaste_el": 11.550000000000004
+   },
+   "hogre": {
+    "sone_lys_deg2": 11.370000000000001,
+    "sone_bering_deg2": 35.17000000000001,
+    "sone_alt_deg2": 40.84,
+    "heile_deg2": 291.9864290666992,
+    "lagaste_el_over_skjerm": -2.25,
+    "lys_lagaste_el": 11.550000000000004
+   }
+  },
+  "c": {
+   "midt": {
+    "sone_lys_deg2": 0.0,
+    "sone_bering_deg2": 122.81000000000002,
+    "sone_alt_deg2": 122.81000000000002,
+    "heile_deg2": 649.7794727094582,
+    "lagaste_el_over_skjerm": -2.25,
+    "lys_lagaste_el": 16.35
+   },
+   "venstre": {
+    "sone_lys_deg2": 0.0,
+    "sone_bering_deg2": 126.2,
+    "sone_alt_deg2": 126.2,
+    "heile_deg2": 629.1422309139307,
+    "lagaste_el_over_skjerm": -2.25,
+    "lys_lagaste_el": 14.75
+   },
+   "hogre": {
+    "sone_lys_deg2": 0.0,
+    "sone_bering_deg2": 126.2,
+    "sone_alt_deg2": 126.2,
+    "heile_deg2": 629.1422309139307,
+    "lagaste_el_over_skjerm": -2.25,
+    "lys_lagaste_el": 14.75
+   }
+  }
+ },
+ "V": {
+  "LED-aksen (teikna og rekna)": {
+   "kollisjon_fra_bakover": -51,
+   "kollisjon_fra_fram": null,
+   "el_min_arbeid": 18.176732235803332,
+   "el_min_stem": 17.48398451886087,
+   "el_min_ansikt": 17.48094751380388,
+   "el_min_sveip": 16.103044359393223
+  },
+  "tyngdepunktet 33 mm under (logg.md)": {
+   "kollisjon_fra_bakover": -63,
+   "kollisjon_fra_fram": 94,
+   "el_min_arbeid": 18.176732235803332,
+   "el_min_stem": 14.513888207114851,
+   "el_min_ansikt": 14.334984828894036,
+   "el_min_sveip": 14.243230584856045
+  }
+ },
+ "M": {
+  "open U 100×30×2": {
+   "J_m4": 4.266666666666667e-10,
+   "arm_mm": 5.538234115850538,
+   "soyle_mm": 7.847264954524247,
+   "sum_mm": 13.385499070374784
+  },
+  "lukka boks 100×30×2": {
+   "J_m4": 2.543925669291338e-07,
+   "arm_mm": 0.009288714359676313,
+   "soyle_mm": 0.01316141592112521,
+   "sum_mm": 0.022450130280801523
+  },
+  "F_g_N": 2.5,
+  "Fy_N": 1.3249973500079502,
+  "Fz_N": 2.11999576001272,
+  "motor_svikt_mm": 0.194
+ },
+ "K": {
+  "a": {
+   "Phi": 1255.2431069289078,
+   "W": 12.552431069289078,
+   "W_350lx": 8.786701748502356,
+   "masse": 1.2457133544861003,
+   "bord_cm2": 3455.9999999999995,
+   "stem_lm_25": 313.81077673222694,
+   "batt_arb_t": 1.5487039835304994,
+   "batt_arb_350_t": 2.2124342621864277,
+   "E_bak_skjerm": 220.06687846222223
+  },
+  "b": {
+   "Phi": 1311.2998226064717,
+   "W": 13.112998226064716,
+   "W_350lx": 9.179098758245301,
+   "masse": 1.0013292513079879,
+   "bord_cm2": 40.0,
+   "stem_lm_25": 327.8249556516179,
+   "batt_arb_t": 1.4824984846988767,
+   "batt_arb_350_t": 2.117854978141253,
+   "E_bak_skjerm": 318.3044350540743
+  },
+  "c": {
+   "Phi": 432.7369610996472,
+   "W": 4.327369610996472,
+   "W_350lx": 3.0291587276975305,
+   "masse": 3.112768,
+   "bord_cm2": 720.0,
+   "stem_lm_25": 108.1842402749118,
+   "batt_arb_t": 4.492336395439888,
+   "batt_arb_350_t": 6.417623422056983,
+   "E_bak_skjerm": 1.889547889727217e-09
+  }
+ },
+ "C": {
+  "C": {
+   "a": {
+    "alu_kg": 1.1457133544861005,
+    "pmma_kg": 0.0,
+    "kWh_10aar": 115.48236583745951,
+    "straum_kgCO2e": [
+     1.7322354875618926,
+     17.553319607293844
+    ],
+    "alu_kgCO2e": [
+     2.291426708972201,
+     18.331413671777607
+    ],
+    "pmma_kgCO2e": 0.0
+   },
+   "b": {
+    "alu_kg": 0.9012122407853747,
+    "pmma_kg": 0.0,
+    "kWh_10aar": 120.6395836797954,
+    "straum_kgCO2e": [
+     1.8095937551969308,
+     18.3372167193289
+    ],
+    "alu_kgCO2e": [
+     1.8024244815707493,
+     14.419395852565994
+    ],
+    "pmma_kgCO2e": 0.0
+   },
+   "c": {
+    "alu_kg": 2.4058080000000004,
+    "pmma_kg": 0.457,
+    "kWh_10aar": 39.81180042116755,
+    "straum_kgCO2e": [
+     0.5971770063175131,
+     6.051393664017467
+    ],
+    "alu_kgCO2e": [
+     4.811616000000001,
+     38.492928000000006
+    ],
+    "pmma_kgCO2e": 2.742
+   }
+  },
+  "faktorar": "straum 0,015 (norsk produksjon) til 0,152 kg/kWh (implisitt i 06-berekraftshandling: 7 kg for 5 W × 920 t × 10 år); aluminium 2 (høg resirkulert del) til 16 kg CO2e/kg (primær, global snitt); PMMA 6 kg/kg. Alle er anslag utan kjelde framfor meg."
+ }
+}

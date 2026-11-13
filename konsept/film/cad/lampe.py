@@ -42,6 +42,11 @@ BALLAST_T = 3.0       # stålplate. Vald slik at lampa held 1,2 kg (krav F8)
 
 RHO = dict(petg=1.27e-3 * 0.55, pmma=1.19e-3, alu=2.70e-3, staal=7.85e-3, messing=8.5e-3, film=1.3e-3, gummi=1.1e-3)   # g/mm³. PETG: 55 % fylt i snitt
 
+# Variantar utan å endre fila: set t.d. RUTA_FOT_D=240 og RUTA_UT=ut-stor-fot i miljøet
+for _k in ('FOT_D', 'BALLAST_D', 'BALLAST_T', 'ARM_UT', 'RUTE_B', 'RUTE_D', 'AKSE_H', 'VINKEL', 'RUTE_T'):
+    if 'RUTA_' + _k in os.environ: globals()[_k] = float(os.environ['RUTA_' + _k])
+if 'RUTA_UT' in os.environ: UT = os.path.join(HER, os.environ['RUTA_UT'])
+
 # ------------------------------------------------------------------ avleidde mål
 R = BJELKE_D / 2
 XF = 40.0                         # armen ved foten (midt i breidda)
@@ -70,7 +75,7 @@ TAB_SKRUAR = [(XF - 10.0, Y_BOY - TAB_L / 2), (XF + 10.0, Y_BOY - TAB_L / 2)]
 KABEL_XY = (XF, YA + ARM_T / 2 + 5.5)
 TOPP_T = 2.4                      # toppflata på foten
 VEGG = 6.0
-BOSS_R = 66.0
+BOSS_R = FOT_D / 2 - VEGG - 7.0
 BOSS_V = (20.0, 140.0, 260.0)
 
 def _syl_x(d, x0, x1, y=0.0, z=0.0):
@@ -403,6 +408,10 @@ def eksporter():
     D = delar()
     for (i, namn, form, mat, _, n, _) in D:
         exporters.export(form, os.path.join(UT, 'step', '%s_%s.step' % (i, namn.replace(' ', '_').replace('×', 'x'))))
+    # delane på plass som STL, til rendring
+    os.makedirs(os.path.join(UT, 'samla'), exist_ok=True)
+    for (i, namn, form, mat, farge, n, _) in D:
+        exporters.export(form, os.path.join(UT, 'samla', '%s.stl' % i), tolerance=0.03, angularTolerance=0.12)
     # printfiler i printstilling (z opp frå plata)
     d = {x[0]: x[2] for x in D}
     kropp, lok = _bjelke_lokal()

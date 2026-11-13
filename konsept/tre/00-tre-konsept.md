@@ -25,8 +25,8 @@ Same rom, same mannekeng, same watt: 1,25 W i stemning og 5 W i arbeid, skalert 
 | Stemning: mot auget (krav 500) | 83 | 200 | 125 |
 | Stemning: veggen bak skjermen | 142 | 184 | 85 |
 | Stemning: skjermflata | 142 | 4 | 5 |
-| Likskap stemning og arbeid (over 0,9 er dimmar) | 0,23 | 0,05 | 0,35 |
-| Største sprang langs overgangen | 0,13 | 0,36 | 0,06 |
+| Likskap stemning og arbeid (over 0,9 er dimmar) | 0,22 | 0,04 | 0,35 |
+| Største sprang langs overgangen | 0,14 | 0,36 | 0,06 |
 | Skjermflata langs overgangen, lx | 142 · 266 · 350 · 332 · 268 | 4 · 108 · 262 · 246 · 229 | 5 · 9 · 16 · 27 · 45 |
 
 Lyset på skjermflata blir samanlikna som del av feltet. Bru og krok frå formsøket i `northern-lampe/` ligg på om lag 1,2 til 1,3, prisma på 0,02.
@@ -35,7 +35,7 @@ Lyset på skjermflata blir samanlikna som del av feltet. Bru og krok frå forms�
 
 **A Skiva** er den jamnaste og enklaste: fot, stong og skive, som Northern. Jamnheita 0,60 er den einaste i alle seks familiane som når referansen, og ho held for all kuv spegel frå R 0,6 til 2,0 m. Mot: skiva vippar strålen over skjermen på veg ned (350 lx på skjermflata midt i overgangen), stemninga legg 142 lx på skjermflata, og veggen bak skjermen er mørk i arbeid. Næraste nabo er Verner Panton Reflect, som har fast, kvit skive.
 
-**B Over** er den mest effektive og den reinaste overgangen: likskap 0,05, så lyset byter adresse heilt. Plata ligg over skjermkanten, så stemninga går over skjermen og ikkje på han (4 lx). Mot: overgangen hoppar (sprang 0,36), veggen bak skjermen er mørk i arbeid, og dioden på skjermkanten har lite margin. Brønnen må vere 50°: med 64° ser auget dioden frå 60 cm (140 000 cd/m²). Næraste nabo er BenQ ScreenBar Halo.
+**B Over** er den mest effektive og den reinaste overgangen: likskap 0,04, så lyset byter adresse heilt. Plata ligg over skjermkanten, så stemninga går over skjermen og ikkje på han (4 lx). Mot: overgangen hoppar (sprang 0,36), veggen bak skjermen er mørk i arbeid, og dioden på skjermkanten har lite margin. Brønnen må vere 50°: med 64° ser auget dioden frå 60 cm (140 000 cd/m²). Næraste nabo er BenQ ScreenBar Halo.
 
 **C Vindauge** er den einaste som held veggen lys i arbeid og den einaste som ikkje sveipar over skjermen: spegelen deler strålen i staden for å flytte han (sprang 0,06, høgst 45 lx på skjermflata). Mot: maska i trakta stengjer lyset utanfor opninga, så berre 0,47 kjem gjennom (0,62 med trakta tilpassa), og watten blir 3,8. Jamnheita er 0,24, og auget i 25 cm ser 821 cd/m². Linsa på om lag 60 mm finst ikkje i byggjesettet. Ingen kjend lampe deler strålen slik.
 
@@ -76,3 +76,4 @@ Dette avgjer om A og B held F1, og kva overflate C treng.
 - Mannekengen frå `modell/polge.py` er ryggfigur. Han endrar ikkje tala for lampa.
 - C er retta med faktor 0,47 for maska i trakta. Linsa er rekna som tynn linse.
 - Spegling i skjermen og i blank bordflate er ikkje rekna for arka.
+- Kroppane er skisser: A har ei svart kantskive bak spegelen så silhuetten blir rund, og B har stolpen frå projektoren bak skjermen. Dei endrar lysrekninga under 1 % (stolpen skuggar 3 % av det vesle stemningslyset på feltet).

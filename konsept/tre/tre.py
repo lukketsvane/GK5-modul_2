@@ -55,11 +55,39 @@ def _finn(mod, namn):
     if funne is None: raise KeyError(namn)
     return funne
 
+# ------------------------------------------------------------------ kroppane på arka
+# Berre det auget ser: lysrekninga er den same (sjå kontroll() under).
+
+def _med_kantskive(g, bak=0.0075):
+    """Rund, svart skive rett bak den bøygde spegelen. Fliser på 11 mm gjev takka kant, skiva gjev rund silhuett.
+    Ho står bak den djupaste kanten (kuv R 1,2 m har pil 6,5 mm), så ho skuggar ikkje spegelflata."""
+    def g2(t):
+        lys, kropp = g(t)
+        a = next(l for l in lys if isinstance(l, ls.Ark))
+        n = ls.nrm(a.Nf.mean(0)); c = a.Pf.mean(0)
+        V = np.concatenate([a.prim.V0, a.prim.V0 + a.prim.E1, a.prim.V0 + a.prim.E2]) - c
+        r = float(np.linalg.norm(V - np.outer(V @ n, n), axis=1).max())    # ytste hjørne på flisene, så tennene blir dekte
+        return lys, list(kropp) + [ls.skive(c - bak * n, n, r)]
+    return g2
+
+def _med_stolpe(g, x=0.31, y=0.49, r=0.006):
+    """Stolpen frå projektoren: står bak skjermen ved høgre kant og ber plata i eit hengsel langs bakkanten."""
+    def g2(t):
+        lys, kropp = g(t)
+        a = next(l for l in lys if isinstance(l, ls.Ark))
+        P = a.Pf
+        midt = np.abs(P[:, 0] - P[:, 0].mean()) < 0.02
+        hengsel = P[midt][np.argmax(P[midt][:, 1])]                     # midt på bakkanten
+        topp = b(x, y, hengsel[2] - ls.ZB)
+        return lys, list(kropp) + [ls.syl(b(x, y, 0), topp, r), ls.syl(topp, hengsel, r * 0.8),
+                                   ls.syl(b(x, y, 0), b(x, y, 0.012), 0.045)]
+    return g2
+
 KONSEPT = {
-    'A': dict(namn='Skiva', g=_finn(boy, 'spegel-kuv-1.2'),
+    'A': dict(namn='Skiva', g=_med_kantskive(_finn(boy, 'spegel-kuv-1.2')),
               setning='Ei kjelde i foten lyser opp på ei bøygd spegelskive som vippar frå veggen bak skjermen ned på arbeidsfeltet.',
               handling='Handlinga: vipp skiva.', familie='boy', kandidat='spegel-kuv-1.2'),
-    'B': dict(namn='Over', g=lambda t: fre.plate(t, fre.OVER_C, fre.OVER_A, 0.12, fre.gli(b(0.0, YV, 0.60), FELT), spreiing=12, kjelde=(40, 50, 50)),
+    'B': dict(namn='Over', g=_med_stolpe(lambda t: fre.plate(t, fre.OVER_C, fre.OVER_A, 0.12, fre.gli(b(0.0, YV, 0.60), FELT), spreiing=12, kjelde=(40, 50, 50))),
               setning='Fresnelplata ligg over skjermkanten og vippar lyset frå veggen bak skjermen ned på bordet.',
               handling='Handlinga: vipp plata.', familie='fresnel', kandidat='over-vipp, brønn 50°'),
     'C': dict(namn='Vindauge', g=_finn(pro, 'dele-vindauge'),

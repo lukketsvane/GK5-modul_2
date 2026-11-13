@@ -1,8 +1,8 @@
 # Gransking · premissar, påstandar, bilete og brief
 
-**Kort.** Talpåstandane held stort sett: 27 av 34 kontrollerte tal stemmer med datafilene, og min eigen lysmodell attgjev Φ, U0 og skjermlys for alle tre til om lag 1 %. Feila ligg i premissane. (1) Heile energi- og skjermfordelen til (c) er optikken, ikkje forma: med same vifte i opninga treng (a) 397 lm og lyser 4 lx på skjermen, mot 433 lm og 8 lx for (c). (c) med den nakne opninga til (a) treng 1660 lm og lyser 549 lx. Berre (c) fekk optikk. (2) Søyla i (c) står rett over skjermen: 123 grad² av lampa ligg under 15° over skjermen, mot 39 for (b) og 0 for (a). Premissen som (b) vart trekt for, er broten meir av (c), og det står ikkje i konsept.md. (3) Stemningsstillinga −105° i (c) er umogleg: plata går i armen frå −51°. Der lyser veggen 20 lx, ikkje 40. (4) Svikta i tabellen er tre ulike lastfall. Med gesten i enden av plata vrir den opne U-profilen (c) 5,5 til 13 mm, ikkje 0,2. (5) Premissane i felles.py er ikkje dei i kravspesifikasjonen i GK5-modul_2 (350 lx åleine, augehøgd 25 til 60 cm, høgst 1,2 kg, 100 til 150 lx bak skjermen). Mot den spesifikasjonen fell (c) på vekt (3,11 kg mot 1,2) og lys bak skjermen (0 lx), og (a) og (b) fell på effekt (12,6 og 13,1 W mot 7,5) og blending frå lågt auge. (6) Miljøtiltaket «ein tredjedel av energien» er ikkje robust: med norsk straum vert 10 år med straumsparing (1 til 12 kg CO2e) eten opp av 1,3 kg meir aluminium og 0,46 kg PMMA (5 til 24 kg).
+**Kort.** Talpåstandane held stort sett: 27 av 34 kontrollerte tal stemmer med datafilene, og min eigen lysmodell attgjev Φ, U0 og skjermlys for alle tre til om lag 1 %. Feila ligg i premissane. (1) Heile energi- og skjermfordelen til (c) er optikken, ikkje forma: med same vifte i opninga treng (a) 397 lm og lyser 4 lx på skjermen, mot 433 lm og 8 lx for (c). (c) med den nakne opninga til (a) treng 1660 lm og lyser 549 lx. Berre (c) fekk optikk. (2) Søyla i (c) står rett over skjermen: 123 grad² av lampa ligg under 15° over skjermen, mot 39 for (b) og 0 for (a). Premissen som (b) vart trekt for, er broten meir av (c), og det står ikkje i konsept.md. (3) Stemningsstillinga −105° i (c) er umogleg: plata går i armen frå −51°. Der lyser veggen 20 lx, ikkje 40. (4) Svikta i tabellen er tre ulike lastfall. Med gesten i enden av plata vrir den opne U-profilen (c) 5,5 til 13 mm, ikkje 0,2. (5) Premissane i felles.py er ikkje dei i kravspesifikasjonen i GK5-modul_2 (350 lx åleine, augehøgd 25 til 60 cm, høgst 1,2 kg, 100 til 150 lx bak skjermen). Mot den spesifikasjonen fell (c) på vekt (3,11 kg mot 1,2) og lys bak skjermen (0 lx), og (a) og (b) fell på effekt (12,6 og 13,1 W mot 7,5) og blending frå lågt auge. (6) Miljøtiltaket «ein tredjedel av energien» er ikkje robust: straumsparinga mot (a) over 10 år er 1,1 kg CO2e med norsk straum og 11,5 kg med 0,152 kg/kWh, medan 1,26 kg meir aluminium og 0,46 kg PMMA kostar 5,3 til 22,9 kg. (7) Konsepta er ikkje prøvde mot formføringsplansja som no ligg i GK5-modul_2 (side 8 og 9, 11:35). Alle tre er 65 til 76 cm høge mot 27 til 55 cm i sortimentet. (c) bryt tre av reglane direkte: fasettar (rillene), klar i staden for opalkvit lysflate og fleire enn tre primærformer. (8) «Ansiktslys: berre (c)» kviler på premissen 150 lx. Kravet F10 er 50 til 200 lx og «ingen kamerastriper». Ved 50 lx treng (a) og (b) 1,4 og 1,9 kcd/m², under grensa 3000, og prismeplata i (c) lagar striper. (9) Effekt og batteritid er rekna med 100 lm/W og 21,6 Wh. Med reknetala i GK5-modul_2 (80 lm/W, 15,1 Wh brukbart) er (c) 5,4 W og 2,8 t, og (a) og (b) 15,7 og 16,4 W og under 1 t.
 
-Skript: `premiss.py` (om lag 20 s, éin tråd). Tal: `premiss.json`, `premiss.log`. Figur: `premiss.png` (lampa sett frå auga, med skjermen og 15°-lina). Eldre, halvferdig versjon av same linse: `premiss_prisme.py/json` (M0 til M3); resultata der er tekne med under 2.1 og stemmer med `prisme.md`.
+Skript: `premiss.py` (om lag 10 til 20 s, éin tråd, køyrd om att 13.11 i andre pass med identisk utdata) og `premiss_tillegg.py` (aritmetikk for 7 til 9 og rettinga i 2.6, under 1 s). Tal: `premiss.json`, `premiss.log`, `premiss_tillegg.json`. Figur: `premiss.png` (lampa sett frå auga, med skjermen og 15°-lina). Eldre, halvferdig versjon av same linse: `premiss_prisme.py/json` (M0 til M3); resultata der er tekne med under 2.1 og stemmer med `prisme.md`.
 
 ## Metode og kontroll av eigen kode
 
@@ -33,6 +33,9 @@ Lysmodellen i felles.py og form04/motor.py er altså brukt rett. Skilnadene unde
 | konsept.md | «Alle tre er rekna … med same tal()» | form04/motor.py har eigen sok(), E_punkt() og L_mot() | (c) brukar tal_felles(), men lys, blending og ansikt er rekna på nytt i motoren: fjernfelt frå LED-aksen, blending med terskel 300 cd/m² og snittluminans. (a) og (b) brukar flatebitane i felles.illum() og visible(). Det er ikkje same målereiskap |
 | konsept.md, tabellraden «svikt under gesten» | form01 tal(): 10 N dytt i x på apex; val.py tube_arm(): 3 N i spissen; form04 tal_mek(): 2,5 N midt på framkanten | tre lastfall, sjå 2.4. For (a) er svikta under gesten (kraftpar) om lag 0 |
 | form04/motor.py FINAL | «robust punkt» | form04/sok.json | stemmer at punktet held, men det minste Φ som held er ys 0,18, zs 0,66: 415 lm (−4 %). Valet er ikkje grunngjeve med tal |
+| konsept.md | batteri (b) «1,5 t» | 0,9·21,6/13,11 = 1,48 t | 1,48 t, altså under kan-kravet T5 (1,5 t) før rundinga |
+| konsept.md | «2200 K i stemning» | GK5 04-kravspesifikasjon F11: 2700 mot 2000 K; formføringsplansja: 2200 til 3000 K | dei to GK5-dokumenta er usamde; konsept.md følgjer plansja, ikkje F11 |
+| konsept.md | «inga blending over 3000 cd/m²» | form04/motor.py sok(): synleg ved 300 cd/m², glare_ok ved 3000; ramma 00: under 1000 til 1500 i arbeid | grensa i formsøket er to til tre gonger ramma |
 
 **Stadfesta (kort):** batteri 1,5 / 1,5 / 4,5 t (0,9·21,6 Wh/P), (c) tipp 22° utan skjerm (tal.csv tipp_deg 26,6° er med skjerm 4 kg), (a) tipp ved 2,96 N, tett gitter for (a) Φ −4,6 % og U0 0,72, skjermlys 611 / 652 / 8,8 lx, (b) Ø23 2,34 mm og Ø25 1,79 mm ut av planet, klemme 498 N (996 N med SF 2), (a) → (b) 0,24 kg lettare, (a) → (c gamal) −16 % lys, form01 fotavtrykk 0,46 m², form04 6 av 20 punkt, akse 33 mm under LED, innfall høgst 30,6°, pendel 0,224 N·m og 5,3 N. Alle tal i form01/utfall.md stemmer med utfall.json og utfall2.json (H1 −13,5 %, −27 / +30 %; H2 3 til 10 %; H3 9,7 og 31; H4 Ø 8,97 mm og +0,40 kg; H5 U0 0,51 ved 0,30 m og +7,2 % frå 0,75 til 1,00 m; H6 0,24 mm, 2,93 ×, +0,21 kg; H7 15 steg, 0,35 til 0,88; H8 +3,2 %).
 
@@ -47,7 +50,9 @@ Lysmodellen i felles.py og form04/motor.py er altså brukt rett. Skilnadene unde
 | 5 | Svikt: tre ulike lastfall | form01 tal(), val.py tube_arm(), form04 tal_mek() | svikt-raden og «stødig overhead-arm» | nei |
 | 6 | 500 lx frå lampa åleine på 0,60 × 0,35 m | felles.py E_TASK, TASK | alle Φ, W og batteritider (× 1,43 mot krav F3: 350 lx åleine) | likt; endrar ikkje rangering, men krava om W |
 | 7 | Eitt augepunkt i høgd 0,45 m, tre i x | felles.py EYES | «skjerma» for (a) og (b): opninga syner under 42,4 og 39,9 cm (krav F1: 25 til 60 cm) | likt; rammar (a) og (b) |
-| 8 | 100 lm/W, 21,6 Wh, 0,9 | felles.py LM_W, BATT_WH | W og batteri. GK5-ramma brukar 80 lm/W og 17,8 Wh: (c) 3,6 t i staden for 4,5 | likt |
+| 8 | 100 lm/W, 21,6 Wh, 0,9 | felles.py LM_W, BATT_WH | W og batteri. GK5 reknar 60 til 80 lm/W for heile lampa (02-bransjeresearch l.144) og 17,8 Wh nominelt, 15,1 brukbart (08). Ved 80 lm/W og 15,1 Wh: (a) 15,7 W og 0,96 t, (b) 16,4 W og 0,92 t, (c) 5,4 W og 2,8 t (`premiss_tillegg.json`). Førre versjon av denne fila skreiv «(c) 3,6 t»: det var 80 lm/W med 21,6 Wh, ikkje 17,8 | likt; rangeringa står, men (a) og (b) fell på T5 og langt over ramma 10 W |
+| 16 | Ansiktslys 150 lx | felles.py E_FACE l.31 | «for hardt» for (a) og (b), «mjukt, berre (c)». Kravet F10 er 50 til 200 lx. Luminansen er lineær i E: ved 50 lx (a) 1358, (b) 1861, (c) 220 cd/m² i snitt (topp 1070 til 1330, prisme.md). Alle tre under 3000; ved 100 lx held (a) (2717), ikkje (b) (3722) | likt, men avgjer raden |
+| 17 | Augepunkt i 45 cm | felles.py EYES | formføringsplansja (side 9) seier «inga lyskjelde synleg frå 47 cm», F1 seier 25 til 60 cm. Tre ulike tal i same prosjekt | likt |
 | 9 | Skjermen er ei plate y 0,45 med hals 3 cm bak; søyla i (c) står 1,2 cm bak halsen | lysstudie.py, form04 COL_Y 0,512 | at (c) får plass i det heile; ein vanleg skjermfot står 5 til 15 cm bak plata | rammar berre (c) |
 | 10 | Fotavtrykk = konveks skrog av kontaktpunkta | felles.py stabilitet() | «på bordet» 3456 / 40 / 720 cm². (a) tek 13 cm² kontakt, (c) dekkjer 283 cm² av oppgåvesona (x ±0,12, y 0,282 til 0,40) | nei, ulik tyding |
 | 11 | Foten i (c) er dimensjonert for F_tipp ≥ 2·F_gest utan skjerm, i arbeidsstillinga | form04 fot_t() | 7 mm alu, 1,36 kg av 3,11. mekanikk_tal.json: tryggleik 1,91 ved α −90° | berre (c) |
@@ -125,10 +130,13 @@ Eigen rekning: open U 100 × 30 × 2, J = Σbt³/3 = 4,3·10⁻¹⁰ m⁴, G 26 
 | F6 bør: 100 til 150 lx bak skjermen | 220 lx | 318 lx | **0 lx** |
 | F9 bør: høgst 200 cm² | 3456 (skrog) | 40 | 720 |
 | ramma: stemning 50 til 200 lm | 311 (25 %) | 327 | 108 |
-| T5 kan: arbeidslys på batteri ≥ 1,5 t | 1,55 t | 1,48 t | 4,5 t |
+| T5 kan: arbeidslys på batteri ≥ 1,5 t | 1,55 t (0,96 t med GK5-tala) | 1,48 t (0,92) | 4,5 t (2,8) |
+| B3 med GK5-tala, 80 lm/W, 500 / 350 lx | 15,7 / 11,0 W | 16,4 / 11,5 W | 5,4 / 3,8 W |
+| F10 bør: 50 til 200 lx ansiktslys, ingen kamerastriper | 1,4 kcd/m² ved 50 lx, 4,1 ved 150 | 1,9 / 5,6 | 0,2 / 0,66 i snitt, men striper (form04/logg.md seier det sjølv) |
+| F11 bør: 2700 mot 2000 K | 2200 K i stemning (konsept.md), ikkje løyst teknisk | same | same |
 | B1 skal, B2 skal: batteri ut under 1 min, lysmodul under 5, utan lim | ikkje teikna | ikkje teikna | ikkje teikna |
 
-F6 snur «ro ved skjermen». 3B-analysen og ramma definerer ro som luminansbalanse: lys på flata bak skjermen. (c) legg null der, (a) og (b) for mykje. konsept.md måler ro berre som lys *på* skjermen, der (c) vinn.
+F6 er eit bør-krav, og 08-gjennomgang-av-lysskissa.md (to uavhengige lesarar) seier at veggen bak skjermen er eit val i rommet, ikkje ein eigenskap ved lampa. F6 bør difor vege lite. Men F6 snur «ro ved skjermen». 3B-analysen og ramma definerer ro som luminansbalanse: lys på flata bak skjermen. (c) legg null der, (a) og (b) for mykje. konsept.md måler ro berre som lys *på* skjermen, der (c) vinn.
 
 ### 2.6 Miljøtiltaket: energi mot materiale
 
@@ -138,9 +146,9 @@ F6 snur «ro ved skjermen». 3B-analysen og ramma definerer ro som luminansbalan
 |---|---|---|---|---|---|
 | (a) | 1,15 | 115 | 1,7 til 17,6 | 2,3 til 18,3 | 4,0 / 35,9 |
 | (b) | 0,90 | 121 | 1,8 til 18,3 | 1,8 til 14,4 | 3,6 / 32,8 |
-| (c) | 2,41 + 0,46 PMMA | 40 | 0,6 til 6,1 | 7,6 til 41,2 | 8,1 / 47,3 |
+| (c) | 2,41 + 0,46 PMMA | 40 | 0,6 til 6,1 | 7,6 til 41,2 | 8,2 / 47,3 |
 
-(c) kjem best ut berre med høg straumfaktor *og* lågkarbon-aluminium (11,6 mot 19,8 og 20,1 kg). Med norsk straum er (c) dårlegast i alle tilfelle. Foten åleine (1,36 kg alu, 2,7 til 22 kg CO2e) veg meir enn all straumen (c) brukar på 10 år. Berekraftshandlinga i GK5-modul_2 vel levetid og reparasjon nettopp fordi bruksfasen er liten i Noreg. konsept.md sitt miljøtiltak går imot henne.
+(c) kjem best ut berre med høg straumfaktor *og* lågkarbon-aluminium (13,6 mot 19,8 og 20,1 kg; førre versjon av fila skreiv 11,6, ein summeringsfeil, retta i `premiss_tillegg.json`). Med norsk straum er (c) dårlegast i alle tilfelle. Foten åleine (1,36 kg alu, 2,7 til 22 kg CO2e) veg meir enn all straumen (c) brukar på 10 år. Berekraftshandlinga i GK5-modul_2 vel levetid og reparasjon nettopp fordi bruksfasen er liten i Noreg. konsept.md sitt miljøtiltak går imot henne.
 
 ### Er samanlikninga rettvis?
 
@@ -150,7 +158,8 @@ Nei, på tre punkt som avgjer tabellen: optikk berre i (c) (2.1), synsfeltet tel
 
 - **konsept.png** held husstilen: svart, same Cam (el 17, az 240, fov 19, D 4,6, mål z 0,32) og same skala, eitt objekt per ramme. Men skjerm og bord er tekne bort, så det som skil konsepta (bru over bordet, arm over skjermkanten, søyle midt bak skjermen) syner ikkje. Berre arbeidsstillinga er vist; gesten og lyset syner ikkje i nokon av dei. Teksten «ansiktslys krev 0,7 kcd/m² i snitt (mjukt)» og «svikt 0,8 / 2,0 / 0,2 mm» arvar feila i 2.4 og prisme.md P3.
 - **form04/kropp.png**, midtre ramme (stemning −105°): armen stikk gjennom midten av plata (den vesle boksen midt på). Biletet syner kollisjonen frå 2.2, men han er ikkje flagga.
-- **form04/studie.png**: «ingenting utanfor vifta: 11 cd/m² mot auga» er premissen STRO (2 %. 12). «100 % av lyset på veggen» er ei stilling som ikkje kan nåast. Søyla syner tydeleg over skjermkanten i arbeidsbiletet, i strid med form03/logg.md. Skjermhalsen er teikna 1,2 cm framfor søyla.
+- Kameraet i konsept.png står framme til venstre, på brukarsida (az 240°: auga i y −3,8 m; projeksjonen kontrollert: plata ligg 4,2 til 4,5 m frå kameraet, søyla 4,5 til 4,8, så plata dekkjer søyla rett). Utan bord er høgdene ikkje lesbare: 65, 67 og 76 cm, alle over sortimentet (27 til 55 cm), og (a) er 1,12 m brei.
+- **form04/studie.png**: «ingenting utanfor vifta: 11 cd/m² mot auga» er premissen STRO (2 %. 12). «100 % av lyset på veggen» er ei stilling som ikkje kan nåast, og stemningsbiletet syner det sjølv: armboksen stikk opp gjennom midten av plata. Søyla syner tydeleg over skjermkanten i arbeidsbiletet, i strid med form03/logg.md. Skjermhalsen er teikna 1,2 cm framfor søyla.
 - **form01/studie.png** er brukt som lysstudie for (a) i konsept.md, men syner form01 FINAL (y 0,25, A-bukk ±0,20, 1300 lm, U0 0,67, 69 lx · 94 %), ikkje (a) i konsept.json (y 0,18, ±0,15, 1255 lm, 0,76, 62 lx · 90 %). Tala i biletet høyrer nærare til plasseringa til (b). Teksten «kjelda er skjerma frå auga og frå skjermen» står under eit bilete der skjermen er tydeleg lyst opp (611 lx); «frå skjermen» tyder her berre «ikkje spegla».
 - **Det finst ingen lysstudie for (b)**, og ingen av (a) slik ho er i konsept.json.
 - **form02/val.png** har den gamle (c) «bru, 10°». Rett merkt i val.md, men biletet kan forvekslast med dei tre konsepta.
@@ -171,9 +180,27 @@ Nei, på tre punkt som avgjer tabellen: optikk berre i (c) (2.1), synsfeltet tel
 | 2700 → 2200 K og 25 % med gesten | krev vinkelsensor og to kanalar, ikkje teikna | same | same |
 | Gesten lesen intuitivt (E3 skal) | opninga syner ikkje frå brukaren; ingenting i forma seier kvar endestillingane er | same | vippen les direkte, men −105° kan ikkje nåast |
 | Flyttbar, oppladbar, «der folk sit» om kvelden (brief, 3B, F8) | nei, 1,15 m brei | nei, klemt | nei, 3,11 kg under skjermen |
-| Northern-forma (E2 skal, M1) | ikkje vurdert | ikkje vurdert | ikkje vurdert |
+| Northern-forma (E2◆, M1◆) | sjå 4.1 | sjå 4.1 | sjå 4.1 |
 | Ra ≥ 90, flimmer (T1, T4) | ikkje nemnt | ikkje nemnt | ikkje nemnt |
-| Ansiktslys (sekundært) | 4,1 kcd/m², hardt | 5,6 kcd/m², hardt | 0,66 i snitt, 3,1 til 4,0 i topp (prisme.md) |
+| Ansiktslys (sekundært) | 4,1 kcd/m² ved 150 lx; 1,4 ved 50 lx (F10 nedre grense) | 5,6; 1,9 ved 50 lx | 0,66 i snitt, 3,2 til 4,0 i topp (prisme.md), striper (F10 forbyr) |
+
+### 4.1 Mot formføringsplansja (GK5-modul_2/leveransar/02_formfoering, side 8 og 9)
+
+Plansja kom til 11:35, etter konsepta (10:13). Ho spør sjølv om ho gjeld alle tre før valet 18.11. Prøvd her med reglane slik dei står:
+
+| Regel | (a) bru | (b) krok | (c) prisme |
+|---|---|---|---|
+| H1 høgst tre primærformer (kjerne); ENKEL utelukkar eit fjerde element | røyr, bukk, grep: 3, på grensa | klemme, stigar og arm, nav, røyr, grep: 4 til 5 | fot, søyle, arm, renne, plate, kinn: 6 |
+| H2 tynn line ber hovudet; det som ber har konstant tverrsnitt | held (Ø20) | held (Ø23) | konstant U, men 10 × 3 cm, ikkje line |
+| H3 lyskjelda aldri naken; aldri synlege diodar eller lysstripe | skjerma frå 45 cm, synleg under 42,4 cm | skjerma frå 45, synleg under 39,9 | LED-lina er skjerma av rennekanten med 0,4 til 3,5 mm frå auge i 40 til 60 cm; frå 25 cm går siktlina under kanten og gjennom den klare plata (`premiss_tillegg.json` renne_c) |
+| H4 éin matt farge; sløkt lysflate opalkvit og matt | ikkje avgjort | ikkje avgjort | **brot**: klar PMMA med riller og alu |
+| MJUK utelukkar fasettar og skarp kant | held (lambertsk opning) | held | **brot**: rillene er fasettar og «sjølve lyslova, gjort synleg» (logg.md); vifta har kant ved −17° og +16° med 4° mattering |
+| ENKEL: éi betjening, utelukkar ledd og overgangar | vri, ingen synleg overgang | vri | vipp om eit ledd mellom arm og hovud |
+| Høgd i sortimentet: 27 til 55 cm | 64,6 cm, 1,12 m brei | 66,8 cm | 76 cm |
+| H5 messingpunkt der handa er | ikkje teikna | ikkje teikna | ikkje teikna |
+| Kan vere nytt: synleg opning for batteri og lysmodul | ikkje teikna | ikkje teikna | ikkje teikna |
+
+Formsøket hadde ingen av desse reglane i målfunksjonen. (a) er nærast Northern-forma, (c) lengst unna, motsett rangeringa i lys.
 
 ## 5 · Leveransen 17.11: kva finst og kva manglar
 
@@ -187,11 +214,13 @@ Finst, i `C:\Users\Iver\Documents\github\GK5-modul_2` (berre lese):
 | Kravspesifikasjon | `grunnlag/04-kravspesifikasjon.md`, side-4 | formsøket brukar han ikkje (2.5) |
 | Debrief | `grunnlag/01-debrief.md`, side-1 | |
 | Berekraftshandling | `grunnlag/06-berekraftshandling.md`, side-5 | konsept.md sitt miljøtiltak går imot (2.6) |
-| Formføringsplansje | `grunnlag/07-formfoering.md` (tekstgrunnlag, «første versjon til 17. november») | **sjølve plansja manglar** |
+| Formføringsplansje | `grunnlag/07-formfoering.md` (tekstgrunnlag) og no `leveransar/02_formfoering/png/side-8-formfoering-sortiment.png` og `side-9-formfoering-ny-lampe.png` (11:35, generert av `lys/bygg_formfoering.py`) | finst som utkast i to sider. Syner ikkje dei tre konsepta, og spør sjølv om ho gjeld alle tre. Konsepta bryt henne (4.1) |
 | Bilete av tre konsept | `northern-lampe/konsept.png`, `konsept_a/b/c.png`, `form04/kropp.png`, `form04/studie.png`, `form01/studie.png` (feil variant) | sjå under |
 
+Òg i GK5-modul_2: `grunnlag/08-gjennomgang-av-lysskissa.md` (uavhengig lesing av det andre konseptsporet), `leveransar/01_fase1_v2/png/side-1` til `side-7` (fase 1 som bilete), og `northern-lampe/` som ein kopi av denne mappa (commit cf1ca8d 11:31, autolagring a6bb178 11:35). Kopien har den førre versjonen av denne fila; han må synkroniserast, elles står summeringsfeilen i 2.6 og «3,6 t» att der.
+
 Manglar heilt:
-- Formføringsplansja som bilete.
+- Konsepta prøvde mot formføringsplansja (4.1), og ei plansje som syner dei tre med Northern-reglane.
 - Lysstudie for (b), og for (a) slik ho står i konsept.json.
 - Bilete av dei tre i same scene med skjerm og bord, og av gesten (arbeid, stemning) for (a) og (b) i konsept-varianten.
 - Snitt av kvart konsept med LED, drivar, batteri, kabel og festemiddel (prosjektplanen 2.2).
@@ -213,6 +242,10 @@ Manglar heilt:
 - **PR10 (liten).** konsept.md «same tal()»: skriv at (c) har eigen lys- og blendingsmodell (fjernfelt frå LED-aksen, terskel 300 cd/m², snittluminans).
 - **PR11 (liten, b).** 15°-testen er 2D. *Retting:* rekn elevasjon med hypot(dx, dy). Venta: røyret i (b) går ned til 14,2° innanfor skjermbreidda; flytt 1 cm opp eller 3 cm fram.
 - **PR12 (liten, c).** FINAL er ikkje minste Φ blant punkta som held (ys 0,18 zs 0,66: 415 lm). Grunngje valet eller byt.
+- **PR13 (kritisk for leveransen, alle, mest c).** Formsøket har ingen Northern-reglar. *Retting:* legg reglane frå side 8 og 9 inn som krav i `felles.py` (høgd ≤ 55 cm, primærformer ≤ 3 som tal på delar i geometri(), opal og matt lysflate, ingen synleg LED frå auge 25 til 60 cm) og som rad i konsept.md. For (c): byt klar plate med matt eller opal overside over rillene, eller grunngje brotet med vilje (plansja opnar for det). Venta: (c) får eitt til tre brot, (a) held nærast; i lys snur rangeringa ikkje, men i form gjer ho det.
+- **PR14 (middels, alle).** Ansiktslys ved 150 lx. *Retting:* `felles.py` E_FACE: rekn ved 50, 100 og 150 lx og rapporter lægste nivå som held 3000 cd/m²; legg «striper» inn som eige flagg for (c). Venta: (a) held til 110 lx, (b) til 80 lx, (c) i snitt til over 200 lx, men med striper. «Berre (c)» i konsept.md vert «alle tre ved 50 lx; (c) jamnast i snitt, men stripete».
+- **PR15 (middels, alle).** 100 lm/W og 21,6 Wh. *Retting:* `felles.py` LM_W 80 (med 60 som uvisse) og BATT_WH 15,1 brukbart, som i GK5-modul_2. Venta: (a) 15,7 W og 0,96 t, (b) 16,4 W og 0,92 t, (c) 5,4 W og 2,8 t. (a) og (b) fell på B3 også ved 350 lx (11,0 og 11,5 W).
+- **PR16 (liten).** Rettingar i denne fila sjølv (andre pass): 2.6 «11,6» → 13,6 kg, «8,1» → 8,2; premiss 8 «(c) 3,6 t» → 2,8 t med GK5-tala. Kopien i GK5-modul_2/northern-lampe/gransking må få denne versjonen.
 
 ## Kva det endrar i samanlikninga
 
@@ -222,6 +255,8 @@ Manglar heilt:
 - Stemninga i (c) er 20 lx i den stillinga som kan nåast, ikkje 40.
 - Mot dei skrivne krava fell alle tre på minst eitt skal-krav: (a) og (b) på F1 og B3, (c) på F8. Ingen oppfyller brief og 3B om flyttbar kveldslampe.
 - Energifordelen er ikkje eit miljøtiltak under norske tilhøve.
+- «Ansiktslys: berre (c)» er eit resultat av 150 lx. Ved 50 lx held alle tre luminansgrensa, og (c) bryt «ingen kamerastriper».
+- Mot formføringsplansja er rangeringa motsett av lysrangeringa: (a) held nærast, (c) bryt fasett-, opal- og trepartsregelen. Alle tre er for høge for sortimentet.
 
 ## Uvisse
 

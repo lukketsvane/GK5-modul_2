@@ -155,15 +155,16 @@ def f10():
     """Møtelyset (F10) frå konsept/tre/f10.json: A med kjelde 18° og C med alt lyset på veggen."""
     F = json.load(open(os.path.join(TRE, 'f10.json'), encoding='utf-8'))
     a18 = [r for r in F if r['namn'].startswith('A matt bakside mot auget') and r['namn'].endswith('18°')]
+    bkv = [r for r in F if r['namn'].startswith('B kvit bakside på heile plata')]
     c = [r for r in F if r['namn'].startswith('C ')]
-    assert len(a18) == 1 and len(c) == 1, 'f10.json manglar A med kjelde 18° eller C'
-    return a18[0], c[0]
+    assert len(a18) == 1 and len(bkv) == 1 and len(c) == 1, 'f10.json manglar A med kjelde 18°, B med kvit bakside eller C'
+    return a18[0], bkv[0], c[0]
 
 
 def l_valet():
     """Kva valet står på, etter valtabellen i konsept/tre/val-18-11.md."""
     Kr = kropp()
-    a18, cveg = f10()
+    a18, bkv, cveg = f10()
     def kol(k, rolle, faar, pris):
         K, kr = KO.KONSEPT[k], Kr[k]
         velt = f'veltar ved {f1(kr["velt_N"])}{NB}N' if kr['velt_N'] > 0 else 'veltar av seg sjølv på fot'
@@ -180,7 +181,7 @@ def l_valet():
                 'skiva må ha lobe under 4,5°']) +
            kol('B', 'den einaste over skjermen',
                ['bordet blir fritt med ei klemme bak skjermen', f'stemninga held seg av skjermen ({f0(B["s_skjerm"])}{NB}lx)', 'ein ny type for Northern'],
-               [f'ujamt lys ({f2(B["jamnheit"])})', f'møtelyset blendar: 2200 til 2700{NB}cd/m²',
+               [f'ujamt lys ({f2(B["jamnheit"])})', f'møtelyset går over F5: {f0(bkv["L_ved_50"])}{NB}cd/m² ved 50{NB}lx',
                 'mekanikken kan bli hovudmotivet og verke teknisk', 'treng klemme: på fot veltar ho']) +
            kol('C', 'det nyaste, lyser reinast',
                [f'høgst {f0(max(C["veg_skjerm"]))}{NB}lx på skjermen gjennom skiftet', f'{f0(C["auge25"])}{NB}cd/m² mot auget, lågast av dei tre',

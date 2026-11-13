@@ -63,7 +63,7 @@ def ark_brett(R, L):
 <div class="side">
 {TOPP % 'Generasjon 1 · 16 kroppar'}
 
-  <h1 class="tittel">Eitt grep held alle lyskrava: LED-stripa mot fresnelplata over skjermkanten.</h1>
+  <h1 class="tittel">Stripa mot plata over skjermkanten held alle lyskrava i lysmotoren.</h1>
 
   <main class="innhald" style="display: block;">
     <div class="to">
@@ -81,10 +81,10 @@ def ark_brett(R, L):
         </div>
         <p class="etikett">Kva tala seier</p>
         <div class="punkt"><span class="nr">01</span><p>Over skjermkanten slår fot. Jamnheita er 0,41 til {k(r4['U0'], 2)} der, mot 0,29 til 0,39 for plata på fot.</p></div>
-        <div class="punkt"><span class="nr">02</span><p>LED-stripa i staden for éi diode løftar jamnheita frå {k(d1['jamnheit'], 2)} til {k(r4['U0'], 2)}, utan diffusorark på plata.</p></div>
+        <div class="punkt"><span class="nr">02</span><p>LED-stripa i staden for éi diode løftar jamnheita frå {k(d1['jamnheit'], 2)} til {k(r4['U0'], 2)}, utan diffusorark. Uavhengig kode gjev 0,59 i same ruter og 0,30 i ruter på 5 cm.</p></div>
         <div class="punkt"><span class="nr">03</span><p>Vindaugsdioden held veggen lys utan at noko sveipar over skjermen: sprang {k(r4['sprang'], 2)}, mot {k(v['sprang'], 2)} når plata vippar.</p></div>
         <div class="punkt"><span class="nr">04</span><p>Ruta på fot treng {k(R[12]['W350'], 1)} W. Plata på fot held veggen med flik, men jamnheita blir {k(R[9]['U0'], 2)}, og ho veltar ved {k(R[9]['dytt_N'], 1)} N.</p></div>
-        <div class="punkt"><span class="nr">05</span><p>Kropp 4 fell på éin ting: {k(r4['masse_g'], 0)} g på skjermen. Armen og hengselet frå projektoren er 421 g av det.</p></div>
+        <div class="punkt"><span class="nr">05</span><p>Kropp 4 fell elles på éin ting: {k(r4['masse_g'], 0)} g på skjermen. Armen og hengselet frå projektoren er 421 g av det.</p></div>
         <figure class="kontroll">
           <img src="velt_umogleg.png" alt="">
           <figcaption><span><b>17 Bryt F9</b><br>projektoren slik han stod:<br>987 cm² på bordet</span><span><b>18 Kan ikkje lagast</b><br>linsa f 280 på bordet:<br>kastet er under 4f</span></figcaption>

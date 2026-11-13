@@ -11,6 +11,8 @@ Dette er søket og valet. Dei fire lampene som blir bygde i djupna (printdelar, 
 | `kitbash.py` | Motoren: settet (`sett`, `cad`, `ny`), støttene (`bak_skjermen`, `paa_fot`), organa (`plate`, `boyel`, `diode`, `vindaugsmodul`, `ruta_gruppe`, `hovud`) og dei 18 kroppane i `KROPPAR` og `KONTROLL`. |
 | `lys.py` | Lysgrepa `g(t) -> (lys, kropp)` for kvar kropp, rekna med `ruta.rekn` (same nøklar som `tre.rekn`). |
 | `samle.py` | Set mekanikk og lys saman og prøver kvar kropp mot krava. |
+| `etterproving.py` | Bandet rekna ein gong til med uavhengig kode (strålesporing i numpy), utan lysmotoren. |
+| `studie.py`, `ark.py` | Lysstudiar (stemning og arbeid) for kroppane i valet, og dei to arka i husstilen. |
 | `brett.png`, `velt_umogleg.png`, `flis/` | Brettet 4 × 4 i husstilen, dei to kontrollkroppane, og kvar flis for seg. |
 | `brett-merkt.png` | Same brett med nummer, namn og tre tal per kropp. |
 | `tal_mek.json`, `tal_lys.json`, `tal_brett.json` | Råtala. `tal.json`, `tal.csv` og `tal.md` er dei samla. |

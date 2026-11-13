@@ -259,11 +259,28 @@ if 'del3' in DEL:
         sn = []; t1m = []
         t1 = time.time()
         for xt in XG:
-            sc, prof, nf = profilL(PROF[pn], eye, xt, w, matt='auge', ds_=0.0004, gstep=1.0)
+            sc, prof, nf = profilL(PROF[pn], eye, xt, w, matt='auge', ds_=0.0003, gstep=1.0)
             q = tal(sc, prof); sn.append(q['snitt']); t1m.append(q['topp_1mm'])
         UT['heile_plata'][pn] = dict(x=XG.tolist(), snitt_per_x_cdm2=(np.array(sn) * LL * PH[(pn, w)]).round(1).tolist(),
                                      snitt_cdm2=float(np.mean(sn) * LL * PH[(pn, w)]), topp_1mm_per_x_cdm2=(np.array(t1m) * LL * PH[(pn, w)]).round(0).tolist())
         print('heile plata', pn, UT['heile_plata'][pn], f'{time.time()-t1:.1f}s', flush=True)
+
+if 'del4' in DEL:
+    # topp 1 mm utan aliasing: s-steg 0,025 mm (32 fasar per rille), gauss-gitter 0,1°, berre glanssona s 3,5..7 cm
+    UT['topp_fin'] = {}
+    for pn, w, xt in (('loddrett', 0.005, 0.0), ('loddrett', 0.010, 0.0)):
+        LL = 1 / (math.pi * w * L); t1 = time.time()
+        sc, prof, nf = profilL(PROF[pn], eye, xt, w, matt='auge', ds_=0.000025, gstep=0.1, s0=0.035, s1=0.070)
+        h = sc[1] - sc[0]; k1 = int(round(0.001 / h)); k10 = int(round(0.01 / h))
+        m1 = np.convolve(prof, np.ones(k1) / k1, mode='valid'); m10 = np.convolve(prof, np.ones(k10) / k10, mode='valid')
+        # rille-oppløyst: snitt over éi deling (0,8 mm)
+        kp = int(round(0.0008 / h)); mp = np.convolve(prof, np.ones(kp) / kp, mode='valid')
+        out = dict(topp_1mm=float(m1.max()), s_topp_cm=float(sc[np.argmax(m1) + k1 // 2] * 100), topp_1cm=float(m10.max()), topp_1rille=float(mp.max()),
+                   maks_punkt=float(prof.max()))
+        out.update({k + '_cdm2': out[k] * LL * PH[(pn, w)] for k in ('topp_1mm', 'topp_1cm', 'topp_1rille', 'maks_punkt')})
+        out.update({k + '_cdm2_motorPhi': out[k] * LL * PHI_M for k in ('topp_1mm', 'topp_1cm')})
+        UT['topp_fin'][f'{pn}_w{int(w*1000)}'] = out
+        print('topp fin', pn, w, {k: round(v, 4) for k, v in out.items()}, f'{time.time()-t1:.1f}s', flush=True)
 
 UT['tid_s'] = time.time() - t0
 print(f'ferdig {time.time()-t0:.0f} s')

@@ -17,7 +17,7 @@ Dato 13.11.2026. Modell, ikkje måling. Tala står i `tal.md`, `tal.csv` og `kli
 | Felt ved 5 W, lx | 394 | 381 | 413 |
 | Jamnheit | 0,42 | 0,21 | 0,38 |
 | Vegg ved 5 W, lx (vegg/felt) | 117 (0,30) | 138 (0,36) | 59 (0,14) |
-| Mot auget, cd/m² (ved 350 lx) | 779 (692) | 940 (864) | 1047 (887) |
+| Mot auget, cd/m² (ved 350 lx) | 779 (693) | 940 (864) | 1047 (887) |
 | Stemning: auge, felt, vegg | 169, 11, 63 | 171, 58, 56 | 191, 89, 31 |
 | Likskap | 0,78 | 0,90 | 0,74 |
 | Overgang: topp, sprang | 0,72, 0,04 | 0,67, 0,02 | 0,52, 0,10 |
@@ -46,7 +46,7 @@ Alle tre har strekk 0, eitt stykke og minste bru over 12 mm. Ingen når jamnheit
 
 ## 5 Føreseiingar til skissemodellen (sette før måling)
 
-Same telefonlykt i alle stillingar, lux midt på feltet og på veggen bak skjermen 45 cm over bordet, foto frå stolen med låst eksponering.
+Same telefonlykt i alle stillingar. Lux på feltet er snittet av fem punkt, lux på veggen snittet av ti punkt jamt over veggsona (1,4 × 0,7 m rundt skjermen, 8 til 78 cm over bordet), slik modellen reknar. Foto frå stolen med låst eksponering.
 
 - **P1:** ring-vipp i arbeidsstilling gjev vegg/felt mellom 0,20 og 0,45 (modell 0,30). Same oppstilling med heil skive gjev under 0,12 (modell 0,06).
 - **P2:** Vipp ring-vipp frå arbeid til stemning utan å endre lykta: feltet fell til under 0,2 av arbeidsnivået (modell 0,11), og veggen blir minst 1,5 gonger lysare (modell 2,2).
@@ -67,6 +67,8 @@ Fell P1 under 0,2, spreier lykta meir enn modellen (10°), og holet må bli stø
 
 - **Feil i motoren (meldt):** (a) Når fleire ark deler kjelde, skriv kvart ark over `lm_ut` på kjelda med sitt eige tap, så spillet blir talt fleire gonger. Omgått med `_bokfor` i `familie.py`. (b) Eit ark der alt er klipt bort, krasjar (tom `Nett`) i staden for å gje null. (c) Ei punktkjelde gjev striper bak klipte mønster: same slissar med ulik fase gav vegg 79 til 220 lx. Omgått med tre kjeldepunkt over Ø 4 cm (då 90 til 130 lx).
 - Motoren blei endra kl. 10.33 (nytt tal for skjermflata). Generasjon 1 er rekna før, generasjon 2 og tal.md etter.
+- **Biletet mot talet:** bretta viser at klippet lyser veggen til høgre for og over skjermen (strålen held fram til om lag x 0,47 og 67 cm over bordet), ikkje rundt skjermen. Talet «vegg» er snittet over heile veggsona (1,4 × 0,7 m) og skjuler at veggstrøket er ein flekk. Skal flekken bak skjermen, må kjelda stå lenger til høgre og strålen gå skrått mot venstre (oppstillinga «skra» frå generasjon 0, ikkje køyrd i generasjon 2).
+- Flekkanten er hakkete i biletet fordi klippet blir rekna på fliser. Ei kjelde på Ø 4 cm, 37 cm frå skiva og 45 cm frå skiva til veggen, gjev om lag 5 cm halvskugge i røynda.
 - Klippet blir rekna på fliser om lag 1,25 cm (n = 20). Hol under 2 cm og slissar blir grove i lyset, medan produksjonstala er rekna på 0,5 mm.
 - Arket skuggar ikkje seg sjølv. Spegling av skiva i dataskjermen er ikkje rekna. SATIN og 2 % sprut er antakingar.
 - Linsa bak holet (ring-linse) slepper 80 % (ANTAKING). Velt er ein enkel momentsum med fot 0,85 kg.

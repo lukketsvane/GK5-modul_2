@@ -1,0 +1,31 @@
+maane-drei   felt  381 U 0.21 W350  4.60 vegg  138 v/f 0.36 ansikt  55 auge   940 | stemn: auge   171 felt   58 vegg   56 | lik 0.90 strekk 0.00% | open 37% delar 1 bru >12 hol 0 rist 1.2 velt 2.6
+halv-drei    felt  195 U 0.32 W350  8.98 vegg  224 v/f 1.15 ansikt  55 auge   718 | stemn: auge   236 felt  121 vegg   29 | lik 0.81 strekk 0.00% | open 50% delar 1 bru >12 hol 0 rist 0.8 velt 3.2
+fase         felt  504 U 0.43 W350  3.47 vegg   73 v/f 0.15 ansikt  54 auge   923 | stemn: auge   227 felt   72 vegg   42 | lik 0.88 strekk 0.00% | open 50% delar 1 bru >12 hol 0 rist 0.8 velt 1.8
+formorking   felt  503 U 0.39 W350  3.48 vegg   86 v/f 0.17 ansikt  57 auge   923 | stemn: auge   163 felt   61 vegg   39 | lik 0.90 strekk 0.00% | open 64% delar 1 bru >12 hol 1 rist 1.6 velt 1.7
+ring-vipp    felt  394 U 0.42 W350  4.44 vegg  117 v/f 0.30 ansikt  58 auge   779 | stemn: auge   169 felt   11 vegg   63 | lik 0.78 strekk 0.00% | open 16% delar 1 bru >12 hol 1 rist 1.4 velt 2.1
+heil-vipp    felt  665 U 0.35 W350  2.63 vegg   41 v/f 0.06 ansikt  59 auge   923 | stemn: auge   169 felt   13 vegg   64 | lik 0.37 strekk 0.00% | open  0% delar 1 bru >12 hol 0 rist 1.0 velt 1.8
+blad-skyv    felt  639 U 0.34 W350  2.74 vegg   73 v/f 0.11 ansikt  60 auge  1395 | stemn: auge   123 felt   57 vegg   37 | lik 0.79 strekk 0.00% | open 57% delar 1 bru >12 hol 0 rist 0.7 velt 5.2
+luke         felt  413 U 0.38 W350  4.24 vegg   59 v/f 0.14 ansikt  55 auge  1047 | stemn: auge   191 felt   89 vegg   31 | lik 0.74 strekk 0.00% | open 22% delar 1 bru >12 hol 1 rist 1.5 velt 2.2
+lamell-vri   felt  510 U 0.17 W350  3.43 vegg   90 v/f 0.18 ansikt  57 auge   964 | stemn: auge   141 felt   36 vegg   44 | lik 0.64 strekk 0.00% | open 57% delar 1 bru 2 hol 4 rist 2.9 velt 3.6
+to-lag-hol   felt  577 U 0.36 W350  3.04 vegg   65 v/f 0.11 ansikt  58 auge   914 | stemn: auge   229 felt  100 vegg   35 | lik 0.90 strekk 0.00% | open 40% delar 1 bru >12 hol 38 rist 3.7 velt 1.5
+vifte-drei   felt  560 U 0.31 W350  3.12 vegg   54 v/f 0.10 ansikt  54 auge   923 | stemn: auge   231 felt   93 vegg   25 | lik 0.93 strekk 0.00% | open 48% delar 1 bru >12 hol 0 rist 1.4 velt 1.7
+fresnel      felt 1083 U 0.01 W350  1.62 vegg   28 v/f 0.03 ansikt  53 auge   452 | stemn: auge   117 felt  271 vegg    7 | lik 1.00 strekk 0.00% | open  0% delar 1 bru >12 hol 0 rist 1.3 velt 5.0
+fresnel-maske felt 1056 U 0.01 W350  1.66 vegg   28 v/f 0.03 ansikt  56 auge   941 | stemn: auge   987 felt  159 vegg    8 | lik 0.92 strekk 0.00% | open  0% delar 1 bru >12 hol 0 rist 1.3 velt 5.0
+ring-linse   felt  486 U 0.40 W350  3.60 vegg  107 v/f 0.22 ansikt  61 auge   848 | stemn: auge   212 felt  122 vegg   27 | lik 1.00 strekk 0.00% | open 10% delar 1 bru >12 hol 1 rist 1.3 velt 2.0
+VELT-sveip   felt  665 U 0.35 W350  2.63 vegg   41 v/f 0.06 ansikt  59 auge   923 | stemn: auge   171 felt   11 vegg   50 | lik 0.43 strekk 0.00% | open  0% delar 1 bru >12 hol 0 rist 1.0 velt 1.8
+UMOGL-kuppel felt  109 U 0.34 W350 16.09 vegg  137 v/f 1.26 ansikt  93 auge 35750 | stemn: auge  8937 felt   27 vegg   34 | lik 1.00 strekk 30.95% | open 27% delar 1 bru >12 hol 19 rist 3.2 velt 2.3
+overgang maane-drei topp 0.67 sprang 0.02 jamn auke 1.00  auge [171, 238, 387, 628, 940]  felt [58, 76, 123, 225, 381]  vegg [56, 74, 92, 120, 138]
+overgang halv-drei  topp 0.82 sprang 0.03 jamn auke 1.00  auge [236, 332, 468, 588, 718]  felt [121, 151, 171, 176, 195]  vegg [29, 43, 80, 127, 224]
+overgang fase       topp 0.71 sprang 0.03 jamn auke 1.00  auge [227, 321, 461, 653, 923]  felt [72, 120, 200, 312, 504]  vegg [42, 52, 71, 86, 73]
+overgang formorking topp 0.70 sprang 0.02 jamn auke 1.00  auge [163, 230, 392, 642, 923]  felt [61, 87, 151, 279, 503]  vegg [39, 55, 71, 83, 86]
+overgang ring-vipp  topp 0.72 sprang 0.04 jamn auke 1.00  auge [169, 261, 392, 560, 779]  felt [11, 18, 69, 212, 394]  vegg [63, 67, 73, 91, 117]
+overgang heil-vipp  topp 0.67 sprang 0.11 jamn auke 1.00  auge [169, 261, 405, 618, 923]  felt [13, 22, 83, 321, 665]  vegg [64, 64, 49, 35, 41]
+overgang blad-skyv  topp 0.49 sprang 0.02 jamn auke 1.00  auge [123, 194, 358, 687, 1395]  felt [57, 109, 208, 376, 639]  vegg [37, 46, 54, 55, 73]
+overgang luke       topp 0.52 sprang 0.10 jamn auke 1.00  auge [191, 271, 383, 541, 1047]  felt [89, 127, 180, 256, 413]  vegg [31, 45, 55, 43, 59]
+overgang lamell-vri topp 0.70 sprang 0.11 jamn auke 1.00  auge [141, 199, 346, 676, 964]  felt [36, 46, 61, 141, 510]  vegg [44, 48, 55, 67, 90]
+overgang to-lag-hol topp 0.71 sprang 0.02 jamn auke 1.00  auge [229, 323, 457, 646, 914]  felt [100, 161, 251, 387, 577]  vegg [35, 43, 54, 50, 65]
+overgang vifte-drei topp 0.71 sprang 0.01 jamn auke 1.00  auge [231, 326, 461, 653, 923]  felt [93, 148, 236, 365, 560]  vegg [25, 32, 41, 53, 54]
+overgang fresnel    topp 0.71 sprang 0.00 jamn auke 1.00  auge [117, 163, 229, 322, 452]  felt [271, 383, 541, 766, 1083]  vegg [7, 10, 14, 20, 28]
+overgang fresnel-maske topp 1.25 sprang 0.02 jamn auke 1.00  auge [987, 1113, 1236, 1117, 941]  felt [159, 293, 462, 714, 1056]  vegg [8, 11, 15, 20, 28]
+overgang ring-linse topp 0.71 sprang 0.00 jamn auke 1.00  auge [212, 300, 424, 599, 848]  felt [122, 172, 243, 344, 486]  vegg [27, 38, 54, 76, 107]
+overgang VELT-sveip topp 39.32 sprang 0.34 jamn auke 1.00  auge [171, 3920, 36282, 20008, 923]  felt [11, 13, 16, 114, 665]  vegg [50, 13, 10, 17, 41]

@@ -18,19 +18,19 @@ Same rom, same mannekeng, same watt: 1,25 W i stemning og 5 W i arbeid, skalert 
 
 | | A Skiva | B Over | C Vindauge |
 | --- | --- | --- | --- |
-| Watt for 350 lx på feltet (tak 7,5) | 3,47 | 3,56 | 5,78 |
-| Timar per celle ved 350 lx | 4,3 | 4,2 | 2,6 |
-| Jamnheit (referanse 0,6) | 0,63 | 0,41 | 0,62 |
-| Mot auget ved 350 lx, auge 25 / 47 / 60 cm (F1 3000, F5 1500) | 672 / 672 / 91 | 1124 / 196 / 196 | 155 / 122 / 122 |
-| Veggen bak skjermen ved 350 lx (F6 100 til 150) | 105 | 134 | 123 |
-| Skjermflata ved 350 lx (del av feltet) | 126 (0,36) | 60 (0,17) | 39 (0,11) |
-| Ansiktet ved 350 lx | 30 | 43 | 25 |
-| Stemning: mot auget (krav 500) | 242 | 110 | 76 |
-| Stemning: veggen bak skjermen | 117 | 108 | 72 |
-| Stemning: skjermflata | 93 | 5 | 0 |
-| Likskap stemning og arbeid (over 0,9 er dimmar) | 0,65 | 0,71 | 0,54 |
-| Største sprang langs overgangen | 0,06 | 0,12 | 0,05 |
-| Skjermflata langs overgangen, lx | 93 · 171 · 226 · 221 · 182 | 5 · 68 · 243 · 243 · 85 | 0 · 3 · 9 · 18 · 34 |
+| Watt for 350 lx på feltet (tak 7,5) | 2,99 | 3,56 | 5,78 |
+| Timar per celle ved 350 lx | 5,1 | 4,2 | 2,6 |
+| Jamnheit (referanse 0,6) | 0,62 | 0,41 | 0,62 |
+| Mot auget ved 350 lx, auge 25 / 47 / 60 cm (F1 3000, F5 1500) | 1013 / 103 / 103 | 1124 / 196 / 196 | 155 / 122 / 122 |
+| Veggen bak skjermen ved 350 lx (F6 100 til 150) | 108 | 134 | 123 |
+| Skjermflata ved 350 lx (del av feltet) | 115 (0,33) | 60 (0,17) | 39 (0,11) |
+| Ansiktet ved 350 lx | 29 | 43 | 25 |
+| Stemning: mot auget, verste augehøgd (krav 500) | 424 | 110 | 76 |
+| Stemning: veggen bak skjermen | 131 | 108 | 72 |
+| Stemning: skjermflata | 105 | 5 | 0 |
+| Likskap stemning og arbeid (over 0,9 er dimmar) | 0,60 | 0,71 | 0,54 |
+| Største sprang langs overgangen | 0,08 | 0,12 | 0,05 |
+| Skjermflata langs overgangen, lx | 105 · 174 · 220 · 231 · 193 | 5 · 68 · 243 · 243 · 85 | 0 · 3 · 9 · 18 · 34 |
 
 Lyset på skjermflata blir samanlikna som del av feltet. Bru og krok frå formsøket i `northern-lampe/` ligg på om lag 1,2 til 1,3, prisma på 0,02.
 
@@ -38,7 +38,7 @@ Lyset på skjermflata blir samanlikna som del av feltet. Bru og krok frå forms�
 
 **Veggen bak skjermen (F6).** 100 lx på om lag 0,84 m² vegg kostar like mange lumen som 350 lx på feltet. Difor må ein del av lyset gå til veggen òg i arbeid. Alle tre har no ein eigen veg dit:
 
-- A: ein andre diode i foten lyser på ein fast flik på stamma (12 × 8,4 cm, satinert, 30 cm over bordet). Fliken sender 40 % av watten forbi skjermkanten til veggen bak skjermen. Ein matt flik gav 32 til 52 lx og blenda med 2400 til 7000 cd/m², så fliken må vere satinert.
+- A: ein andre diode i foten (smal, 5°) lyser på ein fast flik 3,5 cm til venstre for stamma (12 × 8,4 cm, satinert, 30 cm over bordet). Fliken sender 30 % av watten forbi skjermkanten til veggen bak skjermen. Ein matt flik gav 32 til 52 lx og blenda med 2400 til 7000 cd/m², så fliken må vere satinert. Med fliken rett på stamma kasta stamma ein brei skugge på veggen, og ein vid diode (8°) lyste forbi fliken og opp i taket.
 - B: plata er delt langs ein diameter og knekt. Ein flik på 60 mm siktar på veggen over skjermkanten. 80 mm gav 157 lx, over målet.
 - C: spegelen tek 65 % til bordet i staden for 75 %. Resten blir verande vindauge på veggen.
 
@@ -53,7 +53,7 @@ Lyset på skjermflata blir samanlikna som del av feltet. Bru og krok frå forms�
 
 ## Kvar dei står
 
-**A Skiva** er den jamnaste og har den mjukaste overgangen (sprang 0,06). Svakheita er skjermflata: spegelskiva legg 0,36 av feltluxen på skjermen i arbeid og 226 lx midt i overgangen, og fliken syner frå auget med 672 cd/m². Næraste nabo er Verner Panton Reflect, som har fast, kvit skive og ingen flik.
+**A Skiva** er den jamnaste og brukar minst straum (3,0 W). Svakheita er skjermflata: spegelskiva legg 0,33 av feltluxen på skjermen i arbeid og om lag 220 lx midt i overgangen, og auget 25 cm over bordet ser fliken med 1013 cd/m². Næraste nabo er Verner Panton Reflect, som har fast, kvit skive og ingen flik.
 
 **B Over** er den einaste som held stemninga heilt av skjermen (5 lx). Svakheita er jamnheita (0,41) og at strålen sveipar over skjermen midt i vippen (243 lx). Det låge auget ser 1124 cd/m², under F5. Næraste nabo er BenQ ScreenBar Halo.
 

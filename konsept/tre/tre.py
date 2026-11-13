@@ -86,8 +86,8 @@ def _med_stolpe(g, x=0.31, y=0.49, r=0.006):
 # ------------------------------------------------------------------ dei tre, etter søket 13.11 (a_sok, b_sok, c_sok)
 
 def _A(t):
-    import a_sok   # fast flik på stamma til veggen bak skjermen, 40 % av watten, satin, 12 x 8,4 cm, 30 cm over bordet
-    return a_sok.a_ny(0.40, 0.30, 0.12, 0.084, ls.SATIN)(t)
+    import a_sok   # fast flik ved sida av stamma til veggen bak skjermen: 30 % av watten, smal diode (5°), satin, 12 x 8,4 cm, 30 cm over bordet
+    return a_sok.a_ny(0.30, 0.30, 0.12, 0.084, ls.SATIN, spr2=5, dx=-0.035)(t)
 
 def _B(t):
     import b_sok   # plata knekt: flik 60 mm mot veggen bak skjermen, diffusorark 14°, plata 62 cm over bordet

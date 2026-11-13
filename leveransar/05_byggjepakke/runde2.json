@@ -1,0 +1,116 @@
+{
+ "A": {
+  "flik_senter_cm": [
+   47.0,
+   42.5,
+   30.0
+  ],
+  "flik_mm": [
+   120,
+   84
+  ],
+  "flik_tilt_grader": 51.5,
+  "flik_normal": [
+   -0.71,
+   0.33,
+   -0.622
+  ],
+  "lykt2_cm": [
+   47.0,
+   40.0,
+   5.0
+  ],
+  "lykt2_sigma": 8,
+  "lykt2_kutt": 16,
+  "lykt2_til_flik_cm": 25.1,
+  "lykt2_vinkel_fram_frå_loddrett": 5.7,
+  "q": 0.4,
+  "hovudlykt_vinkel_fram_frå_loddrett": 12.5,
+  "hovudlykt_til_skive_cm": 36.9
+ },
+ "B": {
+  "plate_senter_cm": [
+   0.0,
+   36.0,
+   62.0
+  ],
+  "lykt_cm": [
+   0.0,
+   40.9,
+   51.0
+  ],
+  "lykt_avstand_cm": 12.0,
+  "knekk_grader": 48.3,
+  "dreieakse": [
+   1.0,
+   0.0,
+   0.0
+  ],
+  "hovuddel_tilt_arbeid": 7.0,
+  "flik_tilt_arbeid": 55.3,
+  "heile_tilt_stemning": 55.3,
+  "hovuddel_normal_arbeid": [
+   0.0,
+   0.121,
+   -0.993
+  ],
+  "flik_normal": [
+   0.0,
+   0.822,
+   -0.569
+  ],
+  "v_positiv_peikar": [
+   0.0,
+   -0.993,
+   -0.121
+  ],
+  "flik_mm": 60,
+  "maskert_mm": 82.5,
+  "diffusor_sigma": 14
+ },
+ "C": {
+  "hovud_cm": [
+   40.0,
+   42.0,
+   70.0
+  ],
+  "fot_cm": [
+   40.0,
+   50.0
+  ],
+  "f_mm": 70,
+  "u_mm": 62.1,
+  "u_skarp_mm": 76.5,
+  "til_felt_cm": 82.4,
+  "til_vegg_cm": 56.3,
+  "avboying_grader": 48.3,
+  "q_bord": 0.65,
+  "grad": 1.5,
+  "maske_hjorne_mm": [
+   [
+    4.1,
+    18.5
+   ],
+   [
+    26.02,
+    -14.51
+   ],
+   [
+    -6.51,
+    -29.35
+   ],
+   [
+    -20.17,
+    11.25
+   ]
+  ],
+  "hjorne_namn": [
+   "framkant venstre",
+   "framkant høgre",
+   "bakkant høgre",
+   "bakkant venstre"
+  ],
+  "filter_min": 0.467,
+  "filter_max": 1.0
+ }
+}

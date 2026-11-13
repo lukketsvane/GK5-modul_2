@@ -19,7 +19,7 @@ import numpy as np
 
 VEGGMAL = b(0.0, YV, 0.45)
 
-def a_ny(q=0.35, fh=0.28, fw=0.14, fl=0.10, side2=None, spr2=8, sigma=2.5, flik=True):
+def a_ny(q=0.35, fh=0.28, fw=0.14, fl=0.10, side2=None, spr2=8, sigma=2.5, flik=True, dx=0.0):
     side = dict(rd=0.03, rs=0.85, sigma=sigma)
     side2 = ls.SATIN if side2 is None else side2
     def g(t):
@@ -28,8 +28,8 @@ def a_ny(q=0.35, fh=0.28, fw=0.14, fl=0.10, side2=None, spr2=8, sigma=2.5, flik=
         lys, kropp = boy.lampe(t, form=boy.boy(-1 / 1.2), side=side, n=30, fot=boy.F2, c=boy.CF,
                                mot=boy.vipp(t, til=boy.SIKT), ref=boy.SIKT, W=Wm)
         if flik:
-            kp2 = b(boy.F2[0], boy.F2[1] + 0.02, 0.05)
-            c2 = b(boy.F2[0], boy.F2[1] + 0.045, fh)          # fliken sit på stamma, bak strålen til skiva
+            kp2 = b(boy.F2[0] + dx, boy.F2[1] + 0.02, 0.05)
+            c2 = b(boy.F2[0] + dx, boy.F2[1] + 0.045, fh)     # fliken sit på stamma, bak strålen til skiva. dx < 0: til venstre for stamma
             n2 = ls.nrm(ls.nrm(kp2 - c2) + ls.nrm(VEGGMAL - c2))
             k2 = ls.straale(kp2, c2, Wt * q * ls.LMW_KJELDE, K, spreiing=spr2, kutt=2 * spr2, opning=0.02, bronn=40)
             a2 = ls.ark(k2, c2, n2, (fw, fl), framside=side2, n=14, opp=np.array([0.0, 0.0, 1.0]))

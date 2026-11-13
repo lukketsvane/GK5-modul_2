@@ -8,6 +8,21 @@ Køyr: PYTHONIOENCODING=utf-8 python stadfest_P7_1.py  (om lag 1 min)
 import os, sys, math, json
 import numpy as np
 HER = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.dirname(HER)
+if len(sys.argv) > 1 and sys.argv[1] == 'a':
+    # Del C: (a) bru, stemning på 8x6 mot fint veggfelt (35x29), same motor og same Phi
+    sys.path.insert(0, ROOT); sys.path.insert(0, os.path.join(ROOT, 'form02')); sys.path.insert(0, os.path.join(ROOT, 'form01'))
+    import felles as fe
+    import val as V2
+    Ba, ta, Sa = V2.tal_bru(15.0)
+    Mo, W = Sa['mood'], Sa['work']
+    P, Nn, dA = V2.M1.opning(Ba, Mo['s'])
+    k = V2.M1.eta(Ba) / (math.pi * dA.sum())
+    Wx, Wz = np.meshgrid(np.linspace(-0.69, 0.69, 35), np.linspace(0.06, 1.19, 29))
+    WF = np.c_[Wx.ravel(), np.full(Wx.size, fe.WALL_Y - 1e-3), Wz.ravel()]
+    Ewf = fe.illum(P, Nn, dA, WF, np.array([0, -1.0, 0])).mean() * k
+    print(json.dumps(dict(alfa_stem=math.degrees(Mo['s']), Ev_8x6=Mo['Ev_stem'], Ev_areal=float(Ewf * W['Phi'] * fe.DIM_STEM),
+                          Phi=W['Phi'], R=Mo['R_stem']), indent=1))
+    sys.exit()
 sys.path.insert(0, ROOT); sys.path.insert(0, os.path.join(ROOT, 'form04'))
 import felles as fe
 import motor as M

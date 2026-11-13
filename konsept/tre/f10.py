@@ -22,9 +22,9 @@ import numpy as np
 
 AUGE = ls.AUGE
 
-def a_mote(t=1.0, W=1.0, side=ls.MATT, sikt=None):
+def a_mote(t=1.0, W=1.0, side=ls.MATT, sikt=None, spreiing=10):
     sikt = AUGE if sikt is None else sikt
-    lys, kropp = boy.lampe(t, form=boy.boy(-1 / 1.2), side=side, n=30, fot=boy.F2, c=boy.CF, mot=sikt, ref=boy.SIKT, W=W)
+    lys, kropp = boy.lampe(t, form=boy.boy(-1 / 1.2), side=side, n=30, fot=boy.F2, c=boy.CF, mot=sikt, ref=boy.SIKT, W=W, spreiing=spreiing)
     return lys, kropp
 
 def b_mote(t=1.0, W=1.0, spr=14, sikt=None):
@@ -57,6 +57,8 @@ if __name__ == '__main__':
     except Exception: pass
     rader = []
     for namn, f in [('A matt bakside mot auget', lambda: a_mote(W=1.0)),
+                    ('A matt bakside mot auget, kjelde 14°', lambda: a_mote(W=1.0, spreiing=14)),
+                    ('A matt bakside mot auget, kjelde 18°', lambda: a_mote(W=1.0, spreiing=18)),
                     ('A matt, sikta 10 cm under auget', lambda: a_mote(W=1.0, sikt=AUGE - np.array([0, 0, 0.10]))),
                     ('A satin mot auget', lambda: a_mote(W=1.0, side=ls.SATIN)),
                     ('B plata mot auget, ark 14°', lambda: b_mote(W=1.0)),

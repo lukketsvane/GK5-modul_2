@@ -1,0 +1,43 @@
+{
+ "scene": "minste-sprengt",
+ "w": 533,
+ "h": 333,
+ "delar": [
+  {
+   "namn": "fot",
+   "slag": "print",
+   "del_": "ny",
+   "px": [
+    263.4,
+    284.3
+   ]
+  },
+  {
+   "namn": "arm",
+   "slag": "sett",
+   "del_": "P01",
+   "px": [
+    262.4,
+    94.0
+   ]
+  },
+  {
+   "namn": "plate",
+   "slag": "kjopt",
+   "del_": "ny",
+   "px": [
+    277.8,
+    17.7
+   ]
+  },
+  {
+   "namn": "led",
+   "slag": "kjopt",
+   "del_": "ny",
+   "px": [
+    289.3,
+    40.1
+   ]
+  }
+ ]
+}

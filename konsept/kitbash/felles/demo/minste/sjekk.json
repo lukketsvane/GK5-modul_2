@@ -1,0 +1,293 @@
+{
+ "namn": "minste",
+ "merknad": "rekna, ikkje målt. Mål på delane frå settet er anslag frå foto.",
+ "stillingar": [
+  {
+   "t": 0.0,
+   "kollisjonar": [],
+   "velt": {
+    "punkt_mm": [
+     0.0,
+     0.0,
+     308.5
+    ],
+    "dytt_N": 1.1,
+    "dytt_retning_grader": 265.0,
+    "dytt_N_lett": 0.91,
+    "krav_N": 5.0,
+    "held": false,
+    "glid_N": 1.59,
+    "glir_forst": false,
+    "veltevinkel": 34.6,
+    "tp_innanfor_mm": 85.0,
+    "fot_cm2": 254.3,
+    "masse_g": 405.8,
+    "masse_pm_g": 69.8,
+    "tp_mm": [
+     -0.1,
+     -5.0,
+     123.3
+    ],
+    "z0_mm": 0.0,
+    "merknad": "rekna: stiv kropp på stivt bord, friksjon 0,4 (ANTAKING). dytt_N_lett er med massen i nedre kant av usikkerheita."
+   }
+  },
+  {
+   "t": 0.25,
+   "kollisjonar": [],
+   "velt": {
+    "punkt_mm": [
+     0.0,
+     0.0,
+     308.5
+    ],
+    "dytt_N": 1.1,
+    "dytt_retning_grader": 265.0,
+    "dytt_N_lett": 0.91,
+    "krav_N": 5.0,
+    "held": false,
+    "glid_N": 1.59,
+    "glir_forst": false,
+    "veltevinkel": 34.6,
+    "tp_innanfor_mm": 85.0,
+    "fot_cm2": 254.3,
+    "masse_g": 405.8,
+    "masse_pm_g": 69.8,
+    "tp_mm": [
+     -0.1,
+     -5.0,
+     123.3
+    ],
+    "z0_mm": 0.0,
+    "merknad": "rekna: stiv kropp på stivt bord, friksjon 0,4 (ANTAKING). dytt_N_lett er med massen i nedre kant av usikkerheita."
+   }
+  },
+  {
+   "t": 0.5,
+   "kollisjonar": [],
+   "velt": {
+    "punkt_mm": [
+     0.0,
+     0.0,
+     308.5
+    ],
+    "dytt_N": 1.1,
+    "dytt_retning_grader": 265.0,
+    "dytt_N_lett": 0.91,
+    "krav_N": 5.0,
+    "held": false,
+    "glid_N": 1.59,
+    "glir_forst": false,
+    "veltevinkel": 34.6,
+    "tp_innanfor_mm": 85.0,
+    "fot_cm2": 254.3,
+    "masse_g": 405.8,
+    "masse_pm_g": 69.8,
+    "tp_mm": [
+     -0.1,
+     -5.0,
+     123.3
+    ],
+    "z0_mm": 0.0,
+    "merknad": "rekna: stiv kropp på stivt bord, friksjon 0,4 (ANTAKING). dytt_N_lett er med massen i nedre kant av usikkerheita."
+   }
+  },
+  {
+   "t": 0.75,
+   "kollisjonar": [],
+   "velt": {
+    "punkt_mm": [
+     0.0,
+     0.0,
+     308.5
+    ],
+    "dytt_N": 1.1,
+    "dytt_retning_grader": 265.0,
+    "dytt_N_lett": 0.91,
+    "krav_N": 5.0,
+    "held": false,
+    "glid_N": 1.59,
+    "glir_forst": false,
+    "veltevinkel": 34.6,
+    "tp_innanfor_mm": 85.0,
+    "fot_cm2": 254.3,
+    "masse_g": 405.8,
+    "masse_pm_g": 69.8,
+    "tp_mm": [
+     -0.1,
+     -5.0,
+     123.3
+    ],
+    "z0_mm": 0.0,
+    "merknad": "rekna: stiv kropp på stivt bord, friksjon 0,4 (ANTAKING). dytt_N_lett er med massen i nedre kant av usikkerheita."
+   }
+  },
+  {
+   "t": 1.0,
+   "kollisjonar": [],
+   "velt": {
+    "punkt_mm": [
+     0.0,
+     0.0,
+     308.5
+    ],
+    "dytt_N": 1.1,
+    "dytt_retning_grader": 265.0,
+    "dytt_N_lett": 0.91,
+    "krav_N": 5.0,
+    "held": false,
+    "glid_N": 1.59,
+    "glir_forst": false,
+    "veltevinkel": 34.6,
+    "tp_innanfor_mm": 85.0,
+    "fot_cm2": 254.3,
+    "masse_g": 405.8,
+    "masse_pm_g": 69.8,
+    "tp_mm": [
+     -0.1,
+     -5.0,
+     123.3
+    ],
+    "z0_mm": 0.0,
+    "merknad": "rekna: stiv kropp på stivt bord, friksjon 0,4 (ANTAKING). dytt_N_lett er med massen i nedre kant av usikkerheita."
+   }
+  }
+ ],
+ "masse": {
+  "total_g": 405.8,
+  "pm_g": 69.8,
+  "tp_mm": [
+   -0.1,
+   -5.0,
+   123.3
+  ],
+  "rader": [
+   {
+    "namn": "fot",
+    "slag": "print",
+    "pid": null,
+    "g": 177.6,
+    "tp_mm": [
+     0.0,
+     0.0,
+     9.7
+    ],
+    "kjelde": "rekna: PETG, vegg 1,2 mm og 15 % fyll (ANTAKING), massiv 551 g",
+    "pm_g": 26.6,
+    "omgjevnad": false
+   },
+   {
+    "namn": "arm",
+    "slag": "sett",
+    "pid": "P01",
+    "g": 183.8,
+    "tp_mm": [
+     -0.2,
+     -0.5,
+     182.2
+    ],
+    "kjelde": "rekna frå volum, mål anslått frå foto; rekna som skal, vegg 2,5 mm (ANTAKING), tettleik ANTAKING",
+    "pm_g": 64.3,
+    "omgjevnad": false
+   },
+   {
+    "namn": "plate",
+    "slag": "kjopt",
+    "pid": null,
+    "g": 38.9,
+    "tp_mm": [
+     0.0,
+     -40.0,
+     335.0
+    ],
+    "kjelde": "oppgjeven",
+    "pm_g": 3.9,
+    "omgjevnad": false
+   },
+   {
+    "namn": "led",
+    "slag": "kjopt",
+    "pid": null,
+    "g": 5.4,
+    "tp_mm": [
+     -0.0,
+     -70.0,
+     333.2
+    ],
+    "kjelde": "oppgjeven",
+    "pm_g": 0.5,
+    "omgjevnad": false
+   }
+  ],
+  "lampe_g": 405.8,
+  "lampe_tp_mm": [
+   -0.1,
+   -5.0,
+   123.3
+  ]
+ },
+ "varme": [
+  {
+   "namn": "led",
+   "watt": 5.0,
+   "ligg_mot": [
+    "plate"
+   ],
+   "metall": [
+    "plate"
+   ],
+   "print": [],
+   "kjoleflate_cm2": 151.2,
+   "temp_C": 48.1,
+   "grense_C": 78.0,
+   "ok": true,
+   "raad": "Held: om lag 48 °C ved 5,0 W på 151 cm² metall (grense 78 °C for PETG).",
+   "merknad": "rekna, ikkje målt. ANTAKING: 70 % varme, 10 W/m²K, rom 25 °C"
+  }
+ ],
+ "utskrift": [
+  {
+   "namn": "fot",
+   "plast": "PETG",
+   "maal_mm": [
+    180.0,
+    180.0,
+    56.0
+   ],
+   "passar": true,
+   "overheng_cm2": 0.0,
+   "overheng_del": 0.0,
+   "g": 177.6,
+   "g_massiv": 550.8,
+   "tett": true,
+   "merknad": "ok"
+  }
+ ],
+ "om_armen_er_staal": {
+  "total_g": 646.9,
+  "pm_g": 151.1,
+  "tp_mm": [
+   -0.0,
+   -3.1,
+   128.1
+  ],
+  "dytt_N": 1.79,
+  "veltevinkel": 34.1,
+  "held": false,
+  "merknad": "armprofilen P01 rekna som stål 7,85 g/cm³ i staden for aluminium 2,70. Prøv med magnet, og vei armen."
+ },
+ "maal_mm": [
+  180.0,
+  190.0,
+  336.0
+ ],
+ "settdelar": [
+  "P01"
+ ],
+ "eksport": {
+  "stl": [
+   "stl/print_fot.stl"
+  ],
+  "glb": "minste.glb"
+ }
+}

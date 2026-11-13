@@ -180,19 +180,18 @@ def k_kryss():
             W, Kel = ls.watt(t)
             plate = plate_i(ls.b(0.0, ls.YV, 0.60) * (1 - t) + ls.FELT * t)
             k = ls.straale(pl.p(mm(kp)), pl.p(plate.punkt('spegelflate')), W * ls.LMW_KJELDE, Kel, spreiing=40, kutt=50, opning=0.02, bronn=50)
-            lys = [k, pl.fresnel(plate, k, spreiing=12, n=22, attekant=attekant)]
-            kropp = pl.kropp([plate]) if kropp_nett else [ls.syl(ls.b(0.0, 0.568, 0.31), ls.b(0.0, 0.568, 0.645), 0.02)]
-            return lys, kropp
+            lys = [k, pl.fresnel(plate, k, spreiing=12, n=16, attekant=attekant)]          # n = 16 fliser som i søket
+            return lys, (pl.kropp([plate]) if kropp_nett else [])                          # søkjebrettet rekna «over-vipp» utan kropp
         return g
     brett = json.load(open(os.path.join(K.SETT, 'kitbash', 'tal_lys.json'), encoding='utf-8'))['over-vipp']
-    print('  %-44s W350 %5.2f  U %.2f  bak350 %5.1f  skjerm350 %5.1f  ansikt350 %5.1f  auge %4.0f/%4.0f/%4.0f  s_bak %5.1f' % (
+    print('  %-50s W350 %5.2f  U %.2f  bak350 %5.1f  skjerm350 %5.1f  ansikt350 %5.1f  auge %4.0f/%4.0f/%4.0f  s_bak %5.1f' % (
         'søkjebrettet (tal_lys.json, over-vipp)', brett['W350'], brett['jamnheit'], brett['bak350'], brett['skjerm350'], brett['ansikt350'],
         brett['auge25'], brett['auge47'], brett['auge60'], brett['s_bak']))
     ut = {}
-    for namn, g in (('kit + bru, heil firkant, same stolpe', grep(False, False)), ('kit + bru, skorne hjørne, same stolpe', grep(True, False)),
-                    ('kit + bru, skorne hjørne, plata som nett', grep(True, True))):
+    for namn, g in (('kit + bru, heil firkant, utan kropp', grep(False, False)), ('kit + bru, skorne hjørne, utan kropp', grep(True, False)),
+                    ('kit + bru, skorne hjørne, plate og ramme som nett', grep(True, True))):
         R = studie.rekn(g); v = R['ved350']
-        print('  %-44s W350 %5.2f  U %.2f  bak350 %5.1f  skjerm350 %5.1f  ansikt350 %5.1f  auge %4.0f/%4.0f/%4.0f  s_bak %5.1f' % (
+        print('  %-50s W350 %5.2f  U %.2f  bak350 %5.1f  skjerm350 %5.1f  ansikt350 %5.1f  auge %4.0f/%4.0f/%4.0f  s_bak %5.1f' % (
             namn, R['W350'], R['arbeid']['U'], v['bak350'], v['skjerm350'], v['ansikt350'], v['auge25'], v['auge47'], v['auge60'], R['stemning']['E_bak']))
         ut[namn] = dict(W350=R['W350'], jamnheit=R['arbeid']['U'], **{k_: v[k_] for k_ in ('bak350', 'skjerm350', 'ansikt350', 'auge25', 'auge47', 'auge60')},
                         s_bak=R['stemning']['E_bak'])

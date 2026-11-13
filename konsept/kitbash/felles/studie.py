@@ -85,7 +85,7 @@ def _isolux(im, F, niv_bord, niv_vegg, font):
     """Isolux-kurver med lux-merke på bord og vegg.
     KOPI av _teikn_isolux i konsept/lysskisse/studie.py (13.11.2026): same kurver, same farge og strek. Endra berre
     plasseringa av merka: originalen prøver éin plass per kurve og hoppar over merket om plassen er oppteken. Her prøver
-    kvart merke fleire plassar langs kurva, så alle nivå som finst i biletet, får merke."""
+    kvart merke fleire plassar langs si eiga kurve, så alle nivå som finst i biletet, får merke, og merket har ein tynn mørk kant."""
     from skimage.measure import find_contours
     st = _st(); n = im.size[0]
     dr = ImageDraw.Draw(im, 'RGBA'); sett = []
@@ -115,14 +115,19 @@ def _isolux(im, F, niv_bord, niv_vegg, font):
                 if len(syn) > 12 and (beste is None or len(syn) > len(beste)): beste = syn
             if beste is None: continue
             tekst = f'{lv:g} lx'; w = dr.textlength(tekst, font=font)
-            hogre, venstre = beste[np.argmax(beste[:, 0])], beste[np.argmin(beste[:, 0])]
-            topp, botn = beste[np.argmin(beste[:, 1])], beste[np.argmax(beste[:, 1])]
-            kand = [(hogre[0] + 6, hogre[1] - fs // 2), (botn[0] - w / 2, botn[1] + 4), (venstre[0] - w - 6, venstre[1] - fs // 2), (topp[0] - w / 2, topp[1] - fs - 4)]
-            if plan == 'vegg': kand = [(topp[0] - fs, topp[1] - fs - 4), kand[0], kand[2], kand[1]]
-            kand += [(q[0] + 6, q[1] - fs - 2) for q in beste[np.linspace(0, len(beste) - 1, 9).astype(int)[1:-1]]]
+            # Første val er plassen originalen brukar (til høgre for kurva på bordet, over kurva på veggen). Er han oppteken,
+            # blir merket sett midt på si eiga kurve, så det aldri kan lesast som merket til nabokurva.
+            if plan == 'bord':
+                forst = beste[np.argmax(beste[:, 0])]; kand = [(forst[0] + 6, forst[1] - fs // 2)]
+                rekkje = beste[np.argsort(-beste[:, 0])]
+            else:
+                forst = beste[np.argmin(beste[:, 1])]; kand = [(forst[0] - fs, forst[1] - fs - 4)]
+                rekkje = beste[np.argsort(beste[:, 1])]
+            kand += [(q[0] - w / 2, q[1] - fs / 2 - 2) for q in rekkje[::max(1, len(rekkje) // 40)]]
             for x, y in kand:
                 if fri(x, y, w):
-                    dr.text((x, y), tekst, font=font, fill=(235, 232, 225, 190)); sett.append((x, y, w)); break
+                    dr.text((x, y), tekst, font=font, fill=(235, 232, 225, 215), stroke_width=2, stroke_fill=(18, 14, 10, 150))   # mørk kant: merket les òg på lyst bord
+                    sett.append((x, y, w)); break
 
 
 def rekn(g):
@@ -226,11 +231,15 @@ def studie(g, tittel, fil, nett=None, px=560, tal=None, ekstra_arbeid=(), ekstra
     for rr in (sc / 3, 2 * sc / 3, sc):
         rad = r * rr / sc; dr.ellipse([cx - rad, cy - rad, cx + rad, cy + rad], outline=(90, 85, 78), width=1)
     dr.line([cx, cy - r - 8, cx, cy + r + 8], fill=(70, 66, 60), width=1); dr.line([cx - r - 8, cy, cx + r + 8, cy], fill=(70, 66, 60), width=1)
+    namn_sett = []
     for (gr, I), col, wdt, lab in curves:
         pts = [(cx + r * min(i, 1.1 * sc) / sc * math.sin(math.radians(g_)), cy + r * min(i, 1.1 * sc) / sc * math.cos(math.radians(g_))) for g_, i in zip(gr, I)]
         dr.line(pts + pts[:1], fill=col, width=wdt, joint='curve')
         tip = max(pts, key=lambda q: (q[0] - cx) ** 2 + (q[1] - cy) ** 2)
-        dr.text((min(tip[0] + 10, Wd - 150), tip[1] - 14), lab, font=fs, fill=col)
+        tx, ty = min(tip[0] + 10, Wd - 150), tip[1] - 14
+        while any(abs(tx - a) < 130 and abs(ty - c) < 28 for a, c in namn_sett): ty += 30       # like kurver (ein dimmar): namna under kvarandre
+        namn_sett.append((tx, ty))
+        dr.text((tx, ty), lab, font=fs, fill=col)
     dr.text((cx - r - 10, cy - r - 44), 'lysfordeling, snitt', font=fs, fill=graa)
     dr.text((cx + r * 0.71 + 6, cy + r * 0.71 + 2), f'{sc} cd/klm', font=fs, fill=(150, 142, 130))
     os.makedirs(os.path.dirname(os.path.abspath(fil)), exist_ok=True)

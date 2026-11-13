@@ -43,12 +43,12 @@ ETIKETT = {
     'P03': ['<b>P03 hovud</b>', x3('P03', 'lengd', 'breidd', 'hogd'), f"inntil ± {tal(pm('P03', 'lengd', 'breidd', 'hogd'))}",
             f"vifte {tal(m('P03', 'vifte'))}, typeskilt"],
     'P04': ['<b>P04 base</b>', x3('P04', 'lengd', 'breidd', 'hogd'), f"inntil ± {tal(pm('P04', 'lengd', 'breidd', 'hogd'))}",
-            '<b>230 V: skal aldri koplast til</b>'],
+            '<b>230 V: aldri kople til</b>'],
     'P05': ['<b>P05 fresnelspegel</b>', f"vindauge {tal(m('P05', 'vindauge'))} · f {tal(round(m('P05', 'brennvidd')))}", 'deleliste',
             '<b>aldri i sol</b>'],
     'P06': ['<b>P06 glaslinse</b>', f"Ø {x3('P06', 'd', 'hogd')}", f"inntil ± {tal(pm('P06', 'd', 'hogd'))}", '<b>aldri i sol</b>'],
-    'P07': ['<b>P07 projeksjonslinse</b>', f"Ø {x3('P07', 'fatning_d', 'fatning_hogd')}", f"inntil ± {tal(pm('P07', 'fatning_d', 'fatning_hogd'))}",
-            f"f ≈ {tal(m('P07', 'brennvidd'))}"],
+    'P07': ['<b>P07 projeksjonslinse</b>', f"Ø {x3('P07', 'fatning_d', 'fatning_hogd')} · f ≈ {tal(m('P07', 'brennvidd'))}",
+            f"inntil ± {tal(pm('P07', 'fatning_d', 'fatning_hogd'))}", '<b>aldri i sol</b>'],
     'P08': ['<b>P08 prismeark</b>', x3('P08', 'breidd', 'hogd', 'tjukk'), f"inntil ± {tal(pm('P08', 'breidd', 'hogd'))}",
             'frå monitoren, berre form'],
     'P09': ['<b>P09 FSX-pære</b>', f"Ø {x3('P09', 'd', 'lengd')}", 'deleliste'],
@@ -80,7 +80,7 @@ def finn_S():
     for _ in range(40):
         S = (lo + hi) / 2
         r = oppsett(S)
-        b = max(r[0]['b'], r[1]['b'] + GAP + 100 * S + 40)        # målestokklina står til høgre på nedste hylle
+        b = max(r[0]['b'], r[1]['b'] + GAP + max(100 * S, 60))    # målestokklina står til høgre på nedste hylle
         h = sum(x['hb'] + x['he'] for x in r) + 22
         lo, hi = (S, hi) if (b <= B_HYLLE and h <= H_HYLLE) else (lo, S)
     return lo
@@ -99,7 +99,7 @@ def html(S):
         if i == 1:
             fig.append(f'''      <figure class="del skala" style="width:{max(100 * S, 60):.1f}px">
         <div class="hylle" style="height:{rad['hb']:.1f}px"><div class="strek" style="width:{100 * S:.1f}px"></div></div>
-        <figcaption><b>100 mm</b><br>alle delane i same<br>målestokk</figcaption>
+        <figcaption><b>100 mm</b></figcaption>
       </figure>''')
         del_html.append(f'    <div class="rad" style="margin-top:{0 if i == 0 else 22}px">\n' + '\n'.join(fig) + '\n    </div>')
     return f'''<!doctype html>

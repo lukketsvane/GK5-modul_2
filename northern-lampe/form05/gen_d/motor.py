@@ -448,13 +448,16 @@ def kollisjon(kr):
     for p, q in zip(kr.arm[:-1], kr.arm[1:]):
         Q.append(p + (q - p) * np.linspace(0, 1, 60)[:, None])
     Q = np.vstack(Q)
-    def inni(P, bx):
-        x0, x1, y0, y1, z0, z1 = bx
+    Pb = np.array([-kr.xe, Y_BJ, kr.H]) + np.linspace(0, 1, 80)[:, None] * np.array([2 * kr.xe, 0, 0])   # bjelkeaksen
+    Pr = kr.rute_pkt(40, 16)                                                                          # rutefronten
+    def inni(P, bx, m=0.0):
+        x0, x1, y0, y1, z0, z1 = bx; x0 -= m; y0 -= m; z0 -= m; x1 += m; y1 += m; z1 += m
         m = (P[:, 0] > x0) & (P[:, 0] < x1) & (P[:, 1] > y0) & (P[:, 1] < y1) & (P[:, 2] > z0) & (P[:, 2] < z1)
         if not m.any(): return 0.0
         R = P[m]
         return float(np.min(np.stack([R[:, 0] - x0, x1 - R[:, 0], R[:, 1] - y0, y1 - R[:, 1], R[:, 2] - z0, z1 - R[:, 2]]), 0).max())
-    d = inni(Q, (-SKJ['x'], SKJ['x'], SKJ['y0'], SKJ['y1'], SKJ['z0'], SKJ['z1']))
+    sk = (-SKJ['x'], SKJ['x'], SKJ['y0'], SKJ['y1'], SKJ['z0'], SKJ['z1'])
+    d = max(inni(Q, sk), inni(Pb, sk, R_BJ), inni(Pr, sk))
     if kr.sp['fot'] != 'under':
         d = max(d, inni(Q, (-SKJ_FOT['x'], SKJ_FOT['x'], SKJ_FOT['y0'], SKJ_FOT['y1'], -0.01, SKJ_FOT['z1'])))
     d = max(d, float(np.max(Q[:, 1] - YV, initial=0.0)), float(np.max(-Q[:, 2], initial=0.0) if Q[:, 2].min() < -1e-4 else 0.0))

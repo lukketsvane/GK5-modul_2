@@ -601,8 +601,50 @@ def k_studie(kk='a', px='560'):
     logg('studie %s (%.0f s, %d px): %s' % (kk, time.time() - t0, px, fil))
     print(fil, '%.0f s' % (time.time() - t0))
 
+# ------------------------------------------------------------------ silhuett-IoU (framfrå og frå sida), same ramme
+def silhuett(d, pl_ignorert=None, px=2.0):
+    """Rasteriserer lampa framfrå (xz) og frå sida (yz) i lampa sitt eige system, 2 mm rute, fast ramme 700 x 500 mm."""
+    s, n = retning(d); A = np.array([0.0, d['YB'], d['AKSE_H']])
+    P = []
+    for i in range(60):
+        for j in range(30):
+            P.append(A + np.array([d['X_RUTE0'] + d['RUTE_B'] * i / 59, 0, 0]) + s * (d['U_KANT'] + d['RUTE_D'] * j / 29))
+    for x in np.linspace(d['X_BJ0'], d['X_KN0'] + d['KNOTT_L'], 120):
+        for a in np.linspace(0, 2 * math.pi, 16): P.append(A + np.array([x, d['R'] * math.cos(a), d['R'] * math.sin(a)]))
+    for z in np.linspace(d['Z_BOY'], d['AKSE_H'], 120):
+        for w in np.linspace(-d['ARM_B'] / 2, d['ARM_B'] / 2, 9): P.append(np.array([midtline(d, z) + w, d['YA'], z]))
+    for a in np.linspace(0, 2 * math.pi, 90):
+        for rr in np.linspace(0, d['FOT_D'] / 2, 20):
+            for z in (0.0, d['FOT_H']): P.append(np.array([rr * math.cos(a), rr * math.sin(a), z]))
+    P = np.array(P); ut = []
+    for ax in ((0, 2), (1, 2)):
+        im = np.zeros((250, 350), bool)
+        u = ((P[:, ax[0]] + 450) / px).astype(int); v = (P[:, ax[1]] / px).astype(int)
+        ok = (u >= 0) & (u < 350) & (v >= 0) & (v < 250); im[v[ok], u[ok]] = True
+        from scipy.ndimage import binary_closing
+        ut.append(binary_closing(im, iterations=3))
+    return ut
+
+def iou(d1, d2):
+    a, b_ = silhuett(d1), silhuett(d2)
+    return [float((x & y).sum() / max((x | y).sum(), 1)) for x, y in zip(a, b_)]
+
+def k_iou():
+    t = mal(dict(CAD0)); ab = dict(CAD0, **KROPP_ABC)
+    par = {'teikna 35° mot abc-kroppen 20° (sidelys)': (t, mal(dict(ab, VINKEL=20.0))),
+           'teikna 35° mot abc-kroppen 80° (stemning)': (t, mal(dict(ab, VINKEL=80.0))),
+           'abc-kroppen 20° mot 80° (handlinga)': (mal(dict(ab, VINKEL=20.0)), mal(dict(ab, VINKEL=80.0))),
+           'teikna 35° mot same kropp 0°': (t, mal(dict(CAD0, VINKEL=0.0))),
+           'teikna mot ARM_UT -230 (lyset held)': (t, mal(dict(CAD0, AKSE_H=360.0, VINKEL=20.0, ARM_UT=-230.0))),
+           'teikna mot AKSE_H 220 åleine': (t, mal(dict(CAD0, AKSE_H=220.0))),
+           'teikna mot ARM_UT 78 åleine': (t, mal(dict(CAD0, ARM_UT=78.0)))}
+    ut = {k_: iou(*v) for k_, v in par.items()}
+    for k_, v in ut.items(): print('%-46s framfrå %.2f  frå sida %.2f' % (k_, v[0], v[1]))
+    lagre('iou', ut)
+    logg('iou: ' + '; '.join('%s %.2f/%.2f' % (k_, v[0], v[1]) for k_, v in ut.items()))
+
 if __name__ == '__main__':
     try: sys.stdout.reconfigure(encoding='utf-8')
     except Exception: pass
     a = sys.argv[1:]
-    {'ford': k_ford, 'kalib': k_kalib, 'sok': k_sok, 'sok2': k_sok2, 'cad': k_cad, 'gen': k_gen, 'studie': k_studie}[a[0]](*a[1:])
+    {'ford': k_ford, 'kalib': k_kalib, 'sok': k_sok, 'sok2': k_sok2, 'cad': k_cad, 'gen': k_gen, 'studie': k_studie, 'iou': k_iou}[a[0]](*a[1:])

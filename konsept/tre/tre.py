@@ -154,11 +154,15 @@ def tabell(rader):
         ('Stemning: feltet / skjermflata, lx', lambda r: f"{f0(r['s_felt'])} / {f0(r['s_skjerm'])}"),
         ('Likskap stemning og arbeid (over 0,9 er dimmar)', lambda r: f2(r['likskap'])),
         ('Lysaste mellomsteg mot auget / største sprang', lambda r: f"{f2(r['topp'])} / {f2(r['sprang'])}"),
-        ('Feltet langs overgangen, lx', lambda r: ' · '.join(f0(x) for x in r['veg_felt'])),
-        ('Skjermflata langs overgangen, lx', lambda r: ' · '.join(f0(x) for x in r['veg_skjerm'])),
+        ('Feltet langs overgangen, lx (skalert til 350 lx)', lambda r: ' · '.join(f0(x * 350 / r['veg_felt'][-1]) for x in r['veg_felt'])),
+        ('Skjermflata langs overgangen, lx (skalert til 350 lx)¹', lambda r: ' · '.join(f0(x * 350 / r['veg_felt'][-1]) for x in r['veg_skjerm'])),
     ]
     for t, fn in lin:
         L.append(f'| {t} | ' + ' | '.join(fn(r) for r in rader) + ' |')
+    L.append('')
+    L.append('¹ Dei to radene langs overgangen er skalerte til 350 lx på feltet i arbeid, som resten av tabellen. '
+             'Uskalert, ved watten i kvart steg (1,25 til 5 W), var skjermflata: '
+             + '; '.join(f"{r['konsept']} " + ' · '.join(f0(x) for x in r['veg_skjerm']) for r in rader) + ' lx.')
     return '\n'.join(L) + '\n'
 
 if __name__ == '__main__':

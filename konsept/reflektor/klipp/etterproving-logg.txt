@@ -1,0 +1,18 @@
+======================================================================
+ring-vipp
+  W350      funn     4.44  ny     4.44  avvik   0.0 %
+  felt      funn   394.00  ny   393.95  avvik   0.0 %
+  jamnheit  funn     0.42  ny     0.42  avvik   0.7 %
+  auge      funn   779.00  ny   779.47  avvik   0.1 %
+  vegg      funn   117.00  ny   117.36  avvik   0.3 %
+  ansikt    funn    58.00  ny    57.50  avvik   0.9 %
+  s_auge    funn   169.00  ny   169.19  avvik   0.1 %
+  s_vegg    funn    63.00  ny    62.96  avvik   0.1 %
+  s_felt    funn    11.00  ny    10.85  avvik   1.4 %
+  likskap   funn     0.78  ny     0.78  avvik   0.3 %
+  topp      funn     0.72  ny     0.72  avvik   0.3 %
+  sprang    funn     0.04  ny     0.04  avvik   3.7 %
+  overgang auge [169, 261, 392, 560, 779] felt [11, 18, 69, 212, 394] vegg [63, 67, 73, 91, 117]
+  strekk 0.0000  L_spegl 0  skjermflata 50 (maks 115)  lm ut 439  lm tak 1  lm vegg 137
+  t=0 vegg: sona 63  bak skjermen 72  ramme rundt 55  venstre 24  hogre 102  topp 530 lx ved x 0.45, 63 cm over bordet
+       geo: ark ymax 0.520  xmin 0.402  kjelde [0.458, 0.147, 0.773]  fanga 0.49  over 100 %: False  fliser spegla i skjermen 0

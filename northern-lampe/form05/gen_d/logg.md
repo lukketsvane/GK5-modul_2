@@ -75,3 +75,8 @@ Premisset held ikkje for nokon av dei 18 kroppane (rekna frå geometrien, med m�
 - 19.41 val sok2 (108 s): 150 variantar for stemning og sidelys, sok2.csv
 - 19.48 val cad sporsmal (27 s): teikna W350 12.4 U0 0.08 auge 2171 tipp 25°; kant-står W350 7.3 U0 0.09 auge 1355 tipp 24°; lyset-held W350 6.0 U0 0.44 auge 1263 tipp -22°; jamnast W350 8.9 U0 0.60 auge 14241 tipp -16°; største-ark W350 6.4 U0 0.13 auge 691 tipp 12°
 - 19.49 val cad abc (54 s): (a) felt 103 lx ved 2 W, stemning bak 13 lx, tipp 27°; (b) felt 91 lx ved 2 W, stemning bak 5 lx, tipp 26°; (c) felt 14 lx ved 2 W, stemning bak 70 lx, tipp 27°
+- 19.50 val gen a (21 s): a W 3.80 mot 3.69 ideelt, U0 0.53 mot 0.51, auge47 213 mot 140
+- 19.50 val gen b,c (29 s): b W 4.05 mot 3.94 ideelt, U0 0.54 mot 0.52, auge47 145 mot 141; c W 3.45 mot 3.31 ideelt, U0 0.60 mot 0.58, auge47 1693 mot 1822
+- 19.52 val studie a (26 s, 300 px): C:\Users\Iver\Documents\github\GK5-modul_2\northern-lampe\form05\gen_d\studie_a.png
+- 19.53 val studie a (71 s, 560 px): C:\Users\Iver\Documents\github\GK5-modul_2\northern-lampe\form05\gen_d\studie_a.png
+- 19.55 val studie b (82 s, 560 px): C:\Users\Iver\Documents\github\GK5-modul_2\northern-lampe\form05\gen_d\studie_b.png

@@ -1,0 +1,88 @@
+{
+ "scene": "sett-samla",
+ "w": 533,
+ "h": 333,
+ "delar": [
+  {
+   "namn": "fresnelspegel",
+   "slag": "sett",
+   "del_": "P05",
+   "px": [
+    308.1,
+    199.2
+   ]
+  },
+  {
+   "namn": "arm",
+   "slag": "sett",
+   "del_": "P01",
+   "px": [
+    272.7,
+    96.1
+   ]
+  },
+  {
+   "namn": "hengsel",
+   "slag": "sett",
+   "del_": "P02",
+   "px": [
+    53.3,
+    171.5
+   ]
+  },
+  {
+   "namn": "hovud",
+   "slag": "sett",
+   "del_": "P03",
+   "px": [
+    330.4,
+    75.7
+   ]
+  },
+  {
+   "namn": "glaslinse",
+   "slag": "sett",
+   "del_": "P06",
+   "px": [
+    381.3,
+    130.2
+   ]
+  },
+  {
+   "namn": "projeksjonslinse",
+   "slag": "sett",
+   "del_": "P07",
+   "px": [
+    449.3,
+    143.4
+   ]
+  },
+  {
+   "namn": "filmstykke",
+   "slag": "sett",
+   "del_": "P08",
+   "px": [
+    159.5,
+    229.1
+   ]
+  },
+  {
+   "namn": "trykt kloss 40",
+   "slag": "print",
+   "del_": "ny",
+   "px": [
+    493.9,
+    177.2
+   ]
+  },
+  {
+   "namn": "led",
+   "slag": "kjopt",
+   "del_": "ny",
+   "px": [
+    466.8,
+    202.0
+   ]
+  }
+ ]
+}

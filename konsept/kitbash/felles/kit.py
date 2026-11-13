@@ -27,7 +27,7 @@ from shapely import affinity as _aff
 # Det `from kit import *` gjev. HER, ROT og SETT er ikkje med, så dei ikkje skriv over dine eigne.
 __all__ = ['T', 'Rx', 'Ry', 'Rz', 'om', 'plass', 'pkt', 'retn', 'usikker', 'klaring', 'GRENSESNITT', 'FILM_TRYGG', 'Del', 'sett', 'film',
            'trykt', 'kjopt', 'ekstruder', 'boks', 'sylinder', 'royr', 'hylse', 'plate', 'vinkel', 'skal', 'kopp', 'dreielekam', 'minus',
-           'pluss', 'snitt', 'flytta', 'fraa_cq', 'led_skive', 'led_stripe', 'alle_under', 'grenser', 'finn', 'sprengd', 'DIMS', 'MAAL',
+           'pluss', 'snitt', 'flytta', 'fraa_cq', 'led_skive', 'led_stripe', 'alle_under', 'grenser', 'finn', 'sprengd', 'med_staalarm', 'filnamn', 'DIMS', 'MAAL',
            'PRINTER', 'MJUKNAR', 'FORBODNE']
 
 HER = os.path.dirname(os.path.abspath(__file__))
@@ -237,8 +237,11 @@ def film(breidd, hogd, M=None, namn='film', spreng=None, riller='breidd'):
         merk = ('ANTAKING: stykket krev at arket er større enn %.0f x %.0f mm. Mål arket før du klipper.' % FILM_TRYGG)
         print('  merk film:', merk)
     m = trimesh.creation.box((breidd, hogd, t)); m.apply_translation((0, 0, t / 2))
-    return Del(namn, 'sett', [('ark', m, 'film')], M, pid='P08', spreng=spreng, merknad=merk,
-               anker=dict(origo=(0, 0, 0), midt=(0, 0, 0), prismeside=(0, 0, t)))
+    d = Del(namn, 'sett', [('ark', m, 'film')], M, pid='P08', spreng=spreng, merknad=merk,
+            anker=dict(origo=(0, 0, 0), midt=(0, 0, 0), prismeside=(0, 0, t)))
+    d.riller = (1.0, 0.0, 0.0) if riller == 'breidd' else (0.0, 1.0, 0.0)      # retninga rillene går, i stykket sitt system
+    d.storleik = (float(breidd), float(hogd))
+    return d
 
 
 def trykt(namn, mesh, M=None, plast='PETG', print_R=None, spreng=None, vekt_g=None, merknad=''):
@@ -367,6 +370,23 @@ def finn(delar, namn):
     for d in delar:
         if d.namn == namn: return d
     raise KeyError(namn)
+
+def filnamn(tekst):
+    """Eit namn som trygt kan stå i eit filnamn (ASCII, utan mellomrom)."""
+    for a, b in (('å', 'a'), ('ø', 'o'), ('æ', 'ae'), ('Å', 'A'), ('Ø', 'O'), ('Æ', 'Ae')):
+        tekst = tekst.replace(a, b)
+    return ''.join(c if (c.isascii() and (c.isalnum() or c in '-_')) else '_' for c in tekst)
+
+def med_staalarm(delar):
+    """Same samling med armprofilen (P01, underdelen «profil») rekna som stål. delar.py merkjer profilen som aluminium,
+    oppdragsteksten kallar armen ein stålprofil, og ingen har prøvd med magnet. Stål gjev om lag 250 g meir.
+    Delar med vegen masse (vekt_g) blir ikkje rørte."""
+    ut = []
+    for d in delar:
+        if d.pid == 'P01' and d.vekt_g is None and any(u == 'profil' and mat == 'aluminium' for u, _, mat in d.under):
+            d = d.kopi(under=[(u, m, 'stål' if u == 'profil' else mat) for u, m, mat in d.under])
+        ut.append(d)
+    return ut
 
 def sprengd(delar, faktor=0.6):
     """Samlinga dregen frå kvarandre. Ein del med .spreng = (dx, dy, dz) flyttar seg så mykje. Delar utan

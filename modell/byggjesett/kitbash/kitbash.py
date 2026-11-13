@@ -438,7 +438,13 @@ KONTROLL = [
     (18, 4, 1, 'Kan ikkje lagast: linsa 280', 'fot', 'projeksjonslinsa', lambda: fot_hovud(True), 'ingen', 'ingen',
      'Projeksjonslinsa P07 (f 280 mm) i ei bordlampe: kastet er under 4f = 1,12 m, så biletet blir aldri skarpt.'),
 ]
-ALLE = KROPPAR + KONTROLL
+EKSTRA = [      # utanfor brettet: same lys som kropp 4 på dei to andre støttene, til valet
+    (19, 4, 2, 'Under · band', 'under', 'LED-stripe mot plata og vindaugsdiode', lambda: over('under', 'band'), 'over-band-vindauge-q30', 'vri knotten',
+     'Same lys som kropp 4, ståande på stålplata under skjermfoten.'),
+    (20, 4, 3, 'Vegg · band', 'vegg', 'LED-stripe mot plata og vindaugsdiode', lambda: over('vegg', 'band'), 'over-band-vindauge-q30', 'vri knotten',
+     'Same lys som kropp 4, på ein konsoll frå veggen.'),
+]
+ALLE = KROPPAR + KONTROLL + EKSTRA
 NOKLAR = ('id', 'rad', 'kol', 'namn', 'stotte', 'organ', 'bygg', 'lys', 'handling', 'setning')
 SPEC = [dict(zip(NOKLAR, k)) for k in ALLE]
 
@@ -547,7 +553,10 @@ def k_brett():
     sf = slaa([sb, boks((-SKJ_FOT['x'], SKJ_FOT['y0'], 0), (SKJ_FOT['x'], SKJ_FOT['y1'], SKJ_FOT['z1'])), boks((-30, 500, 0), (30, 540, 250))])
     Vs, Fs = np.asarray(sf.vertices) / 1000.0, np.asarray(sf.faces)
     ims, masks, klipt = {}, {}, []
+    berre = {int(x) for x in sys.argv[2:]}            # python kitbash.py brett 19 20: berre desse flisene, brettet blir ikkje skrive
     for sp in SPEC:
+        if berre and sp['id'] not in berre:
+            continue
         P, _ = sp['bygg']()
         V = np.vstack([p['mesh'].vertices for p in P]) / 1000.0
         n = np.cumsum([0] + [len(p['mesh'].vertices) for p in P])
@@ -570,6 +579,10 @@ def k_brett():
         if len(xs) and (xs.min() <= 1 or ys.min() <= 1 or xs.max() >= 510 or ys.max() >= 510):
             klipt.append(sp['id'])
         print('teikna', sp['id'], sp['namn'], len(F), 'flater', flush=True)
+    for k, im in ims.items():
+        im.save(os.path.join(HER, 'flis', f'{k:02d}.png'))
+    if berre:
+        print('flis', sorted(ims)); return
     brett = Image.new('RGB', (2048, 2048), (0, 0, 0))
     for sp in SPEC[:16]:
         brett.paste(ims[sp['id']], (sp['kol'] * 512, sp['rad'] * 512))

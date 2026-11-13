@@ -9,6 +9,8 @@ og b(x, y, h) er eit punkt h meter over bordplata (bordet ligg i z = 0,72).
   pl.p(punkt_mm)        eit punkt i lampa -> punkt i rommet (m). Til lyskjeldene: flate(pl.p(...), pl.r(...), ...)
   pl.r(retning)         ei retning i lampa -> einingsvektor i rommet
   pl.kropp(delar)       samlinga som svarte kroppar i lysmotoren (trekantnett per materiale): skuggar og syner i biletet
+  pl.fresnel(plate, kjelde)   fresnelspegelen P05 slik han står i lampa, som reflektor i lysmotoren
+  pl.film(stykke)       eit filmstykke slik det sit: senter, normal (prismesida), rilleretning og storleik i rommet
   pl.nett(delar)        samlinga som trimesh i romkoordinatar (m)
   pl.sjekk(delar)       står foten på bordet, utanfor feltet, og går noko gjennom skjermen eller veggen
 
@@ -123,6 +125,32 @@ class Plass:
         farge = dict(RHO); farge.update(rho or {})
         return [lekam(trimesh.util.concatenate(ms) if len(ms) > 1 else ms[0], farge.get(mat, (0.2, 0.2, 0.2)), maks_kant)
                 for mat, ms in per.items()]
+
+    def fresnel(s, plate, kjelde, spreiing=2.5, n=30, attekant=True, **kw):
+        """Fresnelspegelen P05 slik han står i lampa, som reflektor i lysmotoren (ls.fresnelspegel).
+        plate: delen frå sett('P05', M). Spegelsida er +z i delen (rillene sit på oversida).
+        kjelde: strøket som lyser på plata, t.d. ls.straale(pl.p(diode_mm), pl.p(plate.punkt('spegelflate')), W * ls.LMW_KJELDE, K, ...).
+        Ta kjelda med i lyslista òg: lys = [kjelde, pl.fresnel(plate, kjelde)].
+        Brennvidd (187,1 mm) og storleik (285 mm) kjem frå delar.py. spreiing er sigma i grader: 2,5 er rein plate,
+        8 til 14 er med eit diffusorark oppå. attekant=True skjer hjørna slik plata er skoren (37 mm).
+        Reflektoren ligg 1 mm framfor spegelflata, så plata kan stå i skuggekroppen (pl.kropp(delar)) utan å dekkje han.
+        Lysmotoren prøver ikkje om noko står mellom kjelda og plata: det må du sjå sjølv."""
+        ls = motor()
+        S = K.D.v('P05', 'vindauge') / 1000.0; fas = K.D.v('P05', 'skraa') / 1000.0
+        if 'klipp' not in kw and attekant:
+            kw['klipp'] = lambda u, v: np.abs(u) + np.abs(v) <= S - fas
+        nn = s.r(plate.retning((0, 0, 1)))
+        return ls.fresnelspegel(kjelde, s.p(plate.punkt('spegelflate')) + 0.001 * nn, nn, f=K.D.v('P05', 'brennvidd') / 1000.0,
+                                storleik=(S, S), spreiing=spreiing, n=n, opp=s.r(plate.retning((0, 1, 0))), **kw)
+
+    def film(s, stykke):
+        """Eit filmstykke (kit.film) slik det sit i lampa: dict(senter, normal, riller, storleik) i romkoordinatar (m).
+        normal peikar ut av prismesida, riller er retninga rillene går. Det er dette konsept/film/film.py og
+        northern-lampe/form05/rute (rute.rute) vil ha. Optikken til filmen ligg der, ikkje her."""
+        t = stykke.anker.get('prismeside', (0, 0, 0))
+        return dict(senter=s.p(stykke.punkt('prismeside')) if 'prismeside' in stykke.anker else s.p(K.pkt(stykke.M, t)),
+                    normal=s.r(stykke.retning((0, 0, 1))), riller=s.r(stykke.retning(getattr(stykke, 'riller', (1.0, 0.0, 0.0)))),
+                    storleik=tuple(x / 1000.0 for x in getattr(stykke, 'storleik', (0.0, 0.0))))
 
     def sjekk(s, delar):
         """Kvar lampa står i rommet: dict(fot_pa_felt, fot_utanfor_bordet, gjennom_skjerm, gjennom_vegg, under_bordet_mm,

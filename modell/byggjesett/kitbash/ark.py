@@ -51,6 +51,9 @@ def ark_brett(R, L):
   .brett img {{ position: absolute; left: 0; top: 0; width: {w:.1f}px; height: {h:.1f}px; display: block; }}
   .brett .m {{ position: absolute; font: 400 8px/10.5px var(--mono); letter-spacing: 0.02em; color: var(--graa); white-space: nowrap; text-transform: uppercase; }}
   .brett .m b {{ color: var(--blekk); }}
+  .kontroll {{ margin-top: 12px; }}
+  .kontroll img {{ width: 246px; height: 123px; display: block; }}
+  .kontroll figcaption {{ display: grid; grid-template-columns: 123px 123px; margin-top: 3px; font-size: 8px; line-height: 10.5px; letter-spacing: 0.02em; }}
   .tal4 {{ display: flex; gap: 24px; margin: 0 0 16px; }}
   .tal4 div {{ font: 400 34px/1 var(--serif); color: var(--blekk); white-space: nowrap; }}
   .tal4 small {{ display: block; font: 400 9px/1.2 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--graa); margin-top: 5px; }}
@@ -82,6 +85,10 @@ def ark_brett(R, L):
         <div class="punkt"><span class="nr">03</span><p>Vindaugsdioden held veggen lys utan at noko sveipar over skjermen: sprang {k(r4['sprang'], 2)}, mot {k(v['sprang'], 2)} når plata vippar.</p></div>
         <div class="punkt"><span class="nr">04</span><p>Ruta på fot treng {k(R[12]['W350'], 1)} W. Plata på fot held veggen med flik, men jamnheita blir {k(R[9]['U0'], 2)}, og ho veltar ved {k(R[9]['dytt_N'], 1)} N.</p></div>
         <div class="punkt"><span class="nr">05</span><p>Kropp 4 fell på éin ting: {k(r4['masse_g'], 0)} g på skjermen. Armen og hengselet frå projektoren er 421 g av det.</p></div>
+        <figure class="kontroll">
+          <img src="velt_umogleg.png" alt="">
+          <figcaption><span><b>17 Bryt F9</b><br>projektoren slik han stod:<br>987 cm² på bordet</span><span><b>18 Kan ikkje lagast</b><br>linsa f 280 på bordet:<br>kastet er under 4f</span></figcaption>
+        </figure>
         <p class="liten graa" style="margin-top: 10px;">A, B, C og D til samanlikning: {k(L['ref-A']['W350'], 1)}, {k(L['over-flik']['W350'], 1)}, {k(L['fot-linse']['W350'], 1)} og {k(L['ref-D']['W350'], 1)} W, jamnheit {k(L['ref-A']['jamnheit'], 2)}, {k(L['over-flik']['jamnheit'], 2)}, {k(L['fot-linse']['jamnheit'], 2)} og {k(L['ref-D']['jamnheit'], 2)}.</p>
       </section>
     </div>

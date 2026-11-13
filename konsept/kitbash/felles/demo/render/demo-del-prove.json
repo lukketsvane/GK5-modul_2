@@ -7,5 +7,70 @@
  "azimut": -35,
  "elevasjon": 28,
  "breidd_mm": 180.0,
- "hogd_mm": 344.6
+ "hogd_mm": 344.6,
+ "delar": [
+  {
+   "namn": "fot",
+   "slag": "print",
+   "del_": "ny",
+   "px": [
+    132.0,
+    406.0
+   ]
+  },
+  {
+   "namn": "hylse",
+   "slag": "print",
+   "del_": "ny",
+   "px": [
+    132.0,
+    370.1
+   ]
+  },
+  {
+   "namn": "ballast",
+   "slag": "kjopt",
+   "del_": "ny",
+   "px": [
+    132.0,
+    412.4
+   ]
+  },
+  {
+   "namn": "arm",
+   "slag": "sett",
+   "del_": "P01",
+   "px": [
+    119.7,
+    122.9
+   ]
+  },
+  {
+   "namn": "nav",
+   "slag": "print",
+   "del_": "ny",
+   "px": [
+    111.6,
+    69.6
+   ]
+  },
+  {
+   "namn": "kjoleplate",
+   "slag": "kjopt",
+   "del_": "ny",
+   "px": [
+    116.7,
+    118.4
+   ]
+  },
+  {
+   "namn": "led",
+   "slag": "kjopt",
+   "del_": "ny",
+   "px": [
+    116.7,
+    120.5
+   ]
+  }
+ ]
 }

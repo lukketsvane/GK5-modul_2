@@ -1,0 +1,881 @@
+{
+ "meta": {
+  "title": "RUTA",
+  "footer": "Ruta på fot · revisjon B · M01",
+  "orientation": "portrait"
+ },
+ "style": {
+  "line_pt": 0.75,
+  "steg_pt": 32,
+  "mengd_pt": 18,
+  "mengd_fyrst": true,
+  "tittel_pt": 96,
+  "tittel_feit": true,
+  "sidetal_pt": 9,
+  "del_pt": 7.5,
+  "lett_pt": 0.5,
+  "ramme": false,
+  "beslagkolonne": false
+ },
+ "views": {
+  "iso": {
+   "dir": [
+    0.75,
+    -1.0,
+    0.6
+   ],
+   "up": [
+    0,
+    0,
+    1
+   ]
+  },
+  "under": {
+   "dir": [
+    0.75,
+    -1.0,
+    -0.8
+   ],
+   "up": [
+    0,
+    0,
+    1
+   ]
+  }
+ },
+ "parts": {
+  "fot": {
+   "mesh": "delar/01.stl",
+   "id": "01",
+   "qty": 1
+  },
+  "botnlok": {
+   "mesh": "delar/02.stl",
+   "id": "02",
+   "qty": 1
+  },
+  "ballast": {
+   "mesh": "delar/03.stl",
+   "id": "03",
+   "qty": 1
+  },
+  "royr": {
+   "mesh": "delar/04.stl",
+   "id": "04",
+   "qty": 1
+  },
+  "bjelke0": {
+   "mesh": "delar/05@0.stl",
+   "id": "05",
+   "qty": 1
+  },
+  "bjelke35": {
+   "mesh": "delar/05@35.stl",
+   "id": "05",
+   "qty": 1
+  },
+  "bjelke80": {
+   "mesh": "delar/05@80.stl",
+   "id": "05",
+   "qty": 1
+  },
+  "lok0": {
+   "mesh": "delar/06@0.stl",
+   "id": "06",
+   "qty": 1
+  },
+  "lok35": {
+   "mesh": "delar/06@35.stl",
+   "id": "06",
+   "qty": 1
+  },
+  "lok80": {
+   "mesh": "delar/06@80.stl",
+   "id": "06",
+   "qty": 1
+  },
+  "lysleiar0": {
+   "mesh": "delar/07@0.stl",
+   "id": "07",
+   "qty": 1
+  },
+  "lysleiar35": {
+   "mesh": "delar/07@35.stl",
+   "id": "07",
+   "qty": 1
+  },
+  "lysleiar80": {
+   "mesh": "delar/07@80.stl",
+   "id": "07",
+   "qty": 1
+  },
+  "prismeark0": {
+   "mesh": "delar/08@0.stl",
+   "id": "08",
+   "qty": 1
+  },
+  "prismeark35": {
+   "mesh": "delar/08@35.stl",
+   "id": "08",
+   "qty": 1
+  },
+  "prismeark80": {
+   "mesh": "delar/08@80.stl",
+   "id": "08",
+   "qty": 1
+  },
+  "flatstong0": {
+   "mesh": "delar/09@0.stl",
+   "id": "09",
+   "qty": 1
+  },
+  "flatstong35": {
+   "mesh": "delar/09@35.stl",
+   "id": "09",
+   "qty": 1
+  },
+  "flatstong80": {
+   "mesh": "delar/09@80.stl",
+   "id": "09",
+   "qty": 1
+  },
+  "led0": {
+   "mesh": "delar/10@0.stl",
+   "id": "10",
+   "qty": 1
+  },
+  "led35": {
+   "mesh": "delar/10@35.stl",
+   "id": "10",
+   "qty": 1
+  },
+  "led80": {
+   "mesh": "delar/10@80.stl",
+   "id": "10",
+   "qty": 1
+  },
+  "dimmer0": {
+   "mesh": "delar/11@0.stl",
+   "id": "11",
+   "qty": 1
+  },
+  "dimmer35": {
+   "mesh": "delar/11@35.stl",
+   "id": "11",
+   "qty": 1
+  },
+  "dimmer80": {
+   "mesh": "delar/11@80.stl",
+   "id": "11",
+   "qty": 1
+  },
+  "E": {
+   "mesh": "delar/E-ein.stl",
+   "letter": "E",
+   "qty": 4,
+   "kind": "hardware"
+  },
+  "stopp": {
+   "mesh": "delar/12.stl",
+   "letter": "12",
+   "qty": 1,
+   "kind": "hardware"
+  },
+  "brems": {
+   "mesh": "delar/13@0.stl",
+   "letter": "13",
+   "qty": 1,
+   "kind": "hardware"
+  },
+  "F": {
+   "primitive": {
+    "cylinder": {
+     "r": 1.5,
+     "h": 8
+    }
+   },
+   "letter": "F",
+   "qty": 3,
+   "kind": "hardware"
+  },
+  "G": {
+   "primitive": {
+    "cylinder": {
+     "r": 2.0,
+     "h": 6
+    },
+    "axis": [
+     0,
+     1,
+     0
+    ]
+   },
+   "letter": "G",
+   "qty": 1,
+   "kind": "hardware"
+  }
+ },
+ "pages": [
+  {
+   "type": "cover",
+   "title": "RUTA",
+   "view": "iso",
+   "scene": [
+    {
+     "part": "fot",
+     "role": "context"
+    },
+    {
+     "part": "botnlok",
+     "role": "context"
+    },
+    {
+     "part": "ballast",
+     "role": "context"
+    },
+    {
+     "part": "royr",
+     "role": "context"
+    },
+    {
+     "part": "bjelke35",
+     "role": "context"
+    },
+    {
+     "part": "lok35",
+     "role": "context"
+    },
+    {
+     "part": "lysleiar35",
+     "role": "context"
+    },
+    {
+     "part": "prismeark35",
+     "role": "context"
+    },
+    {
+     "part": "flatstong35",
+     "role": "context"
+    },
+    {
+     "part": "led35",
+     "role": "context"
+    },
+    {
+     "part": "dimmer35",
+     "role": "context"
+    }
+   ],
+   "glas": [
+    [
+     -60.0,
+     -90.0,
+     215.0
+    ]
+   ]
+  },
+  {
+   "type": "inventory",
+   "parts": [
+    "fot",
+    "botnlok",
+    "ballast",
+    "royr",
+    "bjelke35",
+    "lok35",
+    "lysleiar35",
+    "prismeark35",
+    "flatstong35",
+    "led35",
+    "dimmer35"
+   ],
+   "cols": 3
+  },
+  {
+   "type": "hardware",
+   "parts": [
+    "E",
+    "stopp",
+    "brems",
+    "F",
+    "G"
+   ]
+  },
+  {
+   "type": "step",
+   "title": "Ballast",
+   "figures": [
+    {
+     "view": "under",
+     "scene": [
+      {
+       "part": "fot",
+       "role": "context"
+      },
+      {
+       "part": "ballast",
+       "role": "new",
+       "explode": [
+        0,
+        0,
+        -70
+       ]
+      }
+     ],
+     "zoom": 1.3,
+     "labels": false
+    }
+   ]
+  },
+  {
+   "type": "step",
+   "title": "Røyr",
+   "note": "Trekk leidningen gjennom røyret før det går ned i foten.",
+   "figures": [
+    {
+     "view": "iso",
+     "scene": [
+      {
+       "part": "fot",
+       "role": "context"
+      },
+      {
+       "part": "ballast",
+       "role": "context"
+      },
+      {
+       "part": "royr",
+       "role": "new",
+       "explode": [
+        45,
+        0,
+        78
+       ]
+      }
+     ]
+    },
+    {
+     "view": "under",
+     "scene": [
+      {
+       "part": "fot",
+       "role": "context"
+      },
+      {
+       "part": "ballast",
+       "role": "context"
+      },
+      {
+       "part": "royr",
+       "role": "context"
+      },
+      {
+       "part": "G",
+       "role": "new",
+       "explode": [
+        0,
+        30,
+        0
+       ],
+       "at": [
+        [
+         53.38,
+         30.5,
+         8.0
+        ]
+       ]
+      }
+     ],
+     "detail": {
+      "centre": [
+       53.38,
+       30.0,
+       8.0
+      ],
+      "span": 28,
+      "pos": "right",
+      "r": 70
+     }
+    }
+   ]
+  },
+  {
+   "type": "step",
+   "title": "Botnlok",
+   "figures": [
+    {
+     "view": "under",
+     "scene": [
+      {
+       "part": "fot",
+       "role": "context"
+      },
+      {
+       "part": "ballast",
+       "role": "context"
+      },
+      {
+       "part": "royr",
+       "role": "context"
+      },
+      {
+       "part": "botnlok",
+       "role": "new",
+       "explode": [
+        0,
+        0,
+        -50
+       ]
+      },
+      {
+       "part": "F",
+       "role": "new",
+       "explode": [
+        0,
+        0,
+        -95
+       ],
+       "at": [
+        [
+         -5.75,
+         65.75,
+         4.0
+        ],
+        [
+         -54.06,
+         -37.86,
+         4.0
+        ],
+        [
+         59.82,
+         -27.89,
+         4.0
+        ]
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "type": "step",
+   "title": "Bjelke",
+   "figures": [
+    {
+     "view": "iso",
+     "scene": [
+      {
+       "part": "fot",
+       "role": "context"
+      },
+      {
+       "part": "botnlok",
+       "role": "context"
+      },
+      {
+       "part": "ballast",
+       "role": "context"
+      },
+      {
+       "part": "royr",
+       "role": "context"
+      },
+      {
+       "part": "bjelke0",
+       "role": "new",
+       "explode": [
+        -340,
+        0,
+        0
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "type": "step",
+   "title": "Stopp og brems",
+   "figures": [
+    {
+     "view": "under",
+     "scene": [
+      {
+       "part": "fot",
+       "role": "context"
+      },
+      {
+       "part": "botnlok",
+       "role": "context"
+      },
+      {
+       "part": "ballast",
+       "role": "context"
+      },
+      {
+       "part": "royr",
+       "role": "context"
+      },
+      {
+       "part": "bjelke0",
+       "role": "context"
+      },
+      {
+       "part": "stopp",
+       "role": "new",
+       "explode": [
+        0,
+        0,
+        -35
+       ]
+      },
+      {
+       "part": "brems",
+       "role": "new",
+       "explode": [
+        0,
+        0,
+        -45
+       ]
+      }
+     ],
+     "detail": {
+      "centre": [
+       113.45,
+       22.0,
+       252.0
+      ],
+      "span": 30,
+      "pos": "left",
+      "r": 70
+     }
+    }
+   ]
+  },
+  {
+   "type": "step",
+   "title": "Lys",
+   "figures": [
+    {
+     "view": "under",
+     "scene": [
+      {
+       "part": "fot",
+       "role": "context"
+      },
+      {
+       "part": "botnlok",
+       "role": "context"
+      },
+      {
+       "part": "ballast",
+       "role": "context"
+      },
+      {
+       "part": "royr",
+       "role": "context"
+      },
+      {
+       "part": "bjelke0",
+       "role": "context"
+      },
+      {
+       "part": "flatstong0",
+       "role": "new",
+       "explode": [
+        0,
+        0,
+        -45
+       ]
+      },
+      {
+       "part": "led0",
+       "role": "new",
+       "explode": [
+        0,
+        0,
+        -80
+       ]
+      },
+      {
+       "part": "dimmer0",
+       "role": "new",
+       "explode": [
+        -45,
+        0,
+        0
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "type": "step",
+   "title": "Rute",
+   "note": "Prismesida opp, rillene på tvers av bjelken.",
+   "figures": [
+    {
+     "view": "under",
+     "scene": [
+      {
+       "part": "fot",
+       "role": "context"
+      },
+      {
+       "part": "botnlok",
+       "role": "context"
+      },
+      {
+       "part": "ballast",
+       "role": "context"
+      },
+      {
+       "part": "royr",
+       "role": "context"
+      },
+      {
+       "part": "bjelke0",
+       "role": "context"
+      },
+      {
+       "part": "flatstong0",
+       "role": "context"
+      },
+      {
+       "part": "led0",
+       "role": "context"
+      },
+      {
+       "part": "dimmer0",
+       "role": "context"
+      },
+      {
+       "part": "prismeark0",
+       "role": "new",
+       "explode": [
+        0,
+        0,
+        -50
+       ]
+      },
+      {
+       "part": "lysleiar0",
+       "role": "new",
+       "explode": [
+        0,
+        0,
+        -95
+       ]
+      }
+     ],
+     "glas": [
+      [
+       -60.0,
+       -120.0,
+       260.0
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "type": "step",
+   "title": "Lok",
+   "figures": [
+    {
+     "view": "under",
+     "scene": [
+      {
+       "part": "fot",
+       "role": "context"
+      },
+      {
+       "part": "botnlok",
+       "role": "context"
+      },
+      {
+       "part": "ballast",
+       "role": "context"
+      },
+      {
+       "part": "royr",
+       "role": "context"
+      },
+      {
+       "part": "bjelke0",
+       "role": "context"
+      },
+      {
+       "part": "flatstong0",
+       "role": "context"
+      },
+      {
+       "part": "led0",
+       "role": "context"
+      },
+      {
+       "part": "dimmer0",
+       "role": "context"
+      },
+      {
+       "part": "prismeark0",
+       "role": "context"
+      },
+      {
+       "part": "lysleiar0",
+       "role": "context"
+      },
+      {
+       "part": "lok0",
+       "role": "new",
+       "explode": [
+        0,
+        0,
+        -45
+       ]
+      },
+      {
+       "part": "E",
+       "role": "new",
+       "explode": [
+        0,
+        0,
+        -95
+       ],
+       "at": [
+        [
+         -167.07,
+         3.0,
+         250.86
+        ],
+        [
+         -83.07,
+         3.0,
+         250.86
+        ],
+        [
+         0.93,
+         3.0,
+         250.86
+        ],
+        [
+         84.93,
+         3.0,
+         250.86
+        ]
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "type": "step",
+   "title": "Kontroll",
+   "flow": "right",
+   "figures": [
+    {
+     "view": "iso",
+     "scene": [
+      {
+       "part": "fot",
+       "role": "context"
+      },
+      {
+       "part": "botnlok",
+       "role": "context"
+      },
+      {
+       "part": "ballast",
+       "role": "context"
+      },
+      {
+       "part": "royr",
+       "role": "context"
+      },
+      {
+       "part": "bjelke0",
+       "role": "context"
+      },
+      {
+       "part": "lok0",
+       "role": "context"
+      },
+      {
+       "part": "lysleiar0",
+       "role": "context"
+      },
+      {
+       "part": "prismeark0",
+       "role": "context"
+      },
+      {
+       "part": "flatstong0",
+       "role": "context"
+      },
+      {
+       "part": "led0",
+       "role": "context"
+      },
+      {
+       "part": "dimmer0",
+       "role": "context"
+      }
+     ]
+    },
+    {
+     "view": "iso",
+     "scene": [
+      {
+       "part": "fot",
+       "role": "context"
+      },
+      {
+       "part": "botnlok",
+       "role": "context"
+      },
+      {
+       "part": "ballast",
+       "role": "context"
+      },
+      {
+       "part": "royr",
+       "role": "context"
+      },
+      {
+       "part": "bjelke80",
+       "role": "context"
+      },
+      {
+       "part": "lok80",
+       "role": "context"
+      },
+      {
+       "part": "lysleiar80",
+       "role": "context"
+      },
+      {
+       "part": "prismeark80",
+       "role": "context"
+      },
+      {
+       "part": "flatstong80",
+       "role": "context"
+      },
+      {
+       "part": "led80",
+       "role": "context"
+      },
+      {
+       "part": "dimmer80",
+       "role": "context"
+      }
+     ]
+    }
+   ],
+   "note": "Bjelken skal gå jamt frå 0° til 80°. Trykk på messingpunktet for lys.",
+   "n": false
+  }
+ ]
+}

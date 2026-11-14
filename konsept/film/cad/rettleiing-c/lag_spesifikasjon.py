@@ -44,7 +44,6 @@ parts.update({
     'P': beslag('P', 2, primitive={'cylinder': {'r': 0.9, 'h': 10.0}, 'axis': [1, 0, 0]}),
     'Gbrems': beslag('G', 1, mesh='delar/G@28.stl', counts_as='G'),
     'S': beslag('S', skruar['03'], mesh='delar/S.stl'),
-    'W': beslag('W', 2, primitive={'box': [13.1, 18.6, 8.3]}),
     'K': beslag('K', 16, primitive={'cylinder': {'r': 4.0, 'h': 2.5}}),
 })
 
@@ -80,7 +79,7 @@ kapping = steg('Kapp', [{'view': 'iso', 'scene': c('stamme', 'aksel'), 'zoom': 1
                n=False, icons=['atvaring'], flow='right', flow_arrow=False)
 skiver = steg('Skiver', [{'view': 'under', 'zoom': 1.15, 'multiplier': 'x3', 'multiplier_text': False,
                           'scene': c('fot') + [utan('S', [0, 0, -45], at=POS['S'])],
-                          'detail': {'centre': [s0[0], s0[1], s0[2] - 6.0], 'span': 26, 'pos': 'right', 'r': 56, 'qty': '11x', 'letter': 'S',
+                          'detail': {'centre': [s0[0], s0[1], s0[2] - 6.0], 'span': 26, 'pos': 'right', 'r': 56, 'qty': '%dx' % len(POS['S']), 'letter': 'S',
                                      'scene': c('fot') + [ny('S', [0, 0, -5 - 7 * k], at=[s0]) for k in range(3)]}}], icons=['lim'], icon_text='3x')
 boge = steg('Røyr i boge', [{'view': 'iso', 'scene': c('boge') + [utan('stamme', [-70 * d[0], 0, -70 * d[2]]), utan('aksel', [-70, 0, 0])]}], icons=['lim'])
 stamme = steg('Stamme i fot', [{'view': 'iso', 'scene': c('fot') + [ny('ring', [46 * d[0], 0, 46 * d[2]]), utan('stamme', [90 * d[0], 0, 90 * d[2]]),
@@ -110,17 +109,15 @@ laasing = steg('Lås og brems', [{'view': 'under', 'scene': bak28 + [utan('Elaas
                                             {'centre': gb, 'span': 30, 'pos': [0.5, 0.42], 'r': 54, 'qty': '1x', 'letter': 'G',
                                              'scene': bak28 + [ny('Gbrems', [0, 0, -9.0])]}]}],
                icons=['klokke'], icon_text='24 h')
-kopling = steg('Kopling', [{'view': 'under', 'zoom': 1.2, 'scene': c('fot', 'ballast') + [utan('W', [0, 0, -30], at=[[19.0, 47.0, 7.0], [33.0, 47.0, 7.0]]),
-                                                                                    utan('botnlok', [0, 0, -60]), ny('F', [0, 0, -105], at=POS['F'], label_offset=[10, -16])],
-                            'detail': {'centre': [26.0, 47.0, 7.0], 'span': 28, 'pos': 'left', 'r': 56, 'qty': '2x', 'letter': 'W',
-                                       'scene': c('fot', 'ballast') + [ny('W', [0, 0, -7], at=[[19.0, 47.0, 7.0], [33.0, 47.0, 7.0]])]}}])
+kopling = steg('Kopling', [{'view': 'under', 'zoom': 1.2, 'scene': c('fot', 'ballast') + [utan('botnlok', [0, 0, -60]), ny('F', [0, 0, -105], at=POS['F'], label_offset=[10, -16])]}],
+               icons=['lodd'])
 knott = steg('Knottar', [{'view': 'under', 'zoom': 1.2, 'scene': c('fot', 'botnlok') + [utan('K', [0, 0, -30], at=knottar)], 'texts': [{'point': [84.0, -60.0, 0.0], 'text': '16x  K', 'offset': [26, -4]}]}])
 ferdig = steg('Kontroll', [{'view': 'iso', 'scene': heil(0)}, {'view': 'iso', 'scene': heil(80)}], n=False, flow='right', icons=['ok'])
 
 pages = [
     {'type': 'cover', 'title': 'RUTA', 'view': 'iso', 'scene': heil(35), 'glas': [[-60.0, -90.0, 215.0]], 'inset_pt': 8},
     {'type': 'inventory', 'cols': 3, 'parts': ['fot', 'botnlok', 'stamme', 'kv35', 'kh35', 'lv35', 'lh35', 'rute35', 'ark35', 'aksel', 'led35', 'ende35', 'boge', 'sko35', 'ring']},
-    {'type': 'hardware', 'parts': ['E', 'F', 'G', 'P', 'S', 'W', 'K'], 'cols': 4, 'row_height': 170, 'centred': True},
+    {'type': 'hardware', 'parts': ['E', 'F', 'G', 'P', 'S', 'K'], 'cols': 3, 'row_height': 170, 'centred': True},
     par(kapping, skiver, split=0.42),
     par(boge, stamme, split=0.4),
     par(bjelke, lakk, split=0.45),
@@ -131,7 +128,7 @@ pages = [
 ]
 
 spec = {
-    'meta': {'title': 'RUTA', 'footer': 'Ruta på fot · revisjon C · M05', 'orientation': 'portrait'},
+    'meta': {'title': 'RUTA', 'footer': 'Ruta på fot · revisjon C · M06', 'orientation': 'portrait'},
     'style': {'line_pt': 0.7, 'kontur': 1.6, 'svarting': 1.5, 'boble_pt': 1.1, 'sidetal_ytre': True, 'steg_pt': 32, 'mengd_pt': 15, 'mengd_fyrst': True, 'tittel_pt': 64, 'tittel_feit': True, 'sidetal_pt': 9, 'del_pt': 8.5,
               'lett_pt': 0.5, 'ramme': False, 'beslagkolonne': False},
     'views': {'iso': {'dir': [0.75, -1.0, 0.6], 'up': [0, 0, 1]}, 'under': {'dir': [0.75, -1.0, -0.8], 'up': [0, 0, 1]},

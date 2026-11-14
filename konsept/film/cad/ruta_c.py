@@ -11,7 +11,7 @@ kan byggjast av trykte delar og delar frå hylla i ein jernvarebutikk, utan røy
   friksjon     bremseskrue mot ein trykt sko, ikkje rett mot røyret
   gjenger      M3 formar gjenge i trykte hol Ø 2,5. Ingen innpressmutrar
   ballast      stålskiver M16 på tappar i foten (før: skoren stålplate)
-  lys          COB-stripe 24 V med adapter og brytar på leidningen. Messingpunktet er eit trykt lok
+  lys          USB-stripe 5 V. Messingpunktet er eit trykt lok
   print        alle trykte delar går på 256 mm: bjelken og loket i to lengder med forskyvd skøyt
 
   python ruta_c.py            kontroll og eksport til ut-c/
@@ -32,11 +32,13 @@ ROYR_D, ROYR_T = 12.0, 1.0        # koparrøyr, halvhardt og forkromma (Clas Ohl
 SKRUE_FRI, SKRUE_PILOT = 3.4, 2.5  # M3: frigang, og holet M3 formar gjenge i
 HOVUD_D, HOVUD_H = 5.5, 2.0       # sylinderhovud med spor, DIN 84 (Clas Ohlson 40-7042)
 SENK_D = 6.6                      # forsenking til hovudet
-E_L, F_L, G_L = 20.0, 10.0, 8.0   # lengder: lok og låsing, botnlok, brems. Settet har M3 × 10, 15 og 20: G er ein M3 × 10 kappa til 8
+E_L, F_L, G_L = 19.0, 12.0, 8.0   # lengder: lok og låsing, botnlok, brems. Settet (Kjell & Company SK-180) har M3 × 12, 19 og 25: G er ein M3 × 12 kappa til 8
 INNGREP = 8.0                     # gjengeinngrep i plast for skruane som held
-LED_ROM, LED_DJUPN = 10.0, 2.8    # kanalen til LED-stripa: 8 × 2 mm COB (Clas Ohlson 36-8960)
+LED_B, LED_T = 10.0, 3.0          # USB-stripe 5 V RGB (Kjell & Company 57819). KONTROLLMÅL: breidd og tjukn er frå nettsida, ikkje målt
+LED_ROM = LED_B + 1.0             # breidda på kanalen til LED-stripa
 SKIVE_D, SKIVE_HOL, SKIVE_T = 30.0, 17.0, 2.7   # skive M16 DIN 125 (Clas Ohlson 11-1203-16). KONTROLLMÅL: tjukna er rekna frå vekta
 SKIVER_I_STABEL = 3
+STABLAR = 8                       # éin pakke på 25 skiver gjev åtte stablar. Foten har elleve tappar, så fleire kan kome til seinare
 SKIVE_T_MAKS = 3.3                # tappar og klossar er laga for den tjukkaste skiva DIN 125 tillèt
 PASS_LIM, PASS_GLID = 0.30, 0.40  # klaring på diameteren: der røyret blir limt, og der bjelken dreier
 KNOTT_R, KNOTT_N = 75.0, 16       # antisklknottar Ø 8 under kanten av foten, over skøyten mot botnloket
@@ -63,7 +65,7 @@ SPALTE_E = 1.0                    # luft mellom bogestykket og enden av bjelken
 
 R = BJELKE_D / 2
 h = (RUTE_T + FILM_T + 0.05) / 2
-U_KANT, U_SKRUE = L.U_KANT, L.U_SKRUE
+U_KANT, U_SKRUE = max(L.U_KANT, 0.8 + LED_T + 0.5), L.U_SKRUE      # kanten på plata står 0,5 mm framfor stripa (0,8 er LED_Y0)
 YT = ROYR_FOT[1]
 _f = math.radians(ROYR_HELL)
 XC = ROYR_FOT[0] + (AKSE_H - FOT_H) * math.tan(_f)
@@ -256,7 +258,7 @@ def _bjelke_lokal():
     film = L._boks(XR0, XR1, U_KANT, U_KANT + RUTE_D - 6.0, h - RUTE_T - FILM_T, h - RUTE_T).intersect(form.translate((0, -6.0, 0)))
     for x in SKRUAR_X:
         plate = plate.cut(L._syl_z(4.0, -5, 5, x, U_SKRUE)); film = film.cut(L._syl_z(4.0, -5, 5, x, U_SKRUE))
-    led = L._boks(XR0 + 15, XR1 - 15, LED_Y0, LED_Y0 + 1.6, -4.0, 4.0)            # 27 cm midt i kanalen: loddepunktet ligg over slissa
+    led = L._boks(XR0 + 15, XR1 - 15, LED_Y0, LED_Y0 + LED_T - 0.4, -LED_B / 2, LED_B / 2)            # 27 cm midt i kanalen: loddepunktet ligg over slissa
     endelok = L._syl_x(ENDELOK_D, X0 - 1.0, X0 + ENDELOK_T - 0.2, 0, 0).faces('<X').edges().chamfer(0.6)
     laas = _skrue(E_L, Z_SETE_P, PINNE_X, PINNE_Y)
     brems = _om_royret(_skrue(G_L, spiss + G_L, BREMS_X, -EKS), BREMS_V - 90.0)
@@ -277,7 +279,7 @@ def fot():
         x, y = _boss_xy(v)
         f = f.union(L._syl_z(9.0, BOSS_Z, TAK + 0.1, x, y).union(
             L._boks(-4.5, 4.5, 0, FOT_D / 2 - VEGG - BOSS_R + 1.0, BOSS_Z, TAK + 0.1).translate((0, BOSS_R, 0)).rotate((0, 0, 0), (0, 0, 1), v - 90.0)))
-        f = f.cut(L._syl_z(SKRUE_PILOT, BOSS_Z - 0.1, Z_HOVUD_F + F_L + 0.8, x, y))
+        f = f.cut(L._syl_z(SKRUE_PILOT, BOSS_Z - 0.1, min(Z_HOVUD_F + F_L + 0.8, FOT_H - 1.2), x, y))     # minst 1,2 mm gods att i toppflata
     # tappar til skivene. Dei stivar òg av toppflata
     for (x, y) in BALLAST:
         f = f.union(L._syl_z(SKIVE_HOL - 0.7, TAK - SKIVER_I_STABEL * SKIVE_T_MAKS - 0.5, TAK + 0.1, x, y))
@@ -314,7 +316,7 @@ def fotring():
 
 def ballast():
     b = None
-    for (x, y) in BALLAST:
+    for (x, y) in sorted(BALLAST, key=lambda q: q[0] + q[1], reverse=True)[:STABLAR]:   # dei tappane som ligg lengst frå venstre framkant, der lampa veltar lettast
         s = L._syl_z(SKIVE_D, TAK - SKIVER_I_STABEL * SKIVE_T, TAK, x, y).cut(L._syl_z(SKIVE_HOL, 0, FOT_H, x, y))
         b = s if b is None else b.union(s)
     return b
@@ -342,7 +344,7 @@ def delar(vinkel=VINKEL):
     D = [
         ('01', 'fot', fot(), 'petg', 'kropp', 1, 'TRYKT. PETG, toppflata ned, utan støtte, fem vegger'),
         ('02', 'botnlok', botnlok(), 'petg', 'svart', 1, 'TRYKT. %d antisklknottar limte under kanten av foten' % KNOTT_N),
-        ('03', 'ballast', ballast(), 'staal', 'staal', len(BALLAST) * SKIVER_I_STABEL, 'KJØPT. Skive M16 DIN 125, Ø %g × %g. %d stablar à %d, limte til tappane' % (SKIVE_D, SKIVE_T, len(BALLAST), SKIVER_I_STABEL)),
+        ('03', 'ballast', ballast(), 'staal', 'staal', STABLAR * SKIVER_I_STABEL, 'KJØPT. Skive M16 DIN 125, Ø %g × %g. %d stablar à %d, limte til tappane lengst bak til høgre' % (SKIVE_D, SKIVE_T, STABLAR, SKIVER_I_STABEL)),
         ('04', 'stammerøyr', royr_stamme(), 'kopar', 'kropp', 1, 'KJØPT. Koparrøyr Ø %g × %g, kappa i %.0f mm' % (ROYR_D, ROYR_T, STAMME_L)),
         ('05v', 'bjelke venstre', P(_del_x(B['kropp'], X0 - 1, X_DEL_K)), 'petg', 'kropp', 1, 'TRYKT. PETG, ståande med enden ned og skøyten opp. Støtte berre i endeloklomma'),
         ('05h', 'bjelke høgre', P(_del_x(B['kropp'], X_DEL_K, X1 + 1)), 'petg', 'kropp', 1, 'TRYKT. PETG, ståande med enden ned og skøyten opp. Støtte berre i kragerommet'),
@@ -351,14 +353,14 @@ def delar(vinkel=VINKEL):
         ('07', 'lysleiar', P(B['plate']), 'pmma', 'rute', 1, 'FRÅ SKJERMEN. PMMA %g mm, fem hol Ø 4' % RUTE_T),
         ('08', 'prismeark', P(B['film']), 'film', 'film', 1, 'FRÅ SKJERMEN. Prisma opp, rillene på tvers av bjelken'),
         ('09', 'akselrøyr', royr_aksel(), 'kopar', 'kropp', 1, 'KJØPT. Same røyr, kappa i %.0f mm' % AKSEL_L),
-        ('10', 'LED-stripe', P(B['led']), 'gummi', 'led', 1, 'KJØPT. COB 24 V, 3000 K, 8 × 2 mm, klipt i 27 cm (9 × 3 cm). Adapter og brytar følgjer med'),
+        ('10', 'LED-stripe', P(B['led']), 'gummi', 'led', 1, 'KJØPT. USB-stripe 5 V RGB, %g × %g mm, klipt etter åtte diodar (om lag 27 cm)' % (LED_B, LED_T)),
         ('11', 'endelok', P(B['endelok']), 'petg_fast', 'messing', 1, 'TRYKT. Messingpunktet: trykt i messingfarge eller sprøyta'),
         ('12', 'bogestykke', bogestykke(), 'petg_fast', 'kropp', 1, 'TRYKT. PETG, 100 % fyll, liggjande, støtte berre frå plata, 5 mm brem'),
         ('13', 'bremsesko', P(B['sko']), 'petg_fast', 'svart', 1, 'TRYKT. PETG, 100 % fyll'),
         ('14', 'fotring', fotring(), 'petg_fast', 'kropp', 1, 'TRYKT. PETG, 100 % fyll, ståande på den rette enden'),
         ('E', 'skrue M3 × %g' % E_L, P(B['skruar'].union(B['laas'])), 'staal', 'staal', len(SKRUAR_X) + 1, 'KJØPT. Fem i loket, éin som låser bjelken'),
         ('F', 'skrue M3 × %g' % F_L, botnskruar(), 'staal', 'staal', 3, 'KJØPT. Botnloket'),
-        ('G', 'skrue M3 × %g' % G_L, P(B['brems']), 'staal', 'staal', 1, 'KJØPT. Bremseskruen: M3 × 10 kappa til %g mm, enden filt plan' % G_L),
+        ('G', 'skrue M3 × %g' % G_L, P(B['brems']), 'staal', 'staal', 1, 'KJØPT. Bremseskruen: M3 × 12 kappa til %g mm, enden filt plan' % G_L),
     ]
     return D
 
@@ -471,7 +473,7 @@ def kontroll(vis=True):
                         snitt_mm3=[round(v0, 1), round(v1, 1), round(v2, 1)], mot=[k0, k1, k2])
     rap['styrke'] = styrke(M_blad, M_hald, M_fot)
     rap['kapp'] = dict(stammeroyr_mm=round(STAMME_L, 1), akselroyr_mm=round(AKSEL_L, 1), royr_i_alt_mm=round(STAMME_L + AKSEL_L, 1),
-                       skiver=len(BALLAST) * SKIVER_I_STABEL)
+                       skiver=STABLAR * SKIVER_I_STABEL)
     if vis:
         print('masse %d g (krav 1200)  ·  fotavtrykk %.1f cm² (krav 200)  ·  tyngdepunkt x %.1f y %.1f z %.1f  ·  %d delar' % (rap['masse_g'], rap['fotavtrykk_cm2'], *rap['tyngdepunkt'], rap['delar_i_alt']))
         print('veltevinkel %.1f°  ·  velt ved trykk på venstre hjørne %.1f N, fremste kant %.1f N, dytt i toppen %.1f N (minst over 0°, 35° og 80°)' % (rap['veltevinkel'], rap['velt_venstre_N'], rap['velt_framme_N'], rap['velt_dytt_topp_N']))

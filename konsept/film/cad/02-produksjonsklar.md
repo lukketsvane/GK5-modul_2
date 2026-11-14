@@ -9,13 +9,13 @@ Dato: 14.11.2026. Revisjon B var eit formstudium: eitt bøygd stålrøyr, innpre
 | Revisjon B | Revisjon C | Grunn |
 | --- | --- | --- |
 | Eitt stålrøyr Ø 12 × 1,5 bøygd 120° | To rette koparrøyr Ø 12 i eit trykt bogestykke (12) med 25 mm muffer | Ingen røyrbøyar. Røyret kan kappast med baufil |
-| Innpressmutterar M3 og M4 | Skruane formar gjenga sjølve i trykte hol Ø 2,5, med 8 mm inngrep | Ingen loddebolt, ingen spesialdelar |
-| Lokskruar M3 × 12, som ikkje nådde mutterane | M3 × 20 (E) | Feil i B, funnen då C vart teikna |
+| Innpressmutterar M3 og M4 | Skruane formar gjenga sjølve i trykte hol Ø 2,5, med 8 mm inngrep | Ingen spesialdelar |
+| Lokskruar M3 × 12, som ikkje nådde mutterane | M3 × 19 (E) | Feil i B, funnen då C vart teikna |
 | Stoppskrue gjennom hol i røyret | Krage på bogestykket som går i ei C-forma lomme i bjelken, og ein låseskrue i eit spor | Ingen boring i røyret. Stoppen ved 0° og 80° sit i plasten |
-| Bremsen ikkje teikna | Skrue (G, M3 × 10 kappa til 8 mm) som trykkjer ein trykt sko (13) mot akselrøyret | Friksjonen kan stillast, og skruen gneg ikkje på røyret |
-| Rund stålplate Ø 106 × 5, skoren | 33 stålskiver M16 i 11 stablar på pinnar i foten | Skivene finst i pose. Plata måtte ha vore skoren hjå ein verkstad |
+| Bremsen ikkje teikna | Skrue (G, M3 × 12 kappa til 8 mm) som trykkjer ein trykt sko (13) mot akselrøyret | Friksjonen kan stillast, og skruen gneg ikkje på røyret |
+| Rund stålplate Ø 106 × 5, skoren | 24 stålskiver M16 i åtte stablar på tappar i foten. Foten har elleve tappar | Skivene finst i pose. Plata måtte ha vore skoren hjå ein verkstad |
 | Bjelke og lok i eitt stykke på 328 mm | Begge delte i to, med skøytane forskyvde 66 mm | Printaren tek 256 mm. Loket bind bjelkeskøyten, bjelken bind lokskøyten |
-| USB-stripe med touch-dimmar | COB-stripe 24 V, 27 cm, med adapter og brytar på leidningen | Varm kvit USB-stripe og dimmar fanst ikkje i sentrum |
+| USB-stripe med touch-dimmar | USB-stripe 5 V RGB, åtte diodar, kopla til fast kvitt | Budsjettet. Varm kvit USB-stripe fanst ikkje i sentrum |
 | Settskrue mot røyret i foten | Røyret er limt i ein sokkel med blindboring, med ein trykt fotring (14) rundt | Epoksy tek moment betre enn éin skrue mot tynn røyrvegg. Ringen aukar innfestinga frå 8 til 24 mm og set hellinga på 30° |
 | Bjelkehalvdelane møtest butt | To filamentbitar som styrepinnar i skøyten | Halvdelane kan ikkje vri seg mot kvarandre medan limet herdar |
 
@@ -25,24 +25,24 @@ Formtrekka H1 til H6 frå `01-northern-tilpassing.md` står. Bogestykket har sam
 
 | | Revisjon C | Krav |
 | --- | --- | --- |
-| Masse i CAD | 1103 g | høgst 1200 g |
+| Masse i CAD | 1014 g | høgst 1200 g |
 | Fotavtrykk | 196 cm² | høgst 200 cm² |
-| Tyngdepunkt frå midten av foten | 10 mm | |
+| Tyngdepunkt frå midten av foten | 8 mm | |
 | Kollisjonar, helling 0° til 80° | ingen | |
 | Stopp ved 0° og 80°, låseskruen held | ja | |
 | Leidning Ø 4 fri ut av foten | ja | |
 
-Massen er rekna med 55 % fylt PETG i snitt. Med printoppsettet under blir lampa om lag 1150 g. Er skivene 3,0 mm og ikkje 2,7 mm, kjem 37 g til. Det er framleis under kravet.
+Massen er rekna med 55 % fylt PETG i snitt og 24 skiver. Med printoppsettet under blir lampa om lag 1060 g.
 
 Kor lite som skal til for å velte lampa, rekna over alle velteretningar:
 
 | Helling på ruta | Trykk ned på venstre hjørne | Trykk ned midt på fremste kant | Dytt sidelengs i toppen | Veltevinkel |
 | --- | --- | --- | --- | --- |
-| 0° | 3,8 N | 6,4 N | 2,7 N | 24,7° |
-| 35° | 4,5 N | 10,0 N | 2,8 N | 28,4° |
-| 80° | 6,8 N | | 2,9 N | 30,9° |
+| 0° | 3,5 N | 6,0 N | 2,5 N | 23,6° |
+| 35° | 4,3 N | 9,5 N | 2,7 N | 27,1° |
+| 80° | 6,3 N | | 2,5 N | 27,9° |
 
-3,8 N er om lag 390 gram på hjørnet av ruta. Det er lite, og det følgjer av krava: 1,2 kg og ein fot på 200 cm² under ei rute som stikk 19 cm ut. Tala i `01-northern-tilpassing.md` (7,7 og 12,0 N for revisjon B) er rekna med ein enklare formel som berre såg på éi retning, og er like mykje for høge.
+3,5 N er om lag 360 gram på hjørnet av ruta. Det er lite, og det følgjer av krava: 1,2 kg og ein fot på 200 cm² under ei rute som stikk 19 cm ut. Med 33 skiver var talet 3,8 N. Dei tre tomme tappane står nærast venstre framkant; alt tungt som blir lagt på dei, hjelper. Tala i `01-northern-tilpassing.md` (7,7 og 12,0 N for revisjon B) er rekna med ein enklare formel som berre såg på éi retning, og er like mykje for høge.
 
 Styrke, rekna med 8 N på hjørnet, det doble av det som veltar lampa:
 
@@ -53,7 +53,7 @@ Styrke, rekna med 8 N på hjørnet, det doble av det som veltar lampa:
 | Flatetrykk i muffene i bogestykket | 2,1 MPa | 40 MPa | 19 |
 | Kanttrykk der stamma står i foten, med fotring | 2,7 MPa | 40 MPa | 15 |
 | Stoppflata ved 1 Nm på ruta | 5,0 MPa | 40 MPa | 8 |
-| Gjenga til bremseskruen | 168 N | 647 N | 3,8 |
+| Gjenga til bremseskruen | 169 N | 647 N | 3,8 |
 
 Utan fotringen ville kanttrykket i foten vore 22 MPa. Bremsa må halde 252 Nmm når ruta ligg flatt, og er rekna for det doble. Skoen kan gå 0,9 mm mot røyret, og 0,25 mm trengst. Akselrøyret bøyer seg 0,34 mm under eigenvekta av ruta.
 
@@ -92,28 +92,34 @@ Glepp noko, så endre `PASS_LIM`, `PASS_GLID` eller `ROYR_D` øvst i `ruta_c.py`
 
 ## Handleliste
 
-Alt er frå Clas Ohlson. Prisane er frå nettsida 14.11.2026. Lagerstatus i kvar butikk er ikkje sjekka.
+CAD-en er no sett opp for budsjettkurven på under 400 kr. Prisane er frå nettsidene 14.11.2026. Lagerstatus i kvar butikk er ikkje sjekka, og USB-stripa stod som utseld på nett.
 
-| Vare | Art.nr. | Pris | Bruk |
-| --- | --- | --- | --- |
-| Koparrøyr Ø 12 mm × 2 m, forkroma | 30-6571 | 199,90 | 04 (242 mm) og 09 (308 mm) |
-| Skruesett M3 med M3 × 10 og M3 × 20 | 40-7042 | 219,90 | 6 E, 3 F, og G som er ein M3 × 10 kappa til 8 mm |
-| Skiver M16, Ø 30, 25 stk, to pakkar | 11-1203-16 | 99,80 | 33 skiver som ballast |
-| COB LED-stripe 24 V, 3000 K, med adapter og brytar | 36-8960 | 349,90 | 27 cm (ni ledd) i enden med leidningen |
-| Loctite Power Epoxy 5 min, 25 ml | 34-8919 | 149,90 | Røyr i muffer og sokkel, fotring, bjelkeskøyten, skivene |
-| Wago 221, to leiarar | 36-6520 | 139,90 | Skøyten i foten |
-| Antisklknottar Ø 8, 28 stk | 21-2865 | 39,90 | 16 under foten |
-| **Sum** | | **1199,20** | |
+| Vare | Butikk | Art.nr. | Pris | Bruk |
+| --- | --- | --- | --- | --- |
+| Koparrøyr Ø 12 mm × 2 m, forkroma | Clas Ohlson | 30-6571 | 199,90 | 04 (242 mm) og 09 (308 mm) |
+| USB LED-list 1 m, RGB, 10 × 3 mm | Kjell & Company | 57819 | 99,90 | Åtte diodar, om lag 27 cm |
+| Skruesortiment SK-180, M3 × 12, 19 og 25 | Kjell & Company | 89070 | 49,00 | 6 E (M3 × 19), 3 F (M3 × 12), og G som er ein M3 × 12 kappa til 8 mm |
+| Skiver M16, Ø 30, 25 stk | Clas Ohlson | 11-1203-16 | 49,90 | 24 skiver som ballast |
+| **Sum** | | | **398,70** | |
 
-Til lakk kjem Paintguide grunning 41-3362, Paintguide matt svart 41-3355 eller Vintage Sand 41-3348, og gull metallic 41-3354 til endeloket. Lysleiaren (07) og prismearket (08) kjem frå den gamle skjermen. Akrylplate 300 × 200 × 3 (34-1360, 99,90) er reserve om lysleiaren ryk.
+Heimefrå: superlim eller epoksy, baufil og fil, loddebolt og litt krympestrømpe eller teip, USB-ladar, noko gummi til føter (16 små bitar), ei tynn snor, nokre centimeter 1,75 mm filament, skyvelære og vater.
 
-Leidningen på stripa er 1,5 m. Om lag 0,75 m går med inni røyra, så like mykje står att bak foten. Kapp han minst 70 cm frå stripa og på stripesida av brytaren. Rekk han ikkje fram til kontakten, kan ein toleiar på 2 × 0,5 mm² skøytast inn i dei same klemmene.
+Før du handlar og printar:
 
-Verktøy om det manglar: baufil 40-8088, filsett 40-7692, sandpapir 41-3859 og 41-3860, flat trekkjar til M3, vater, skyvelære, ei tynn snor til å dra leidningen med, og nokre centimeter 1,75 mm filament til styrepinnar.
+- **Sjå på skruane i pakken.** Hovudtypen står ikkje på nettsida. Forsenkingane er Ø 6,6 og tek sylinderhovud og panhovud. Senkhovud går òg, men ligg dårlegare an.
+- **Mål stripa.** Kanalen er laga for 10 × 3 mm. Er ho annleis, rett `LED_B` og `LED_T` øvst i `ruta_c.py` før bjelken blir trykt.
+- **Kopling av stripa.** Enklast er å klippe av kontrollboksen og lodde USB-leidningen rett på stripa: raud til «+5V», svart til R, G og B samla. Då lyser ho kvitt heile tida, og berre to leiarar går gjennom røyret. Det gjeld vanleg 4-pins RGB-stripe; sjekk at putene er merkte slik. Leidningen blir tredd frå foten og opp, sidan USB-pluggen ikkje går gjennom røyret.
+- **Lyset** blir kaldt kvitt, og åtte diodar gjev synlege punkt langs kanten av ruta.
+
+### Om det kjem meir pengar
+
+Den fulle lista var 1199,20 kr, alt frå Clas Ohlson: COB-stripe 24 V 3000 K med adapter og brytar (36-8960, 349,90), skruesett med M3 × 10 og 20 (40-7042, 219,90), to pakkar skiver (99,80), Loctite Power Epoxy (34-8919, 149,90), Wago 221 (36-6520, 139,90) og antisklknottar (21-2865, 39,90), i tillegg til røyret. Stripa gjev varmt, jamt lys. Ho er 8 × 2 mm, så `LED_B`, `LED_T` må setjast til 8 og 2. Til lakk: Paintguide grunning 41-3362, matt svart 41-3355 eller Vintage Sand 41-3348, og gull metallic 41-3354 til endeloket.
 
 ## Lakk
 
-Lampa blir trykt i den fargen som ligg i printaren, og sprøytt i éin matt farge. Det er det H4 krev, og det gøymer laglinene og skøytane.
+Lakken er ikkje med i budsjettkurven. Har du boksar ståande, er dette framgangsmåten. Elles blir lampa trykt i den fargen ho skal ha.
+
+Lampa blir sprøytt i éin matt farge. Det er det H4 krev, og det gøymer laglinene og skøytane.
 
 1. Lim stativet (fot, fotring, stamme, bogestykke, akselrøyr) og bjelken først. Lakk før lys, rute og lok kjem i.
 2. Slip plasten lett med korn 240. Slip krommen på stammerøyret matt, elles slepper lakken.
@@ -153,10 +159,12 @@ Rettingane vart så etterprøvde av to nye kontrollørar, éin på bremsa og mon
 
 - **Ingenting er trykt eller montert.** Kontrollen er digital: masse, velt, kollisjon, stopp og styrke i `ut-c/kontroll.json`.
 - **Røyrveggen** er rekna til om lag 1,0 mm ut frå vekta på pakken. Mål ytterdiameteren med skyvelære før print.
+- **Skruane og stripa** i budsjettkurven er ikkje sette. Måla er frå nettsidene.
+- **Varmen frå stripa.** Åtte RGB-diodar på fullt kvitt trekkjer om lag 0,5 A, 2,4 W. Det er tre gonger meir enn COB-stripa. PETG toler det. PLA gjer det truleg ikkje.
 - **Skivene** er rekna til 2,7 mm og 10 g ut frå vekta på pakken. DIN 125 seier 3 mm nominelt. Foten tek skiver opp til 3,3 mm, og skivene blir limte til tappane, så tjukna treng ikkje treffe.
 - **Lysleiaren** frå skjermen er føresett å vere 300 × 190 × 3 mm. Loket klemmer plater frå 2,25 til 3,2 mm. Mål plata og arket, og rett `RUTE_T` og `FILM_T` om dei vik av. Plata treng fem hol Ø 4 etter `ut-c/geometri.json`.
 - **Bremsa** kviler på ein skruespiss mot 2 mm PETG. Plasten kan sige. Stram G etter eit døgn og etter ei veke.
-- **Lyset** er ei 24 V-stripe med brytar, utan dimming. 27 cm gjev om lag 0,6 til 0,8 W etter databladet, og 15 mm i kvar ende av kanten er utan stripe. Lysstyrken i ruta er ikkje rekna eller målt.
+- **Lyset** har ingen brytar eller dimming når kontrollboksen er klipt av: lampa blir slått på og av i USB-kontakten. 15 mm i kvar ende av kanten er utan stripe. Lysstyrken i ruta er ikkje rekna eller målt.
 - **Slicing** er ikkje gjort. Printoppsettet over er eit framlegg.
 - **Heft av lakk og lim** på PETG og på slipt krom er ikkje prøvd.
 
@@ -168,4 +176,4 @@ Rettingane vart så etterprøvde av to nye kontrollørar, éin på bremsa og mon
 | `ut-c/stl/` | Printfiler og prøvebitar |
 | `ut-c/ruta-pa-fot-rev-c.step`, `ut-c/step/` | Samanstilling og einskilddelar |
 | `ut-c/kontroll.json`, `ut-c/geometri.json` | Tal og mål |
-| `rettleiing-c/` | Monteringshefte i IKEA-stil, 10 sider (M05) |
+| `rettleiing-c/` | Monteringshefte i IKEA-stil, 10 sider (M06) |

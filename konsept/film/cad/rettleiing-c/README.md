@@ -1,4 +1,4 @@
-# Monteringsrettleiing for Ruta på fot, revisjon C (M04)
+# Monteringsrettleiing for Ruta på fot, revisjon C (M05)
 
 ![Kontaktark](ut/kontaktark.png)
 
@@ -32,6 +32,19 @@ python <formnerd>/verktoy/ikea/bygg.py spesifikasjon.json ut     # PDF, sider, k
 | 11 | 16 knottar (K) | Lampa står på knottane, 75 mm frå midten |
 | | Kontroll ved 0° og 80° | Same rørsle som kollisjonskontrollen i `ruta_c.py` |
 
+## Endra frå M04
+
+Tre dommarar samanlikna M04 med kvar sin ekte manual (MOSSJÖN, PAX og SUNNERSTA) og gav 5 til 6 av 10 for heilskapen. Dei var samde om kva som skilde: beslaga var glatte sylindrar, mengdene låg oppå figurane, delballongane peika i lause lufta, streken varierte frå 0,5 til 0,9 pt, og seks setningar stod att. M05 (`samanlikning/ruta-m05-mot-milsbo.png`):
+
+- skruane har gjenger og spor og står med hovudet opp på beslagsida
+- mengda står på ringen til detaljbobla, og boblene har kile frå staden
+- delballongar berre der to delar kan forvekslast, og ingen grå fyll på store flater
+- streken held 0,57 til 0,80 pt gjennom heile heftet
+- filamentpinnane er teikna som beslag P, og «1» og «2» viser rekkjefølgja på ark og rute
+- to notar står att: snora i steg 3 og teipen ved lakken
+
+M05 er ikkje dømd av panelet. Det som framleis skil frå IKEA: glatte, rette leiarar i staden for snakkebobler, ingen hender, dreiepiler eller feil-rett-par, og skrifta er DejaVu Sans.
+
 ## Endra frå M03
 
 M03 vart lagd ved sida av MILSBO, same sidetypar (`samanlikning/ruta-m03-mot-milsbo.png`). Fire ting skilde: streken var jamtjukk og grå, kvart steg stod åleine på ei side med mykje luft, nesten kvar side hadde ei setning, og skruane var så små at dei forsvann. M04 (`samanlikning/ruta-m04-mot-milsbo.png`):
@@ -51,8 +64,7 @@ Rekkjefølgja og delane følgjer rettingane etter den uavhengige kontrollen (sj�
 ## Antakingar og det som manglar
 
 - **Leidningen** og trekkjesnora er ikkje teikna. Snora er nemnd i steg 3. Resten står i tabellen over og under «Det heftet ikkje teiknar» i `../02-produksjonsklar.md`.
-- **Filamentpinnane** i steg 4 er ikkje teikna.
-- **Digitalt kontrollert:** `ut/rapport.json` har ingen åtvaringar, og mengdene i stega stemmer med dellista (6 E, 3 F, 1 G, 33 S, 2 W, 16 K).
+- **Digitalt kontrollert:** `ut/rapport.json` har ingen åtvaringar, og mengdene i stega stemmer med dellista (6 E, 3 F, 1 G, 2 P, 33 S, 2 W, 16 K).
 - **Ikkje prøvd fysisk:** ingenting er trykt eller montert. Heftet er ikkje prov på at delane passar.
 
 Referansane og grepa som er overførte, står i `ikea-reference-audit.md`.

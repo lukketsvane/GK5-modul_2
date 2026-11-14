@@ -58,6 +58,7 @@ if __name__ == '__main__':
     bitar = last('F').split(only_watertight=False)
     ein, _ = i_origo(bitar[0]); ein.export(os.path.join(UT, 'F.stl'))
     pos['F'] = [i_origo(b)[1] for b in bitar]
+    kort = ein.copy(); kort.apply_scale([1, 1, 10.0 / 12.0]); kort.export(os.path.join(UT, 'G.stl'))   # G er ein F kappa til 8 mm
     bitar = last('03').split(only_watertight=False)
     ein, _ = i_origo(bitar[0]); ein.export(os.path.join(UT, 'S.stl'))
     pos['S'] = [i_origo(b)[1] for b in bitar]

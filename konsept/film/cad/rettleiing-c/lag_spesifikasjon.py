@@ -51,7 +51,7 @@ def ny(n, ex, at=None, **k):
     return e
 def blad(v, utan=()): return ['%s%d' % (n, v) for n in ROERLEGE.values() if n not in utan]
 
-stativ = ['fot', 'ballast', 'stamme', 'aksel', 'boge']
+stativ = ['fot', 'stamme', 'aksel', 'boge']
 heil = lambda v: c('fot', 'botnlok', 'ballast', 'stamme', 'aksel', 'boge', *blad(v), 'elok%d' % v)
 knottar = [[round(75.0 * math.cos(math.radians(22.5 * i)), 1), round(75.0 * math.sin(math.radians(22.5 * i)), 1), -1.25] for i in range(16)]
 laas = [G['PINNE'][0], 18.0, 250.0]
@@ -65,11 +65,10 @@ pages = [
     {'type': 'step', 'n': False, 'title': 'Kapp', 'icons': ['atvaring'],
      'note': 'Kapp røyret i %.0f mm (04) og %.0f mm (09). Fil kantane. Slip av krommen der limet skal sitje.' % (kapp['stammeroyr_mm'], kapp['akselroyr_mm']),
      'figures': [{'view': 'iso', 'scene': c('stamme', 'aksel'), 'zoom': 1.0}]},
-    {'type': 'step', 'title': 'Skiver', 'figures': [{'view': 'under', 'zoom': 1.25, 'multiplier': 'x3', 'scene': c('fot') + [ny('S', [0, 0, -45], at=POS['S'])]}]},
     {'type': 'step', 'title': 'Røyr i boge', 'icons': ['lim'], 'note': 'Skyv røyra heilt inn. La limet herde.',
      'figures': [{'view': 'iso', 'scene': c('boge') + [ny('stamme', [-70 * d[0], 0, -70 * d[2]]), ny('aksel', [-70, 0, 0])]}]},
     {'type': 'step', 'title': 'Stamme i fot', 'icons': ['lim'], 'note': 'Hald akselrøyret (09) vassrett til limet har herda.',
-     'figures': [{'view': 'iso', 'scene': c('fot', 'ballast') + [ny('stamme', [70 * d[0], 0, 70 * d[2]]), ny('aksel', [70 * d[0], 0, 70 * d[2]], line='none'),
+     'figures': [{'view': 'iso', 'scene': c('fot') + [ny('stamme', [70 * d[0], 0, 70 * d[2]]), ny('aksel', [70 * d[0], 0, 70 * d[2]], line='none'),
                                                                 ny('boge', [70 * d[0], 0, 70 * d[2]], line='none')], 'labels': False}]},
     {'type': 'step', 'title': 'Bjelke', 'icons': ['lim'], 'note': 'Lim halvdelane saman på restrøyret. Dra røyret ut før limet herdar.',
      'figures': [{'view': 'bak', 'scene': c('kh180') + [ny('kv180', [-45, 0, 0])]}]},
@@ -88,6 +87,8 @@ pages = [
     {'type': 'step', 'title': 'Lås og brems', 'note': 'Stram F til ruta står i alle stillingar, men kan flyttast med éi hand.',
      'figures': [{'view': 'under', 'scene': c(*stativ, *blad(28), 'elok28') + [ny('Elaas', [0, 16.4, -30.9]), ny('Fbrems', [0, 0, -35])],
                   'detail': {'centre': laas, 'span': 34, 'pos': 'left', 'r': 72}}]},
+    {'type': 'step', 'title': 'Skiver', 'note': 'Legg lampa på ryggen på eit handkle. Tre skiver på kvar pinne.',
+     'figures': [{'view': 'under', 'zoom': 1.25, 'multiplier': 'x3', 'scene': c('fot', 'stamme') + [ny('S', [0, 0, -45], at=POS['S'])]}]},
     {'type': 'step', 'title': 'Kopling', 'note': 'Skøyt leidningen i klemmene (W). Strips innanfor veggen som strekkavlasting.',
      'figures': [{'view': 'under', 'zoom': 1.2, 'scene': c('fot', 'ballast', 'stamme') + [ny('W', [0, 0, -30], at=[[19.0, 47.0, 7.0], [33.0, 47.0, 7.0]]),
                                                                               ny('botnlok', [0, 0, -60]), ny('F', [0, 0, -105], at=POS['F'])]}]},

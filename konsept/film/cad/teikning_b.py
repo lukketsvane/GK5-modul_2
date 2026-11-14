@@ -108,5 +108,49 @@ def main():
     open(os.path.join(N.UT, 'teikning', 'maal.svg'), 'w', encoding='utf-8').write(svg)
     print('maal.svg %d x %d px · framanfrå %.0f mm brei · frå sida %.0f mm djup, %.0f mm høg' % (breidd, bakke + 72, hogre - V.min[0], W.max[0] - W.min[0], topp))
 
+# ------------------------------------------------------------------ sprengt vising som strek
+
+SPRENGT = {'11': (-55, 0, 0), '08': (0, 0, 275), '07': (0, -235, 0), '10': (0, 0, -30), '09': (0, 0, -55), '06': (0, 0, -90),
+           '13': (0, 0, -178), 'E': (0, 0, -125), '04': (190, 0, 0), '12': (190, 0, -34), '01': (190, 0, -55), '03': (190, 0, -140),
+           '02': (190, 0, -225)}
+AUGE = ((0.452, -0.646, 0.615), (0.819, 0.573, 0.0))      # sett framanfrå til høgre og ovanfrå, utan perspektiv
+
+def sprengt(k=1.02):
+    """Delane trekte frå kvarandre langs aksane, med ruta vassrett. Skriv ut-b/teikning/sprengt.svg og ankerpunkta til nummera."""
+    import json
+    D = {d[0]: d[2] for d in N.delar(0.0)}
+    former = [D[i].translate(SPRENGT.get(i, (0, 0, 0))) for i in D]
+    V = Vising(former, AUGE)
+    A = Ark(); m = 30.0
+    P = lambda p: (m + (p[0] - V.min[0]) * k, m + (V.max[1] - p[1]) * k)
+    R = lambda q: P(V.punkt(q))
+    for vekt, pk in V.liner:
+        if vekt < 1.0: continue                                  # ikkje saumane på sylindrar og avrundingar
+        A.strek([P(p) for p in pk], 'k' if vekt >= 1.6 else 's')
+    # aksane delane er trekte langs
+    ym = N.YT - N.EKS; z0 = N.AKSE_H; xm = 0.5 * (N.XR0 + N.XR1)
+    akser = [((xm, ym, z0 - N.R - 4), (xm, ym, z0 - 150)),                                        # det som sit under bjelken
+             ((N.X0 - 6, ym, z0), (N.X0 - 50, ym, z0)),                                           # messingpunktet
+             ((N.X1 + 6, N.YT, z0), (N.X0 + 32 + 190 - 6, N.YT, z0)),                             # røyret ut av bjelken
+             ((190, 0, -55 - 6), (190, 0, -225 + 6))]                                             # foten
+    for a, b in akser: A.line(R(a), R(b), 'st')
+    # ankerpunkt til nummera: eit punkt på kvar del, i teikninga sine pikslar
+    def paa(i, q): o = SPRENGT.get(i, (0, 0, 0)); return R((q[0] + o[0], q[1] + o[1], q[2] + o[2]))
+    r = N.FOT_D / 2
+    anker = {'01': paa('01', (-r * 0.55, -r * 0.55, N.FOT_H)), '02': paa('02', (-r * 0.5, -r * 0.5, 2.0)), '03': paa('03', (N.BALLAST_X - 40, -30, N.FOT_H - N.TOPP_T)),
+             '04': paa('04', (N.X0 + 60, N.YT, z0 + 6)), '05': paa('05', (N.X0 + 70, ym, z0 + N.R)), '06': paa('06', (N.X0 + 6, ym - 8, z0 - 12)),
+             '07': paa('07', (N.XR0 + 6, ym - 100, z0)), '08': paa('08', (N.XR0 + 6, ym - 100, z0)), '09': paa('09', (N.XR0 + 2, ym + 0.2, z0)),
+             '10': paa('10', (N.XR0 + 2, ym - 1.8, z0)), '11': paa('11', (N.X0 - 1, ym, z0 + 10)), '12': paa('12', (N.STOPP_X, N.YT, z0 - 8)),
+             '13': paa('13', (N.BREMS_X, N.YT, z0 - 12)), 'E': paa('E', (N.SKRUAR_X[0], ym - N.U_SKRUE, z0 - 14))}
+    b, h = m * 2 + (V.max[0] - V.min[0]) * k, m * 2 + (V.max[1] - V.min[1]) * k
+    svg = '<svg class="strek" width="%d" height="%d" viewBox="0 0 %d %d" xmlns="http://www.w3.org/2000/svg">\n%s\n</svg>\n' % (b, h, b, h, '\n'.join(A.ut))
+    open(os.path.join(N.UT, 'teikning', 'sprengt.svg'), 'w', encoding='utf-8').write(svg)
+    json.dump(dict(breidd=b, hogd=h, anker={i: [round(p[0], 1), round(p[1], 1)] for i, p in anker.items()}),
+              open(os.path.join(N.UT, 'teikning', 'sprengt.json'), 'w'), indent=1)
+    print('sprengt.svg %d x %d px' % (b, h))
+
 if __name__ == '__main__':
-    main()
+    import sys
+    os.makedirs(os.path.join(N.UT, 'teikning'), exist_ok=True)
+    if sys.argv[1:2] != ['sprengt']: main()
+    if sys.argv[1:2] != ['maal']: sprengt()

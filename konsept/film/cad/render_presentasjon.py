@@ -250,6 +250,65 @@ def vis_dag():
         kamera((-0.52, -0.80, 0.26), (-0.01, 0.0, 0.130), 60)
         rendre('rev-b-' + kode)
 
+# ------------------------------------------------------------------ førelegg til dei fotograferte bileta
+# Rendringane under er ikkje sluttbilete. Dei låser utsnitt og geometri, og biletmodellen fotograferer dei om.
+
+REF = (1504, 1064)
+
+def kamera_orto(pos, maal, breidd):
+    s = bpy.context.scene
+    kam = bpy.data.cameras.new('kam'); kam.type = 'ORTHO'; kam.ortho_scale = breidd
+    ko = bpy.data.objects.new('kam', kam); bpy.context.collection.objects.link(ko)
+    ko.location = pos; peik(ko, maal); s.camera = ko
+    bpy.context.view_layer.update()
+    return ko
+
+def _ref(glod=1.0, under=2.2, vinkel=None):
+    grunn(REF, 40, 0.0)
+    O = lampe(FARGE['graabeige'], glod=glod, under=under, reine=True)
+    if vinkel is not None: hell(O, float(vinkel))
+    return O
+
+PROFIL = dict(nokkel=14.0, kant=18.0, fyll=2.0, kort=(-2.7, 0.15, 0.32), kortstyrke=10.0)
+
+def vis_refprofil():
+    """Profilen og vifta rett frå sida, utan nedblikk: då er enden av bjelken ein rein sirkel."""
+    _ref(); rom_studio(**PROFIL)
+    kamera_orto((-3.0, -0.03, 0.148), (0.0, -0.03, 0.148), 0.56); rendre('ref-profil')
+    for v in (0, 40, 80):
+        _ref(vinkel=v); rom_studio(**PROFIL)
+        kamera_orto((-3.0, -0.03, 0.148), (0.0, -0.03, 0.148), 0.56); rendre('ref-vifte-%02d' % v)
+
+def vis_refkant():
+    """Hjørnet og den frie kanten på ruta, sett skrått ovanfrå: rillene i arket går mot kanten, og kanten lyser."""
+    _ref(glod=1.0, under=2.0); rom_studio(nokkel=14.0, kant=16.0, fyll=3.0)
+    t = math.radians(G['VINKEL']); d = (G['EKS'] + G['U_KANT'] + G['RUTE_D']) / 1000.0
+    k = Vector((G['XR0'] / 1000.0, G['YT'] / 1000.0 - d * math.cos(t), G['AKSE_H'] / 1000.0 - d * math.sin(t)))
+    kamera(k + Vector((-0.085, -0.215, 0.135)), k + Vector((0.052, 0.018, 0.004)), 105, fstop=5.6, fokus=k + Vector((0.02, 0.0, 0.0))); rendre('ref-kant')
+
+def vis_ref():
+    _ref(); rom_studio(nokkel=16.0)                                  # heile lampa, tre kvart, lang linse
+    kamera((-1.287, -2.018, 0.469), (-0.099, 0.04, 0.135), 120); rendre('ref-helt')
+    _ref(); rom_studio(**PROFIL)                                     # profilen
+    kamera_orto((-3.0, -0.03, 0.148), (0.0, -0.03, 0.148), 0.56); rendre('ref-profil')
+    _ref(vinkel=0); rom_studio(**PROFIL)                             # framsida: enden av bjelken og ruta som éi line
+    kamera_orto((-3.0, -0.085, 0.26), (0.0, -0.085, 0.26), 0.36); rendre('ref-framside')
+    _ref(); rom_studio(nokkel=16.0)                                  # rett framanfrå
+    kamera_orto((-0.02, -3.0, 0.30), (-0.02, 0.0, 0.143), 0.62); rendre('ref-front')
+    for v in (0, 40, 80):                                            # vifta: tre hellingar frå same kamera
+        _ref(vinkel=v); rom_studio(**PROFIL)
+        kamera_orto((-3.0, -0.03, 0.148), (0.0, -0.03, 0.148), 0.56); rendre('ref-vifte-%02d' % v)
+    O = _ref(glod=0.9, under=2.0); p = midt(O['11'])                 # messingpunktet
+    rom_studio(nokkel=22.0, kant=14.0, fyll=5.0, kort=p + Vector((-0.77, 0.91, -0.17)), kortstyrke=9.0, kortmaal=p)
+    kamera(p + Vector((-0.22, -0.26, 0.05)), p + Vector((0.022, -0.012, -0.006)), 105, fstop=8.0, fokus=p); rendre('ref-messing')
+    _ref(glod=0.9, under=2.0); rom_studio(nokkel=22.0, kant=16.0, fyll=6.0)      # bogen der røyret går inn i bjelken
+    m = Vector((G['T2'][0] / 1000.0 + 0.012, G['YT'] / 1000.0, G['AKSE_H'] / 1000.0 - 0.012))
+    kamera(m + Vector((0.15, -0.30, 0.09)), m, 105, fstop=8.0); rendre('ref-boge')
+    _ref(glod=1.0, under=2.0); rom_studio(nokkel=14.0, kant=16.0, fyll=3.0)      # den frie kanten på ruta
+    t = math.radians(G['VINKEL']); d = (G['EKS'] + G['U_KANT'] + G['RUTE_D']) / 1000.0
+    k = Vector((G['XR0'] / 1000.0 + 0.070, G['YT'] / 1000.0 - d * math.cos(t), G['AKSE_H'] / 1000.0 - d * math.sin(t)))
+    kamera(k + Vector((-0.21, -0.22, 0.035)), k + Vector((0.02, 0.0, 0.0)), 105, fstop=8.0, fokus=k); rendre('ref-kant')
+
 skaansam()
 os.makedirs(RUT, exist_ok=True)
 for v in VIS:

@@ -514,7 +514,7 @@
    "icons": [
     "atvaring"
    ],
-   "note": "Kapp røyret i 242 mm (04) og 308 mm (09). Fil kantane. Slip av krommen 25 mm inn frå endane som skal limast.",
+   "note": "Kapp røyret i 242 mm (04) og 308 mm (09). Fil kantane. Slip av krommen der limet skal sitje.",
    "figures": [
     {
      "view": "iso",
@@ -725,6 +725,85 @@
        "role": "new",
        "explode": [
         -45,
+        0,
+        0
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "type": "step",
+   "n": false,
+   "title": "Lakk",
+   "note": "Slip lett, grunn og sprøyt. Teip akselrøyret (09), spalta og boringa. Endeloket (11) i messingfarge.",
+   "figures": [
+    {
+     "view": "iso",
+     "labels": false,
+     "scene": [
+      {
+       "part": "fot",
+       "role": "context"
+      },
+      {
+       "part": "ballast",
+       "role": "context"
+      },
+      {
+       "part": "stamme",
+       "role": "context"
+      },
+      {
+       "part": "aksel",
+       "role": "context"
+      },
+      {
+       "part": "boge",
+       "role": "context"
+      },
+      {
+       "part": "kv0",
+       "role": "exploded",
+       "explode": [
+        -190,
+        0,
+        0
+       ]
+      },
+      {
+       "part": "kh0",
+       "role": "exploded",
+       "explode": [
+        -190,
+        0,
+        0
+       ]
+      },
+      {
+       "part": "lv0",
+       "role": "exploded",
+       "explode": [
+        -190,
+        0,
+        0
+       ]
+      },
+      {
+       "part": "lh0",
+       "role": "exploded",
+       "explode": [
+        -190,
+        0,
+        0
+       ]
+      },
+      {
+       "part": "ende0",
+       "role": "exploded",
+       "explode": [
+        -190,
         0,
         0
        ]

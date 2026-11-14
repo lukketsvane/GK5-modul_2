@@ -81,6 +81,7 @@ Hovudfargen er grå-beige, som dei nyaste Northern-lampene kjem i (Snowball oppl
 | `render_ekte.py` | rendringane i presentasjonen: Cycles på skjermkortet, avrunda kantar, dreidd messing, ei rute som sjølv lyser opp golvet. Utdata i `ut-b/ekte/` |
 | `eksporter_fin.py` | delane med fin netting til rendringane (`ut-b/fin/`, ikkje i git) |
 | `eksporter_3d.py` | `ut-b/3d/ruta.usdz` og `ruta.glb` med vippinga som animasjon. `sjekk_3d.py` les USDZ-fila inn att og rendrar ho |
+| `eksporter_studio.py` | `ut-b/3d/ruta-studio.glb` til studiosida `ruta/`: delane inni er med, og fila har animasjonane «Vipp» og «Opne» |
 | `render_presentasjon.py` | eldre rendringar og førelegg: studio, helling, detalj, sprengt vising, kveld og dei fire fargane |
 | `teikning_b.py` | målteikninga framanfrå og frå sida, `ut-b/teikning/maal.svg` |
 | `render_northern.py` | den første rendringa av dei fire fargane (før stoppskruen kom til) |

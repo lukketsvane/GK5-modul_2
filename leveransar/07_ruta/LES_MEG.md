@@ -4,10 +4,12 @@ Dato: 14.11.2026, tredje utgåve. Alle bileta er no rendringar av CAD-modellen. 
 
 | Fil | Innhald |
 | --- | --- |
-| `Ruta-presentasjon.pdf` | tolv sider, 1127 × 797 px per side |
+| `Ruta-presentasjon.pdf` | tretten sider, 1127 × 797 px per side |
 | `presentasjon.html` | same sider som lysbilete i nettlesaren. Piltastane blar, og sida fyller vindauget |
 | `sider/side-NN.jpg` | kvar side som bilete, 2254 × 1594 |
-| `../../ruta/index.html` | nettstaden, med modellen som kan dreiast og vippast |
+| `../../ruta/index.html` | studioet: éin svart skjerm med modellen, tre modusar (lampe, mekanikk, lysgang), éin glidar og fargeval. Malen er `studio.html.mal` |
+| `../../ruta/forteljing.html` | forteljinga: rendringane og streken nedover éi side |
+| `../../ruta/3d/ruta-studio.glb` | modellen til studioet, med delane inni og to animasjonar (vipp og opne) |
 | `../../ruta/3d/ruta.usdz` | 3D-fila til AR på iPhone og iPad. Éi fil per farge |
 | `../../ruta/3d/ruta.glb` | 3D-fila til nettlesaren |
 | `bilete/` | rendringane som er brukte, som JPEG |
@@ -26,9 +28,10 @@ Dato: 14.11.2026, tredje utgåve. Alle bileta er no rendringar av CAD-modellen. 
 | 07 | Eitt røyr, éin boge | der røyret går inn i bjelken |
 | 08 | Om kvelden | lampa som einaste lyskjelde, på ei mørk plate med eit ark under |
 | 09 | Éin matt farge | same utsnitt i fire fargar |
-| 10 | Tretten delar, fire skruar | sprengt vising som strek |
-| 11 | Mål | framanfrå og frå sida som strek |
-| 12 | Kontrollert, ikkje bygd | profilen, og det som er kontrollert og ikkje prøvd |
+| 10 | Tretten delar, fire skruar | delane trekte frå kvarandre, som rendring |
+| 11 | Delane | sprengt vising som strek, med nummer og liste |
+| 12 | Mål | framanfrå og frå sida som strek |
+| 13 | Kontrollert, ikkje bygd | profilen, og det som er kontrollert og ikkje prøvd |
 
 ## Korleis rendringane er laga
 
@@ -47,7 +50,7 @@ Fire ting er val for biletet, ikkje fysikk, og bør vere kjende:
 3. **Rillene i arket er teikna 0,5 mm breie i nærbileta.** Eit verkeleg prismeark har om lag 0,05 mm, og det syner ikkje i eit bilete.
 4. **Vippinga er tre bilete ved sida av kvarandre**, ikkje éi eksponering. Bjelken svingar 9,5 mm om røyret når ruta vippar, så tre bilete oppå kvarandre gjev ein uklar ende på bjelken.
 
-Sprengt vising og mål (side 10 og 11) er kantane i CAD-modellen med skjulte liner fjerna, frå `teikning_b.py`. Dei er eksakte.
+Strekteikningane (side 11 og 12) er kantane i CAD-modellen med skjulte liner fjerna, frå `teikning_b.py`. Dei er eksakte.
 
 ## 3D-fila
 
@@ -66,13 +69,17 @@ Kontrollert:
 
 - **ARKit-reglane:** Pixar sin kontrollør (`UsdUtils.ComplianceChecker` med ARKit-reglar) gjev ingen feil og ingen merknader for nokon av dei fire filene.
 - **Lesen inn att:** `sjekk_3d.py` opnar USDZ-fila i ei tom scene og rendrar ho ved 35° og 80°. Geometri, material og animasjon er med.
-- **Nettlesaren:** GLB-fila er prøvd i nettstaden: glidaren vippar ruta frå 0° til 80°, og fargeknappane byter lakk og AR-fil.
+- **Nettlesaren:** studioet er prøvd i nettlesaren: glidaren vippar ruta frå 0° til 80°, mekanikken opnar seg frå samla til heilt opna, lysgangen viser stripa, plata og arket med resten som skugge, og fargeknappane byter lakk og AR-fil.
 
 Ikkje kontrollert: fila er ikkje opna på ein iPhone eller iPad. Materiala i 3D-fila er enkle og er ikkje dei same som i rendringane.
+
+## Studioet
+
+Studioet følgjer oppbygginga til Canon-sida på formnerd (`/canon50mm`): éin svart skjerm, objektet svevande utan golv, få modusar som opnar objektet, éin glidar og éi line tekst med atterhald. `konsept/film/cad/eksporter_studio.py` skriv modellen med to jamne animasjonar: «Vipp» (0° til 80°) og «Opne» (delane trekte frå kvarandre). Sida brukar `<model-viewer>` frå Google, henta frå nettet.
 
 ## Det sidene seier, og kvar det kjem frå
 
 - Måla, massen, tyngdepunktet, veltekrafta og hellinga: `kontroll.json`, skriven av `konsept/film/cad/northern.py`.
 - 190 lx på side 08: overslaget i `konsept/film/cad/00-ruta-pa-fot.md` (`lys_sjekk.py`). Det gjeld revisjon A, som har same rute, høgd og helling, og er ikkje rekna på nytt.
 - Formspråket til Northern: `research/01-northern.md`.
-- Det som ikkje er prøvd, står på side 12.
+- Det som ikkje er prøvd, står på side 13.

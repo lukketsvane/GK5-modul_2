@@ -382,6 +382,18 @@ def vis_kveld():
     flate('fyll', (0.3, -2.2, 0.6), (0.0, 0.0, 0.15), 2.0, 2.0, 0.35, (0.75, 0.82, 1.0))
     kamera((-1.287, -2.018, 0.469), (-0.099, 0.04, 0.135), 120, fstop=11.0, fokus=(-0.05, -0.05, 0.2)); rendre('r-kveld')
 
+def vis_sprengt():
+    """Delane trekte frå kvarandre, svevande i svart utan golv, med ruta ved 35°. Same avstandar som i studiosida (eksporter_studio.py)."""
+    oppsett(); O = lampe(liner=False, styrke=0.8); studio(nokkel=3.4, kantlys=3.4, fyll=2.4)
+    flate('nedanfraa', (-0.5, -1.6, -0.35), (0.0, 0.0, -0.05), 1.6, 1.0, 5.0, (1.0, 0.97, 0.94))          # så ballasten og botnloket syner
+    opp = Vector((0.0, -math.sin(_t), math.cos(_t))); x = Vector((1, 0, 0)); z = Vector((0, 0, 1))
+    F = {'08': 0.085 * opp, '10': -0.035 * opp, '09': -0.055 * opp, '06': -0.085 * opp, '13': -0.100 * opp, 'E': -0.125 * opp, '11': -0.055 * x,
+         '12': -0.030 * z, '01': -0.060 * z, 'leidning': -0.060 * z, '03': -0.115 * z, '02': -0.170 * z}
+    for i, v in F.items():
+        if i in O: O[i].matrix_world = Matrix.Translation(v) @ O[i].matrix_world
+    bpy.context.view_layer.update()
+    kamera((-1.40, -2.19, 0.33), (-0.105, 0.035, 0.105), 100, fstop=16.0, fokus=(-0.05, -0.05, 0.2)); rendre('r-sprengt')
+
 skaansam()
 for v in VIS:
     globals()['vis_' + v]()

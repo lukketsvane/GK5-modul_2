@@ -1,0 +1,273 @@
+{
+ "pdf": "ut/rettleiing.pdf",
+ "sha256": "432a2cad0f31f09a164b93b60008a94e3f9cb0d63a98afbf78519a15133d78f8",
+ "sider": 17,
+ "beslag": {
+  "E": {
+   "i_steg": 6,
+   "i_delliste": 6
+  },
+  "F": {
+   "i_steg": 4,
+   "i_delliste": 4
+  },
+  "S": {
+   "i_steg": 33,
+   "i_delliste": 33
+  },
+  "W": {
+   "i_steg": 2,
+   "i_delliste": 2
+  },
+  "K": {
+   "i_steg": 16,
+   "i_delliste": 16
+  }
+ },
+ "steg": [
+  {
+   "side": 5,
+   "steg": null,
+   "figurar": [
+    {
+     "mappe": "ut/_arbeid/r/123cf16970d2609d",
+     "mørk_del": 0.0031,
+     "strek_pt": 0.65,
+     "figur_pt": [
+      36.0,
+      144.8,
+      521.3,
+      554.3
+     ]
+    }
+   ]
+  },
+  {
+   "side": 6,
+   "steg": 1,
+   "nye_delar": 1,
+   "figurar": [
+    {
+     "mappe": "ut/_arbeid/r/d9e54e88ea636754",
+     "mørk_del": 0.0143,
+     "strek_pt": 0.75,
+     "figur_pt": [
+      36.0,
+      199.3,
+      521.3,
+      423.2
+     ]
+    }
+   ]
+  },
+  {
+   "side": 7,
+   "steg": 2,
+   "nye_delar": 2,
+   "figurar": [
+    {
+     "mappe": "ut/_arbeid/r/f11a00534274422e",
+     "mørk_del": 0.003,
+     "strek_pt": 0.68,
+     "figur_pt": [
+      36.0,
+      146.6,
+      521.3,
+      550.7
+     ]
+    }
+   ]
+  },
+  {
+   "side": 8,
+   "steg": 3,
+   "nye_delar": 3,
+   "figurar": [
+    {
+     "mappe": "ut/_arbeid/r/c51e3a2850b332af",
+     "mørk_del": 0.0038,
+     "strek_pt": 0.73,
+     "figur_pt": [
+      50.3,
+      104.0,
+      492.6,
+      635.9
+     ]
+    }
+   ]
+  },
+  {
+   "side": 9,
+   "steg": 4,
+   "nye_delar": 1,
+   "figurar": [
+    {
+     "mappe": "ut/_arbeid/r/0ce45a7a349aff7c",
+     "mørk_del": 0.0109,
+     "strek_pt": 0.98,
+     "figur_pt": [
+      36.0,
+      310.7,
+      521.3,
+      222.6
+     ]
+    }
+   ]
+  },
+  {
+   "side": 10,
+   "steg": 5,
+   "nye_delar": 2,
+   "figurar": [
+    {
+     "mappe": "ut/_arbeid/r/94a327e0b4fe46a9",
+     "mørk_del": 0.0166,
+     "strek_pt": 0.99,
+     "figur_pt": [
+      36.0,
+      297.7,
+      521.3,
+      248.5
+     ]
+    }
+   ]
+  },
+  {
+   "side": 11,
+   "steg": 6,
+   "nye_delar": 2,
+   "figurar": [
+    {
+     "mappe": "ut/_arbeid/r/350390cf35f8ce6b",
+     "mørk_del": 0.0101,
+     "strek_pt": 0.95,
+     "figur_pt": [
+      36.0,
+      274.1,
+      521.3,
+      295.8
+     ]
+    }
+   ]
+  },
+  {
+   "side": 12,
+   "steg": 7,
+   "nye_delar": 4,
+   "figurar": [
+    {
+     "mappe": "ut/_arbeid/r/f8d1ff0c44ffd4ac",
+     "mørk_del": 0.0108,
+     "strek_pt": 0.52,
+     "figur_pt": [
+      36.0,
+      236.7,
+      521.3,
+      348.6
+     ]
+    }
+   ]
+  },
+  {
+   "side": 13,
+   "steg": 8,
+   "nye_delar": 10,
+   "figurar": [
+    {
+     "mappe": "ut/_arbeid/r/62a0ca59f6fb19b6",
+     "mørk_del": 0.0056,
+     "strek_pt": 0.53,
+     "figur_pt": [
+      36.0,
+      241.3,
+      521.3,
+      361.2
+     ]
+    }
+   ]
+  },
+  {
+   "side": 14,
+   "steg": 9,
+   "nye_delar": 2,
+   "figurar": [
+    {
+     "mappe": "ut/_arbeid/r/346357651f9a5a81",
+     "mørk_del": 0.0127,
+     "strek_pt": 0.57,
+     "figur_pt": [
+      36.0,
+      222.6,
+      521.3,
+      398.7
+     ]
+    }
+   ]
+  },
+  {
+   "side": 15,
+   "steg": 10,
+   "nye_delar": 3,
+   "figurar": [
+    {
+     "mappe": "ut/_arbeid/r/00d5624ac7386f7f",
+     "mørk_del": 0.0085,
+     "strek_pt": 0.77,
+     "figur_pt": [
+      78.5,
+      104.0,
+      436.3,
+      635.9
+     ]
+    }
+   ]
+  },
+  {
+   "side": 16,
+   "steg": 11,
+   "nye_delar": 1,
+   "figurar": [
+    {
+     "mappe": "ut/_arbeid/r/2a6470819a8892bb",
+     "mørk_del": 0.0088,
+     "strek_pt": 0.72,
+     "figur_pt": [
+      36.0,
+      203.3,
+      521.3,
+      415.3
+     ]
+    }
+   ]
+  },
+  {
+   "side": 17,
+   "steg": null,
+   "figurar": [
+    {
+     "mappe": "ut/_arbeid/r/efee9d84408befc5",
+     "mørk_del": 0.0137,
+     "strek_pt": 0.8,
+     "figur_pt": [
+      36.0,
+      321.4,
+      245.6,
+      201.0
+     ]
+    },
+    {
+     "mappe": "ut/_arbeid/r/cf3bf669a8890e0c",
+     "mørk_del": 0.011,
+     "strek_pt": 0.63,
+     "figur_pt": [
+      311.6,
+      295.5,
+      245.6,
+      252.9
+     ]
+    }
+   ]
+  }
+ ],
+ "åtvaringar": []
+}

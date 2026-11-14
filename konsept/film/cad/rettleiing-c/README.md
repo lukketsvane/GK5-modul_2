@@ -1,4 +1,4 @@
-# Monteringsrettleiing for Ruta på fot, revisjon C (M05)
+# Monteringsrettleiing for Ruta på fot, revisjon C (M06)
 
 ![Kontaktark](ut/kontaktark.png)
 
@@ -17,8 +17,8 @@ python <formnerd>/verktoy/ikea/bygg.py spesifikasjon.json ut     # PDF, sider, k
 
 | Steg | Handling | Kvifor her |
 | --- | --- | --- |
-| | Kapp røyret i 242 og 308 mm, og éin M3 × 10 til 8 mm (G) | Alt anna ventar på røyra |
-| 1 | 33 skiver på tappane i foten (01), limte | Foten ligg opp ned og er open. Limet held skivene til botnloket kjem på |
+| | Kapp røyret i 242 og 308 mm, og éin M3 × 12 til 8 mm (G) | Alt anna ventar på røyra |
+| 1 | 24 skiver på åtte av tappane i foten (01), limte | Foten ligg opp ned og er open. Limet held skivene til botnloket kjem på |
 | 2 | Røyra (04, 09) limte i bogestykket (12) | Muffene styrer vinkelen |
 | 3 | Stamma limt i foten, fotringen (14) flatt mot foten, akselrøyret i vater | Ringen set hellinga. Vateret er det einaste som må stillast. Trekkjesnora må inn før limet |
 | 4 | Bjelkehalvdelane (05) limte saman på restrøyret, med to filamentpinnar | Røyret held boringa rett, pinnane held vinkelen |
@@ -28,9 +28,13 @@ python <formnerd>/verktoy/ikea/bygg.py spesifikasjon.json ut     # PDF, sider, k
 | 7 | Lok (06) med 5 E, endelok (11) | Klemmer ruta. Loket bind skøyten i bjelken |
 | 8 | Bjelken inn på akselrøyret | Leidningen blir dregen gjennom røyra med snora. Røyret skuvar skoen på plass under skruen |
 | 9 | Låseskrue (E) og bremseskrue (G), ved 28° | Låseskruen går i sporet i kragen og held bjelken på røyret |
-| 10 | Wago-klemmer (W), botnlok (02) med 3 F, lampa på ryggen | Skøyten ligg i koplingsrommet, strips som strekkavlasting |
+| 10 | Leidningen lodda til stripa og knytt innanfor veggen, botnlok (02) med 3 F, lampa på ryggen | Knuten er strekkavlasting |
 | 11 | 16 knottar (K) | Lampa står på knottane, 75 mm frå midten |
 | | Kontroll ved 0° og 80° | Same rørsle som kollisjonskontrollen i `ruta_c.py` |
+
+## Endra frå M05
+
+M06 følgjer budsjettkurven på under 400 kr (sjå `../02-produksjonsklar.md`): 24 skiver på åtte tappar, skruar på 19 og 12 mm, USB-stripe utan klemmer, og loddepiktogram i steg 10. Dei 16 føtene (K) er heimelaga gummibitar.
 
 ## Endra frå M04
 
@@ -64,7 +68,7 @@ Rekkjefølgja og delane følgjer rettingane etter den uavhengige kontrollen (sj�
 ## Antakingar og det som manglar
 
 - **Leidningen** og trekkjesnora er ikkje teikna. Snora er nemnd i steg 3. Resten står i tabellen over og under «Det heftet ikkje teiknar» i `../02-produksjonsklar.md`.
-- **Digitalt kontrollert:** `ut/rapport.json` har ingen åtvaringar, og mengdene i stega stemmer med dellista (6 E, 3 F, 1 G, 2 P, 33 S, 2 W, 16 K).
+- **Digitalt kontrollert:** `ut/rapport.json` har ingen åtvaringar, og mengdene i stega stemmer med dellista (6 E, 3 F, 1 G, 2 P, 24 S, 16 K).
 - **Ikkje prøvd fysisk:** ingenting er trykt eller montert. Heftet er ikkje prov på at delane passar.
 
 Referansane og grepa som er overførte, står i `ikea-reference-audit.md`.

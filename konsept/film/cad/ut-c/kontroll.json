@@ -15,7 +15,7 @@
   {
    "id": "03",
    "namn": "ballast",
-   "masse_g": 335.6,
+   "masse_g": 244.1,
    "gyldig": true
   },
   {
@@ -27,25 +27,25 @@
   {
    "id": "05v",
    "namn": "bjelke venstre",
-   "masse_g": 57.8,
+   "masse_g": 57.6,
    "gyldig": true
   },
   {
    "id": "05h",
    "namn": "bjelke høgre",
-   "masse_g": 86.0,
+   "masse_g": 85.6,
    "gyldig": true
   },
   {
    "id": "06v",
    "namn": "lok venstre",
-   "masse_g": 26.7,
+   "masse_g": 26.3,
    "gyldig": true
   },
   {
    "id": "06h",
    "namn": "lok høgre",
-   "masse_g": 16.2,
+   "masse_g": 15.9,
    "gyldig": true
   },
   {
@@ -69,7 +69,7 @@
   {
    "id": "10",
    "namn": "LED-stripe",
-   "masse_g": 3.8,
+   "masse_g": 7.7,
    "gyldig": true
   },
   {
@@ -98,14 +98,14 @@
   },
   {
    "id": "E",
-   "namn": "skrue M3 × 20",
-   "masse_g": 8.9,
+   "namn": "skrue M3 × 19",
+   "masse_g": 8.6,
    "gyldig": true
   },
   {
    "id": "F",
-   "namn": "skrue M3 × 10",
-   "masse_g": 2.8,
+   "namn": "skrue M3 × 12",
+   "masse_g": 3.1,
    "gyldig": true
   },
   {
@@ -127,83 +127,83 @@
    "vinkel": 10,
    "kollisjon_mm3": 0.0,
    "kven": "",
-   "laagaste_punkt": 223.1
+   "laagaste_punkt": 223.0
   },
   {
    "vinkel": 20,
    "kollisjon_mm3": 0.0,
    "kven": "",
-   "laagaste_punkt": 188.9
+   "laagaste_punkt": 188.7
   },
   {
    "vinkel": 30,
    "kollisjon_mm3": 0.0,
    "kven": "",
-   "laagaste_punkt": 156.9
+   "laagaste_punkt": 156.7
   },
   {
    "vinkel": 40,
    "kollisjon_mm3": 0.0,
    "kven": "",
-   "laagaste_punkt": 128.0
+   "laagaste_punkt": 127.7
   },
   {
    "vinkel": 50,
    "kollisjon_mm3": 0.0,
    "kven": "",
-   "laagaste_punkt": 103.1
+   "laagaste_punkt": 102.8
   },
   {
    "vinkel": 60,
    "kollisjon_mm3": 0.0,
    "kven": "",
-   "laagaste_punkt": 83.0
+   "laagaste_punkt": 82.7
   },
   {
    "vinkel": 70,
    "kollisjon_mm3": 0.0,
    "kven": "",
-   "laagaste_punkt": 68.3
+   "laagaste_punkt": 67.9
   },
   {
    "vinkel": 80,
    "kollisjon_mm3": 0.0,
    "kven": "",
-   "laagaste_punkt": 59.4
+   "laagaste_punkt": 59.0
   }
  ],
- "masse_g": 1103,
+ "masse_g": 1014,
  "tyngdepunkt": [
-  -4.9,
-  -8.5,
-  125.3
+  -4.4,
+  -6.3,
+  136.0
  ],
  "fotavtrykk_cm2": 196.1,
- "veltevinkel": 24.7,
- "velt_venstre_N": 3.8,
- "velt_framme_N": 6.3,
- "velt_dytt_topp_N": 2.7,
+ "veltevinkel": 23.6,
+ "velt_venstre_N": 3.5,
+ "velt_framme_N": 6.0,
+ "velt_dytt_topp_N": 2.5,
  "velt": {
   "0": {
-   "hjorne_N": 3.8,
-   "framkant_N": 6.3,
-   "dytt_topp_N": 2.7,
-   "veltevinkel": 24.7
+   "hjorne_N": 3.5,
+   "framkant_N": 6.0,
+   "dytt_topp_N": 2.5,
+   "veltevinkel": 23.6
   },
   "35": {
-   "hjorne_N": 4.5,
-   "framkant_N": 10.0,
-   "dytt_topp_N": 2.8,
-   "veltevinkel": 28.4
+   "hjorne_N": 4.3,
+   "framkant_N": 9.5,
+   "dytt_topp_N": 2.7,
+   "veltevinkel": 27.1
   },
   "80": {
-   "hjorne_N": 6.8,
+   "hjorne_N": 6.3,
    "framkant_N": null,
-   "dytt_topp_N": 2.9,
-   "veltevinkel": 30.9
+   "dytt_topp_N": 2.5,
+   "veltevinkel": 27.9
   }
  },
- "delar_i_alt": 58,
+ "delar_i_alt": 49,
  "underlag_r": 77.48203715185521,
  "leidning_ut_fri": true,
  "stopp": {
@@ -218,14 +218,14 @@
   "mot": [
    "bjelke høgre mot bogestykke",
    "bjelke høgre mot bogestykke",
-   "skrue M3 × 20 mot bogestykke"
+   "skrue M3 × 19 mot bogestykke"
   ]
  },
  "styrke": {
   "last": {
-   "blad_g": 421,
-   "moment_eigenvekt_Nmm": 734,
-   "moment_ved_velt_Nmm": 3454
+   "blad_g": 424,
+   "moment_eigenvekt_Nmm": 738,
+   "moment_ved_velt_Nmm": 3458
   },
   "bogestykke": {
    "spenning_eigenvekt_MPa": 1.3,
@@ -234,7 +234,7 @@
    "tryggleik_ved_velt": 6.5
   },
   "royr": {
-   "spenning_ved_velt_MPa": 39.3,
+   "spenning_ved_velt_MPa": 39.4,
    "grense_MPa": 150,
    "tryggleik_ved_velt": 3.8,
    "nedboying_eigenvekt_mm": 0.34
@@ -252,9 +252,9 @@
    "grense_MPa": 40
   },
   "brems": {
-   "moment_fraa_ruta_Nmm": 252,
-   "bremsemoment_Nmm": 505,
-   "skruekraft_N": 168,
+   "moment_fraa_ruta_Nmm": 253,
+   "bremsemoment_Nmm": 507,
+   "skruekraft_N": 169,
    "gjenge_mm": 6.1,
    "gjenga_toler_N": 647,
    "tryggleik": 3.8,
@@ -262,7 +262,7 @@
    "vandring_trengst_mm": 0.25
   },
   "fot": {
-   "moment_Nmm": 3066,
+   "moment_Nmm": 3070,
    "innfesting_mm": 24.0,
    "kanttrykk_MPa": 2.7,
    "grense_MPa": 40,
@@ -273,7 +273,7 @@
   "stammeroyr_mm": 241.6,
   "akselroyr_mm": 308.0,
   "royr_i_alt_mm": 549.6,
-  "skiver": 33
+  "skiver": 24
  },
  "stykkliste": [
   {
@@ -293,9 +293,9 @@
   {
    "id": "03",
    "namn": "ballast",
-   "tal": 33,
+   "tal": 24,
    "materiale": "staal",
-   "framstilling": "KJØPT. Skive M16 DIN 125, Ø 30 × 2.7. 11 stablar à 3, limte til tappane"
+   "framstilling": "KJØPT. Skive M16 DIN 125, Ø 30 × 2.7. 8 stablar à 3, limte til tappane lengst bak til høgre"
   },
   {
    "id": "04",
@@ -358,7 +358,7 @@
    "namn": "LED-stripe",
    "tal": 1,
    "materiale": "gummi",
-   "framstilling": "KJØPT. COB 24 V, 3000 K, 8 × 2 mm, klipt i 27 cm (9 × 3 cm). Adapter og brytar følgjer med"
+   "framstilling": "KJØPT. USB-stripe 5 V RGB, 10 × 3 mm, klipt etter åtte diodar (om lag 27 cm)"
   },
   {
    "id": "11",
@@ -390,14 +390,14 @@
   },
   {
    "id": "E",
-   "namn": "skrue M3 × 20",
+   "namn": "skrue M3 × 19",
    "tal": 6,
    "materiale": "staal",
    "framstilling": "KJØPT. Fem i loket, éin som låser bjelken"
   },
   {
    "id": "F",
-   "namn": "skrue M3 × 10",
+   "namn": "skrue M3 × 12",
    "tal": 3,
    "materiale": "staal",
    "framstilling": "KJØPT. Botnloket"
@@ -407,7 +407,7 @@
    "namn": "skrue M3 × 8",
    "tal": 1,
    "materiale": "staal",
-   "framstilling": "KJØPT. Bremseskruen: M3 × 10 kappa til 8 mm, enden filt plan"
+   "framstilling": "KJØPT. Bremseskruen: M3 × 12 kappa til 8 mm, enden filt plan"
   }
  ],
  "print": [

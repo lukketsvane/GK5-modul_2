@@ -1,0 +1,1060 @@
+{
+ "meta": {
+  "title": "RUTA",
+  "footer": "Ruta på fot · revisjon B · M01",
+  "orientation": "portrait"
+ },
+ "style": {
+  "line": 2,
+  "crease": 38,
+  "min_px": 30,
+  "new_fill": [
+   220,
+   220,
+   220
+  ],
+  "ghost_grey": 170,
+  "steg_pt": 32,
+  "mengd_pt": 18,
+  "mengd_fyrst": true,
+  "tittel_pt": 120,
+  "tittel_feit": true,
+  "sidetal_pt": 9,
+  "del_pt": 7.5,
+  "lett_pt": 0.5,
+  "ramme": false,
+  "beslagkolonne": false,
+  "line_pt": 0.75
+ },
+ "views": {
+  "iso": {
+   "dir": [
+    0.9,
+    -1.0,
+    0.6
+   ],
+   "up": [
+    0,
+    0,
+    1
+   ]
+  },
+  "under": {
+   "dir": [
+    0.75,
+    -0.9,
+    -0.8
+   ],
+   "up": [
+    0,
+    0,
+    1
+   ]
+  },
+  "bak": {
+   "dir": [
+    -0.9,
+    1.0,
+    0.55
+   ],
+   "up": [
+    0,
+    0,
+    1
+   ]
+  },
+  "underbak": {
+   "dir": [
+    0.5,
+    1.0,
+    -0.9
+   ],
+   "up": [
+    0,
+    0,
+    1
+   ]
+  }
+ },
+ "parts": {
+  "01": {
+   "mesh": "../samla/01.stl",
+   "id": "01",
+   "qty": 1
+  },
+  "02": {
+   "mesh": "../samla/02.stl",
+   "id": "02",
+   "qty": 1
+  },
+  "03": {
+   "mesh": "../samla/03.stl",
+   "id": "03",
+   "qty": 1
+  },
+  "04": {
+   "mesh": "../samla/04.stl",
+   "id": "04",
+   "qty": 1,
+   "crease": 60
+  },
+  "05": {
+   "mesh": "delar/05@180.stl",
+   "id": "05",
+   "qty": 1
+  },
+  "06": {
+   "mesh": "delar/06@180.stl",
+   "id": "06",
+   "qty": 1
+  },
+  "07": {
+   "mesh": "delar/07@180.stl",
+   "id": "07",
+   "qty": 1
+  },
+  "08": {
+   "mesh": "delar/08@180.stl",
+   "id": "08",
+   "qty": 1
+  },
+  "09": {
+   "mesh": "delar/09@180.stl",
+   "id": "09",
+   "qty": 1
+  },
+  "10": {
+   "mesh": "delar/10@180.stl",
+   "id": "10",
+   "qty": 1
+  },
+  "11": {
+   "mesh": "delar/11@180.stl",
+   "id": "11",
+   "qty": 1
+  },
+  "12": {
+   "mesh": "../samla/12.stl",
+   "id": "12",
+   "qty": 1,
+   "kind": "hardware"
+  },
+  "13": {
+   "mesh": "delar/13@0.stl",
+   "id": "13",
+   "qty": 1,
+   "kind": "hardware"
+  },
+  "E": {
+   "mesh": "delar/E1@180.stl",
+   "letter": "E",
+   "qty": 4,
+   "kind": "hardware"
+  },
+  "bjelke0": {
+   "mesh": [
+    "delar/05@0.stl",
+    "delar/06@0.stl",
+    "delar/07@0.stl",
+    "delar/08@0.stl",
+    "delar/09@0.stl",
+    "delar/10@0.stl",
+    "delar/11@0.stl",
+    "delar/E@0.stl"
+   ],
+   "id": "05"
+  },
+  "bjelke35": {
+   "mesh": [
+    "../samla/05.stl",
+    "../samla/06.stl",
+    "../samla/07.stl",
+    "../samla/08.stl",
+    "../samla/09.stl",
+    "../samla/10.stl",
+    "../samla/11.stl",
+    "../samla/E.stl",
+    "../samla/13.stl"
+   ],
+   "id": "05"
+  },
+  "bjelke80": {
+   "mesh": [
+    "delar/05@80.stl",
+    "delar/06@80.stl",
+    "delar/07@80.stl",
+    "delar/08@80.stl",
+    "delar/09@80.stl",
+    "delar/10@80.stl",
+    "delar/11@80.stl",
+    "delar/E@80.stl",
+    "delar/13@80.stl"
+   ],
+   "id": "05"
+  },
+  "leidning": {
+   "mesh": "../samla/leidning.stl",
+   "id": "L"
+  }
+ },
+ "pages": [
+  {
+   "type": "cover",
+   "title": "RUTA",
+   "view": "iso",
+   "scene": [
+    {
+     "part": "01"
+    },
+    {
+     "part": "04"
+    },
+    {
+     "part": "12"
+    },
+    {
+     "part": "bjelke35"
+    }
+   ],
+   "glas": [
+    [
+     -41,
+     -67,
+     199
+    ]
+   ]
+  },
+  {
+   "type": "inventory",
+   "title": "Delar",
+   "parts": [
+    "01",
+    "02",
+    "03",
+    "04",
+    "05",
+    "06",
+    "07",
+    "08",
+    "09",
+    "10",
+    "11"
+   ],
+   "cols": 4
+  },
+  {
+   "type": "hardware",
+   "title": "Beslag",
+   "parts": [
+    "12",
+    "13",
+    "E"
+   ],
+   "cols": 3,
+   "row_height": 300
+  },
+  {
+   "type": "step",
+   "n": false,
+   "title": "Port: leidninga",
+   "icons": [
+    "atvaring"
+   ],
+   "figures": [
+    {
+     "view": "bak",
+     "labels": false,
+     "scene": [
+      {
+       "part": "01"
+      },
+      {
+       "part": "02"
+      },
+      {
+       "part": "04"
+      },
+      {
+       "part": "12"
+      },
+      {
+       "part": "bjelke35"
+      },
+      {
+       "part": "leidning"
+      }
+     ]
+    }
+   ],
+   "warning": "Leidninga gjennom foten, røyret og bjelken er ikkje teikna i CAD.",
+   "note": "Hald fram når ho er prøvd trekt."
+  },
+  {
+   "type": "step",
+   "n": false,
+   "title": "Port: innpressmutrar og festa i foten",
+   "icons": [
+    "atvaring"
+   ],
+   "flow": "down",
+   "figures": [
+    {
+     "view": "underbak",
+     "labels": false,
+     "scene": [
+      {
+       "part": "01"
+      },
+      {
+       "part": "03"
+      },
+      {
+       "part": "04"
+      },
+      {
+       "part": "02",
+       "role": "ghost"
+      }
+     ]
+    },
+    {
+     "view": "iso",
+     "labels": false,
+     "scene": [
+      {
+       "part": "05"
+      }
+     ]
+    }
+   ],
+   "warning": "Innpressmutrar og skruane til foten er ikkje i stykklista.",
+   "note": "Hald fram når dei er lagde til i CAD-en."
+  },
+  {
+   "type": "step",
+   "title": "Røyret i foten",
+   "figures": [
+    {
+     "view": "iso",
+     "scene": [
+      {
+       "part": "01"
+      },
+      {
+       "part": "04",
+       "role": "new",
+       "explode": [
+        45,
+        0,
+        78
+       ],
+       "line": "none"
+      }
+     ],
+     "arrows": [
+      [
+       [
+        66,
+        22,
+        69
+       ],
+       [
+        41,
+        22,
+        26
+       ]
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "type": "step",
+   "title": "Ballast",
+   "icons": [
+    "snu"
+   ],
+   "figures": [
+    {
+     "view": "under",
+     "scene": [
+      {
+       "part": "01"
+      },
+      {
+       "part": "04"
+      },
+      {
+       "part": "03",
+       "role": "new",
+       "explode": [
+        0,
+        0,
+        -55
+       ],
+       "line": "none"
+      }
+     ],
+     "arrows": [
+      [
+       [
+        -50,
+        0,
+        -50
+       ],
+       [
+        -50,
+        0,
+        -8
+       ]
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "type": "step",
+   "title": "Botnlok",
+   "figures": [
+    {
+     "view": "under",
+     "scene": [
+      {
+       "part": "01"
+      },
+      {
+       "part": "03"
+      },
+      {
+       "part": "04"
+      },
+      {
+       "part": "02",
+       "role": "new",
+       "explode": [
+        0,
+        0,
+        -45
+       ],
+       "line": "none"
+      }
+     ],
+     "arrows": [
+      [
+       [
+        -90,
+        0,
+        -42
+       ],
+       [
+        -90,
+        0,
+        -6
+       ]
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "type": "step",
+   "title": "LED-stripa på flatstonga",
+   "flow": "down",
+   "figures": [
+    {
+     "view": "iso",
+     "scene": [
+      {
+       "part": "09"
+      },
+      {
+       "part": "10",
+       "role": "new",
+       "explode": [
+        0,
+        30,
+        0
+       ]
+      }
+     ],
+     "detail": {
+      "centre": [
+       104,
+       47,
+       260
+      ],
+      "span": 25,
+      "pos": "right",
+      "r": 58
+     }
+    },
+    {
+     "view": "iso",
+     "scene": [
+      {
+       "part": "05"
+      },
+      {
+       "part": "09",
+       "role": "new",
+       "explode": [
+        0,
+        0,
+        45
+       ]
+      },
+      {
+       "part": "10",
+       "role": "new",
+       "explode": [
+        0,
+        0,
+        45
+       ],
+       "line": "none"
+      }
+     ],
+     "detail": {
+      "centre": [
+       104,
+       32,
+       280
+      ],
+      "span": 32,
+      "pos": "right",
+      "r": 58
+     }
+    }
+   ]
+  },
+  {
+   "type": "step",
+   "title": "Dimmaren",
+   "figures": [
+    {
+     "view": "iso",
+     "scene": [
+      {
+       "part": "05"
+      },
+      {
+       "part": "09"
+      },
+      {
+       "part": "10"
+      },
+      {
+       "part": "11",
+       "role": "new",
+       "explode": [
+        -45,
+        0,
+        0
+       ]
+      }
+     ],
+     "detail": {
+      "centre": [
+       -215,
+       31.5,
+       260
+      ],
+      "span": 40,
+      "pos": "left",
+      "r": 62
+     }
+    }
+   ]
+  },
+  {
+   "type": "step",
+   "title": "Prismearket og lysleiaren",
+   "flow": "down",
+   "figures": [
+    {
+     "view": "iso",
+     "scene": [
+      {
+       "part": "05"
+      },
+      {
+       "part": "09"
+      },
+      {
+       "part": "10"
+      },
+      {
+       "part": "11"
+      },
+      {
+       "part": "08",
+       "role": "new",
+       "explode": [
+        0,
+        0,
+        45
+       ]
+      }
+     ]
+    },
+    {
+     "view": "iso",
+     "scene": [
+      {
+       "part": "05"
+      },
+      {
+       "part": "09"
+      },
+      {
+       "part": "10"
+      },
+      {
+       "part": "11"
+      },
+      {
+       "part": "08"
+      },
+      {
+       "part": "07",
+       "role": "new",
+       "explode": [
+        0,
+        0,
+        45
+       ]
+      }
+     ],
+     "glas": [
+      [
+       -60,
+       150,
+       307
+      ]
+     ]
+    }
+   ],
+   "note": "08: prismesida ned."
+  },
+  {
+   "type": "step",
+   "title": "Loket",
+   "flow": "down",
+   "figures": [
+    {
+     "view": "iso",
+     "scene": [
+      {
+       "part": "05"
+      },
+      {
+       "part": "09"
+      },
+      {
+       "part": "10"
+      },
+      {
+       "part": "11"
+      },
+      {
+       "part": "08"
+      },
+      {
+       "part": "07"
+      },
+      {
+       "part": "06",
+       "role": "new",
+       "explode": [
+        0,
+        0,
+        40
+       ]
+      },
+      {
+       "part": "E",
+       "role": "new",
+       "at": [
+        [
+         0,
+         0,
+         0
+        ],
+        [
+         84,
+         0,
+         0
+        ],
+        [
+         168,
+         0,
+         0
+        ],
+        [
+         252,
+         0,
+         0
+        ]
+       ],
+       "explode": [
+        0,
+        0,
+        75
+       ]
+      }
+     ],
+     "glas": [
+      [
+       -60,
+       150,
+       261.6
+      ]
+     ],
+     "detail": {
+      "centre": [
+       -167.1,
+       41,
+       322
+      ],
+      "span": 38,
+      "pos": "left",
+      "r": 62
+     }
+    },
+    {
+     "view": "iso",
+     "labels": false,
+     "scene": [
+      {
+       "part": "05"
+      },
+      {
+       "part": "09"
+      },
+      {
+       "part": "10"
+      },
+      {
+       "part": "11"
+      },
+      {
+       "part": "08"
+      },
+      {
+       "part": "07"
+      },
+      {
+       "part": "06"
+      },
+      {
+       "part": "E",
+       "at": [
+        [
+         0,
+         0,
+         0
+        ],
+        [
+         84,
+         0,
+         0
+        ],
+        [
+         168,
+         0,
+         0
+        ],
+        [
+         252,
+         0,
+         0
+        ]
+       ]
+      }
+     ],
+     "glas": [
+      [
+       -60,
+       150,
+       261.6
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "type": "step",
+   "title": "Bjelken på røyret",
+   "figures": [
+    {
+     "view": "iso",
+     "scene": [
+      {
+       "part": "01"
+      },
+      {
+       "part": "04"
+      },
+      {
+       "part": "bjelke0",
+       "role": "new",
+       "explode": [
+        -170,
+        0,
+        0
+       ],
+       "line": "none"
+      }
+     ],
+     "arrows": [
+      [
+       [
+        -40,
+        12,
+        300
+       ],
+       [
+        60,
+        12,
+        300
+       ]
+      ]
+     ],
+     "glas": [
+      [
+       -230,
+       -100,
+       261.4
+      ]
+     ],
+     "detail": {
+      "centre": [
+       -52,
+       22,
+       260
+      ],
+      "span": 60,
+      "pos": "topright",
+      "r": 62
+     }
+    }
+   ]
+  },
+  {
+   "type": "step",
+   "title": "Stoppskruen",
+   "icons": [
+    "snu"
+   ],
+   "flow": "down",
+   "figures": [
+    {
+     "view": "under",
+     "scene": [
+      {
+       "part": "01"
+      },
+      {
+       "part": "02"
+      },
+      {
+       "part": "04"
+      },
+      {
+       "part": "bjelke0"
+      },
+      {
+       "part": "12",
+       "role": "new",
+       "explode": [
+        0,
+        0,
+        -30
+       ]
+      }
+     ],
+     "detail": {
+      "centre": [
+       113.4,
+       22,
+       240
+      ],
+      "span": 40,
+      "pos": "right",
+      "r": 62
+     }
+    },
+    {
+     "view": "under",
+     "labels": false,
+     "scene": [
+      {
+       "part": "01"
+      },
+      {
+       "part": "02"
+      },
+      {
+       "part": "04"
+      },
+      {
+       "part": "bjelke0"
+      },
+      {
+       "part": "12"
+      }
+     ],
+     "detail": {
+      "centre": [
+       113.4,
+       22,
+       252
+      ],
+      "span": 30,
+      "pos": "right",
+      "r": 52
+     }
+    }
+   ]
+  },
+  {
+   "type": "step",
+   "title": "Bremseskruen",
+   "flow": "down",
+   "figures": [
+    {
+     "view": "under",
+     "scene": [
+      {
+       "part": "01"
+      },
+      {
+       "part": "02"
+      },
+      {
+       "part": "04"
+      },
+      {
+       "part": "bjelke0"
+      },
+      {
+       "part": "12"
+      },
+      {
+       "part": "13",
+       "role": "new",
+       "explode": [
+        0,
+        0,
+        -30
+       ]
+      }
+     ],
+     "detail": {
+      "centre": [
+       77.9,
+       22,
+       233
+      ],
+      "span": 40,
+      "pos": "right",
+      "r": 62
+     }
+    },
+    {
+     "view": "under",
+     "labels": false,
+     "scene": [
+      {
+       "part": "01"
+      },
+      {
+       "part": "02"
+      },
+      {
+       "part": "04"
+      },
+      {
+       "part": "bjelke0"
+      },
+      {
+       "part": "12"
+      },
+      {
+       "part": "13"
+      }
+     ],
+     "detail": {
+      "centre": [
+       77.9,
+       22,
+       247
+      ],
+      "span": 30,
+      "pos": "right",
+      "r": 52
+     }
+    }
+   ]
+  },
+  {
+   "type": "step",
+   "n": false,
+   "title": "Kontroll",
+   "icons": [
+    "ok"
+   ],
+   "figures": [
+    {
+     "view": "iso",
+     "labels": false,
+     "scene": [
+      {
+       "part": "01"
+      },
+      {
+       "part": "04"
+      },
+      {
+       "part": "12"
+      },
+      {
+       "part": "bjelke80"
+      },
+      {
+       "part": "bjelke0",
+       "role": "ghost"
+      }
+     ]
+    }
+   ],
+   "note": "Ruta går frå 0° til 80° og stoppar i begge endar. Ho står der du slepp ho."
+  },
+  {
+   "type": "step",
+   "n": false,
+   "title": "Bakside",
+   "figures": [
+    {
+     "view": "bak",
+     "labels": false,
+     "scene": [
+      {
+       "part": "01"
+      },
+      {
+       "part": "04"
+      },
+      {
+       "part": "12"
+      },
+      {
+       "part": "bjelke35"
+      }
+     ]
+    }
+   ],
+   "note": "Ruta på fot, revisjon B · rettleiing M01 · kjelde: konsept/film/cad/northern.py"
+  }
+ ]
+}

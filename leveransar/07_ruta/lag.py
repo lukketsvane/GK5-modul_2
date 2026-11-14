@@ -12,7 +12,8 @@ Skriv
   presentasjon.html        lysbileta. Piltastane blar, og sida fyller vindauget
   Ruta-presentasjon.pdf    same sider, 1127 x 797 px
   sider/side-NN.jpg        kvar side som bilete, 2254 x 1594
-  ../../ruta/index.html    nettstaden, med modellen som kan dreiast og vippast (ruta/3d/ruta.glb og ruta.usdz)
+  ../../ruta/index.html    studioet: éin svart skjerm med modellen, tre modusar og éin glidar (malen er studio.html.mal)
+  ../../ruta/forteljing.html   forteljinga: rendringane og streken nedover éi side
 
 Tala kjem frå CAD-kontrollen (konsept/film/cad/ut-b/kontroll.json), streken frå teikning_b.py.
 """
@@ -54,6 +55,8 @@ INNHALD = [
     dict(id='boge', bilete='r-boge', h1='Eitt røyr, éin boge.', tekst='Stål, 12&nbsp;mm. Éin boge på 120° med 45&nbsp;mm radius.', plass='left: 290px; bottom: 96px;'),
     dict(id='kveld', bilete='r-kveld', h1='Om kvelden.', tekst='190&nbsp;lx på bordet under ruta ved 2&nbsp;W. Eit stemningslys og sidelys, ikkje eit arbeidslys.',
          plass='left: 72px; top: 318px;', breidd=290, merke=RENDRA + ' · lystalet er eit overslag for revisjon A, same rute og høgd'),
+    dict(id='opna', bilete='r-sprengt', h1='Tretten delar,<br>fire skruar.', tekst='Kjøpt: LED-stripa og dimmaren. Frå ein gammal skjerm: plata og arket. Ingen skruar syner ovanfrå.',
+         plass='left: 72px; top: 290px;', breidd=250, merke=RENDRA + ', med delane trekte frå kvarandre'),
 ]
 DELAR = [('01', 'Fot', 'trykt og lakkert'), ('02', 'Botnlok med pute', 'trykt'), ('03', 'Ballast', 'stålplate 5&nbsp;mm'),
          ('04', 'Røyr', 'stål Ø 12, éin boge'), ('05', 'Bjelke', 'trykt i to lengder'), ('06', 'Bjelkelok', 'trykt'),
@@ -213,19 +216,22 @@ def lysbilete():
         SIDER.append('''<section class="side"><img class="bak" src="bilete/r-framside.jpg" alt="">
 <div class="ord" style="left: 300px; top: 468px;"><h1 class="namn">Ruta</h1><p class="t" style="margin-top: 28px; font-size: 20px; color: #C9C5BE;">Ei lysande rute på éin stilk.</p></div>
 <div class="ord sm" style="left: 304px; right: 72px; bottom: 38px; display: flex; justify-content: space-between;"><span>Iver R. Finne · GK5 modul 2 · AHO · 2026</span><span>%s</span></div></section>''' % RENDRA)
-    for x in INNHALD: biletside(**x)
+    for x in INNHALD:
+        if x['id'] != 'opna': biletside(**x)
     if finst('r-fargar'):
         x0, y0, w, h = 300, 106, 827, 585
         namn = ''.join('<div class="ord sm" style="left: %dpx; top: %dpx; color: #A6A29B;">%s</div>' % (x0 + 20 + (i % 2) * (w // 2 + 1), y0 + 18 + (i // 2) * (h // 2 + 1), n) for i, (_, n, _) in enumerate(FARGAR))
         SIDER.append('<section class="side"><img src="bilete/r-fargar.jpg" alt="" style="position: absolute; left: %dpx; top: %dpx; width: %dpx; height: %dpx; display: block;">%s'
                      '<div class="ord" style="left: 72px; top: 250px;"><h1>Éin<br>matt<br>farge.</h1><p class="t" style="max-width: 190px;">Foten, røyret og bjelken får same pulverlakk. '
                      'Messingen er den einaste andre fargen.</p></div>%s</section>' % (x0, y0, w, h, namn, folio('Fire rendringar av CAD-modellen')))
+    for x in INNHALD:
+        if x['id'] == 'opna': biletside(**x)
     rader = ''.join('<tr><td class="id">%s</td><td>%s</td><td class="k">%s</td></tr>' % d for d in DELAR)
     SIDER.append('''<section class="side">
 <div class="ord" style="left: 64px; top: 46px;">%s</div>
-<div class="ord" style="left: 770px; top: 64px; width: 285px;"><h1 style="font-size: 44px;">Tretten delar, fire skruar.</h1>
+<div class="ord" style="left: 770px; top: 64px; width: 285px;"><h1 style="font-size: 44px;">Delane.</h1>
 <table class="delar" style="margin-top: 30px;">%s</table>
-<p class="t" style="font-size: 14.5px; margin-top: 16px;">Kjøpt: LED-stripa og dimmaren. Frå ein gammal skjerm: plata og arket. Ingen skruar syner ovanfrå.</p></div>
+<p class="t" style="font-size: 14.5px; margin-top: 16px;">Ruta ligg vassrett i teikninga, og delane er trekte frå kvarandre langs aksane.</p></div>
 %s</section>''' % (sprengt_svg(690.0), rader, folio(STREK)))
     SIDER.append('''<section class="side">
 <div class="ord" style="left: 72px; top: 64px;"><h1>Mål.</h1></div>
@@ -368,7 +374,7 @@ def nettstad():
     if finst('r-framside'):
         del_.append('<section class="b nede forst" style="--pos: 30%% 50%%;"><div class="topp sm"><span>GK5 modul 2 · AHO · 2026</span><span>Iver R. Finne</span></div>'
                     '<img src="%sr-framside.jpg" alt="Enden av bjelken med messingpunktet, og ruta sett frå sida som éi line av lys"><div class="ord"><h1>Ruta</h1><p style="color: #C9C5BE;">Ei lysande rute på éin stilk.</p></div>'
-                    '<div class="merke sm"><span>%s</span><span><a href="#modell">Snu og vipp modellen</a></span></div></section>' % (bil, RENDRA))
+                    '<div class="merke sm"><span>%s</span><span><a href="./">Studio: snu, vipp og opne lampa</a></span></div></section>' % (bil, RENDRA))
     del_.append(b(I['helt']))
     knappar = ''.join('<button type="button" data-farge="%s" aria-label="%s" aria-pressed="%s" style="background: %s;"></button>' % (k, n, 'true' if i == 0 else 'false', srgb(c)) for i, (k, n, c) in enumerate(FARGAR))
     del_.append('''<section class="tre" id="modell"><div class="ord"><h2>Vipp.</h2><p>Éi handling, frå vassrett til 80°. Dra i modellen for å snu henne, og i lina under for å vippe ruta.</p>
@@ -382,13 +388,15 @@ def nettstad():
     del_.append(b(I['form'], 'nede', '50% 50%')); del_.append(b(I['vipp'], 'oppe', '50% 50%'))
     del_.append(b(I['messing'], 'nede', '40% 50%')); del_.append(b(I['kant'], 'nede hogre', '30% 50%')); del_.append(b(I['boge'], 'nede midt', '50% 50%'))
     del_.append(b(I['kveld']))
+    opna = b(I['opna'])
     if all(finst(n) for n in ['r-messing'] + ['r-messing-' + k for k, _, _ in FARGAR[1:]]):
         fig = ''.join('<figure><img src="%sr-messing%s.jpg" alt="%s" loading="lazy"><figcaption class="sm">%s</figcaption></figure>' % (bil, '' if i == 0 else '-' + k, n, n) for i, (k, n, _) in enumerate(FARGAR))
         del_.append('<section class="flate" id="farge"><div class="to" style="grid-template-columns: minmax(14rem, 0.6fr) minmax(0, 2fr); align-items: center;"><div><h2>Éin matt farge.</h2>'
                     '<p>Foten, røyret og bjelken får same pulverlakk. Messingen er den einaste andre fargen.</p></div><div class="fargar">%s</div></div></section>' % fig)
     rader = ''.join('<tr><td class="id">%s</td><td>%s</td><td class="k">%s</td></tr>' % d for d in DELAR)
-    del_.append('<section class="flate" id="delar"><div class="to"><div>%s</div><div><h2>Tretten delar, fire skruar.</h2><table>%s</table>'
-                '<p>Kjøpt: LED-stripa og dimmaren. Frå ein gammal skjerm: plata og arket. Ingen skruar syner ovanfrå.</p><p class="sm" style="margin-top: 1.4rem;">%s</p></div></div></section>' % (sprengt_svg(0), rader, STREK))
+    del_.append(opna)
+    del_.append('<section class="flate" id="delar"><div class="to"><div>%s</div><div><h2>Delane.</h2><table>%s</table>'
+                '<p>Ruta ligg vassrett i teikninga, og delane er trekte frå kvarandre langs aksane.</p><p class="sm" style="margin-top: 1.4rem;">%s</p></div></div></section>' % (sprengt_svg(0), rader, STREK))
     del_.append('<section class="flate" id="maal"><h2>Mål.</h2><p>Breidd 378, djupn 223 og høgd 278&nbsp;mm.</p><div style="margin-top: 3rem; max-width: 64rem;">%s</div>'
                 '<p class="sm" style="margin-top: 1.4rem;">%s · mål i mm</p></section>' % (maal_svg(True), STREK))
     a = ''.join('<div><span>%s</span><span>%s</span></div>' % x for x in kontrollert()); n = ''.join('<div>%s</div>' % x for x in IKKJE_PROVD)
@@ -396,15 +404,21 @@ def nettstad():
                 '<p>Lampa finst som CAD-modell. Alt på denne sida er rendra eller teikna frå han.</p></div>'
                 '<div><div class="sm">Kontrollert i CAD</div><div class="liste">%s</div><div class="sm" style="margin-top: 2.2rem;">Ikkje prøvd</div><div class="liste ein">%s</div></div></div></section>' % (a, n))
     del_.append('<footer class="sm"><span>Ruta · revisjon B · Iver R. Finne · GK5 modul 2 · AHO · 2026</span><span><a href="../leveransar/07_ruta/Ruta-presentasjon.pdf">PDF</a> &nbsp;·&nbsp; '
-                '<a href="../leveransar/07_ruta/presentasjon.html">Lysbilete</a> &nbsp;·&nbsp; <a href="3d/ruta.usdz">USDZ</a> &nbsp;·&nbsp; <a href="3d/ruta.glb">GLB</a> &nbsp;·&nbsp; '
+                '<a href="./">Studio</a> &nbsp;·&nbsp; <a href="../leveransar/07_ruta/presentasjon.html">Lysbilete</a> &nbsp;·&nbsp; <a href="3d/ruta.usdz">USDZ</a> &nbsp;·&nbsp; <a href="3d/ruta.glb">GLB</a> &nbsp;·&nbsp; '
                 '<a href="../konsept/film/cad/ut-b/ruta-pa-fot-rev-b.step">STEP</a> &nbsp;·&nbsp; <a href="../">GK5 modul 2</a></span></footer>')
     skript = NETTSKRIPT.replace('__FARGAR__', json.dumps({k: [round(c[0], 4), round(c[1], 4), round(c[2], 4), n] for k, n, c in FARGAR}, ensure_ascii=False))
     html = ('<!doctype html>\n<html lang="nn">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n<title>Ruta</title>\n'
             '<meta name="description" content="Ruta: ei lysande rute på éin stilk. Stemningsskapande lampe for heim og arbeid.">\n<style>%s</style>\n</head>\n<body>\n%s\n%s\n</body>\n</html>\n'
             % (NETTSTIL, '\n\n'.join(x for x in del_ if x), skript))
     assert '—' not in html and '–' not in html
-    open(os.path.join(NETT, 'index.html'), 'w', encoding='utf-8').write(html)
-    print('nettstad: ruta/index.html, %d bolkar, 3d: %s' % (len([x for x in del_ if x]), ' '.join(sorted(os.listdir(os.path.join(NETT, '3d'))))))
+    open(os.path.join(NETT, 'forteljing.html'), 'w', encoding='utf-8').write(html)
+    # studioet: éin svart skjerm med modellen, tre modusar og éin glidar
+    knapp = ''.join('<button type="button" data-farge="%s" aria-label="%s" aria-pressed="%s" style="background: %s;"></button>' % (k, n, 'true' if i == 0 else 'false', srgb(c)) for i, (k, n, c) in enumerate(FARGAR))
+    mal = open(os.path.join(HER, 'studio.html.mal'), encoding='utf-8').read()
+    st = mal.replace('__KNAPPAR__', knapp).replace('__FARGAR__', json.dumps({k: [round(c[0], 4), round(c[1], 4), round(c[2], 4), n] for k, n, c in FARGAR}, ensure_ascii=False))
+    assert '—' not in st and '–' not in st
+    open(os.path.join(NETT, 'index.html'), 'w', encoding='utf-8').write(st)
+    print('nettstad: ruta/index.html (studio) og ruta/forteljing.html (%d bolkar), 3d: %s' % (len([x for x in del_ if x]), ' '.join(sorted(os.listdir(os.path.join(NETT, '3d'))))))
 
 if __name__ == '__main__':
     try: sys.stdout.reconfigure(encoding='utf-8')

@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="nn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ruta · studio</title>
+<meta name="description" content="Ruta: ei lysande rute på éin stilk. Snu lampa, vipp ruta, opne henne og sjå lysgangen.">
+<style>
+  :root { --kvit: #F5F5F7; --graa: #A1A1A6; --dim: #6E6E73; --inn: clamp(18px, 3.2vw, 44px); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: #000; color: var(--kvit); overflow: hidden;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; text-decoration: none; }
+  .hovud { position: fixed; z-index: 3; left: var(--inn); right: var(--inn); top: calc(env(safe-area-inset-top, 0px) + 18px); display: flex; justify-content: space-between; align-items: baseline; font-size: 12px; letter-spacing: 0.01em; }
+  .hovud a { color: var(--graa); transition: color .2s; } .hovud a:hover, .hovud a:focus-visible { color: var(--kvit); }
+  .hovud nav { display: flex; gap: 1.4em; }
+  .namn { position: fixed; z-index: 2; left: 50%; transform: translateX(-50%); top: calc(env(safe-area-inset-top, 0px) + 18px); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--kvit); }
+  model-viewer { position: fixed; inset: 0; width: 100%; height: 100%; background: #000; --poster-color: #000; --progress-bar-color: transparent; opacity: 0; transition: opacity .7s ease; }
+  model-viewer.klar { opacity: 1; }
+  .styring { position: fixed; z-index: 3; left: 50%; transform: translateX(-50%); bottom: calc(env(safe-area-inset-bottom, 0px) + 22px); width: min(560px, calc(100vw - 2 * var(--inn))); display: grid; row-gap: 14px; justify-items: center; }
+  .verdi { font: inherit; font-size: 12px; color: var(--kvit); background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.16); border-radius: 999px; padding: 6px 14px; cursor: pointer; font-variant-numeric: tabular-nums; }
+  .verdi:hover { background: rgba(255,255,255,0.10); }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 28px; background: transparent; margin: 0; cursor: pointer; }
+  input[type=range]::-webkit-slider-runnable-track { height: 2px; border-radius: 2px; background: linear-gradient(to right, var(--kvit) var(--fyll, 50%), rgba(255,255,255,0.22) var(--fyll, 50%)); }
+  input[type=range]::-moz-range-track { height: 2px; border-radius: 2px; background: rgba(255,255,255,0.22); }
+  input[type=range]::-moz-range-progress { height: 2px; background: var(--kvit); }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; border-radius: 50%; background: var(--kvit); margin-top: -7px; border: 0; box-shadow: 0 0 0 1px rgba(0,0,0,0.3); }
+  input[type=range]::-moz-range-thumb { width: 16px; height: 16px; border-radius: 50%; background: var(--kvit); border: 0; }
+  .modusar { display: flex; gap: 4px; align-items: center; flex-wrap: wrap; justify-content: center; }
+  .modusar button { font: inherit; font-size: 13px; color: var(--graa); background: transparent; border: 0; border-radius: 999px; padding: 7px 14px; cursor: pointer; transition: color .2s, background .2s; }
+  .modusar button[aria-pressed=true] { color: #000; background: var(--kvit); }
+  .modusar button:not([aria-pressed=true]):hover { color: var(--kvit); }
+  .fargar { display: flex; gap: 9px; margin-left: 12px; padding-left: 16px; border-left: 1px solid rgba(255,255,255,0.16); }
+  .fargar button, .fargar button[aria-pressed=true] { width: 18px; height: 18px; padding: 0; border-radius: 50%; border: 1px solid rgba(255,255,255,0.28); outline-offset: 3px; }
+  .fargar button[aria-pressed=true] { outline: 1px solid var(--kvit); }
+  .tekst { margin: 0; min-height: 2.9em; max-width: 34rem; text-align: center; font-size: 12.5px; line-height: 1.45; color: var(--graa); text-wrap: balance; }
+  .ar { font: inherit; font-size: 12px; color: var(--graa); background: transparent; border: 0; padding: 0; cursor: pointer; } .ar:hover { color: var(--kvit); }
+  @media (max-width: 560px) { .hovud nav a.skjul { display: none; } .modusar button { padding: 7px 11px; } .fargar { margin-left: 4px; padding-left: 10px; } }
+</style>
+</head>
+<body>
+<header class="hovud"><a href="forteljing.html">← Forteljinga</a>
+<nav><a class="skjul" href="../leveransar/07_ruta/presentasjon.html">Lysbilete</a><a class="skjul" href="../leveransar/07_ruta/Ruta-presentasjon.pdf">PDF</a><button class="ar" id="ar" type="button" hidden>Sjå på bordet ditt</button></nav></header>
+<div class="namn">Ruta</div>
+<model-viewer id="mv" src="3d/ruta-studio.glb" ios-src="3d/ruta.usdz" alt="Ruta som 3D-modell" ar ar-modes="webxr scene-viewer quick-look" ar-scale="fixed" camera-controls touch-action="none"
+ interaction-prompt="none" camera-orbit="-32deg 80deg 1.75m" camera-target="-0.03m 0.075m 0.05m" field-of-view="22deg" min-camera-orbit="auto 15deg 0.5m" max-camera-orbit="auto 110deg 3m"
+ interpolation-decay="120" exposure="0.85" shadow-intensity="0" environment-image="neutral"><span slot="ar-button"></span></model-viewer>
+<div class="styring">
+  <button class="verdi" id="verdi" type="button" aria-label="Set glidaren attende">Helling 35°</button>
+  <input type="range" id="glidar" min="0" max="80" step="1" value="35" aria-label="Helling">
+  <div class="modusar" role="group" aria-label="Kva modellen viser">
+    <button type="button" data-modus="lampe" aria-pressed="true">Lampe</button><button type="button" data-modus="mekanikk" aria-pressed="false">Mekanikk</button><button type="button" data-modus="lys" aria-pressed="false">Lysgang</button>
+    <span class="fargar" role="group" aria-label="Farge">__KNAPPAR__</span>
+  </div>
+  <p class="tekst" id="tekst"></p>
+</div>
+<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
+<script>
+(function () {
+  var mv = document.getElementById('mv'), glidar = document.getElementById('glidar'), verdi = document.getElementById('verdi'), tekst = document.getElementById('tekst');
+  var FARGAR = __FARGAR__, farge = 'graabeige', no = 'lampe';
+  // Fila har to jamne animasjonar. Vipp: bilete 1 er 0° og bilete 81 er 80°. Opne: bilete 101 er samla og bilete 161 er heilt opna. 24 bilete per sekund.
+  var M = {
+    lampe:    { anim: 'Vipp', min: 0, max: 80, start: 35, tid: function (v) { return (1 + v) / 24; }, merke: function (v) { return 'Helling ' + v + '°'; },
+                bane: '-32deg 80deg 1.75m', maal: '-0.03m 0.075m 0.05m', tekst: 'Dra for å snu lampa. Glidaren vippar ruta frå vassrett til 80°.' },
+    mekanikk: { anim: 'Opne', min: 0, max: 100, start: 100, tid: function (v) { return (101 + 0.6 * v) / 24; }, merke: function (v) { return v === 0 ? 'Samla' : 'Opna ' + v + ' %'; },
+                bane: '-38deg 74deg 2.35m', maal: '-0.03m -0.03m 0.03m', tekst: 'Tretten delar og fire skruar. Stoppskruen og bremseskruen ligg skjult inni bjelken.' },
+    lys:      { anim: 'Vipp', min: 0, max: 80, start: 35, tid: function (v) { return (1 + v) / 24; }, merke: function (v) { return 'Helling ' + v + '°'; },
+                bane: '-24deg 62deg 1.6m', maal: '-0.04m 0.12m -0.03m', tekst: 'Ei LED-stripe i bjelken lyser inn i kanten på plata, og prismearket sender lyset ut. Skjematisk modell: lysfordelinga er ikkje rekna.' }
+  };
+  var SKJULT_I_LYS = ['Lakk', 'Messing', 'Pute', 'Skrue', 'Leidning', 'Staal'];
+  function fyll() { glidar.style.setProperty('--fyll', (100 * (glidar.value - glidar.min) / (glidar.max - glidar.min)) + '%'); }
+  function vis() { var v = +glidar.value; verdi.textContent = M[no].merke(v); fyll(); if (mv.loaded) { mv.pause(); mv.currentTime = M[no].tid(v); mv.classList.add('klar'); } }      // modellen syner først når stillinga er sett
+  function material() {
+    if (!mv.model) return;
+    var f = FARGAR[farge];
+    mv.model.materials.forEach(function (m) {
+      var med = SKJULT_I_LYS.indexOf(m.name) >= 0, skjul = no === 'lys' && med;
+      if (m.name === 'Lakk' || m.name === 'Leidning') m.pbrMetallicRoughness.setBaseColorFactor([f[0], f[1], f[2], skjul ? 0.07 : 1]);
+      else if (med) { var c = m.pbrMetallicRoughness.baseColorFactor; m.pbrMetallicRoughness.setBaseColorFactor([c[0], c[1], c[2], skjul ? 0.07 : 1]); }
+      if (med) m.setAlphaMode(skjul ? 'BLEND' : 'OPAQUE');
+    });
+  }
+  function modus(m) {
+    no = m; var d = M[m];
+    [].forEach.call(document.querySelectorAll('[data-modus]'), function (b) { b.setAttribute('aria-pressed', b.dataset.modus === m); });
+    glidar.min = d.min; glidar.max = d.max; glidar.value = d.start; glidar.setAttribute('aria-label', m === 'mekanikk' ? 'Opne lampa' : 'Helling');
+    tekst.textContent = d.tekst; mv.cameraOrbit = d.bane; mv.cameraTarget = d.maal;
+    if (mv.loaded) { mv.animationName = d.anim; material(); (mv.updateComplete || Promise.resolve()).then(function () { requestAnimationFrame(vis); }); } else vis();
+  }
+  mv.addEventListener('load', function () { modus(no); if (mv.canActivateAR) document.getElementById('ar').hidden = false; });
+  glidar.addEventListener('input', vis);
+  verdi.addEventListener('click', function () { glidar.value = M[no].start; vis(); });
+  [].forEach.call(document.querySelectorAll('[data-modus]'), function (b) { b.addEventListener('click', function () { modus(b.dataset.modus); }); });
+  [].forEach.call(document.querySelectorAll('[data-farge]'), function (b) { b.addEventListener('click', function () {
+    farge = b.dataset.farge; material(); mv.setAttribute('ios-src', '3d/ruta' + (farge === 'graabeige' ? '' : '-' + farge) + '.usdz');
+    [].forEach.call(document.querySelectorAll('[data-farge]'), function (k) { k.setAttribute('aria-pressed', k === b); });
+  }); });
+  document.getElementById('ar').addEventListener('click', function () { mv.activateAR(); });
+  tekst.textContent = M.lampe.tekst; fyll();
+})();
+</script>
+</body>
+</html>

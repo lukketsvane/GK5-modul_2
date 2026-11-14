@@ -65,10 +65,14 @@ def tom(namn, pos, forelder=None):
     return e
 
 def spor(ob, namn, eigenskap, noklar):
-    """Nøklar på éin eigenskap, lagde ned som eit NLA-spor. Spor med same namn blir éin animasjon i GLB-fila."""
+    """Nøklar på éin eigenskap, lagde ned som eit NLA-spor. Spor med same namn blir éin animasjon i GLB-fila.
+    Éin nøkkel per bilete, rekna rett fram mellom endepunkta. Då går rørsla jamt same kva kurve Blender legg mellom
+    nøklane. Med berre to nøklar vart kurva mjuk i endane, og 35° på glidaren var 32,5° i modellen."""
     ob.animation_data_create()
-    for bilete, verdi in noklar:
-        setattr(ob, eigenskap, verdi); ob.keyframe_insert(eigenskap, frame=bilete)
+    (b0, v0), (b1, v1) = noklar[0], noklar[-1]
+    for bilete in range(int(b0), int(b1) + 1):
+        k = (bilete - b0) / float(b1 - b0)
+        setattr(ob, eigenskap, tuple(a + (b - a) * k for a, b in zip(v0, v1))); ob.keyframe_insert(eigenskap, frame=bilete)
     akt = ob.animation_data.action; akt.name = namn + '_' + ob.name
     sp = ob.animation_data.nla_tracks.new(); sp.name = namn
     st = sp.strips.new(namn, int(noklar[0][0]), akt); st.name = namn
@@ -107,7 +111,8 @@ os.makedirs(TRED, exist_ok=True)
 ut = os.path.join(TRED, 'ruta-studio.glb')
 val = dict(filepath=ut, export_format='GLB', export_animations=True, export_yup=True, export_apply=False, export_materials='EXPORT', export_normals=True,
            export_texcoords=False, export_cameras=False, export_lights=False, export_extras=False, export_animation_mode='NLA_TRACKS', export_nla_strips=True,
-           export_force_sampling=True, export_frame_range=False, export_bake_animation=False, export_optimize_animation_size=False, export_draco_mesh_compression_enable=False,
+           export_force_sampling=True, export_frame_range=False, export_bake_animation=False, export_optimize_animation_size=True,
+           export_draco_mesh_compression_enable=True, export_draco_mesh_compression_level=6, export_draco_position_quantization=14, export_draco_normal_quantization=10,      # lita fil, rask lasting
            export_current_frame=False)
 bpy.ops.export_scene.gltf(**gyldige(bpy.ops.export_scene.gltf, val))
 # kontroll: les fila og sjå kva animasjonar ho har
@@ -119,7 +124,19 @@ for a in J.get('animations', []):
     for sa in a['samplers']: tid = max(tid, J['accessors'][sa['input']]['max'][0])
     anim[a.get('name', '?')] = dict(kanalar=len(a['channels']), sekund=round(tid, 3))
 blad_node = next((x for x in J['nodes'] if x.get('name') == 'Blad'), {})
+def les(i):
+    a = J['accessors'][i]; bv = J['bufferViews'][a['bufferView']]; o = 20 + n + 8 + bv.get('byteOffset', 0) + a.get('byteOffset', 0)
+    k = {'SCALAR': 1, 'VEC3': 3, 'VEC4': 4}[a['type']]
+    return [struct.unpack_from('<%df' % k, d, o + j * 4 * k) for j in range(a['count'])]
+avvik = None                    # største avstand i gradar mellom hellinga i fila og den jamne rørsla (bilete 1 er 0°, eitt bilete er éin grad)
+for a in J.get('animations', []):
+    if a.get('name') != 'Vipp': continue
+    for ch in a['channels']:
+        if ch['target']['path'] != 'rotation': continue
+        sa = a['samplers'][ch['sampler']]
+        avvik = max(abs(2 * math.degrees(math.atan2(q[0], q[3])) + G['VINKEL'] - (tt * FPS - VIPP[0])) for (tt,), q in zip(les(sa['input']), les(sa['output'])))
 rap = dict(fil=os.path.basename(ut), kB=round(len(d) / 1e3), nodar=len(J['nodes']), nett=len(J['meshes']), material=sorted(m['name'] for m in J['materials']),
-           animasjonar=anim, blad_i_kvile=blad_node.get('rotation'), trekantar=sum(len(o.data.polygons) for o in O.values()))
+           animasjonar=anim, vipp_storste_avvik_gradar=None if avvik is None else round(avvik, 4), blad_i_kvile=blad_node.get('rotation'),
+           trekantar=sum(len(o.data.polygons) for o in O.values()))
 json.dump(rap, open(os.path.join(TRED, 'ruta-studio.kontroll.json'), 'w', encoding='utf-8'), indent=1, ensure_ascii=False)
 print('STUDIO', json.dumps(rap, ensure_ascii=False), flush=True)

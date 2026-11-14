@@ -4,19 +4,22 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Ruta · studio</title>
-<meta name="description" content="Ruta: ei lysande rute på éin stilk. Snu lampa, vipp ruta, opne henne og sjå lysgangen.">
+<meta name="description" content="Ruta: ei lysande rute på éin stilk. Snu lampa, vipp ruta, opne henne og sjå lyset ho gjev.">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+<link rel="preload" href="3d/ruta-studio.glb" as="fetch" crossorigin>
 <style>
-  :root { --kvit: #F5F5F7; --graa: #A1A1A6; --dim: #6E6E73; --inn: clamp(18px, 3.2vw, 44px); }
+  :root { --kvit: #F5F5F7; --graa: #A1A1A6; --inn: clamp(18px, 3.2vw, 44px); }
   * { box-sizing: border-box; }
   html, body { margin: 0; height: 100%; background: #000; color: var(--kvit); overflow: hidden;
     font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
   a { color: inherit; text-decoration: none; }
+  canvas { position: fixed; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; opacity: 0; transition: opacity .7s ease; outline: none; }
+  canvas.klar { opacity: 1; }
   .hovud { position: fixed; z-index: 3; left: var(--inn); right: var(--inn); top: calc(env(safe-area-inset-top, 0px) + 18px); display: flex; justify-content: space-between; align-items: baseline; font-size: 12px; letter-spacing: 0.01em; }
   .hovud a { color: var(--graa); transition: color .2s; } .hovud a:hover, .hovud a:focus-visible { color: var(--kvit); }
   .hovud nav { display: flex; gap: 1.4em; }
-  .namn { position: fixed; z-index: 2; left: 50%; transform: translateX(-50%); top: calc(env(safe-area-inset-top, 0px) + 18px); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--kvit); }
-  model-viewer { position: fixed; inset: 0; width: 100%; height: 100%; background: #000; --poster-color: #000; --progress-bar-color: transparent; opacity: 0; transition: opacity .7s ease; }
-  model-viewer.klar { opacity: 1; }
+  .namn { position: fixed; z-index: 2; left: 50%; transform: translateX(-50%); top: calc(env(safe-area-inset-top, 0px) + 18px); font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; }
   .styring { position: fixed; z-index: 3; left: 50%; transform: translateX(-50%); bottom: calc(env(safe-area-inset-bottom, 0px) + 22px); width: min(560px, calc(100vw - 2 * var(--inn))); display: grid; row-gap: 14px; justify-items: center; }
   .verdi { font: inherit; font-size: 12px; color: var(--kvit); background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.16); border-radius: 999px; padding: 6px 14px; cursor: pointer; font-variant-numeric: tabular-nums; }
   .verdi:hover { background: rgba(255,255,255,0.10); }
@@ -33,72 +36,220 @@
   .fargar { display: flex; gap: 9px; margin-left: 12px; padding-left: 16px; border-left: 1px solid rgba(255,255,255,0.16); }
   .fargar button, .fargar button[aria-pressed=true] { width: 18px; height: 18px; padding: 0; border-radius: 50%; border: 1px solid rgba(255,255,255,0.28); outline-offset: 3px; }
   .fargar button[aria-pressed=true] { outline: 1px solid var(--kvit); }
-  .tekst { margin: 0; min-height: 1.45em; max-width: 34rem; text-align: center; font-size: 12.5px; line-height: 1.45; color: var(--graa); text-wrap: balance; }
-  .ar { font: inherit; font-size: 12px; color: var(--graa); background: transparent; border: 0; padding: 0; cursor: pointer; } .ar:hover { color: var(--kvit); }
+  .tekst { margin: 0; min-height: 1.45em; max-width: 34rem; text-align: center; font-size: 12.5px; line-height: 1.45; color: var(--graa); font-variant-numeric: tabular-nums; }
   @media (max-width: 560px) { .hovud nav a.skjul { display: none; } .modusar button { padding: 7px 11px; } .fargar { margin-left: 4px; padding-left: 10px; } }
 </style>
+<script type="importmap">{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js", "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/" } }</script>
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js">
 </head>
 <body>
+<canvas id="lerret" aria-label="Ruta som 3D-modell"></canvas>
 <header class="hovud"><a href="forteljing.html">← Forteljinga</a>
-<nav><a class="skjul" href="../leveransar/07_ruta/presentasjon.html">Lysbilete</a><a class="skjul" href="../leveransar/07_ruta/Ruta-presentasjon.pdf">PDF</a><button class="ar" id="ar" type="button" hidden>Sjå på bordet ditt</button></nav></header>
+<nav><a class="skjul" href="../leveransar/07_ruta/presentasjon.html">Lysbilete</a><a class="skjul" href="../leveransar/07_ruta/Ruta-presentasjon.pdf">PDF</a><a id="ar" rel="ar" href="3d/ruta.usdz" hidden><img alt="" width="1" height="1" src="data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=">Sjå på bordet ditt</a></nav></header>
 <div class="namn">Ruta</div>
-<model-viewer id="mv" src="3d/ruta-studio.glb" ios-src="3d/ruta.usdz" alt="Ruta som 3D-modell" ar ar-modes="webxr scene-viewer quick-look" ar-scale="fixed" camera-controls touch-action="none"
- interaction-prompt="none" camera-orbit="-32deg 80deg 1.75m" camera-target="-0.03m 0.075m 0.05m" field-of-view="22deg" min-camera-orbit="auto 15deg 0.5m" max-camera-orbit="auto 110deg 3m"
- interpolation-decay="120" exposure="0.85" shadow-intensity="0" environment-image="neutral"><span slot="ar-button"></span></model-viewer>
 <div class="styring">
   <button class="verdi" id="verdi" type="button" aria-label="Set glidaren attende">Helling 35°</button>
   <input type="range" id="glidar" min="0" max="80" step="1" value="35" aria-label="Helling">
   <div class="modusar" role="group" aria-label="Kva modellen viser">
-    <button type="button" data-modus="lampe" aria-pressed="true">Lampe</button><button type="button" data-modus="mekanikk" aria-pressed="false">Mekanikk</button><button type="button" data-modus="lys" aria-pressed="false">Lysgang</button>
+    <button type="button" data-modus="lampe" aria-pressed="true">Lampe</button><button type="button" data-modus="mekanikk" aria-pressed="false">Mekanikk</button><button type="button" data-modus="lys" aria-pressed="false">Lys</button>
     <span class="fargar" role="group" aria-label="Farge"><button type="button" data-farge="graabeige" aria-label="Grå-beige" aria-pressed="true" style="background: #aaa091;"></button><button type="button" data-farge="morkegron" aria-label="Mørkegrøn" aria-pressed="false" style="background: #273f33;"></button><button type="button" data-farge="svart" aria-label="Svart" aria-pressed="false" style="background: #1b1b1d;"></button><button type="button" data-farge="kirsebaer" aria-label="Kirsebærraud" aria-pressed="false" style="background: #7c1f27;"></button></span>
   </div>
   <p class="tekst" id="tekst"></p>
 </div>
-<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
-<script>
-(function () {
-  var mv = document.getElementById('mv'), glidar = document.getElementById('glidar'), verdi = document.getElementById('verdi'), tekst = document.getElementById('tekst');
-  var FARGAR = {"graabeige": [0.4, 0.35, 0.285, "Grå-beige"], "morkegron": [0.02, 0.05, 0.033, "Mørkegrøn"], "svart": [0.011, 0.011, 0.012, "Svart"], "kirsebaer": [0.2, 0.014, 0.02, "Kirsebærraud"]}, farge = 'graabeige', no = 'lampe';
-  // Fila har to jamne animasjonar. Vipp: bilete 1 er 0° og bilete 81 er 80°. Opne: bilete 101 er samla og bilete 161 er heilt opna. 24 bilete per sekund.
-  var M = {
-    lampe:    { anim: 'Vipp', min: 0, max: 80, start: 35, tid: function (v) { return (1 + v) / 24; }, merke: function (v) { return 'Helling ' + v + '°'; },
-                bane: '-32deg 80deg 1.75m', maal: '-0.03m 0.075m 0.05m', tekst: '' },
-    mekanikk: { anim: 'Opne', min: 0, max: 100, start: 100, tid: function (v) { return (101 + 0.6 * v) / 24; }, merke: function (v) { return v === 0 ? 'Samla' : 'Opna ' + v + ' %'; },
-                bane: '-38deg 74deg 2.35m', maal: '-0.03m -0.03m 0.03m', tekst: '' },
-    lys:      { anim: 'Vipp', min: 0, max: 80, start: 35, tid: function (v) { return (1 + v) / 24; }, merke: function (v) { return 'Helling ' + v + '°'; },
-                bane: '-24deg 62deg 1.6m', maal: '-0.04m 0.12m -0.03m', tekst: 'Skjematisk modell. Lysfordelinga er ikkje rekna.' }
-  };
-  var SKJULT_I_LYS = ['Lakk', 'Messing', 'Pute', 'Skrue', 'Leidning', 'Staal'];
-  function fyll() { glidar.style.setProperty('--fyll', (100 * (glidar.value - glidar.min) / (glidar.max - glidar.min)) + '%'); }
-  function vis() { var v = +glidar.value; verdi.textContent = M[no].merke(v); fyll(); if (mv.loaded) { mv.pause(); mv.currentTime = M[no].tid(v); mv.classList.add('klar'); } }      // modellen syner først når stillinga er sett
-  function material() {
-    if (!mv.model) return;
-    var f = FARGAR[farge];
-    mv.model.materials.forEach(function (m) {
-      var med = SKJULT_I_LYS.indexOf(m.name) >= 0, skjul = no === 'lys' && med;
-      if (m.name === 'Lakk' || m.name === 'Leidning') m.pbrMetallicRoughness.setBaseColorFactor([f[0], f[1], f[2], skjul ? 0.07 : 1]);
-      else if (med) { var c = m.pbrMetallicRoughness.baseColorFactor; m.pbrMetallicRoughness.setBaseColorFactor([c[0], c[1], c[2], skjul ? 0.07 : 1]); }
-      if (med) m.setAlphaMode(skjul ? 'BLEND' : 'OPAQUE');
-    });
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { DRACOLoader } from 'three/addons/loaders/DRACOLoader.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+import { RectAreaLightUniformsLib } from 'three/addons/lights/RectAreaLightUniformsLib.js';
+
+// ---------------------------------------------------------------- lysmodellen (same tal som konsept/film/cad/lysmodell.py)
+const FARGAR = {"graabeige": [0.4, 0.35, 0.285, "Grå-beige"], "morkegron": [0.02, 0.05, 0.033, "Mørkegrøn"], "svart": [0.011, 0.011, 0.012, "Svart"], "kirsebaer": [0.2, 0.014, 0.02, "Kirsebærraud"]}, GEO = {"X0": -0.19106882065833075, "X1": 0.10893117934166924, "U1": 0.2034, "YT": 0.022, "AKSE_H": 0.26};
+const LM_PER_W = 100, INN = 0.60, NED = 0.60, OPP = 0.30, KANT = 0.10;     // stripa, inn i plata, ut undersida, ut arket, ut ved kanten
+const UTE = 0.0285, KANT_B = 0.004;                                        // der ruta kjem ut av bjelken, og breidda på kantstripa (m)
+const ENH = 300;                                                           // så mange cd/m² svarar til 1,0 i biletet før tonekurva
+const RHO = 0.45;                                                          // kor mykje bordet kastar attende
+const LYS = new THREE.Color().setRGB(1.0, 0.71, 0.43);                     // 2700 K slik kameraet ser det
+const tre = (x, y, z) => new THREE.Vector3(x, z, -y);                      // CAD-en har z opp og y bakover, three.js har y opp
+const t35 = 35 * Math.PI / 180, XH = new THREE.Vector3(1, 0, 0);
+const UT = tre(0, -Math.cos(t35), -Math.sin(t35)), NEDOVER = tre(0, Math.sin(t35), -Math.cos(t35));
+const FLATER = {                                                           // frå og til langs ruta, kva veg flata lyser, løft frå midtplanet
+  ned:  { u0: UTE, u1: GEO.U1 - KANT_B, veg: NEDOVER, loft: 0.0015, del: NED },
+  kant: { u0: GEO.U1 - KANT_B, u1: GEO.U1, veg: NEDOVER, loft: 0.0015, del: KANT },
+  opp:  { u0: UTE, u1: GEO.U1, veg: NEDOVER.clone().negate(), loft: 0.0017, del: OPP }
+};
+for (const f of Object.values(FLATER)) { f.b = GEO.X1 - GEO.X0; f.h = f.u1 - f.u0; f.areal = f.b * f.h; }
+const luminans = (watt, f) => watt * LM_PER_W * INN * f.del / (Math.PI * f.areal);      // cd/m² for ei matt flate
+
+// Lux i eit punkt frå ein matt, lysande firkant: E = L/2 · Σ γ · (n · Γ). Eksakt, utan strålesporing.
+const _a = new THREE.Vector3(), _b = new THREE.Vector3(), _k = new THREE.Vector3(), _v = [0, 1, 2, 3].map(() => new THREE.Vector3());
+function lux(p, n, hjorne, L) {
+  for (let i = 0; i < 4; i++) _v[i].subVectors(hjorne[i], p).normalize();
+  let s = 0;
+  for (let i = 0; i < 4; i++) {
+    _a.copy(_v[i]); _b.copy(_v[(i + 1) % 4]); _k.crossVectors(_a, _b); const l = _k.length();
+    if (l > 1e-9) s += Math.acos(Math.max(-1, Math.min(1, _a.dot(_b)))) * n.dot(_k) / l;
   }
-  function modus(m) {
-    no = m; var d = M[m];
-    [].forEach.call(document.querySelectorAll('[data-modus]'), function (b) { b.setAttribute('aria-pressed', b.dataset.modus === m); });
-    glidar.min = d.min; glidar.max = d.max; glidar.value = d.start; glidar.setAttribute('aria-label', m === 'mekanikk' ? 'Opne lampa' : 'Helling');
-    tekst.textContent = d.tekst; mv.cameraOrbit = d.bane; mv.cameraTarget = d.maal;
-    if (mv.loaded) { mv.animationName = d.anim; material(); (mv.updateComplete || Promise.resolve()).then(function () { requestAnimationFrame(vis); }); } else vis();
+  return 0.5 * L * Math.abs(s);
+}
+
+// ---------------------------------------------------------------- scena
+const lerret = document.getElementById('lerret');
+const renderer = new THREE.WebGLRenderer({ canvas: lerret, antialias: true, powerPreference: 'high-performance' });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.toneMapping = THREE.AgXToneMapping; renderer.outputColorSpace = THREE.SRGBColorSpace;
+RectAreaLightUniformsLib.init();
+const scene = new THREE.Scene(); scene.background = new THREE.Color(0x000000);
+scene.environment = new THREE.PMREMGenerator(renderer).fromScene(new RoomEnvironment(), 0.04).texture;
+const kamera = new THREE.PerspectiveCamera(22, 1, 0.05, 30);
+const styr = new OrbitControls(kamera, lerret);
+styr.enableDamping = true; styr.dampingFactor = 0.09; styr.enablePan = false; styr.minDistance = 0.5; styr.maxDistance = 3.4; styr.rotateSpeed = 0.7;
+
+// bordet: lyset blir rekna i kvar piksel med same formel som lux() over
+const OPP_N = new THREE.Vector3(0, 1, 0);
+const bordU = { n: { value: [0, 1, 2, 3].map(() => new THREE.Vector3()) }, k: { value: [0, 1, 2, 3].map(() => new THREE.Vector3()) }, o: { value: [0, 1, 2, 3].map(() => new THREE.Vector3()) },
+  nn: { value: new THREE.Vector3() }, no: { value: new THREE.Vector3() }, L: { value: new THREE.Vector3() }, farge: { value: LYS }, rho: { value: RHO }, enh: { value: ENH }, synleg: { value: 0 } };
+const bord = new THREE.Mesh(new THREE.PlaneGeometry(8, 8), new THREE.ShaderMaterial({ uniforms: bordU,
+  vertexShader: 'varying vec3 vP; void main() { vec4 w = modelMatrix * vec4(position, 1.0); vP = w.xyz; gl_Position = projectionMatrix * viewMatrix * w; }',
+  fragmentShader: `
+    varying vec3 vP; uniform vec3 n[4]; uniform vec3 k[4]; uniform vec3 o[4]; uniform vec3 nn; uniform vec3 no; uniform vec3 L; uniform vec3 farge; uniform float rho; uniform float enh; uniform float synleg;
+    float ledd(vec3 a, vec3 b) { vec3 c = cross(a, b); float l = length(c); return l < 1e-7 ? 0.0 : acos(clamp(dot(a, b), -1.0, 1.0)) * c.y / l; }
+    float firkant(vec3 h[4], float lum) { vec3 a = normalize(h[0] - vP), b = normalize(h[1] - vP), c = normalize(h[2] - vP), d = normalize(h[3] - vP);
+      return 0.5 * lum * abs(ledd(a, b) + ledd(b, c) + ledd(c, d) + ledd(d, a)); }
+    void main() {
+      float E = 0.0;                                                        // lux
+      if (dot(vP - n[0], nn) > 0.0) E += firkant(n, L.x) + firkant(k, L.y);
+      if (dot(vP - o[0], no) > 0.0) E += firkant(o, L.z);
+      vec3 farg = farge * (rho * E / 3.14159265 / enh);                     // lysstyrken til bordet, i same eining som resten av biletet
+      float line = 0.0, w = fwidth(E) * 1.2;                                // liner ved 50, 100, 200 og 400 lux
+      line = max(line, 1.0 - smoothstep(0.0, w, abs(E - 50.0))); line = max(line, 1.0 - smoothstep(0.0, w, abs(E - 100.0)));
+      line = max(line, 1.0 - smoothstep(0.0, w, abs(E - 200.0))); line = max(line, 1.0 - smoothstep(0.0, w, abs(E - 400.0)));
+      farg += vec3(0.11) * line;
+      gl_FragColor = vec4(farg * synleg, 1.0);
+      #include <tonemapping_fragment>
+      #include <colorspace_fragment>
+    }` }));
+bord.rotation.x = -Math.PI / 2; bord.visible = false; scene.add(bord);
+
+// ---------------------------------------------------------------- tilstand
+const M = {
+  lampe:    { min: 0, max: 80, steg: 1, kva: 'helling', start: 35, merke: v => 'Helling ' + Math.round(v) + '°', namn: 'Helling', bane: [-32, 10, 1.75], maal: [-0.03, 0.075, 0.05], rom: 0.42 },
+  mekanikk: { min: 0, max: 100, steg: 1, kva: 'opna', start: 100, merke: v => v < 0.5 ? 'Samla' : 'Opna ' + Math.round(v) + ' %', namn: 'Opne lampa', bane: [-38, 16, 2.35], maal: [-0.03, -0.03, 0.03], rom: 0.42 },
+  lys:      { min: 0.25, max: 3, steg: 0.05, kva: 'watt', start: 2, merke: v => v.toFixed(1).replace('.', ',') + ' W · ' + Math.round(v * LM_PER_W) + ' lm', namn: 'Effekt', bane: [-30, 26, 2.2], maal: [-0.03, 0.05, 0.07], rom: 0.012 }
+};
+let modus = 'lampe', farge = 'graabeige', skitten = true, flyr = false, sist = 0, klar = false, klarMs = 0, teikna = false, treg = 0;
+const no = { helling: 35, opna: 0, watt: 2, rom: 0.42, bord: 0 }, vil = { helling: 35, opna: 0, watt: 2, rom: 0.42, bord: 0 };
+const kamVil = { pos: new THREE.Vector3(), maal: new THREE.Vector3() };
+const glidar = document.getElementById('glidar'), verdi = document.getElementById('verdi'), tekst = document.getElementById('tekst');
+function bane(b, m) { const az = b[0] * Math.PI / 180, el = b[1] * Math.PI / 180; kamVil.maal.set(m[0], m[1], m[2]);
+  kamVil.pos.set(m[0] + b[2] * Math.sin(az) * Math.cos(el), m[1] + b[2] * Math.sin(el), m[2] + b[2] * Math.cos(az) * Math.cos(el)); }
+bane(M.lampe.bane, M.lampe.maal); kamera.position.copy(kamVil.pos); styr.target.copy(kamVil.maal);
+
+let mixer, vipp, opne, mat = {}, rigg = {}, kantlist;
+function oppdater() {                                                       // alt som følgjer av tilstanden: stilling, lysstyrkar, bordet, tala
+  if (!mixer) return;
+  vipp.time = (1 + no.helling) / 24; opne.time = (101 + 0.6 * no.opna) / 24; mixer.update(0);
+  const L = {}; for (const [k, f] of Object.entries(FLATER)) L[k] = luminans(no.watt, f);
+  for (const k of ['ned', 'kant', 'opp']) rigg[k].lys.intensity = L[k] / ENH;
+  mat.Akryl.emissiveIntensity = L.ned / ENH; mat.Ark.emissiveIntensity = L.opp / ENH; kantlist.material.color.copy(LYS).multiplyScalar(L.kant / ENH);
+  scene.environmentIntensity = no.rom; bordU.synleg.value = no.bord; bord.visible = no.bord > 0.002; bordU.L.value.set(L.ned, L.kant, L.opp);
+  scene.updateMatrixWorld(true);
+  for (const [k, u] of [['ned', bordU.n], ['kant', bordU.k], ['opp', bordU.o]]) {
+    const r = rigg[k], b = r.f.b / 2, h = r.f.h / 2; [[-b, -h], [b, -h], [b, h], [-b, h]].forEach((c, i) => r.lys.localToWorld(u.value[i].set(c[0], c[1], 0)));
   }
-  mv.addEventListener('load', function () { modus(no); if (mv.canActivateAR) document.getElementById('ar').hidden = false; });
-  glidar.addEventListener('input', vis);
-  verdi.addEventListener('click', function () { glidar.value = M[no].start; vis(); });
-  [].forEach.call(document.querySelectorAll('[data-modus]'), function (b) { b.addEventListener('click', function () { modus(b.dataset.modus); }); });
-  [].forEach.call(document.querySelectorAll('[data-farge]'), function (b) { b.addEventListener('click', function () {
-    farge = b.dataset.farge; material(); mv.setAttribute('ios-src', '3d/ruta' + (farge === 'graabeige' ? '' : '-' + farge) + '.usdz');
-    [].forEach.call(document.querySelectorAll('[data-farge]'), function (k) { k.setAttribute('aria-pressed', k === b); });
-  }); });
-  document.getElementById('ar').addEventListener('click', function () { mv.activateAR(); });
-  tekst.textContent = M.lampe.tekst; fyll();
-})();
+  bordU.nn.value.set(0, 0, -1).transformDirection(rigg.ned.lys.matrixWorld); bordU.no.value.set(0, 0, -1).transformDirection(rigg.opp.lys.matrixWorld);
+  if (modus === 'lys') { const s = Math.round(luxBord(midtUnder())) + ' lx på bordet rett under ruta · liner ved 400, 200, 100 og 50 lx · rekna, ikkje målt'; if (s !== tekst.textContent) tekst.textContent = s; }
+}
+function luxBord(p) {                                                       // p er eit punkt på bordet. Same sum som i skyggjaren
+  const u = bordU, L = u.L.value; let E = 0;
+  if (_k.subVectors(p, u.n.value[0]).dot(u.nn.value) > 0) E += lux(p, OPP_N, u.n.value, L.x) + lux(p, OPP_N, u.k.value, L.y);
+  if (_k.subVectors(p, u.o.value[0]).dot(u.no.value) > 0) E += lux(p, OPP_N, u.o.value, L.z);
+  return E;
+}
+const _m = new THREE.Vector3();
+function midtUnder() { _m.set(0, 0, 0); bordU.o.value.forEach(h => _m.add(h)); _m.multiplyScalar(0.25); _m.y = 0; return _m; }
+
+function vis() { const d = M[modus], v = +glidar.value; vil[d.kva] = v; verdi.textContent = d.merke(v);
+  glidar.style.setProperty('--fyll', (100 * (v - d.min) / (d.max - d.min)) + '%'); skitten = true; }
+function byt(m) {
+  modus = m; const d = M[m];
+  document.querySelectorAll('[data-modus]').forEach(b => b.setAttribute('aria-pressed', b.dataset.modus === m));
+  glidar.min = d.min; glidar.max = d.max; glidar.step = d.steg; glidar.setAttribute('aria-label', d.namn);
+  glidar.value = m === 'mekanikk' ? d.start : vil[d.kva];
+  vil.opna = m === 'mekanikk' ? +glidar.value : 0; vil.rom = d.rom; vil.bord = m === 'lys' ? 1 : 0;
+  styr.maxPolarAngle = m === 'lys' ? 1.5 : 1.9; tekst.textContent = '';
+  bane(d.bane, d.maal); flyr = true; vis();
+}
+
+function steg(tid) {
+  requestAnimationFrame(steg);
+  const raa = (tid - sist) / 1000, dt = Math.min(0.05, raa || 0.016); sist = tid;
+  let endra = false; const f = 1 - Math.exp(-dt / 0.085);
+  for (const k in vil) { const d = vil[k] - no[k]; if (Math.abs(d) > 1e-4) { no[k] += Math.abs(d) < 1e-3 ? d : d * f; endra = true; } }
+  if (flyr) { const g = 1 - Math.exp(-dt / 0.22); kamera.position.lerp(kamVil.pos, g); styr.target.lerp(kamVil.maal, g);
+    if (kamera.position.distanceToSquared(kamVil.pos) < 1e-6) flyr = false; endra = true; }
+  if (endra) oppdater();
+  const skal = styr.update() || endra || skitten;
+  if (skal) { renderer.render(scene, kamera); skitten = false; if (klar) lerret.classList.add('klar');
+    // held ikkje maskina følgje (under 25 bilete i sekundet ti gonger på rad), blir biletet teikna med færre punkt. Lange opphald er ei fane i bakgrunnen og tel ikkje
+    if (teikna && raa > 0.040 && raa < 0.12) { if (++treg >= 10 && renderer.getPixelRatio() > 1) { renderer.setPixelRatio(Math.max(1, renderer.getPixelRatio() - 0.5)); storleik(); treg = 0; } } else treg = 0; }
+  teikna = skal;
+}
+function storleik() { const b = innerWidth, h = innerHeight; renderer.setSize(b, h, false); kamera.aspect = b / h; kamera.fov = b < h ? 34 : 22; kamera.updateProjectionMatrix(); skitten = true; }
+addEventListener('resize', storleik); storleik();
+styr.addEventListener('start', () => { flyr = false; });
+
+// ---------------------------------------------------------------- modellen
+const draco = new DRACOLoader().setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.6/'); draco.preload();   // hentar utpakkaren medan modellen er på veg
+new GLTFLoader().setDRACOLoader(draco).load('3d/ruta-studio.glb', g => {
+  const f = FARGAR[farge], S = (o) => new THREE.MeshStandardMaterial(o), c = (r, gg, b) => new THREE.Color().setRGB(r, gg, b);
+  mat = { Lakk: S({ color: c(f[0], f[1], f[2]), roughness: 0.56 }), Leidning: S({ color: c(f[0], f[1], f[2]), roughness: 0.9 }),
+    Messing: S({ color: c(0.78, 0.52, 0.20), metalness: 1, roughness: 0.27 }), Staal: S({ color: c(0.50, 0.50, 0.52), metalness: 1, roughness: 0.4 }),
+    Alu: S({ color: c(0.72, 0.72, 0.74), metalness: 1, roughness: 0.35 }), Skrue: S({ color: c(0.02, 0.02, 0.02), metalness: 0.6, roughness: 0.5 }),
+    Pute: S({ color: c(0.012, 0.012, 0.013), roughness: 0.85 }), Stripe: S({ color: c(1, 0.9, 0.7), emissive: LYS, emissiveIntensity: 2.2, roughness: 0.5 }),
+    Akryl: S({ color: c(0.02, 0.02, 0.02), roughness: 0.18, emissive: LYS }), Ark: S({ color: c(0.03, 0.03, 0.03), roughness: 0.34, emissive: LYS }) };
+  let blad;
+  g.scene.traverse(o => { if (o.name === 'Blad') blad = o; if (o.isMesh && mat[o.material.name]) o.material = mat[o.material.name]; });
+  // dei tre lysande flatene følgjer bladet: éi lysflate kvar, og ei list som viser kanten
+  for (const [k, fl] of Object.entries(FLATER)) {
+    const lys = new THREE.RectAreaLight(LYS, 1, fl.b, fl.h), z = fl.veg.clone().negate(), y = new THREE.Vector3().crossVectors(z, XH).normalize();
+    lys.position.set((GEO.X0 + GEO.X1) / 2, 0, 0).addScaledVector(UT, (fl.u0 + fl.u1) / 2).addScaledVector(fl.veg, fl.loft);
+    lys.quaternion.setFromRotationMatrix(new THREE.Matrix4().makeBasis(XH, y, z)); blad.add(lys); rigg[k] = { lys, f: fl };
+  }
+  kantlist = new THREE.Mesh(new THREE.BoxGeometry(FLATER.kant.b, KANT_B, 0.0036), new THREE.MeshBasicMaterial({ color: 0xffffff }));
+  kantlist.position.copy(rigg.kant.lys.position).addScaledVector(NEDOVER, -FLATER.kant.loft); kantlist.quaternion.copy(rigg.kant.lys.quaternion); blad.add(kantlist);
+  mixer = new THREE.AnimationMixer(g.scene);
+  vipp = mixer.clipAction(THREE.AnimationClip.findByName(g.animations, 'Vipp')); opne = mixer.clipAction(THREE.AnimationClip.findByName(g.animations, 'Opne'));
+  for (const a of [vipp, opne]) { a.play(); a.paused = true; }
+  scene.add(g.scene); oppdater(); renderer.compile(scene, kamera); klar = true; klarMs = Math.round(performance.now()); skitten = true;
+});
+
+// ---------------------------------------------------------------- styringa
+glidar.addEventListener('input', vis);
+verdi.addEventListener('click', () => { glidar.value = M[modus].start; vis(); });
+document.querySelectorAll('[data-modus]').forEach(b => b.addEventListener('click', () => byt(b.dataset.modus)));
+document.querySelectorAll('[data-farge]').forEach(b => b.addEventListener('click', () => {
+  farge = b.dataset.farge; const f = FARGAR[farge];
+  if (mat.Lakk) { mat.Lakk.color.setRGB(f[0], f[1], f[2]); mat.Leidning.color.setRGB(f[0], f[1], f[2]); }
+  document.getElementById('ar').href = '3d/ruta' + (farge === 'graabeige' ? '' : '-' + farge) + '.usdz';
+  document.querySelectorAll('[data-farge]').forEach(k => k.setAttribute('aria-pressed', k === b)); skitten = true;
+}));
+const ar = document.getElementById('ar'); if (ar.relList && ar.relList.supports && ar.relList.supports('ar')) ar.hidden = false;
+vis(); requestAnimationFrame(steg);
+
+// til prøving: lux i eit punkt på bordet (CAD-koordinatar, meter), og kva éi oppteikning kostar
+window.ruta = {
+  lux: (x, y, helling, watt) => { no.helling = vil.helling = helling; no.watt = vil.watt = watt; oppdater(); return luxBord(tre(x, y, 0)); },
+  kost: (n = 120) => { const gl = renderer.getContext(), px = new Uint8Array(4), tid = [];                         // kvar oppteikning blir venta ut (readPixels), så talet er heile kostnaden
+    for (let i = 0; i < n; i++) { const t0 = performance.now(); no.helling = 35 + 20 * Math.sin(i / 9); oppdater(); renderer.render(scene, kamera);
+      gl.readPixels(0, 0, 1, 1, gl.RGBA, gl.UNSIGNED_BYTE, px); tid.push(performance.now() - t0); }
+    const ut = { trekantar: renderer.info.render.triangles, kall: renderer.info.render.calls, punkt: [lerret.width, lerret.height] };
+    no.helling = vil.helling; oppdater(); skitten = true; tid.sort((x, y) => x - y);
+    return { median_ms: tid[n >> 1], p95_ms: tid[Math.floor(n * 0.95)], ...ut }; },
+  sett: (m, v) => { byt(m); if (v !== undefined) { glidar.value = v; vis(); } for (const k in vil) no[k] = vil[k]; kamera.position.copy(kamVil.pos); styr.target.copy(kamVil.maal); flyr = false; styr.update(); oppdater(); renderer.render(scene, kamera); return tekst.textContent; },
+  info: () => ({ modus, no: { ...no }, klar, klarMs, punkt: [innerWidth, innerHeight, renderer.getPixelRatio()] })
+};
 </script>
 </body>
 </html>

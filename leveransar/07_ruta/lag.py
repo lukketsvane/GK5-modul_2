@@ -15,7 +15,7 @@ Skriv
   ../../ruta/index.html    studioet: éin svart skjerm med modellen, tre modusar og éin glidar (malen er studio.html.mal)
   ../../ruta/forteljing.html   forteljinga: rendringane og streken nedover éi side
 
-Tala kjem frå CAD-kontrollen (konsept/film/cad/ut-b/kontroll.json), streken frå teikning_b.py.
+Tala kjem frå CAD-kontrollen (konsept/film/cad/ut-b/kontroll.json) og lysmodellen (ut-b/lysmodell.json), streken frå teikning_b.py.
 """
 import os, sys, json, math, re, shutil, subprocess
 from PIL import Image, ImageChops
@@ -32,6 +32,7 @@ CHROME = r'C:\Program Files\Google\Chrome\Application\chrome.exe'
 B, H = 1127, 797
 
 K = json.load(open(os.path.join(CAD, 'ut-b', 'kontroll.json'), encoding='utf-8'))
+LYSTAL = next(b for b in json.load(open(os.path.join(CAD, 'ut-b', 'lysmodell.json'), encoding='utf-8'))['bord'] if b['watt'] == 2.0 and b['helling'] == 35)   # frå lysmodell.py
 
 def kom(x, n=1): return (('%%.%df' % n) % x).replace('.', ',')
 def finst(n): return os.path.exists(os.path.join(BIL, n + '.jpg'))
@@ -53,8 +54,8 @@ INNHALD = [
     dict(id='kant', bilete='r-kant', h1='Lyset kjem frå kanten.', tekst='Ei LED-stripe i bjelken lyser inn i ei klar plate. Eit prismeark frå ein gammal skjerm sender lyset ut.',
          plass='right: 72px; bottom: 96px; width: 470px; text-align: right;', breidd=470, merke='Rillene i arket er teikna grovare enn dei er'),
     dict(id='boge', bilete='r-boge', h1='Eitt røyr, éin boge.', tekst='Stål, 12&nbsp;mm. Éin boge på 120° med 45&nbsp;mm radius.', plass='left: 290px; bottom: 96px;'),
-    dict(id='kveld', bilete='r-kveld', h1='Om kvelden.', tekst='190&nbsp;lx på bordet under ruta ved 2&nbsp;W. Eit stemningslys og sidelys, ikkje eit arbeidslys.',
-         plass='left: 72px; top: 318px;', breidd=290, merke='Lystalet er eit overslag for revisjon A, som har same rute og høgd'),
+    dict(id='kveld', bilete='r-kveld', h1='Om kvelden.', tekst='%d&nbsp;lx i snitt på bordet under ruta ved 2&nbsp;W, %d&nbsp;lx rett under midten. Eit stemningslys og sidelys, ikkje eit arbeidslys.' % (round(LYSTAL['snitt']), round(LYSTAL['under_midten'])),
+         plass='left: 72px; top: 318px;', breidd=290, merke='Lystala er rekna med matte flater, ikkje målte'),
     dict(id='opna', bilete='r-sprengt', h1='Tretten delar,<br>fire skruar.', tekst='Ingen skruar syner ovanfrå.',
          plass='left: 72px; top: 290px;', breidd=250),
 ]
@@ -75,7 +76,7 @@ def kontrollert():
 
 IKKJE_PROVD = ['Bøyen i røyret: 120° med 45&nbsp;mm radius krev røyrbøyar.', 'Friksjonen og stoppen er teikna, ikkje bygde.',
                'Touch-dimmaren er ikkje vald.', 'At arket er ein prismefilm, er ikkje prøvd.', 'Ingen slicer-kontroll og ingen fysisk modell.',
-               'Lyset er eit overslag for revisjon A og er ikkje rekna på nytt.']
+               'Lyset er rekna med matte flater og er ikkje målt.']
 
 # ------------------------------------------------------------------ bileta
 
@@ -367,7 +368,10 @@ def nettstad():
     # studioet: éin svart skjerm med modellen, tre modusar og éin glidar
     knapp = ''.join('<button type="button" data-farge="%s" aria-label="%s" aria-pressed="%s" style="background: %s;"></button>' % (k, n, 'true' if i == 0 else 'false', srgb(c)) for i, (k, n, c) in enumerate(FARGAR))
     mal = open(os.path.join(HER, 'studio.html.mal'), encoding='utf-8').read()
-    st = mal.replace('__KNAPPAR__', knapp).replace('__FARGAR__', json.dumps({k: [round(c[0], 4), round(c[1], 4), round(c[2], 4), n] for k, n, c in FARGAR}, ensure_ascii=False))
+    Gm = json.load(open(os.path.join(CAD, 'ut-b', 'geometri.json'), encoding='utf-8'))            # same mål som lysmodell.py reknar med, i meter
+    geo = dict(X0=Gm['XR0'] / 1000.0, X1=Gm['XR1'] / 1000.0, U1=(Gm['EKS'] + Gm['U_KANT'] + Gm['RUTE_D']) / 1000.0, YT=Gm['YT'] / 1000.0, AKSE_H=Gm['AKSE_H'] / 1000.0)
+    st = (mal.replace('__KNAPPAR__', knapp).replace('__GEO__', json.dumps(geo))
+             .replace('__FARGAR__', json.dumps({k: [round(c[0], 4), round(c[1], 4), round(c[2], 4), n] for k, n, c in FARGAR}, ensure_ascii=False)))
     assert '—' not in st and '–' not in st
     open(os.path.join(NETT, 'index.html'), 'w', encoding='utf-8').write(st)
     print('nettstad: ruta/index.html (studio) og ruta/forteljing.html (%d bolkar), 3d: %s' % (len([x for x in del_ if x]), ' '.join(sorted(os.listdir(os.path.join(NETT, '3d'))))))

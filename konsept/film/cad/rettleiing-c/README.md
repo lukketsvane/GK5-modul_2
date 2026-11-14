@@ -1,4 +1,4 @@
-# Monteringsrettleiing for Ruta på fot, revisjon C (M02)
+# Monteringsrettleiing for Ruta på fot, revisjon C (M03)
 
 ![Kontaktark](ut/kontaktark.png)
 
@@ -17,26 +17,30 @@ python <formnerd>/verktoy/ikea/bygg.py spesifikasjon.json ut     # PDF, sider, k
 
 | Steg | Handling | Kvifor her |
 | --- | --- | --- |
-| | Kapp røyret i 242 og 308 mm | Alt anna ventar på røyra |
-| 1 | Røyra (04, 09) limte i bogestykket (12) | Muffene styrer vinkelen |
-| 2 | Stamma limt i foten (01), akselrøyret i vater | Vateret på akselrøyret er det einaste som må stillast |
-| 3 | Bjelkehalvdelane (05) limte saman på restrøyret | Røyret held boringa rett medan limet set seg |
+| | Kapp røyret i 242 og 308 mm, og éin M3 × 10 til 8 mm (G) | Alt anna ventar på røyra |
+| 1 | 33 skiver på tappane i foten (01), limte | Foten ligg opp ned og er open. Limet held skivene til botnloket kjem på |
+| 2 | Røyra (04, 09) limte i bogestykket (12) | Muffene styrer vinkelen |
+| 3 | Stamma limt i foten, fotringen (14) flatt mot foten, akselrøyret i vater | Ringen set hellinga. Vateret er det einaste som må stillast. Trekkjesnora må inn før limet |
+| 4 | Bjelkehalvdelane (05) limte saman på restrøyret, med to filamentpinnar | Røyret held boringa rett, pinnane held vinkelen |
 | | Lakk | Før lys og rute. Akselrøyr, boring og spalte er teipa |
-| 4 | Bremsesko (13) og LED-stripe (10) | Skoen går inn frå LED-kanalen og må inn før stripa |
-| 5 | Prismeark (08), så lysleiar (07) | Bjelken ligg med undersida opp |
-| 6 | Lok (06) med 5 E, endelok (11) | Klemmer ruta. Loket bind skøyten i bjelken |
-| 7 | Bjelken inn på akselrøyret | Leidningen går gjennom røyra til foten først |
-| 8 | Låseskrue (E) og bremseskrue (F), ved 28° | Låseskruen går i sporet i kragen og held bjelken på røyret |
-| 9 | 33 skiver på pinnane, lampa på ryggen | Skivene ligg laust til botnloket er på |
-| 10 | Wago-klemmer (W), botnlok (02) med 3 F | Skøyten ligg i koplingsrommet, strips som strekkavlasting |
+| 5 | Bremsesko (13) og LED-stripe (10) | Skoen går inn frå LED-kanalen og må inn før stripa |
+| 6 | Prismeark (08), så lysleiar (07) | Bjelken ligg med undersida opp |
+| 7 | Lok (06) med 5 E, endelok (11) | Klemmer ruta. Loket bind skøyten i bjelken |
+| 8 | Bjelken inn på akselrøyret | Leidningen blir dregen gjennom røyra med snora. Røyret skuvar skoen på plass under skruen |
+| 9 | Låseskrue (E) og bremseskrue (G), ved 28° | Låseskruen går i sporet i kragen og held bjelken på røyret |
+| 10 | Wago-klemmer (W), botnlok (02) med 3 F, lampa på ryggen | Skøyten ligg i koplingsrommet, strips som strekkavlasting |
 | 11 | 16 knottar (K) | Lampa står på knottane, 75 mm frå midten |
 | | Kontroll ved 0° og 80° | Same rørsle som kollisjonskontrollen i `ruta_c.py` |
 
+## Endra frå M02
+
+Rekkjefølgja og delane følgjer rettingane etter den uavhengige kontrollen (sjå `../02-produksjonsklar.md`): fotringen (14) er ny, bremseskruen er eit eige beslag (G), skivene blir limte i steg 1, stripa er 27 cm, og notane nemner trekkjesnor, styrepinnar og etterstramming.
+
 ## Antakingar og det som manglar
 
-- **Bremseskruen** er G i `ruta_c.py` og F i heftet. Det er same skrue som i botnloket (M3 × 10), så heftet tel han saman med dei.
-- **Leidningen** er ikkje teikna i stega, berre nemnd i steg 7 og 10.
-- **Digitalt kontrollert:** `ut/rapport.json` har ingen åtvaringar, og mengdene i stega stemmer med dellista (6 E, 4 F, 33 S, 2 W, 16 K).
+- **Leidningen** og trekkjesnora er ikkje teikna i stega, berre nemnde i steg 3, 8 og 10.
+- **Filamentpinnane** i steg 4 er ikkje teikna.
+- **Digitalt kontrollert:** `ut/rapport.json` har ingen åtvaringar, og mengdene i stega stemmer med dellista (6 E, 3 F, 1 G, 33 S, 2 W, 16 K).
 - **Ikkje prøvd fysisk:** ingenting er trykt eller montert. Heftet er ikkje prov på at delane passar.
 
 Referansane og grepa som er overførte, står i `ikea-reference-audit.md`.

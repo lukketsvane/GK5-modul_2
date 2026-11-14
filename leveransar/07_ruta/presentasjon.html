@@ -2,6 +2,7 @@
 <html lang="nn">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ruta</title>
 <style>
   @font-face { font-family: "EBG"; src: url("../01_fase1_sider/fonts/EBGaramond12-Regular.otf") format("opentype"); font-style: normal; }
@@ -18,11 +19,22 @@
   h1.namn { font-size: 132px; line-height: 0.9; letter-spacing: -0.03em; }
   p.t { font: 400 17.5px/1.44 "EBG", serif; color: #A6A29B; margin: 18px 0 0; }
   .sm { font: 400 9.5px/1.3 "EBG", serif; letter-spacing: 0.2em; text-transform: uppercase; color: #6C6964; }
-  .sm b { color: #A6A29B; }
   .folio { position: absolute; left: 72px; right: 72px; bottom: 38px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: baseline; }
   .folio span:last-child { text-align: right; }
-  .namnrad { position: absolute; left: 0; right: 0; bottom: 92px; display: grid; grid-template-columns: repeat(4, 1fr); }
-  .namnrad span { text-align: center; }
+  table.delar { border-collapse: collapse; font: 400 13.5px/1.25 "EBG", serif; width: 100%; }
+  table.delar td { padding: 5.5px 0; border-bottom: 1px solid #1D1C1A; vertical-align: baseline; }
+  table.delar td.id { width: 30px; color: #6C6964; }
+  table.delar td.k { color: #8A8781; text-align: right; }
+  .liste { font: 400 15px/1.35 "EBG", serif; }
+  .liste div { display: grid; grid-template-columns: 1fr auto; column-gap: 18px; padding: 7px 0; border-bottom: 1px solid #1D1C1A; }
+  .liste div span:last-child { color: #8A8781; text-align: right; }
+  .liste.ein div { grid-template-columns: 1fr; color: #C9C5BE; }
+  @media screen {
+    html { scroll-snap-type: y mandatory; }
+    body { display: flex; flex-direction: column; align-items: center; }
+    .side { zoom: var(--k, 1); scroll-snap-align: start; flex: none; }
+  }
+
   svg { display: block; overflow: visible; }
   svg .k { stroke: #F4F1EB; stroke-width: 1.0; fill: none; }
   svg .s { stroke: #F4F1EB; stroke-width: 0.6; fill: none; }
@@ -36,36 +48,28 @@
   svg text.nr { fill: #F4F1EB; font-size: 15px; }
   svg text.mt { fill: #C9C5BE; font-size: 12.5px; }
   svg text.et { fill: #6C6964; font-size: 9.5px; letter-spacing: 0.2em; }
-  table.delar { border-collapse: collapse; font: 400 13.5px/1.25 "EBG", serif; width: 100%; }
-  table.delar td { padding: 5.5px 0; border-bottom: 1px solid #1D1C1A; vertical-align: baseline; }
-  table.delar td.id { width: 30px; color: #6C6964; }
-  table.delar td.k { color: #8A8781; text-align: right; }
-  .liste { font: 400 15px/1.35 "EBG", serif; }
-  .liste div { display: grid; grid-template-columns: 1fr auto; column-gap: 18px; padding: 7px 0; border-bottom: 1px solid #1D1C1A; }
-  .liste div span:last-child { color: #8A8781; text-align: right; }
-  .liste.ein div { grid-template-columns: 1fr; color: #C9C5BE; }
 </style>
 </head>
 <body>
-<section class="side"><img class="bak" src="bilete/svart.jpg" alt=""><img class="bak" src="bilete/f-framside.jpg" alt="">
+<section class="side"><img class="bak" src="bilete/svart.jpg" alt=""><img class="bak" src="bilete/r-framside.jpg" alt="">
 <div class="ord" style="left: 300px; top: 468px;"><h1 class="namn">Ruta</h1><p class="t" style="margin-top: 28px; font-size: 20px; color: #C9C5BE;">Ei lysande rute på éin stilk.</p></div>
-<div class="ord sm" style="left: 304px; right: 72px; bottom: 38px; display: flex; justify-content: space-between;"><span>Iver R. Finne · GK5 modul 2 · AHO · 2026</span><span>Generert bilete etter CAD-modellen</span></div></section>
+<div class="ord sm" style="left: 304px; right: 72px; bottom: 38px; display: flex; justify-content: space-between;"><span>Iver R. Finne · GK5 modul 2 · AHO · 2026</span><span>Rendring av CAD-modellen</span></div></section>
 
-<section class="side"><img class="bak" src="bilete/svart.jpg" alt=""><img class="bak" src="bilete/f-helt.jpg" alt=""><div class="ord" style="left: 72px; top: 318px;"><h1>Ei rute som lyser.</h1><p class="t" style="max-width: 300px;">Stemningsskapande lampe for heim og arbeid.</p></div><div class="folio sm"><span>Ruta</span><span>Generert bilete etter CAD-modellen</span><span>02</span></div></section>
+<section class="side"><img class="bak" src="bilete/svart.jpg" alt=""><img class="bak" src="bilete/r-helt.jpg" alt=""><div class="ord" style="left: 72px; top: 318px;"><h1>Ei rute som lyser.</h1><p class="t" style="max-width: 300px;">Stemningsskapande lampe for heim og arbeid.</p></div><div class="folio sm"><span>Ruta</span><span>Rendring av CAD-modellen</span><span>02</span></div></section>
 
-<section class="side"><img class="bak" src="bilete/svart.jpg" alt=""><img class="bak" src="bilete/f-front.jpg" alt="" style="left: 170px;"><div class="ton" style="left: 169px;"></div><div class="ord" style="left: 72px; top: 250px;"><h1>Skive.<br>Røyr.<br>Blad.</h1><p class="t" style="max-width: 230px;">Tre former møtest utan overgang. Røyret er stamme, aksel og kabelveg i eitt.</p></div><div class="folio sm"><span>Ruta</span><span>Generert bilete etter CAD-modellen</span><span>03</span></div></section>
+<section class="side"><img class="bak" src="bilete/svart.jpg" alt=""><img class="bak" src="bilete/r-front.jpg" alt="" style="left: 170px;"><div class="ton" style="left: 169px;"></div><div class="ord" style="left: 72px; top: 250px;"><h1>Skive.<br>Røyr.<br>Blad.</h1><p class="t" style="max-width: 230px;">Tre former møtest utan overgang. Røyret er stamme, aksel og kabelveg i eitt.</p></div><div class="folio sm"><span>Ruta</span><span>Rendring av CAD-modellen</span><span>03</span></div></section>
 
-<section class="side"><img class="bak" src="bilete/svart.jpg" alt=""><img class="bak" src="bilete/f-vifte.jpg" alt=""><div class="ord" style="left: 72px; top: 318px;"><h1>Vipp.</h1><p class="t" style="max-width: 280px;">Éi handling, frå vassrett til 80°. Stoppen og friksjonen ligg skjult inni bjelken.</p></div><div class="folio sm"><span>Ruta</span><span>Generert bilete etter CAD-modellen</span><span>04</span></div></section>
+<section class="side"><img class="bak" src="bilete/svart.jpg" alt=""><img class="bak" src="bilete/r-vifte.jpg" alt=""><div class="ord" style="left: 72px; top: 64px;"><h1>Vipp.</h1><p class="t" style="max-width: 420px;">Éi handling, frå vassrett til 80°. Stoppen og friksjonen ligg skjult inni bjelken.</p></div><div class="folio sm"><span>Ruta</span><span>Tre rendringar av CAD-modellen: 0°, 40° og 80°</span><span>04</span></div></section>
 
-<section class="side"><img class="bak" src="bilete/svart.jpg" alt=""><img class="bak" src="bilete/f-messing.jpg" alt=""><div class="ord" style="left: 72px; bottom: 96px;"><h1>Eitt punkt i messing.</h1><p class="t" style="max-width: 300px;">Der du tek. Trykk for av og på, hald for å dimme.</p></div><div class="folio sm"><span>Ruta</span><span>Generert bilete etter CAD-modellen</span><span>05</span></div></section>
+<section class="side"><img class="bak" src="bilete/svart.jpg" alt=""><img class="bak" src="bilete/r-messing.jpg" alt=""><div class="ord" style="left: 72px; bottom: 96px;"><h1>Eitt punkt i messing.</h1><p class="t" style="max-width: 300px;">Der du tek. Trykk for av og på, hald for å dimme.</p></div><div class="folio sm"><span>Ruta</span><span>Rendring av CAD-modellen</span><span>05</span></div></section>
 
-<section class="side"><img class="bak" src="bilete/svart.jpg" alt=""><img class="bak" src="bilete/f-kant.jpg" alt=""><div class="ord" style="right: 72px; bottom: 96px; width: 470px; text-align: right;"><h1>Lyset kjem frå kanten.</h1><p class="t" style="max-width: 470px;">Ei LED-stripe i bjelken lyser inn i ei klar plate. Eit prismeark frå ein gammal skjerm sender lyset ut.</p></div><div class="folio sm"><span>Ruta</span><span>Generert bilete etter CAD-modellen</span><span>06</span></div></section>
+<section class="side"><img class="bak" src="bilete/svart.jpg" alt=""><img class="bak" src="bilete/r-kant.jpg" alt=""><div class="ord" style="right: 72px; bottom: 96px; width: 470px; text-align: right;"><h1>Lyset kjem frå kanten.</h1><p class="t" style="max-width: 470px;">Ei LED-stripe i bjelken lyser inn i ei klar plate. Eit prismeark frå ein gammal skjerm sender lyset ut.</p></div><div class="folio sm"><span>Ruta</span><span>Rendring av CAD-modellen · rillene i arket er teikna grovare enn dei er</span><span>06</span></div></section>
 
-<section class="side"><img class="bak" src="bilete/svart.jpg" alt=""><img class="bak" src="bilete/f-boge.jpg" alt=""><div class="ord" style="left: 290px; bottom: 96px;"><h1>Eitt røyr, éin boge.</h1><p class="t" style="max-width: 300px;">Stål, 12&nbsp;mm. Éin boge på 120° med 45&nbsp;mm radius.</p></div><div class="folio sm"><span>Ruta</span><span>Generert bilete etter CAD-modellen</span><span>07</span></div></section>
+<section class="side"><img class="bak" src="bilete/svart.jpg" alt=""><img class="bak" src="bilete/r-boge.jpg" alt=""><div class="ord" style="left: 290px; bottom: 96px;"><h1>Eitt røyr, éin boge.</h1><p class="t" style="max-width: 300px;">Stål, 12&nbsp;mm. Éin boge på 120° med 45&nbsp;mm radius.</p></div><div class="folio sm"><span>Ruta</span><span>Rendring av CAD-modellen</span><span>07</span></div></section>
 
-<section class="side"><img class="bak" src="bilete/svart.jpg" alt=""><img class="bak" src="bilete/p0-framside.jpg" alt=""><div class="ord" style="left: 72px; top: 318px;"><h1>Om kvelden.</h1><p class="t" style="max-width: 290px;">190&nbsp;lx på bordet under ruta ved 2&nbsp;W. Eit stemningslys og sidelys, ikkje eit arbeidslys.</p></div><div class="folio sm"><span>Ruta</span><span>Generert bilete etter CAD-modellen · overslag for revisjon A, same rute og høgd</span><span>08</span></div></section>
+<section class="side"><img class="bak" src="bilete/svart.jpg" alt=""><img class="bak" src="bilete/r-kveld.jpg" alt=""><div class="ord" style="left: 72px; top: 318px;"><h1>Om kvelden.</h1><p class="t" style="max-width: 290px;">190&nbsp;lx på bordet under ruta ved 2&nbsp;W. Eit stemningslys og sidelys, ikkje eit arbeidslys.</p></div><div class="folio sm"><span>Ruta</span><span>Rendring av CAD-modellen · lystalet er eit overslag for revisjon A, same rute og høgd</span><span>08</span></div></section>
 
-<section class="side"><img class="bak" src="bilete/svart.jpg" alt=""><img src="bilete/fargar.jpg" alt="" style="position: absolute; left: 300px; top: 106px; width: 827px; height: 585px; display: block;"><div class="ord sm" style="left: 320px; top: 124px; color: #A6A29B;">Grå-beige</div><div class="ord sm" style="left: 734px; top: 124px; color: #A6A29B;">Mørkegrøn</div><div class="ord sm" style="left: 320px; top: 417px; color: #A6A29B;">Svart</div><div class="ord sm" style="left: 734px; top: 417px; color: #A6A29B;">Kirsebærraud</div><div class="ord" style="left: 72px; top: 250px;"><h1>Éin<br>matt<br>farge.</h1><p class="t" style="max-width: 190px;">Foten, røyret og bjelken får same pulverlakk. Messingen er den einaste andre fargen.</p></div><div class="folio sm"><span>Ruta</span><span>Generert bilete etter CAD-modellen</span><span>09</span></div></section>
+<section class="side"><img class="bak" src="bilete/svart.jpg" alt=""><img src="bilete/r-fargar.jpg" alt="" style="position: absolute; left: 300px; top: 106px; width: 827px; height: 585px; display: block;"><div class="ord sm" style="left: 320px; top: 124px; color: #A6A29B;">Grå-beige</div><div class="ord sm" style="left: 734px; top: 124px; color: #A6A29B;">Mørkegrøn</div><div class="ord sm" style="left: 320px; top: 417px; color: #A6A29B;">Svart</div><div class="ord sm" style="left: 734px; top: 417px; color: #A6A29B;">Kirsebærraud</div><div class="ord" style="left: 72px; top: 250px;"><h1>Éin<br>matt<br>farge.</h1><p class="t" style="max-width: 190px;">Foten, røyret og bjelken får same pulverlakk. Messingen er den einaste andre fargen.</p></div><div class="folio sm"><span>Ruta</span><span>Fire rendringar av CAD-modellen</span><span>09</span></div></section>
 
 <section class="side"><img class="bak" src="bilete/svart.jpg" alt="">
 <div class="ord" style="left: 64px; top: 46px;"><svg class="strek" width="623" height="690" viewBox="0 0 776 859" xmlns="http://www.w3.org/2000/svg">
@@ -652,10 +656,24 @@
 </div>
 <div class="folio sm"><span>Ruta</span><span>Teikna frå CAD-modellen · mål i mm</span><span>11</span></div></section>
 
-<section class="side"><img class="bak" src="bilete/svart.jpg" alt=""><img class="bak" src="bilete/f-profil.jpg" alt="" style="left: -215px;"><div class="ton" style="left: 773px; transform: scaleX(-1);"></div>
+<section class="side"><img class="bak" src="bilete/svart.jpg" alt=""><img class="bak" src="bilete/r-profil.jpg" alt="" style="left: -215px;"><div class="ton" style="left: 773px; transform: scaleX(-1);"></div>
 <div class="ord" style="left: 640px; top: 64px; width: 415px;"><h1 style="font-size: 44px;">Kontrollert, ikkje bygd.</h1>
 <div class="sm" style="margin-top: 34px;">Kontrollert i CAD</div><div class="liste" style="margin-top: 8px;"><div><span>Masse</span><span>1112 g av høgst 1200</span></div><div><span>Fotavtrykk</span><span>196 cm² av høgst 200</span></div><div><span>Tyngdepunktet frå midten av foten</span><span>7 mm</span></div><div><span>Trykk på hjørnet av ruta som veltar lampa</span><span>7,3 N</span></div><div><span>Helling utan kollisjon</span><span>0° til 80°</span></div></div>
 <div class="sm" style="margin-top: 30px;">Ikkje prøvd</div><div class="liste ein" style="margin-top: 8px;"><div>Bøyen i røyret: 120° med 45&nbsp;mm radius krev røyrbøyar.</div><div>Friksjonen og stoppen er teikna, ikkje bygde.</div><div>Touch-dimmaren er ikkje vald.</div><div>At arket er ein prismefilm, er ikkje prøvd.</div><div>Ingen slicer-kontroll og ingen fysisk modell.</div><div>Lyset er eit overslag for revisjon A og er ikkje rekna på nytt.</div></div></div>
-<div class="folio sm"><span>Ruta</span><span>Generert bilete etter CAD-modellen</span><span>12</span></div></section>
+<div class="folio sm"><span>Ruta</span><span>Rendring av CAD-modellen</span><span>12</span></div></section>
+<script>
+(function () {
+  var s = [].slice.call(document.querySelectorAll('.side')), i = 0;
+  function maal() { document.documentElement.style.setProperty('--k', Math.min(innerWidth / 1127, innerHeight / 797)); }
+  function vis(n) { i = Math.max(0, Math.min(s.length - 1, n)); s[i].scrollIntoView(); }
+  addEventListener('resize', maal); maal();
+  addEventListener('keydown', function (e) {
+    if (['ArrowRight', 'ArrowDown', 'PageDown', ' '].indexOf(e.key) >= 0) { vis(i + 1); e.preventDefault(); }
+    if (['ArrowLeft', 'ArrowUp', 'PageUp'].indexOf(e.key) >= 0) { vis(i - 1); e.preventDefault(); }
+    if (e.key === 'Home') vis(0); if (e.key === 'End') vis(s.length - 1);
+  });
+  addEventListener('scroll', function () { i = Math.round(scrollY / (797 * Math.min(innerWidth / 1127, innerHeight / 797))); }, { passive: true });
+})();
+</script>
 </body>
 </html>

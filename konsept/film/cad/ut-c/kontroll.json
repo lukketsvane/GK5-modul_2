@@ -9,7 +9,7 @@
   {
    "id": "02",
    "namn": "botnlok",
-   "masse_g": 24.0,
+   "masse_g": 23.9,
    "gyldig": true
   },
   {
@@ -181,12 +181,12 @@
  "fotavtrykk_cm2": 196.1,
  "veltevinkel": 24.7,
  "velt_venstre_N": 3.8,
- "velt_framme_N": 6.4,
+ "velt_framme_N": 6.3,
  "velt_dytt_topp_N": 2.7,
  "velt": {
   "0": {
    "hjorne_N": 3.8,
-   "framkant_N": 6.4,
+   "framkant_N": 6.3,
    "dytt_topp_N": 2.7,
    "veltevinkel": 24.7
   },
@@ -258,7 +258,7 @@
    "gjenge_mm": 6.1,
    "gjenga_toler_N": 647,
    "tryggleik": 3.8,
-   "vandring_sko_mm": 0.75,
+   "vandring_sko_mm": 0.9,
    "vandring_trengst_mm": 0.25
   },
   "fot": {
@@ -463,7 +463,7 @@
    "fil": "13_bremsesko.stl",
    "x": 10.0,
    "y": 8.0,
-   "z": 3.1
+   "z": 2.8
   },
   {
    "fil": "prove_bjelkesnitt.stl",

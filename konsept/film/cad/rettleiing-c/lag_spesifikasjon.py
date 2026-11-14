@@ -26,7 +26,7 @@ def beslag(bokstav, tal, **k):
 
 
 parts = {'fot': mesh('01', '01'), 'botnlok': mesh('02', '02'), 'ballast': mesh('03', '03'), 'stamme': mesh('04', '04'),
-         'aksel': mesh('09', '09'), 'boge': mesh('12', '12')}
+         'aksel': mesh('09', '09'), 'boge': mesh('12', '12'), 'ring': mesh('14', '14')}
 for i, n in ROERLEGE.items():
     for v in (0, 28, 35, 80, 180):
         parts['%s%d' % (n, v)] = mesh('%s@%d' % (i, v), ID.get(i, i))
@@ -36,8 +36,9 @@ skruar = {x['id']: x['tal'] for x in K['stykkliste']}
 parts.update({
     'E': beslag('E', skruar['E'], mesh='delar/E.stl'),
     'Elaas': beslag('E', 1, mesh='delar/Elaas@28.stl', counts_as='E'),
-    'F': beslag('F', skruar['F'] + skruar['G'], mesh='delar/F.stl'),
-    'Fbrems': beslag('F', 1, mesh='delar/G@28.stl', counts_as='F'),
+    'F': beslag('F', skruar['F'], mesh='delar/F.stl'),
+    'G': beslag('G', skruar['G'], mesh='delar/G.stl'),
+    'Gbrems': beslag('G', 1, mesh='delar/G@28.stl', counts_as='G'),
     'S': beslag('S', skruar['03'], mesh='delar/S.stl'),
     'W': beslag('W', 2, primitive={'box': [13.1, 18.6, 8.3]}),
     'K': beslag('K', 16, primitive={'cylinder': {'r': 4.0, 'h': 2.5}}),
@@ -51,8 +52,8 @@ def ny(n, ex, at=None, **k):
     return e
 def blad(v, utan=()): return ['%s%d' % (n, v) for n in ROERLEGE.values() if n not in utan]
 
-stativ = ['fot', 'stamme', 'aksel', 'boge']
-heil = lambda v: c('fot', 'botnlok', 'ballast', 'stamme', 'aksel', 'boge', *blad(v), 'elok%d' % v)
+stativ = ['fot', 'stamme', 'aksel', 'boge', 'ring']
+heil = lambda v: c('fot', 'botnlok', 'ballast', 'stamme', 'aksel', 'boge', 'ring', *blad(v), 'elok%d' % v)
 knottar = [[round(75.0 * math.cos(math.radians(22.5 * i)), 1), round(75.0 * math.sin(math.radians(22.5 * i)), 1), -1.25] for i in range(16)]
 laas = [G['PINNE'][0], 18.0, 250.0]
 kapp = K['kapp']
@@ -60,37 +61,38 @@ kapp = K['kapp']
 pages = [
     {'type': 'cover', 'title': 'RUTA', 'view': 'iso', 'scene': heil(35), 'glas': [[-60.0, -90.0, 215.0]]},
     {'type': 'inventory', 'parts': ['fot', 'botnlok', 'kv35', 'kh35', 'lv35', 'lh35', 'ende35', 'boge', 'sko35'], 'cols': 3},
-    {'type': 'inventory', 'parts': ['stamme', 'aksel', 'rute35', 'ark35', 'led35'], 'cols': 3},
-    {'type': 'hardware', 'parts': ['E', 'F', 'S', 'W', 'K']},
+    {'type': 'inventory', 'parts': ['stamme', 'aksel', 'ring', 'rute35', 'ark35', 'led35'], 'cols': 3},
+    {'type': 'hardware', 'parts': ['E', 'F', 'G', 'S', 'W', 'K']},
     {'type': 'step', 'n': False, 'title': 'Kapp', 'icons': ['atvaring'],
-     'note': 'Kapp røyret i %.0f mm (04) og %.0f mm (09). Fil kantane. Slip av krommen der limet skal sitje.' % (kapp['stammeroyr_mm'], kapp['akselroyr_mm']),
+     'note': 'Kapp røyret i %.0f mm (04) og %.0f mm (09), og éin F til 8 mm (G). Fil endane plane.' % (kapp['stammeroyr_mm'], kapp['akselroyr_mm']),
      'figures': [{'view': 'iso', 'scene': c('stamme', 'aksel'), 'zoom': 1.0}]},
-    {'type': 'step', 'title': 'Røyr i boge', 'icons': ['lim'], 'note': 'Skyv røyra heilt inn. La limet herde.',
+    {'type': 'step', 'title': 'Skiver', 'icons': ['lim'], 'note': 'Tre skiver på kvar tapp, med ein dråpe lim.',
+     'figures': [{'view': 'under', 'zoom': 1.25, 'multiplier': 'x3', 'scene': c('fot') + [ny('S', [0, 0, -45], at=POS['S'])]}]},
+    {'type': 'step', 'title': 'Røyr i boge', 'icons': ['lim'], 'note': 'Slip krommen matt der limet skal sitje. Skyv røyra heilt inn.',
      'figures': [{'view': 'iso', 'scene': c('boge') + [ny('stamme', [-70 * d[0], 0, -70 * d[2]]), ny('aksel', [-70, 0, 0])]}]},
-    {'type': 'step', 'title': 'Stamme i fot', 'icons': ['lim'], 'note': 'Hald akselrøyret (09) vassrett til limet har herda.',
-     'figures': [{'view': 'iso', 'scene': c('fot') + [ny('stamme', [70 * d[0], 0, 70 * d[2]]), ny('aksel', [70 * d[0], 0, 70 * d[2]], line='none'),
-                                                                ny('boge', [70 * d[0], 0, 70 * d[2]], line='none')], 'labels': False}]},
-    {'type': 'step', 'title': 'Bjelke', 'icons': ['lim'], 'note': 'Lim halvdelane saman på restrøyret. Dra røyret ut før limet herdar.',
+    {'type': 'step', 'title': 'Stamme i fot', 'icons': ['lim'], 'note': 'Snor gjennom røyra og ut bak foten først. Ringen (14) flatt mot foten, akselrøyret i vater.',
+     'figures': [{'view': 'iso', 'scene': c('fot') + [ny('ring', [28 * d[0], 0, 28 * d[2]]), ny('stamme', [70 * d[0], 0, 70 * d[2]], label=False),
+                                                      ny('aksel', [70 * d[0], 0, 70 * d[2]], line='none', label=False),
+                                                      ny('boge', [70 * d[0], 0, 70 * d[2]], line='none', label=False)]}]},
+    {'type': 'step', 'title': 'Bjelke', 'icons': ['lim'], 'note': 'Filamentbitar på 10 mm som pinnar i skøyten. Lim på restrøyret, dra det ut før limet herdar.',
      'figures': [{'view': 'bak', 'scene': c('kh180') + [ny('kv180', [-45, 0, 0])]}]},
     {'type': 'step', 'n': False, 'title': 'Lakk',
      'note': 'Slip lett, grunn og sprøyt. Teip akselrøyret (09), spalta og boringa. Endeloket (11) i messingfarge.',
      'figures': [{'view': 'iso', 'labels': False, 'scene': c(*stativ) + [{'part': n, 'role': 'exploded', 'explode': [-190, 0, 0]} for n in ('kv0', 'kh0', 'lv0', 'lh0', 'ende0')]}]},
-    {'type': 'step', 'title': 'Sko og lys', 'note': 'Skoen (13) inn frå sida og til venstre under skruen. Så stripa (10), leidningen ut til høgre.',
+    {'type': 'step', 'title': 'Sko og lys', 'note': 'Skoen (13) inn frå sida. Stripa (10) midt i kanalen, leidningen ned i slissa til venstre.',
      'figures': [{'view': 'bak', 'scene': c('kv180', 'kh180') + [ny('sko180', [0, 22, 26]), ny('led180', [0, 14, 44])]}]},
     {'type': 'step', 'title': 'Rute', 'note': 'Arket (08) først, prismesida ned. Rillene på tvers av bjelken.',
      'figures': [{'view': 'bak', 'scene': c('kv180', 'kh180', 'led180', 'sko180') + [ny('ark180', [0, 0, 45]), ny('rute180', [0, 0, 90])],
                   'glas': [[-60.0, 150.0, 350.0]]}]},
     {'type': 'step', 'title': 'Lok', 'figures': [{'view': 'bak', 'scene': c('kv180', 'kh180', 'led180', 'sko180', 'ark180', 'rute180') + [
         ny('lv180', [0, 0, 40]), ny('lh180', [0, 0, 40]), ny('E', [0, 0, 85], at=POS['E_benk']), ny('ende180', [-40, 0, 0])]}]},
-    {'type': 'step', 'title': 'Bjelken på røyret', 'note': 'Leidningen ned gjennom røyret til foten først.',
+    {'type': 'step', 'title': 'Bjelken på røyret', 'note': 'Dra leidningen gjennom røyra med snora. Røyret skuvar skoen (13) på plass under skruen.',
      'figures': [{'view': 'iso', 'labels': False, 'scene': c(*stativ) + [ny('kh0', [-190, 0, 0])] + [ny(n, [-190, 0, 0], line='none') for n in blad(0, ('kh',)) + ['elok0']]}]},
-    {'type': 'step', 'title': 'Lås og brems', 'note': 'Stram F til ruta står i alle stillingar, men kan flyttast med éi hand.',
-     'figures': [{'view': 'under', 'scene': c(*stativ, *blad(28), 'elok28') + [ny('Elaas', [0, 16.4, -30.9]), ny('Fbrems', [0, 0, -35])],
+    {'type': 'step', 'title': 'Lås og brems', 'note': 'Stram G til ruta står i alle stillingar, men kan flyttast med éi hand. Stram etter eit døgn.',
+     'figures': [{'view': 'under', 'scene': c(*stativ, *blad(28), 'elok28') + [ny('Elaas', [0, 16.4, -30.9]), ny('Gbrems', [0, 0, -35])],
                   'detail': {'centre': laas, 'span': 34, 'pos': 'left', 'r': 72}}]},
-    {'type': 'step', 'title': 'Skiver', 'note': 'Legg lampa på ryggen på eit handkle. Tre skiver på kvar pinne.',
-     'figures': [{'view': 'under', 'zoom': 1.25, 'multiplier': 'x3', 'scene': c('fot', 'stamme') + [ny('S', [0, 0, -45], at=POS['S'])]}]},
-    {'type': 'step', 'title': 'Kopling', 'note': 'Skøyt leidningen i klemmene (W). Strips innanfor veggen som strekkavlasting.',
-     'figures': [{'view': 'under', 'zoom': 1.2, 'scene': c('fot', 'ballast', 'stamme') + [ny('W', [0, 0, -30], at=[[19.0, 47.0, 7.0], [33.0, 47.0, 7.0]]),
+    {'type': 'step', 'title': 'Kopling', 'note': 'Legg lampa på ryggen. Skøyt leidningen i klemmene (W). Strips innanfor veggen.',
+     'figures': [{'view': 'under', 'zoom': 1.2, 'scene': c('fot', 'ballast', 'stamme', 'ring') + [ny('W', [0, 0, -30], at=[[19.0, 47.0, 7.0], [33.0, 47.0, 7.0]]),
                                                                               ny('botnlok', [0, 0, -60]), ny('F', [0, 0, -105], at=POS['F'])]}]},
     {'type': 'step', 'title': 'Knottar', 'figures': [{'view': 'under', 'zoom': 1.2, 'scene': c('fot', 'botnlok') + [ny('K', [0, 0, -30], at=knottar)]}]},
     {'type': 'step', 'n': False, 'title': 'Kontroll', 'flow': 'right', 'icons': ['ok'],
@@ -99,7 +101,7 @@ pages = [
 ]
 
 spec = {
-    'meta': {'title': 'RUTA', 'footer': 'Ruta på fot · revisjon C · M02', 'orientation': 'portrait'},
+    'meta': {'title': 'RUTA', 'footer': 'Ruta på fot · revisjon C · M03', 'orientation': 'portrait'},
     'style': {'line_pt': 0.75, 'steg_pt': 32, 'mengd_pt': 18, 'mengd_fyrst': True, 'tittel_pt': 96, 'tittel_feit': True, 'sidetal_pt': 9, 'del_pt': 7.5,
               'lett_pt': 0.5, 'ramme': False, 'beslagkolonne': False},
     'views': {'iso': {'dir': [0.75, -1.0, 0.6], 'up': [0, 0, 1]}, 'under': {'dir': [0.75, -1.0, -0.8], 'up': [0, 0, 1]},

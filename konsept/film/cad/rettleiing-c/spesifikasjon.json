@@ -1,7 +1,7 @@
 {
  "meta": {
   "title": "RUTA",
-  "footer": "Ruta på fot · revisjon C · M02",
+  "footer": "Ruta på fot · revisjon C · M03",
   "orientation": "portrait"
  },
  "style": {
@@ -84,6 +84,11 @@
   "boge": {
    "mesh": "delar/12.stl",
    "id": "12",
+   "qty": 1
+  },
+  "ring": {
+   "mesh": "delar/14.stl",
+   "id": "14",
    "qty": 1
   },
   "kv0": {
@@ -351,16 +356,22 @@
   },
   "F": {
    "letter": "F",
-   "qty": 4,
+   "qty": 3,
    "kind": "hardware",
    "mesh": "delar/F.stl"
   },
-  "Fbrems": {
-   "letter": "F",
+  "G": {
+   "letter": "G",
+   "qty": 1,
+   "kind": "hardware",
+   "mesh": "delar/G.stl"
+  },
+  "Gbrems": {
+   "letter": "G",
    "qty": 1,
    "kind": "hardware",
    "mesh": "delar/G@28.stl",
-   "counts_as": "F"
+   "counts_as": "G"
   },
   "S": {
    "letter": "S",
@@ -420,6 +431,10 @@
     },
     {
      "part": "boge",
+     "role": "context"
+    },
+    {
+     "part": "ring",
      "role": "context"
     },
     {
@@ -491,6 +506,7 @@
    "parts": [
     "stamme",
     "aksel",
+    "ring",
     "rute35",
     "ark35",
     "led35"
@@ -502,6 +518,7 @@
    "parts": [
     "E",
     "F",
+    "G",
     "S",
     "W",
     "K"
@@ -514,7 +531,7 @@
    "icons": [
     "atvaring"
    ],
-   "note": "Kapp røyret i 242 mm (04) og 308 mm (09). Fil kantane. Slip av krommen der limet skal sitje.",
+   "note": "Kapp røyret i 242 mm (04) og 308 mm (09), og éin F til 8 mm (G). Fil endane plane.",
    "figures": [
     {
      "view": "iso",
@@ -534,11 +551,98 @@
   },
   {
    "type": "step",
+   "title": "Skiver",
+   "icons": [
+    "lim"
+   ],
+   "note": "Tre skiver på kvar tapp, med ein dråpe lim.",
+   "figures": [
+    {
+     "view": "under",
+     "zoom": 1.25,
+     "multiplier": "x3",
+     "scene": [
+      {
+       "part": "fot",
+       "role": "context"
+      },
+      {
+       "part": "S",
+       "role": "new",
+       "explode": [
+        0,
+        0,
+        -45
+       ],
+       "at": [
+        [
+         -11.2,
+         -32.8,
+         8.95
+        ],
+        [
+         -36.3,
+         -14.6,
+         8.95
+        ],
+        [
+         -33.1,
+         16.2,
+         8.95
+        ],
+        [
+         13.8,
+         -51.1,
+         8.95
+        ],
+        [
+         17.1,
+         -20.2,
+         8.95
+        ],
+        [
+         -8.0,
+         -2.0,
+         8.95
+        ],
+        [
+         -4.8,
+         28.8,
+         8.95
+        ],
+        [
+         -29.8,
+         47.1,
+         8.95
+        ],
+        [
+         42.2,
+         -38.4,
+         8.95
+        ],
+        [
+         45.4,
+         -7.6,
+         8.95
+        ],
+        [
+         20.3,
+         10.6,
+         8.95
+        ]
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "type": "step",
    "title": "Røyr i boge",
    "icons": [
     "lim"
    ],
-   "note": "Skyv røyra heilt inn. La limet herde.",
+   "note": "Slip krommen matt der limet skal sitje. Skyv røyra heilt inn.",
    "figures": [
     {
      "view": "iso",
@@ -575,7 +679,7 @@
    "icons": [
     "lim"
    ],
-   "note": "Hald akselrøyret (09) vassrett til limet har herda.",
+   "note": "Snor gjennom røyra og ut bak foten først. Ringen (14) flatt mot foten, akselrøyret i vater.",
    "figures": [
     {
      "view": "iso",
@@ -585,13 +689,23 @@
        "role": "context"
       },
       {
+       "part": "ring",
+       "role": "new",
+       "explode": [
+        13.999999999999998,
+        0,
+        24.248711305964285
+       ]
+      },
+      {
        "part": "stamme",
        "role": "new",
        "explode": [
         34.99999999999999,
         0,
         60.62177826491071
-       ]
+       ],
+       "label": false
       },
       {
        "part": "aksel",
@@ -601,7 +715,8 @@
         0,
         60.62177826491071
        ],
-       "line": "none"
+       "line": "none",
+       "label": false
       },
       {
        "part": "boge",
@@ -611,10 +726,10 @@
         0,
         60.62177826491071
        ],
-       "line": "none"
+       "line": "none",
+       "label": false
       }
-     ],
-     "labels": false
+     ]
     }
    ]
   },
@@ -624,7 +739,7 @@
    "icons": [
     "lim"
    ],
-   "note": "Lim halvdelane saman på restrøyret. Dra røyret ut før limet herdar.",
+   "note": "Filamentbitar på 10 mm som pinnar i skøyten. Lim på restrøyret, dra det ut før limet herdar.",
    "figures": [
     {
      "view": "bak",
@@ -670,6 +785,10 @@
       },
       {
        "part": "boge",
+       "role": "context"
+      },
+      {
+       "part": "ring",
        "role": "context"
       },
       {
@@ -724,7 +843,7 @@
   {
    "type": "step",
    "title": "Sko og lys",
-   "note": "Skoen (13) inn frå sida og til venstre under skruen. Så stripa (10), leidningen ut til høgre.",
+   "note": "Skoen (13) inn frå sida. Stripa (10) midt i kanalen, leidningen ned i slissa til venstre.",
    "figures": [
     {
      "view": "bak",
@@ -913,7 +1032,7 @@
   {
    "type": "step",
    "title": "Bjelken på røyret",
-   "note": "Leidningen ned gjennom røyret til foten først.",
+   "note": "Dra leidningen gjennom røyra med snora. Røyret skuvar skoen (13) på plass under skruen.",
    "figures": [
     {
      "view": "iso",
@@ -933,6 +1052,10 @@
       },
       {
        "part": "boge",
+       "role": "context"
+      },
+      {
+       "part": "ring",
        "role": "context"
       },
       {
@@ -1041,7 +1164,7 @@
   {
    "type": "step",
    "title": "Lås og brems",
-   "note": "Stram F til ruta står i alle stillingar, men kan flyttast med éi hand.",
+   "note": "Stram G til ruta står i alle stillingar, men kan flyttast med éi hand. Stram etter eit døgn.",
    "figures": [
     {
      "view": "under",
@@ -1060,6 +1183,10 @@
       },
       {
        "part": "boge",
+       "role": "context"
+      },
+      {
+       "part": "ring",
        "role": "context"
       },
       {
@@ -1112,7 +1239,7 @@
        ]
       },
       {
-       "part": "Fbrems",
+       "part": "Gbrems",
        "role": "new",
        "explode": [
         0,
@@ -1136,96 +1263,8 @@
   },
   {
    "type": "step",
-   "title": "Skiver",
-   "note": "Legg lampa på ryggen på eit handkle. Tre skiver på kvar pinne.",
-   "figures": [
-    {
-     "view": "under",
-     "zoom": 1.25,
-     "multiplier": "x3",
-     "scene": [
-      {
-       "part": "fot",
-       "role": "context"
-      },
-      {
-       "part": "stamme",
-       "role": "context"
-      },
-      {
-       "part": "S",
-       "role": "new",
-       "explode": [
-        0,
-        0,
-        -45
-       ],
-       "at": [
-        [
-         -11.2,
-         -32.8,
-         8.95
-        ],
-        [
-         -36.3,
-         -14.6,
-         8.95
-        ],
-        [
-         -33.1,
-         16.2,
-         8.95
-        ],
-        [
-         13.8,
-         -51.1,
-         8.95
-        ],
-        [
-         17.1,
-         -20.2,
-         8.95
-        ],
-        [
-         -8.0,
-         -2.0,
-         8.95
-        ],
-        [
-         -4.8,
-         28.8,
-         8.95
-        ],
-        [
-         -29.8,
-         47.1,
-         8.95
-        ],
-        [
-         42.2,
-         -38.4,
-         8.95
-        ],
-        [
-         45.4,
-         -7.6,
-         8.95
-        ],
-        [
-         20.3,
-         10.6,
-         8.95
-        ]
-       ]
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "type": "step",
    "title": "Kopling",
-   "note": "Skøyt leidningen i klemmene (W). Strips innanfor veggen som strekkavlasting.",
+   "note": "Legg lampa på ryggen. Skøyt leidningen i klemmene (W). Strips innanfor veggen.",
    "figures": [
     {
      "view": "under",
@@ -1241,6 +1280,10 @@
       },
       {
        "part": "stamme",
+       "role": "context"
+      },
+      {
+       "part": "ring",
        "role": "context"
       },
       {
@@ -1452,6 +1495,10 @@
        "role": "context"
       },
       {
+       "part": "ring",
+       "role": "context"
+      },
+      {
        "part": "kv0",
        "role": "context"
       },
@@ -1518,6 +1565,10 @@
       },
       {
        "part": "boge",
+       "role": "context"
+      },
+      {
+       "part": "ring",
        "role": "context"
       },
       {

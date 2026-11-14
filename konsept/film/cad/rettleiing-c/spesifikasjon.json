@@ -1,20 +1,22 @@
 {
  "meta": {
   "title": "RUTA",
-  "footer": "Ruta på fot · revisjon C · M04",
+  "footer": "Ruta på fot · revisjon C · M05",
   "orientation": "portrait"
  },
  "style": {
   "line_pt": 0.7,
-  "kontur": 1.5,
+  "kontur": 1.6,
   "svarting": 1.5,
+  "boble_pt": 1.1,
+  "sidetal_ytre": true,
   "steg_pt": 32,
-  "mengd_pt": 18,
+  "mengd_pt": 15,
   "mengd_fyrst": true,
-  "tittel_pt": 96,
+  "tittel_pt": 64,
   "tittel_feit": true,
   "sidetal_pt": 9,
-  "del_pt": 7.5,
+  "del_pt": 8.5,
   "lett_pt": 0.5,
   "ramme": false,
   "beslagkolonne": false
@@ -55,18 +57,32 @@
     0,
     1
    ]
+  },
+  "snudd": {
+   "dir": [
+    0.75,
+    -1.0,
+    -0.6
+   ],
+   "up": [
+    0,
+    0,
+    -1
+   ]
   }
  },
  "parts": {
   "fot": {
    "mesh": "delar/01.stl",
    "id": "01",
-   "qty": 1
+   "qty": 1,
+   "fill": false
   },
   "botnlok": {
    "mesh": "delar/02.stl",
    "id": "02",
-   "qty": 1
+   "qty": 1,
+   "fill": false
   },
   "ballast": {
    "mesh": "delar/03.stl",
@@ -76,17 +92,20 @@
   "stamme": {
    "mesh": "delar/04.stl",
    "id": "04",
-   "qty": 1
+   "qty": 1,
+   "fill": false
   },
   "aksel": {
    "mesh": "delar/09.stl",
    "id": "09",
-   "qty": 1
+   "qty": 1,
+   "fill": false
   },
   "boge": {
    "mesh": "delar/12.stl",
    "id": "12",
-   "qty": 1
+   "qty": 1,
+   "fill": false
   },
   "ring": {
    "mesh": "delar/14.stl",
@@ -96,152 +115,182 @@
   "kv0": {
    "mesh": "delar/05v@0.stl",
    "id": "05V",
-   "qty": 1
+   "qty": 1,
+   "fill": false
   },
   "kv28": {
    "mesh": "delar/05v@28.stl",
    "id": "05V",
-   "qty": 1
+   "qty": 1,
+   "fill": false
   },
   "kv35": {
    "mesh": "delar/05v@35.stl",
    "id": "05V",
-   "qty": 1
+   "qty": 1,
+   "fill": false
   },
   "kv80": {
    "mesh": "delar/05v@80.stl",
    "id": "05V",
-   "qty": 1
+   "qty": 1,
+   "fill": false
   },
   "kv180": {
    "mesh": "delar/05v@180.stl",
    "id": "05V",
-   "qty": 1
+   "qty": 1,
+   "fill": false
   },
   "kh0": {
    "mesh": "delar/05h@0.stl",
    "id": "05H",
-   "qty": 1
+   "qty": 1,
+   "fill": false
   },
   "kh28": {
    "mesh": "delar/05h@28.stl",
    "id": "05H",
-   "qty": 1
+   "qty": 1,
+   "fill": false
   },
   "kh35": {
    "mesh": "delar/05h@35.stl",
    "id": "05H",
-   "qty": 1
+   "qty": 1,
+   "fill": false
   },
   "kh80": {
    "mesh": "delar/05h@80.stl",
    "id": "05H",
-   "qty": 1
+   "qty": 1,
+   "fill": false
   },
   "kh180": {
    "mesh": "delar/05h@180.stl",
    "id": "05H",
-   "qty": 1
+   "qty": 1,
+   "fill": false
   },
   "lv0": {
    "mesh": "delar/06v@0.stl",
    "id": "06V",
-   "qty": 1
+   "qty": 1,
+   "fill": false
   },
   "lv28": {
    "mesh": "delar/06v@28.stl",
    "id": "06V",
-   "qty": 1
+   "qty": 1,
+   "fill": false
   },
   "lv35": {
    "mesh": "delar/06v@35.stl",
    "id": "06V",
-   "qty": 1
+   "qty": 1,
+   "fill": false
   },
   "lv80": {
    "mesh": "delar/06v@80.stl",
    "id": "06V",
-   "qty": 1
+   "qty": 1,
+   "fill": false
   },
   "lv180": {
    "mesh": "delar/06v@180.stl",
    "id": "06V",
-   "qty": 1
+   "qty": 1,
+   "fill": false
   },
   "lh0": {
    "mesh": "delar/06h@0.stl",
    "id": "06H",
-   "qty": 1
+   "qty": 1,
+   "fill": false
   },
   "lh28": {
    "mesh": "delar/06h@28.stl",
    "id": "06H",
-   "qty": 1
+   "qty": 1,
+   "fill": false
   },
   "lh35": {
    "mesh": "delar/06h@35.stl",
    "id": "06H",
-   "qty": 1
+   "qty": 1,
+   "fill": false
   },
   "lh80": {
    "mesh": "delar/06h@80.stl",
    "id": "06H",
-   "qty": 1
+   "qty": 1,
+   "fill": false
   },
   "lh180": {
    "mesh": "delar/06h@180.stl",
    "id": "06H",
-   "qty": 1
+   "qty": 1,
+   "fill": false
   },
   "rute0": {
    "mesh": "delar/07@0.stl",
    "id": "07",
-   "qty": 1
+   "qty": 1,
+   "fill": false
   },
   "rute28": {
    "mesh": "delar/07@28.stl",
    "id": "07",
-   "qty": 1
+   "qty": 1,
+   "fill": false
   },
   "rute35": {
    "mesh": "delar/07@35.stl",
    "id": "07",
-   "qty": 1
+   "qty": 1,
+   "fill": false
   },
   "rute80": {
    "mesh": "delar/07@80.stl",
    "id": "07",
-   "qty": 1
+   "qty": 1,
+   "fill": false
   },
   "rute180": {
    "mesh": "delar/07@180.stl",
    "id": "07",
-   "qty": 1
+   "qty": 1,
+   "fill": false
   },
   "ark0": {
    "mesh": "delar/08@0.stl",
    "id": "08",
-   "qty": 1
+   "qty": 1,
+   "fill": false
   },
   "ark28": {
    "mesh": "delar/08@28.stl",
    "id": "08",
-   "qty": 1
+   "qty": 1,
+   "fill": false
   },
   "ark35": {
    "mesh": "delar/08@35.stl",
    "id": "08",
-   "qty": 1
+   "qty": 1,
+   "fill": false
   },
   "ark80": {
    "mesh": "delar/08@80.stl",
    "id": "08",
-   "qty": 1
+   "qty": 1,
+   "fill": false
   },
   "ark180": {
    "mesh": "delar/08@180.stl",
    "id": "08",
-   "qty": 1
+   "qty": 1,
+   "fill": false
   },
   "led0": {
    "mesh": "delar/10@0.stl",
@@ -360,13 +409,30 @@
    "letter": "F",
    "qty": 3,
    "kind": "hardware",
-   "mesh": "delar/F.stl"
+   "mesh": "delar/F.stl",
+   "thumb_view": "snudd"
   },
   "G": {
    "letter": "G",
    "qty": 1,
    "kind": "hardware",
    "mesh": "delar/G.stl"
+  },
+  "P": {
+   "letter": "P",
+   "qty": 2,
+   "kind": "hardware",
+   "primitive": {
+    "cylinder": {
+     "r": 0.9,
+     "h": 10.0
+    },
+    "axis": [
+     1,
+     0,
+     0
+    ]
+   }
   },
   "Gbrems": {
    "letter": "G",
@@ -486,7 +552,8 @@
      -90.0,
      215.0
     ]
-   ]
+   ],
+   "inset_pt": 8
   },
   {
    "type": "inventory",
@@ -494,19 +561,19 @@
    "parts": [
     "fot",
     "botnlok",
-    "ring",
     "stamme",
-    "aksel",
-    "boge",
     "kv35",
     "kh35",
-    "sko35",
     "lv35",
     "lh35",
-    "ende35",
     "rute35",
     "ark35",
-    "led35"
+    "aksel",
+    "led35",
+    "ende35",
+    "boge",
+    "sko35",
+    "ring"
    ]
   },
   {
@@ -515,12 +582,14 @@
     "E",
     "F",
     "G",
+    "P",
     "S",
     "W",
     "K"
    ],
-   "cols": 3,
-   "row_height": 320
+   "cols": 4,
+   "row_height": 170,
+   "centred": true
   },
   {
    "type": "steps",
@@ -551,8 +620,8 @@
          ],
          "text": "242 mm",
          "offset": [
-          18,
-          -10
+          24,
+          -14
          ]
         },
         {
@@ -563,34 +632,37 @@
          ],
          "text": "308 mm",
          "offset": [
-          -24,
-          16
+          -30,
+          24
          ]
         }
+       ]
+      },
+      {
+       "view": "iso",
+       "scene": [
+        {
+         "part": "G",
+         "role": "context"
+        }
        ],
-       "callouts": [
+       "centre": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "span": 42,
+       "texts": [
         {
-         "part": "stamme",
          "point": [
-          150.0,
-          22.0,
-          175.0
+          0.0,
+          0.0,
+          0.0
          ],
+         "text": "G  8 mm",
          "offset": [
-          34,
-          6
-         ]
-        },
-        {
-         "part": "aksel",
-         "point": [
-          110.0,
-          22.0,
-          260.0
-         ],
-         "offset": [
-          24,
-          26
+          16,
+          -5
          ]
         }
        ]
@@ -600,7 +672,8 @@
      "icons": [
       "atvaring"
      ],
-     "note": "G: kapp éin F til 8 mm."
+     "flow": "right",
+     "flow_arrow": false
     },
     {
      "type": "step",
@@ -608,8 +681,9 @@
      "figures": [
       {
        "view": "under",
-       "zoom": 1.2,
+       "zoom": 1.15,
        "multiplier": "x3",
+       "multiplier_text": false,
        "scene": [
         {
          "part": "fot",
@@ -623,6 +697,7 @@
           0,
           -45
          ],
+         "label": false,
          "at": [
           [
            -11.2,
@@ -681,14 +756,82 @@
           ]
          ]
         }
-       ]
+       ],
+       "detail": {
+        "centre": [
+         -11.2,
+         -32.8,
+         2.9499999999999993
+        ],
+        "span": 26,
+        "pos": "right",
+        "r": 56,
+        "qty": "11x",
+        "letter": "S",
+        "scene": [
+         {
+          "part": "fot",
+          "role": "context"
+         },
+         {
+          "part": "S",
+          "role": "new",
+          "explode": [
+           0,
+           0,
+           -5
+          ],
+          "at": [
+           [
+            -11.2,
+            -32.8,
+            8.95
+           ]
+          ]
+         },
+         {
+          "part": "S",
+          "role": "new",
+          "explode": [
+           0,
+           0,
+           -12
+          ],
+          "at": [
+           [
+            -11.2,
+            -32.8,
+            8.95
+           ]
+          ]
+         },
+         {
+          "part": "S",
+          "role": "new",
+          "explode": [
+           0,
+           0,
+           -19
+          ],
+          "at": [
+           [
+            -11.2,
+            -32.8,
+            8.95
+           ]
+          ]
+         }
+        ]
+       }
       }
      ],
      "icons": [
       "lim"
-     ]
+     ],
+     "icon_text": "3x"
     }
-   ]
+   ],
+   "split": 0.42
   },
   {
    "type": "steps",
@@ -711,7 +854,8 @@
           -34.99999999999999,
           0,
           -60.62177826491071
-         ]
+         ],
+         "label": false
         },
         {
          "part": "aksel",
@@ -720,7 +864,8 @@
           -70,
           0,
           0
-         ]
+         ],
+         "label": false
         }
        ]
       }
@@ -744,18 +889,18 @@
          "part": "ring",
          "role": "new",
          "explode": [
-          13.999999999999998,
+          22.999999999999996,
           0,
-          24.248711305964285
+          39.83716857408418
          ]
         },
         {
          "part": "stamme",
          "role": "new",
          "explode": [
-          34.99999999999999,
+          44.99999999999999,
           0,
-          60.62177826491071
+          77.94228634059948
          ],
          "label": false
         },
@@ -763,23 +908,23 @@
          "part": "aksel",
          "role": "new",
          "explode": [
-          34.99999999999999,
+          44.99999999999999,
           0,
-          60.62177826491071
+          77.94228634059948
          ],
-         "line": "none",
-         "label": false
+         "label": false,
+         "line": "none"
         },
         {
          "part": "boge",
          "role": "new",
          "explode": [
-          34.99999999999999,
+          44.99999999999999,
           0,
-          60.62177826491071
+          77.94228634059948
          ],
-         "line": "none",
-         "label": false
+         "label": false,
+         "line": "none"
         }
        ]
       }
@@ -815,14 +960,74 @@
           0,
           0
          ]
+        },
+        {
+         "part": "P",
+         "role": "new",
+         "explode": [
+          -22,
+          0,
+          0
+         ],
+         "label": false,
+         "at": [
+          [
+           -76.09,
+           39.5,
+           251.0
+          ],
+          [
+           -76.09,
+           29.5,
+           272.0
+          ]
+         ]
         }
-       ]
+       ],
+       "detail": {
+        "centre": [
+         -76.1,
+         34.5,
+         261.5
+        ],
+        "span": 30,
+        "pos": "right",
+        "r": 56,
+        "qty": "2x",
+        "letter": "P",
+        "scene": [
+         {
+          "part": "kh180",
+          "role": "context"
+         },
+         {
+          "part": "P",
+          "role": "new",
+          "explode": [
+           -9,
+           0,
+           0
+          ],
+          "at": [
+           [
+            -76.09,
+            39.5,
+            251.0
+           ],
+           [
+            -76.09,
+            29.5,
+            272.0
+           ]
+          ]
+         }
+        ]
+       }
       }
      ],
      "icons": [
       "lim"
-     ],
-     "note": "To filamentpinnar i skøyten."
+     ]
     },
     {
      "type": "step",
@@ -856,45 +1061,45 @@
          "part": "kv0",
          "role": "exploded",
          "explode": [
-          -190,
-          0,
-          0
+          -120,
+          -210,
+          -150
          ]
         },
         {
          "part": "kh0",
          "role": "exploded",
          "explode": [
-          -190,
-          0,
-          0
+          -120,
+          -210,
+          -150
          ]
         },
         {
          "part": "lv0",
          "role": "exploded",
          "explode": [
-          -190,
-          0,
-          0
+          -120,
+          -210,
+          -150
          ]
         },
         {
          "part": "lh0",
          "role": "exploded",
          "explode": [
-          -190,
-          0,
-          0
+          -120,
+          -210,
+          -150
          ]
         },
         {
          "part": "ende0",
          "role": "exploded",
          "explode": [
-          -190,
-          0,
-          0
+          -120,
+          -210,
+          -150
          ]
         }
        ]
@@ -905,6 +1110,7 @@
       "spray",
       "klokke"
      ],
+     "icon_text": "24 h",
      "note": "Teip 09, spalta og boringa."
     }
    ],
@@ -935,7 +1141,8 @@
           0,
           22,
           26
-         ]
+         ],
+         "label": false
         },
         {
          "part": "led180",
@@ -954,8 +1161,11 @@
          266.9
         ],
         "span": 26,
-        "pos": "right",
-        "r": 58,
+        "pos": [
+         0.2,
+         0.2
+        ],
+        "r": 56,
         "scene": [
          {
           "part": "kv180",
@@ -1009,7 +1219,8 @@
           0,
           0,
           45
-         ]
+         ],
+         "line": "dashed"
         },
         {
          "part": "rute180",
@@ -1017,8 +1228,9 @@
          "explode": [
           0,
           0,
-          90
-         ]
+          100
+         ],
+         "line": "dashed"
         }
        ],
        "glas": [
@@ -1027,10 +1239,35 @@
          150.0,
          350.0
         ]
+       ],
+       "texts": [
+        {
+         "point": [
+          -200.0,
+          150.0,
+          340.0
+         ],
+         "text": "2",
+         "offset": [
+          -26,
+          0
+         ]
+        },
+        {
+         "point": [
+          -200.0,
+          150.0,
+          285.0
+         ],
+         "text": "1",
+         "offset": [
+          -26,
+          0
+         ]
+        }
        ]
       }
-     ],
-     "note": "08 først. Rillene på tvers."
+     ]
     }
    ],
    "split": 0.45
@@ -1095,6 +1332,7 @@
           0,
           85
          ],
+         "label": false,
          "at": [
           [
            -175.09,
@@ -1130,18 +1368,24 @@
           -40,
           0,
           0
-         ]
+         ],
+         "label": false
         }
        ],
        "detail": {
         "centre": [
          88.91,
          41.0,
-         265.35
+         267.35
         ],
-        "span": 24,
-        "pos": "right",
-        "r": 58,
+        "span": 26,
+        "pos": [
+         0.9,
+         0.82
+        ],
+        "r": 56,
+        "qty": "5x",
+        "letter": "E",
         "scene": [
          {
           "part": "kv180",
@@ -1181,7 +1425,7 @@
           "explode": [
            0,
            0,
-           16
+           14
           ],
           "at": [
            [
@@ -1407,7 +1651,8 @@
           0,
           16.4,
           -30.9
-         ]
+         ],
+         "label": false
         },
         {
          "part": "Gbrems",
@@ -1416,25 +1661,190 @@
           0,
           0,
           -35
-         ]
+         ],
+         "label": false
         }
        ],
-       "detail": {
-        "centre": [
-         115.3119414552024,
-         18.0,
-         250.0
-        ],
-        "span": 34,
-        "pos": "left",
-        "r": 72
-       }
+       "detail": [
+        {
+         "centre": [
+          115.3,
+          14.3,
+          255.3
+         ],
+         "span": 30,
+         "pos": [
+          0.9,
+          0.4
+         ],
+         "r": 54,
+         "qty": "1x",
+         "letter": "E",
+         "scene": [
+          {
+           "part": "fot",
+           "role": "context"
+          },
+          {
+           "part": "stamme",
+           "role": "context"
+          },
+          {
+           "part": "aksel",
+           "role": "context"
+          },
+          {
+           "part": "boge",
+           "role": "context"
+          },
+          {
+           "part": "ring",
+           "role": "context"
+          },
+          {
+           "part": "kv28",
+           "role": "context"
+          },
+          {
+           "part": "kh28",
+           "role": "context"
+          },
+          {
+           "part": "lv28",
+           "role": "context"
+          },
+          {
+           "part": "lh28",
+           "role": "context"
+          },
+          {
+           "part": "rute28",
+           "role": "context"
+          },
+          {
+           "part": "ark28",
+           "role": "context"
+          },
+          {
+           "part": "led28",
+           "role": "context"
+          },
+          {
+           "part": "ende28",
+           "role": "context"
+          },
+          {
+           "part": "sko28",
+           "role": "context"
+          },
+          {
+           "part": "elok28",
+           "role": "context"
+          },
+          {
+           "part": "Elaas",
+           "role": "new",
+           "explode": [
+            0,
+            5.3,
+            -10.0
+           ]
+          }
+         ]
+        },
+        {
+         "centre": [
+          75.9,
+          22.0,
+          247.2
+         ],
+         "span": 30,
+         "pos": [
+          0.5,
+          0.42
+         ],
+         "r": 54,
+         "qty": "1x",
+         "letter": "G",
+         "scene": [
+          {
+           "part": "fot",
+           "role": "context"
+          },
+          {
+           "part": "stamme",
+           "role": "context"
+          },
+          {
+           "part": "aksel",
+           "role": "context"
+          },
+          {
+           "part": "boge",
+           "role": "context"
+          },
+          {
+           "part": "ring",
+           "role": "context"
+          },
+          {
+           "part": "kv28",
+           "role": "context"
+          },
+          {
+           "part": "kh28",
+           "role": "context"
+          },
+          {
+           "part": "lv28",
+           "role": "context"
+          },
+          {
+           "part": "lh28",
+           "role": "context"
+          },
+          {
+           "part": "rute28",
+           "role": "context"
+          },
+          {
+           "part": "ark28",
+           "role": "context"
+          },
+          {
+           "part": "led28",
+           "role": "context"
+          },
+          {
+           "part": "ende28",
+           "role": "context"
+          },
+          {
+           "part": "sko28",
+           "role": "context"
+          },
+          {
+           "part": "elok28",
+           "role": "context"
+          },
+          {
+           "part": "Gbrems",
+           "role": "new",
+           "explode": [
+            0,
+            0,
+            -9.0
+           ]
+          }
+         ]
+        }
+       ]
       }
      ],
      "icons": [
       "klokke"
      ],
-     "note": "Stram G til ruta står. Stram igjen etter eit døgn."
+     "icon_text": "24 h"
     },
     {
      "type": "step",
@@ -1460,6 +1870,7 @@
           0,
           -30
          ],
+         "label": false,
          "at": [
           [
            19.0,
@@ -1480,7 +1891,8 @@
           0,
           0,
           -60
-         ]
+         ],
+         "label": false
         },
         {
          "part": "F",
@@ -1489,6 +1901,10 @@
           0,
           0,
           -105
+         ],
+         "label_offset": [
+          10,
+          -16
          ],
          "at": [
           [
@@ -1515,9 +1931,11 @@
          47.0,
          7.0
         ],
-        "span": 26,
+        "span": 28,
         "pos": "left",
-        "r": 58,
+        "r": 56,
+        "qty": "2x",
+        "letter": "W",
         "scene": [
          {
           "part": "fot",
@@ -1533,7 +1951,7 @@
           "explode": [
            0,
            0,
-           -6
+           -7
           ],
           "at": [
            [
@@ -1583,6 +2001,7 @@
           0,
           -30
          ],
+         "label": false,
          "at": [
           [
            75.0,
@@ -1664,6 +2083,20 @@
            -28.7,
            -1.25
           ]
+         ]
+        }
+       ],
+       "texts": [
+        {
+         "point": [
+          84.0,
+          -60.0,
+          0.0
+         ],
+         "text": "16x  K",
+         "offset": [
+          26,
+          -4
          ]
         }
        ]

@@ -33,7 +33,7 @@
   .fargar { display: flex; gap: 9px; margin-left: 12px; padding-left: 16px; border-left: 1px solid rgba(255,255,255,0.16); }
   .fargar button, .fargar button[aria-pressed=true] { width: 18px; height: 18px; padding: 0; border-radius: 50%; border: 1px solid rgba(255,255,255,0.28); outline-offset: 3px; }
   .fargar button[aria-pressed=true] { outline: 1px solid var(--kvit); }
-  .tekst { margin: 0; min-height: 2.9em; max-width: 34rem; text-align: center; font-size: 12.5px; line-height: 1.45; color: var(--graa); text-wrap: balance; }
+  .tekst { margin: 0; min-height: 1.45em; max-width: 34rem; text-align: center; font-size: 12.5px; line-height: 1.45; color: var(--graa); text-wrap: balance; }
   .ar { font: inherit; font-size: 12px; color: var(--graa); background: transparent; border: 0; padding: 0; cursor: pointer; } .ar:hover { color: var(--kvit); }
   @media (max-width: 560px) { .hovud nav a.skjul { display: none; } .modusar button { padding: 7px 11px; } .fargar { margin-left: 4px; padding-left: 10px; } }
 </style>
@@ -62,11 +62,11 @@
   // Fila har to jamne animasjonar. Vipp: bilete 1 er 0° og bilete 81 er 80°. Opne: bilete 101 er samla og bilete 161 er heilt opna. 24 bilete per sekund.
   var M = {
     lampe:    { anim: 'Vipp', min: 0, max: 80, start: 35, tid: function (v) { return (1 + v) / 24; }, merke: function (v) { return 'Helling ' + v + '°'; },
-                bane: '-32deg 80deg 1.75m', maal: '-0.03m 0.075m 0.05m', tekst: 'Dra for å snu lampa. Glidaren vippar ruta frå vassrett til 80°.' },
+                bane: '-32deg 80deg 1.75m', maal: '-0.03m 0.075m 0.05m', tekst: '' },
     mekanikk: { anim: 'Opne', min: 0, max: 100, start: 100, tid: function (v) { return (101 + 0.6 * v) / 24; }, merke: function (v) { return v === 0 ? 'Samla' : 'Opna ' + v + ' %'; },
-                bane: '-38deg 74deg 2.35m', maal: '-0.03m -0.03m 0.03m', tekst: 'Tretten delar og fire skruar. Stoppskruen og bremseskruen ligg skjult inni bjelken.' },
+                bane: '-38deg 74deg 2.35m', maal: '-0.03m -0.03m 0.03m', tekst: '' },
     lys:      { anim: 'Vipp', min: 0, max: 80, start: 35, tid: function (v) { return (1 + v) / 24; }, merke: function (v) { return 'Helling ' + v + '°'; },
-                bane: '-24deg 62deg 1.6m', maal: '-0.04m 0.12m -0.03m', tekst: 'Ei LED-stripe i bjelken lyser inn i kanten på plata, og prismearket sender lyset ut. Skjematisk modell: lysfordelinga er ikkje rekna.' }
+                bane: '-24deg 62deg 1.6m', maal: '-0.04m 0.12m -0.03m', tekst: 'Skjematisk modell. Lysfordelinga er ikkje rekna.' }
   };
   var SKJULT_I_LYS = ['Lakk', 'Messing', 'Pute', 'Skrue', 'Leidning', 'Staal'];
   function fyll() { glidar.style.setProperty('--fyll', (100 * (glidar.value - glidar.min) / (glidar.max - glidar.min)) + '%'); }

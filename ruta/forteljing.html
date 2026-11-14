@@ -27,21 +27,6 @@
   .b.forst > .ord { padding-left: 27vw; }
   .b > .merke { position: absolute; z-index: 1; left: var(--inn); right: var(--inn); bottom: 1.6rem; display: flex; justify-content: space-between; gap: 1rem; }
   .topp { position: absolute; z-index: 2; left: var(--inn); right: var(--inn); top: 1.6rem; display: flex; justify-content: space-between; gap: 1rem; }
-  .tre { min-height: 100svh; display: grid; grid-template-columns: minmax(18rem, 30rem) minmax(0, 1fr); align-items: center; }
-  .tre > .ord { padding: 0 0 0 var(--inn); position: relative; z-index: 1; }
-  model-viewer { width: 100%; height: 100svh; background: #000; --poster-color: #000; --progress-bar-color: #6C6964; }
-  .styr { margin-top: 2.2rem; max-width: 20rem; }
-  .styr label { display: flex; justify-content: space-between; }
-  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 24px; background: transparent; margin: 0.3rem 0 0; cursor: pointer; }
-  input[type=range]::-webkit-slider-runnable-track { height: 1px; background: #5A5753; }
-  input[type=range]::-moz-range-track { height: 1px; background: #5A5753; }
-  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 15px; height: 15px; border-radius: 50%; background: #C9A45C; margin-top: -7px; border: 0; }
-  input[type=range]::-moz-range-thumb { width: 15px; height: 15px; border-radius: 50%; background: #C9A45C; border: 0; }
-  .val { display: flex; gap: 0.9rem; margin-top: 1.7rem; align-items: center; }
-  .val button { width: 26px; height: 26px; border-radius: 50%; border: 1px solid #3A3835; padding: 0; cursor: pointer; outline-offset: 4px; }
-  .val button[aria-pressed=true] { outline: 1px solid var(--kvit); }
-  .val span { margin-left: 0.4rem; }
-  .ar { display: inline-block; margin-top: 1.9rem; border: 1px solid #5A5753; border-radius: 2rem; padding: 0.55rem 1.2rem; font: inherit; font-size: 0.95rem; color: var(--kvit); background: transparent; cursor: pointer; text-decoration: none; }
   .flate { padding: clamp(4rem, 12vh, 8rem) var(--inn); }
   .to { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(16rem, 1fr); gap: clamp(2rem, 5vw, 5rem); align-items: start; }
   .fargar { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
@@ -60,7 +45,6 @@
     .b > .merke { position: static; padding: 0 var(--inn) 2rem; }
     .b.forst { display: flex; min-height: 100svh; align-items: flex-end; } .b.forst > img { position: absolute; inset: 0; height: 100%; aspect-ratio: auto; object-position: 25% 50%; }
     .b.forst > .ord, .b.nede.forst > .ord { padding-left: 24vw; }
-    .tre { grid-template-columns: 1fr; min-height: 0; } .tre > .ord { padding: 3rem var(--inn) 0; } model-viewer { height: 72svh; }
     .to { grid-template-columns: 1fr; }
   }
 
@@ -80,34 +64,25 @@
 </style>
 </head>
 <body>
-<section class="b nede forst" style="--pos: 30% 50%;"><div class="topp sm"><span>GK5 modul 2 · AHO · 2026</span><span>Iver R. Finne</span></div><img src="../leveransar/07_ruta/bilete/r-framside.jpg" alt="Enden av bjelken med messingpunktet, og ruta sett frå sida som éi line av lys"><div class="ord"><h1>Ruta</h1><p style="color: #C9C5BE;">Ei lysande rute på éin stilk.</p></div><div class="merke sm"><span>Rendring av CAD-modellen</span><span><a href="./">Studio: snu, vipp og opne lampa</a></span></div></section>
+<section class="b nede forst" style="--pos: 30% 50%;"><div class="topp sm"><span>GK5 modul 2 · AHO · 2026</span><span>Iver R. Finne</span></div><img src="../leveransar/07_ruta/bilete/r-framside.jpg" alt="Enden av bjelken med messingpunktet, og ruta sett frå sida som éi line av lys"><div class="ord"><h1>Ruta</h1><p style="color: #C9C5BE;">Ei lysande rute på éin stilk.<br>Stemningsskapande lampe for heim og arbeid.</p></div><div class="merke sm"><span></span><span><a href="./">Studio</a></span></div></section>
 
-<section class="b " id="helt"><img src="../leveransar/07_ruta/bilete/r-helt.jpg" alt="" loading="lazy"><div class="ord"><h2>Ei rute som lyser.</h2><p>Stemningsskapande lampe for heim og arbeid.</p></div><div class="merke sm"><span>Rendring av CAD-modellen</span></div></section>
+<section class="b " id="helt"><img src="../leveransar/07_ruta/bilete/r-helt.jpg" alt="" loading="lazy"></section>
 
-<section class="tre" id="modell"><div class="ord"><h2>Vipp.</h2><p>Éi handling, frå vassrett til 80°. Dra i modellen for å snu henne, og i lina under for å vippe ruta.</p>
-<div class="styr"><label class="sm" for="helling"><span>Helling</span><span id="grad">35°</span></label><input type="range" id="helling" min="0" max="80" step="1" value="35"></div>
-<div class="val"><button type="button" data-farge="graabeige" aria-label="Grå-beige" aria-pressed="true" style="background: #aaa091;"></button><button type="button" data-farge="morkegron" aria-label="Mørkegrøn" aria-pressed="false" style="background: #273f33;"></button><button type="button" data-farge="svart" aria-label="Svart" aria-pressed="false" style="background: #1b1b1d;"></button><button type="button" data-farge="kirsebaer" aria-label="Kirsebærraud" aria-pressed="false" style="background: #7c1f27;"></button><span class="sm" id="fargenamn">Grå-beige</span></div>
-<p class="sm" style="margin-top: 2.2rem; max-width: 20rem;">På iPhone og iPad kan du setje lampa på bordet ditt: trykk på knappen i modellen.</p></div>
-<model-viewer id="mv" src="3d/ruta.glb" ios-src="3d/ruta.usdz" alt="Ruta som 3D-modell" ar ar-modes="webxr scene-viewer quick-look" ar-scale="fixed" camera-controls touch-action="pan-y"
- interaction-prompt="none" camera-orbit="-32deg 80deg 1.55m" camera-target="-0.03m 0.14m 0.05m" field-of-view="22deg" min-camera-orbit="auto 20deg 0.7m" max-camera-orbit="auto 100deg 2.6m"
- exposure="0.85" shadow-intensity="0" environment-image="neutral" loading="lazy" reveal="auto">
-<button slot="ar-button" class="ar" style="position: absolute; right: var(--inn); bottom: 2rem;">Sjå henne på bordet ditt</button></model-viewer></section>
+<section class="b nede" id="form" style="--pos: 50% 50%;"><img src="../leveransar/07_ruta/bilete/r-front.jpg" alt="" loading="lazy"><div class="ord"><h2>Skive. Røyr. Blad.</h2><p>Tre former møtest utan overgang. Røyret er stamme, aksel og kabelveg i eitt.</p></div></section>
 
-<section class="b nede" id="form" style="--pos: 50% 50%;"><img src="../leveransar/07_ruta/bilete/r-front.jpg" alt="" loading="lazy"><div class="ord"><h2>Skive. Røyr. Blad.</h2><p>Tre former møtest utan overgang. Røyret er stamme, aksel og kabelveg i eitt.</p></div><div class="merke sm"><span>Rendring av CAD-modellen</span></div></section>
+<section class="b oppe" id="vipp" style="--pos: 50% 50%;"><img src="../leveransar/07_ruta/bilete/r-vifte.jpg" alt="" loading="lazy"><div class="ord"><h2>Vipp.</h2><p>Éi handling, frå vassrett til 80°. Stoppen og friksjonen ligg skjult inni bjelken.</p></div><div class="merke sm"><span>0°, 40° og 80°</span></div></section>
 
-<section class="b oppe" id="vipp" style="--pos: 50% 50%;"><img src="../leveransar/07_ruta/bilete/r-vifte.jpg" alt="" loading="lazy"><div class="ord"><h2>Vipp.</h2><p>Éi handling, frå vassrett til 80°. Stoppen og friksjonen ligg skjult inni bjelken.</p></div><div class="merke sm"><span>Tre rendringar av CAD-modellen: 0°, 40° og 80°</span></div></section>
+<section class="b nede" id="messing" style="--pos: 40% 50%;"><img src="../leveransar/07_ruta/bilete/r-messing.jpg" alt="" loading="lazy"><div class="ord"><h2>Eitt punkt i messing.</h2><p>Der du tek. Trykk for av og på, hald for å dimme.</p></div></section>
 
-<section class="b nede" id="messing" style="--pos: 40% 50%;"><img src="../leveransar/07_ruta/bilete/r-messing.jpg" alt="" loading="lazy"><div class="ord"><h2>Eitt punkt i messing.</h2><p>Der du tek. Trykk for av og på, hald for å dimme.</p></div><div class="merke sm"><span>Rendring av CAD-modellen</span></div></section>
+<section class="b nede hogre" id="kant" style="--pos: 30% 50%;"><img src="../leveransar/07_ruta/bilete/r-kant.jpg" alt="" loading="lazy"><div class="ord"><h2>Lyset kjem frå kanten.</h2><p>Ei LED-stripe i bjelken lyser inn i ei klar plate. Eit prismeark frå ein gammal skjerm sender lyset ut.</p></div><div class="merke sm"><span>Rillene i arket er teikna grovare enn dei er</span></div></section>
 
-<section class="b nede hogre" id="kant" style="--pos: 30% 50%;"><img src="../leveransar/07_ruta/bilete/r-kant.jpg" alt="" loading="lazy"><div class="ord"><h2>Lyset kjem frå kanten.</h2><p>Ei LED-stripe i bjelken lyser inn i ei klar plate. Eit prismeark frå ein gammal skjerm sender lyset ut.</p></div><div class="merke sm"><span>Rendring av CAD-modellen · rillene i arket er teikna grovare enn dei er</span></div></section>
+<section class="b nede midt" id="boge" style="--pos: 50% 50%;"><img src="../leveransar/07_ruta/bilete/r-boge.jpg" alt="" loading="lazy"><div class="ord"><h2>Eitt røyr, éin boge.</h2><p>Stål, 12&nbsp;mm. Éin boge på 120° med 45&nbsp;mm radius.</p></div></section>
 
-<section class="b nede midt" id="boge" style="--pos: 50% 50%;"><img src="../leveransar/07_ruta/bilete/r-boge.jpg" alt="" loading="lazy"><div class="ord"><h2>Eitt røyr, éin boge.</h2><p>Stål, 12&nbsp;mm. Éin boge på 120° med 45&nbsp;mm radius.</p></div><div class="merke sm"><span>Rendring av CAD-modellen</span></div></section>
-
-<section class="b " id="kveld"><img src="../leveransar/07_ruta/bilete/r-kveld.jpg" alt="" loading="lazy"><div class="ord"><h2>Om kvelden.</h2><p>190&nbsp;lx på bordet under ruta ved 2&nbsp;W. Eit stemningslys og sidelys, ikkje eit arbeidslys.</p></div><div class="merke sm"><span>Rendring av CAD-modellen · lystalet er eit overslag for revisjon A, same rute og høgd</span></div></section>
+<section class="b " id="kveld"><img src="../leveransar/07_ruta/bilete/r-kveld.jpg" alt="" loading="lazy"><div class="ord"><h2>Om kvelden.</h2><p>190&nbsp;lx på bordet under ruta ved 2&nbsp;W. Eit stemningslys og sidelys, ikkje eit arbeidslys.</p></div><div class="merke sm"><span>Lystalet er eit overslag for revisjon A, som har same rute og høgd</span></div></section>
 
 <section class="flate" id="farge"><div class="to" style="grid-template-columns: minmax(14rem, 0.6fr) minmax(0, 2fr); align-items: center;"><div><h2>Éin matt farge.</h2><p>Foten, røyret og bjelken får same pulverlakk. Messingen er den einaste andre fargen.</p></div><div class="fargar"><figure><img src="../leveransar/07_ruta/bilete/r-messing.jpg" alt="Grå-beige" loading="lazy"><figcaption class="sm">Grå-beige</figcaption></figure><figure><img src="../leveransar/07_ruta/bilete/r-messing-morkegron.jpg" alt="Mørkegrøn" loading="lazy"><figcaption class="sm">Mørkegrøn</figcaption></figure><figure><img src="../leveransar/07_ruta/bilete/r-messing-svart.jpg" alt="Svart" loading="lazy"><figcaption class="sm">Svart</figcaption></figure><figure><img src="../leveransar/07_ruta/bilete/r-messing-kirsebaer.jpg" alt="Kirsebærraud" loading="lazy"><figcaption class="sm">Kirsebærraud</figcaption></figure></div></div></section>
 
-<section class="b " id="opna"><img src="../leveransar/07_ruta/bilete/r-sprengt.jpg" alt="" loading="lazy"><div class="ord"><h2>Tretten delar, fire skruar.</h2><p>Kjøpt: LED-stripa og dimmaren. Frå ein gammal skjerm: plata og arket. Ingen skruar syner ovanfrå.</p></div><div class="merke sm"><span>Rendring av CAD-modellen, med delane trekte frå kvarandre</span></div></section>
+<section class="b " id="opna"><img src="../leveransar/07_ruta/bilete/r-sprengt.jpg" alt="" loading="lazy"><div class="ord"><h2>Tretten delar, fire skruar.</h2><p>Ingen skruar syner ovanfrå.</p></div></section>
 
 <section class="flate" id="delar"><div class="to"><div><svg class="strek" style="width: 100%; height: auto;" viewBox="0 0 776 859" xmlns="http://www.w3.org/2000/svg">
 <polyline class="s" points="654.8,675.7 658.1,672.5 661,669.2 662.4,667.5 663.6,665.7 664.6,664 665.6,662.2 666.5,660.3 667.2,658.5 667.9,656.7 668.4,654.8 668.8,652.9 669.1,651 669.3,649.2 669.3,647.3"/>
@@ -436,9 +411,9 @@
 <line class="st" x1="546.4" y1="358.9" x2="452" y2="318.2"/>
 <line class="st" x1="588.8" y1="652.1" x2="588.8" y2="779.2"/>
 <line class="l" x1="527.0" y1="641.1" x2="497.0" y2="635.1"/><circle class="p" cx="527.0" cy="641.1" r="1.4"/><text class="nr" x="492.0" y="639.1" text-anchor="end">01</text><line class="l" x1="532.7" y1="788.5" x2="500.7" y2="796.5"/><circle class="p" cx="532.7" cy="788.5" r="1.4"/><text class="nr" x="495.7" y="800.5" text-anchor="end">02</text><line class="l" x1="551.2" y1="711.5" x2="505.2" y2="717.5"/><circle class="p" cx="551.2" cy="711.5" r="1.4"/><text class="nr" x="500.2" y="721.5" text-anchor="end">03</text><line class="l" x1="480.4" y1="325.6" x2="496.4" y2="305.6"/><circle class="p" cx="480.4" cy="325.6" r="1.4"/><text class="nr" x="501.4" y="309.6" text-anchor="start">04</text><line class="l" x1="324.4" y1="256.1" x2="336.4" y2="236.1"/><circle class="p" cx="324.4" cy="256.1" r="1.4"/><text class="nr" x="341.4" y="240.1" text-anchor="start">05</text><line class="l" x1="266.2" y1="333.7" x2="242.2" y2="345.7"/><circle class="p" cx="266.2" cy="333.7" r="1.4"/><text class="nr" x="237.2" y="349.7" text-anchor="end">06</text><line class="l" x1="86.7" y1="424.8" x2="62.7" y2="438.8"/><circle class="p" cx="86.7" cy="424.8" r="1.4"/><text class="nr" x="57.7" y="442.8" text-anchor="end">07</text><line class="l" x1="224.1" y1="82.8" x2="202.1" y2="70.8"/><circle class="p" cx="224.1" cy="82.8" r="1.4"/><text class="nr" x="197.1" y="74.8" text-anchor="end">08</text><line class="l" x1="279.4" y1="295.3" x2="253.4" y2="303.3"/><circle class="p" cx="279.4" cy="295.3" r="1.4"/><text class="nr" x="248.4" y="307.3" text-anchor="end">09</text><line class="l" x1="278.2" y1="276.2" x2="256.2" y2="271.2"/><circle class="p" cx="278.2" cy="276.2" r="1.4"/><text class="nr" x="251.2" y="275.2" text-anchor="end">10</text><line class="l" x1="219.1" y1="217.2" x2="201.1" y2="205.2"/><circle class="p" cx="219.1" cy="217.2" r="1.4"/><text class="nr" x="196.1" y="209.2" text-anchor="end">11</text><line class="l" x1="696.4" y1="457.2" x2="714.4" y2="447.2"/><circle class="p" cx="696.4" cy="457.2" r="1.4"/><text class="nr" x="719.4" y="451.2" text-anchor="start">12</text><line class="l" x1="508.0" y1="495.1" x2="526.0" y2="503.1"/><circle class="p" cx="508.0" cy="495.1" r="1.4"/><text class="nr" x="531.0" y="507.1" text-anchor="start">13</text><line class="l" x1="292.1" y1="375.8" x2="276.1" y2="391.8"/><circle class="p" cx="292.1" cy="375.8" r="1.4"/><text class="nr" x="271.1" y="395.8" text-anchor="end">E</text></svg>
-</div><div><h2>Delane.</h2><table><tr><td class="id">01</td><td>Fot</td><td class="k">trykt og lakkert</td></tr><tr><td class="id">02</td><td>Botnlok med pute</td><td class="k">trykt</td></tr><tr><td class="id">03</td><td>Ballast</td><td class="k">stålplate 5&nbsp;mm</td></tr><tr><td class="id">04</td><td>Røyr</td><td class="k">stål Ø 12, éin boge</td></tr><tr><td class="id">05</td><td>Bjelke</td><td class="k">trykt i to lengder</td></tr><tr><td class="id">06</td><td>Bjelkelok</td><td class="k">trykt</td></tr><tr><td class="id">07</td><td>Lysleiar</td><td class="k">plate 3&nbsp;mm frå skjermen</td></tr><tr><td class="id">08</td><td>Prismeark</td><td class="k">frå skjermen</td></tr><tr><td class="id">09</td><td>Flatstong</td><td class="k">aluminium 12 × 2</td></tr><tr><td class="id">10</td><td>LED-stripe</td><td class="k">kjøpt</td></tr><tr><td class="id">11</td><td>Touch-dimmar</td><td class="k">kjøpt</td></tr><tr><td class="id">12</td><td>Stoppskrue</td><td class="k">M3 med tapp</td></tr><tr><td class="id">13</td><td>Bremseskrue</td><td class="k">M4 med nylonspiss</td></tr><tr><td class="id">E</td><td>Fire skruar</td><td class="k">M3 × 12</td></tr></table><p>Ruta ligg vassrett i teikninga, og delane er trekte frå kvarandre langs aksane.</p><p class="sm" style="margin-top: 1.4rem;">Teikna frå CAD-modellen</p></div></div></section>
+</div><div><h2>Delane.</h2><table><tr><td class="id">01</td><td>Fot</td><td class="k">trykt og lakkert</td></tr><tr><td class="id">02</td><td>Botnlok med pute</td><td class="k">trykt</td></tr><tr><td class="id">03</td><td>Ballast</td><td class="k">stålplate 5&nbsp;mm</td></tr><tr><td class="id">04</td><td>Røyr</td><td class="k">stål Ø 12, éin boge</td></tr><tr><td class="id">05</td><td>Bjelke</td><td class="k">trykt i to lengder</td></tr><tr><td class="id">06</td><td>Bjelkelok</td><td class="k">trykt</td></tr><tr><td class="id">07</td><td>Lysleiar</td><td class="k">plate 3&nbsp;mm frå skjermen</td></tr><tr><td class="id">08</td><td>Prismeark</td><td class="k">frå skjermen</td></tr><tr><td class="id">09</td><td>Flatstong</td><td class="k">aluminium 12 × 2</td></tr><tr><td class="id">10</td><td>LED-stripe</td><td class="k">kjøpt</td></tr><tr><td class="id">11</td><td>Touch-dimmar</td><td class="k">kjøpt</td></tr><tr><td class="id">12</td><td>Stoppskrue</td><td class="k">M3 med tapp</td></tr><tr><td class="id">13</td><td>Bremseskrue</td><td class="k">M4 med nylonspiss</td></tr><tr><td class="id">E</td><td>Fire skruar</td><td class="k">M3 × 12</td></tr></table></div></div></section>
 
-<section class="flate" id="maal"><h2>Mål.</h2><p>Breidd 378, djupn 223 og høgd 278&nbsp;mm.</p><div style="margin-top: 3rem; max-width: 64rem;"><svg class="maal" style="width: 100%; height: auto;" viewBox="0 0 1022 476" xmlns="http://www.w3.org/2000/svg">
+<section class="flate" id="maal"><h2>Mål.</h2><div style="margin-top: 3rem; max-width: 64rem;"><svg class="maal" style="width: 100%; height: auto;" viewBox="0 0 1022 476" xmlns="http://www.w3.org/2000/svg">
 <polyline class="s" points="386.1,404 386.1,388.4"/>
 <polyline class="s" points="196.5,404 198.9,404 205.9,404 217.2,404 232.2,404 250.2,404 270.2,404 291.3,404 312.4,404 332.4,404 350.4,404 365.4,404 376.7,404 383.7,404 386.1,404"/>
 <polyline class="s" points="200.1,384.8 202.4,384.8 209.1,384.8 220,384.8 234.4,384.8 251.7,384.8 271,384.8 291.3,384.8 311.6,384.8 330.9,384.8 348.1,384.8 362.6,384.8 373.5,384.8 380.2,384.8 382.5,384.8"/>
@@ -683,31 +658,10 @@
 <text class="mt" x="672.6" y="240.2" text-anchor="end">278</text>
 <text class="et" x="836.2" y="470" text-anchor="middle">FRÅ SIDA</text>
 </svg>
-</div><p class="sm" style="margin-top: 1.4rem;">Teikna frå CAD-modellen · mål i mm</p></section>
+</div><p class="sm" style="margin-top: 1.4rem;">Mål i mm</p></section>
 
 <section class="flate" id="status"><div class="to" style="grid-template-columns: 1fr 1fr;"><div><h2>Kontrollert, ikkje bygd.</h2><p>Lampa finst som CAD-modell. Alt på denne sida er rendra eller teikna frå han.</p></div><div><div class="sm">Kontrollert i CAD</div><div class="liste"><div><span>Masse</span><span>1112 g av høgst 1200</span></div><div><span>Fotavtrykk</span><span>196 cm² av høgst 200</span></div><div><span>Tyngdepunktet frå midten av foten</span><span>7 mm</span></div><div><span>Trykk på hjørnet av ruta som veltar lampa</span><span>7,3 N</span></div><div><span>Helling utan kollisjon</span><span>0° til 80°</span></div></div><div class="sm" style="margin-top: 2.2rem;">Ikkje prøvd</div><div class="liste ein"><div>Bøyen i røyret: 120° med 45&nbsp;mm radius krev røyrbøyar.</div><div>Friksjonen og stoppen er teikna, ikkje bygde.</div><div>Touch-dimmaren er ikkje vald.</div><div>At arket er ein prismefilm, er ikkje prøvd.</div><div>Ingen slicer-kontroll og ingen fysisk modell.</div><div>Lyset er eit overslag for revisjon A og er ikkje rekna på nytt.</div></div></div></div></section>
 
 <footer class="sm"><span>Ruta · revisjon B · Iver R. Finne · GK5 modul 2 · AHO · 2026</span><span><a href="../leveransar/07_ruta/Ruta-presentasjon.pdf">PDF</a> &nbsp;·&nbsp; <a href="./">Studio</a> &nbsp;·&nbsp; <a href="../leveransar/07_ruta/presentasjon.html">Lysbilete</a> &nbsp;·&nbsp; <a href="3d/ruta.usdz">USDZ</a> &nbsp;·&nbsp; <a href="3d/ruta.glb">GLB</a> &nbsp;·&nbsp; <a href="../konsept/film/cad/ut-b/ruta-pa-fot-rev-b.step">STEP</a> &nbsp;·&nbsp; <a href="../">GK5 modul 2</a></span></footer>
-<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
-<script>
-(function () {
-  var mv = document.getElementById('mv'), vipp = document.getElementById('helling'), grad = document.getElementById('grad');
-  var FARGAR = {"graabeige": [0.4, 0.35, 0.285, "Grå-beige"], "morkegron": [0.02, 0.05, 0.033, "Mørkegrøn"], "svart": [0.011, 0.011, 0.012, "Svart"], "kirsebaer": [0.2, 0.014, 0.02, "Kirsebærraud"]};
-  // Animasjonen i fila går 35° → 0° → 80° → 35°. Stykket frå 0° til 80° ligg mellom bilete 108 og 180 (24 per sekund), med mjuk start og stopp.
-  function tid(v) { var s = Math.min(1, Math.max(0, v / 80)); var t = 0.5 - Math.sin(Math.asin(1 - 2 * s) / 3); return (107 + 72 * t) / 24; }
-  function set() { grad.textContent = vipp.value + '°'; if (mv.loaded) { mv.pause(); mv.currentTime = tid(+vipp.value); } }
-  function lin(c) { return c; }
-  function farge(kode) {
-    var f = FARGAR[kode]; if (!f || !mv.model) return;
-    mv.model.materials.forEach(function (m) { if (m.name === 'Lakk' || m.name === 'Leidning') m.pbrMetallicRoughness.setBaseColorFactor([f[0], f[1], f[2], 1]); });
-    mv.setAttribute('ios-src', '3d/ruta' + (kode === 'graabeige' ? '' : '-' + kode) + '.usdz');
-    [].forEach.call(document.querySelectorAll('.val button'), function (b) { b.setAttribute('aria-pressed', b.dataset.farge === kode); });
-    document.getElementById('fargenamn').textContent = f[3];
-  }
-  mv.addEventListener('load', function () { if (mv.availableAnimations && mv.availableAnimations.length) mv.animationName = mv.availableAnimations[0]; set(); });
-  vipp.addEventListener('input', set);
-  [].forEach.call(document.querySelectorAll('.val button'), function (b) { b.addEventListener('click', function () { farge(b.dataset.farge); }); });
-})();
-</script>
 </body>
 </html>

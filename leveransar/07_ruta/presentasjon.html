@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="nn">
+<head>
+<meta charset="utf-8">
+<title>Ruta · revisjon B</title>
+<link rel="stylesheet" href="../01_fase1_v2/felles.css">
+<style>
+  html, body { background: #000; }
+  .side { break-after: page; page-break-after: always; }
+  .side.heil { padding: 0; display: block; }
+  .side.heil img.bak { position: absolute; left: 0; top: 0; width: 1127px; height: 797px; object-fit: cover; display: block; }
+  .side.heil svg.lag { position: absolute; left: 0; top: 0; }
+  .side.heil .over { position: absolute; }
+  .merk { font: 400 9.5px/1.4 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.62); }
+  .merk b { color: #fff; }
+  .namn { font: 400 148px/0.86 var(--serif); color: #fff; letter-spacing: -0.025em; margin: 0; }
+  .under { font: 400 23px/1.22 var(--serif); color: #F4F4F4; margin: 22px 0 0; max-width: 330px; }
+  .linje { font: 400 34px/1.1 var(--serif); color: #fff; margin: 0; letter-spacing: -0.005em; }
+  .skugge { text-shadow: 0 0 18px rgba(0,0,0,0.55); }
+  .side.delt { padding: 0; display: grid; grid-template-columns: 531px minmax(0, 1fr); grid-template-rows: none; }
+  .side.delt .bilete img { width: 531px; height: 797px; object-fit: cover; display: block; }
+  .side.delt .kol { padding: 26px 44px 22px 40px; display: grid; grid-template-rows: auto minmax(0, 1fr) auto; min-height: 0; }
+  .side.delt .kol .midt { align-self: center; }
+  .side.delt .tittel { font-size: 44px; margin: 0 0 22px; }
+  .side.delt p { font-size: 17px; line-height: 1.36; max-width: 440px; margin-bottom: 0.7em; }
+  .side.delt p.stor { font-size: 25px; line-height: 1.2; margin-bottom: 0.8em; }
+  figure.lag { position: relative; }
+  figure.lag svg { position: absolute; left: 0; top: 0; }
+  svg .l { stroke: #fff; stroke-width: 0.8; fill: none; }
+  svg .ls { stroke: #000; stroke-opacity: 0.45; stroke-width: 2.4; fill: none; }
+  svg .pr { fill: #fff; }
+  svg text.m1 { fill: #fff; font-size: 10px; letter-spacing: 0.06em; }
+  svg text.m2 { fill: #BDBDBD; font-size: 9.5px; letter-spacing: 0.04em; }
+  svg text.nr { fill: #fff; font-size: 10.5px; letter-spacing: 0.04em; }
+  .tekst p { font-size: 16px; line-height: 1.36; margin-bottom: 0.65em; }
+  .tal3 { display: grid; row-gap: 14px; margin: 2px 0 18px; }
+  .tal3 .stortal { font-size: 46px; }
+  .tal3 .stortal span { font-size: 22px; color: var(--tekst); margin-left: 4px; }
+  .tal5 { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); column-gap: 20px; border-top: 1px solid var(--linje); padding-top: 12px; }
+  .tal5 .stortal { font-size: 34px; }
+  .tal5 .stortal span { font-size: 17px; color: var(--tekst); margin-left: 3px; }
+  .fargar { display: grid; grid-template-columns: 1fr 1fr; column-gap: 16px; row-gap: 12px; }
+  .sidekol .tittel { margin: 0 0 18px; font-size: 34px; }
+  .sidekol p { font-size: 15.5px; line-height: 1.36; }
+  table.delar { font-size: 12.5px; line-height: 1.25; }
+  table.delar td { padding: 4px 10px 4px 0; }
+  table.delar td.id { width: 26px; color: var(--blekk); }
+  table.delar td.k { color: var(--graa); }
+  svg.maal { margin: 0 auto; }
+  svg.maal .k { stroke: #fff; stroke-width: 1.15; fill: none; }
+  svg.maal .s { stroke: #fff; stroke-width: 0.75; fill: none; }
+  svg.maal .t { stroke: #BDBDBD; stroke-width: 0.5; fill: none; }
+  svg.maal .m, svg.maal .h { stroke: #8E8E8E; stroke-width: 0.6; fill: none; }
+  svg.maal .g { stroke: #5C5C5C; stroke-width: 0.6; fill: none; }
+  svg.maal .st { stroke: #8E8E8E; stroke-width: 0.6; stroke-dasharray: 4 3; fill: none; }
+  svg.maal .p { fill: #8E8E8E; }
+  svg.maal text.mt { font-size: 10.5px; fill: #D9D9D9; }
+  svg.maal text.et { font-size: 10px; fill: #8E8E8E; letter-spacing: 0.09em; }
+</style>
+</head>
+<body>
+<section class="side heil">
+<img class="bak" src="bilete/p0-framside.jpg" alt="">
+<div class="over" style="left: 56px; top: 44px;"><div class="merk">GK5 modul 2 · AHO · november 2026</div></div>
+<div class="over skugge" style="left: 52px; top: 250px;">
+  <h1 class="namn">Ruta</h1>
+  <p class="under">Ei lysande rute på éin stilk. Stemningsskapande lampe for heim og arbeid.</p>
+</div>
+<div class="over" style="left: 56px; bottom: 30px;"><div class="merk">Iver R. Finne · revisjon B · 13.11.2026</div></div>
+<div class="over" style="right: 44px; bottom: 30px; text-align: right;"><div class="merk">Generert bilete etter CAD-modellen. Lyset i biletet er ikkje rekna.</div></div>
+</section>
+
+<section class="side delt">
+<div class="bilete"><img src="bilete/p1-miljo.jpg" alt=""></div>
+<div class="kol">
+<header class="topp"><span>GK5 modul 2 · Northern</span><span>02 · Ideen</span><span>Iver R. Finne · 13.11.2026</span></header>
+<div class="midt">
+  <h1 class="tittel">Ei rute som lyser, på éin stilk.</h1>
+  <p class="stor">Tre former: ei skive, eit røyr og eit blad.</p>
+  <p>Bladet er ei klar plate som lyser frå kanten. Lyskjelda ligg skjult i bjelken og syner aldri.</p>
+  <p>Lampa er teikna inn i formspråket til Northern: éin matt farge over heile lekamen, eitt røyr i éi rørsle, og eitt punkt i messing som òg er brytaren.</p>
+  <p>Ho gjev eit lågt og varmt lys til pulten og veggen bak. Ho er eit stemningslys og sidelys, heime og ved skjermen.</p>
+</div>
+<footer class="botn"><span>Generert bilete etter CAD-modellen. Grå-beige.</span><span>Ruta · revisjon B · 2 av 11</span></footer>
+</div>
+</section>
+
+<section class="side heil">
+<img class="bak" src="bilete/studio.jpg" alt="">
+<svg class="lag" width="1127" height="797" viewBox="0 0 1127 797" xmlns="http://www.w3.org/2000/svg"><line class="ls" x1="556.2" y1="103.3" x2="596.2" y2="58.0"/><line class="l" x1="556.2" y1="103.3" x2="596.2" y2="58.0"/><circle class="pr" cx="556.2" cy="103.3" r="1.8"/><text class="m1" x="601.2" y="61.0" text-anchor="start">BLAD</text><text class="m2" x="601.2" y="74.0" text-anchor="start">bjelke Ø 36 med rute 300 × 190</text><line class="ls" x1="690.3" y1="520.4" x2="810.3" y2="486.4"/><line class="l" x1="690.3" y1="520.4" x2="810.3" y2="486.4"/><circle class="pr" cx="690.3" cy="520.4" r="1.8"/><text class="m1" x="815.3" y="489.4" text-anchor="start">RØYR</text><text class="m2" x="815.3" y="502.4" text-anchor="start">stål Ø 12 i éi rørsle</text><line class="ls" x1="721.6" y1="631.6" x2="851.6" y2="675.6"/><line class="l" x1="721.6" y1="631.6" x2="851.6" y2="675.6"/><circle class="pr" cx="721.6" cy="631.6" r="1.8"/><text class="m1" x="856.6" y="678.6" text-anchor="start">SKIVE</text><text class="m2" x="856.6" y="691.6" text-anchor="start">fot Ø 158 med ballast</text><line class="ls" x1="157.4" y1="145.3" x2="111.4" y2="265.3"/><line class="l" x1="157.4" y1="145.3" x2="111.4" y2="265.3"/><circle class="pr" cx="157.4" cy="145.3" r="1.8"/><text class="m1" x="111.4" y="268.3" text-anchor="middle">MESSINGPUNKT</text><text class="m2" x="111.4" y="281.3" text-anchor="middle">touch-dimmar Ø 20</text></svg>
+<div class="over" style="left: 56px; top: 30px; right: 44px;"><div class="merk" style="display: flex; justify-content: space-between;"><span>GK5 modul 2 · Northern</span><span><b>03 · Forma</b></span><span>Iver R. Finne · 13.11.2026</span></div></div>
+<div class="over" style="left: 56px; bottom: 64px; max-width: 420px;">
+  <p class="linje">Tre former møtest utan overgangsform.</p>
+  <p class="under" style="margin-top: 12px; font-size: 19px; max-width: 380px; color: #D9D9D9;">Skiva ber, røyret løftar, bladet lyser. Røyret er stamme, aksel og kabelveg i eitt.</p>
+</div>
+<div class="over" style="left: 56px; bottom: 30px;"><div class="merk">Rendring av CAD-modellen. Gløden er ei visualisering, ikkje ei lysrekning.</div></div>
+<div class="over" style="right: 44px; bottom: 30px;"><div class="merk">Ruta · revisjon B · 3 av 11</div></div>
+</section>
+
+<section class="side">
+<header class="topp"><span>GK5 modul 2 · Northern</span><span>04 · Handlinga</span><span>Iver R. Finne · 13.11.2026</span></header>
+<h1 class="tittel">Éi handling: vipp ruta.</h1>
+<main class="innhald">
+
+<figure class="k7"><img src="bilete/helling.jpg" alt=""><figcaption><b>0°, 35° og 70°</b> · tre rendringar av CAD-modellen, lagde oppå kvarandre</figcaption></figure>
+<div class="k5">
+  <figure><img src="bilete/p4-hand.jpg" alt=""><figcaption>Generert bilete etter CAD-modellen</figcaption></figure>
+  <div class="tekst" style="margin-top: 18px;">
+    <p>Bjelken dreier rett på røyret, frå vassrett til 80°. Vassrett lyser ruta ned på pulten. Bratt vender ho undersida mot veggen og står som eit varmt vindauge.</p>
+    <p>Ein skrue inni bjelken stoppar rørsla i begge endar og held bjelken på røyret. Ein annan set friksjonen éin gong. Ingen av dei syner.</p>
+  </div>
+</div>
+</main>
+<footer class="botn"><span>Rørsla er kontrollert i CAD i steg på 10° frå 0° til 80°: ingen kollisjonar. Ho er ikkje bygd.</span><span>Ruta · revisjon B · 4 av 11</span></footer>
+</section>
+
+<section class="side">
+<header class="topp"><span>GK5 modul 2 · Northern</span><span>05 · Messingpunktet</span><span>Iver R. Finne · 13.11.2026</span></header>
+<h1 class="tittel">Eitt punkt i messing, der du tek.</h1>
+<main class="innhald">
+
+<figure class="k7"><img src="bilete/p5-messing.jpg" alt=""><figcaption>Generert bilete etter CAD-modellen</figcaption></figure>
+<div class="k5">
+  <figure><img src="bilete/detalj-messing.jpg" alt=""><figcaption>Rendring av CAD-modellen: enden slik han er teikna</figcaption></figure>
+  <div class="tekst" style="margin-top: 18px;">
+    <p>Dimmaren sit i den frie enden av bjelken: ei skive i børsta messing, 20&nbsp;mm brei, éin millimeter ut frå enden. Ho er det einaste blanke metallet på lampa.</p>
+    <p>Tenkt bruk: kort trykk slår av og på, langt trykk dimmar. Modulen er ikkje vald, og han må kjøpast saman med LED-stripa.</p>
+  </div>
+</div>
+</main>
+<footer class="botn"><span>Northern brukar same grepet: touch-dimmar i messing i enden av armen på Salto.</span><span>Ruta · revisjon B · 5 av 11</span></footer>
+</section>
+
+<section class="side heil">
+<img class="bak" src="bilete/p6-heim.jpg" alt="">
+<div class="over" style="left: 56px; top: 30px; right: 44px;"><div class="merk" style="display: flex; justify-content: space-between;"><span>GK5 modul 2 · Northern</span><span><b>06 · Heime</b></span><span>Iver R. Finne · 13.11.2026</span></div></div>
+<div class="over skugge" style="right: 44px; top: 330px; width: 250px; text-align: right;">
+  <p class="linje">Heime, om kvelden.</p>
+</div>
+<div class="over" style="left: 56px; bottom: 30px;"><div class="merk">Generert bilete etter CAD-modellen. Svart. Lyset i biletet er ikkje rekna.</div></div>
+<div class="over" style="right: 44px; bottom: 30px;"><div class="merk">Ruta · revisjon B · 6 av 11</div></div>
+</section>
+
+<section class="side">
+<header class="topp"><span>GK5 modul 2 · Northern</span><span>07 · Lyset</span><span>Iver R. Finne · 13.11.2026</span></header>
+<h1 class="tittel">Stemningslys og sidelys, ikkje arbeidslys.</h1>
+<main class="innhald">
+
+<figure class="k7"><img src="bilete/kveld.jpg" alt=""><figcaption>Rendring av CAD-modellen, mørkegrøn. Gløden er ei visualisering</figcaption></figure>
+<div class="k5">
+  <div class="tal3">
+    <div class="stortal">190<span>lx</span><small>bordet under ruta, snitt, ved 2 W</small></div>
+    <div class="stortal">57<span>lx</span><small>feltet framfor skjermen. Arbeidslys krev 350</small></div>
+    <div class="stortal">372<span>cd/m²</span><small>høgst mot auget. Grensa for stemningslys er 500</small></div>
+  </div>
+  <div class="tekst">
+    <p>LED-stripa lyser inn i kanten på ei 3&nbsp;mm plate. Oppå ligg prismearket frå ein gammal skjerm.</p>
+    <p>Tala er eit overslag for revisjon A, som har same rute, høgd og helling. Dei kviler på ei antaking om kor mykje lys som kjem inn i plata. Lyset er ikkje rekna på nytt.</p>
+  </div>
+</div>
+</main>
+<footer class="botn"><span>Overslag: konsept/film/cad/lys_sjekk.py. At arket er ein prismefilm, er ikkje prøvd.</span><span>Ruta · revisjon B · 7 av 11</span></footer>
+</section>
+
+<section class="side">
+<header class="topp"><span>GK5 modul 2 · Northern</span><span>08 · Fargane</span><span>Iver R. Finne · 13.11.2026</span></header>
+<main class="innhald" style="grid-row: 2 / 4; padding-top: 22px;">
+<div class="k3 sidekol">
+  <h1 class="tittel">Éin matt farge over heile lekamen.</h1>
+  <p>Grå-beige er hovudfargen. Dei nyaste lampene til Northern kjem i han.</p>
+  <p>Mørkegrøn og svart er dei andre trygge vala i paletten. Kirsebærraud er aksentfargen frå skissa.</p>
+  <p class="graa">Foten, røyret og bjelken får same pulverlakk. Messingen er den einaste andre fargen.</p>
+</div>
+<div class="k9 fargar"><figure><img src="bilete/rev-b-graabeige.jpg" alt=""><figcaption><b>Grå-beige</b></figcaption></figure><figure><img src="bilete/rev-b-morkegron.jpg" alt=""><figcaption><b>Mørkegrøn</b></figcaption></figure><figure><img src="bilete/rev-b-svart.jpg" alt=""><figcaption><b>Svart</b></figcaption></figure><figure><img src="bilete/rev-b-kirsebaer.jpg" alt=""><figcaption><b>Kirsebærraud</b></figcaption></figure></div>
+</main>
+<footer class="botn"><span>Fire rendringar av CAD-modellen i dagslys frå sida. Gløden er ei visualisering.</span><span>Ruta · revisjon B · 8 av 11</span></footer>
+</section>
+
+<section class="side">
+<header class="topp"><span>GK5 modul 2 · Northern</span><span>09 · Oppbygginga</span><span>Iver R. Finne · 13.11.2026</span></header>
+<h1 class="tittel">Tretten delar og fire skruar.</h1>
+<main class="innhald">
+
+<figure class="k7 lag"><img src="bilete/sprengt.jpg" alt=""><svg width="599" height="519" viewBox="0 0 599 519" xmlns="http://www.w3.org/2000/svg"><line class="ls" x1="383.3" y1="389.5" x2="333.3" y2="381.5"/><line class="l" x1="383.3" y1="389.5" x2="333.3" y2="381.5"/><circle class="pr" cx="383.3" cy="389.5" r="1.6"/><text class="nr" x="329.3" y="385.0" text-anchor="end">01</text><line class="ls" x1="385.9" y1="460.7" x2="335.9" y2="474.7"/><line class="l" x1="385.9" y1="460.7" x2="335.9" y2="474.7"/><circle class="pr" cx="385.9" cy="460.7" r="1.6"/><text class="nr" x="331.9" y="478.2" text-anchor="end">02</text><line class="ls" x1="405.5" y1="426.5" x2="345.5" y2="430.5"/><line class="l" x1="405.5" y1="426.5" x2="345.5" y2="430.5"/><circle class="pr" cx="405.5" cy="426.5" r="1.6"/><text class="nr" x="341.5" y="434.0" text-anchor="end">03</text><line class="ls" x1="490.2" y1="229.0" x2="520.2" y2="205.0"/><line class="l" x1="490.2" y1="229.0" x2="520.2" y2="205.0"/><circle class="pr" cx="490.2" cy="229.0" r="1.6"/><text class="nr" x="524.2" y="208.5" text-anchor="start">04</text><line class="ls" x1="356.9" y1="175.4" x2="400.9" y2="149.4"/><line class="l" x1="356.9" y1="175.4" x2="400.9" y2="149.4"/><circle class="pr" cx="356.9" cy="175.4" r="1.6"/><text class="nr" x="404.9" y="152.9" text-anchor="start">05</text><line class="ls" x1="216.2" y1="189.0" x2="188.2" y2="199.0"/><line class="l" x1="216.2" y1="189.0" x2="188.2" y2="199.0"/><circle class="pr" cx="216.2" cy="189.0" r="1.6"/><text class="nr" x="184.2" y="202.5" text-anchor="end">06</text><line class="ls" x1="95.7" y1="229.4" x2="73.7" y2="209.4"/><line class="l" x1="95.7" y1="229.4" x2="73.7" y2="209.4"/><circle class="pr" cx="95.7" cy="229.4" r="1.6"/><text class="nr" x="69.7" y="212.9" text-anchor="end">07</text><line class="ls" x1="346.9" y1="105.2" x2="386.9" y2="91.2"/><line class="l" x1="346.9" y1="105.2" x2="386.9" y2="91.2"/><circle class="pr" cx="346.9" cy="105.2" r="1.6"/><text class="nr" x="390.9" y="94.7" text-anchor="start">08</text><line class="ls" x1="223.4" y1="164.4" x2="193.4" y2="166.4"/><line class="l" x1="223.4" y1="164.4" x2="193.4" y2="166.4"/><circle class="pr" cx="223.4" cy="164.4" r="1.6"/><text class="nr" x="189.4" y="169.9" text-anchor="end">09</text><line class="ls" x1="221.9" y1="151.3" x2="191.9" y2="143.3"/><line class="l" x1="221.9" y1="151.3" x2="191.9" y2="143.3"/><circle class="pr" cx="221.9" cy="151.3" r="1.6"/><text class="nr" x="187.9" y="146.8" text-anchor="end">10</text><line class="ls" x1="185.9" y1="120.2" x2="159.9" y2="114.2"/><line class="l" x1="185.9" y1="120.2" x2="159.9" y2="114.2"/><circle class="pr" cx="185.9" cy="120.2" r="1.6"/><text class="nr" x="155.9" y="117.7" text-anchor="end">11</text><line class="ls" x1="515.5" y1="267.7" x2="497.5" y2="285.7"/><line class="l" x1="515.5" y1="267.7" x2="497.5" y2="285.7"/><circle class="pr" cx="515.5" cy="267.7" r="1.6"/><text class="nr" x="493.5" y="289.2" text-anchor="end">12</text><line class="ls" x1="371.0" y1="268.0" x2="411.0" y2="264.0"/><line class="l" x1="371.0" y1="268.0" x2="411.0" y2="264.0"/><circle class="pr" cx="371.0" cy="268.0" r="1.6"/><text class="nr" x="415.0" y="267.5" text-anchor="start">13</text><line class="ls" x1="370.0" y1="271.9" x2="386.0" y2="291.9"/><line class="l" x1="370.0" y1="271.9" x2="386.0" y2="291.9"/><circle class="pr" cx="370.0" cy="271.9" r="1.6"/><text class="nr" x="390.0" y="295.4" text-anchor="start">E</text></svg></figure>
+<div class="k5">
+  <table class="delar"><tr><th></th><th>Del</th><th>Laga av</th></tr><tr><td class="id">01</td><td>Fot</td><td class="k">trykt og lakkert</td></tr><tr><td class="id">02</td><td>Botnlok med pute</td><td class="k">trykt</td></tr><tr><td class="id">03</td><td>Ballast</td><td class="k">stålplate 5&nbsp;mm</td></tr><tr><td class="id">04</td><td>Røyr</td><td class="k">stål Ø 12 × 1,5, éin boge</td></tr><tr><td class="id">05</td><td>Bjelke</td><td class="k">trykt i to lengder</td></tr><tr><td class="id">06</td><td>Bjelkelok</td><td class="k">trykt, på undersida</td></tr><tr><td class="id">07</td><td>Lysleiar</td><td class="k">plate 3&nbsp;mm frå skjermen, eller akryl</td></tr><tr><td class="id">08</td><td>Prismeark</td><td class="k">frå skjermen</td></tr><tr><td class="id">09</td><td>Flatstong</td><td class="k">aluminium 12 × 2</td></tr><tr><td class="id">10</td><td>LED-stripe</td><td class="k">kjøpt · 5 V, 2700 K</td></tr><tr><td class="id">11</td><td>Touch-dimmar</td><td class="k">kjøpt · børsta messing</td></tr><tr><td class="id">12</td><td>Stoppskrue</td><td class="k">M3 med tapp, i røyret</td></tr><tr><td class="id">13</td><td>Bremseskrue</td><td class="k">M4 med nylonspiss</td></tr><tr><td class="id">E</td><td>Fire skruar M3 × 12</td><td class="k">nedanfrå i loket</td></tr></table>
+  <p class="liten" style="margin-top: 12px;">Kjøpt: LED-stripa og dimmaren. Frå skjermen: plata og arket. Røyret og ballasten er stål som må skaffast.</p>
+</div>
+</main>
+<footer class="botn"><span>Rendring av CAD-modellen, sett framanfrå til høgre, med delane trekte frå kvarandre og ruta vassrett. Ingen skruar syner ovanfrå.</span><span>Ruta · revisjon B · 9 av 11</span></footer>
+</section>
+
+<section class="side">
+<header class="topp"><span>GK5 modul 2 · Northern</span><span>10 · Mål og kontroll</span><span>Iver R. Finne · 13.11.2026</span></header>
+<h1 class="tittel">Lampa held krava til vekt og fotavtrykk.</h1>
+<main class="innhald" style="row-gap: 16px;">
+
+<div class="k12"><svg class="maal" width="1022" height="476" viewBox="0 0 1022 476" xmlns="http://www.w3.org/2000/svg">
+<polyline class="s" points="386.1,404 386.1,388.4"/>
+<polyline class="s" points="196.5,404 198.9,404 205.9,404 217.2,404 232.2,404 250.2,404 270.2,404 291.3,404 312.4,404 332.4,404 350.4,404 365.4,404 376.7,404 383.7,404 386.1,404"/>
+<polyline class="s" points="200.1,384.8 202.4,384.8 209.1,384.8 220,384.8 234.4,384.8 251.7,384.8 271,384.8 291.3,384.8 311.6,384.8 330.9,384.8 348.1,384.8 362.6,384.8 373.5,384.8 380.2,384.8 382.5,384.8"/>
+<polyline class="s" points="386.1,388.4 385.9,387.3 385.4,386.3 384.6,385.5 383.6,385 382.5,384.8"/>
+<polyline class="s" points="45.2,110.9 45.2,112.1 45.2,113.2 45.2,114.3 45.2,115.3 45.2,116.2 45.2,117 45.2,117.7 45.2,118.3 45.2,118.9 45.2,119.3 45.2,119.7 45.2,119.9 45.2,120.1"/>
+<polyline class="s" points="45.2,76.9 45.2,77.2 45.2,78 45.2,79.3 45.2,81 45.2,83.2 45.2,85.7 45.2,88.6 45.2,91.7 45.2,94.9 45.2,98.3 45.2,101.6 45.2,104.9 45.2,108 45.2,110.9"/>
+<polyline class="s" points="61.4,110.9 61.4,110.8 61.4,110.7 61.4,110.6 61.4,110.5 61.4,110.3 61.4,110.2 61.4,110.1 61.4,110 61.4,109.9 61.4,109.7 61.4,109.6 61.4,109.5 61.4,109.4 61.4,109.3"/>
+<polyline class="s" points="422.6,109.3 61.4,109.3"/>
+<polyline class="s" points="422.6,110.9 422.6,110.8 422.6,110.7 422.6,110.6 422.6,110.5 422.6,110.3 422.6,110.2 422.6,110.1 422.6,110 422.6,109.9 422.6,109.7 422.6,109.6 422.6,109.5 422.6,109.4 422.6,109.3"/>
+<polyline class="s" points="432.8,110.9 432.8,112.1 432.8,113.2 432.8,114.3 432.8,115.3 432.8,116.2 432.8,117 432.8,117.7 432.8,118.3 432.8,118.9 432.8,119.3 432.8,119.7 432.8,119.9 432.8,120.1"/>
+<polyline class="s" points="432.8,76.9 432.8,77.2 432.8,78 432.8,79.3 432.8,81 432.8,83.2 432.8,85.7 432.8,88.6 432.8,91.7 432.8,94.9 432.8,98.3 432.8,101.6 432.8,104.9 432.8,108 432.8,110.9"/>
+<polyline class="s" points="422.6,112.5 422.6,112.4 422.6,112.3 422.6,112.2 422.6,112.1 422.6,111.9 422.6,111.8 422.6,111.7 422.6,111.6 422.6,111.5 422.6,111.4 422.6,111.3 422.6,111.2 422.6,111 422.6,110.9"/>
+<polyline class="s" points="429.2,112.5 422.6,112.5"/>
+<polyline class="s" points="429.2,120.1 429.2,120 429.2,119.8 429.2,119.5 429.2,119.1 429.2,118.7 429.2,118.1 429.2,117.5 429.2,116.9 429.2,116.1 429.2,115.3 429.2,114.4 429.2,113.5 429.2,112.5"/>
+<polyline class="s" points="429.2,115.3 429,115.3"/>
+<polyline class="s" points="49,115.3 48.8,115.3"/>
+<polyline class="s" points="48.8,120.1 48.8,120 48.8,119.8 48.8,119.5 48.8,119.1 48.8,118.7 48.8,118.1 48.8,117.5 48.8,116.9 48.8,116.1 48.8,115.3 48.8,114.4 48.8,113.5 48.8,112.5"/>
+<polyline class="s" points="61.4,112.5 48.8,112.5"/>
+<polyline class="s" points="61.4,112.5 61.4,112.4 61.4,112.3 61.4,112.2 61.4,112.1 61.4,111.9 61.4,111.8 61.4,111.7 61.4,111.6 61.4,111.5 61.4,111.4 61.4,111.3 61.4,111.2 61.4,111 61.4,110.9"/>
+<polyline class="s" points="429.2,112.5 429.2,115.3"/>
+<polyline class="s" points="48.8,112.5 48.8,115.3"/>
+<polyline class="s" points="49,120.1 49,120 49,119.8 49,119.5 49,119.1 49,118.7 49,118.1 49,117.5 49,116.9 49,116.1 49,115.3 49,114.4 49,113.5 49,112.5"/>
+<polyline class="s" points="429,112.5 422,112.5"/>
+<polyline class="s" points="62,112.5 49,112.5"/>
+<polyline class="s" points="429,120.1 429,120 429,119.8 429,119.5 429,119.1 429,118.7 429,118.1 429,117.5 429,116.9 429,116.1 429,115.3 429,114.4 429,113.5 429,112.5"/>
+<polyline class="s" points="62,225.2 62,228.1"/>
+<polyline class="s" points="62,109.3 62,225.2"/>
+<polyline class="s" points="71.6,233.6 69.7,233.5 67.9,233.2 66.3,232.7 64.8,232 63.6,231.2 62.7,230.2 62.2,229.2 62,228.1"/>
+<polyline class="s" points="71.6,233.6 412.4,233.6"/>
+<polyline class="s" points="422,228.1 421.8,229.2 421.3,230.2 420.4,231.2 419.2,232 417.7,232.7 416.1,233.2 414.3,233.5 412.4,233.6"/>
+<polyline class="s" points="64.1,228.6 63.2,227.8 62.5,227 62.1,226.1 62,225.2"/>
+<polyline class="s" points="64.1,228.6 64.5,229.3 64.9,229.9 65.4,230.4 65.9,231 66.4,231.5 66.9,231.9 67.4,232.3 68,232.6 68.6,232.9 69.2,233.2 69.8,233.4 70.4,233.5 71,233.6 71.6,233.6"/>
+<polyline class="s" points="422,109.3 422,225.2"/>
+<polyline class="s" points="419.9,228.6 64.1,228.6"/>
+<polyline class="s" points="422,225.2 421.9,226.1 421.5,227 420.8,227.8 419.9,228.6"/>
+<polyline class="s" points="422,225.2 422,228.1"/>
+<polyline class="s" points="412.4,233.6 71.6,233.6"/>
+<polyline class="s" points="412.4,233.6 413,233.6 413.6,233.5 414.2,233.4 414.8,233.2 415.4,232.9 416,232.6 416.6,232.3 417.1,231.9 417.6,231.5 418.1,231 418.6,230.4 419.1,229.9 419.5,229.3 419.9,228.6"/>
+<polyline class="s" points="62,220.8 62,221"/>
+<polyline class="s" points="62,109.3 62,220.8"/>
+<polyline class="s" points="71.6,226.5 69.7,226.4 67.9,226.1 66.3,225.6 64.8,224.9 63.6,224.1 62.7,223.1 62.2,222.1 62,221"/>
+<polyline class="s" points="71.6,226.5 412.4,226.5"/>
+<polyline class="s" points="422,221 421.8,222.1 421.3,223.1 420.4,224.1 419.2,224.9 417.7,225.6 416.1,226.1 414.3,226.4 412.4,226.5"/>
+<polyline class="s" points="71.6,226.3 71.6,226.5"/>
+<polyline class="s" points="71.6,226.3 69.7,226.2 67.9,225.9 66.3,225.4 64.8,224.7 63.6,223.8 62.7,222.9 62.2,221.9 62,220.8"/>
+<polyline class="s" points="422,109.3 422,220.8"/>
+<polyline class="s" points="71.6,226.3 412.4,226.3"/>
+<polyline class="s" points="422,220.8 421.8,221.9 421.3,222.9 420.4,223.8 419.2,224.7 417.7,225.4 416.1,225.9 414.3,226.2 412.4,226.3"/>
+<polyline class="s" points="422,220.8 422,221"/>
+<polyline class="s" points="412.4,226.3 412.4,226.5"/>
+<polyline class="s" points="44.7,105.4 44.7,106.1 44.7,106.7 44.7,107.3 44.7,107.8 44.7,108.3 44.7,108.8 44.7,109.2 44.7,109.5 44.7,109.8 44.7,110.1 44.7,110.3 44.7,110.4 44.7,110.5"/>
+<polyline class="s" points="44.7,86.5 44.7,86.7 44.7,87.1 44.7,87.8 44.7,88.8 44.7,90 44.7,91.4 44.7,93 44.7,94.7 44.7,96.5 44.7,98.4 44.7,100.3 44.7,102.1 44.7,103.8 44.7,105.4"/>
+<polyline class="s" points="44,105 44,105.6 44,106.2 44,106.8 44,107.3 44,107.7 44,108.2 44,108.5 44,108.9 44,109.2 44,109.4 44,109.6 44,109.7 44,109.8"/>
+<polyline class="s" points="44,87.3 44,87.4 44,87.8 44,88.5 44,89.4 44,90.5 44,91.8 44,93.3 44,94.9 44,96.6 44,98.4 44,100.2 44,101.9 44,103.5 44,105"/>
+<polyline class="k" points="196.5,388.4 196.5,404"/>
+<polyline class="k" points="196.5,388.4 196.6,387.7 196.8,387 197.1,386.4 197.5,385.9 198.1,385.4 198.7,385.1 199.4,384.9 200.1,384.8"/>
+<polyline class="k" points="369.2,384.8 489.4,176.6"/>
+<polyline class="k" points="352.6,384.8 476.9,169.4"/>
+<polyline class="k" points="476.9,169.4 478.4,166.7 479.6,163.9 480.7,161 481.6,158.1 482.3,155.1 482.8,152.1 483.1,149.1 483.2,146 483.1,142.9 482.8,139.9 482.3,136.9 481.6,133.9 480.7,131 479.6,128.1 478.4,125.3 476.9,122.6 475.3,120 473.5,117.5 471.6,115.1 469.5,112.9 467.3,110.8 464.9,108.9 462.4,107.1 459.8,105.5 457.1,104 454.3,102.8 451.4,101.7 448.5,100.8 445.5,100.1 442.5,99.6 439.5,99.3 436.4,99.2"/>
+<polyline class="k" points="489.4,176.6 491.3,173.1 492.9,169.4 494.4,165.7 495.5,161.8 496.4,157.9 497.1,154 497.5,150 497.6,146 497.5,142 497.1,138 496.4,134.1 495.5,130.2 494.4,126.3 492.9,122.6 491.3,118.9 489.4,115.4 487.3,112 485,108.7 482.4,105.6 479.7,102.7 476.8,100 473.7,97.4 470.4,95.1 467,93 463.5,91.1 459.8,89.5 456.1,88 452.2,86.9 448.3,86 444.4,85.3 440.4,84.9 436.4,84.8"/>
+<polyline class="k" points="436.4,84.8 432.8,84.8"/>
+<polyline class="k" points="436.4,99.2 432.8,99.2"/>
+<polyline class="k" points="432.8,76.9 45.2,76.9"/>
+<polyline class="k" points="432.8,120.1 429.2,120.1"/>
+<polyline class="k" points="48.8,120.1 45.2,120.1"/>
+<polyline class="k" points="429,120.1 422,120.1"/>
+<polyline class="k" points="62,120.1 49,120.1"/>
+<polyline class="k" points="45.2,86.5 44.7,86.5"/>
+<polyline class="k" points="45.2,110.5 44.7,110.5"/>
+<polyline class="k" points="44,109.8 44.7,110.5"/>
+<polyline class="k" points="44,87.3 44.7,86.5"/>
+<polyline class="t" points="196.5,388.4 198.9,388.4 205.9,388.4 217.2,388.4 232.2,388.4 250.2,388.4 270.2,388.4 291.3,388.4 312.4,388.4 332.4,388.4 350.4,388.4 365.4,388.4 376.7,388.4 383.7,388.4 386.1,388.4"/>
+<polyline class="t" points="476.9,169.4 477.1,169.5 477.5,169.8 478.3,170.2 479.3,170.8 480.5,171.4 481.8,172.2 483.2,173 484.6,173.8 485.9,174.6 487.1,175.2 488,175.8 488.8,176.2 489.2,176.5 489.4,176.6"/>
+<polyline class="t" points="436.4,84.8 436.4,85 436.4,85.5 436.4,86.4 436.4,87.5 436.4,88.9 436.4,90.4 436.4,92 436.4,93.6 436.4,95.1 436.4,96.5 436.4,97.6 436.4,98.5 436.4,99 436.4,99.2"/>
+<line class="g" x1="27.2" y1="404" x2="514.4" y2="404"/>
+<line class="h" x1="45.2" y1="66.4" x2="45.2" y2="50.4"/>
+<line class="h" x1="432.8" y1="66.4" x2="432.8" y2="50.4"/>
+<line class="m" x1="45.2" y1="54.4" x2="432.8" y2="54.4"/>
+<line class="m" x1="42.2" y1="57.4" x2="48.2" y2="51.4"/>
+<line class="m" x1="429.8" y1="57.4" x2="435.8" y2="51.4"/>
+<text class="mt" x="239" y="48.4" text-anchor="middle">323</text>
+<line class="h" x1="196.5" y1="408" x2="196.5" y2="424"/>
+<line class="h" x1="386.1" y1="408" x2="386.1" y2="424"/>
+<line class="m" x1="196.5" y1="420" x2="386.1" y2="420"/>
+<line class="m" x1="193.5" y1="417" x2="199.5" y2="423"/>
+<line class="m" x1="383.1" y1="417" x2="389.1" y2="423"/>
+<text class="mt" x="291.3" y="433" text-anchor="middle">Ø 158</text>
+<line class="h" x1="44" y1="408" x2="44" y2="446"/>
+<line class="h" x1="497.6" y1="408" x2="497.6" y2="446"/>
+<line class="m" x1="44" y1="442" x2="497.6" y2="442"/>
+<line class="m" x1="41" y1="439" x2="47" y2="445"/>
+<line class="m" x1="494.6" y1="439" x2="500.6" y2="445"/>
+<text class="mt" x="270.8" y="455" text-anchor="middle">378</text>
+<line class="h" x1="501.6" y1="404" x2="523.6" y2="404"/>
+<line class="h" x1="501.6" y1="92" x2="523.6" y2="92"/>
+<line class="m" x1="519.6" y1="404" x2="519.6" y2="92"/>
+<line class="m" x1="516.6" y1="407" x2="522.6" y2="401"/>
+<line class="m" x1="516.6" y1="95" x2="522.6" y2="89"/>
+<text class="mt" x="527.6" y="251" text-anchor="start">260</text>
+<line class="h" x1="435.2" y1="92" x2="502.4" y2="92"/>
+<line class="m" x1="129.2" y1="75.2" x2="148.4" y2="22.4"/>
+<circle class="p" cx="129.2" cy="75.2" r="1.6"/>
+<text class="mt" x="152.4" y="25.4" text-anchor="start">bjelke Ø 36</text>
+<line class="m" x1="45.2" y1="92" x2="33.2" y2="22.4"/>
+<circle class="p" cx="45.2" cy="92" r="1.6"/>
+<text class="mt" x="37.2" y="25.4" text-anchor="start">messing Ø 20</text>
+<line class="m" x1="415.6" y1="290" x2="456.4" y2="306.8"/>
+<circle class="p" cx="415.6" cy="290" r="1.6"/>
+<text class="mt" x="460.4" y="309.8" text-anchor="start">røyr Ø 12, hallar 30°</text>
+<line class="m" x1="472.4" y1="106.4" x2="484.4" y2="22.4"/>
+<circle class="p" cx="472.4" cy="106.4" r="1.6"/>
+<text class="mt" x="488.4" y="25.4" text-anchor="start">éin boge, R 45</text>
+<line class="m" x1="194" y1="164" x2="194" y2="262.4"/>
+<circle class="p" cx="194" cy="164" r="1.6"/>
+<text class="mt" x="190" y="265.4" text-anchor="middle">rute 300 × 190, hjørne R 8</text>
+<text class="et" x="242" y="470" text-anchor="middle">FRAMANFRÅ</text>
+<polyline class="s" points="702.7,398.6 702.6,398.6"/>
+<polyline class="s" points="702.7,398.6 702.7,404"/>
+<polyline class="s" points="702.7,404 705.8,404 713.4,404 725.1,404 740.3,404 758.4,404 778.3,404 799.2,404 820,404 839.7,404 857.3,404 872,404 883,404 889.9,404 892.2,404"/>
+<polyline class="s" points="706.2,384.8 708.5,384.8 715.2,384.8 726.1,384.8 740.5,384.8 757.8,384.8 777.1,384.8 797.4,384.8 817.7,384.8 837,384.8 854.3,384.8 868.7,384.8 879.6,384.8 886.3,384.8 888.6,384.8"/>
+<polyline class="s" points="763.8,384.8 763.8,173"/>
+<polyline class="s" points="763.8,173 763.8,168.9 763.8,164.7 763.8,160.3 763.8,155.8 763.8,151.2 763.8,146.6 763.8,142 763.8,137.5 763.8,132.9 763.8,128.5 763.8,124.2 763.8,120.1 763.8,116.2 763.8,112.4"/>
+<polyline class="s" points="798,110.9 796,113.4 793.7,115.5 791.1,117.3 788.3,118.6 785.2,119.6 782.1,120.1 779,120.1 775.9,119.7 772.8,118.8 770,117.5 767.3,115.8 764.9,113.7 762.9,111.3 761.2,108.6 760,105.7 759.1,102.7 758.8,99.5 758.8,96.4 759.4,93.3 760.4,90.3 761.8,87.5 763.6,84.9 765.8,82.6 768.2,80.6 771,79.1 773.9,77.9 777,77.2 780.1,76.9 783.3,77.1 786.4,77.8 789.3,78.9 792.1,80.4 794.6,82.3 796.8,84.6 798.7,87.1 800.1,89.9 801.2,92.9 801.8,96 801.9,99.1 801.6,102.2 800.9,105.3 799.6,108.2 798,110.9"/>
+<polyline class="s" points="761.6,109.2 761.5,109 761.1,108.4"/>
+<polyline class="s" points="761.1,108.4 760.2,106.4"/>
+<polyline class="s" points="759.8,105.2 759.8,105.1"/>
+<polyline class="s" points="759.7,104.8 759.6,104.6 759.6,104.5"/>
+<polyline class="s" points="762.2,110.2 761.3,108.8 760.2,106.2 759.4,104 759.3,103.3 759.2,103.1 759.2,103"/>
+<polyline class="s" points="760.4,106.9 760.5,107"/>
+<polyline class="s" points="790.3,105.5 791.5,103.4 792.2,101.2 792.5,98.8 792.3,96.4 791.7,94.1 790.6,92 789.1,90.1 787.3,88.6 785.2,87.4 783,86.6 780.6,86.4 778.2,86.5 775.9,87.2 773.8,88.3 771.9,89.7 770.4,91.6 769.2,93.6 768.4,95.9 768.2,98.3 768.3,100.7 769,103 770.1,105.1 771.5,107 773.4,108.5 775.4,109.7 777.7,110.4 780.1,110.7 782.5,110.5 784.8,109.9 786.9,108.8 788.8,107.3 790.3,105.5"/>
+<polyline class="s" points="772.1,107.5 772.2,107.4"/>
+<polyline class="s" points="788.9,106.9 789,107.1"/>
+<polyline class="s" points="782.9,120 782.1,120.1"/>
+<polyline class="s" points="782.1,120.1 781.8,120.1"/>
+<polyline class="s" points="780.8,120.1 780.7,120.1"/>
+<polyline class="s" points="779.8,120.1 779.4,120.1"/>
+<polyline class="s" points="779.4,120.1 779.2,120.1"/>
+<polyline class="s" points="779,120.1 778.9,120.1"/>
+<polyline class="s" points="778.6,120.1 778.4,120.1"/>
+<polyline class="s" points="783.4,119.9 782.8,120"/>
+<polyline class="s" points="782.5,120 782.2,120.1"/>
+<polyline class="s" points="781.4,120.1 781.2,120.1"/>
+<polyline class="s" points="780.4,120.1 780.1,120.1"/>
+<polyline class="s" points="779.6,120.1 779.4,120.1"/>
+<polyline class="s" points="779.4,120.1 779.3,120.1"/>
+<polyline class="s" points="779.1,120.1 779,120.1"/>
+<polyline class="s" points="778.8,120.1 778.7,120.1"/>
+<polyline class="s" points="778.6,120.1 778.4,120.1"/>
+<polyline class="s" points="782.9,120 782.1,120.1"/>
+<polyline class="s" points="782.1,120.1 781.8,120.1"/>
+<polyline class="s" points="780.8,120.1 780.7,120.1"/>
+<polyline class="s" points="779.8,120.1 779.4,120.1"/>
+<polyline class="s" points="779.4,120.1 779.2,120.1"/>
+<polyline class="s" points="779,120.1 778.9,120.1"/>
+<polyline class="s" points="778.6,120.1 778.4,120.1"/>
+<polyline class="s" points="783.4,119.9 782.8,120"/>
+<polyline class="s" points="782.5,120 782.2,120.1"/>
+<polyline class="s" points="781.4,120.1 781.2,120.1"/>
+<polyline class="s" points="780.4,120.1 780.1,120.1"/>
+<polyline class="s" points="779.6,120.1 779.4,120.1"/>
+<polyline class="s" points="779.4,120.1 779.3,120.1"/>
+<polyline class="s" points="779.1,120.1 779,120.1"/>
+<polyline class="s" points="778.8,120.1 778.7,120.1"/>
+<polyline class="s" points="778.6,120.1 778.4,120.1"/>
+<polyline class="s" points="782.9,120 782.1,120.1"/>
+<polyline class="s" points="782.1,120.1 781.8,120.1"/>
+<polyline class="s" points="780.8,120.1 780.7,120.1"/>
+<polyline class="s" points="779.8,120.1 779.4,120.1"/>
+<polyline class="s" points="779.4,120.1 779.2,120.1"/>
+<polyline class="s" points="779,120.1 778.9,120.1"/>
+<polyline class="s" points="778.6,120.1 778.4,120.1"/>
+<polyline class="s" points="783.4,119.9 782.8,120"/>
+<polyline class="s" points="782.5,120 782.2,120.1"/>
+<polyline class="s" points="781.4,120.1 781.2,120.1"/>
+<polyline class="s" points="780.4,120.1 780.1,120.1"/>
+<polyline class="s" points="779.6,120.1 779.4,120.1"/>
+<polyline class="s" points="779.4,120.1 779.3,120.1"/>
+<polyline class="s" points="779.1,120.1 779,120.1"/>
+<polyline class="s" points="778.8,120.1 778.7,120.1"/>
+<polyline class="s" points="778.6,120.1 778.4,120.1"/>
+<polyline class="s" points="783.5,119.9 782.1,120.1"/>
+<polyline class="s" points="782.1,120.1 781.8,120.1"/>
+<polyline class="s" points="780.9,120.1 780.7,120.1"/>
+<polyline class="s" points="780.1,120.1 779.4,120.1"/>
+<polyline class="s" points="779.4,120.1 779.2,120.1"/>
+<polyline class="s" points="779,120.1 778.9,120.1"/>
+<polyline class="s" points="778.6,120.1 778.2,120"/>
+<polyline class="s" points="783.5,119.9 781.3,120.1 778.2,120"/>
+<polyline class="s" points="788.9,106.9 789,107.1"/>
+<polyline class="s" points="772.3,107.7 772.4,107.5"/>
+<polyline class="s" points="796.8,112.5 961.9,228.1"/>
+<polyline class="s" points="964,225.2 961.9,228.1"/>
+<polyline class="s" points="798.9,109.6 964,225.2"/>
+<polyline class="s" points="969.8,233.6 969.6,233.5 969.4,233.3 969,233.1 968.6,232.8 968.1,232.4 967.5,232 966.8,231.5 966.1,231 965.4,230.5 964.5,229.9 963.7,229.3 962.8,228.7 961.9,228.1"/>
+<polyline class="s" points="968.9,228.6 968.6,228.4 968.3,228.2 968,228 967.7,227.7 967.3,227.5 967,227.2 966.6,227 966.3,226.7 965.9,226.5 965.5,226.2 965.1,226 964.8,225.7 964.4,225.4 964,225.2"/>
+<polyline class="s" points="968.9,228.6 969,229.3 969.1,229.9 969.2,230.4 969.3,231 969.4,231.5 969.5,231.9 969.6,232.3 969.6,232.6 969.7,232.9 969.7,233.2 969.8,233.4 969.8,233.5 969.8,233.6"/>
+<polyline class="s" points="798.9,109.6 958.1,221"/>
+<polyline class="s" points="958.3,220.8 958.1,221"/>
+<polyline class="s" points="799.1,109.3 958.3,220.8"/>
+<polyline class="s" points="966.1,226.3 966,226.5"/>
+<polyline class="s" points="966.1,226.3 965.9,226.2 965.7,226 965.4,225.8 964.9,225.5 964.4,225.1 963.8,224.7 963.2,224.2 962.5,223.7 961.7,223.2 960.9,222.6 960,222 959.2,221.4 958.3,220.8"/>
+<polyline class="s" points="790.2,105.4 788.6,107.2 786.8,108.7 784.7,109.7 782.4,110.4 780.1,110.5 777.7,110.3 775.5,109.5 773.5,108.4 771.7,106.8 770.2,105 769.2,102.9 768.5,100.6 768.3,98.3 768.6,95.9 769.4,93.7 770.5,91.7 772,89.9 773.9,88.4 776,87.4 778.3,86.7 780.6,86.5 782.9,86.8 785.2,87.6 787.2,88.7 789,90.2 790.5,92.1 791.5,94.2 792.2,96.5 792.3,98.8 792.1,101.1 791.3,103.4 790.2,105.4"/>
+<polyline class="s" points="789.6,105 788.1,106.7 786.3,108.1 784.2,109.1 782,109.7 779.7,109.8 777.5,109.5 775.3,108.7 773.4,107.4 771.8,105.9 770.5,104 769.6,101.9 769.1,99.6 769.1,97.4 769.6,95.1 770.5,93 771.8,91.2 773.5,89.6 775.4,88.4 777.5,87.6 779.8,87.3 782.1,87.4 784.3,88 786.3,89 788.1,90.4 789.6,92.1 790.7,94.1 791.4,96.3 791.6,98.6 791.4,100.8 790.7,103 789.6,105"/>
+<polyline class="k" points="702.6,388.4 702.6,398.6"/>
+<polyline class="k" points="892.2,388.4 892.2,404"/>
+<polyline class="k" points="702.6,388.4 702.7,387.7 702.9,387 703.2,386.4 703.7,385.9 704.2,385.4 704.8,385.1 705.5,384.9 706.2,384.8"/>
+<polyline class="k" points="892.2,388.4 892.1,387.7 891.9,387 891.6,386.4 891.1,385.9 890.6,385.4 890,385.1 889.3,384.9 888.6,384.8"/>
+<polyline class="k" points="778.2,384.8 778.2,173"/>
+<polyline class="k" points="778.2,173 778.2,166.8 778.2,160.3 778.2,153.5 778.2,146.6 778.2,132.9 778.2,126.3 778.2,120"/>
+<polyline class="t" points="702.6,388.4 705,388.4 712,388.4 723.3,388.4 738.3,388.4 756.3,388.4 776.3,388.4 797.4,388.4 818.5,388.4 838.5,388.4 856.5,388.4 871.5,388.4 882.8,388.4 889.8,388.4 892.2,388.4"/>
+<polyline class="t" points="763.8,173 763.9,172.3 764.3,171.6 765,171 765.9,170.5 767,170 768.2,169.7 769.6,169.5 771,169.4 772.4,169.5 773.8,169.7 775,170 776.1,170.5 777,171 777.7,171.6 778.1,172.3 778.2,173"/>
+<line class="g" x1="685.8" y1="404" x2="1017.8" y2="404"/>
+<line class="st" x1="801.5" y1="92" x2="1015.1" y2="92"/>
+<text class="mt" x="1029.5" y="92" text-anchor="middle">0°</text>
+<line class="st" x1="776.3" y1="122" x2="813.4" y2="332.4"/>
+<text class="mt" x="815.9" y="346.6" text-anchor="middle">80°</text>
+<line class="h" x1="786.5" y1="97.9" x2="797.9" y2="81.6"/>
+<line class="h" x1="973.2" y1="228.7" x2="984.7" y2="212.3"/>
+<line class="m" x1="795.6" y1="84.8" x2="982.4" y2="215.6"/>
+<line class="m" x1="791.5" y1="85.6" x2="799.8" y2="84.1"/>
+<line class="m" x1="978.2" y1="216.4" x2="986.6" y2="214.9"/>
+<text class="mt" x="891.9" y="146.1" text-anchor="middle" transform="rotate(35 891.9 146.1)">190</text>
+<polyline class="m" points="859.8,92 859.7,96.5 859.3,101 858.8,105.5 858,110 856.9,114.4 855.7,118.7 854.2,123 852.5,127.2 850.6,131.3 848.5,135.3 846.2,139.2 843.7,142.9"/>
+<text class="mt" x="871.7" y="123.8" text-anchor="middle">35°</text>
+<line class="h" x1="702.6" y1="408" x2="702.6" y2="424"/>
+<line class="h" x1="892.2" y1="408" x2="892.2" y2="424"/>
+<line class="m" x1="702.6" y1="420" x2="892.2" y2="420"/>
+<line class="m" x1="699.6" y1="417" x2="705.6" y2="423"/>
+<line class="m" x1="889.2" y1="417" x2="895.2" y2="423"/>
+<text class="mt" x="797.4" y="433" text-anchor="middle">Ø 158</text>
+<line class="h" x1="702.6" y1="408" x2="702.6" y2="446"/>
+<line class="h" x1="969.8" y1="408" x2="969.8" y2="446"/>
+<line class="m" x1="702.6" y1="442" x2="969.8" y2="442"/>
+<line class="m" x1="699.6" y1="439" x2="705.6" y2="445"/>
+<line class="m" x1="966.8" y1="439" x2="972.8" y2="445"/>
+<text class="mt" x="836.2" y="455" text-anchor="middle">223</text>
+<line class="h" x1="698.6" y1="404" x2="676.6" y2="404"/>
+<line class="h" x1="698.6" y1="70.4" x2="676.6" y2="70.4"/>
+<line class="m" x1="680.6" y1="404" x2="680.6" y2="70.4"/>
+<line class="m" x1="683.6" y1="407" x2="677.6" y2="401"/>
+<line class="m" x1="683.6" y1="73.4" x2="677.6" y2="67.4"/>
+<text class="mt" x="672.6" y="240.2" text-anchor="end">278</text>
+<text class="et" x="836.2" y="470" text-anchor="middle">FRÅ SIDA</text>
+</svg>
+</div>
+<div class="k12 tal5"><div class="stortal">1112<span>g</span><small>masse. Kravet er høgst 1200</small></div><div class="stortal">196<span>cm²</span><small>fotavtrykk. Kravet er høgst 200</small></div><div class="stortal">7<span>mm</span><small>tyngdepunktet frå midten av foten</small></div><div class="stortal">7,3<span>N</span><small>trykk på hjørnet av ruta som veltar lampa</small></div><div class="stortal">0 til 80<span>°</span><small>helling utan kollisjon</small></div></div>
+</main>
+<footer class="botn"><span>Mål i mm. Teikninga og tala kjem frå same CAD-modell: konsept/film/cad/northern.py.</span><span>Ruta · revisjon B · 10 av 11</span></footer>
+</section>
+
+<section class="side">
+<header class="topp"><span>GK5 modul 2 · Northern</span><span>11 · Det som står att</span><span>Iver R. Finne · 13.11.2026</span></header>
+<h1 class="tittel">Seks ting er ikkje prøvde enno.</h1>
+<main class="innhald">
+
+<figure class="k7"><img src="bilete/p3-pakke.jpg" alt=""><figcaption>Generert bilete etter CAD-modellen. Grå-beige</figcaption></figure>
+<div class="k5"><div class="punkt"><span class="nr">01</span><p><em>Bøyen i røyret.</em> 120° med 45&nbsp;mm radius i stålrøyr Ø 12 × 1,5 krev røyrbøyar.</p></div><div class="punkt"><span class="nr">02</span><p><em>Friksjonen.</em> Bremseskruen og stoppskruen er teikna og kontrollerte digitalt. Dei er ikkje bygde.</p></div><div class="punkt"><span class="nr">03</span><p><em>Dimmaren.</em> Touch-modulen er ikkje vald. Alternativet er dimmar på leidningen, med messingpunktet som lok.</p></div><div class="punkt"><span class="nr">04</span><p><em>Prismearket.</em> Lommelyktprøva og måla med skyvelære står att.</p></div><div class="punkt"><span class="nr">05</span><p><em>Trykk og prototyp.</em> Ingen slicer-kontroll og ingen fysisk modell enno.</p></div><div class="punkt"><span class="nr">06</span><p><em>Lyset.</em> Overslaget gjeld revisjon A og er ikkje rekna på nytt.</p></div></div>
+</main>
+<footer class="botn"><span>CAD, STEP og printfiler: konsept/film/cad/ut-b/.</span><span>Ruta · revisjon B · 11 av 11</span></footer>
+</section>
+</body>
+</html>

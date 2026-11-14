@@ -12,7 +12,7 @@ import northern as N
 from teikning import Vising
 
 HER = os.path.dirname(os.path.abspath(__file__))
-K = 1.45                                   # pikslar per mm
+K = 1.2                                    # pikslar per mm
 FRAMME = ((0.0, -1.0, 0.0), (1.0, 0.0, 0.0))            # auget framfor lampa, x mot høgre
 SIDE = ((-1.0, 0.0, 0.0), (0.0, -1.0, 0.0))             # auget til venstre for lampa, framsida mot høgre
 SYNLEG = ('01', '04', '05', '06', '07', '08', '11')
@@ -55,7 +55,7 @@ def main():
     D = {d[0]: d[2] for d in N.delar()}
     former = [D[i] for i in SYNLEG]
     A = Ark()
-    bakke = 430.0
+    bakke = 404.0
     # ---------------- framanfrå
     V = Vising(former, FRAMME)
     x0 = 44.0 - V.min[0] * K
@@ -72,16 +72,16 @@ def main():
     A.line(P(N.X1 + 2, N.AKSE_H), P(hogre + 4, N.AKSE_H), 'h')
     # peikarar: bjelke, røyr, boge, rute, messingpunkt
     xm = 0.5 * (N.XR0 + N.XR1)
-    A.peikar(P(N.X0 + 60, topp - 4), P(N.X0 + 40, topp + 46), 'bjelke Ø ' + t(N.BJELKE_D))
-    A.peikar(P(N.X0, N.AKSE_H), P(N.X0 - 14, N.AKSE_H + 46), 'messing Ø ' + t(N.DIMMER_D), 'start')
+    A.peikar(P(N.X0 + 70, topp - 4), P(N.X0 + 86, topp + 40), 'bjelke Ø ' + t(N.BJELKE_D))
+    A.peikar(P(N.X0, N.AKSE_H), P(N.X0 - 10, topp + 40), 'messing Ø ' + t(N.DIMMER_D), 'start')
     zr = 95.0; xr = N.ROYR_FOT[0] + (zr - N.FOT_H) * math.tan(math.radians(N.ROYR_HELL))
     A.peikar(P(xr, zr), P(xr + 34, zr - 14), 'røyr Ø %s, hallar %s°' % (t(N.ROYR_D), t(N.ROYR_HELL)))
-    A.peikar(P(N.T2[0] + 30, N.AKSE_H - 12), P(N.T2[0] + 46, N.AKSE_H + 40), 'éin boge, R ' + t(N.ROYR_BOGE), 'middle')
+    A.peikar(P(N.T2[0] + 30, N.AKSE_H - 12), P(N.T2[0] + 40, topp + 40), 'éin boge, R ' + t(N.ROYR_BOGE), 'start')
     A.peikar(P(xm - 40, 200), P(xm - 40, 118), 'rute %s × %s, hjørne R %s' % (t(N.RUTE_B), t(N.RUTE_D), t(N.RUTE_HJORNE)), 'middle')
-    A.tekst((P(xm, 0)[0], bakke + 74), 'FRAMANFRÅ', klasse='et')
+    A.tekst((P(xm, 0)[0], bakke + 66), 'FRAMANFRÅ', klasse='et')
     # ---------------- frå sida
     W = Vising(former, SIDE)
-    x1 = P(hogre, 0)[0] + 150.0 - W.min[0] * K
+    x1 = P(hogre, 0)[0] + 205.0 - W.min[0] * K
     Q = lambda y, z: (x1 + y * K, bakke - z * K)                 # y er teikneplanet sin x: framover mot høgre
     for vekt, pk in W.liner:
         A.strek([Q(*p) for p in pk], 'k' if vekt >= 1.6 else 's' if vekt >= 1.0 else 't')
@@ -100,13 +100,13 @@ def main():
     A.maal(Q(-r, 0), Q(r, 0), 'Ø ' + t(N.FOT_D), ut=16, side=-1)
     A.maal(Q(W.min[0], 0), Q(W.max[0], 0), t(W.max[0] - W.min[0]), ut=38, side=-1)
     A.maal(Q(W.min[0], 0), Q(W.min[0], topp), t(topp), ut=22, side=1)
-    A.tekst((Q(0.5 * (W.min[0] + W.max[0]), 0)[0], bakke + 74), 'FRÅ SIDA', klasse='et')
+    A.tekst((Q(0.5 * (W.min[0] + W.max[0]), 0)[0], bakke + 66), 'FRÅ SIDA', klasse='et')
     breidd = Q(W.max[0] + 44, 0)[0]
     os.makedirs(os.path.join(N.UT, 'teikning'), exist_ok=True)
     svg = '<svg class="maal" width="%d" height="%d" viewBox="0 0 %d %d" xmlns="http://www.w3.org/2000/svg">\n%s\n</svg>\n' % (
-        breidd, bakke + 84, breidd, bakke + 84, '\n'.join(A.ut))
+        breidd, bakke + 72, breidd, bakke + 72, '\n'.join(A.ut))
     open(os.path.join(N.UT, 'teikning', 'maal.svg'), 'w', encoding='utf-8').write(svg)
-    print('maal.svg %d x %d px · framanfrå %.0f mm brei · frå sida %.0f mm djup, %.0f mm høg' % (breidd, bakke + 84, hogre - V.min[0], W.max[0] - W.min[0], topp))
+    print('maal.svg %d x %d px · framanfrå %.0f mm brei · frå sida %.0f mm djup, %.0f mm høg' % (breidd, bakke + 72, hogre - V.min[0], W.max[0] - W.min[0], topp))
 
 if __name__ == '__main__':
     main()

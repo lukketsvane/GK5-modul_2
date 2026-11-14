@@ -45,14 +45,15 @@ def mat(namn, farge, metall=0.0, ruheit=0.5, trans=0.0, ior=1.5, glod=None, styr
         p.inputs['Emission Color'].default_value = (*glod, 1.0); p.inputs['Emission Strength'].default_value = styrke
     return m
 
-def film_materiale(glod):
+def film_materiale(glod, reine=False):
     """Prismearket: fine striper på tvers av bjelken, og meir glød mot den frie kanten."""
     m = bpy.data.materials.new('film'); m.use_nodes = True; nt = m.node_tree
     p = nt.nodes['Principled BSDF']
     p.inputs['Base Color'].default_value = (0.88, 0.86, 0.82, 1.0); p.inputs['Roughness'].default_value = 0.25
     p.inputs['Transmission Weight'].default_value = 0.25
     tc = nt.nodes.new('ShaderNodeTexCoord')
-    ma = nt.nodes.new('ShaderNodeMapping'); ma.inputs['Scale'].default_value = (55.0, 1.2, 1.2)
+    # reine striper: mønsteret varierer berre langs bjelken, slik rillene i arket går. Elles teiknar støyen skrå band i mørke
+    ma = nt.nodes.new('ShaderNodeMapping'); ma.inputs['Scale'].default_value = (55.0, 0.02, 0.02) if reine else (55.0, 1.2, 1.2)
     nt.links.new(tc.outputs['Object'], ma.inputs['Vector'])
     no = nt.nodes.new('ShaderNodeTexNoise'); no.inputs['Scale'].default_value = 3.0; no.inputs['Detail'].default_value = 5.0
     nt.links.new(ma.outputs['Vector'], no.inputs['Vector'])
@@ -105,20 +106,23 @@ def grunn(storleik, prover, eksponering=-0.35, verd=0.0):
     w.node_tree.nodes['Background'].inputs['Color'].default_value = (verd, verd, verd * 1.1, 1.0)
     return s
 
-def lampe(farge, glod=1.0, under=1.6):
+def lampe(farge, glod=1.0, under=1.6, stripe=None, reine=False):
     """Les inn delane. Returnerer {id: objekt}. Lyset under ruta følgjer med dei rørlege delane."""
     kropp = mat('kropp', farge, 0.0, 0.58)
     messing = mat('messing', (0.80, 0.60, 0.30), 1.0, 0.30)
     staal = mat('staal', (0.6, 0.6, 0.6), 1.0, 0.35)
     svart = mat('svart', (0.012, 0.012, 0.013), 0.0, 0.7)
     akryl = mat('akryl', (1.0, 0.97, 0.92), 0.0, 0.03, trans=1.0, ior=1.49, glod=(1.0, 0.70, 0.36), styrke=0.25 * glod)
-    led = mat('led', (1.0, 0.9, 0.7), 0.0, 0.5, glod=(1.0, 0.72, 0.38), styrke=30.0 * glod)
-    M = {'01': kropp, '02': svart, '03': staal, '04': kropp, '05': kropp, '06': kropp, '07': akryl, '08': film_materiale(glod), '09': staal,
+    # stripa inni bjelken: i mørke teiknar ho ein skrå lysflekk gjennom plata, så kveldsbiletet dempar ho
+    led = mat('led', (1.0, 0.9, 0.7), 0.0, 0.5, glod=(1.0, 0.72, 0.38), styrke=30.0 * glod if stripe is None else stripe)
+    M = {'01': kropp, '02': svart, '03': staal, '04': kropp, '05': kropp, '06': kropp, '07': akryl, '08': film_materiale(glod, reine), '09': staal,
          '10': led, '11': messing, '12': staal, '13': staal, 'E': staal, 'leidning': kropp}
     O = {}
     for i, m in M.items():
         f = os.path.join(UT, 'samla', i + '.stl')
         if os.path.exists(f): O[i] = importer(f, m); O[i].name = 'del_' + i
+    if '08' in O:                                   # arket ligg mot plata i CAD-en. Like flater gjev trekantmønster i rendringa, så arket blir løfta 0,1 mm
+        t = math.radians(G['VINKEL']); O['08'].matrix_world = Matrix.Translation(Vector((0.0, -math.sin(t), math.cos(t))) * 0.00012) @ O['08'].matrix_world
     if under > 0:
         O['under'] = lys('under', (-0.02, -0.11, 0.15), (-0.02, -0.20, 0.0), 0.20, under, (1.0, 0.64, 0.32), synleg=False)
     bpy.context.view_layer.update()
@@ -198,32 +202,44 @@ def vis_detalj():
     kamera(p + Vector((-0.26, -0.16, 0.05)), p + Vector((0.035, -0.020, -0.012)), 85, fstop=9.0, fokus=p)
     rendre('detalj-messing')
 
+def bbpunkt(ob, f):
+    """Eit punkt i objektet si romboks, gjeve som brøkar langs x, y og z."""
+    P = [ob.matrix_world @ v.co for v in ob.data.vertices]          # hjørna i romet, ikkje den dreidde boksen
+    lo = Vector((min(p.x for p in P), min(p.y for p in P), min(p.z for p in P)))
+    hi = Vector((max(p.x for p in P), max(p.y for p in P), max(p.z for p in P)))
+    return Vector((lo.x + f[0] * (hi.x - lo.x), lo.y + f[1] * (hi.y - lo.y), lo.z + f[2] * (hi.z - lo.z)))
+
 def vis_sprengt():
-    """Delane trekte frå kvarandre langs aksane, med ruta vassrett: x langs bjelken, y ut i ruta, z opp."""
+    """Delane trekte frå kvarandre langs aksane, med ruta vassrett: x langs bjelken, y ut i ruta, z opp.
+    Arket er løfta, plata dregen fram og det som sit under bjelken senka, slik at ingenting skjuler noko anna."""
     grunn((1500, 1300), 48, 0.0, verd=0.0)
     O = lampe(FARGE['graabeige'], glod=0.12, under=0.0)
     hell(O, 0.0)
     rom_studio(golv=False, nokkel=34.0, kant=26.0, fyll=12.0)
     x, y, z = Vector((1, 0, 0)), Vector((0, 1, 0)), Vector((0, 0, 1))
-    F = {'11': -0.050 * x, '07': -0.070 * y, '08': -0.070 * y + 0.036 * z, '10': -0.030 * z, '09': -0.052 * z,
-         '06': -0.088 * z, '13': -0.104 * z, 'E': -0.128 * z,
-         '04': 0.100 * x, '12': 0.100 * x - 0.030 * z,
-         '01': 0.100 * x - 0.050 * z, 'leidning': 0.100 * x - 0.050 * z, '03': 0.100 * x - 0.115 * z, '02': 0.100 * x - 0.180 * z}
+    F = {'11': -0.055 * x, '08': 0.190 * z, '07': -0.190 * y, '10': -0.030 * z, '09': -0.055 * z,
+         '06': -0.090 * z, '13': -0.132 * z, 'E': -0.125 * z,
+         '04': 0.190 * x, '12': 0.190 * x - 0.034 * z,
+         '01': 0.190 * x - 0.055 * z, 'leidning': 0.190 * x - 0.055 * z, '03': 0.190 * x - 0.125 * z, '02': 0.190 * x - 0.195 * z}
     for i, v in F.items():
         if i in O: flytt(O[i], v)
     bpy.context.view_layer.update()
-    ko = kamera((-0.92, -1.30, 0.62), (0.02, -0.07, 0.065), 80)
+    ko = kamera((0.771, -1.154, 1.195), (-0.02, -0.024, 0.118), 70)
     s = bpy.context.scene
+    BR = {'05': (0.80, 0.5, 1.0), '08': (0.95, 0.5, 1.0), '07': (0.04, 0.5, 0.5), '10': (0.0, 0.5, 0.5), '09': (0.0, 0.5, 0.5),
+          '06': (0.01, 0.5, 0.5), 'E': (1.0, 0.5, 0.5), '01': (0.25, 0.2, 1.0), '03': (0.3, 0.2, 1.0), '02': (0.3, 0.2, 1.0)}
     anker = {}
     for i, ob in O.items():
         if i in ('under', 'leidning'): continue
-        c = world_to_camera_view(s, ko, midt(ob)); anker[i] = [round(c.x, 4), round(1.0 - c.y, 4)]
+        p = bbpunkt(ob, BR[i]) if i in BR else midt(ob)
+        if i == '04': p = Vector((0.070, G['YT'] / 1000.0, G['AKSE_H'] / 1000.0 + 0.006)) + F['04']
+        c = world_to_camera_view(s, ko, p); anker[i] = [round(c.x, 4), round(1.0 - c.y, 4)]
     json.dump(anker, open(os.path.join(RUT, 'sprengt.json'), 'w'), indent=1)
     rendre('sprengt')
 
 def vis_kveld():
-    grunn((1500, 1000), 64, 0.35)
-    lampe(FARGE['morkegron'], glod=2.2, under=2.6); rom_dag(vindauge=1.6, fyll=0.5, vindaugsfarge=(0.55, 0.65, 1.0))
+    grunn((1500, 1000), 64, 1.0)
+    lampe(FARGE['morkegron'], glod=1.0, under=1.5, stripe=1.5, reine=True); rom_dag(vindauge=0.9, fyll=0.25, vindaugsfarge=(0.55, 0.65, 1.0))
     kamera((-0.52, -0.80, 0.26), (-0.01, 0.0, 0.130), 60)
     rendre('kveld')
 

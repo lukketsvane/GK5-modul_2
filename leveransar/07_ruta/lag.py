@@ -3,7 +3,7 @@
 lag.py  ·  presentasjonen av Ruta, revisjon B
 
 Les tala frå CAD-kontrollen (konsept/film/cad/ut-b/kontroll.json), hentar rendringane derifrå, og skriv
-presentasjon.html, Ruta-presentasjon.pdf og png/side-NN.png (2254 x 1594).
+presentasjon.html, Ruta-presentasjon.pdf og sider/side-NN.jpg (2254 x 1594).
 
   python lag.py            alt
   python lag.py bilete     berre bileta på nytt
@@ -46,7 +46,8 @@ def bilete():
     h = [os.path.join(RUT, 'helling-%02d.png' % v) for v in (0, 35, 70)]
     if all(os.path.exists(p) for p in h):
         im = [Image.open(p).convert('RGB') for p in h]
-        ImageChops.lighter(ImageChops.lighter(im[0], im[1]), im[2]).save(os.path.join(BIL, 'helling.jpg'), quality=93, subsampling=0)
+        fl = ImageChops.lighter(ImageChops.lighter(im[0], im[1]), im[2]); w, h = fl.size
+        fl.crop((int(0.12 * w), int(0.16 * h), int(0.90 * w), int(0.96 * h))).save(os.path.join(BIL, 'helling.jpg'), quality=93, subsampling=0)
     print('bilete:', ' '.join(sorted(f for f in os.listdir(BIL) if f.endswith('.jpg'))))
 
 def finst(n): return os.path.exists(os.path.join(BIL, n + '.jpg'))
@@ -117,7 +118,7 @@ STIL = """
   table.delar td { padding: 4px 10px 4px 0; }
   table.delar td.id { width: 26px; color: var(--blekk); }
   table.delar td.k { color: var(--graa); }
-  svg.maal { width: 100%; height: auto; }
+  svg.maal { margin: 0 auto; }
   svg.maal .k { stroke: #fff; stroke-width: 1.15; fill: none; }
   svg.maal .s { stroke: #fff; stroke-width: 0.75; fill: none; }
   svg.maal .t { stroke: #BDBDBD; stroke-width: 0.5; fill: none; }
@@ -185,13 +186,13 @@ def s03():
     k = kamera((-0.52, -0.80, 0.27), (-0.01, 0.0, 0.132), 60.0, bh)
     P = lambda q: dekk(*k(q), bh)
     r = G['FOT_D'] / 2
-    zr = 120.0; xr = G['ROYR_FOT'][0] + (zr - G['FOT_H']) * math.tan(math.radians(30.0))
+    zr = 58.0; xr = G['ROYR_FOT'][0] + (zr - G['FOT_H']) * math.tan(math.radians(30.0))
     blad = bjelkemidt(G['XR0'] + 0.62 * G['RUTE_B']); blad = (blad[0], blad[1], blad[2] + G['R'])
     mess = bjelkemidt(G['X0'] - 1.0)
     skive = (r * 0.72, -r * 0.5, G['FOT_H'])
     a, b, c, d = P(blad), P((xr, G['YT'], zr)), P(skive), P(mess)
     lag = (peikar(a, (a[0] + 40, 58), 'BLAD', 'bjelke Ø 36 med rute 300 × 190') +
-           peikar(b, (b[0] + 150, b[1] - 6), 'RØYR', 'stål Ø 12 i éi rørsle') +
+           peikar(b, (b[0] + 120, b[1] - 34), 'RØYR', 'stål Ø 12 i éi rørsle') +
            peikar(c, (c[0] + 130, c[1] + 44), 'SKIVE', 'fot Ø 158 med ballast') +
            peikar(d, (d[0] - 46, d[1] + 120), 'MESSINGPUNKT', 'touch-dimmar Ø 20', 'middle'))
     legg('''<section class="side heil">
@@ -223,7 +224,7 @@ def s05():
 <div class="k5">
   <figure><img src="bilete/detalj-messing.jpg" alt=""><figcaption>Rendring av CAD-modellen: enden slik han er teikna</figcaption></figure>
   <div class="tekst" style="margin-top: 18px;">
-    <p>Dimmaren sit i den frie enden av bjelken: ei skive i børsta messing, 20&nbsp;mm brei, éin millimeter ut frå enden. Ho er den einaste blanke flata på lampa.</p>
+    <p>Dimmaren sit i den frie enden av bjelken: ei skive i børsta messing, 20&nbsp;mm brei, éin millimeter ut frå enden. Ho er det einaste blanke metallet på lampa.</p>
     <p>Tenkt bruk: kort trykk slår av og på, langt trykk dimmar. Modulen er ikkje vald, og han må kjøpast saman med LED-stripa.</p>
   </div>
 </div>''', 'Northern brukar same grepet: touch-dimmar i messing i enden av armen på Salto.')
@@ -271,7 +272,9 @@ def s08():
 </section>''' % (topp(8, 'Fargane'), f('graabeige', 'Grå-beige'), f('morkegron', 'Mørkegrøn'), f('svart', 'Svart'), f('kirsebaer', 'Kirsebærraud'),
                  botn(8, 'Fire rendringar av CAD-modellen i dagslys frå sida. Gløden er ei visualisering.')))
 
-SPRENGT_FLYTT = {}       # id -> (dx, dy, anker) for nummera på den sprengte visinga
+SPRENGT_FLYTT = {'08': (40, -14, 'start'), '11': (-26, -6, 'end'), '05': (44, -26, 'start'), '10': (-30, -8, 'end'), '09': (-30, 2, 'end'),
+                 '06': (-28, 10, 'end'), 'E': (16, 20, 'start'), '13': (40, -4, 'start'), '12': (-18, 18, 'end'), '04': (30, -24, 'start'),
+                 '01': (-50, -8, 'end'), '03': (-60, 4, 'end'), '02': (-50, 14, 'end'), '07': (-22, -20, 'end')}      # id -> (dx, dy, anker)
 DELAR = [('01', 'Fot', 'trykt og lakkert'), ('02', 'Botnlok med pute', 'trykt'), ('03', 'Ballast', 'stålplate 5&nbsp;mm'),
          ('04', 'Røyr', 'stål Ø 12 × 1,5, éin boge'), ('05', 'Bjelke', 'trykt i to lengder'), ('06', 'Bjelkelok', 'trykt, på undersida'),
          ('07', 'Lysleiar', 'plate 3&nbsp;mm frå skjermen, eller akryl'), ('08', 'Prismeark', 'frå skjermen'),
@@ -294,8 +297,8 @@ def s09():
 <figure class="k7 lag"><img src="bilete/sprengt.jpg" alt=""><svg width="%d" height="%d" viewBox="0 0 %d %d" xmlns="http://www.w3.org/2000/svg">%s</svg></figure>
 <div class="k5">
   <table class="delar"><tr><th></th><th>Del</th><th>Laga av</th></tr>%s</table>
-  <p class="liten" style="margin-top: 12px;">Kjøpt: LED-stripa og touch-dimmaren. Frå skjermen: plata og prismearket. Trykt: fot, botnlok, bjelke og lok. Røyret og ballasten er stål som må skaffast.</p>
-</div>''' % (w, h, w, h, lag, rader), 'Rendring av CAD-modellen med delane trekte frå kvarandre og ruta vassrett. Ingen skruar syner ovanfrå.')
+  <p class="liten" style="margin-top: 12px;">Kjøpt: LED-stripa og dimmaren. Frå skjermen: plata og arket. Røyret og ballasten er stål som må skaffast.</p>
+</div>''' % (w, h, w, h, lag, rader), 'Rendring av CAD-modellen, sett framanfrå til høgre, med delane trekte frå kvarandre og ruta vassrett. Ingen skruar syner ovanfrå.')
 
 def s10():
     svg = open(os.path.join(CAD, 'ut-b', 'teikning', 'maal.svg'), encoding='utf-8').read()
@@ -341,9 +344,10 @@ def skriv(hf, n):
     prof = tempfile.mkdtemp(prefix='chrome-ruta-')
     subprocess.run([CHROME, '--headless=new', '--disable-gpu', '--no-first-run', '--user-data-dir=' + prof, '--no-pdf-header-footer',
                     '--virtual-time-budget=6000', '--print-to-pdf=' + pdf, 'file:///' + hf.replace('\\', '/')], check=True, capture_output=True, timeout=240)
-    d = fitz.open(pdf); os.makedirs(os.path.join(HER, 'png'), exist_ok=True)
+    d = fitz.open(pdf); os.makedirs(os.path.join(HER, 'sider'), exist_ok=True)
     for i, s in enumerate(d):
-        s.get_pixmap(matrix=fitz.Matrix(2254 / s.rect.width, 1594 / s.rect.height)).save(os.path.join(HER, 'png', 'side-%02d.png' % (i + 1)))
+        px = s.get_pixmap(matrix=fitz.Matrix(2254 / s.rect.width, 1594 / s.rect.height), alpha=False)
+        Image.frombytes('RGB', (px.width, px.height), px.samples).save(os.path.join(HER, 'sider', 'side-%02d.jpg' % (i + 1)), quality=94, subsampling=0)
     print('pdf: %d sider (venta %d), %.1f MB' % (len(d), n, os.path.getsize(pdf) / 1e6))
 
 if __name__ == '__main__':

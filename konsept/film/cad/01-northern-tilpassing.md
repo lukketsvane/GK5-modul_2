@@ -1,6 +1,6 @@
 # Ruta på fot, revisjon B: tilpassa formspråket til Northern
 
-Dato: 13.11.2026. Lampa er teikna om etter dei seks trekka som går att i Northern sine lamper. Grunnlaget er granskinga i `research/01-northern.md` frå 12.11.2026 (56 lamper, produktark og produktbilete). Nettsida til Northern svara med «for mange oppslag» i dag, så ingenting nytt er henta derifrå. CAD-en er `northern.py`, alt under `ut-b/` blir laga på nytt med `python northern.py`.
+Dato: 13.11.2026. Lampa er teikna om etter dei seks trekka som går att i Northern sine lamper. Grunnlaget er granskinga i `research/01-northern.md` frå 12.11.2026 (56 lamper, produktark og produktbilete). Nettsida til Northern svara med «for mange oppslag» i dag, så ingenting nytt er henta derifrå. CAD-en er `northern.py`, alt under `ut-b/` blir laga på nytt med `python northern.py`. Presentasjonen av lampa ligg i `leveransar/07_ruta/`.
 
 ![Revisjon B i fire fargar](ut-b/render/rev-b-fire-fargar.png)
 
@@ -40,19 +40,21 @@ Ruta er brei i høve til høgda (30 mot 26 cm). Det bryt med «lite hovud på la
 - **Ingen synlege skruar.** Loket på bjelken sit på undersida. Røyret er festa i foten med ein settskrue nedanfrå.
 - **Mjukare kantar.** Dei frie hjørna på ruta har radius 8 mm, og foten radius 3 mm.
 - **Leidningen** går inni røyret og ut bak foten som stoffkledd leidning i same farge.
-- **Røyret hallar 30° ut mot høgre.** Det er ikkje pynt: hallinga flyttar ruta inn over foten, slik at tyngdepunktet ligg 6 mm frå midten.
+- **Røyret hallar 30° ut mot høgre.** Det er ikkje pynt: hallinga flyttar ruta inn over foten, slik at tyngdepunktet ligg 7 mm frå midten.
+- **Stoppen og friksjonen ligg inni bjelken.** Ein settskrue M3 står rett ned frå røyret og går i eit spor inni høgre endevegg. Han stoppar hellinga ved 0° og 80° og held bjelken på røyret. Ein bremseskrue M4 med nylonspiss trykkjer mot røyret nedanfrå og set friksjonen. Begge blir sette inn frå undersida, og ingen av dei syner.
+- **Dimmaren har eit eige rom** bak messingpunktet i venstre ende, med kanal for leidningen til stripa. Leidningen frå røyret kjem ut i bjelken gjennom den opne enden av røyret.
 
 ## Tala
 
 | | Revisjon A | Revisjon B | Krav |
 | --- | --- | --- | --- |
-| Delar (utan lause skruar) | 19 | 12 | |
-| Synlege skruar | 6 | 0 | |
-| Masse | 1184 g | 1104 g | høgst 1200 g |
+| Delar (utan dei fire skruane i loket) | 19 | 13 | |
+| Skruar som syner ovanfrå | 6 | 0 | |
+| Masse | 1184 g | 1112 g | høgst 1200 g |
 | Fotavtrykk | 196 cm² | 196 cm² | høgst 200 cm² |
-| Tyngdepunkt frå midten av foten | 10 mm | 6 mm | |
-| Trykk ned på venstre hjørne av ruta som veltar lampa | 6,7 N | 7,7 N | |
-| Trykk ned på fremste kant | 10,7 N | 12,0 N | |
+| Tyngdepunkt frå midten av foten | 10 mm | 7 mm | |
+| Trykk ned på venstre hjørne av ruta som veltar lampa | 6,7 N | 7,3 N | |
+| Trykk ned på fremste kant | 10,7 N | 12,1 N | |
 | Dytt sidelengs i toppen | 3,1 N | 3,0 N | |
 | Kollisjonar, helling 0° til 80° i steg på 10° | ingen | ingen | |
 
@@ -63,7 +65,7 @@ Hovudfargen er grå-beige, som dei nyaste Northern-lampene kjem i (Snowball oppl
 ## Det som er uvisst eller ikkje gjort
 
 - **Bøyen i røyret** er 120° med 45 mm radius på eit stålrøyr Ø 12 × 1,5 mm. Det krev røyrbøyar. Aluminiumsrøyr er lettare å bøye, men då blir lampa 150 g lettare på høgre side og tyngdepunktet flyttar seg mot ruta.
-- **Friksjonen mellom bjelke og røyr** er ikkje teikna i detalj og ikkje prøvd. Bjelken treng to klemringar eller ein bremsesko inni.
+- **Friksjonen og stoppen** er teikna og kontrollerte digitalt: stoppskruen går fritt frå 0° til 80° og tek imot utanfor. Dei er ikkje bygde. Røyret treng eitt gjenga hol M3 på undersida, 607 mm røyr før bøying.
 - **Touch-dimmaren** er ein del til som må kjøpast, saman med LED-stripa. Alternativet er å la dimmaren sitje på leidningen og la messingpunktet vere eit lok.
 - **Prototypen** må lakkast eller trykkjast i éin farge for at H4 skal synast.
 - **Slicer og fysisk prototyp** er ikkje gjort. Lyset er det same som i revisjon A og er ikkje rekna på nytt.
@@ -76,4 +78,7 @@ Hovudfargen er grå-beige, som dei nyaste Northern-lampene kjem i (Snowball oppl
 | `ut-b/ruta-pa-fot-rev-b.step` | samanstillinga |
 | `ut-b/stl/` | printfilene og to prøvedelar |
 | `ut-b/render/` | rendringane |
-| `render_northern.py` | rendrar dei fire fargane i dagslys frå sida |
+| `render_presentasjon.py` | rendringane til presentasjonen: studio, helling, detalj, sprengt vising, kveld og dei fire fargane |
+| `teikning_b.py` | målteikninga framanfrå og frå sida, `ut-b/teikning/maal.svg` |
+| `render_northern.py` | den første rendringa av dei fire fargane (før stoppskruen kom til) |
+| `leveransar/07_ruta/` | presentasjonen: `Ruta-presentasjon.pdf`, sidene som PNG, og `lag.py` som byggjer dei |

@@ -50,7 +50,7 @@ Rekkjefølgja og delane følgjer rettingane etter den uavhengige kontrollen (sj�
 
 ## Antakingar og det som manglar
 
-- **Leidningen** og trekkjesnora er ikkje teikna. Snora er nemnd i steg 3. Resten står i tabellen over og i `../02-produksjonsklar.md`.
+- **Leidningen** og trekkjesnora er ikkje teikna. Snora er nemnd i steg 3. Resten står i tabellen over og under «Det heftet ikkje teiknar» i `../02-produksjonsklar.md`.
 - **Filamentpinnane** i steg 4 er ikkje teikna.
 - **Digitalt kontrollert:** `ut/rapport.json` har ingen åtvaringar, og mengdene i stega stemmer med dellista (6 E, 3 F, 1 G, 33 S, 2 W, 16 K).
 - **Ikkje prøvd fysisk:** ingenting er trykt eller montert. Heftet er ikkje prov på at delane passar.

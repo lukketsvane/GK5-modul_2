@@ -55,7 +55,7 @@ Styrke, rekna med 8 N på hjørnet, det doble av det som veltar lampa:
 | Stoppflata ved 1 Nm på ruta | 5,0 MPa | 40 MPa | 8 |
 | Gjenga til bremseskruen | 168 N | 647 N | 3,8 |
 
-Utan fotringen ville kanttrykket i foten vore 22 MPa. Bremsa må halde 252 Nmm når ruta ligg flatt, og er rekna for det doble. Skoen kan gå 0,75 mm mot røyret, og 0,25 mm trengst. Akselrøyret bøyer seg 0,34 mm under eigenvekta av ruta.
+Utan fotringen ville kanttrykket i foten vore 22 MPa. Bremsa må halde 252 Nmm når ruta ligg flatt, og er rekna for det doble. Skoen kan gå 0,9 mm mot røyret, og 0,25 mm trengst. Akselrøyret bøyer seg 0,34 mm under eigenvekta av ruta.
 
 ## Trykte delar
 
@@ -64,7 +64,7 @@ PETG, dyse 0,4 mm, lag 0,2 mm, fire vegger, fem lag topp og botn, 25 % gyroid om
 | Fil | Mål i mm | Stilling og oppsett |
 | --- | --- | --- |
 | `01_fot.stl` | 158 × 158 × 16 | Toppflata ned, utan støtte, fem vegger |
-| `02_botnlok.stl` | 145 × 145 × 4 | Den flate undersida ned, utan støtte |
+| `02_botnlok.stl` | 145 × 145 × 4 | Den flate undersida ned. Støtte berre frå plata, eller reinsk dei tre forsenkingane med eit 6,5 mm bor |
 | `05_bjelke_venstre.stl` | 36 × 36 × 131 | Ståande på enden med skøyten opp. Støtte berre i endeloklomma, 5 mm brem |
 | `05_bjelke_hogre.stl` | 36 × 36 × 197 | Ståande på enden med skøyten opp. Støtte berre i kragerommet, 5 mm brem |
 | `06_lok_venstre.stl` | 194 × 17 × 16 | Klemflata ned, støtte frå plata under leppa |
@@ -131,11 +131,23 @@ Tre kontrollørar gjekk gjennom første utkast kvar for seg: montering steg for 
 | Funn | Retting |
 | --- | --- |
 | Leidningen kom ikkje ut av foten. Hakket i veggen var blindt, 2,4 mm gods stod att | Hakket startar 5 mm lenger inne. Kontrollen har fått ein Ø 4-sonde langs leidningsvegen |
-| Bremsa klemde ikkje. Skoen tok i skuldra 0,10 mm før han nådde røyret | Vengene på skoen er flytta, så vandringa er 0,75 mm |
+| Bremsa klemde ikkje. Skoen tok i skuldra 0,10 mm før han nådde røyret | Vengene på skoen er flytta, så vandringa er 0,9 mm |
 | Bjelkehalvdelane stod med skøyten ned og fekk tak i lufta 128 og 184 mm over plata | Dei står no på enden med skøyten opp |
 | Botnloket låg opp ned i printfila | Retta |
 
 I tillegg er dette endra etter kontrollen: fotringen, styrepinnane, stripa på 27 cm (leidningen kom ikkje ned i slissa med 30 cm), bremseskruen på 8 mm (hovudet stakk 1 mm ut), tappar og klossar som toler skiver opp til 3,3 mm, avlasting ved loket som klemmer plater ned til 2,25 mm, og velterekninga. Skoen blir no skoven på plass av røyret: i båsen der han går inn, er taket lågare, så røyret må flytte han inn under skruen for å kome forbi, og han kan ikkje gli attende.
+
+Rettingane vart så etterprøvde av to nye kontrollørar, éin på bremsa og monteringa og éin på printfilene. Printfilene stod: alle er tette, ligg rett veg, og ingenting treng høg støtte. Bremsa hadde éin feil til: skoen kom ikkje inn i båsen, fordi tappen tok i overkjeven 0,6 mm før han var inne. No har tappen 45° fas på hjørna, og munninga held fram 2,9 mm inn i kjeven. Ein stegvis prøve viser at skoen går rett ned i ei sjakt og så sidelengs inn i båsen utan å ta i noko. Sjakta er om lag 0,6 mm vidare enn skoen, så `prove_brems.stl` bør prøvast før bjelken blir trykt. Vengene på skoen er 0,8 mm (fire lag) og har 0,3 mm klaring i båsen, og hakket i botnloket går heilt inn i koplingsrommet, så leidningen ligg rett heile vegen ut.
+
+## Det heftet ikkje teiknar
+
+- **Trekkjesnor.** Træ ei tynn snor gjennom akselrøyr, bogestykke og stamme, og vidare ned gjennom sokkelen og bak i foten, før stamma blir limt. Leidningen kan ikkje styrast rundt svingen i foten utan.
+- **Grad.** Fil røyrendane innvendig, særleg venstre ende av akselrøyret der leidningen bøyer inn i slissa. Sjå etter grad på kanten mellom båsen til skoen og boringa.
+- **Bjelken inn på røyret.** Hald ruta vassrett. Då ligg skoen mot den heile veggen i båsen, og røyret skuvar han rett inn under skruen.
+- **Loket før G.** Forsenkinga til bremseskruen ligg over skøyten mellom bjelke og lok. Skal loket av att, må G ut først.
+- **Stripa.** Lim enden av stripa godt der ho ligg over opninga til skoen.
+- **G.** Fil den kappa enden plan, så han kviler flatt i styreholet i skoen.
+- **Støtte i printen.** Foten skal ha støtte slått av, elles kjem det støtte inni hylsa til røyret. Dei andre delane som treng støtte, skal ha «berre frå plata».
 
 ## Det som er uvisst eller ikkje gjort
 

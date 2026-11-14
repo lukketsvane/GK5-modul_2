@@ -1,0 +1,512 @@
+{
+ "delar": [
+  {
+   "id": "01",
+   "namn": "fot",
+   "masse_g": 90.5,
+   "gyldig": true
+  },
+  {
+   "id": "02",
+   "namn": "botnlok",
+   "masse_g": 23.9,
+   "gyldig": true
+  },
+  {
+   "id": "03",
+   "namn": "ballast",
+   "masse_g": 244.1,
+   "gyldig": true
+  },
+  {
+   "id": "04",
+   "namn": "stammerøyr",
+   "masse_g": 74.8,
+   "gyldig": true
+  },
+  {
+   "id": "05v",
+   "namn": "bjelke venstre",
+   "masse_g": 57.6,
+   "gyldig": true
+  },
+  {
+   "id": "05h",
+   "namn": "bjelke høgre",
+   "masse_g": 85.6,
+   "gyldig": true
+  },
+  {
+   "id": "06v",
+   "namn": "lok venstre",
+   "masse_g": 26.3,
+   "gyldig": true
+  },
+  {
+   "id": "06h",
+   "namn": "lok høgre",
+   "masse_g": 15.9,
+   "gyldig": true
+  },
+  {
+   "id": "07",
+   "namn": "lysleiar",
+   "masse_g": 201.6,
+   "gyldig": true
+  },
+  {
+   "id": "08",
+   "namn": "prismeark",
+   "masse_g": 17.9,
+   "gyldig": true
+  },
+  {
+   "id": "09",
+   "namn": "akselrøyr",
+   "masse_g": 95.4,
+   "gyldig": true
+  },
+  {
+   "id": "10",
+   "namn": "LED-stripe",
+   "masse_g": 7.7,
+   "gyldig": true
+  },
+  {
+   "id": "11",
+   "namn": "endelok",
+   "masse_g": 1.5,
+   "gyldig": true
+  },
+  {
+   "id": "12",
+   "namn": "bogestykke",
+   "masse_g": 26.6,
+   "gyldig": true
+  },
+  {
+   "id": "13",
+   "namn": "bremsesko",
+   "masse_g": 0.2,
+   "gyldig": true
+  },
+  {
+   "id": "14",
+   "namn": "fotring",
+   "masse_g": 2.1,
+   "gyldig": true
+  },
+  {
+   "id": "E",
+   "namn": "skrue M3 × 19",
+   "masse_g": 8.6,
+   "gyldig": true
+  },
+  {
+   "id": "F",
+   "namn": "skrue M3 × 12",
+   "masse_g": 3.1,
+   "gyldig": true
+  },
+  {
+   "id": "G",
+   "namn": "skrue M3 × 8",
+   "masse_g": 0.8,
+   "gyldig": true
+  }
+ ],
+ "kollisjonar": [],
+ "rorsle": [
+  {
+   "vinkel": 0,
+   "kollisjon_mm3": 0.0,
+   "kven": "",
+   "laagaste_punkt": 242.0
+  },
+  {
+   "vinkel": 10,
+   "kollisjon_mm3": 0.0,
+   "kven": "",
+   "laagaste_punkt": 223.0
+  },
+  {
+   "vinkel": 20,
+   "kollisjon_mm3": 0.0,
+   "kven": "",
+   "laagaste_punkt": 188.7
+  },
+  {
+   "vinkel": 30,
+   "kollisjon_mm3": 0.0,
+   "kven": "",
+   "laagaste_punkt": 156.7
+  },
+  {
+   "vinkel": 40,
+   "kollisjon_mm3": 0.0,
+   "kven": "",
+   "laagaste_punkt": 127.7
+  },
+  {
+   "vinkel": 50,
+   "kollisjon_mm3": 0.0,
+   "kven": "",
+   "laagaste_punkt": 102.8
+  },
+  {
+   "vinkel": 60,
+   "kollisjon_mm3": 0.0,
+   "kven": "",
+   "laagaste_punkt": 82.7
+  },
+  {
+   "vinkel": 70,
+   "kollisjon_mm3": 0.0,
+   "kven": "",
+   "laagaste_punkt": 67.9
+  },
+  {
+   "vinkel": 80,
+   "kollisjon_mm3": 0.0,
+   "kven": "",
+   "laagaste_punkt": 59.0
+  }
+ ],
+ "masse_g": 1014,
+ "tyngdepunkt": [
+  -4.4,
+  -6.3,
+  136.0
+ ],
+ "fotavtrykk_cm2": 196.1,
+ "veltevinkel": 23.6,
+ "velt_venstre_N": 3.5,
+ "velt_framme_N": 6.0,
+ "velt_dytt_topp_N": 2.5,
+ "velt": {
+  "0": {
+   "hjorne_N": 3.5,
+   "framkant_N": 6.0,
+   "dytt_topp_N": 2.5,
+   "veltevinkel": 23.6
+  },
+  "35": {
+   "hjorne_N": 4.3,
+   "framkant_N": 9.5,
+   "dytt_topp_N": 2.7,
+   "veltevinkel": 27.1
+  },
+  "80": {
+   "hjorne_N": 6.3,
+   "framkant_N": null,
+   "dytt_topp_N": 2.5,
+   "veltevinkel": 27.9
+  }
+ },
+ "delar_i_alt": 49,
+ "underlag_r": 77.48203715185521,
+ "leidning_ut_fri": true,
+ "stopp": {
+  "nedre_tek": true,
+  "ovre_tek": true,
+  "laaseskruen_held": true,
+  "snitt_mm3": [
+   7.6,
+   7.6,
+   14.4
+  ],
+  "mot": [
+   "bjelke høgre mot bogestykke",
+   "bjelke høgre mot bogestykke",
+   "skrue M3 × 19 mot bogestykke"
+  ]
+ },
+ "styrke": {
+  "last": {
+   "blad_g": 424,
+   "moment_eigenvekt_Nmm": 738,
+   "moment_ved_velt_Nmm": 3458
+  },
+  "bogestykke": {
+   "spenning_eigenvekt_MPa": 1.3,
+   "spenning_ved_velt_MPa": 6.2,
+   "grense_MPa": 40,
+   "tryggleik_ved_velt": 6.5
+  },
+  "royr": {
+   "spenning_ved_velt_MPa": 39.4,
+   "grense_MPa": 150,
+   "tryggleik_ved_velt": 3.8,
+   "nedboying_eigenvekt_mm": 0.34
+  },
+  "muffe": {
+   "kraft_N": 207,
+   "flatetrykk_MPa": 2.1,
+   "grense_MPa": 40
+  },
+  "stopp": {
+   "moment_Nmm": 1000.0,
+   "kraft_N": 133,
+   "flate_mm2": 26.8,
+   "flatetrykk_MPa": 5.0,
+   "grense_MPa": 40
+  },
+  "brems": {
+   "moment_fraa_ruta_Nmm": 253,
+   "bremsemoment_Nmm": 507,
+   "skruekraft_N": 169,
+   "gjenge_mm": 6.1,
+   "gjenga_toler_N": 647,
+   "tryggleik": 3.8,
+   "vandring_sko_mm": 0.9,
+   "vandring_trengst_mm": 0.25
+  },
+  "fot": {
+   "moment_Nmm": 3070,
+   "innfesting_mm": 24.0,
+   "kanttrykk_MPa": 2.7,
+   "grense_MPa": 40,
+   "utan_ring_MPa": 22.3
+  }
+ },
+ "kapp": {
+  "stammeroyr_mm": 241.6,
+  "akselroyr_mm": 308.0,
+  "royr_i_alt_mm": 549.6,
+  "skiver": 24
+ },
+ "stykkliste": [
+  {
+   "id": "01",
+   "namn": "fot",
+   "tal": 1,
+   "materiale": "petg",
+   "framstilling": "TRYKT. PETG, toppflata ned, utan støtte, fem vegger"
+  },
+  {
+   "id": "02",
+   "namn": "botnlok",
+   "tal": 1,
+   "materiale": "petg",
+   "framstilling": "TRYKT. 16 antisklknottar limte under kanten av foten"
+  },
+  {
+   "id": "03",
+   "namn": "ballast",
+   "tal": 24,
+   "materiale": "staal",
+   "framstilling": "KJØPT. Skive M16 DIN 125, Ø 30 × 2.7. 8 stablar à 3, limte til tappane lengst bak til høgre"
+  },
+  {
+   "id": "04",
+   "namn": "stammerøyr",
+   "tal": 1,
+   "materiale": "kopar",
+   "framstilling": "KJØPT. Koparrøyr Ø 12 × 1, kappa i 242 mm"
+  },
+  {
+   "id": "05v",
+   "namn": "bjelke venstre",
+   "tal": 1,
+   "materiale": "petg",
+   "framstilling": "TRYKT. PETG, ståande med enden ned og skøyten opp. Støtte berre i endeloklomma"
+  },
+  {
+   "id": "05h",
+   "namn": "bjelke høgre",
+   "tal": 1,
+   "materiale": "petg",
+   "framstilling": "TRYKT. PETG, ståande med enden ned og skøyten opp. Støtte berre i kragerommet"
+  },
+  {
+   "id": "06v",
+   "namn": "lok venstre",
+   "tal": 1,
+   "materiale": "petg",
+   "framstilling": "TRYKT. PETG, klemflata ned, støtte frå plata under leppa"
+  },
+  {
+   "id": "06h",
+   "namn": "lok høgre",
+   "tal": 1,
+   "materiale": "petg",
+   "framstilling": "TRYKT. PETG, klemflata ned, støtte frå plata under leppa"
+  },
+  {
+   "id": "07",
+   "namn": "lysleiar",
+   "tal": 1,
+   "materiale": "pmma",
+   "framstilling": "FRÅ SKJERMEN. PMMA 3 mm, fem hol Ø 4"
+  },
+  {
+   "id": "08",
+   "namn": "prismeark",
+   "tal": 1,
+   "materiale": "film",
+   "framstilling": "FRÅ SKJERMEN. Prisma opp, rillene på tvers av bjelken"
+  },
+  {
+   "id": "09",
+   "namn": "akselrøyr",
+   "tal": 1,
+   "materiale": "kopar",
+   "framstilling": "KJØPT. Same røyr, kappa i 308 mm"
+  },
+  {
+   "id": "10",
+   "namn": "LED-stripe",
+   "tal": 1,
+   "materiale": "gummi",
+   "framstilling": "KJØPT. USB-stripe 5 V RGB, 10 × 3 mm, klipt etter åtte diodar (om lag 27 cm)"
+  },
+  {
+   "id": "11",
+   "namn": "endelok",
+   "tal": 1,
+   "materiale": "petg_fast",
+   "framstilling": "TRYKT. Messingpunktet: trykt i messingfarge eller sprøyta"
+  },
+  {
+   "id": "12",
+   "namn": "bogestykke",
+   "tal": 1,
+   "materiale": "petg_fast",
+   "framstilling": "TRYKT. PETG, 100 % fyll, liggjande, støtte berre frå plata, 5 mm brem"
+  },
+  {
+   "id": "13",
+   "namn": "bremsesko",
+   "tal": 1,
+   "materiale": "petg_fast",
+   "framstilling": "TRYKT. PETG, 100 % fyll"
+  },
+  {
+   "id": "14",
+   "namn": "fotring",
+   "tal": 1,
+   "materiale": "petg_fast",
+   "framstilling": "TRYKT. PETG, 100 % fyll, ståande på den rette enden"
+  },
+  {
+   "id": "E",
+   "namn": "skrue M3 × 19",
+   "tal": 6,
+   "materiale": "staal",
+   "framstilling": "KJØPT. Fem i loket, éin som låser bjelken"
+  },
+  {
+   "id": "F",
+   "namn": "skrue M3 × 12",
+   "tal": 3,
+   "materiale": "staal",
+   "framstilling": "KJØPT. Botnloket"
+  },
+  {
+   "id": "G",
+   "namn": "skrue M3 × 8",
+   "tal": 1,
+   "materiale": "staal",
+   "framstilling": "KJØPT. Bremseskruen: M3 × 12 kappa til 8 mm, enden filt plan"
+  }
+ ],
+ "print": [
+  {
+   "fil": "01_fot.stl",
+   "x": 158.1,
+   "y": 158.1,
+   "z": 16.1
+  },
+  {
+   "fil": "02_botnlok.stl",
+   "x": 145.4,
+   "y": 145.4,
+   "z": 4.3
+  },
+  {
+   "fil": "05_bjelke_venstre.stl",
+   "x": 36.0,
+   "y": 36.0,
+   "z": 131.0
+  },
+  {
+   "fil": "05_bjelke_hogre.stl",
+   "x": 36.0,
+   "y": 36.0,
+   "z": 197.0
+  },
+  {
+   "fil": "06_lok_venstre.stl",
+   "x": 193.9,
+   "y": 17.0,
+   "z": 16.3
+  },
+  {
+   "fil": "06_lok_hogre.stl",
+   "x": 118.1,
+   "y": 17.0,
+   "z": 16.3
+  },
+  {
+   "fil": "11_endelok.stl",
+   "x": 20.0,
+   "y": 20.0,
+   "z": 3.8
+  },
+  {
+   "fil": "12_bogestykke.stl",
+   "x": 75.0,
+   "y": 80.2,
+   "z": 18.0
+  },
+  {
+   "fil": "13_bremsesko.stl",
+   "x": 10.0,
+   "y": 8.0,
+   "z": 2.8
+  },
+  {
+   "fil": "prove_bjelkesnitt.stl",
+   "x": 36.0,
+   "y": 35.9,
+   "z": 18.0
+  },
+  {
+   "fil": "prove_loksnitt.stl",
+   "x": 18.0,
+   "y": 17.0,
+   "z": 16.3
+  },
+  {
+   "fil": "14_fotring.stl",
+   "x": 18.0,
+   "y": 18.0,
+   "z": 17.4
+  },
+  {
+   "fil": "prove_krageende.stl",
+   "x": 36.0,
+   "y": 36.0,
+   "z": 16.0
+  },
+  {
+   "fil": "prove_krage.stl",
+   "x": 23.0,
+   "y": 18.0,
+   "z": 18.0
+  },
+  {
+   "fil": "prove_brems.stl",
+   "x": 36.0,
+   "y": 35.9,
+   "z": 28.0
+  },
+  {
+   "fil": "prove_muffe.stl",
+   "x": 46.0,
+   "y": 20.0,
+   "z": 12.0
+  }
+ ],
+ "print_passar_256": true
+}

@@ -7,13 +7,13 @@ Dato: 14.11.2026, tredje utgåve. Alle bileta er no rendringar av CAD-modellen. 
 | `Ruta-presentasjon.pdf` | tretten sider, 1127 × 797 px per side |
 | `presentasjon.html` | same sider som lysbilete i nettlesaren. Piltastane blar, og sida fyller vindauget |
 | `sider/side-NN.jpg` | kvar side som bilete, 2254 × 1594 |
-| `../../ruta/index.html` | studioet: éin svart skjerm med modellen, tre modusar (lampe, mekanikk, lysgang), éin glidar og fargeval. Malen er `studio.html.mal` |
+| `../../ruta/index.html` | studioet: éin svart skjerm med modellen, tre modusar (lampe, mekanikk, lys), éin glidar og fargeval. Malen er `studio.html.mal` |
 | `../../ruta/forteljing.html` | forteljinga: rendringane og streken nedover éi side |
-| `../../ruta/3d/ruta-studio.glb` | modellen til studioet, med delane inni og to animasjonar (vipp og opne) |
+| `../../ruta/3d/ruta-studio.glb` | modellen til studioet, med delane inni og to animasjonar (vipp og opne). 189 kB, pakka med Draco |
 | `../../ruta/3d/ruta.usdz` | 3D-fila til AR på iPhone og iPad. Éi fil per farge |
 | `../../ruta/3d/ruta.glb` | 3D-fila til nettlesaren |
 | `bilete/` | rendringane som er brukte, som JPEG |
-| `lag.py` | byggjer alt. Tala kjem frå `konsept/film/cad/ut-b/kontroll.json` |
+| `lag.py` | byggjer alt. Tala kjem frå `konsept/film/cad/ut-b/kontroll.json` og `lysmodell.json` |
 
 ## Sidene
 
@@ -69,17 +69,57 @@ Kontrollert:
 
 - **ARKit-reglane:** Pixar sin kontrollør (`UsdUtils.ComplianceChecker` med ARKit-reglar) gjev ingen feil og ingen merknader for nokon av dei fire filene.
 - **Lesen inn att:** `sjekk_3d.py` opnar USDZ-fila i ei tom scene og rendrar ho ved 35° og 80°. Geometri, material og animasjon er med.
-- **Nettlesaren:** studioet er prøvd i nettlesaren: glidaren vippar ruta frå 0° til 80°, mekanikken opnar seg frå samla til heilt opna, lysgangen viser stripa, plata og arket med resten som skugge, og fargeknappane byter lakk og AR-fil.
+- **Nettlesaren:** studioet er prøvd i nettlesaren, sjå «Studioet» under.
 
 Ikkje kontrollert: fila er ikkje opna på ein iPhone eller iPad. Materiala i 3D-fila er enkle og er ikkje dei same som i rendringane.
 
 ## Studioet
 
-Studioet følgjer oppbygginga til Canon-sida på formnerd (`/canon50mm`): éin svart skjerm, objektet svevande utan golv, få modusar som opnar objektet, éin glidar og éi line tekst med atterhald. `konsept/film/cad/eksporter_studio.py` skriv modellen med to jamne animasjonar: «Vipp» (0° til 80°) og «Opne» (delane trekte frå kvarandre). Sida brukar `<model-viewer>` frå Google, henta frå nettet.
+Studioet følgjer oppbygginga til Canon-sida på formnerd (`/canon50mm`): éin svart skjerm, objektet svevande, få modusar, éin glidar og éi line tekst berre der ho ber eit atterhald. Sida er skriven i three.js (versjon 0.170, henta frå jsDelivr) og teiknar berre når noko endrar seg.
+
+| Modus | Glidaren | Det sida viser |
+| --- | --- | --- |
+| Lampe | helling, 0° til 80° | lampa i studiolys, ruta lyser |
+| Mekanikk | samla til heilt opna | delane trekte frå kvarandre langs retningane dei blir sette saman i |
+| Lys | effekt, 0,25 til 3 W | lampa som einaste lyskjelde, og lyset på bordet i lux med liner ved 50, 100, 200 og 400 lx |
+
+### Lyset er rekna i fotometriske einingar
+
+`konsept/film/cad/lysmodell.py` er fasiten, og sida reknar det same i nettlesaren. Kjeda er watt inn, lumen ut, candela per kvadratmeter på flatene og lux på bordet.
+
+| Antaking | Verdi |
+| --- | --- |
+| Stripa | 100 lm per watt |
+| Inn i plata | 60 % av lyset frå stripa |
+| Ut av plata | 60 % ned gjennom undersida, 30 % opp gjennom arket, 10 % ned ved den frie kanten |
+| Flatene | tre jamne, matte firkantar (Lambert) |
+
+Ved 2 W gjev det 200 lm frå stripa og 120 lm ut av ruta: 447 cd/m² på undersida, 218 cd/m² på arket og 3183 cd/m² på kantstripa. Lux i eit punkt frå ein matt firkant har ei eksakt løysing (summen over dei fire kantane av vinkelen kanten spenner, gonga med kor mykje normalen til kantplanet peikar langs bordnormalen). Det er denne summen som blir rekna i kvar piksel på bordet, så biletet har inga støy og treng inga strålesporing.
+
+| 2 W | Snitt over 40 × 40 cm under ruta | Høgst |
+| --- | --- | --- |
+| 0° | 191 lx | 305 lx |
+| 20° | 210 lx | 392 lx |
+| 35° | 203 lx | 456 lx |
+| 60° | 167 lx | 519 lx |
+| 80° | 137 lx | 458 lx |
+
+Det modellen ikkje tek med: eit verkeleg prismeark samlar lyset og er ikkje matt, bjelken og foten skuggar ikkje bordet, og ingenting blir kasta vidare frå bordet. Verknadsgradane (100 lm/W og 60 % inn i plata) er anslag. Tala er ikkje målte.
+
+I biletet svarar 300 cd/m² til kvitt før tonekurva (AgX). Lampa blir lyst opp av dei same tre flatene som lysflater med rett lysstyrke, og bordet kastar 45 % attende. I modusane Lampe og Mekanikk kjem det i tillegg eit svakt romlys, som er eit val for biletet.
+
+### Kontrollert i nettlesaren
+
+- **Lystala:** 15 prøvepunkt på bordet (tre hellingar, 2 W) er rekna i nettlesaren og i Python. Største avvik er 0,0005 lx. Sida viser 456 lx rett under ruta ved 2 W og 35°, 114 lx ved 0,5 W og 684 lx ved 3 W.
+- **Hellinga:** animasjonen i fila går jamt, éin grad per bilete. Første utgåve hadde mjuk start og stopp, slik at 35° på glidaren var 32,5° i modellen. `eksporter_studio.py` måler no avviket og skriv det i `ruta-studio.kontroll.json` (0,0°).
+- **Farten:** éi oppteikning tek 2,0 ms i Lampe, 2,2 ms i Lys og 1,4 ms i Mekanikk (median av 240, venta ut på skjermkortet), 1003 × 845 punkt, GTX 1070. Det er 56 588 trekantar i 16 teiknekall. Med alt i mellomlageret står modellen klar 0,2 sekund etter at sida opnar frå den lokale tenaren.
+- **Storleiken:** modellen er 189 kB (var 1424 kB før Draco). three.js er 171 kB komprimert.
+
+Ikkje kontrollert: sida er ikkje prøvd på telefon eller på ei maskin utan eige skjermkort. Fell farten under 25 bilete i sekundet, teiknar sida med færre punkt, men det er ikkje prøvd på ei maskin som treng det. Målinga er gjord med nettlesarruta i bakgrunnen, så sjølve flyten i rørsla er ikkje sett med auga av meg.
 
 ## Det sidene seier, og kvar det kjem frå
 
 - Måla, massen, tyngdepunktet, veltekrafta og hellinga: `kontroll.json`, skriven av `konsept/film/cad/northern.py`.
-- 190 lx på side 08: overslaget i `konsept/film/cad/00-ruta-pa-fot.md` (`lys_sjekk.py`). Det gjeld revisjon A, som har same rute, høgd og helling, og er ikkje rekna på nytt.
+- 203 lx og 456 lx på side 08: `konsept/film/cad/lysmodell.py` for revisjon B, 2 W og 35° helling. Snittet gjeld 40 × 40 cm av bordet under ruta. Det gamle overslaget for revisjon A (`lys_sjekk.py`) gav 190 og 436 lx. Tala er rekna, ikkje målte.
 - Formspråket til Northern: `research/01-northern.md`.
 - Det som ikkje er prøvd, står på side 13.

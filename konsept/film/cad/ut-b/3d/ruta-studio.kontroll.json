@@ -1,6 +1,6 @@
 {
  "fil": "ruta-studio.glb",
- "kB": 1424,
+ "kB": 189,
  "nodar": 18,
  "nett": 15,
  "material": [
@@ -25,6 +25,7 @@
    "sekund": 6.708
   }
  },
+ "vipp_storste_avvik_gradar": 0.0,
  "blad_i_kvile": [
   -0.30070579051971436,
   0,

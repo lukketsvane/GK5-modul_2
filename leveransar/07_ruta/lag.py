@@ -44,19 +44,19 @@ STREK = 'Teikna frå CAD-modellen'
 # ------------------------------------------------------------------ innhaldet, éin gong
 
 INNHALD = [
-    dict(id='helt', bilete='r-helt', h1='Ei rute som lyser.', tekst='Stemningsskapande lampe for heim og arbeid.', plass='left: 72px; top: 318px;'),
+    dict(id='helt', bilete='r-helt', h1='', tekst='', plass='left: 72px; top: 318px;'),
     dict(id='form', bilete='r-front', h1='Skive.<br>Røyr.<br>Blad.', tekst='Tre former møtest utan overgang. Røyret er stamme, aksel og kabelveg i eitt.',
          plass='left: 72px; top: 250px;', breidd=230, skyv=170),
     dict(id='vipp', bilete='r-vifte', h1='Vipp.', tekst='Éi handling, frå vassrett til 80°. Stoppen og friksjonen ligg skjult inni bjelken.',
-         plass='left: 72px; top: 64px;', breidd=420, merke='Tre rendringar av CAD-modellen: 0°, 40° og 80°'),
+         plass='left: 72px; top: 64px;', breidd=420, merke='0°, 40° og 80°'),
     dict(id='messing', bilete='r-messing', h1='Eitt punkt i messing.', tekst='Der du tek. Trykk for av og på, hald for å dimme.', plass='left: 72px; bottom: 96px;'),
     dict(id='kant', bilete='r-kant', h1='Lyset kjem frå kanten.', tekst='Ei LED-stripe i bjelken lyser inn i ei klar plate. Eit prismeark frå ein gammal skjerm sender lyset ut.',
-         plass='right: 72px; bottom: 96px; width: 470px; text-align: right;', breidd=470, merke=RENDRA + ' · rillene i arket er teikna grovare enn dei er'),
+         plass='right: 72px; bottom: 96px; width: 470px; text-align: right;', breidd=470, merke='Rillene i arket er teikna grovare enn dei er'),
     dict(id='boge', bilete='r-boge', h1='Eitt røyr, éin boge.', tekst='Stål, 12&nbsp;mm. Éin boge på 120° med 45&nbsp;mm radius.', plass='left: 290px; bottom: 96px;'),
     dict(id='kveld', bilete='r-kveld', h1='Om kvelden.', tekst='190&nbsp;lx på bordet under ruta ved 2&nbsp;W. Eit stemningslys og sidelys, ikkje eit arbeidslys.',
-         plass='left: 72px; top: 318px;', breidd=290, merke=RENDRA + ' · lystalet er eit overslag for revisjon A, same rute og høgd'),
-    dict(id='opna', bilete='r-sprengt', h1='Tretten delar,<br>fire skruar.', tekst='Kjøpt: LED-stripa og dimmaren. Frå ein gammal skjerm: plata og arket. Ingen skruar syner ovanfrå.',
-         plass='left: 72px; top: 290px;', breidd=250, merke=RENDRA + ', med delane trekte frå kvarandre'),
+         plass='left: 72px; top: 318px;', breidd=290, merke='Lystalet er eit overslag for revisjon A, som har same rute og høgd'),
+    dict(id='opna', bilete='r-sprengt', h1='Tretten delar,<br>fire skruar.', tekst='Ingen skruar syner ovanfrå.',
+         plass='left: 72px; top: 290px;', breidd=250),
 ]
 DELAR = [('01', 'Fot', 'trykt og lakkert'), ('02', 'Botnlok med pute', 'trykt'), ('03', 'Ballast', 'stålplate 5&nbsp;mm'),
          ('04', 'Røyr', 'stål Ø 12, éin boge'), ('05', 'Bjelke', 'trykt i to lengder'), ('06', 'Bjelkelok', 'trykt'),
@@ -200,22 +200,23 @@ BLA = """<script>
 SIDER = []
 
 def folio(merke):
-    return '<div class="folio sm"><span>Ruta</span><span>%s</span><span>{NR}</span></div>' % merke
+    return '<div class="folio sm"><span>%s</span><span></span><span>{NR}</span></div>' % merke      # berre det som ikkje alt syner: eit atterhald, og sidetalet
 
-def biletside(bilete, h1, tekst, plass, merke=RENDRA, breidd=300, skyv=0, **_):
+def biletside(bilete, h1, tekst, plass, merke='', breidd=300, skyv=0, **_):
     if not finst(bilete): return
     t = '<p class="t" style="max-width: %dpx;">%s</p>' % (breidd, tekst) if tekst else ''
     b = '<img class="bak" src="bilete/%s.jpg" alt=""%s>' % (bilete, ' style="left: %dpx;"' % skyv if skyv else '')
     if skyv > 0: b += '<div class="ton" style="left: %dpx;"></div>' % (skyv - 1)
     if skyv < 0: b += '<div class="ton" style="left: %dpx; transform: scaleX(-1);"></div>' % (B + skyv - 139)
-    SIDER.append('<section class="side">%s<div class="ord" style="%s"><h1>%s</h1>%s</div>%s</section>' % (b, plass, h1, t, folio(merke)))
+    o = '<div class="ord" style="%s"><h1>%s</h1>%s</div>' % (plass, h1, t) if h1 else ''
+    SIDER.append('<section class="side">%s%s%s</section>' % (b, o, folio(merke)))
 
 def lysbilete():
     del SIDER[:]
     if finst('r-framside'):
         SIDER.append('''<section class="side"><img class="bak" src="bilete/r-framside.jpg" alt="">
-<div class="ord" style="left: 300px; top: 468px;"><h1 class="namn">Ruta</h1><p class="t" style="margin-top: 28px; font-size: 20px; color: #C9C5BE;">Ei lysande rute på éin stilk.</p></div>
-<div class="ord sm" style="left: 304px; right: 72px; bottom: 38px; display: flex; justify-content: space-between;"><span>Iver R. Finne · GK5 modul 2 · AHO · 2026</span><span>%s</span></div></section>''' % RENDRA)
+<div class="ord" style="left: 300px; top: 468px;"><h1 class="namn">Ruta</h1><p class="t" style="margin-top: 28px; font-size: 20px; color: #C9C5BE;">Ei lysande rute på éin stilk.<br>Stemningsskapande lampe for heim og arbeid.</p></div>
+<div class="ord sm" style="left: 304px; right: 72px; bottom: 38px; display: flex; justify-content: space-between;"><span>Iver R. Finne · GK5 modul 2 · AHO · 2026</span><span>%s</span></div></section>''' % 'Rendringar av CAD-modellen')
     for x in INNHALD:
         if x['id'] != 'opna': biletside(**x)
     if finst('r-fargar'):
@@ -223,21 +224,19 @@ def lysbilete():
         namn = ''.join('<div class="ord sm" style="left: %dpx; top: %dpx; color: #A6A29B;">%s</div>' % (x0 + 20 + (i % 2) * (w // 2 + 1), y0 + 18 + (i // 2) * (h // 2 + 1), n) for i, (_, n, _) in enumerate(FARGAR))
         SIDER.append('<section class="side"><img src="bilete/r-fargar.jpg" alt="" style="position: absolute; left: %dpx; top: %dpx; width: %dpx; height: %dpx; display: block;">%s'
                      '<div class="ord" style="left: 72px; top: 250px;"><h1>Éin<br>matt<br>farge.</h1><p class="t" style="max-width: 190px;">Foten, røyret og bjelken får same pulverlakk. '
-                     'Messingen er den einaste andre fargen.</p></div>%s</section>' % (x0, y0, w, h, namn, folio('Fire rendringar av CAD-modellen')))
+                     'Messingen er den einaste andre fargen.</p></div>%s</section>' % (x0, y0, w, h, namn, folio('')))
     for x in INNHALD:
         if x['id'] == 'opna': biletside(**x)
     rader = ''.join('<tr><td class="id">%s</td><td>%s</td><td class="k">%s</td></tr>' % d for d in DELAR)
     SIDER.append('''<section class="side">
 <div class="ord" style="left: 64px; top: 46px;">%s</div>
 <div class="ord" style="left: 770px; top: 64px; width: 285px;"><h1 style="font-size: 44px;">Delane.</h1>
-<table class="delar" style="margin-top: 30px;">%s</table>
-<p class="t" style="font-size: 14.5px; margin-top: 16px;">Ruta ligg vassrett i teikninga, og delane er trekte frå kvarandre langs aksane.</p></div>
-%s</section>''' % (sprengt_svg(690.0), rader, folio(STREK)))
+<table class="delar" style="margin-top: 30px;">%s</table></div>
+%s</section>''' % (sprengt_svg(690.0), rader, folio('')))
     SIDER.append('''<section class="side">
 <div class="ord" style="left: 72px; top: 64px;"><h1>Mål.</h1></div>
-<div class="ord" style="right: 72px; top: 86px; text-align: right;"><p class="t" style="margin: 0;">Breidd 378, djupn 223 og høgd 278&nbsp;mm.</p></div>
 <div class="ord" style="left: 52px; top: 190px;">%s</div>
-%s</section>''' % (maal_svg(), folio(STREK + ' · mål i mm')))
+%s</section>''' % (maal_svg(), folio('Mål i mm')))
     if finst('r-profil'):
         a = ''.join('<div><span>%s</span><span>%s</span></div>' % x for x in kontrollert())
         n = ''.join('<div>%s</div>' % x for x in IKKJE_PROVD)
@@ -245,7 +244,7 @@ def lysbilete():
 <div class="ord" style="left: 640px; top: 64px; width: 415px;"><h1 style="font-size: 44px;">Kontrollert, ikkje bygd.</h1>
 <div class="sm" style="margin-top: 34px;">Kontrollert i CAD</div><div class="liste" style="margin-top: 8px;">%s</div>
 <div class="sm" style="margin-top: 30px;">Ikkje prøvd</div><div class="liste ein" style="margin-top: 8px;">%s</div></div>
-%s</section>''' % (a, n, folio(RENDRA)))
+%s</section>''' % (a, n, folio('')))
     n = len(SIDER)
     svart = '<section class="side"><img class="bak" src="bilete/svart.jpg" alt="">'           # CSS-bakgrunnen åleine let ei lys hårline stå att nedst i PDF-en
     kropp = '\n\n'.join(x.replace('{NR}', '%02d' % (i + 1)).replace('<section class="side">', svart, 1) for i, x in enumerate(SIDER))
@@ -295,21 +294,6 @@ NETTSTIL = """
   .b.forst > .ord { padding-left: 27vw; }
   .b > .merke { position: absolute; z-index: 1; left: var(--inn); right: var(--inn); bottom: 1.6rem; display: flex; justify-content: space-between; gap: 1rem; }
   .topp { position: absolute; z-index: 2; left: var(--inn); right: var(--inn); top: 1.6rem; display: flex; justify-content: space-between; gap: 1rem; }
-  .tre { min-height: 100svh; display: grid; grid-template-columns: minmax(18rem, 30rem) minmax(0, 1fr); align-items: center; }
-  .tre > .ord { padding: 0 0 0 var(--inn); position: relative; z-index: 1; }
-  model-viewer { width: 100%; height: 100svh; background: #000; --poster-color: #000; --progress-bar-color: #6C6964; }
-  .styr { margin-top: 2.2rem; max-width: 20rem; }
-  .styr label { display: flex; justify-content: space-between; }
-  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 24px; background: transparent; margin: 0.3rem 0 0; cursor: pointer; }
-  input[type=range]::-webkit-slider-runnable-track { height: 1px; background: #5A5753; }
-  input[type=range]::-moz-range-track { height: 1px; background: #5A5753; }
-  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 15px; height: 15px; border-radius: 50%; background: #C9A45C; margin-top: -7px; border: 0; }
-  input[type=range]::-moz-range-thumb { width: 15px; height: 15px; border-radius: 50%; background: #C9A45C; border: 0; }
-  .val { display: flex; gap: 0.9rem; margin-top: 1.7rem; align-items: center; }
-  .val button { width: 26px; height: 26px; border-radius: 50%; border: 1px solid #3A3835; padding: 0; cursor: pointer; outline-offset: 4px; }
-  .val button[aria-pressed=true] { outline: 1px solid var(--kvit); }
-  .val span { margin-left: 0.4rem; }
-  .ar { display: inline-block; margin-top: 1.9rem; border: 1px solid #5A5753; border-radius: 2rem; padding: 0.55rem 1.2rem; font: inherit; font-size: 0.95rem; color: var(--kvit); background: transparent; cursor: pointer; text-decoration: none; }
   .flate { padding: clamp(4rem, 12vh, 8rem) var(--inn); }
   .to { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(16rem, 1fr); gap: clamp(2rem, 5vw, 5rem); align-items: start; }
   .fargar { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
@@ -328,32 +312,9 @@ NETTSTIL = """
     .b > .merke { position: static; padding: 0 var(--inn) 2rem; }
     .b.forst { display: flex; min-height: 100svh; align-items: flex-end; } .b.forst > img { position: absolute; inset: 0; height: 100%; aspect-ratio: auto; object-position: 25% 50%; }
     .b.forst > .ord, .b.nede.forst > .ord { padding-left: 24vw; }
-    .tre { grid-template-columns: 1fr; min-height: 0; } .tre > .ord { padding: 3rem var(--inn) 0; } model-viewer { height: 72svh; }
     .to { grid-template-columns: 1fr; }
   }
 """ + STREKSTIL
-
-NETTSKRIPT = """<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
-<script>
-(function () {
-  var mv = document.getElementById('mv'), vipp = document.getElementById('helling'), grad = document.getElementById('grad');
-  var FARGAR = __FARGAR__;
-  // Animasjonen i fila går 35° → 0° → 80° → 35°. Stykket frå 0° til 80° ligg mellom bilete 108 og 180 (24 per sekund), med mjuk start og stopp.
-  function tid(v) { var s = Math.min(1, Math.max(0, v / 80)); var t = 0.5 - Math.sin(Math.asin(1 - 2 * s) / 3); return (107 + 72 * t) / 24; }
-  function set() { grad.textContent = vipp.value + '°'; if (mv.loaded) { mv.pause(); mv.currentTime = tid(+vipp.value); } }
-  function lin(c) { return c; }
-  function farge(kode) {
-    var f = FARGAR[kode]; if (!f || !mv.model) return;
-    mv.model.materials.forEach(function (m) { if (m.name === 'Lakk' || m.name === 'Leidning') m.pbrMetallicRoughness.setBaseColorFactor([f[0], f[1], f[2], 1]); });
-    mv.setAttribute('ios-src', '3d/ruta' + (kode === 'graabeige' ? '' : '-' + kode) + '.usdz');
-    [].forEach.call(document.querySelectorAll('.val button'), function (b) { b.setAttribute('aria-pressed', b.dataset.farge === kode); });
-    document.getElementById('fargenamn').textContent = f[3];
-  }
-  mv.addEventListener('load', function () { if (mv.availableAnimations && mv.availableAnimations.length) mv.animationName = mv.availableAnimations[0]; set(); });
-  vipp.addEventListener('input', set);
-  [].forEach.call(document.querySelectorAll('.val button'), function (b) { b.addEventListener('click', function () { farge(b.dataset.farge); }); });
-})();
-</script>"""
 
 def srgb(c):
     return '#%02x%02x%02x' % tuple(int(round(255 * (12.92 * v if v <= 0.0031308 else 1.055 * v ** (1 / 2.4) - 0.055))) for v in c)
@@ -367,24 +328,16 @@ def nettstad():
     def b(x, klasse='', pos=None):
         if not finst(x['bilete']): return ''
         h = re.sub(r'<br>', ' ', x['h1'])
-        return ('<section class="b %s" id="%s"%s><img src="%s%s.jpg" alt="" loading="lazy"><div class="ord"><h2>%s</h2><p>%s</p></div>'
-                '<div class="merke sm"><span>%s</span></div></section>' % (klasse, x['id'], ' style="--pos: %s;"' % pos if pos else '', bil, x['bilete'], h, x['tekst'], x.get('merke', RENDRA)))
+        o = '<div class="ord"><h2>%s</h2>%s</div>' % (h, '<p>%s</p>' % x['tekst'] if x['tekst'] else '') if h else ''
+        m = '<div class="merke sm"><span>%s</span></div>' % x['merke'] if x.get('merke') else ''
+        return '<section class="b %s" id="%s"%s><img src="%s%s.jpg" alt="" loading="lazy">%s%s</section>' % (klasse, x['id'], ' style="--pos: %s;"' % pos if pos else '', bil, x['bilete'], o, m)
     I = {x['id']: x for x in INNHALD}
     del_ = []
     if finst('r-framside'):
         del_.append('<section class="b nede forst" style="--pos: 30%% 50%%;"><div class="topp sm"><span>GK5 modul 2 · AHO · 2026</span><span>Iver R. Finne</span></div>'
-                    '<img src="%sr-framside.jpg" alt="Enden av bjelken med messingpunktet, og ruta sett frå sida som éi line av lys"><div class="ord"><h1>Ruta</h1><p style="color: #C9C5BE;">Ei lysande rute på éin stilk.</p></div>'
-                    '<div class="merke sm"><span>%s</span><span><a href="./">Studio: snu, vipp og opne lampa</a></span></div></section>' % (bil, RENDRA))
+                    '<img src="%sr-framside.jpg" alt="Enden av bjelken med messingpunktet, og ruta sett frå sida som éi line av lys"><div class="ord"><h1>Ruta</h1><p style="color: #C9C5BE;">Ei lysande rute på éin stilk.<br>Stemningsskapande lampe for heim og arbeid.</p></div>'
+                    '<div class="merke sm"><span></span><span><a href="./">Studio</a></span></div></section>' % bil)
     del_.append(b(I['helt']))
-    knappar = ''.join('<button type="button" data-farge="%s" aria-label="%s" aria-pressed="%s" style="background: %s;"></button>' % (k, n, 'true' if i == 0 else 'false', srgb(c)) for i, (k, n, c) in enumerate(FARGAR))
-    del_.append('''<section class="tre" id="modell"><div class="ord"><h2>Vipp.</h2><p>Éi handling, frå vassrett til 80°. Dra i modellen for å snu henne, og i lina under for å vippe ruta.</p>
-<div class="styr"><label class="sm" for="helling"><span>Helling</span><span id="grad">35°</span></label><input type="range" id="helling" min="0" max="80" step="1" value="35"></div>
-<div class="val">%s<span class="sm" id="fargenamn">Grå-beige</span></div>
-<p class="sm" style="margin-top: 2.2rem; max-width: 20rem;">På iPhone og iPad kan du setje lampa på bordet ditt: trykk på knappen i modellen.</p></div>
-<model-viewer id="mv" src="3d/ruta.glb" ios-src="3d/ruta.usdz" alt="Ruta som 3D-modell" ar ar-modes="webxr scene-viewer quick-look" ar-scale="fixed" camera-controls touch-action="pan-y"
- interaction-prompt="none" camera-orbit="-32deg 80deg 1.55m" camera-target="-0.03m 0.14m 0.05m" field-of-view="22deg" min-camera-orbit="auto 20deg 0.7m" max-camera-orbit="auto 100deg 2.6m"
- exposure="0.85" shadow-intensity="0" environment-image="neutral" loading="lazy" reveal="auto">
-<button slot="ar-button" class="ar" style="position: absolute; right: var(--inn); bottom: 2rem;">Sjå henne på bordet ditt</button></model-viewer></section>''' % knappar)
     del_.append(b(I['form'], 'nede', '50% 50%')); del_.append(b(I['vipp'], 'oppe', '50% 50%'))
     del_.append(b(I['messing'], 'nede', '40% 50%')); del_.append(b(I['kant'], 'nede hogre', '30% 50%')); del_.append(b(I['boge'], 'nede midt', '50% 50%'))
     del_.append(b(I['kveld']))
@@ -396,9 +349,9 @@ def nettstad():
     rader = ''.join('<tr><td class="id">%s</td><td>%s</td><td class="k">%s</td></tr>' % d for d in DELAR)
     del_.append(opna)
     del_.append('<section class="flate" id="delar"><div class="to"><div>%s</div><div><h2>Delane.</h2><table>%s</table>'
-                '<p>Ruta ligg vassrett i teikninga, og delane er trekte frå kvarandre langs aksane.</p><p class="sm" style="margin-top: 1.4rem;">%s</p></div></div></section>' % (sprengt_svg(0), rader, STREK))
-    del_.append('<section class="flate" id="maal"><h2>Mål.</h2><p>Breidd 378, djupn 223 og høgd 278&nbsp;mm.</p><div style="margin-top: 3rem; max-width: 64rem;">%s</div>'
-                '<p class="sm" style="margin-top: 1.4rem;">%s · mål i mm</p></section>' % (maal_svg(True), STREK))
+                '</div></div></section>' % (sprengt_svg(0), rader))
+    del_.append('<section class="flate" id="maal"><h2>Mål.</h2><div style="margin-top: 3rem; max-width: 64rem;">%s</div>'
+                '<p class="sm" style="margin-top: 1.4rem;">Mål i mm</p></section>' % maal_svg(True))
     a = ''.join('<div><span>%s</span><span>%s</span></div>' % x for x in kontrollert()); n = ''.join('<div>%s</div>' % x for x in IKKJE_PROVD)
     del_.append('<section class="flate" id="status"><div class="to" style="grid-template-columns: 1fr 1fr;"><div><h2>Kontrollert, ikkje bygd.</h2>'
                 '<p>Lampa finst som CAD-modell. Alt på denne sida er rendra eller teikna frå han.</p></div>'
@@ -406,10 +359,9 @@ def nettstad():
     del_.append('<footer class="sm"><span>Ruta · revisjon B · Iver R. Finne · GK5 modul 2 · AHO · 2026</span><span><a href="../leveransar/07_ruta/Ruta-presentasjon.pdf">PDF</a> &nbsp;·&nbsp; '
                 '<a href="./">Studio</a> &nbsp;·&nbsp; <a href="../leveransar/07_ruta/presentasjon.html">Lysbilete</a> &nbsp;·&nbsp; <a href="3d/ruta.usdz">USDZ</a> &nbsp;·&nbsp; <a href="3d/ruta.glb">GLB</a> &nbsp;·&nbsp; '
                 '<a href="../konsept/film/cad/ut-b/ruta-pa-fot-rev-b.step">STEP</a> &nbsp;·&nbsp; <a href="../">GK5 modul 2</a></span></footer>')
-    skript = NETTSKRIPT.replace('__FARGAR__', json.dumps({k: [round(c[0], 4), round(c[1], 4), round(c[2], 4), n] for k, n, c in FARGAR}, ensure_ascii=False))
     html = ('<!doctype html>\n<html lang="nn">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n<title>Ruta</title>\n'
-            '<meta name="description" content="Ruta: ei lysande rute på éin stilk. Stemningsskapande lampe for heim og arbeid.">\n<style>%s</style>\n</head>\n<body>\n%s\n%s\n</body>\n</html>\n'
-            % (NETTSTIL, '\n\n'.join(x for x in del_ if x), skript))
+            '<meta name="description" content="Ruta: ei lysande rute på éin stilk. Stemningsskapande lampe for heim og arbeid.">\n<style>%s</style>\n</head>\n<body>\n%s\n</body>\n</html>\n'
+            % (NETTSTIL, '\n\n'.join(x for x in del_ if x)))
     assert '—' not in html and '–' not in html
     open(os.path.join(NETT, 'forteljing.html'), 'w', encoding='utf-8').write(html)
     # studioet: éin svart skjerm med modellen, tre modusar og éin glidar

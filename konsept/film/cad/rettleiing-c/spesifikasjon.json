@@ -1,11 +1,13 @@
 {
  "meta": {
   "title": "RUTA",
-  "footer": "Ruta på fot · revisjon C · M03",
+  "footer": "Ruta på fot · revisjon C · M04",
   "orientation": "portrait"
  },
  "style": {
-  "line_pt": 0.75,
+  "line_pt": 0.7,
+  "kontur": 1.5,
+  "svarting": 1.5,
   "steg_pt": 32,
   "mengd_pt": 18,
   "mengd_fyrst": true,
@@ -488,30 +490,24 @@
   },
   {
    "type": "inventory",
+   "cols": 3,
    "parts": [
     "fot",
     "botnlok",
+    "ring",
+    "stamme",
+    "aksel",
+    "boge",
     "kv35",
     "kh35",
+    "sko35",
     "lv35",
     "lh35",
     "ende35",
-    "boge",
-    "sko35"
-   ],
-   "cols": 3
-  },
-  {
-   "type": "inventory",
-   "parts": [
-    "stamme",
-    "aksel",
-    "ring",
     "rute35",
     "ark35",
     "led35"
-   ],
-   "cols": 3
+   ]
   },
   {
    "type": "hardware",
@@ -522,1095 +518,1313 @@
     "S",
     "W",
     "K"
-   ]
+   ],
+   "cols": 3,
+   "row_height": 320
   },
   {
-   "type": "step",
-   "n": false,
-   "title": "Kapp",
-   "icons": [
-    "atvaring"
-   ],
-   "note": "Kapp røyret i 242 mm (04) og 308 mm (09), og éin F til 8 mm (G). Fil endane plane.",
-   "figures": [
+   "type": "steps",
+   "steps": [
     {
-     "view": "iso",
-     "scene": [
+     "type": "step",
+     "title": "Kapp",
+     "figures": [
       {
-       "part": "stamme",
-       "role": "context"
-      },
-      {
-       "part": "aksel",
-       "role": "context"
-      }
-     ],
-     "zoom": 1.0
-    }
-   ]
-  },
-  {
-   "type": "step",
-   "title": "Skiver",
-   "icons": [
-    "lim"
-   ],
-   "note": "Tre skiver på kvar tapp, med ein dråpe lim.",
-   "figures": [
-    {
-     "view": "under",
-     "zoom": 1.25,
-     "multiplier": "x3",
-     "scene": [
-      {
-       "part": "fot",
-       "role": "context"
-      },
-      {
-       "part": "S",
-       "role": "new",
-       "explode": [
-        0,
-        0,
-        -45
+       "view": "iso",
+       "scene": [
+        {
+         "part": "stamme",
+         "role": "context"
+        },
+        {
+         "part": "aksel",
+         "role": "context"
+        }
        ],
-       "at": [
-        [
-         -11.2,
-         -32.8,
-         8.95
-        ],
-        [
-         -36.3,
-         -14.6,
-         8.95
-        ],
-        [
-         -33.1,
-         16.2,
-         8.95
-        ],
-        [
-         13.8,
-         -51.1,
-         8.95
-        ],
-        [
-         17.1,
-         -20.2,
-         8.95
-        ],
-        [
-         -8.0,
-         -2.0,
-         8.95
-        ],
-        [
-         -4.8,
-         28.8,
-         8.95
-        ],
-        [
-         -29.8,
-         47.1,
-         8.95
-        ],
-        [
-         42.2,
-         -38.4,
-         8.95
-        ],
-        [
-         45.4,
-         -7.6,
-         8.95
-        ],
-        [
-         20.3,
-         10.6,
-         8.95
-        ]
-       ]
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "type": "step",
-   "title": "Røyr i boge",
-   "icons": [
-    "lim"
-   ],
-   "note": "Slip krommen matt der limet skal sitje. Skyv røyra heilt inn.",
-   "figures": [
-    {
-     "view": "iso",
-     "scene": [
-      {
-       "part": "boge",
-       "role": "context"
-      },
-      {
-       "part": "stamme",
-       "role": "new",
-       "explode": [
-        -34.99999999999999,
-        0,
-        -60.62177826491071
-       ]
-      },
-      {
-       "part": "aksel",
-       "role": "new",
-       "explode": [
-        -70,
-        0,
-        0
-       ]
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "type": "step",
-   "title": "Stamme i fot",
-   "icons": [
-    "lim"
-   ],
-   "note": "Snor gjennom røyra og ut bak foten først. Ringen (14) flatt mot foten, akselrøyret i vater.",
-   "figures": [
-    {
-     "view": "iso",
-     "scene": [
-      {
-       "part": "fot",
-       "role": "context"
-      },
-      {
-       "part": "ring",
-       "role": "new",
-       "explode": [
-        13.999999999999998,
-        0,
-        24.248711305964285
-       ]
-      },
-      {
-       "part": "stamme",
-       "role": "new",
-       "explode": [
-        34.99999999999999,
-        0,
-        60.62177826491071
+       "zoom": 1.0,
+       "texts": [
+        {
+         "point": [
+          112.5,
+          22.0,
+          110.0
+         ],
+         "text": "242 mm",
+         "offset": [
+          18,
+          -10
+         ]
+        },
+        {
+         "point": [
+          -7.0,
+          22.0,
+          260.0
+         ],
+         "text": "308 mm",
+         "offset": [
+          -24,
+          16
+         ]
+        }
        ],
-       "label": false
-      },
-      {
-       "part": "aksel",
-       "role": "new",
-       "explode": [
-        34.99999999999999,
-        0,
-        60.62177826491071
-       ],
-       "line": "none",
-       "label": false
-      },
-      {
-       "part": "boge",
-       "role": "new",
-       "explode": [
-        34.99999999999999,
-        0,
-        60.62177826491071
-       ],
-       "line": "none",
-       "label": false
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "type": "step",
-   "title": "Bjelke",
-   "icons": [
-    "lim"
-   ],
-   "note": "Filamentbitar på 10 mm som pinnar i skøyten. Lim på restrøyret, dra det ut før limet herdar.",
-   "figures": [
-    {
-     "view": "bak",
-     "scene": [
-      {
-       "part": "kh180",
-       "role": "context"
-      },
-      {
-       "part": "kv180",
-       "role": "new",
-       "explode": [
-        -45,
-        0,
-        0
-       ]
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "type": "step",
-   "n": false,
-   "title": "Lakk",
-   "note": "Slip lett, grunn og sprøyt. Teip akselrøyret (09), spalta og boringa. Endeloket (11) i messingfarge.",
-   "figures": [
-    {
-     "view": "iso",
-     "labels": false,
-     "scene": [
-      {
-       "part": "fot",
-       "role": "context"
-      },
-      {
-       "part": "stamme",
-       "role": "context"
-      },
-      {
-       "part": "aksel",
-       "role": "context"
-      },
-      {
-       "part": "boge",
-       "role": "context"
-      },
-      {
-       "part": "ring",
-       "role": "context"
-      },
-      {
-       "part": "kv0",
-       "role": "exploded",
-       "explode": [
-        -190,
-        0,
-        0
-       ]
-      },
-      {
-       "part": "kh0",
-       "role": "exploded",
-       "explode": [
-        -190,
-        0,
-        0
-       ]
-      },
-      {
-       "part": "lv0",
-       "role": "exploded",
-       "explode": [
-        -190,
-        0,
-        0
-       ]
-      },
-      {
-       "part": "lh0",
-       "role": "exploded",
-       "explode": [
-        -190,
-        0,
-        0
-       ]
-      },
-      {
-       "part": "ende0",
-       "role": "exploded",
-       "explode": [
-        -190,
-        0,
-        0
-       ]
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "type": "step",
-   "title": "Sko og lys",
-   "note": "Skoen (13) inn frå sida. Stripa (10) midt i kanalen, leidningen ned i slissa til venstre.",
-   "figures": [
-    {
-     "view": "bak",
-     "scene": [
-      {
-       "part": "kv180",
-       "role": "context"
-      },
-      {
-       "part": "kh180",
-       "role": "context"
-      },
-      {
-       "part": "sko180",
-       "role": "new",
-       "explode": [
-        0,
-        22,
-        26
-       ]
-      },
-      {
-       "part": "led180",
-       "role": "new",
-       "explode": [
-        0,
-        14,
-        44
-       ]
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "type": "step",
-   "title": "Rute",
-   "note": "Arket (08) først, prismesida ned. Rillene på tvers av bjelken.",
-   "figures": [
-    {
-     "view": "bak",
-     "scene": [
-      {
-       "part": "kv180",
-       "role": "context"
-      },
-      {
-       "part": "kh180",
-       "role": "context"
-      },
-      {
-       "part": "led180",
-       "role": "context"
-      },
-      {
-       "part": "sko180",
-       "role": "context"
-      },
-      {
-       "part": "ark180",
-       "role": "new",
-       "explode": [
-        0,
-        0,
-        45
-       ]
-      },
-      {
-       "part": "rute180",
-       "role": "new",
-       "explode": [
-        0,
-        0,
-        90
+       "callouts": [
+        {
+         "part": "stamme",
+         "point": [
+          150.0,
+          22.0,
+          175.0
+         ],
+         "offset": [
+          34,
+          6
+         ]
+        },
+        {
+         "part": "aksel",
+         "point": [
+          110.0,
+          22.0,
+          260.0
+         ],
+         "offset": [
+          24,
+          26
+         ]
+        }
        ]
       }
      ],
-     "glas": [
-      [
-       -60.0,
-       150.0,
-       350.0
-      ]
-     ]
-    }
-   ]
-  },
-  {
-   "type": "step",
-   "title": "Lok",
-   "figures": [
+     "n": false,
+     "icons": [
+      "atvaring"
+     ],
+     "note": "G: kapp éin F til 8 mm."
+    },
     {
-     "view": "bak",
-     "scene": [
+     "type": "step",
+     "title": "Skiver",
+     "figures": [
       {
-       "part": "kv180",
-       "role": "context"
-      },
-      {
-       "part": "kh180",
-       "role": "context"
-      },
-      {
-       "part": "led180",
-       "role": "context"
-      },
-      {
-       "part": "sko180",
-       "role": "context"
-      },
-      {
-       "part": "ark180",
-       "role": "context"
-      },
-      {
-       "part": "rute180",
-       "role": "context"
-      },
-      {
-       "part": "lv180",
-       "role": "new",
-       "explode": [
-        0,
-        0,
-        40
-       ]
-      },
-      {
-       "part": "lh180",
-       "role": "new",
-       "explode": [
-        0,
-        0,
-        40
-       ]
-      },
-      {
-       "part": "E",
-       "role": "new",
-       "explode": [
-        0,
-        0,
-        85
-       ],
-       "at": [
-        [
-         -175.09,
-         41.0,
-         261.35
-        ],
-        [
-         -109.09,
-         41.0,
-         261.35
-        ],
-        [
-         -43.09,
-         41.0,
-         261.35
-        ],
-        [
-         22.91,
-         41.0,
-         261.35
-        ],
-        [
-         88.91,
-         41.0,
-         261.35
-        ]
-       ]
-      },
-      {
-       "part": "ende180",
-       "role": "new",
-       "explode": [
-        -40,
-        0,
-        0
-       ]
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "type": "step",
-   "title": "Bjelken på røyret",
-   "note": "Dra leidningen gjennom røyra med snora. Røyret skuvar skoen (13) på plass under skruen.",
-   "figures": [
-    {
-     "view": "iso",
-     "labels": false,
-     "scene": [
-      {
-       "part": "fot",
-       "role": "context"
-      },
-      {
-       "part": "stamme",
-       "role": "context"
-      },
-      {
-       "part": "aksel",
-       "role": "context"
-      },
-      {
-       "part": "boge",
-       "role": "context"
-      },
-      {
-       "part": "ring",
-       "role": "context"
-      },
-      {
-       "part": "kh0",
-       "role": "new",
-       "explode": [
-        -190,
-        0,
-        0
-       ]
-      },
-      {
-       "part": "kv0",
-       "role": "new",
-       "explode": [
-        -190,
-        0,
-        0
-       ],
-       "line": "none"
-      },
-      {
-       "part": "lv0",
-       "role": "new",
-       "explode": [
-        -190,
-        0,
-        0
-       ],
-       "line": "none"
-      },
-      {
-       "part": "lh0",
-       "role": "new",
-       "explode": [
-        -190,
-        0,
-        0
-       ],
-       "line": "none"
-      },
-      {
-       "part": "rute0",
-       "role": "new",
-       "explode": [
-        -190,
-        0,
-        0
-       ],
-       "line": "none"
-      },
-      {
-       "part": "ark0",
-       "role": "new",
-       "explode": [
-        -190,
-        0,
-        0
-       ],
-       "line": "none"
-      },
-      {
-       "part": "led0",
-       "role": "new",
-       "explode": [
-        -190,
-        0,
-        0
-       ],
-       "line": "none"
-      },
-      {
-       "part": "ende0",
-       "role": "new",
-       "explode": [
-        -190,
-        0,
-        0
-       ],
-       "line": "none"
-      },
-      {
-       "part": "sko0",
-       "role": "new",
-       "explode": [
-        -190,
-        0,
-        0
-       ],
-       "line": "none"
-      },
-      {
-       "part": "elok0",
-       "role": "new",
-       "explode": [
-        -190,
-        0,
-        0
-       ],
-       "line": "none"
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "type": "step",
-   "title": "Lås og brems",
-   "note": "Stram G til ruta står i alle stillingar, men kan flyttast med éi hand. Stram etter eit døgn.",
-   "figures": [
-    {
-     "view": "under",
-     "scene": [
-      {
-       "part": "fot",
-       "role": "context"
-      },
-      {
-       "part": "stamme",
-       "role": "context"
-      },
-      {
-       "part": "aksel",
-       "role": "context"
-      },
-      {
-       "part": "boge",
-       "role": "context"
-      },
-      {
-       "part": "ring",
-       "role": "context"
-      },
-      {
-       "part": "kv28",
-       "role": "context"
-      },
-      {
-       "part": "kh28",
-       "role": "context"
-      },
-      {
-       "part": "lv28",
-       "role": "context"
-      },
-      {
-       "part": "lh28",
-       "role": "context"
-      },
-      {
-       "part": "rute28",
-       "role": "context"
-      },
-      {
-       "part": "ark28",
-       "role": "context"
-      },
-      {
-       "part": "led28",
-       "role": "context"
-      },
-      {
-       "part": "ende28",
-       "role": "context"
-      },
-      {
-       "part": "sko28",
-       "role": "context"
-      },
-      {
-       "part": "elok28",
-       "role": "context"
-      },
-      {
-       "part": "Elaas",
-       "role": "new",
-       "explode": [
-        0,
-        16.4,
-        -30.9
-       ]
-      },
-      {
-       "part": "Gbrems",
-       "role": "new",
-       "explode": [
-        0,
-        0,
-        -35
+       "view": "under",
+       "zoom": 1.2,
+       "multiplier": "x3",
+       "scene": [
+        {
+         "part": "fot",
+         "role": "context"
+        },
+        {
+         "part": "S",
+         "role": "new",
+         "explode": [
+          0,
+          0,
+          -45
+         ],
+         "at": [
+          [
+           -11.2,
+           -32.8,
+           8.95
+          ],
+          [
+           -36.3,
+           -14.6,
+           8.95
+          ],
+          [
+           -33.1,
+           16.2,
+           8.95
+          ],
+          [
+           13.8,
+           -51.1,
+           8.95
+          ],
+          [
+           17.1,
+           -20.2,
+           8.95
+          ],
+          [
+           -8.0,
+           -2.0,
+           8.95
+          ],
+          [
+           -4.8,
+           28.8,
+           8.95
+          ],
+          [
+           -29.8,
+           47.1,
+           8.95
+          ],
+          [
+           42.2,
+           -38.4,
+           8.95
+          ],
+          [
+           45.4,
+           -7.6,
+           8.95
+          ],
+          [
+           20.3,
+           10.6,
+           8.95
+          ]
+         ]
+        }
        ]
       }
      ],
-     "detail": {
-      "centre": [
-       115.3119414552024,
-       18.0,
-       250.0
-      ],
-      "span": 34,
-      "pos": "left",
-      "r": 72
-     }
-    }
-   ]
-  },
-  {
-   "type": "step",
-   "title": "Kopling",
-   "note": "Legg lampa på ryggen. Skøyt leidningen i klemmene (W). Strips innanfor veggen.",
-   "figures": [
-    {
-     "view": "under",
-     "zoom": 1.2,
-     "scene": [
-      {
-       "part": "fot",
-       "role": "context"
-      },
-      {
-       "part": "ballast",
-       "role": "context"
-      },
-      {
-       "part": "stamme",
-       "role": "context"
-      },
-      {
-       "part": "ring",
-       "role": "context"
-      },
-      {
-       "part": "W",
-       "role": "new",
-       "explode": [
-        0,
-        0,
-        -30
-       ],
-       "at": [
-        [
-         19.0,
-         47.0,
-         7.0
-        ],
-        [
-         33.0,
-         47.0,
-         7.0
-        ]
-       ]
-      },
-      {
-       "part": "botnlok",
-       "role": "new",
-       "explode": [
-        0,
-        0,
-        -60
-       ]
-      },
-      {
-       "part": "F",
-       "role": "new",
-       "explode": [
-        0,
-        0,
-        -105
-       ],
-       "at": [
-        [
-         -5.75,
-         65.75,
-         6.4
-        ],
-        [
-         -54.06,
-         -37.86,
-         6.4
-        ],
-        [
-         59.82,
-         -27.89,
-         6.4
-        ]
-       ]
-      }
+     "icons": [
+      "lim"
      ]
     }
    ]
   },
   {
-   "type": "step",
-   "title": "Knottar",
-   "figures": [
+   "type": "steps",
+   "steps": [
     {
-     "view": "under",
-     "zoom": 1.2,
-     "scene": [
+     "type": "step",
+     "title": "Røyr i boge",
+     "figures": [
       {
-       "part": "fot",
-       "role": "context"
-      },
-      {
-       "part": "botnlok",
-       "role": "context"
-      },
-      {
-       "part": "K",
-       "role": "new",
-       "explode": [
-        0,
-        0,
-        -30
-       ],
-       "at": [
-        [
-         75.0,
-         0.0,
-         -1.25
-        ],
-        [
-         69.3,
-         28.7,
-         -1.25
-        ],
-        [
-         53.0,
-         53.0,
-         -1.25
-        ],
-        [
-         28.7,
-         69.3,
-         -1.25
-        ],
-        [
-         0.0,
-         75.0,
-         -1.25
-        ],
-        [
-         -28.7,
-         69.3,
-         -1.25
-        ],
-        [
-         -53.0,
-         53.0,
-         -1.25
-        ],
-        [
-         -69.3,
-         28.7,
-         -1.25
-        ],
-        [
-         -75.0,
-         0.0,
-         -1.25
-        ],
-        [
-         -69.3,
-         -28.7,
-         -1.25
-        ],
-        [
-         -53.0,
-         -53.0,
-         -1.25
-        ],
-        [
-         -28.7,
-         -69.3,
-         -1.25
-        ],
-        [
-         -0.0,
-         -75.0,
-         -1.25
-        ],
-        [
-         28.7,
-         -69.3,
-         -1.25
-        ],
-        [
-         53.0,
-         -53.0,
-         -1.25
-        ],
-        [
-         69.3,
-         -28.7,
-         -1.25
-        ]
+       "view": "iso",
+       "scene": [
+        {
+         "part": "boge",
+         "role": "context"
+        },
+        {
+         "part": "stamme",
+         "role": "new",
+         "explode": [
+          -34.99999999999999,
+          0,
+          -60.62177826491071
+         ]
+        },
+        {
+         "part": "aksel",
+         "role": "new",
+         "explode": [
+          -70,
+          0,
+          0
+         ]
+        }
        ]
       }
+     ],
+     "icons": [
+      "lim"
      ]
+    },
+    {
+     "type": "step",
+     "title": "Stamme i fot",
+     "figures": [
+      {
+       "view": "iso",
+       "scene": [
+        {
+         "part": "fot",
+         "role": "context"
+        },
+        {
+         "part": "ring",
+         "role": "new",
+         "explode": [
+          13.999999999999998,
+          0,
+          24.248711305964285
+         ]
+        },
+        {
+         "part": "stamme",
+         "role": "new",
+         "explode": [
+          34.99999999999999,
+          0,
+          60.62177826491071
+         ],
+         "label": false
+        },
+        {
+         "part": "aksel",
+         "role": "new",
+         "explode": [
+          34.99999999999999,
+          0,
+          60.62177826491071
+         ],
+         "line": "none",
+         "label": false
+        },
+        {
+         "part": "boge",
+         "role": "new",
+         "explode": [
+          34.99999999999999,
+          0,
+          60.62177826491071
+         ],
+         "line": "none",
+         "label": false
+        }
+       ]
+      }
+     ],
+     "icons": [
+      "lim",
+      "vater"
+     ],
+     "note": "Snor gjennom røyra først."
     }
-   ]
-  },
-  {
-   "type": "step",
-   "n": false,
-   "title": "Kontroll",
-   "flow": "right",
-   "icons": [
-    "ok"
    ],
-   "note": "Ruta skal gå jamt frå 0° til 80° og stoppe i begge endar. Brytaren sit på leidningen.",
-   "figures": [
+   "split": 0.4
+  },
+  {
+   "type": "steps",
+   "steps": [
     {
-     "view": "iso",
-     "scene": [
+     "type": "step",
+     "title": "Bjelke",
+     "figures": [
       {
-       "part": "fot",
-       "role": "context"
-      },
+       "view": "bak",
+       "scene": [
+        {
+         "part": "kh180",
+         "role": "context"
+        },
+        {
+         "part": "kv180",
+         "role": "new",
+         "explode": [
+          -45,
+          0,
+          0
+         ]
+        }
+       ]
+      }
+     ],
+     "icons": [
+      "lim"
+     ],
+     "note": "To filamentpinnar i skøyten."
+    },
+    {
+     "type": "step",
+     "title": "Lakk",
+     "figures": [
       {
-       "part": "botnlok",
-       "role": "context"
-      },
+       "view": "iso",
+       "labels": false,
+       "scene": [
+        {
+         "part": "fot",
+         "role": "context"
+        },
+        {
+         "part": "stamme",
+         "role": "context"
+        },
+        {
+         "part": "aksel",
+         "role": "context"
+        },
+        {
+         "part": "boge",
+         "role": "context"
+        },
+        {
+         "part": "ring",
+         "role": "context"
+        },
+        {
+         "part": "kv0",
+         "role": "exploded",
+         "explode": [
+          -190,
+          0,
+          0
+         ]
+        },
+        {
+         "part": "kh0",
+         "role": "exploded",
+         "explode": [
+          -190,
+          0,
+          0
+         ]
+        },
+        {
+         "part": "lv0",
+         "role": "exploded",
+         "explode": [
+          -190,
+          0,
+          0
+         ]
+        },
+        {
+         "part": "lh0",
+         "role": "exploded",
+         "explode": [
+          -190,
+          0,
+          0
+         ]
+        },
+        {
+         "part": "ende0",
+         "role": "exploded",
+         "explode": [
+          -190,
+          0,
+          0
+         ]
+        }
+       ]
+      }
+     ],
+     "n": false,
+     "icons": [
+      "spray",
+      "klokke"
+     ],
+     "note": "Teip 09, spalta og boringa."
+    }
+   ],
+   "split": 0.45
+  },
+  {
+   "type": "steps",
+   "steps": [
+    {
+     "type": "step",
+     "title": "Sko og lys",
+     "figures": [
       {
-       "part": "ballast",
-       "role": "context"
-      },
-      {
-       "part": "stamme",
-       "role": "context"
-      },
-      {
-       "part": "aksel",
-       "role": "context"
-      },
-      {
-       "part": "boge",
-       "role": "context"
-      },
-      {
-       "part": "ring",
-       "role": "context"
-      },
-      {
-       "part": "kv0",
-       "role": "context"
-      },
-      {
-       "part": "kh0",
-       "role": "context"
-      },
-      {
-       "part": "lv0",
-       "role": "context"
-      },
-      {
-       "part": "lh0",
-       "role": "context"
-      },
-      {
-       "part": "rute0",
-       "role": "context"
-      },
-      {
-       "part": "ark0",
-       "role": "context"
-      },
-      {
-       "part": "led0",
-       "role": "context"
-      },
-      {
-       "part": "ende0",
-       "role": "context"
-      },
-      {
-       "part": "sko0",
-       "role": "context"
-      },
-      {
-       "part": "elok0",
-       "role": "context"
+       "view": "bak",
+       "scene": [
+        {
+         "part": "kv180",
+         "role": "context"
+        },
+        {
+         "part": "kh180",
+         "role": "context"
+        },
+        {
+         "part": "sko180",
+         "role": "new",
+         "explode": [
+          0,
+          22,
+          26
+         ]
+        },
+        {
+         "part": "led180",
+         "role": "new",
+         "explode": [
+          0,
+          14,
+          44
+         ]
+        }
+       ],
+       "detail": {
+        "centre": [
+         75.9,
+         25.8,
+         266.6
+        ],
+        "span": 26,
+        "pos": "right",
+        "r": 58,
+        "scene": [
+         {
+          "part": "kv180",
+          "role": "context"
+         },
+         {
+          "part": "kh180",
+          "role": "context"
+         },
+         {
+          "part": "sko180",
+          "role": "new",
+          "explode": [
+           0,
+           9,
+           10
+          ]
+         }
+        ]
+       }
       }
      ]
     },
     {
-     "view": "iso",
-     "scene": [
+     "type": "step",
+     "title": "Rute",
+     "figures": [
       {
-       "part": "fot",
-       "role": "context"
-      },
-      {
-       "part": "botnlok",
-       "role": "context"
-      },
-      {
-       "part": "ballast",
-       "role": "context"
-      },
-      {
-       "part": "stamme",
-       "role": "context"
-      },
-      {
-       "part": "aksel",
-       "role": "context"
-      },
-      {
-       "part": "boge",
-       "role": "context"
-      },
-      {
-       "part": "ring",
-       "role": "context"
-      },
-      {
-       "part": "kv80",
-       "role": "context"
-      },
-      {
-       "part": "kh80",
-       "role": "context"
-      },
-      {
-       "part": "lv80",
-       "role": "context"
-      },
-      {
-       "part": "lh80",
-       "role": "context"
-      },
-      {
-       "part": "rute80",
-       "role": "context"
-      },
-      {
-       "part": "ark80",
-       "role": "context"
-      },
-      {
-       "part": "led80",
-       "role": "context"
-      },
-      {
-       "part": "ende80",
-       "role": "context"
-      },
-      {
-       "part": "sko80",
-       "role": "context"
-      },
-      {
-       "part": "elok80",
-       "role": "context"
+       "view": "bak",
+       "scene": [
+        {
+         "part": "kv180",
+         "role": "context"
+        },
+        {
+         "part": "kh180",
+         "role": "context"
+        },
+        {
+         "part": "led180",
+         "role": "context"
+        },
+        {
+         "part": "sko180",
+         "role": "context"
+        },
+        {
+         "part": "ark180",
+         "role": "new",
+         "explode": [
+          0,
+          0,
+          45
+         ]
+        },
+        {
+         "part": "rute180",
+         "role": "new",
+         "explode": [
+          0,
+          0,
+          90
+         ]
+        }
+       ],
+       "glas": [
+        [
+         -60.0,
+         150.0,
+         350.0
+        ]
+       ]
       }
+     ],
+     "note": "08 først. Rillene på tvers."
+    }
+   ],
+   "split": 0.45
+  },
+  {
+   "type": "steps",
+   "steps": [
+    {
+     "type": "step",
+     "title": "Lok",
+     "figures": [
+      {
+       "view": "bak",
+       "scene": [
+        {
+         "part": "kv180",
+         "role": "context"
+        },
+        {
+         "part": "kh180",
+         "role": "context"
+        },
+        {
+         "part": "led180",
+         "role": "context"
+        },
+        {
+         "part": "sko180",
+         "role": "context"
+        },
+        {
+         "part": "ark180",
+         "role": "context"
+        },
+        {
+         "part": "rute180",
+         "role": "context"
+        },
+        {
+         "part": "lv180",
+         "role": "new",
+         "explode": [
+          0,
+          0,
+          40
+         ]
+        },
+        {
+         "part": "lh180",
+         "role": "new",
+         "explode": [
+          0,
+          0,
+          40
+         ]
+        },
+        {
+         "part": "E",
+         "role": "new",
+         "explode": [
+          0,
+          0,
+          85
+         ],
+         "at": [
+          [
+           -175.09,
+           41.0,
+           261.35
+          ],
+          [
+           -109.09,
+           41.0,
+           261.35
+          ],
+          [
+           -43.09,
+           41.0,
+           261.35
+          ],
+          [
+           22.91,
+           41.0,
+           261.35
+          ],
+          [
+           88.91,
+           41.0,
+           261.35
+          ]
+         ]
+        },
+        {
+         "part": "ende180",
+         "role": "new",
+         "explode": [
+          -40,
+          0,
+          0
+         ]
+        }
+       ],
+       "detail": {
+        "centre": [
+         88.91,
+         41.0,
+         265.35
+        ],
+        "span": 24,
+        "pos": "right",
+        "r": 58,
+        "scene": [
+         {
+          "part": "kv180",
+          "role": "context"
+         },
+         {
+          "part": "kh180",
+          "role": "context"
+         },
+         {
+          "part": "led180",
+          "role": "context"
+         },
+         {
+          "part": "sko180",
+          "role": "context"
+         },
+         {
+          "part": "ark180",
+          "role": "context"
+         },
+         {
+          "part": "rute180",
+          "role": "context"
+         },
+         {
+          "part": "lv180",
+          "role": "context"
+         },
+         {
+          "part": "lh180",
+          "role": "context"
+         },
+         {
+          "part": "E",
+          "role": "new",
+          "explode": [
+           0,
+           0,
+           16
+          ],
+          "at": [
+           [
+            88.91,
+            41.0,
+            261.35
+           ]
+          ]
+         }
+        ]
+       }
+      }
+     ]
+    },
+    {
+     "type": "step",
+     "title": "Bjelken på røyret",
+     "figures": [
+      {
+       "view": "iso",
+       "labels": false,
+       "scene": [
+        {
+         "part": "fot",
+         "role": "context"
+        },
+        {
+         "part": "stamme",
+         "role": "context"
+        },
+        {
+         "part": "aksel",
+         "role": "context"
+        },
+        {
+         "part": "boge",
+         "role": "context"
+        },
+        {
+         "part": "ring",
+         "role": "context"
+        },
+        {
+         "part": "kh0",
+         "role": "new",
+         "explode": [
+          -190,
+          0,
+          0
+         ]
+        },
+        {
+         "part": "kv0",
+         "role": "new",
+         "explode": [
+          -190,
+          0,
+          0
+         ],
+         "line": "none"
+        },
+        {
+         "part": "lv0",
+         "role": "new",
+         "explode": [
+          -190,
+          0,
+          0
+         ],
+         "line": "none"
+        },
+        {
+         "part": "lh0",
+         "role": "new",
+         "explode": [
+          -190,
+          0,
+          0
+         ],
+         "line": "none"
+        },
+        {
+         "part": "rute0",
+         "role": "new",
+         "explode": [
+          -190,
+          0,
+          0
+         ],
+         "line": "none"
+        },
+        {
+         "part": "ark0",
+         "role": "new",
+         "explode": [
+          -190,
+          0,
+          0
+         ],
+         "line": "none"
+        },
+        {
+         "part": "led0",
+         "role": "new",
+         "explode": [
+          -190,
+          0,
+          0
+         ],
+         "line": "none"
+        },
+        {
+         "part": "ende0",
+         "role": "new",
+         "explode": [
+          -190,
+          0,
+          0
+         ],
+         "line": "none"
+        },
+        {
+         "part": "sko0",
+         "role": "new",
+         "explode": [
+          -190,
+          0,
+          0
+         ],
+         "line": "none"
+        },
+        {
+         "part": "elok0",
+         "role": "new",
+         "explode": [
+          -190,
+          0,
+          0
+         ],
+         "line": "none"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "split": 0.45
+  },
+  {
+   "type": "steps",
+   "steps": [
+    {
+     "type": "step",
+     "title": "Lås og brems",
+     "figures": [
+      {
+       "view": "under",
+       "scene": [
+        {
+         "part": "fot",
+         "role": "context"
+        },
+        {
+         "part": "stamme",
+         "role": "context"
+        },
+        {
+         "part": "aksel",
+         "role": "context"
+        },
+        {
+         "part": "boge",
+         "role": "context"
+        },
+        {
+         "part": "ring",
+         "role": "context"
+        },
+        {
+         "part": "kv28",
+         "role": "context"
+        },
+        {
+         "part": "kh28",
+         "role": "context"
+        },
+        {
+         "part": "lv28",
+         "role": "context"
+        },
+        {
+         "part": "lh28",
+         "role": "context"
+        },
+        {
+         "part": "rute28",
+         "role": "context"
+        },
+        {
+         "part": "ark28",
+         "role": "context"
+        },
+        {
+         "part": "led28",
+         "role": "context"
+        },
+        {
+         "part": "ende28",
+         "role": "context"
+        },
+        {
+         "part": "sko28",
+         "role": "context"
+        },
+        {
+         "part": "elok28",
+         "role": "context"
+        },
+        {
+         "part": "Elaas",
+         "role": "new",
+         "explode": [
+          0,
+          16.4,
+          -30.9
+         ]
+        },
+        {
+         "part": "Gbrems",
+         "role": "new",
+         "explode": [
+          0,
+          0,
+          -35
+         ]
+        }
+       ],
+       "detail": {
+        "centre": [
+         115.3119414552024,
+         18.0,
+         250.0
+        ],
+        "span": 34,
+        "pos": "left",
+        "r": 72
+       }
+      }
+     ],
+     "icons": [
+      "klokke"
+     ],
+     "note": "Stram G til ruta står. Stram igjen etter eit døgn."
+    },
+    {
+     "type": "step",
+     "title": "Kopling",
+     "figures": [
+      {
+       "view": "under",
+       "zoom": 1.2,
+       "scene": [
+        {
+         "part": "fot",
+         "role": "context"
+        },
+        {
+         "part": "ballast",
+         "role": "context"
+        },
+        {
+         "part": "W",
+         "role": "new",
+         "explode": [
+          0,
+          0,
+          -30
+         ],
+         "at": [
+          [
+           19.0,
+           47.0,
+           7.0
+          ],
+          [
+           33.0,
+           47.0,
+           7.0
+          ]
+         ]
+        },
+        {
+         "part": "botnlok",
+         "role": "new",
+         "explode": [
+          0,
+          0,
+          -60
+         ]
+        },
+        {
+         "part": "F",
+         "role": "new",
+         "explode": [
+          0,
+          0,
+          -105
+         ],
+         "at": [
+          [
+           -5.75,
+           65.75,
+           6.4
+          ],
+          [
+           -54.06,
+           -37.86,
+           6.4
+          ],
+          [
+           59.82,
+           -27.89,
+           6.4
+          ]
+         ]
+        }
+       ],
+       "detail": {
+        "centre": [
+         26.0,
+         47.0,
+         7.0
+        ],
+        "span": 26,
+        "pos": "left",
+        "r": 58,
+        "scene": [
+         {
+          "part": "fot",
+          "role": "context"
+         },
+         {
+          "part": "ballast",
+          "role": "context"
+         },
+         {
+          "part": "W",
+          "role": "new",
+          "explode": [
+           0,
+           0,
+           -6
+          ],
+          "at": [
+           [
+            19.0,
+            47.0,
+            7.0
+           ],
+           [
+            33.0,
+            47.0,
+            7.0
+           ]
+          ]
+         }
+        ]
+       }
+      }
+     ]
+    }
+   ],
+   "split": 0.55
+  },
+  {
+   "type": "steps",
+   "steps": [
+    {
+     "type": "step",
+     "title": "Knottar",
+     "figures": [
+      {
+       "view": "under",
+       "zoom": 1.2,
+       "scene": [
+        {
+         "part": "fot",
+         "role": "context"
+        },
+        {
+         "part": "botnlok",
+         "role": "context"
+        },
+        {
+         "part": "K",
+         "role": "new",
+         "explode": [
+          0,
+          0,
+          -30
+         ],
+         "at": [
+          [
+           75.0,
+           0.0,
+           -1.25
+          ],
+          [
+           69.3,
+           28.7,
+           -1.25
+          ],
+          [
+           53.0,
+           53.0,
+           -1.25
+          ],
+          [
+           28.7,
+           69.3,
+           -1.25
+          ],
+          [
+           0.0,
+           75.0,
+           -1.25
+          ],
+          [
+           -28.7,
+           69.3,
+           -1.25
+          ],
+          [
+           -53.0,
+           53.0,
+           -1.25
+          ],
+          [
+           -69.3,
+           28.7,
+           -1.25
+          ],
+          [
+           -75.0,
+           0.0,
+           -1.25
+          ],
+          [
+           -69.3,
+           -28.7,
+           -1.25
+          ],
+          [
+           -53.0,
+           -53.0,
+           -1.25
+          ],
+          [
+           -28.7,
+           -69.3,
+           -1.25
+          ],
+          [
+           -0.0,
+           -75.0,
+           -1.25
+          ],
+          [
+           28.7,
+           -69.3,
+           -1.25
+          ],
+          [
+           53.0,
+           -53.0,
+           -1.25
+          ],
+          [
+           69.3,
+           -28.7,
+           -1.25
+          ]
+         ]
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "type": "step",
+     "title": "Kontroll",
+     "figures": [
+      {
+       "view": "iso",
+       "scene": [
+        {
+         "part": "fot",
+         "role": "context"
+        },
+        {
+         "part": "botnlok",
+         "role": "context"
+        },
+        {
+         "part": "ballast",
+         "role": "context"
+        },
+        {
+         "part": "stamme",
+         "role": "context"
+        },
+        {
+         "part": "aksel",
+         "role": "context"
+        },
+        {
+         "part": "boge",
+         "role": "context"
+        },
+        {
+         "part": "ring",
+         "role": "context"
+        },
+        {
+         "part": "kv0",
+         "role": "context"
+        },
+        {
+         "part": "kh0",
+         "role": "context"
+        },
+        {
+         "part": "lv0",
+         "role": "context"
+        },
+        {
+         "part": "lh0",
+         "role": "context"
+        },
+        {
+         "part": "rute0",
+         "role": "context"
+        },
+        {
+         "part": "ark0",
+         "role": "context"
+        },
+        {
+         "part": "led0",
+         "role": "context"
+        },
+        {
+         "part": "ende0",
+         "role": "context"
+        },
+        {
+         "part": "sko0",
+         "role": "context"
+        },
+        {
+         "part": "elok0",
+         "role": "context"
+        }
+       ]
+      },
+      {
+       "view": "iso",
+       "scene": [
+        {
+         "part": "fot",
+         "role": "context"
+        },
+        {
+         "part": "botnlok",
+         "role": "context"
+        },
+        {
+         "part": "ballast",
+         "role": "context"
+        },
+        {
+         "part": "stamme",
+         "role": "context"
+        },
+        {
+         "part": "aksel",
+         "role": "context"
+        },
+        {
+         "part": "boge",
+         "role": "context"
+        },
+        {
+         "part": "ring",
+         "role": "context"
+        },
+        {
+         "part": "kv80",
+         "role": "context"
+        },
+        {
+         "part": "kh80",
+         "role": "context"
+        },
+        {
+         "part": "lv80",
+         "role": "context"
+        },
+        {
+         "part": "lh80",
+         "role": "context"
+        },
+        {
+         "part": "rute80",
+         "role": "context"
+        },
+        {
+         "part": "ark80",
+         "role": "context"
+        },
+        {
+         "part": "led80",
+         "role": "context"
+        },
+        {
+         "part": "ende80",
+         "role": "context"
+        },
+        {
+         "part": "sko80",
+         "role": "context"
+        },
+        {
+         "part": "elok80",
+         "role": "context"
+        }
+       ]
+      }
+     ],
+     "n": false,
+     "flow": "right",
+     "icons": [
+      "ok"
      ]
     }
    ]

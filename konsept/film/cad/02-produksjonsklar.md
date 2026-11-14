@@ -156,4 +156,4 @@ I tillegg er dette endra etter kontrollen: fotringen, styrepinnane, stripa på 2
 | `ut-c/stl/` | Printfiler og prøvebitar |
 | `ut-c/ruta-pa-fot-rev-c.step`, `ut-c/step/` | Samanstilling og einskilddelar |
 | `ut-c/kontroll.json`, `ut-c/geometri.json` | Tal og mål |
-| `rettleiing-c/` | Monteringshefte i IKEA-stil, 18 sider (M03) |
+| `rettleiing-c/` | Monteringshefte i IKEA-stil, 10 sider (M04) |

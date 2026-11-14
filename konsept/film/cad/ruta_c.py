@@ -101,8 +101,9 @@ BREMS_X = X1 - 45.0
 BREMS_V = 62.0                                               # retninga til bremseskruen, same vinkelmål som kragen. Her er godset tjukt nok til M3 × 8
 SKO_R0 = ROYR_D / 2 + 0.05                                   # flata mot røyret
 SKO_R1, SKO_R2 = 7.0, 8.6                                    # skuldra som held skoen i lomma, og flata skruen trykkjer på
-SKO_LUFT = 0.65                                              # vengene på skoen står så høgt over skuldra i sporet: vandringa mot røyret er 0,75 mm, 0,25 trengst
+SKO_LUFT = 0.80                                              # vengene på skoen står så høgt over skuldra i sporet: vandringa mot røyret er 0,9 mm, 0,25 trengst. Vengene blir 0,8 mm, fire lag
 RING_S = 24.0                                                # fotringen rekk så langt opp langs stammerøyret frå røyrenden
+INN_KJEVE = 14.9                                             # så langt frå skrueaksen går munninga til skoen inn i overkjeven
 SKO_L = 10.0                                                 # lengda på skoen. Lomma er eit T-spor, dobbelt så langt: skoen går inn frå sida i den eine halvdelen
 
 TOPP_T, VEGG, LOK_T = 3.0, 6.0, 2.0
@@ -188,14 +189,18 @@ def _bremseform(sko):
         tapp = L._boks(x0, x1, -EKS - 2.5, -EKS + 2.5, 0.0, SKO_R1 + SKO_LUFT + 0.01).cut(L._syl_x(2 * SKO_R0, x0 - 1, x1 + 1, -EKS, 0.0))
         for xa, r_ in ((x0, 1), (x1, -1)):                                             # innløp i begge endar: røyret lyftar skoen når bjelken blir skoven inn
             tapp = tapp.cut(cq.Workplane('XY').newObject([cq.Solid.makeCone(SKO_R0 + 1.2, SKO_R0, 1.2, cq.Vector(xa, -EKS, 0), cq.Vector(r_, 0, 0))]))
+        for sg in (1, -1):                                                             # 45° fas på dei nedre hjørna, så tappen kjem forbi overkjeven på veg inn
+            tapp = tapp.cut(cq.Workplane('YZ', origin=(x0 - 1, 0, 0)).polyline(
+                [(-EKS + sg * 1.5, 5.0), (-EKS + sg * 2.6, 5.0), (-EKS + sg * 2.6, 6.61), (-EKS + sg * 1.5, 5.51)]).close().extrude(x1 - x0 + 2))
         form = fot_.union(tapp).cut(L._syl_z(SKRUE_FRI, SKO_R2 - 0.5, SKO_R2 + 1, BREMS_X, -EKS))   # styrehol til skruespissen
     else:
-        x0, x1, x2 = BREMS_X - hs - 0.2, BREMS_X + hs + 0.2, BREMS_X + 3 * hs + 0.4
+        x0, x1, x2 = BREMS_X - hs - 0.2, BREMS_X + hs + 0.2, BREMS_X + 3 * hs + 0.9      # båsen er 0,7 mm lengre enn skoen: enden mot x2 er tak i printen
         # i båsen (høgre halvdel) er taket 0,6 mm lågare: der stikk skoen inn i boringa, så røyret skuvar han til venstre og under
         # skruen når bjelken kjem på, og han kan ikkje gli attende etterpå
         fot_ = L._boks(x0, x1, -EKS - 4.2, -EKS + 4.2, SKO_R1 - 0.1, SKO_R2 + 0.3).union(L._boks(x1, x2, -EKS - 4.2, -EKS + 4.2, SKO_R1 - 0.1, SKO_R2 - 0.6))
         vindauge = L._boks(x0, x2, -EKS - 2.7, -EKS + 2.7, 0.0, SKO_R1)
         inn = L._boks(x1, x2, -EKS + 2.6, -EKS + 12.0, SKO_R0 - 1.4, SKO_R2 - 0.6)
+        inn = inn.union(L._boks(x1, x2, -EKS + 11.9, -EKS + INN_KJEVE, SKO_R0 - 1.4, SKO_R0 - 0.2))     # munninga held fram inn i overkjeven, i høgda til tappen
         form = fot_.union(vindauge).union(inn)
     return _om_royret(form, BREMS_V - 90.0)
 
@@ -300,7 +305,7 @@ def botnlok():
         l = l.union(L._syl_z(SKIVE_D - 4.0, 0, TAK - SKIVER_I_STABEL * SKIVE_T_MAKS - 0.3, x, y).cut(L._syl_z(SKIVE_HOL + 0.6, LOK_T, FOT_H, x, y)))
     x0, x1, y0, y1 = SOKKEL
     l = l.cut(L._boks(x0 - 0.4, FOT_D / 2, y0 - 0.4, y1 + 0.4, -0.1, FOT_H))
-    return l.cut(L._boks(UT_X - 3.0, UT_X + 3.0, FOT_D / 2 - VEGG - 10, FOT_D / 2, -0.1, LOK_T + 0.1))
+    return l.cut(L._boks(UT_X - 3.0, UT_X + 3.0, FOT_D / 2 - VEGG - 22, FOT_D / 2, -0.1, LOK_T + 0.1))   # heilt inn i koplingsrommet: leidningen ligg i same høgd heile vegen ut
 
 def fotring():
     """Ring rundt stammerøyret oppå foten, limt til begge. Han aukar innfestinga på den lasta sida frå 8 til 24 mm og set hellinga på røyret."""
@@ -438,7 +443,7 @@ def kontroll(vis=True):
     M_hald = g * abs(sum(m * (c.y - YT) for i, m, c in ms0 if i in ROERLEGE))
     over = [(m, c) for i, m, c in ms0 if i not in ('01', '02', '03', '14', 'F')]
     M_fot = math.hypot(g * sum(m * (c.x - xs) for m, c in over) + F_PROV * (XR0 - xs), g * sum(m * (c.y - YT) for m, c in over) + F_PROV * (-(U_KANT + RUTE_D + EKS)))
-    sonde = L._syl_y(4.0, FOT_D / 2 - VEGG - 5.0, FOT_D / 2 + 1.0, UT_X, 2.3)                # leidningen Ø 4 frå koplingsrommet og ut gjennom veggen
+    sonde = L._syl_y(4.0, FOT_D / 2 - VEGG - 20.0, FOT_D / 2 + 1.0, UT_X, 2.3)                # leidningen Ø 4 frå koplingsrommet og ut gjennom veggen
     rap['leidning_ut_fri'] = bool(_snitt(sonde, d['01'][2]) < 0.05 and _snitt(sonde, d['02'][2]) < 0.05)
     skruar = {'E', 'F', 'G'}                                                           # skruar står i hol dei sjølve formar gjenge i
     for a in range(len(D)):
@@ -501,7 +506,7 @@ def printdelar():
          ('14_fotring', fotring().rotate((0, 0, 0), (0, 1, 0), -ROYR_HELL).rotate((0, 0, 0), (1, 0, 0), 180)),
          ('prove_krageende', ned_x(_del_x(B['kropp'], X1 - 16, X1 + 1))),
          ('prove_krage', bogestykke().intersect(L._boks(X1 - 10, XB + 12, -400, 400, -400, 400)).rotate((0, 0, 0), (1, 0, 0), 90)),
-         ('prove_brems', opp_x(_del_x(B['kropp'], BREMS_X - 9, BREMS_X + 19))),
+         ('prove_brems', ned_x(_del_x(B['kropp'], BREMS_X - 9, BREMS_X + 19))),
          ('prove_muffe', _prove_muffe())]
     ut = []
     for namn, f in P:

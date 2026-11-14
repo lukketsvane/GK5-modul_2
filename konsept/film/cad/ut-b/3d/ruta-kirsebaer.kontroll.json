@@ -1,0 +1,51 @@
+{
+ "farge": "kirsebaer",
+ "flater_per_del": {
+  "Fot": 12592,
+  "Botnlok": 3552,
+  "Royr": 10506,
+  "Leidning": 7146,
+  "Bjelke": 6438,
+  "Bjelkelok": 5184,
+  "Lysleiar": 2330,
+  "Prismeark": 2300,
+  "Messingpunkt": 752,
+  "Skruar": 4016
+ },
+ "usdz": {
+  "fil": "ruta-kirsebaer.usdz",
+  "pakka": true,
+  "kB": 2484,
+  "feil": [],
+  "merknader": [],
+  "opp": "Y",
+  "meter_per_eining": 1.0,
+  "storleik_m": [
+   0.378,
+   0.2725,
+   0.4538
+  ],
+  "laagaste_punkt_m": -0.0,
+  "nett": 10,
+  "trekantar": 54816,
+  "material": [
+   "Akryl",
+   "Ark",
+   "Lakk",
+   "Leidning",
+   "Messing",
+   "Pute",
+   "Skrue"
+  ],
+  "animasjon": {
+   "fraa": 1.0,
+   "til": 288.0,
+   "bilete_per_sekund": 24.0,
+   "tidsprover_paa_blad": 184
+  }
+ },
+ "glb": {
+  "fil": "ruta-kirsebaer.glb",
+  "kB": 1359
+ }
+}

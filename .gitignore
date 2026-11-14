@@ -16,3 +16,11 @@ leveransar/04_moodle/kontroll-side-*.png
 .vercel/
 .DS_Store
 Thumbs.db
+
+# fin netting til rendring: blir laga av konsept/film/cad/eksporter_fin.py
+konsept/film/cad/ut-b/fin/
+konsept/film/cad/ut-b/ekte/*.exr
+.claude/launch.json
+konsept/film/cad/ut-b/ekte/*.png
+konsept/film/cad/ut-b/3d/*.usdz
+konsept/film/cad/ut-b/3d/*.glb

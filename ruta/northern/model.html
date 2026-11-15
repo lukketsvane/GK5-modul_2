@@ -36,22 +36,20 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border:0;border-radiu
 .finish{display:flex;align-items:center;gap:11px;margin-left:12px;border-left:1px solid var(--rule);padding-left:24px}
 .finish button{border:1px solid #666;width:18px;height:18px;border-radius:50%;cursor:pointer;outline-offset:4px}
 .finish button[aria-pressed=true]{outline:1px solid #eceae3}
-.note{font-size:11px;color:#888782;text-align:center;margin:0}
-@media(max-width:580px){header{top:calc(env(safe-area-inset-top,0px) + 17px)}.controls{bottom:calc(env(safe-area-inset-bottom,0px) + 18px);gap:12px}.options{gap:10px}.finish{padding-left:15px;margin-left:5px;gap:10px}nav{gap:14px}.note{max-width:320px;font-size:10px}}
+@media(max-width:580px){header{top:calc(env(safe-area-inset-top,0px) + 17px)}.controls{bottom:calc(env(safe-area-inset-bottom,0px) + 18px);gap:12px}.options{gap:10px}.finish{padding-left:15px;margin-left:5px;gap:10px}nav{gap:14px}}
 </style>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
 </head>
 <body>
 <canvas id="scene" aria-label="Three-dimensional CAD model of RUTA revision C, draggable to rotate"></canvas>
 <header><nav><a href="./">← Portfolio</a><a href="RUTA-Northern-design-proposal.pdf">Proposal PDF</a></nav><strong>RUTA</strong><span>REVISION C</span></header>
-<p id="state" role="status">Loading CAD model</p>
+<p id="state" role="status"></p>
 <div class="controls">
 <div class="tilt"><label for="tilt">Tilt</label><input id="tilt" type="range" min="0" max="80" step="1" value="35" style="--fill:44%"><output for="tilt" id="angle">35°</output></div>
 <div class="options">
 <div class="mode" role="group" aria-label="View mode"><button type="button" data-mode="form" aria-pressed="true">Form</button><button type="button" data-mode="parts" aria-pressed="false">Assembly</button></div>
 <div class="finish" role="group" aria-label="Finish study"><button type="button" aria-label="Matte black" data-finish="black" aria-pressed="true" style="background:#1d1d1e"></button><button type="button" aria-label="Muted green" data-finish="green" aria-pressed="false" style="background:#4e6355"></button><button type="button" aria-label="Oxblood" data-finish="red" aria-pressed="false" style="background:#662c35"></button></div>
 </div>
-<p class="note">CAD geometry. Light and material appearance are visual studies, not measured.</p>
 </div>
 <script type="module">
 import * as THREE from 'three';

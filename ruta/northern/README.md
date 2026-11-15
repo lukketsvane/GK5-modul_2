@@ -4,6 +4,8 @@ A three-page PDF and a 14-image website based on the revision C CAD model.
 
 - RUTA-Northern-design-proposal.pdf: short external design proposal.
 - index.html: visual presentation with one CAD render per section.
+- model.html: interactive revision C assembly, tilt and finish studies.
+- ruta-c.glb: Blender-exported revision C assembly with 20 CAD objects.
 - images/: fourteen 1920 x 1200 CAD renders.
 - previews/: verified desktop and mobile screenshots, plus PDF previews.
 - render_c_northern.py (in the CAD directory): repeatable Blender renderer.

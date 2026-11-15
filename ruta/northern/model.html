@@ -48,7 +48,7 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border:0;border-radiu
 <div class="tilt"><label for="tilt">Tilt</label><input id="tilt" type="range" min="0" max="80" step="1" value="35" style="--fill:44%"><output for="tilt" id="angle">35°</output></div>
 <div class="options">
 <div class="mode" role="group" aria-label="View mode"><button type="button" data-mode="form" aria-pressed="true">Form</button><button type="button" data-mode="parts" aria-pressed="false">Assembly</button></div>
-<div class="finish" role="group" aria-label="Finish study"><button type="button" aria-label="Matte black" data-finish="black" aria-pressed="true" style="background:#1d1d1e"></button><button type="button" aria-label="Muted green" data-finish="green" aria-pressed="false" style="background:#4e6355"></button><button type="button" aria-label="Oxblood" data-finish="red" aria-pressed="false" style="background:#662c35"></button></div>
+<div class="finish" role="group" aria-label="Finish study"><button type="button" aria-label="Matte black" data-finish="black" aria-pressed="false" style="background:#1d1d1e"></button><button type="button" aria-label="Forest green" data-finish="green" aria-pressed="true" style="background:#193524"></button><button type="button" aria-label="Oxblood" data-finish="red" aria-pressed="false" style="background:#662c35"></button></div>
 </div>
 </div>
 <script type="module">
@@ -127,7 +127,7 @@ const displacements={
 'G':[.035,.015,0],
 'leidning':[.06,0,.02]
 };
-const colors={black:'#101012',green:'#384c3f',red:'#54252f'};
+const colors={black:'#101012',green:'#17341e',red:'#54252f'};
 const status=document.getElementById('state');
 const slider=document.getElementById('tilt');
 const angle=document.getElementById('angle');
@@ -141,7 +141,7 @@ function applyTilt(){
   slider.style.setProperty('--fill',value/80*100+'%');
 }
 function selectFinish(name){
-  for(const item of body)item.material.color.set(colors[name]);
+  for(const item of body){item.material.color.set(colors[name]);item.material.roughness=name==='green'?.18:.5;}
   finishButtons.forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.finish===name)));
 }
 function selectMode(mode){
@@ -189,7 +189,7 @@ new GLTFLoader().load('ruta-c.glb',gltf=>{
  });
  if(geometry.length!==20)throw new Error('Unexpected geometry count: '+geometry.length);
  if(body.length!==9)throw new Error('Unexpected printed-part count: '+body.length);
- selectFinish('black');
+ selectFinish('green');
  applyTilt();
  status.remove();
  window.rutaReady=true;

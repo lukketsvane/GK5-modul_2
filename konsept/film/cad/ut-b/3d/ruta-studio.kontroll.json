@@ -1,0 +1,36 @@
+{
+ "fil": "ruta-studio.glb",
+ "kB": 189,
+ "nodar": 18,
+ "nett": 15,
+ "material": [
+  "Akryl",
+  "Alu",
+  "Ark",
+  "Lakk",
+  "Leidning",
+  "Messing",
+  "Pute",
+  "Skrue",
+  "Staal",
+  "Stripe"
+ ],
+ "animasjonar": {
+  "Vipp": {
+   "kanalar": 1,
+   "sekund": 3.375
+  },
+  "Opne": {
+   "kanalar": 12,
+   "sekund": 6.708
+  }
+ },
+ "vipp_storste_avvik_gradar": 0.0,
+ "blad_i_kvile": [
+  -0.30070579051971436,
+  0,
+  0,
+  0.9537169933319092
+ ],
+ "trekantar": 56576
+}

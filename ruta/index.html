@@ -45,14 +45,14 @@
 <body>
 <canvas id="lerret" aria-label="Ruta som 3D-modell"></canvas>
 <header class="hovud"><a href="forteljing.html">← Forteljinga</a>
-<nav><a class="skjul" href="../leveransar/07_ruta/presentasjon.html">Lysbilete</a><a class="skjul" href="../leveransar/07_ruta/Ruta-presentasjon.pdf">PDF</a><a id="ar" rel="ar" href="3d/ruta.usdz" hidden><img alt="" width="1" height="1" src="data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=">Sjå på bordet ditt</a></nav></header>
+<nav><a href="northern/">Revisjon C</a><a class="skjul" href="../leveransar/07_ruta/presentasjon.html">Lysbilete</a><a class="skjul" href="../leveransar/07_ruta/Ruta-presentasjon.pdf">PDF</a><a id="ar" rel="ar" href="3d/ruta.usdz" hidden><img alt="" width="1" height="1" src="data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=">Sjå på bordet ditt</a></nav></header>
 <div class="namn">Ruta</div>
 <div class="styring">
   <button class="verdi" id="verdi" type="button" aria-label="Set glidaren attende">Helling 35°</button>
   <input type="range" id="glidar" min="0" max="80" step="1" value="35" aria-label="Helling">
   <div class="modusar" role="group" aria-label="Kva modellen viser">
     <button type="button" data-modus="lampe" aria-pressed="true">Lampe</button><button type="button" data-modus="mekanikk" aria-pressed="false">Mekanikk</button><button type="button" data-modus="lys" aria-pressed="false">Lys</button>
-    <span class="fargar" role="group" aria-label="Farge"><button type="button" data-farge="graabeige" aria-label="Grå-beige" aria-pressed="true" style="background: #aaa091;"></button><button type="button" data-farge="morkegron" aria-label="Mørkegrøn" aria-pressed="false" style="background: #273f33;"></button><button type="button" data-farge="svart" aria-label="Svart" aria-pressed="false" style="background: #1b1b1d;"></button><button type="button" data-farge="kirsebaer" aria-label="Kirsebærraud" aria-pressed="false" style="background: #7c1f27;"></button></span>
+    <span class="fargar" role="group" aria-label="Farge"><button type="button" data-farge="graabeige" aria-label="Grå-beige" aria-pressed="false" style="background: #aaa091;"></button><button type="button" data-farge="morkegron" aria-label="Mørkegrøn" aria-pressed="true" style="background: #193524;"></button><button type="button" data-farge="svart" aria-label="Svart" aria-pressed="false" style="background: #1b1b1d;"></button><button type="button" data-farge="kirsebaer" aria-label="Kirsebærraud" aria-pressed="false" style="background: #7c1f27;"></button></span>
   </div>
   <p class="tekst" id="tekst"></p>
 </div>
@@ -65,7 +65,7 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 import { RectAreaLightUniformsLib } from 'three/addons/lights/RectAreaLightUniformsLib.js';
 
 // ---------------------------------------------------------------- lysmodellen (same tal som konsept/film/cad/lysmodell.py)
-const FARGAR = {"graabeige": [0.4, 0.35, 0.285, "Grå-beige"], "morkegron": [0.02, 0.05, 0.033, "Mørkegrøn"], "svart": [0.011, 0.011, 0.012, "Svart"], "kirsebaer": [0.2, 0.014, 0.02, "Kirsebærraud"]}, GEO = {"X0": -0.19106882065833075, "X1": 0.10893117934166924, "U1": 0.2034, "YT": 0.022, "AKSE_H": 0.26};
+const FARGAR = {"graabeige": [0.4, 0.35, 0.285, "Grå-beige"], "morkegron": [0.006, 0.015, 0.008, "Mørkegrøn"], "svart": [0.011, 0.011, 0.012, "Svart"], "kirsebaer": [0.2, 0.014, 0.02, "Kirsebærraud"]}, GEO = {"X0": -0.19106882065833075, "X1": 0.10893117934166924, "U1": 0.2034, "YT": 0.022, "AKSE_H": 0.26};
 const LM_PER_W = 100, INN = 0.60, NED = 0.60, OPP = 0.30, KANT = 0.10;     // stripa, inn i plata, ut undersida, ut arket, ut ved kanten
 const UTE = 0.0285, KANT_B = 0.004;                                        // der ruta kjem ut av bjelken, og breidda på kantstripa (m)
 const ENH = 300;                                                           // så mange cd/m² svarar til 1,0 i biletet før tonekurva
@@ -138,7 +138,7 @@ const M = {
   mekanikk: { min: 0, max: 100, steg: 1, kva: 'opna', start: 100, merke: v => v < 0.5 ? 'Samla' : 'Opna ' + Math.round(v) + ' %', namn: 'Opne lampa', bane: [-38, 16, 2.35], maal: [-0.03, -0.03, 0.03], rom: 0.42 },
   lys:      { min: 0.25, max: 3, steg: 0.05, kva: 'watt', start: 2, merke: v => v.toFixed(1).replace('.', ',') + ' W · ' + Math.round(v * LM_PER_W) + ' lm', namn: 'Effekt', bane: [-30, 26, 2.2], maal: [-0.03, 0.05, 0.07], rom: 0.012 }
 };
-let modus = 'lampe', farge = 'graabeige', skitten = true, flyr = false, sist = 0, klar = false, klarMs = 0, teikna = false, treg = 0;
+let modus = 'lampe', farge = 'morkegron', skitten = true, flyr = false, sist = 0, klar = false, klarMs = 0, teikna = false, treg = 0;
 const no = { helling: 35, opna: 0, watt: 2, rom: 0.42, bord: 0 }, vil = { helling: 35, opna: 0, watt: 2, rom: 0.42, bord: 0 };
 const kamVil = { pos: new THREE.Vector3(), maal: new THREE.Vector3() };
 const glidar = document.getElementById('glidar'), verdi = document.getElementById('verdi'), tekst = document.getElementById('tekst');

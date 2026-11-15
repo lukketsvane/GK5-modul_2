@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>RUTA | Design proposal</title>
 <meta name="description" content="RUTA, a luminous plane on a single line. Industrial design concept by Iver R. Finne. Revision C.">
-<link rel="preload" href="images/02-hero-dark.jpg" as="image">
+<link rel="preload" href="images/15-forest-hero.jpg" as="image">
 <style>
 :root{--ink:#e9e8e3;--sub:#a4a19c;--paper:#dbd7d1;--dark:#090909}
 *{box-sizing:border-box}
@@ -19,7 +19,7 @@ nav a:hover,nav a:focus-visible{text-decoration:underline;text-underline-offset:
 .hero{position:relative;min-height:100svh;display:flex;align-items:center;justify-content:center;background:#060606}
 .hero>img{width:73%;height:100svh;object-fit:contain;margin-left:auto}
 .hero .copy{position:absolute;left:clamp(24px,5vw,90px);top:30%;pointer-events:none}
-h1{font-size:clamp(62px,12vw,180px);font-weight:450;letter-spacing:-.09em;line-height:.85;margin:0 0 14px}
+h1{font-size:clamp(62px,10vw,145px);font-weight:450;letter-spacing:-.09em;line-height:.85;margin:0 0 14px}
 .eyebrow{font-size:10px;letter-spacing:.21em;text-transform:uppercase;color:var(--sub);margin:0 0 21px}
 .hero p{font:400 clamp(16px,2.3vw,28px)/1.2 Georgia,serif;margin:10px 0 0;max-width:16em}
 .hero .eyebrow{font:400 10px/1.4 -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--sub)}
@@ -37,6 +37,14 @@ h1{font-size:clamp(62px,12vw,180px);font-weight:450;letter-spacing:-.09em;line-h
 .footer p{max-width:42ch;font-size:12px;color:#aaa;margin:0 0 14px}
 .footer nav{display:flex;flex-wrap:wrap}
 .end{padding:22px clamp(24px,5vw,82px);border-top:1px solid #252525;font-size:10px;color:#858585;letter-spacing:.06em}
+.forest{padding:clamp(56px,7vw,100px) clamp(20px,5vw,82px);background:#e8e5de;color:#161a16}
+.forest-heading{display:flex;gap:24px;justify-content:space-between;align-items:baseline;margin-bottom:28px}
+.forest-heading span{font-size:10px;letter-spacing:.18em}
+.forest-heading h2{font:400 clamp(25px,4vw,52px)/1.1 Georgia,serif;letter-spacing:-.03em;margin:0}
+.forest-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 22px}
+.forest-grid figure{margin:0}
+.forest-grid img{width:100%;height:auto;display:block;aspect-ratio:8/5;object-fit:cover;background:#d4d0c8}
+.forest-grid figcaption{font-size:12px;color:#55584f;padding:11px 0 24px}
 @media(max-width:740px){
 .top{top:21px;align-items:flex-start}
 .top nav{gap:13px;font-size:11px}
@@ -50,14 +58,29 @@ h1{font-size:clamp(62px,12vw,180px);font-weight:450;letter-spacing:-.09em;line-h
 .caption{padding:13px 24px 45px}
 .interlude{display:block}
 .interlude small{display:block;margin-bottom:28px}
+.forest-heading{display:block}
+.forest-heading span{display:block;margin-bottom:18px}
+.forest-grid{grid-template-columns:1fr}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
 </head>
 <body>
-<header class="top"><a class="logo" href="./">RUTA</a><nav><a href="RUTA-Northern-design-proposal.pdf">3-page proposal</a><a href="../">Earlier study</a></nav></header>
+<header class="top"><a class="logo" href="./">RUTA</a><nav><a href="#forest">Forest green</a><a href="RUTA-Northern-design-proposal.pdf">3-page proposal</a><a href="../">Earlier study</a></nav></header>
 <main>
-<section class="hero" id="top"><img src="images/02-hero-dark.jpg" alt="RUTA revision C as a luminous sheet held on a slim metal stem" width="1920" height="1200"><div class="copy"><p class="eyebrow">Industrial design study · Revision C</p><h1>RUTA</h1><p>Light held in a plane.</p></div></section>
+<section class="hero" id="top"><img src="images/15-forest-hero.jpg" alt="Forest green RUTA revision C, CAD-rendered with luminous lightguide, curved arm and round foot" width="1920" height="1200"><div class="copy"><p class="eyebrow">Industrial design study · Revision C</p><h1>RUTA</h1><p>Light held in a plane.</p></div></section>
+<section class="forest" id="forest"><div class="forest-heading"><span>FOREST GREEN · CAD RENDERS</span><h2>One form. Ten viewpoints.</h2></div><div class="forest-grid">
+<figure><img src="images/15-forest-hero.jpg" alt="Forest green RUTA lamp on a pale studio surface" loading="lazy" width="1920" height="1200"><figcaption>01 / 10 · Studio · three-quarter</figcaption></figure>
+<figure><img src="images/16-forest-night.jpg" alt="Forest green RUTA lamp in a dark studio" loading="lazy" width="1920" height="1200"><figcaption>02 / 10 · Night studio</figcaption></figure>
+<figure><img src="images/17-forest-front.jpg" alt="Front elevation of forest green RUTA lamp" loading="lazy" width="1920" height="1200"><figcaption>03 / 10 · Front</figcaption></figure>
+<figure><img src="images/18-forest-profile.jpg" alt="Side profile of RUTA lamp in forest green" loading="lazy" width="1920" height="1200"><figcaption>04 / 10 · Profile</figcaption></figure>
+<figure><img src="images/19-forest-back.jpg" alt="Rear view of RUTA CAD assembly" loading="lazy" width="1920" height="1200"><figcaption>05 / 10 · Reverse</figcaption></figure>
+<figure><img src="images/20-forest-joint.jpg" alt="Close view of RUTA curved elbow joint" loading="lazy" width="1920" height="1200"><figcaption>06 / 10 · Curved joint</figcaption></figure>
+<figure><img src="images/21-forest-lightguide.jpg" alt="Detail of translucent RUTA lightguide plate" loading="lazy" width="1920" height="1200"><figcaption>07 / 10 · Luminous plane</figcaption></figure>
+<figure><img src="images/22-forest-base.jpg" alt="Detail of the circular weighted foot and metal tube" loading="lazy" width="1920" height="1200"><figcaption>08 / 10 · Foot and tube</figcaption></figure>
+<figure><img src="images/23-forest-evening.jpg" alt="RUTA in dim warm light" loading="lazy" width="1920" height="1200"><figcaption>09 / 10 · Evening</figcaption></figure>
+<figure><img src="images/24-forest-assembly.jpg" alt="Exploded CAD assembly of RUTA revision C" loading="lazy" width="1920" height="1200"><figcaption>10 / 10 · Construction</figcaption></figure>
+</div></section>
 <figure class="shot light"><img src="images/01-hero-light.jpg" alt="Entire RUTA lamp on a pale studio background" loading="lazy"><figcaption class="caption"><span class="number">01 / 13</span><strong>One luminous plane.</strong></figcaption></figure>
 <figure class="shot light"><img src="images/03-front.jpg" alt="Front view of RUTA" loading="lazy"><figcaption class="caption"><span class="number">02 / 13</span><strong>A quiet silhouette.</strong></figcaption></figure>
 <figure class="shot light"><img src="images/04-profile.jpg" alt="Side profile showing the lamp's single angled support" loading="lazy"><figcaption class="caption"><span class="number">03 / 13</span><strong>A line carries light.</strong></figcaption></figure>

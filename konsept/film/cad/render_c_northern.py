@@ -24,11 +24,22 @@ PRESETS = [
     ("12-evening", "evening", "black", (0.61, -0.82, 0.43), (-0.015, -0.035, 0.135), 0.68),
     ("13-assembly", "light", "black", (0.73, -0.81, 0.50), (-0.02, -0.035, 0.15), 0.77),
     ("14-chrome-detail", "light", "black", (0.38, -0.43, 0.34), (0.138, 0.026, 0.145), 0.35),
+    ("15-forest-hero", "light", "forest", (0.61, -0.82, 0.45), (-0.015, -0.035, 0.155), 0.68),
+    ("16-forest-night", "dark", "forest", (-0.66, -0.75, 0.42), (-0.015, -0.035, 0.150), 0.68),
+    ("17-forest-front", "light", "forest", (0.00, -0.90, 0.34), (-0.015, -0.025, 0.150), 0.67),
+    ("18-forest-profile", "light", "forest", (0.90, -0.08, 0.36), (0.0, -0.01, 0.14), 0.67),
+    ("19-forest-back", "dark", "forest", (0.55, 0.82, 0.43), (0.0, 0.0, 0.155), 0.68),
+    ("20-forest-joint", "dark", "forest", (0.40, -0.36, 0.36), (0.13, 0.012, 0.243), 0.22),
+    ("21-forest-lightguide", "dark", "forest", (-0.14, -0.47, 0.31), (-0.065, -0.09, 0.18), 0.38),
+    ("22-forest-base", "light", "forest", (0.31, -0.49, 0.21), (0.03, 0.005, 0.045), 0.34),
+    ("23-forest-evening", "evening", "forest", (0.61, -0.82, 0.43), (-0.015, -0.035, 0.135), 0.68),
+    ("24-forest-assembly", "light", "forest", (0.73, -0.81, 0.50), (-0.02, -0.035, 0.15), 0.77),
 ]
 COLORS = {
     "black": (0.007, 0.007, 0.009),
     "olive": (0.073, 0.11, 0.073),
     "oxblood": (0.13, 0.023, 0.029),
+    "forest": (0.006, 0.015, 0.008),
 }
 MATERIALS = {}
 
@@ -110,7 +121,10 @@ def setup(mode, finish, key, quality):
     bg=world.node_tree.nodes['Background']
     bg.inputs['Color'].default_value=(.38,.36,.34,1) if mode == 'light' else (.035,.035,.032,1)
     bg.inputs['Strength'].default_value=.22 if mode == 'light' else .08
-    finish_mat=material('Matte SLS powdercoat '+finish,COLORS[finish],roughness=.56,textured=True)
+    finish_mat=material('Forest green lacquer' if finish == 'forest' else 'Matte SLS powdercoat '+finish,COLORS[finish],roughness=.17 if finish == 'forest' else .56,textured=finish != 'forest')
+    if finish == 'forest':
+        finish_mat.node_tree.nodes['Principled BSDF'].inputs['Coat Weight'].default_value = 0.3
+        finish_mat.node_tree.nodes['Principled BSDF'].inputs['Coat Roughness'].default_value = 0.1
     chrome=material('Chromed copper',(.60,.62,.65),metallic=.95,roughness=.17)
     steel=material('Hidden steel',(.18,.17,.16),metallic=.78,roughness=.40)
     gold=material('Gold lacquered end cap',(.48,.29,.09),metallic=.65,roughness=.32)
@@ -132,7 +146,7 @@ def setup(mode, finish, key, quality):
         obj.data.materials.clear()
         obj.data.materials.append(matmap.get(file.stem,finish_mat))
         parts[file.stem]=obj
-    if key.startswith('13'):
+    if key.startswith(('13', '24')):
         shift={
             '02':(0,0,-.03),'03':(0,0,.038),'04':(.08,0,0),
             '05v':(-.065,0,.012),'05h':(.06,0,.012),
@@ -157,7 +171,7 @@ def setup(mode, finish, key, quality):
     area('Rear rim',(.28,.32,.69),(0,0,.16),18 if not dark else 9,(.94,.96,1),.8,.4)
     area('Long strip',(-.13,.12,.68),(0,0,.23),7,(1,1,1),.75,.13)
     area('Bounce front',(-.02,-.60,.33),(0,0,.16),5 if not dark else 2,(1,.86,.71),.65,.45)
-    if key not in ('05-back','09-base-detail','13-assembly'):
+    if key not in ('05-back', '09-base-detail', '13-assembly', '19-forest-back', '22-forest-base', '24-forest-assembly'):
         area('Lightguide illumination',(-.026,-.06,.20),(-.04,-.06,-.016),3.5 if not dark else 4.5,(1,.64,.35),.30,.185)
     return scene,parts
 

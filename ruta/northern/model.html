@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>RUTA C | Interactive model</title>
+<meta name="description" content="Explore the revision C CAD model of RUTA. Tilt the light-guide, inspect the assembly and explore finish studies.">
+<link rel="preload" href="ruta-c.glb" as="fetch" crossorigin>
+<link rel="icon" href="data:,">
+<style>
+:root{--text:#f1f0ec;--dim:#a6a49f;--rule:#383835}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:radial-gradient(ellipse 70% 44% at 50% 70%,#292521 0%,#121110 52%,#090909 100%);color:var(--text);font:400 13px/1.4 -apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+canvas{position:fixed;inset:0;display:block;width:100%;height:100%;touch-action:none;outline:none}
+a{color:inherit;text-decoration:none}
+header{position:absolute;z-index:2;left:clamp(18px,3.6vw,56px);right:clamp(18px,3.6vw,56px);top:calc(env(safe-area-inset-top,0px) + 27px);display:flex;align-items:center;justify-content:space-between;gap:22px}
+header a{font-size:12px;color:var(--dim)}
+header a:hover{color:var(--text)}
+header strong{font-size:14px;letter-spacing:.22em;font-weight:650}
+nav{display:flex;align-items:baseline;gap:25px}
+#state{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:var(--dim);font-size:13px;letter-spacing:.08em;pointer-events:none}
+.controls{position:absolute;z-index:2;bottom:calc(env(safe-area-inset-bottom,0px) + 30px);left:50%;transform:translateX(-50%);display:flex;flex-direction:column;gap:19px;align-items:center;width:min(610px,calc(100% - 40px))}
+.tilt{display:flex;align-items:center;gap:17px;width:100%}
+.tilt label{color:var(--dim);min-width:30px}
+.tilt output{text-align:right;min-width:35px;font-variant-numeric:tabular-nums}
+input[type=range]{appearance:none;-webkit-appearance:none;flex:1;min-width:0;height:28px;background:transparent;cursor:pointer}
+input[type=range]::-webkit-slider-runnable-track{height:2px;background:linear-gradient(to right,#efede7 var(--fill,44%),#424140 var(--fill,44%))}
+input[type=range]::-webkit-slider-thumb{appearance:none;-webkit-appearance:none;width:14px;height:14px;margin-top:-6px;border-radius:50%;border:1px solid #fff;background:#fff}
+input[type=range]::-moz-range-track{height:2px;background:#424140}
+input[type=range]::-moz-range-progress{height:2px;background:#efede7}
+input[type=range]::-moz-range-thumb{width:14px;height:14px;border:0;border-radius:50%;background:#fff}
+.options{display:flex;align-items:center;justify-content:center;gap:15px;flex-wrap:wrap}
+.mode{display:flex;gap:4px;align-items:center}
+.mode button{border:0;background:transparent;color:var(--dim);border-radius:20px;padding:8px 15px;font:inherit;cursor:pointer}
+.mode button[aria-pressed=true]{background:#efede7;color:#171717}
+.finish{display:flex;align-items:center;gap:11px;margin-left:12px;border-left:1px solid var(--rule);padding-left:24px}
+.finish button{border:1px solid #666;width:18px;height:18px;border-radius:50%;cursor:pointer;outline-offset:4px}
+.finish button[aria-pressed=true]{outline:1px solid #eceae3}
+.note{font-size:11px;color:#888782;text-align:center;margin:0}
+@media(max-width:580px){header{top:calc(env(safe-area-inset-top,0px) + 17px)}.controls{bottom:calc(env(safe-area-inset-bottom,0px) + 18px);gap:12px}.options{gap:10px}.finish{padding-left:15px;margin-left:5px;gap:10px}nav{gap:14px}.note{max-width:320px;font-size:10px}}
+</style>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}</script>
+</head>
+<body>
+<canvas id="scene" aria-label="Three-dimensional CAD model of RUTA revision C, draggable to rotate"></canvas>
+<header><nav><a href="./">← Portfolio</a><a href="RUTA-Northern-design-proposal.pdf">Proposal PDF</a></nav><strong>RUTA</strong><span>REVISION C</span></header>
+<p id="state" role="status">Loading CAD model</p>
+<div class="controls">
+<div class="tilt"><label for="tilt">Tilt</label><input id="tilt" type="range" min="0" max="80" step="1" value="35" style="--fill:44%"><output for="tilt" id="angle">35°</output></div>
+<div class="options">
+<div class="mode" role="group" aria-label="View mode"><button type="button" data-mode="form" aria-pressed="true">Form</button><button type="button" data-mode="parts" aria-pressed="false">Assembly</button></div>
+<div class="finish" role="group" aria-label="Finish study"><button type="button" aria-label="Matte black" data-finish="black" aria-pressed="true" style="background:#1d1d1e"></button><button type="button" aria-label="Muted green" data-finish="green" aria-pressed="false" style="background:#4e6355"></button><button type="button" aria-label="Oxblood" data-finish="red" aria-pressed="false" style="background:#662c35"></button></div>
+</div>
+<p class="note">CAD geometry. Light and material appearance are visual studies, not measured.</p>
+</div>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+
+const canvas=document.getElementById('scene');
+const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true,powerPreference:'high-performance'});
+renderer.outputColorSpace=THREE.SRGBColorSpace;
+renderer.toneMapping=THREE.AgXToneMapping;
+renderer.toneMappingExposure=1.05;
+renderer.shadowMap.enabled=true;
+renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+const scene=new THREE.Scene();
+scene.background=null;
+const camera=new THREE.PerspectiveCamera(35,1,.015,40);
+const orbit=new OrbitControls(camera,canvas);
+orbit.enableDamping=true;
+orbit.dampingFactor=.065;
+orbit.minDistance=.29;
+orbit.maxDistance=3.0;
+orbit.maxPolarAngle=Math.PI/2+.06;
+orbit.target.set(0,.14,.012);
+const pmrem=new THREE.PMREMGenerator(renderer);
+scene.environment=pmrem.fromScene(new RoomEnvironment(),.04).texture;
+scene.environmentIntensity=.55;
+scene.add(new THREE.HemisphereLight(0xffffff,0x302b28,.8));
+const key=new THREE.DirectionalLight(0xfff2df,2.1);
+key.position.set(-.38,.85,.65);
+key.castShadow=true;
+key.shadow.mapSize.set(1024,1024);
+key.shadow.camera.left=-.45;
+key.shadow.camera.right=.45;
+key.shadow.camera.top=.5;
+key.shadow.camera.bottom=-.4;
+key.shadow.bias=-.0002;
+scene.add(key);
+const rim=new THREE.DirectionalLight(0xd8e0ec,1.0);
+rim.position.set(.45,.63,-.36);
+scene.add(rim);
+const glow=new THREE.PointLight(0xffc895,.6,1.1);
+glow.position.set(-.05,.12,.06);
+scene.add(glow);
+const floor=new THREE.Mesh(new THREE.PlaneGeometry(10,10),new THREE.ShadowMaterial({color:0x000000,opacity:.4}));
+floor.rotation.x=-Math.PI/2;
+floor.position.y=-.003;
+floor.receiveShadow=true;
+scene.add(floor);
+
+let pivot=null;
+let body=[];
+let geometry=[];
+let parts=false;
+let targetExplode=0;
+let currentExplode=0;
+const displacements={
+'02':[0,-.05,0],
+'03':[0,.035,0],
+'04':[.078,0,0],
+'05v':[-.06,0,0],
+'05h':[.06,0,0],
+'06v':[-.04,-.06,-.012],
+'06h':[.04,-.06,-.012],
+'07':[0,-.07,.012],
+'08':[0,-.095,.025],
+'09':[0,.06,0],
+'10':[0,.03,.012],
+'11':[-.04,0,0],
+'12':[.055,.04,0],
+'13':[.025,.03,0],
+'14':[.035,.02,0],
+'E':[0,-.04,0],
+'F':[0,-.035,0],
+'G':[.035,.015,0],
+'leidning':[.06,0,.02]
+};
+const colors={black:'#101012',green:'#384c3f',red:'#54252f'};
+const status=document.getElementById('state');
+const slider=document.getElementById('tilt');
+const angle=document.getElementById('angle');
+const modeButtons=[...document.querySelectorAll('[data-mode]')];
+const finishButtons=[...document.querySelectorAll('[data-finish]')];
+
+function applyTilt(){
+  const value=Number(slider.value);
+  if(pivot)pivot.rotation.x=THREE.MathUtils.degToRad(value-35);
+  angle.textContent=value+'°';
+  slider.style.setProperty('--fill',value/80*100+'%');
+}
+function selectFinish(name){
+  for(const item of body)item.material.color.set(colors[name]);
+  finishButtons.forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.finish===name)));
+}
+function selectMode(mode){
+  parts=mode==='parts';
+  targetExplode=parts?1:0;
+  modeButtons.forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.mode===mode)));
+}
+slider.addEventListener('input',applyTilt);
+modeButtons.forEach(b=>b.addEventListener('click',()=>selectMode(b.dataset.mode)));
+finishButtons.forEach(b=>b.addEventListener('click',()=>selectFinish(b.dataset.finish)));
+
+function resize(){
+  const w=innerWidth,h=innerHeight;
+  renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+  renderer.setSize(w,h,false);
+  camera.aspect=w/h;
+  const distance=w<650?1.94:.87;
+  const v=new THREE.Vector3(.62,.44,.77).normalize().multiplyScalar(distance);
+  if(!camera.userData.initialized){camera.position.copy(v).add(orbit.target);camera.userData.initialized=true;}
+  camera.updateProjectionMatrix();
+}
+window.addEventListener('resize',()=>{
+  const w=innerWidth,h=innerHeight;
+  renderer.setSize(w,h,false);
+  camera.aspect=w/h;
+  camera.updateProjectionMatrix();
+});
+resize();
+
+new GLTFLoader().load('ruta-c.glb',gltf=>{
+ const model=gltf.scene;
+ scene.add(model);
+ pivot=model.getObjectByName('Blad');
+ if(!pivot)throw new Error('Missing Blad rotation node');
+ model.traverse(node=>{
+   if(!node.isMesh)return;
+   node.castShadow=!['07','08'].includes(node.name);
+   node.receiveShadow=true;
+   geometry.push({
+     node,
+     start:node.position.clone(),
+     delta:new THREE.Vector3(...(displacements[node.name]||[0,0,0]))
+   });
+   if(node.material?.name==='BodyFinish')body.push(node);
+ });
+ if(geometry.length!==20)throw new Error('Unexpected geometry count: '+geometry.length);
+ if(body.length!==9)throw new Error('Unexpected printed-part count: '+body.length);
+ selectFinish('black');
+ applyTilt();
+ status.remove();
+ window.rutaReady=true;
+ window.rutaParts=geometry.length;
+},undefined,err=>{
+ status.textContent='Could not load the 3D model.';
+ console.error(err);
+});
+
+function render(){
+ requestAnimationFrame(render);
+ currentExplode=THREE.MathUtils.lerp(currentExplode,targetExplode,.09);
+ for(const p of geometry)p.node.position.copy(p.start).addScaledVector(p.delta,currentExplode);
+ orbit.update();
+ renderer.render(scene,camera);
+}
+render();
+</script>
+</body>
+</html>

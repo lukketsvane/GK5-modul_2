@@ -36,3 +36,11 @@ Bileta dokumenterer digitale konsept og simuleringar, ikkje fysiske målingar. P
 | 9 | `GK5_09_RESTEN_11_SIDER_A4.pdf` | 11 | Resterande grunnlag og eldre ark |
 
 Dei ni utvala dekkjer 149 kjeldesider utan identiske heilsider. Seks overfl?dige JPEG/PNG-biletsider er fjerna fr? pakke 4 og 8. Nokre motiv f?rekjem framleis i ulike presentasjonssamanhengar. Ved utskrift av ABC-malane: 100 %, ikkje ?Tilpass til side?.
+
+## ABC: visuell lyssimulering (minimalt med tekst)
+
+- `GK5_ABC_LYSOVERSIKT_A4.pdf`: eitt liggjande A4-ark med A Skiva, B Over og C Vindauge, i stemning og arbeid.
+- `GK5_ABC_LYSSIMULERING_4_SIDER_A4.pdf`: same oversikt og éi stor samanlikningsside for kvart konsept.
+- `GK5_ABC_LYSOVERSIKT_preview.png`: førehandsvising av første side.
+
+Bileta er henta frå `leveransar/03_konsept/bilete`, med same rom, kamera og eksponering. Optiske data er simuleringar, ikkje målingar. Skriv ut i liggjande A4.

@@ -1,0 +1,19 @@
+{
+  "original_topp_mm": 328.0,
+  "fjern_heile_lause_forlenginga_mm": 131.0,
+  "sag_fra_skjoyten_pa_behalden_del_mm": 20,
+  "samla_fjerna_mm": 151.0,
+  "topp_etter_kapping_mm": 177.0,
+  "lysskjerm_breidd_mm": 163.0,
+  "lysskjerm_djupn_mm": 190.0,
+  "prismefilm_djupn_mm": 184.0,
+  "tre_skruehol_diameter_mm": 4.0,
+  "skruehol_x_fra_ny_ende_mm": [
+    13.0,
+    79.0,
+    145.0
+  ],
+  "skruehol_y_fra_innspent_kant_mm": 5.2,
+  "min_avstand_skruesenter_til_ender_mm": 13.0,
+  "led_omtrent_maks_mm": 133.0
+}

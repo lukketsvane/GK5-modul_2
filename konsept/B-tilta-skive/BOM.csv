@@ -1,0 +1,32 @@
+part,qty,material,process,prototype volume cm3,note
+01_base_casting,1,Al 6063-T5 or die cast Al,"CNC prototype, casting DFM",109.74,"Shell, stem attachment and M3 service hatch bosses"
+02_service_hatch,1,Al 5052 2.1 mm,laser cut / CNC,30.52,Underside accessible battery and electronics
+03_ballast,1,S235 steel,laser cut plates / steel block,33.26,Prototype weight; may conflict with 1.2 kg target
+04_pedestal,1,Al 6063-T5,extrusion + CNC top and holes,77.72,Hollow stem with pivot and cable exit
+20_stem_M4_-14,1,A2 stainless,purchased,0.33,"M4 from underside, clearance hole in base and tapped stem"
+20_stem_M4_14,1,A2 stainless,purchased,0.33,"M4 from underside, clearance hole in base and tapped stem"
+05_hinge_yoke,1,Al 6061-T6,CNC,16.05,"Two ears, bridge and M5 pivot bore"
+06_pivot_axle_M5,1,"Steel, ISO 7380-2 equivalent",purchased / shortened,1.43,"Simplified hardware, locking torque mechanism TBD"
+19_tilt_stop_pin,1,A2 stainless,purchased,0.37,Slot-in-yoke end stops nominally 15–37 degrees
+07_friction_washer_L,1,POM/friction laminate,purchased,0.45,Friction test required to set holding torque
+07_friction_washer_R,1,POM/friction laminate,purchased,0.45,Friction test required to set holding torque
+08_head_chassis,1,Al 6061-T6,CNC / thin-wall casting,88.02,Ventilated shell with front rim and rear halo slit
+09_canopy_top,1,"Al 5052 H32, 1.1 mm",formed sheet + CNC trim,75.94,"Broad uninterrupted top, screws on underside subject to review"
+10_front_lens,1,opal polycarbonate,injection mould / milled prototype,15.0,Transparent optical geometry; actual transmission unmeasured
+11_rear_halo_lens,1,opal polycarbonate,injection mould / milled prototype,5.54,Indirect rear rim glow
+12_recessed_work_lens,1,opal microprismatic PC,CNC prototype / injection mould,45.19,Work light recessed inside opaque rim; photometry TBD
+13_LED_MCPCB,1,Al MCPCB 1.6 mm,PCB fabrication,30.54,Thermal bonding to integrated aluminum spreader TBD
+14_ambient_LED_strip,1,Al MCPCB linear segments,PCB fabrication,3.81,Warm 2200K rear + front channel conceptual
+18_heat_spreader,1,Al 6061-T6,CNC / stamped,27.83,Thermal path from MCPCB to head rim pending conduction test
+15_battery_pack,1,"1x protected 18650 cell, pouch carrier",purchased / certified pack,30.77,"13 Wh nominal target, exact pack and charging PCB TBD"
+16_control_PCB,1,FR4 + LED driver + USB-C PD/CC,electronics assembly,2.47,Placeholder PCB volume only; circuit not designed
+21_hatch_M3_-68_-36,1,A2 stainless,purchased,0.09,Recessed screw from underside
+21_hatch_M3_-68_36,1,A2 stainless,purchased,0.09,Recessed screw from underside
+21_hatch_M3_68_-36,1,A2 stainless,purchased,0.09,Recessed screw from underside
+21_hatch_M3_68_36,1,A2 stainless,purchased,0.09,Recessed screw from underside
+17_canopy_M3_-111_-73,1,A2 stainless,purchased,0.08,M3 screw simplified
+17_canopy_M3_-111_73,1,A2 stainless,purchased,0.08,M3 screw simplified
+17_canopy_M3_112_-73,1,A2 stainless,purchased,0.08,M3 screw simplified
+17_canopy_M3_112_73,1,A2 stainless,purchased,0.08,M3 screw simplified
+17_canopy_M3_-110_-20,1,A2 stainless,purchased,0.08,M3 screw simplified
+17_canopy_M3_-110_20,1,A2 stainless,purchased,0.08,M3 screw simplified

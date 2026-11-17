@@ -1,0 +1,204 @@
+{
+  "solidcheck": {
+    "01_base_casting": {
+      "valid": true,
+      "solid_count": 1
+    },
+    "02_service_hatch": {
+      "valid": true,
+      "solid_count": 1
+    },
+    "03_ballast": {
+      "valid": true,
+      "solid_count": 1
+    },
+    "04_pedestal": {
+      "valid": true,
+      "solid_count": 1
+    },
+    "20_stem_M4_-14": {
+      "valid": true,
+      "solid_count": 1
+    },
+    "20_stem_M4_14": {
+      "valid": true,
+      "solid_count": 1
+    },
+    "05_hinge_yoke": {
+      "valid": true,
+      "solid_count": 1
+    },
+    "06_pivot_axle_M5": {
+      "valid": true,
+      "solid_count": 1
+    },
+    "19_tilt_stop_pin": {
+      "valid": true,
+      "solid_count": 1
+    },
+    "07_friction_washer_L": {
+      "valid": true,
+      "solid_count": 1
+    },
+    "07_friction_washer_R": {
+      "valid": true,
+      "solid_count": 1
+    },
+    "08_head_chassis": {
+      "valid": true,
+      "solid_count": 1
+    },
+    "09_canopy_top": {
+      "valid": true,
+      "solid_count": 1
+    },
+    "10_front_lens": {
+      "valid": true,
+      "solid_count": 1
+    },
+    "11_rear_halo_lens": {
+      "valid": true,
+      "solid_count": 1
+    },
+    "12_recessed_work_lens": {
+      "valid": true,
+      "solid_count": 1
+    },
+    "13_LED_MCPCB": {
+      "valid": true,
+      "solid_count": 1
+    },
+    "14_ambient_LED_strip": {
+      "valid": true,
+      "solid_count": 1
+    },
+    "18_heat_spreader": {
+      "valid": true,
+      "solid_count": 1
+    },
+    "15_battery_pack": {
+      "valid": true,
+      "solid_count": 1
+    },
+    "16_control_PCB": {
+      "valid": true,
+      "solid_count": 1
+    },
+    "21_hatch_M3_-68_-36": {
+      "valid": true,
+      "solid_count": 1
+    },
+    "21_hatch_M3_-68_36": {
+      "valid": true,
+      "solid_count": 1
+    },
+    "21_hatch_M3_68_-36": {
+      "valid": true,
+      "solid_count": 1
+    },
+    "21_hatch_M3_68_36": {
+      "valid": true,
+      "solid_count": 1
+    },
+    "17_canopy_M3_-111_-73": {
+      "valid": true,
+      "solid_count": 1
+    },
+    "17_canopy_M3_-111_73": {
+      "valid": true,
+      "solid_count": 1
+    },
+    "17_canopy_M3_112_-73": {
+      "valid": true,
+      "solid_count": 1
+    },
+    "17_canopy_M3_112_73": {
+      "valid": true,
+      "solid_count": 1
+    },
+    "17_canopy_M3_-110_-20": {
+      "valid": true,
+      "solid_count": 1
+    },
+    "17_canopy_M3_-110_20": {
+      "valid": true,
+      "solid_count": 1
+    }
+  },
+  "non_manifold_or_invalid": [],
+  "mass_g_estimate": 1639.6,
+  "center_of_mass_mm": [
+    -2.8,
+    1.6,
+    94.5
+  ],
+  "head_mass_g_estimate": 712.2,
+  "head_cg_x_mm": 29.3,
+  "hinge_static_torque_Nm_estimate": 0.743,
+  "worst_y_tip_restoring_Nm": 0.924,
+  "worst_x_tip_restoring_Nm": 1.531,
+  "moment_from_10N_push_at_hinge_Nm": 2.07,
+  "max_static_lateral_push_N_at_hinge": 4.46,
+  "minimum_mass_for_10N_push_y_at_pivot_kg": 3.67,
+  "collision_volumes_mm3": {
+    "01_base_casting / 02_service_hatch": 0.0,
+    "01_base_casting / 03_ballast": 0.0,
+    "01_base_casting / 15_battery_pack": 0.0,
+    "01_base_casting / 16_control_PCB": 0.0,
+    "01_base_casting / 04_pedestal": 0.0,
+    "04_pedestal / 09_canopy_top": 0.0,
+    "04_pedestal / 08_head_chassis": 0.0,
+    "04_pedestal / 05_hinge_yoke": 0.0,
+    "05_hinge_yoke / 08_head_chassis": 0.0,
+    "05_hinge_yoke / 09_canopy_top": 0.0,
+    "08_head_chassis / 10_front_lens": 0.0,
+    "08_head_chassis / 11_rear_halo_lens": 0.0,
+    "08_head_chassis / 12_recessed_work_lens": 0.0,
+    "08_head_chassis / 18_heat_spreader": 51.6,
+    "13_LED_MCPCB / 18_heat_spreader": 0.0,
+    "03_ballast / 15_battery_pack": 0.0,
+    "15_battery_pack / 16_control_PCB": 0.0
+  },
+  "tilt_sweep": {
+    "15": {
+      "mm_below_table_min": 141.0,
+      "collision_with_stem_mm3": 0.0,
+      "collision_with_foot_mm3": 0.0
+    },
+    "20": {
+      "mm_below_table_min": 118.1,
+      "collision_with_stem_mm3": 0.0,
+      "collision_with_foot_mm3": 0.0
+    },
+    "25": {
+      "mm_below_table_min": 95.8,
+      "collision_with_stem_mm3": 0.0,
+      "collision_with_foot_mm3": 0.0
+    },
+    "30": {
+      "mm_below_table_min": 74.4,
+      "collision_with_stem_mm3": 0.0,
+      "collision_with_foot_mm3": 0.0
+    },
+    "33": {
+      "mm_below_table_min": 62.0,
+      "collision_with_stem_mm3": 0.0,
+      "collision_with_foot_mm3": 0.0
+    },
+    "37": {
+      "mm_below_table_min": 46.1,
+      "collision_with_stem_mm3": 0.0,
+      "collision_with_foot_mm3": 0.0
+    },
+    "40": {
+      "mm_below_table_min": 34.7,
+      "collision_with_stem_mm3": 0.0,
+      "collision_with_foot_mm3": 0.0
+    },
+    "45": {
+      "mm_below_table_min": 16.8,
+      "collision_with_stem_mm3": 0.0,
+      "collision_with_foot_mm3": 0.0
+    }
+  }
+}

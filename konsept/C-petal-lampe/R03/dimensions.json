@@ -1,0 +1,14 @@
+{
+  "concept": "C",
+  "revision": "R03",
+  "height_mm": 220,
+  "petal_count": 8,
+  "petal_t_mm": 2.6,
+  "petal_z0_mm": 8.0,
+  "petal_z1_mm": 220.0,
+  "base_od_mm": 60.0,
+  "base_exposed_h_mm": 7.7,
+  "diffuser_od_mm": 38.4,
+  "supply_VDC": 24,
+  "prototype_only": true
+}

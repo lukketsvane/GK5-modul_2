@@ -1,0 +1,10 @@
+RUTA C | mellombels PLA-prototype
+P1S 0,4 mm | AMS A2 kvit PLA | 0,12 mm lag | 4 vegger | 20 % fyll | 8 mm brem
+Plate 1: stammeroyr nedre + akselroyr venstre
+Plate 2: stammeroyr ovre + akselroyr hogre
+Plate 3: RUTA flate venstre, 183 x 190 x 3 mm
+Plate 4: RUTA flate hogre, 117 x 190 x 3 mm
+Ror ytre diameter 12 mm, kabelhol 5 mm. Skoyt: 7,8 mm tapp i 8,1 mm hol, inn 20 mm.
+RUTA-flata er CAD-presis med fem originalhol og 0,3 mm opning i skoyten.
+Provetilpass og lim skoytane. PLA-rora er berre for formtest, ikkje berekraftig konstruksjon.
+PLA-flata er ugjennomsiktig, ikkje fungerande PMMA-lysleiar. Ikkje bruk med varm LED eller utan trygg styrketest.

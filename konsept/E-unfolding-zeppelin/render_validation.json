@@ -1,0 +1,79 @@
+{
+  "ok": true,
+  "render_type": "CAD material renders",
+  "tessellated_parts": 21,
+  "foreground_metric": "Maximum absolute RGB channel difference from background > 6/255",
+  "rgb_variation_metric": "RMS of full-image per-channel standard deviations divided by 255",
+  "images": [
+    {
+      "file": "render/closed_studio.png",
+      "resolution": [
+        1400,
+        1000
+      ],
+      "foreground_pixels": 283130,
+      "foreground_fraction": 0.20223571,
+      "rgb_variation_fraction": 0.1819207
+    },
+    {
+      "file": "render/closed_black.png",
+      "resolution": [
+        1400,
+        1000
+      ],
+      "foreground_pixels": 283180,
+      "foreground_fraction": 0.20227143,
+      "rgb_variation_fraction": 0.22654163
+    },
+    {
+      "file": "render/middle_studio.png",
+      "resolution": [
+        1400,
+        1000
+      ],
+      "foreground_pixels": 324779,
+      "foreground_fraction": 0.231985,
+      "rgb_variation_fraction": 0.19283275
+    },
+    {
+      "file": "render/middle_black.png",
+      "resolution": [
+        1400,
+        1000
+      ],
+      "foreground_pixels": 324849,
+      "foreground_fraction": 0.232035,
+      "rgb_variation_fraction": 0.24555679
+    },
+    {
+      "file": "render/open_studio.png",
+      "resolution": [
+        1400,
+        1000
+      ],
+      "foreground_pixels": 360156,
+      "foreground_fraction": 0.25725429,
+      "rgb_variation_fraction": 0.19983476
+    },
+    {
+      "file": "render/open_black.png",
+      "resolution": [
+        1400,
+        1000
+      ],
+      "foreground_pixels": 360327,
+      "foreground_fraction": 0.25737643,
+      "rgb_variation_fraction": 0.2635381
+    },
+    {
+      "file": "render/open_side.png",
+      "resolution": [
+        1400,
+        1000
+      ],
+      "foreground_pixels": 193142,
+      "foreground_fraction": 0.13795857,
+      "rgb_variation_fraction": 0.17315824
+    }
+  ]
+}

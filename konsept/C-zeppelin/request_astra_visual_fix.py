@@ -1,0 +1,20 @@
+import os,json,pathlib,urllib.request,base64
+p=pathlib.Path(__file__).resolve().parent
+source=(p/"build.py").read_text(encoding="utf-8")
+render=base64.b64encode((p/"renders"/"closed_front.png").read_bytes()).decode()
+prompt="""You are GPT-6.2-ASTRA, specialist in CAD mechanical collision repair and industrial design. Input image is a TRUE Blender rendering of our current actual CadQuery lamp model. Source TARGET is a particular reference: perfectly smooth horizontally elongated SILVER zeppelin shape in strict side view, broad overlapping clean asymmetric upper HALF-ELLIPTIC petal shells and shallow lower warm cream illuminated scoop shells, all pivots clearly aligned on a THIN ~5mm diameter black horizontal rod, small satin silver circular studs at each hinge. Rounded leaf edges must be smooth, NOT pointed/angular, and body target aspect ~3.73 width:height (upper lobe 65mm, lower lobe 37mm) with a gently curved satin-silver pedestal and foot ratio 0.343 hull width. The current render shows zigzag fishbones, big dark rectangular spine and angular sheets, very different from target.
+CRITICAL CAD FAILURE newly introduced: exact OCP test reports blade_neighbour_shaft distance=0mm for θ=10,24,38! That means INTERSECTION. New blade function wide x=-12..58 at z8..25. Neighbor centerline (in blade local XZ) sweeps x=P cosθ~32..40, z=P sinθ~7..25 for P=13π, shaft radius2.5mm, so broad upper plate cuts through neighbor shaft. MUST FIX by trimming upper fan width near root with smooth convex contour, e.g x_right(z) <= 25.0 mm for 7<=z<=29, then widening to ~60 between 30..45 to make top lobes. Need keep sheet metal manufacturable and attached at central hub, lamella body valid STEP, and no fake visual hacks. Also dark rectangular rail cheeks 376x4x36mm need slimmer visible height (target thin line); bearings 5x10x4 require at least 12-14mm of rail cheek in Z, ensure bore support. Current material foot nearly black, but target silver pedestal. Need request exact surgical Python patch script that edits existing build.py AND render_blender.py only, with assert, and changes (1) blade upper fan right edge narrowing about nearby shaft, (2) rail wall thickness 36->14 while retaining bearing bore support at z=116, (3) pedestal/base material in Blender from graphite to satin silver without recoloring black spine, (4) foot diameter 110->132mm (base R66) and foot thickness 8->12, central pedestal shaped softly wider at bottom if possible. Do not change anything else; no unrelated refactor. Add precise verification acceptance to test collision after patch. Return PURE PYTHON SCRIPT ONLY, no Markdown, 100 lines max, no code comments/docstrings.
+CODE excerpt:
+"""
+prompt+=source[source.index("def blade(kind, sign):"):source.index("def shoe(sign):")]
+prompt+="\nRAIL/BASE/PEDESTAL:\n"+source[source.index("def rail(sign):"):source.index("def led(sign):")]
+prompt+="\nBLENDER MATERIAL:\n"+(p/"render_blender.py").read_text(encoding="utf-8")[10000:12500]
+body={"model":"gpt-6.2-astra","reasoning":{"effort":"high"},"max_output_tokens":8000,"input":[{"role":"user","content":[{"type":"input_text","text":prompt},{"type":"input_image","image_url":"data:image/png;base64,"+render}]}]}
+try:
+ req=urllib.request.Request("https://api.openai.com/v1/responses",data=json.dumps(body).encode(),headers={"Authorization":"Bearer "+os.environ["OPENAI_API_KEY"],"Content-Type":"application/json"},method="POST")
+ with urllib.request.urlopen(req,timeout=235) as r:data=json.load(r)
+ output="\n".join(c.get("text","") for row in data.get("output",[]) for c in row.get("content",[]) if c.get("type")=="output_text").strip()
+ if output.startswith(chr(96)*3):output=output.split("\n",1)[1].rsplit(chr(96)*3,1)[0]
+ (p/"astra_visual_fix.py").write_text(output,encoding="utf-8")
+ print("model",data.get("model"),"status",data.get("status"),"usage",data.get("usage"),"chars",len(output),"head",output[:250].encode("ascii","replace").decode(),flush=True)
+except Exception as e:print("ERROR",type(e).__name__,str(e)[:500],flush=True)

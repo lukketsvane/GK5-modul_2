@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="no">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Konsept C | Mekanisk prototype</title>
+<style>
+*{box-sizing:border-box}html,body{padding:0;margin:0;width:100%;height:100%;overflow:hidden;background:#000;color:#eee;font-family:Arial,Helvetica,sans-serif}
+#view{position:fixed;inset:0}header{position:fixed;top:25px;left:31px;pointer-events:none;z-index:2}
+h1{font-size:12px;font-weight:500;letter-spacing:.23em;margin:0 0 7px}.muted{font-size:11px;letter-spacing:.06em;color:#999}
+footer{position:fixed;left:31px;right:31px;bottom:25px;display:flex;align-items:center;gap:22px;z-index:3}
+button{border:1px solid #595959;color:#e1e1e1;background:#151515;border-radius:2px;cursor:pointer;padding:9px 18px;min-width:79px}
+button:hover{background:#282828}input[type=range]{appearance:none;flex:1;height:2px;background:#525252;outline:0;min-width:80px}
+input[type=range]::-webkit-slider-thumb{appearance:none;width:12px;height:12px;border:1px solid #f2f2f2;background:#d1d1d1;border-radius:50%;cursor:pointer}
+small{color:#999;letter-spacing:.05em;min-width:85px;text-align:right;font-size:11px}
+aside{position:fixed;right:31px;top:29px;color:#777;font-size:11px;letter-spacing:.04em;pointer-events:none}
+@media(max-width:720px){aside{display:none}footer{left:16px;right:16px;gap:10px;bottom:18px}header{left:16px;top:18px}button{min-width:70px;padding:7px}small{min-width:65px}}
+</style>
+</head>
+<body>
+<div id="view"></div>
+<header><h1>KONSEPT C</h1><div class=\"muted\">ZEPPELIN / MEKANISK STUDIE</div></header>
+<aside>DRA FOR A ROTERE / RULL FOR A ZOOME</aside>
+<footer>
+<button id="toggle">PAUSE</button>
+<span class="muted">LUKKA</span>
+<input id="scrub" type="range" min="0" max="1000" value="500">
+<span class="muted">OPEN</span>
+<small id="value">24Â°</small>
+</footer>
+<script src="./three.min.js"></script>
+<script id="scene-data" type="application/json">__SCENE__</script>
+<script>
+const data=JSON.parse(document.getElementById('scene-data').textContent);
+const scene=new THREE.Scene();
+scene.background=new THREE.Color(0x000000);
+const renderer=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});
+renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
+renderer.setSize(innerWidth,innerHeight);
+renderer.outputEncoding=THREE.sRGBEncoding;
+renderer.toneMapping=THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure=.75;
+document.getElementById('view').appendChild(renderer.domElement);
+const camera=new THREE.PerspectiveCamera(31,innerWidth/innerHeight,1,3500);
+camera.up.set(0,0,1);
+const target=new THREE.Vector3(0,0,118);
+let yaw=-1.12,elevation=.18,radius=700;
+function updateCamera(){
+ camera.position.set(radius*Math.cos(elevation)*Math.cos(yaw),radius*Math.cos(elevation)*Math.sin(yaw),118+radius*Math.sin(elevation));
+ camera.lookAt(target);
+}
+updateCamera();
+scene.add(new THREE.AmbientLight(0xd8dce8,.16));
+const key=new THREE.DirectionalLight(0xffffff,1.05);key.position.set(240,-400,600);scene.add(key);
+const fill=new THREE.DirectionalLight(0xb3c3d7,.55);fill.position.set(-300,140,270);scene.add(fill);
+const rim=new THREE.DirectionalLight(0xffffff,.38);rim.position.set(0,450,190);scene.add(rim);
+const material={
+ matte:new THREE.MeshStandardMaterial({color:0x707276,metalness:.18,roughness:.69,side:THREE.DoubleSide}),
+ frame:new THREE.MeshStandardMaterial({color:0x26272b,metalness:.34,roughness:.64,side:THREE.DoubleSide}),
+ metal:new THREE.MeshStandardMaterial({color:0x505259,metalness:.4,roughness:.45,side:THREE.DoubleSide}),
+ light:new THREE.MeshStandardMaterial({color:0xe9d1a3,emissive:0xbaa27f,emissiveIntensity:1.35,roughness:.8,side:THREE.DoubleSide})
+};
+const geometries={};
+for(const [name,v] of Object.entries(data.models)){
+ const geo=new THREE.BufferGeometry();
+ geo.setAttribute('position',new THREE.Float32BufferAttribute(v.v,3));
+ geo.setIndex(v.f);
+ geo.computeVertexNormals();
+ geometries[name]=geo;
+}
+const movers=[];
+for(const item of data.parts){
+ const m=new THREE.Mesh(geometries[item.g],material[item.color]);
+ m.name=item.name;
+ m.position.set(...item.p);
+ m.userData.initialX=item.p[0];
+ scene.add(m);
+ if(item.motion!=='fixed')movers.push([m,item.motion]);
+}
+const scrub=document.getElementById('scrub');
+const value=document.getElementById('value');
+const button=document.getElementById('toggle');
+const query=new URLSearchParams(location.search);
+let f=Math.max(0,Math.min(1,Number(query.get('pose')??.5)));
+let playing=!query.has('pose');
+let epoch=performance.now();
+function pose(frac){
+ f=frac;
+ const theta=data.kinematics.closed_deg+(data.kinematics.open_deg-data.kinematics.closed_deg)*frac;
+ const shift=data.kinematics.rack_pitch_radius_mm*(theta-data.kinematics.closed_deg)*Math.PI/180;
+ for(const [m,motion] of movers){
+  if(motion==='leaf')m.rotation.y=theta*Math.PI/180;
+  else if(motion==='gear')m.rotation.y=(theta-data.kinematics.closed_deg)*Math.PI/180;
+  else if(motion==='rack')m.position.x=m.userData.initialX+shift;
+ }
+ scrub.value=Math.round(frac*1000);
+ value.textContent=theta.toFixed(1)+String.fromCharCode(176);
+}
+pose(f);
+button.textContent=playing?'PAUSE':'SPEL AV';
+button.onclick=()=>{playing=!playing;button.textContent=playing?'PAUSE':'SPEL AV';epoch=performance.now()-Math.acos(1-2*f)*4400/(2*Math.PI)};
+scrub.oninput=()=>{playing=false;button.textContent='SPEL AV';pose(Number(scrub.value)/1000)};
+let dragging=false,px=0,py=0;
+renderer.domElement.addEventListener('pointerdown',e=>{dragging=true;px=e.clientX;py=e.clientY;renderer.domElement.setPointerCapture(e.pointerId)});
+renderer.domElement.addEventListener('pointerup',()=>dragging=false);
+renderer.domElement.addEventListener('pointermove',e=>{
+ if(!dragging)return;
+ yaw-=(e.clientX-px)*.006;
+ elevation=Math.max(-1.1,Math.min(1.25,elevation+(e.clientY-py)*.005));
+ px=e.clientX;py=e.clientY;updateCamera()
+});
+renderer.domElement.addEventListener('wheel',e=>{e.preventDefault();radius=Math.max(340,Math.min(1550,radius*Math.exp(e.deltaY*.001)));updateCamera()},{passive:false});
+window.addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight)});
+function animate(){
+ if(playing){const t=(performance.now()-epoch)*2*Math.PI/4400;pose((1-Math.cos(t))/2)}
+ renderer.render(scene,camera);
+ window.SCENE_READY=true;
+ requestAnimationFrame(animate);
+}
+animate();
+</script>
+</body>
+</html>

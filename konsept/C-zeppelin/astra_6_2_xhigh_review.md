@@ -1,0 +1,44 @@
+**Verdict:** Keep the shaft centres, rack pitch line and gear phasing. They are consistent. Do not build the assembly as drawn: it has solid penetrations, no reliable torque path or rack guide, and the panels spin without opening a downward light aperture. These findings are from the source geometry, not an executed STEP sweep or a load test.
+
+### 1. Fix the station hardware
+
+Coordinates below are in the rotating station frame, with \(u=\text{sign}\,y-7\,\text{lane}\) measured outwards from the lane offset; local \(x=z=0\) is the shaft axis.
+
+| Part | Actual geometry and consequence |
+|---|---|
+| Sheet and shaft | Sheet occupies \(u=23.7…24.3\). Its Ø5.44 hole **clears** the Ø5 shaft by 0.22 radial; the shaft passes through the hole, not the metal. This is not a torque connection. |
+| Shoe | Block spans \(u=17…25,\ |x|\le5.7,\ |z|\le11\). Slot ends at \(|z|=10\): **both solid end bridges penetrate the sheet** over \(10<|z|<11\). The Ø5.2 shoe bore also slips on the shaft. |
+| Neighbouring shoe | At 38°, world point approximately **(43.06, 24.15, 126.96)** is inside both station 0’s positive sheet and station +1’s positive shoe. It is at local \(x=-5,z=10\) in that shoe. The 7 mm lanes separate sheets, **not** a sheet from the next 8 mm block. |
+| Caps | Solid Ø7.2 discs at \(u=24.5…25.5\) penetrate the shaft throughout and the shoe over \(u=24.5…25,\ 2.6<r<3.6\). They are neither end caps beyond the shaft nor working collars. |
+| Screws | At \(x=0,z=\pm7\), Ø2.5 shanks pass through Ø2.8 clearance holes in *both* parts. Head undersides at \(u=25.3\) stand 0.3 off the shoe. No thread engagement or nut. |
+| Gear, knob, bearings | Ø5.1 gear bore has 0.05 radial clearance and no drive feature. At \(x=4P,z=116\), the long shaft penetrates the solid knob over \(y=75…79\). Bearing IDs clear the shaft by 0.05 radial; Ø10 bushes float in Ø10.2 cheek holes at \(|y|=8…12\). No axial shaft retention is modeled. |
+
+**One hardware revision addresses several faults:** replace each slotted shoe with a steel inboard hub spanning \(u=19…23.7\). Seat the sheet/tab on its outer face; tap the two \(z=\pm7\) holes M2.5, with heads seated at 24.3 and 4 mm under-head screws. Cross-tap the hub from the \(x\) side for a set screw onto a shaft flat. Delete the caps. Bore and lock the knob; add a locking boss to each pinion, indexed with gear angle **zero when the sheets are at 38°**. Select retained flanged bushes and machine seats to their specified fit. Install shaft thrust collars against the **inner bush faces**, e.g. outer collar faces at \(y=\pm7.9\) for 0.2 total endplay with flush inner bushes; keep the gear boss clear. The shaft rotating in these two fixed bushes is the revolute hinge.
+
+### 2. Clearance: what the revised outlines actually give
+
+With \(P=13\pi\), adjacent same-side sheet midplanes differ by 7 mm, or 21 mm at a lane wrap. Their XZ projections overlap throughout 10–38°: the midpoint between axes lies within both outlines (local offsets \(|x|=P\cos\theta/2,\ |z|=P\sin\theta/2\)). Thus the **actual adjacent sheet distances are 6.4 or 20.4 mm throughout**, not 13.18. Opposite sides are at least 47.4 apart. Repeated lanes four stations apart have local \(x\) separation at least \(4P\cos38°\), leaving more than 34 mm even using two 47 mm half-widths.
+
+A neighbouring shaft axis maps to \(\pm(P\cos\theta,P\sin\theta)\) in sheet coordinates. At 38° this is \(\pm(32.18,25.14)\); the central sheet’s 23 mm waist leaves **6.68 mm** to the Ø5 cylinder where its length reaches that sheet. To check the shoulders, take point-to-outline-segment distances, not apparent overlap in elevation: the widening segments start above the maximum axis ordinate on the positive half, and the axis moves **away** from that shoulder as angle decreases. More distant shafts have at least \(2P\cos38°-47-2.5>14\) mm lateral clearance. The demonstrated foreign-part penetration is a **shoe**, not a shaft.
+
+Delete `PITCH*cos(CLOSED)-19`: 19 is not a separating dimension for these profiles. Also replace the JSON cheek/shoe and sheet/spine numbers: minimum original lateral gaps to the outer rail face are \(17-12=5\) and \(23.7-12=11.7\) mm respectively.
+
+### 3. The gears do engage nominally
+
+The rack pitch line is **z=126**, ten above the axes. Its downward tips are at 125, roots at 127.25; gear tip/root radii are 11/8.75, giving nominal 0.25 radial bottom clearance. Both have pitch \(\pi\), pitch tooth thickness \(\pi/2\), and 20° pressure angle. At closed, every axis lies under a **rack tooth centre** (\(x=13i\pi\)); the pinion teeth straddling the top are centred at **81° and 99°** in XZ. The top is a **space**. Positive Y rotation moves the top toward +X, so `dx=10*radians(theta-38)` has the correct sign and ends at **−4.887 mm**. Do not shift half a pitch, reverse the drive or raise the rack.
+
+For ideal involutes the transverse contact ratio is \((\sqrt{11^2-r_b^2}-10\sin20°+1/\sin20°)/(\pi\cos20°)\approx1.77,\ r_b=10\cos20°\): successive working flanks overlap in engagement. This is a nominal mesh, **not proof of continuous conjugate contact between the eight-segment polygonal flanks**. Use a generated involute with controlled chord error and cutter-compatible roots. Provide deliberate backlash, e.g. for a 0.15 mm starting tangential allowance subtract **0.075 from both rack half-widths**, then verify against fabrication errors across all nine stations.
+
+Gear and rack share \(y=-2…2\); the rails start at \(|y|=8\), not through the teeth. The pedestal ends at 95.5, below the gear bottom at 105. The rack clears the end bars (tops 99) and cover (underside 133.2 versus rack top 132). **Clearance is not guidance:** attach side wear strips and opposed vertical guide surfaces capturing the rack’s *solid upper back*, clear of the teeth. Shim for sliding clearance and add adjustable stops at the two travel limits.
+
+### 4. Change the panel plane if downward opening is required
+
+At **both** poses each broad face has normal ±Y. Rotation changes its side silhouette but never its normal, and the two leaves on a shaft never unfold relative to one another. Vertical rays from the LED bands at \(|y|=12.5…15.5\) miss every sheet at both poses. Oblique shading may change; downward broad-face shuttering does not. This is a fundamental incompatibility with keeping the current flat panel placement.
+
+Keep the shafts and drive. Make each sheet a **bent mounting tab in XZ with its working wing extending outward in YZ**, e.g. bend at local \(x=6\); use one common lane, tabs at \(|y|=24\). For a first coupon use 80 mm total working chord along local Z, tapering to 68 at the end stations, with all wings spanning \(|y|=30\). An 80 mm wing projects **49.3 mm** across X at 38° (overlaps the 40.84 pitch) versus **13.9 mm** at 10° (opens a gap). Synchronous wing midplanes remain at least \(P\cos38°=32.18\) apart normally. Mount stationary downstrips over the swept band, e.g. \(|y|=30,z=160\) for these centred chords; check brackets, bend radii and tabs in the sweep. Measure illuminance below both poses. This produces tilting louvers, not an articulated fold between two rigidly shaft-mounted wings.
+
+### 5. Support and acceptance
+
+Extend the pedestal to **z=8…95.5**: its present bottom floats 0.5 above the base. Bolt it to the plinth and a rail saddle; fasten the end bars, support the floating cover on standoffs (1.7 rail-top gap), and mount the LEDs on wired heat-spreading channels. Test knob loads at \(x=163.36,y\approx77\) against the **55 mm foot radius**; ballast, widen or anchor until restoring moment exceeds the specified hand-load overturning moment with margin, and check sliding and outboard shaft deflection.
+
+Use one CadQuery instance/transform function for assembly **and** validation: the validator uses **10 × lane instead of 7**, hardcodes 9.4, and omits hardware pairs. On Windows use CadQuery/OCP solids directly. Broad-phase bound all pairs, whitelist only specified joints/contacts, then check `intersect().Volume()` **and** completed `BRepExtrema_DistShapeShape` distances with witness coordinates. For clearance certify intervals adaptively: subtract summed maximum point speeds per radian times half the sample spacing in radians from the nearest-sample clearance (rack speed 10 mm/rad); subdivide unresolved intervals. For gearing, lock the gear at successive rolls and translate the rack each way to first **working-flank** contact; record reversal play, contact locations and absence of bottoming. Neither a small common-volume threshold nor five sampled poses proves function. Dry-run the full nine-station drive under load before accepting the design.

@@ -1,0 +1,13 @@
+**1 — Leaf geometry.** In the reference, each scale has a broad, curved face that overlaps its neighbor. In the render, each upper paddle ends at an exposed diagonal mounting tab, and each lower paddle sweeps away from it. The repeated V-shaped gaps make the assembly read as a fan rather than a closed shell.
+
+Replace the paddle geometry, not the nine hubs. In CadQuery, loft each upper and lower leaf through shallow elliptical bow sections, trim a rounded rim, and thicken it inward to the chosen sheet gauge. Attach it to the existing hub with a short internal tab. At the reference pose, extend each rim past its neighbor **in projection**, with enough depth offset that the physical sheets do not intersect.
+
+**2 — Equatorial spine.** The reference shows one slender horizontal line where the upper and lower rims meet. The render shows a deep rectangular beam, exposed rack teeth above it, and a separate bar below it. Together they occupy the band that should be closed by the leaves.
+
+Keep the Ø5 mm Y-axis shafts, bearing centers, and rack pitch line fixed. Relieve the deep front web between bearing seats, retaining local bearing bosses and a continuous rear load path to the pedestal. Use a small round tube as the visible horizontal cross-member at the rim line; it is a frame member, not a replacement drive shaft. Bring the sheet rims close enough to that line to screen the rack without entering its travel.
+
+**3 — Overall envelope.** The target has a continuous crown, a shallower belly, and ends that narrow to almost the thickness of the equator. The render carries much more depth into the end stations, and its lower tips hang in separate lobes. The issue is the *distribution* of height: the existing 103:384 body ratio and Ø132 mm foot are already close to the reference proportions.
+
+Keep the width, station spacing, and foot. In a width-normalized front view, trace the target’s crown and belly as two guide curves. As a starting point, allocate roughly two-thirds of the central body height above the seam and one-third below. Set each station’s upper rise and lower drop from those curves, reducing both toward the ends while leaving the shaft interfaces unchanged.
+
+**Verification.** Overlay the revised CAD silhouette, seam, and overlap edges on the **first image** at the same projected width and pose. Separately sweep the full rack stroke and Y-axis rotation, checking sheet-to-sheet, sheet-to-frame, and rack clearances. Recheck the neighboring shafts using the same measurement that gave 5.6 mm; that result did not validate the new rims. Neither visual agreement nor interference-free motion is verified yet.

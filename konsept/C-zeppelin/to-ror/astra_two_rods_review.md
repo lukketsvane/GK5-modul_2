@@ -1,0 +1,13 @@
+**Counterrotation can vary downward flux, but it does not make the stated 0° pose “closed” or the 32° pose “open.”** Using right-hand rotation about +X, the bottom petal’s global lateral coordinate is \(y=10+y_{\rm local}\cos\theta+z_{\rm local}\sin\theta\). It starts at \(y\ge28\) mm and stays at \(y\ge10+18\cos32^\circ-37\sin32^\circ\approx5.7\) mm throughout travel. The top petal stays on the negative-Y side. Thus neither petal intercepts a vertical ray from an LED at \(y=0\). They can still modulate oblique rays and reflected light; neither the magnitude nor the sign of the change in total downward flux follows from the gearing.
+
+**The 20 mm gear-axis spacing is correct.** Standard unshifted module-1, 20-tooth external gears have 20 mm pitch diameters. With matching pressure angles and aligned face widths, they give 1:1 counterrotation.
+
+**Four corrections, retaining both continuous tubes:**
+
+1. **Create a closed aperture.** The existing top and bottom profiles are outboard wings, not opposing shutter edges. Retain their visible curves, but form inward returns below the LED emitting face. Their inner lips should meet in downward projection at 0°, with blade material extending outboard and coverage continuing along X. If the lips overlap, step them vertically rather than intersecting them.
+
+2. **Choose the opening sense from the lip motion.** For lips *below* the axes, the specified left-positive/right-negative rotations initially drive them inward. Reverse the opening sense. For example, left and right lips at local \((y,z)=(+10,-20)\) and \((-10,-20)\) mm meet at global \(y=0\). Rotating left −32° and right +32° takes them to \(y\approx-12.1,+12.1\) mm respectively—a real projected opening.
+
+3. **Resolve the roots, not just the skins.** Give each leaf a rigid lug or standoff to a non-slipping clamp on **one** tube. Reserve distinct axial space for clamp bodies and screws. A 12 mm skin-layer offset does not clear a standoff crossing an adjacent leaf. Leaves on one tube retain their relative spacing; leaves on opposite tubes do not.
+
+4. **Clear and constrain the full travel.** Route the returns around the fixed LED channel. Check relative swept clearance of opposing leaves and arms throughout 0–32°, including the channel, brackets and fasteners—not just the endpoint silhouettes. Place gears axially clear of the brackets, fix their phase with the lips closed, and add travel stops and a friction hold if intermediate settings must persist. No transverse shafts are needed.

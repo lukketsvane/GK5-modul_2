@@ -1,0 +1,23 @@
+{
+  "cad_engine": "CadQuery",
+  "valid_solids": 61,
+  "kinematic_states_exported": [
+    "closed",
+    "intermediate",
+    "open"
+  ],
+  "sampled_exact_distances_between_neighbouring_middle_petal_solids_mm": [],
+  "conservative_adjacent_layer_sheet_clearance_mm": 0.0,
+  "bearing_cheek_to_shoe_y_gap_mm": 7.0,
+  "sheet_to_spine_y_gap_mm": 11.7,
+  "minimum_sheet_to_neighbor_shoe_y_gap_mm": 0.0,
+  "rack_travel_mm": 3.4907,
+  "unverified": [
+    "rack tooth backlash under load",
+    "lamp stability under applied knob force",
+    "metal bending stiffness and springback",
+    "thermal performance",
+    "pinch force and finger access",
+    "hardware assembly tolerance stack"
+  ]
+}

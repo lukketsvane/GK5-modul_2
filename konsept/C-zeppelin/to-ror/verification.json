@@ -1,0 +1,62 @@
+{
+  "status": "GEOMETRIC TWO-AXIS PROOF OF CONCEPT; NOT PHYSICAL VALIDATION",
+  "tube_axes": [
+    [
+      0,
+      -10,
+      136
+    ],
+    [
+      0,
+      10,
+      136
+    ]
+  ],
+  "two_tubes_counterrotating": true,
+  "station_count": 9,
+  "petal_count": 18,
+  "aperture_width_under_LED_mm": [
+    {
+      "angle_deg": 0,
+      "shutter_aperture_mm": 1.8,
+      "shutter_min_clearance_mm": 1.9697,
+      "gear_intersection_mm3": 0.0,
+      "gear_surface_gap_mm": 0.0013
+    },
+    {
+      "angle_deg": 8,
+      "shutter_aperture_mm": 7.822,
+      "shutter_min_clearance_mm": 7.3655,
+      "gear_intersection_mm3": 0.0,
+      "gear_surface_gap_mm": 0.0009
+    },
+    {
+      "angle_deg": 16,
+      "shutter_aperture_mm": 14.082,
+      "shutter_min_clearance_mm": 13.452,
+      "gear_intersection_mm3": 0.0,
+      "gear_surface_gap_mm": 0.0015
+    },
+    {
+      "angle_deg": 24,
+      "shutter_aperture_mm": 20.456,
+      "shutter_min_clearance_mm": 19.7502,
+      "gear_intersection_mm3": 0.0,
+      "gear_surface_gap_mm": 0.0021
+    },
+    {
+      "angle_deg": 32,
+      "shutter_aperture_mm": 26.822,
+      "shutter_min_clearance_mm": 25.5549,
+      "gear_intersection_mm3": 0.0,
+      "gear_surface_gap_mm": 0.0004
+    }
+  ],
+  "led_face_width_mm": 13,
+  "remaining_checks": [
+    "actual involute tooth contact, backlash and loaded torque",
+    "clamp-to-tube torque transfer and anti-slip fasteners",
+    "all moving bracket-to-petal collision pairs and fatigue",
+    "temperature, glare, ballast and electrical safety"
+  ]
+}

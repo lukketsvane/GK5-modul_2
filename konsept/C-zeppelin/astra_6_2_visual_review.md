@@ -1,0 +1,19 @@
+**Use three interleaved depth layers per shell, with clearance cuts for neighboring shafts.** Layering alone fixes sheet-to-sheet interference, but not shaft-to-sheet interference: a shaft driving an outer-layer petal passes through the depths occupied by the inner layers.
+
+**Petal geometry.** Put pivot \(i\) at \((40.84i,0,116)\) mm, \(i=-4,\ldots,4\). Draw each upright paddle in local **XZ**, with its pivot at the origin. One manufacturable taper uses elliptical semi-width \(47.5-5|i|\) and semi-height \(86-9|i|\) mm; scallop the upper outline *inside* that ellipse. For a flat blank, use `Workplane("XZ")` and `extrude(0.3, both=True)` for 0.6 mm total thickness. Translate to its layer, then rotate about the line through its pivot parallel to \(+y\), not about the assembly origin.
+
+**Layer and shaft clearance.** For rail outer faces at \(y=\pm10\), put paired skins at \(y=\pm(14+4k)\) mm, \(k=(i+4)\bmod3\). Keep each formed skin within ±1.5 mm of its layer center, leaving 1 mm between layer envelopes. Same-layer pivots are at least three pitches apart. Projected onto the rotating paddle’s local width axis, their separation is at least \(3(40.84)\cos38^\circ=96.55\) mm, exceeding the 95 mm maximum width throughout the stroke.
+
+Limit all outboard shaft hardware—including knobs, collars and fasteners—to a **5 mm radius** about its axis. In each flat pattern subtract a radius-6 mm disk swept along each neighboring pivot’s locus in local coordinates:
+\[
+(u,v)=\pm40.84(\cos\theta,\sin\theta),\quad 10^\circ\le\theta\le38^\circ .
+\]
+This leaves 1 mm nominal hardware clearance. No second-neighbor cut is needed: \(2(40.84)\cos38^\circ-6>47.5\). **Simpler laser-cut alternative:** waist each paddle to \(|u|\le25\) mm wherever \(|v|\le32\) mm. This avoids both swept disks without internal slots.
+
+**Drive and fabrication.** Use one through-shaft per front/back pair, with two 5×10×4 mm bearings seated in opposite rail cheeks. Center a module-1, 20-tooth pinion between them. Use stock matching rack below, pitch line \(z=106\), guided against lift and yaw; mount the post below the guide. Index clamp hubs with the rack meshed and all blades jigged at 10°. Ideal involute travel is **exactly** \(\Delta x=-10\Delta\theta\) mm for positive rotation about \(+y\), radians: 4.887 mm stroke magnitude. Allow for backlash; fit stops and a friction hold. Keep LEDs and wiring stationary on the rail.
+
+Laser-cut blanks and use clamped hub doublers rather than transmitting torque through an unsupported film hole. Thickness alone does not establish stiffness or a need for a flange. Measure installed edge deflection; if necessary emboss a shallow bead within the layer envelope rather than adding an unchecked return flange.
+
+**Acceptance checks.** Sweep actual rack, teeth, skins, hubs, shafts, rail, guides, lighting, post and base solids every 0.1° including endpoints. Check intersection volume and minimum distance, distinguishing designed contacts from interference. For unintended pairs require sampled clearance above tolerance/deflection allowance **plus** \((s_1+s_2)(0.1\pi/180)/2\), where \(s\) is maximum axis radius for a rotor, 10 mm/rad for the rack, zero for fixed parts. This bounds clearance loss between samples.
+
+For a round support footprint require \(Mg(R_{\rm support}-\rho_{\rm CG})>Fh\) with design margin at every position; masses, footprint and operating force are needed to certify stability. Finally, the specified centered paddles reach at most \(116+86=202\) mm above datum, **not 250 mm**. Resolve that height conflict before sign-off; neither a STEP export nor an animation verifies the assembly.

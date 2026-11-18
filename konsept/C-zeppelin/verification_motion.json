@@ -1,0 +1,40 @@
+{
+  "status": "PASS FOR CHECKED RISK PAIRS, NOT FULL SAFETY CERTIFICATION",
+  "cad_tool": "CadQuery 2.8 / OCP",
+  "poses": [
+    {
+      "angle": 10,
+      "blade_blade_mm": 12.5071,
+      "blade_neighbour_hub_mm": 10.3596,
+      "blade_neighbour_shaft_mm": 12.5144
+    },
+    {
+      "angle": 24,
+      "blade_blade_mm": 10.9915,
+      "blade_neighbour_hub_mm": 10.3692,
+      "blade_neighbour_shaft_mm": 11.15
+    },
+    {
+      "angle": 38,
+      "blade_blade_mm": 9.7951,
+      "blade_neighbour_hub_mm": 7.0174,
+      "blade_neighbour_shaft_mm": 5.6126
+    }
+  ],
+  "numeric_grid_degrees": [
+    10,
+    38,
+    0.1
+  ],
+  "minimum_analytic_adjacent_shaft_gap_mm": 6.6829,
+  "rack_travel_mm": 4.8869,
+  "gear": "20-tooth module-1, nominal rack pitch 13*pi, 20-degree pressure angle; actual sustained load/backlash unverified",
+  "unverified": [
+    "all hardware contact pairs under worst-case manufacturing deviations",
+    "drive torque and clamp slip",
+    "lamp tipping under hand load",
+    "electrical design and thermal performance",
+    "sheet elastic stiffness",
+    "user pinch safety"
+  ]
+}

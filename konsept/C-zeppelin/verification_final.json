@@ -1,0 +1,105 @@
+{
+  "passed": true,
+  "poses": 3,
+  "unique_CAD_solids": 45,
+  "assembly_parts": 151,
+  "swept_envelope_2deg_steps_mm": {
+    "10": [
+      377.84,
+      152.59,
+      201.13
+    ],
+    "12": [
+      378.69,
+      152.59,
+      200.72
+    ],
+    "14": [
+      379.47,
+      152.59,
+      200.21
+    ],
+    "16": [
+      380.19,
+      152.59,
+      199.6
+    ],
+    "18": [
+      380.85,
+      152.59,
+      198.88
+    ],
+    "20": [
+      381.44,
+      152.59,
+      198.29
+    ],
+    "22": [
+      381.96,
+      152.59,
+      197.64
+    ],
+    "24": [
+      382.42,
+      152.59,
+      196.89
+    ],
+    "26": [
+      382.81,
+      152.59,
+      196.04
+    ],
+    "28": [
+      383.13,
+      152.59,
+      195.09
+    ],
+    "30": [
+      383.44,
+      152.59,
+      194.07
+    ],
+    "32": [
+      383.78,
+      152.59,
+      193.1
+    ],
+    "34": [
+      384.12,
+      152.59,
+      192.03
+    ],
+    "36": [
+      384.46,
+      152.59,
+      190.87
+    ],
+    "38": [
+      384.82,
+      152.59,
+      189.71
+    ]
+  },
+  "measured_solid_distances_mm": {
+    "gear_rack_10": 0.0,
+    "own_bore_10": 0.22,
+    "adjacent_shaft_10": 14.7202,
+    "same_layer_10": 97.8888,
+    "gear_rack_24": 0.0001,
+    "own_bore_24": 0.22,
+    "adjacent_shaft_24": 11.8098,
+    "same_layer_24": 86.3817,
+    "gear_rack_38": 0.0001,
+    "own_bore_38": 0.22,
+    "adjacent_shaft_38": 6.6829,
+    "same_layer_38": 75.3067,
+    "min_analytic_sheet_other_depth_gap_mm": 6.9,
+    "min_analytic_neighbor_shaft_side_gap_mm": 6.683,
+    "minimum_gear_rack_distance_mm": 0.0,
+    "maximum_gear_rack_distance_mm": 0.0001
+  },
+  "caveats": [
+    "Physical stiffness, fatigue, thermal design, actual gear backlash and anti-tip performance require a bench prototype",
+    "Only three exact tooth-mesh samples, plus analytical clearance bounds, not a certified 0.1-degree industrial collision sweep"
+  ]
+}

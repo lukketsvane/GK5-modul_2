@@ -16,7 +16,7 @@ FAST = os.environ.get("E_FAST_RENDER", "").strip() == "1"
 MM = 0.001
 FACET = struct.Struct("<12fH")
 NORMALS = struct.Struct("<9f")
-TARGET = (0.0, 0.0, 0.110)
+TARGET = (0.0, 0.0, 0.119)
 
 
 def read_json(path):
@@ -99,7 +99,7 @@ def material(name, rgb, metallic, roughness):
 
 def warm_emission(mat, shader, strength):
     source = mat.node_tree.nodes.new("ShaderNodeBlackbody")
-    source.inputs["Temperature"].default_value = 3000.0
+    source.inputs["Temperature"].default_value = 5100.0
     mat.node_tree.links.new(source.outputs["Color"], shader.inputs["Emission Color"])
     shader.inputs["Emission Strength"].default_value = strength
 
@@ -131,17 +131,17 @@ def dress(mesh, key, spec, palette):
         bs.inputs["Transmission Weight"].default_value = 1.0 - swatch[3]
         bs.inputs["Subsurface Weight"].default_value = 0.24
         bs.inputs["Subsurface Scale"].default_value = 0.00065
-        warm_emission(mat, bs, 2.2)
+        warm_emission(mat, bs, 1.55)
     elif pigment == "silicone":
         bs.inputs["Transmission Weight"].default_value = 1.0 - swatch[3]
     elif key == "cob_strip":
         emitting = mat.copy()
-        emitting.name = "COB | downward emitting face"
+        emitting.name = "COB | upward emitting face"
         shader = emitting.node_tree.nodes["Principled BSDF"]
         warm_emission(emitting, shader, 9.0)
         mesh.materials.append(emitting)
         for face in mesh.polygons:
-            if face.normal.z < -0.99:
+            if face.normal.z > 0.99:
                 face.material_index = 1
 
 
@@ -168,7 +168,7 @@ BLACK = (
 
 
 def set_lighting(black, boxes, background, floor, floors):
-    background.inputs["Color"].default_value = (0.0, 0.0, 0.0, 1.0) if black else (0.66, 0.62, 0.57, 1.0)
+    background.inputs["Color"].default_value = (0.0, 0.0, 0.0, 1.0) if black else (0.49, 0.46, 0.42, 1.0)
     background.inputs["Strength"].default_value = 0.0 if black else 0.34
     floor.data.materials[0] = floors[int(black)]
     for obj, (xyz, watts, color, width, height) in zip(boxes, BLACK if black else STUDIO):
@@ -215,6 +215,8 @@ def main():
     index = read_json(MESH / "index.json")
     if bom.get("units", "mm") != "mm" or index["units"] != "mm":
         raise ValueError("Expected CAD coordinates in millimeters")
+    if bom.get("kinematics", {}).get("fixed_A_B_x") != [-174, 174] or "roof_saddle_L" not in index["parts"]:
+        raise ValueError("Stale v1 CAD or mesh cache: run build.py and export_meshes.py first")
     palette = bom.get("rgba", index["rgba"])
     OUT.mkdir(exist_ok=True)
     bpy.ops.wm.read_factory_settings(use_empty=True)
@@ -253,7 +255,7 @@ def main():
     bpy.ops.mesh.primitive_plane_add(size=50.0, location=(0.0, 0.0, -0.00001))
     floor = bpy.context.object
     floor.name = "Stage | tabletop"
-    ivory, _ = material("Stage | matte taupe", linear((0.482, 0.454, 0.417)), 0.0, 0.85)
+    ivory, _ = material("Stage | matte taupe", linear((0.444, 0.417, 0.385)), 0.0, 0.85)
     black_mat, bs = material("Stage | matte black", (0.0014, 0.0014, 0.0014), 0.0, 0.73)
     bs.inputs["Specular IOR Level"].default_value = 0.075
     floors = (ivory, black_mat)
@@ -267,9 +269,9 @@ def main():
     for i in range(3):
         name = f"Studio | softbox {i + 1}"
         boxes.append(new_object(scene.collection, name, bpy.data.lights.new(name, "AREA")))
-    camera = new_object(scene.collection, "Studio | camera", bpy.data.cameras.new("Product orthographic"))
-    camera.data.type = "ORTHO"
-    camera.data.lens = 65.0
+    camera = new_object(scene.collection, "Studio | camera", bpy.data.cameras.new("Product perspective"))
+    camera.data.type = "PERSP"
+    camera.data.lens = 55.0
     camera.data.sensor_fit = "HORIZONTAL"
     camera.data.clip_start = 0.005
     camera.data.clip_end = 100.0
@@ -287,8 +289,9 @@ def main():
         for name, obj in objects.items():
             obj.matrix_world = world_matrix(transforms[name])
         side = style == "side"
-        camera.location = (0.0, 0.85, 0.12) if side else (0.16, 0.75, 0.37)
-        camera.data.ortho_scale = 0.55 if side else 0.535
+        camera.location = (0.0, 0.85, 0.12) if side else (-0.205, 0.780, 0.300)
+        camera.data.type = "ORTHO" if side else "PERSP"
+        camera.data.ortho_scale = 0.55
         aim(camera, TARGET)
         set_lighting(style == "black", boxes, background, floor, floors)
         rendered.append(render_png(scene, f"{pose}_{style}.png"))

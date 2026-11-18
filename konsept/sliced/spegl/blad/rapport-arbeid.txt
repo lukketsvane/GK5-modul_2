@@ -1,0 +1,43 @@
+ba — 188 x 186 x 48 mm · akryl 3 mm · klaring 0.15 · snitt 0.2 · ALT OK
+nett     11808 trekantar · lukka · 1 skal · 943 cm3 · boks -94, -94, 0 .. 94, 94, 46
+tal      10 plan · 10 delar (8 unike) · 24 ledd (0 tapp, 0 avviste) · 0 lause
+kutt     6.41 m · 5.3 min ved 20 mm/s · 1 ark 600 x 400 · utnytting 55 % · 0.243 kg · spor 3.15 mm · minste gods 19.6 mm
+harde reglar
+  ok   grip       plana grip               24 ledd
+  ok   delar      delar å skjere           10 stk
+  ok   orden      kan monterast            éin veg inn for kvar
+  ok   klem       ingen står i kvarandre   ingen klemmer
+  ok   gods       gods i leddet            19,6 mm
+  ok   plate      delane får plass         1 ark
+  ok   snittspor  snittet mot sporet       0,20 mm mot 3,15 mm
+mjuke reglar: ingen bryt
+ark
+  1  4 3 5 2 22 23 21 24 1 6 · 55 % av brukt hogd, 28 % av arket
+delar    adr    form   b x h mm        ledd  ark
+         1              D01   169.0 x 43.4    4     1
+         2              D02   184.8 x 51.2    4     1
+         3              D03   187.9 x 56.9    4     1
+         4              D04   186.1 x 59.8    4     1
+         5              D05   172.6 x 58.9    4     1
+         6              D06   142.8 x 52.7    4     1
+         21..24 (2)     D07   171.0 x 41.9    6     1
+         22..23 (2)     D08   186.2 x 45.5    6     1
+ekstra   (ikkje frå motoren: ingen reglar, ingen ledd, ikkje på arka)
+         skjort         604.8 x 19.0 mm flatt · 1.5 mm mdf · bøygd R 96.3
+         opal           188.0 x 188.0 mm flatt · 3 mm akryl-opal
+montering (motoren si eiga rekkjefylgje)
+  1-6  ligg: 1 2 3 4 5 6
+  7-10  ned mot 1,2,3,4,5,6: 21 22 23 24
+krav
+  ok   nettet er lukka og vender ut: 11808 trekantar · 0 opne · 0 mangfaldige · 0 vrengde · 1 skal
+  ok   nettet held trekantbudsjettet: 11808 av 40000: over det vert nettet forenkla
+  ok   kroppen står sentrert på z = 0: ja
+  ok   1:1: storleik 188 mot lengste side 188.00 · glatt 0 forenkl 0 hol 0
+  ok   motoren les same volum som nettet: 943 cm3 mot 943 cm3
+  ok   alle plan kom med: 10 skrivne · 10 lesne · 10 i motoren
+  ok   appen opnar posen uendra: ja
+  ok   ingen lause eller kasta stykke: 0 lause
+  ok   alle delar ligg på eit ark: ja
+  ok   kvart plan gjev minst éin del: ja
+  ok   ingen spalte held fram gjennom gods forbi munnen: ja
+tid      kropp 0.0 s · motor 0.4 s · ark 32.1 s · alt 32.8 s

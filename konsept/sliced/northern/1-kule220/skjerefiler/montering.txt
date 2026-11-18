@@ -1,0 +1,18 @@
+MONTERING — n1s.stl
+12 plan, 3 mm plate. Adressa er gravert på kvar del.
+
+I denne rekkjefylgja. Sporet på delen som kjem opnar seg i fartsretninga; sporet på delen som ligg opnar seg mot han.
+  1  1  ligg — ingen ledd mot delar som alt ligg
+  2  2  ligg — ingen ledd mot delar som alt ligg
+  3  3  ligg — ingen ledd mot delar som alt ligg
+  4  4  ligg — ingen ledd mot delar som alt ligg
+  5  5  ligg — ingen ledd mot delar som alt ligg
+  6  6  ligg — ingen ledd mot delar som alt ligg
+  7  21  sidelengs, langs (0,00, -0,77, -0,64), mot 3, 4
+  8  22  sidelengs, langs (0,00, -0,77, -0,64), mot 3, 4, 2, 5
+  9  23  sidelengs, langs (0,00, -0,77, -0,64), mot 3, 4, 2, 5, 6, 1
+  10  24  sidelengs, langs (0,00, -0,77, -0,64), mot 3, 4, 2, 5, 6, 1
+  11  25  sidelengs, langs (0,00, -0,77, -0,64), mot 3, 4, 5, 2
+  12  26  sidelengs, langs (0,00, -0,77, -0,64), mot 3, 4
+
+Sit eit ledd for hardt, er klaringa for liten: skjer passprøva i den same plata og set klaringa til det sporet avkappet går i med tommelkraft.

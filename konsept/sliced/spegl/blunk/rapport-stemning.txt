@@ -1,0 +1,51 @@
+bs — 177 x 163 x 170 mm · akryl 3 mm · klaring 0.15 · snitt 0.2 · ALT OK
+nett     23072 trekantar · lukka · 1 skal · 1543 cm3 · boks -90, -82, -0 .. 90, 82, 172
+tal      12 plan · 12 delar (9 unike) · 24 ledd (0 tapp, 0 avviste) · 0 lause
+kutt     8.35 m · 7.0 min ved 20 mm/s · 1 ark 600 x 400 · utnytting 49 % · 0.341 kg · spor 3.15 mm · minste gods 18.4 mm
+harde reglar
+  ok   grip       plana grip               24 ledd
+  ok   delar      delar å skjere           12 stk
+  ok   orden      kan monterast            éin veg inn for kvar
+  ok   klem       ingen står i kvarandre   ingen klemmer
+  ok   gods       gods i leddet            18,4 mm
+  ok   plate      delane får plass         1 ark
+  ok   snittspor  snittet mot sporet       0,20 mm mot 3,15 mm
+mjuke reglar: ingen bryt
+ark
+  1  2 5 3 4 25 22 23 24 1 6 21 26 · 49 % av brukt hogd, 40 % av arket
+delar    adr    form   b x h mm        ledd  ark
+         1..6 (2)       D01   87.5 x 89.1     2     1
+         2..5 (2)       D02   141.9 x 148.1   4     1
+         3..4 (2)       D03   161.7 x 169.1   6     1
+         21             D04   89.6 x 68.8     2     1
+         22             D05   153.7 x 100.8   4     1
+         23             D06   177.2 x 112.6   6     1
+         24             D07   177.2 x 112.6   6     1
+         25             D08   153.7 x 100.8   4     1
+         26             D09   89.6 x 68.8     2     1
+montering (motoren si eiga rekkjefylgje)
+  1-6  ligg: 1 2 3 4 5 6
+  7  side langs (0.00, -0.77, -0.64) mot 3,4: 21
+  8  side langs (0.00, -0.77, -0.64) mot 3,4,2,5: 22
+  9  side langs (0.00, -0.77, -0.64) mot 3,4,2,5,6,1: 23
+  10  side langs (0.00, -0.77, -0.64) mot 3,4,2,5,1,6: 24
+  11  side langs (0.00, -0.77, -0.64) mot 3,4,2,5: 25
+  12  side langs (0.00, -0.77, -0.64) mot 3,4: 26
+krav
+  ok   nettet er lukka og vender ut: 23072 trekantar · 0 opne · 0 mangfaldige · 0 vrengde · 1 skal
+  ok   nettet held trekantbudsjettet: 23072 av 40000: over det vert nettet forenkla
+  ok   kroppen står sentrert på z = 0: ja
+  ok   1:1: storleik 180 mot lengste side 180.00 · glatt 0 forenkl 0 hol 0
+  ok   motoren les same volum som nettet: 1543 cm3 mot 1543 cm3
+  ok   alle plan kom med: 12 skrivne · 12 lesne · 12 i motoren
+  ok   appen opnar posen uendra: ja
+  ok   ingen lause eller kasta stykke: 0 lause
+  ok   alle delar ligg på eit ark: ja
+  ok   kvart plan gjev minst éin del: ja
+  ok   ingen spalte held fram gjennom gods forbi munnen: ja
+  ok   mål med stativ: høgd 350 mm · kulesenter 260 mm over bordet · skål ø180 · opal kule ø68 · breidd arm til knott 206 mm · fot ø150 = 177 cm2
+  ok   hol ø8 i del 1: ø7.88 likt areal · r 3.88..4.00 · 17 punkt · senter -78.0, 7.9, 90.0
+  ok   akselhol i del 1: 1 hol · {"d":7.879826590209642,"rMin":3.8831915218783584,"rMax":4.001337123332746,"senter":[7.926067387406479,89.98361014880807],"iKroppen":[-77.994
+  ok   hol ø8 i del 6: ø7.88 likt areal · r 3.88..4.00 · 17 punkt · senter 78.0, 7.9, 90.0
+  ok   akselhol i del 6: 1 hol · {"d":7.879826583078208,"rMin":3.8831915136628723,"rMax":4.001337121375642,"senter":[7.9260673792410445,89.98361015211353],"iKroppen":[77.994
+tid      kropp 0.0 s · motor 0.8 s · ark 45.2 s · alt 46.4 s

@@ -16,7 +16,7 @@ FAST = os.environ.get("E_FAST_RENDER", "").strip() == "1"
 MM = 0.001
 FACET = struct.Struct("<12fH")
 NORMALS = struct.Struct("<9f")
-TARGET = (0.0, 0.0, 0.105)
+TARGET = (0.0, 0.0, 0.119)
 
 
 def read_json(path):
@@ -97,6 +97,13 @@ def material(name, rgb, metallic, roughness):
     return mat, bs
 
 
+def warm_emission(mat, shader, strength):
+    source = mat.node_tree.nodes.new("ShaderNodeBlackbody")
+    source.inputs["Temperature"].default_value = 3200.0
+    mat.node_tree.links.new(source.outputs["Color"], shader.inputs["Emission Color"])
+    shader.inputs["Emission Strength"].default_value = strength
+
+
 def dress(mesh, key, spec, palette):
     pigment = spec["color"]
     swatch = palette[pigment]
@@ -107,7 +114,7 @@ def dress(mesh, key, spec, palette):
         "pearl": (0.0, 0.49),
         "stone": (0.025, 0.53),
         "nickel": (0.83, 0.38),
-        "bronze": (0.76, 0.42),
+        "bronze": (0.62, 0.46),
         "dark": (0.52, 0.49),
         "opal": (0.0, 0.34),
         "silicone": (0.0, 0.57),
@@ -116,28 +123,33 @@ def dress(mesh, key, spec, palette):
     mat, bs = material(f"{key} | {pigment}", color, metal, rough)
     mesh.materials.append(mat)
     mat["CAD material"] = spec["material"]
-    warm = linear(palette["light"])
     if pigment == "pearl":
         bs.inputs["Coat Weight"].default_value = 0.09
         bs.inputs["Coat Roughness"].default_value = 0.37
     elif pigment == "opal":
         bs.inputs["IOR"].default_value = 1.58
-        bs.inputs["Transmission Weight"].default_value = 1.0 - swatch[3]
+        bs.inputs["Transmission Weight"].default_value = 0.42
         bs.inputs["Subsurface Weight"].default_value = 0.24
         bs.inputs["Subsurface Scale"].default_value = 0.00065
-        bs.inputs["Emission Color"].default_value = (*warm, 1.0)
-        bs.inputs["Emission Strength"].default_value = 0.95
+        tree = mat.node_tree
+        scatter = tree.nodes.new("ShaderNodeBsdfTranslucent")
+        scatter.inputs["Color"].default_value = (*color, 1.0)
+        mix = tree.nodes.new("ShaderNodeMixShader")
+        mix.inputs[0].default_value = 0.45
+        tree.links.new(bs.outputs["BSDF"], mix.inputs[1])
+        tree.links.new(scatter.outputs["BSDF"], mix.inputs[2])
+        tree.links.new(mix.outputs[0], tree.nodes["Material Output"].inputs["Surface"])
+        warm_emission(mat, bs, 2.7)
     elif pigment == "silicone":
         bs.inputs["Transmission Weight"].default_value = 1.0 - swatch[3]
     elif key == "cob_strip":
         emitting = mat.copy()
-        emitting.name = "COB | downward emitting face"
+        emitting.name = "COB | upward emitting face"
         shader = emitting.node_tree.nodes["Principled BSDF"]
-        shader.inputs["Emission Color"].default_value = (*warm, 1.0)
-        shader.inputs["Emission Strength"].default_value = 9.0
+        warm_emission(emitting, shader, 75.0)
         mesh.materials.append(emitting)
         for face in mesh.polygons:
-            if face.normal.z < -0.99:
+            if face.normal.z > 0.99:
                 face.material_index = 1
 
 
@@ -164,8 +176,8 @@ BLACK = (
 
 
 def set_lighting(black, boxes, background, floor, floors):
-    background.inputs["Color"].default_value = (0.0, 0.0, 0.0, 1.0) if black else (0.94, 0.91, 0.86, 1.0)
-    background.inputs["Strength"].default_value = 0.0 if black else 0.50
+    background.inputs["Color"].default_value = (0.0, 0.0, 0.0, 1.0) if black else (0.72, 0.69, 0.66, 1.0)
+    background.inputs["Strength"].default_value = 0.0 if black else 0.65
     floor.data.materials[0] = floors[int(black)]
     for obj, (xyz, watts, color, width, height) in zip(boxes, BLACK if black else STUDIO):
         obj.location = xyz
@@ -211,6 +223,8 @@ def main():
     index = read_json(MESH / "index.json")
     if bom.get("units", "mm") != "mm" or index["units"] != "mm":
         raise ValueError("Expected CAD coordinates in millimeters")
+    if bom.get("kinematics", {}).get("fixed_A_B_x") != [-174, 174] or "roof_saddle_L" not in index["parts"]:
+        raise ValueError("Stale v1 CAD or mesh cache: run build.py and export_meshes.py first")
     palette = bom.get("rgba", index["rgba"])
     OUT.mkdir(exist_ok=True)
     bpy.ops.wm.read_factory_settings(use_empty=True)
@@ -219,9 +233,9 @@ def main():
     scene.unit_settings.scale_length = 1.0
     scene.render.engine = "CYCLES"
     scene.cycles.device = "CPU"
-    scene.cycles.samples = 20 if FAST else 80
+    scene.cycles.samples = 32 if FAST else 80
     scene.cycles.use_denoising = True
-    scene.render.resolution_x, scene.render.resolution_y = (1000, 720) if FAST else (1600, 1100)
+    scene.render.resolution_x, scene.render.resolution_y = (1536, 1024) if FAST else (1536, 1024)
     scene.render.resolution_percentage = 100
     scene.render.film_transparent = False
     scene.render.image_settings.file_format = "PNG"
@@ -249,7 +263,7 @@ def main():
     bpy.ops.mesh.primitive_plane_add(size=50.0, location=(0.0, 0.0, -0.00001))
     floor = bpy.context.object
     floor.name = "Stage | tabletop"
-    ivory, _ = material("Stage | warm porcelain", linear((0.923, 0.905, 0.878)), 0.0, 0.76)
+    ivory, _ = material("Stage | matte taupe", tuple(1.35 * v for v in linear((0.444, 0.417, 0.385))), 0.0, 0.85)
     black_mat, bs = material("Stage | matte black", (0.0014, 0.0014, 0.0014), 0.0, 0.73)
     bs.inputs["Specular IOR Level"].default_value = 0.075
     floors = (ivory, black_mat)
@@ -263,9 +277,17 @@ def main():
     for i in range(3):
         name = f"Studio | softbox {i + 1}"
         boxes.append(new_object(scene.collection, name, bpy.data.lights.new(name, "AREA")))
-    camera = new_object(scene.collection, "Studio | camera", bpy.data.cameras.new("Product orthographic"))
-    camera.data.type = "ORTHO"
-    camera.data.lens = 65.0
+    bar = bpy.data.lights.new("COB | 3200 K strip flux", "AREA")
+    bar.shape = "RECTANGLE"
+    bar.size, bar.size_y = 234.0 * MM, 5.0 * MM
+    bar.color = (1.0, 0.72, 0.44)
+    bar.energy = 12.0
+    source = new_object(scene.collection, bar.name, bar)
+    source.location = (0.0, -30.0 * MM, (156.9 + 0.05) * MM)
+    source.rotation_euler = (math.pi, 0.0, 0.0)
+    camera = new_object(scene.collection, "Studio | camera", bpy.data.cameras.new("Product perspective"))
+    camera.data.type = "PERSP"
+    camera.data.lens = 55.0
     camera.data.sensor_fit = "HORIZONTAL"
     camera.data.clip_start = 0.005
     camera.data.clip_end = 100.0
@@ -283,8 +305,9 @@ def main():
         for name, obj in objects.items():
             obj.matrix_world = world_matrix(transforms[name])
         side = style == "side"
-        camera.location = (0.0, 0.85, 0.12) if side else (0.55, 0.70, 0.33)
-        camera.data.ortho_scale = 0.55 if side else 0.515
+        camera.location = (0.0, 0.85, 0.12) if side else (-0.205, 0.780, 0.300)
+        camera.data.type = "ORTHO" if side else "PERSP"
+        camera.data.ortho_scale = 0.55
         aim(camera, TARGET)
         set_lighting(style == "black", boxes, background, floor, floors)
         rendered.append(render_png(scene, f"{pose}_{style}.png"))

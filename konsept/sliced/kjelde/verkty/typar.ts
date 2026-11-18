@@ -28,7 +28,7 @@ export type Kontekst = {
 }
 
 export type Utstyr = Omit<Scene, "delar" | "deler" | "steg" | "orden" | "glb" | "namn"> & {
-  delar?: Record<string, { material?: string; farge?: string }>
+  delar?: Record<string, { material?: string; farge?: string; speglSide?: 1 | -1 | 0 }>
   ekstra?: Ekstra[]
   steg?: { delar: string[]; retning?: number[] | null }[]
 }

@@ -19,6 +19,7 @@ export type Del = {
   matrise?: number[]
   material?: string
   farge?: string
+  speglSide?: 1 | -1 | 0
   krumming?: number
   ekstra?: boolean
   boygd?: { krumming?: number; nett?: number[] }
@@ -181,6 +182,8 @@ export async function syn(kjelde: string | Scene, val: SynVal = {}): Promise<Syn
       }
       svar.ms[namn] = Date.now() - t1
     }
+    const spegl = await side.evaluate(() => (window as any).syn.speglTal())
+    if (spegl) svar.info.spegl = spegl
   } finally {
     await nettlesar?.close()
     server.close()
@@ -191,6 +194,8 @@ export async function syn(kjelde: string | Scene, val: SynVal = {}): Promise<Syn
     for (const [k, v] of Object.entries(svar.filer)) console.log(`  ${k.padEnd(8)} ${String(svar.ms[k]).padStart(6)} ms  ${v}`)
     const ruter = Object.entries(svar.ms).filter(([k]) => k.startsWith("ark."))
     if (ruter.length) console.log("  ark-ruter: " + ruter.map(([k, v]) => `${k.slice(4)} ${v}`).join(" · ") + " ms")
+    const sp = (svar.info as { spegl?: Record<string, number>; speglflater?: number }).spegl
+    if (sp) console.log(`  spegl: ${(svar.info as { speglflater?: number }).speglflater} flater · ${sp.straalar} strålar · ut av lampa direkte ${sp.utDirekte} % · via spegl ${sp.utViaSpegl} % (${sp.paaRomViaSpegl} % landar på golv/vegg/tak) · fyrste treff spegl ${sp.fyrstPaaSpegl} % · ${sp.ms} ms`)
     const ukj = (svar.info as { ukjende?: string[] }).ukjende ?? []
     if (ukj.length) console.log("  STEG NEMNER UKJENDE DELAR: " + ukj.join(" "))
     const ute = Object.entries(svar.ramme).filter(([, r]) => r.some((x) => Math.abs(x) > 1))

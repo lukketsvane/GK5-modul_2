@@ -1,0 +1,53 @@
+a1s — 177 x 178 x 179 mm · akryl 3 mm · klaring 0.15 · snitt 0.2 · ALT OK
+nett     32256 trekantar · lukka · 1 skal · 1888 cm3 · boks -90, -90, -0 .. 90, 90, 180
+tal      12 plan · 12 delar (10 unike) · 24 ledd (0 tapp, 0 avviste) · 0 lause
+kutt     10.17 m · 8.5 min ved 20 mm/s · 2 ark 600 x 400 · utnytting 35 % · 0.408 kg · spor 3.15 mm · minste gods 18.7 mm
+harde reglar
+  ok   grip       plana grip               24 ledd
+  ok   delar      delar å skjere           12 stk
+  ok   orden      kan monterast            éin veg inn for kvar
+  ok   klem       ingen står i kvarandre   ingen klemmer
+  ok   gods       gods i leddet            18,7 mm
+  ok   plate      delane får plass         2 ark
+  ok   snittspor  snittet mot sporet       0,20 mm mot 3,15 mm
+mjuke reglar: ingen bryt
+ark
+  1  2 5 22 25 3 4 23 21 1 6 26 · 45 % av brukt hogd, 43 % av arket
+  2  24 · 11 % av brukt hogd, 4 % av arket
+delar    adr    form   b x h mm        ledd  ark
+         1..6 (2)       D01   89.6 x 89.6     2     1
+         2              D02   153.7 x 153.7   4     1
+         3..4 (2)       D03   177.0 x 177.2   6     1
+         5              D04   153.7 x 153.7   4     1
+         21             D05   89.6 x 89.7     2     1
+         22             D06   153.7 x 140.8   4     1
+         23             D07   177.2 x 152.0   6     1
+         24             D08   177.2 x 152.0   6     2
+         25             D09   153.7 x 140.8   4     1
+         26             D10   89.6 x 89.6     2     1
+montering (motoren si eiga rekkjefylgje)
+  1-6  ligg: 1 2 3 4 5 6
+  7  side langs (0.00, -0.77, -0.64) mot 3,4: 21
+  8  side langs (0.00, -0.77, -0.64) mot 3,4,2,5: 22
+  9  side langs (0.00, -0.77, -0.64) mot 3,4,2,5,6,1: 23
+  10  side langs (0.00, -0.77, -0.64) mot 3,4,2,5,1,6: 24
+  11  side langs (0.00, -0.77, -0.64) mot 3,4,2,5: 25
+  12  side langs (0.00, -0.77, -0.64) mot 3,4: 26
+krav
+  ok   nettet er lukka og vender ut: 32256 trekantar · 0 opne · 0 mangfaldige · 0 vrengde · 1 skal
+  ok   nettet held trekantbudsjettet: 32256 av 40000: over det vert nettet forenkla
+  ok   kroppen står sentrert på z = 0: ja
+  ok   1:1: storleik 180 mot lengste side 180.00 · glatt 0 forenkl 0 hol 0
+  ok   motoren les same volum som nettet: 1888 cm3 mot 1888 cm3
+  ok   alle plan kom med: 12 skrivne · 12 lesne · 12 i motoren
+  ok   appen opnar posen uendra: ja
+  ok   ingen lause eller kasta stykke: 0 lause
+  ok   alle delar ligg på eit ark: ja
+  ok   kvart plan gjev minst éin del: ja
+  ok   ingen spalte held fram gjennom gods forbi munnen: ja
+  ok   mål med stativ: høgd 327 mm · kulesenter 237 mm over bordet · fot ø150 = 177 cm2 · breidd over tappane 218 mm · kinn ø90
+  ok   hol ø8 i del 1: ø7.88 likt areal · r 3.89..4.00 · 17 punkt · senter -78.0, 0.1, 90.0
+  ok   tapphol i del 1 ligg på vippeaksen: 1 hol · akse -78.0, 0.1, 90.0 · {"d":7.879078419480735,"rMin":3.8885804822181442,"rMax":3.9996412310897416,"senter":[0.14603581800415147,89.99404004931822],"iKroppen":[-77.994,0.14603581800415
+  ok   hol ø8 i del 6: ø7.88 likt areal · r 3.89..4.00 · 17 punkt · senter 78.0, 0.1, 90.0
+  ok   tapphol i del 6 ligg på vippeaksen: 1 hol · akse 78.0, 0.1, 90.0 · {"d":7.8790798386360095,"rMin":3.8885985346836516,"rMax":3.9996415481071184,"senter":[0.14603451117976718,89.9940393988455],"iKroppen":[77.994,0.146034511179767
+tid      kropp 0.0 s · motor 2.6 s · ark 49.4 s · alt 53.9 s

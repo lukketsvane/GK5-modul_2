@@ -10,9 +10,11 @@ const STOFF = {
   mdf: { flate: "#b89472", kant: "#33251a", ru: 0.85, aarer: 0 },
   "akryl-opal": { flate: "#f6f4ef", kant: "#fdfcf9", ru: 0.36, gjennom: 0.9 },
   pp: { flate: "#eff2f3", kant: "#f7f9f9", ru: 0.5, gjennom: 0.72 },
+  spegl: { flate: "#8a8d8f", kant: "#c3d5cb", ru: 0.6, spegl: true },
 }
 
 const BAK = { studio: ["#dedad4", "#b7b2ab"], lys: ["#100e0c", "#040404"] }
+const SPEGLING = 0.87
 
 const SYN = {
   helt: { az: 35, el: 20, elHeng: 9 },
@@ -113,6 +115,46 @@ function mjuk(m) {
   m.customProgramCacheKey = () => "mjuk"
 }
 
+let omgjevnadKart = null
+function omgjevnad() {
+  if (omgjevnadKart) return omgjevnadKart
+  const c = document.createElement("canvas")
+  c.width = 512
+  c.height = 256
+  const g = c.getContext("2d")
+  const gr = g.createLinearGradient(0, 0, 0, 256)
+  gr.addColorStop(0, "#f4f1ec")
+  gr.addColorStop(0.45, "#d9d5ce")
+  gr.addColorStop(0.55, "#bdb8b0")
+  gr.addColorStop(1, "#a9a39b")
+  g.fillStyle = gr
+  g.fillRect(0, 0, 512, 256)
+  g.fillStyle = "#ffffff"
+  g.fillRect(60, 36, 120, 56)
+  omgjevnadKart = new THREE.CanvasTexture(c)
+  omgjevnadKart.colorSpace = THREE.SRGBColorSpace
+  omgjevnadKart.mapping = THREE.EquirectangularReflectionMapping
+  return omgjevnadKart
+}
+
+function speglReserve() {
+  const m = new THREE.MeshStandardMaterial({ color: "#f1f4f3", metalness: 1, roughness: 0.07, envMap: omgjevnad() })
+  m.envMapRotation.set(-Math.PI / 2, 0, 0)
+  m.userData.spegl = true
+  return m
+}
+
+function speglPlanStoff() {
+  const m = new THREE.ShaderMaterial({
+    uniforms: { kart: { value: null }, tm: { value: new THREE.Matrix4() }, bak0: { value: new THREE.Color() }, bak1: { value: new THREE.Color() }, nrm: { value: new THREE.Vector3(0, 0, 1) }, ton: { value: 0.9 } },
+    vertexShader: "uniform mat4 tm; varying vec4 vK; varying vec3 vW; void main(){ vec4 w = modelMatrix * vec4(position, 1.); vW = w.xyz; vK = tm * w; gl_Position = projectionMatrix * viewMatrix * w; }",
+    fragmentShader:
+      "uniform sampler2D kart; uniform vec3 bak0; uniform vec3 bak1; uniform vec3 nrm; uniform float ton; varying vec4 vK; varying vec3 vW; void main(){ vec4 s = texture2DProj(kart, vK); vec3 r = reflect(normalize(vW - cameraPosition), nrm); vec3 bak = mix(bak1, bak0, smoothstep(-0.5, 0.7, r.z)); gl_FragColor = vec4((s.rgb + (1. - clamp(s.a, 0., 1.)) * bak) * ton, 1.); }",
+  })
+  m.userData.spegl = true
+  return m
+}
+
 function stoffFor(namn, farge, i) {
   const s = STOFF[namn] || STOFF.bjork
   const r = slump(i * 7919 + 13)
@@ -120,6 +162,12 @@ function stoffFor(namn, farge, i) {
   if (!farge) flate.color.offsetHSL(0, 0, (r() - 0.5) * 0.04)
   if (s.aarer && !farge) flate.map = aarer(s.aarer, i % 4)
   const kant = new THREE.MeshStandardMaterial({ color: s.kant, roughness: s.gjennom ? s.ru : 0.92, metalness: 0 })
+  if (s.spegl) {
+    kant.roughness = 0.2
+    kant.envMap = omgjevnad()
+    kant.envMapRotation.set(-Math.PI / 2, 0, 0)
+    return { flate, kant, gjennom: false, spegl: true }
+  }
   if (s.gjennom) {
     for (const m of [flate, kant]) {
       m.transparent = true
@@ -785,6 +833,7 @@ async function bygg(sc) {
     const k = d.boygd?.krumming ?? d.krumming ?? 0
     let geo
     let flat = false
+    let riss = null
     if (d.boygd?.nett) geo = soupGeo(d.boygd.nett, d.tjukn || sc.tjukn)
     else {
       const om = reinsk(d.omriss || [])
@@ -794,6 +843,7 @@ async function bygg(sc) {
       else {
         geo = plateGeo(om, hol, t)
         flat = true
+        riss = { om, hol }
       }
     }
     const fro = slump(i * 31 + 7)
@@ -804,6 +854,34 @@ async function bygg(sc) {
       for (let j = 0; j < uv.count; j++) uv.setXY(j, uv.getX(j) + du, uv.getY(j) + dv)
     }
     const m = new THREE.Mesh(geo, [st.flate, st.kant])
+    let spegl = null
+    if (st.spegl) {
+      spegl = []
+      if (flat) {
+        const side = d.speglSide === 1 || d.speglSide === -1 ? d.speglSide : 0
+        const lok = geo.groups.find((q) => q.materialIndex === 0)
+        const pz = geo.getAttribute("position")
+        let nBak = 0
+        while (nBak < lok.count && pz.getZ(lok.start + nBak) < t / 2) nBak++
+        for (let j = nBak; j < lok.count; j++) if (pz.getZ(lok.start + j) < t / 2) throw new Error("lokket i ExtrudeGeometry har endra seg")
+        const kantar = geo.groups.filter((q) => q.materialIndex !== 0)
+        geo.clearGroups()
+        const legg = (start, tal, sn, w) => {
+          if (side !== 0 && side !== sn) return geo.addGroup(start, tal, 0)
+          const q = { idx: m.material.length, sn, w, plan: speglPlanStoff(), reserve: speglReserve() }
+          m.material.push(q.reserve)
+          spegl.push(q)
+          geo.addGroup(start, tal, q.idx)
+        }
+        legg(lok.start, nBak, -1, 0)
+        legg(lok.start + nBak, lok.count - nBak, 1, t)
+        for (const q of kantar) geo.addGroup(q.start, q.count, q.materialIndex)
+      } else {
+        const q = { idx: 0, reserve: speglReserve() }
+        m.material[0] = q.reserve
+        spegl.push(q)
+      }
+    }
     if (!d.boygd?.nett && d.matrise) {
       m.matrixAutoUpdate = false
       m.matrix.fromArray(d.matrise)
@@ -831,7 +909,7 @@ async function bygg(sc) {
     const g = new THREE.Group()
     g.add(m)
     S.rot.add(g)
-    S.delar.push({ namn, g, m, gjennom: st.gjennom, flat, t, ekstra: !!d.ekstra })
+    S.delar.push({ namn, g, m, gjennom: st.gjennom, flat, t, ekstra: !!d.ekstra, spegl, riss })
   })
   S.utstyr = []
   S.lyskjelder = []
@@ -894,6 +972,7 @@ async function bygg(sc) {
     boks: { min: S.boks.min.toArray(), max: S.boks.max.toArray() },
     mal: mal.toArray().map((x) => Math.round(x)),
     lyskjelder: S.lyskjelder.length,
+    speglflater: S.delar.reduce((n, d) => n + (d.spegl?.length ?? 0), 0),
     ukjende: S.ukjende,
     trekantar: S.delar.reduce((s, d) => s + d.m.geometry.getAttribute("position").count / 3, 0),
   }
@@ -1423,17 +1502,30 @@ function prove(i, n) {
       const dir = new THREE.Vector3(sn * Math.cos(fi), sn * Math.sin(fi), z)
       S.straale.set(p.l.getWorldPosition(new THREE.Vector3()), dir)
       let t = kast > 0 ? S.straale.intersectObjects(S.treff, false)[0] : null
-      if (!t || !t.face) {
-        l.intensity = 0
-        return
-      }
       const normalAv = (q, d) => {
         const v = q.face.normal.clone().transformDirection(q.object.matrixWorld)
         return v.dot(d) > 0 ? v.negate() : v
       }
+      const erSpegl = (q) => !!(Array.isArray(q.object.material) ? q.object.material[q.face.materialIndex] : q.object.material)?.userData.spegl
+      let demp = 1
+      for (let hopp = 0; t && t.face && erSpegl(t); hopp++) {
+        if (hopp === 6) {
+          t = null
+          break
+        }
+        const ns = normalAv(t, dir)
+        dir.reflect(ns)
+        demp *= SPEGLING
+        S.straale.set(t.point.clone().addScaledVector(ns, 0.05), dir)
+        t = S.straale.intersectObjects(S.treff, false)[0]
+      }
+      if (!t || !t.face) {
+        l.intensity = 0
+        return
+      }
       const fargeAv = (q) => (Array.isArray(q.object.material) ? q.object.material[0] : q.object.material).color
       let nv = normalAv(t, dir)
-      l.color.set(p.k.farge).multiply(fargeAv(t))
+      l.color.set(p.k.farge).multiply(fargeAv(t)).multiplyScalar(demp)
       const djup = nr % 5 < 3 ? 1 : 2
       if (djup === 2) {
         const u1 = brok(0.37 + nr * a2)
@@ -1463,6 +1555,359 @@ function prove(i, n) {
   }
 }
 
+function speglPass(namn, b, h) {
+  const r = R.renderer
+  const lys = namn === "lys"
+  const kam = S.kam
+  S.scene.updateMatrixWorld(true)
+  const grupper = new Map()
+  for (const d of S.delar) {
+    if (!d.spegl) continue
+    d.m.material[1].envMapIntensity = lys ? 0.03 : 1
+    for (const q of d.spegl) {
+      q.reserve.envMapIntensity = lys ? 0.03 : 1
+      d.m.material[q.idx] = q.reserve
+      if (!q.plan) continue
+      const n = new THREE.Vector3(0, 0, q.sn).transformDirection(d.m.matrixWorld)
+      const p = new THREE.Vector3(0, 0, q.w).applyMatrix4(d.m.matrixWorld)
+      const nokkel = [n.x, n.y, n.z, n.dot(p) / 100].map((x) => Math.round(x * 500)).join(",")
+      let g = grupper.get(nokkel)
+      if (!g) grupper.set(nokkel, (g = { n, p, ledd: [] }))
+      g.ledd.push([d, q])
+    }
+  }
+  const bak = (S.sc.bakgrunn && !lys ? S.sc.bakgrunn : BAK[lys ? "lys" : "studio"]).map((x) => {
+    const c = new THREE.Color(x)
+    return lys ? c : c.addScalar(0.04).multiplyScalar(1 / 0.92)
+  })
+  const sk = Math.min(1, 900 / Math.max(b, h))
+  const bw = Math.round(b * sk)
+  const bh = Math.round(h * sk)
+  R.speglMaal ??= []
+  let nr = 0
+  const pos = kam.getWorldPosition(new THREE.Vector3())
+  const framK = new THREE.Vector3(0, 0, -1).transformDirection(kam.matrixWorld)
+  const oppK = new THREE.Vector3(0, 1, 0).transformDirection(kam.matrixWorld)
+  const virt = new THREE.PerspectiveCamera()
+  r.shadowMap.autoUpdate = false
+  r.shadowMap.needsUpdate = true
+  for (const g of grupper.values()) {
+    if (g.n.dot(pos.clone().sub(g.p)) <= 0) continue
+    let flate = R.speglMaal[nr]
+    if (!flate || flate.width !== bw || flate.height !== bh) {
+      flate?.dispose()
+      flate = R.speglMaal[nr] = new THREE.WebGLRenderTarget(bw, bh, { type: THREE.HalfFloatType, depthBuffer: true, minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter, samples: 4 })
+    }
+    nr++
+    const sp = (v) => v.clone().sub(g.p).reflect(g.n).add(g.p)
+    virt.position.copy(sp(pos))
+    virt.up.copy(oppK).reflect(g.n)
+    virt.lookAt(sp(pos.clone().add(framK)))
+    virt.far = kam.far
+    virt.updateMatrixWorld(true)
+    virt.projectionMatrix.copy(kam.projectionMatrix)
+    const tm = new THREE.Matrix4().set(0.5, 0, 0, 0.5, 0, 0.5, 0, 0.5, 0, 0, 0.5, 0.5, 0, 0, 0, 1).multiply(virt.projectionMatrix).multiply(virt.matrixWorldInverse)
+    const pl = new THREE.Plane().setFromNormalAndCoplanarPoint(g.n, g.p).applyMatrix4(virt.matrixWorldInverse)
+    const cp = new THREE.Vector4(pl.normal.x, pl.normal.y, pl.normal.z, pl.constant)
+    const e = virt.projectionMatrix.elements
+    const qv = new THREE.Vector4((Math.sign(cp.x) + e[8]) / e[0], (Math.sign(cp.y) + e[9]) / e[5], -1, (1 + e[10]) / e[14])
+    cp.multiplyScalar(2 / cp.dot(qv))
+    e[2] = cp.x
+    e[6] = cp.y
+    e[10] = cp.z + 1 - 0.003
+    e[14] = cp.w
+    virt.projectionMatrixInverse.copy(virt.projectionMatrix).invert()
+    r.setRenderTarget(flate)
+    r.setClearColor(0x000000, 0)
+    r.clear()
+    r.render(S.scene, virt)
+    g.klar = true
+    for (const [, q] of g.ledd) {
+      const u = q.plan.uniforms
+      u.kart.value = flate.texture
+      u.tm.value.copy(tm)
+      u.nrm.value.copy(g.n)
+      u.bak0.value.copy(bak[0])
+      u.bak1.value.copy(bak[1])
+    }
+  }
+  r.shadowMap.autoUpdate = true
+  r.setRenderTarget(null)
+  for (const g of grupper.values()) if (g.klar) for (const [d, q] of g.ledd) d.m.material[q.idx] = q.plan
+  S.speglPass = nr
+}
+
+function speglLys() {
+  if (S.kaust) return
+  S.kaust = []
+  const t0 = performance.now()
+  S.scene.updateMatrixWorld(true)
+  const flatt = (p) => {
+    const a = new Float64Array(p.length * 2)
+    p.forEach((q, i) => {
+      a[2 * i] = q[0]
+      a[2 * i + 1] = q[1]
+    })
+    return a
+  }
+  const plater = []
+  const nett = []
+  for (const d of S.delar) {
+    if (d.gjennom) continue
+    if (!d.riss) {
+      nett.push(d.m)
+      continue
+    }
+    const om = flatt(d.riss.om)
+    const bb = [Infinity, Infinity, -Infinity, -Infinity]
+    for (let i = 0; i < om.length; i += 2) {
+      bb[0] = Math.min(bb[0], om[i])
+      bb[1] = Math.min(bb[1], om[i + 1])
+      bb[2] = Math.max(bb[2], om[i])
+      bb[3] = Math.max(bb[3], om[i + 1])
+    }
+    const har = (sn) => !!d.spegl?.some((q) => q.sn === sn)
+    plater.push({ e: d.m.matrixWorld.clone().invert().elements, om, hol: d.riss.hol.map(flatt), bb, t: d.t, sp: [har(-1), har(1)], n: new THREE.Vector3(0, 0, 1).transformDirection(d.m.matrixWorld) })
+  }
+  for (const u of S.utstyr) u.traverse((m) => m.isMesh && !m.userData.glas && nett.push(m))
+  for (const m of [S.snor, S.rosett]) if (m) nett.push(m)
+  const klumpar = []
+  const v = new THREE.Vector3()
+  for (const m of nett) {
+    const pos = m.geometry.getAttribute("position")
+    const ix = m.geometry.index
+    const tal = ix ? ix.count : pos.count
+    const alle = new Float64Array(tal * 3)
+    for (let i = 0; i < tal; i++) {
+      v.fromBufferAttribute(pos, ix ? ix.getX(i) : i).applyMatrix4(m.matrixWorld)
+      alle[3 * i] = v.x
+      alle[3 * i + 1] = v.y
+      alle[3 * i + 2] = v.z
+    }
+    for (let s = 0; s < tal; s += 72) {
+      const p = alle.subarray(s * 3, Math.min(tal, s + 72) * 3)
+      const b = [Infinity, Infinity, Infinity, -Infinity, -Infinity, -Infinity]
+      for (let i = 0; i < p.length; i += 3)
+        for (let a = 0; a < 3; a++) {
+          b[a] = Math.min(b[a], p[i + a])
+          b[3 + a] = Math.max(b[3 + a], p[i + a])
+        }
+      klumpar.push({ b, p })
+    }
+  }
+  const iPoly = (a, x, y) => {
+    let inne = false
+    for (let i = 0, j = a.length - 2; i < a.length; j = i, i += 2) {
+      const yi = a[i + 1]
+      const yj = a[j + 1]
+      if (yi > y !== yj > y && x < ((a[j] - a[i]) * (y - yi)) / (yj - yi) + a[i]) inne = !inne
+    }
+    return inne
+  }
+  const iPlate = (p, x, y) => {
+    if (x < p.bb[0] || y < p.bb[1] || x > p.bb[2] || y > p.bb[3] || !iPoly(p.om, x, y)) return false
+    for (const h of p.hol) if (iPoly(h, x, y)) return false
+    return true
+  }
+  const K = 256
+  const L = 8 * S.storleik
+  const golvFarge = new THREE.Color("#d8d2c8")
+  const rom = [S.golvRom, S.veggRom, S.takRom].filter(Boolean).map((m) => {
+    const n = m.userData.normal.clone()
+    const p = m.userData.punkt.clone()
+    const e1 = Math.abs(n.z) > 0.9 ? new THREE.Vector3(1, 0, 0) : new THREE.Vector3().crossVectors(S.opp, n).normalize()
+    const e2 = new THREE.Vector3().crossVectors(n, e1).normalize()
+    const c = S.sentrum.clone().addScaledVector(n, -S.sentrum.clone().sub(p).dot(n))
+    return { m, n, p, e1, e2, c, kart: new Float32Array(K * K * 3), sum: 0 }
+  })
+  const N = 240000
+  const a1 = 0.7548776662466927
+  const a2 = 0.5698402909980532
+  const tal = { ut0: 0, ut1: 0, fyrst: 0, rom1: 0 }
+  const per = Math.floor(N / S.paerer.length)
+  S.paerer.forEach((pa, nrP) => {
+    const o0 = S.rot.localToWorld(pa.heim.clone())
+    const fc = new THREE.Color(pa.k.farge).multiply(golvFarge)
+    const skala = (4 * pa.l.intensity) / (per * (L / K) * (L / K))
+    for (let i = 0; i < per; i++) {
+      const nr = i * S.paerer.length + nrP + 1
+      let jx = halton(i + 1, 2) * 2 - 1
+      let jy = halton(i + 1, 3) * 2 - 1
+      let jz = halton(i + 1, 5) * 2 - 1
+      if (jx * jx + jy * jy + jz * jz > 1) {
+        jx *= 0.6
+        jy *= 0.6
+        jz *= 0.6
+      }
+      let ox = o0.x + jx * pa.k.radius
+      let oy = o0.y + jy * pa.k.radius
+      let oz = o0.z + jz * pa.k.radius
+      let dz = 1 - 2 * brok(0.5 + nr * a1)
+      const fi = 2 * Math.PI * brok(0.5 + nr * a2)
+      const sn = Math.sqrt(Math.max(0, 1 - dz * dz))
+      let dx = sn * Math.cos(fi)
+      let dy = sn * Math.sin(fi)
+      let w = 1
+      for (let hopp = 0; hopp < 9; hopp++) {
+        let best = Infinity
+        let slag = 0
+        let tn = null
+        let ts = 1
+        let tr = null
+        for (const p of plater) {
+          const e = p.e
+          const dzL = e[2] * dx + e[6] * dy + e[10] * dz
+          if (dzL > -1e-9 && dzL < 1e-9) continue
+          const ozL = e[2] * ox + e[6] * oy + e[10] * oz + e[14]
+          const ta = -ozL / dzL
+          const tb = (p.t - ozL) / dzL
+          const inn = ta < tb ? ta : tb
+          const utt = ta < tb ? tb : ta
+          if (utt <= 1e-4 || inn >= best) continue
+          const oxL = e[0] * ox + e[4] * oy + e[8] * oz + e[12]
+          const oyL = e[1] * ox + e[5] * oy + e[9] * oz + e[13]
+          const dxL = e[0] * dx + e[4] * dy + e[8] * dz
+          const dyL = e[1] * dx + e[5] * dy + e[9] * dz
+          if (inn > 1e-4 && iPlate(p, oxL + inn * dxL, oyL + inn * dyL)) {
+            best = inn
+            slag = p.sp[dzL > 0 ? 0 : 1] ? 2 : 1
+            tn = p.n
+            ts = dzL > 0 ? -1 : 1
+          } else if (utt < best && iPlate(p, oxL + utt * dxL, oyL + utt * dyL)) {
+            best = utt
+            slag = 1
+          }
+        }
+        const ix = 1 / dx
+        const iy = 1 / dy
+        const iz = 1 / dz
+        for (const k of klumpar) {
+          const b = k.b
+          let q1 = (b[0] - ox) * ix
+          let q2 = (b[3] - ox) * ix
+          let lo = q1 < q2 ? q1 : q2
+          let hi = q1 < q2 ? q2 : q1
+          q1 = (b[1] - oy) * iy
+          q2 = (b[4] - oy) * iy
+          lo = Math.max(lo, q1 < q2 ? q1 : q2)
+          hi = Math.min(hi, q1 < q2 ? q2 : q1)
+          q1 = (b[2] - oz) * iz
+          q2 = (b[5] - oz) * iz
+          lo = Math.max(lo, q1 < q2 ? q1 : q2)
+          hi = Math.min(hi, q1 < q2 ? q2 : q1)
+          if (hi < lo || hi < 1e-4 || lo > best) continue
+          const p = k.p
+          for (let j = 0; j < p.length; j += 9) {
+            const ax = p[j + 3] - p[j]
+            const ay = p[j + 4] - p[j + 1]
+            const az = p[j + 5] - p[j + 2]
+            const bx = p[j + 6] - p[j]
+            const by = p[j + 7] - p[j + 1]
+            const bz = p[j + 8] - p[j + 2]
+            const px = dy * bz - dz * by
+            const py = dz * bx - dx * bz
+            const pz = dx * by - dy * bx
+            const det = ax * px + ay * py + az * pz
+            if (det > -1e-12 && det < 1e-12) continue
+            const inv = 1 / det
+            const sx = ox - p[j]
+            const sy = oy - p[j + 1]
+            const sz = oz - p[j + 2]
+            const u = (sx * px + sy * py + sz * pz) * inv
+            if (u < 0 || u > 1) continue
+            const qx = sy * az - sz * ay
+            const qy = sz * ax - sx * az
+            const qz = sx * ay - sy * ax
+            const vv = (dx * qx + dy * qy + dz * qz) * inv
+            if (vv < 0 || u + vv > 1) continue
+            const tt = (bx * qx + by * qy + bz * qz) * inv
+            if (tt > 1e-4 && tt < best) {
+              best = tt
+              slag = 1
+            }
+          }
+        }
+        for (const q of rom) {
+          const nd = dx * q.n.x + dy * q.n.y + dz * q.n.z
+          if (nd > -1e-9) continue
+          const tt = ((q.p.x - ox) * q.n.x + (q.p.y - oy) * q.n.y + (q.p.z - oz) * q.n.z) / nd
+          if (tt > 1e-4 && tt < best) {
+            best = tt
+            slag = 3
+            tr = q
+          }
+        }
+        if (hopp === 0 && slag === 2) tal.fyrst++
+        if (slag === 1) break
+        if (slag === 0 || slag === 3) {
+          if (hopp) tal.ut1 += w
+          else tal.ut0++
+          if (slag === 3 && hopp) {
+            tal.rom1 += w
+            const rx = ox + dx * best - tr.c.x
+            const ry = oy + dy * best - tr.c.y
+            const rz = oz + dz * best - tr.c.z
+            const fu = ((rx * tr.e1.x + ry * tr.e1.y + rz * tr.e1.z) / L + 0.5) * K - 0.5
+            const fv = ((rx * tr.e2.x + ry * tr.e2.y + rz * tr.e2.z) / L + 0.5) * K - 0.5
+            const iu = Math.floor(fu)
+            const iv = Math.floor(fv)
+            if (iu >= 0 && iv >= 0 && iu < K - 1 && iv < K - 1) {
+              const du = fu - iu
+              const dv = fv - iv
+              tr.sum += w
+              for (const [qu, qv, vekt] of [[iu, iv, (1 - du) * (1 - dv)], [iu + 1, iv, du * (1 - dv)], [iu, iv + 1, (1 - du) * dv], [iu + 1, iv + 1, du * dv]]) {
+                const at = (qv * K + qu) * 3
+                tr.kart[at] += fc.r * skala * w * vekt
+                tr.kart[at + 1] += fc.g * skala * w * vekt
+                tr.kart[at + 2] += fc.b * skala * w * vekt
+              }
+            }
+          }
+          break
+        }
+        ox += dx * best + tn.x * ts * 0.02
+        oy += dy * best + tn.y * ts * 0.02
+        oz += dz * best + tn.z * ts * 0.02
+        const dn = 2 * (dx * tn.x + dy * tn.y + dz * tn.z)
+        dx -= dn * tn.x
+        dy -= dn * tn.y
+        dz -= dn * tn.z
+        w *= SPEGLING
+      }
+    }
+  })
+  for (const q of rom) {
+    if (!q.sum) continue
+    const a = q.kart
+    const b = new Float32Array(a.length)
+    for (let runde = 0; runde < 3; runde++) {
+      for (let y = 0; y < K; y++)
+        for (let x = 0; x < K; x++)
+          for (let c = 0; c < 3; c++) b[(y * K + x) * 3 + c] = (a[(y * K + Math.max(x - 1, 0)) * 3 + c] + 2 * a[(y * K + x) * 3 + c] + a[(y * K + Math.min(x + 1, K - 1)) * 3 + c]) / 4
+      for (let y = 0; y < K; y++)
+        for (let x = 0; x < K; x++)
+          for (let c = 0; c < 3; c++) a[(y * K + x) * 3 + c] = (b[(Math.max(y - 1, 0) * K + x) * 3 + c] + 2 * b[(y * K + x) * 3 + c] + b[(Math.min(y + 1, K - 1) * K + x) * 3 + c]) / 4
+    }
+    const data = new Uint16Array(K * K * 4)
+    for (let i = 0; i < K * K; i++) {
+      for (let c = 0; c < 3; c++) data[4 * i + c] = THREE.DataUtils.toHalfFloat(Math.min(a[3 * i + c], 60000))
+      data[4 * i + 3] = THREE.DataUtils.toHalfFloat(1)
+    }
+    const kart = new THREE.DataTexture(data, K, K, THREE.RGBAFormat, THREE.HalfFloatType)
+    kart.minFilter = kart.magFilter = THREE.LinearFilter
+    kart.needsUpdate = true
+    const mesh = new THREE.Mesh(new THREE.PlaneGeometry(L, L), new THREE.MeshBasicMaterial({ map: kart, blending: THREE.AdditiveBlending, transparent: true, depthWrite: false }))
+    mesh.matrixAutoUpdate = false
+    mesh.matrix.makeBasis(q.e1, q.e2, q.n).setPosition(q.c.clone().addScaledVector(q.n, 0.4))
+    mesh.renderOrder = 8
+    S.scene.add(mesh)
+    S.kaust.push({ mesh, rom: q.m })
+  }
+  const tot = per * S.paerer.length
+  const pst = (x) => Math.round((1000 * x) / tot) / 10
+  S.speglTal = { straalar: tot, utDirekte: pst(tal.ut0), utViaSpegl: pst(tal.ut1), paaRomViaSpegl: pst(tal.rom1), fyrstPaaSpegl: pst(tal.fyrst), ms: Math.round(performance.now() - t0) }
+}
+
 function maal(b, h) {
   if (R.b === b && R.h === h) return
   R.b = b
@@ -1487,6 +1932,12 @@ function teikn(namn, b, h, val = {}) {
   stillRigg(namn, pkt, val.kart || 1024)
   const r = R.renderer
   r.shadowMap.type = namn === "lys" ? THREE.BasicShadowMap : THREE.PCFShadowMap
+  if (S.delar.some((d) => d.spegl)) {
+    if (namn === "lys") speglLys()
+    for (const k of S.kaust || []) k.mesh.visible = namn === "lys" && k.rom.visible
+    prove(0, n)
+    speglPass(namn, b, h)
+  }
   r.setRenderTarget(R.sum)
   r.setClearColor(0x000000, 0)
   r.clear()
@@ -1592,5 +2043,5 @@ function ark(val = {}) {
   return { url: c.toDataURL("image/png"), tider, rammer }
 }
 
-window.syn = { bygg, teikn, bilete, ark, SYN: Object.keys(SYN), STOFF: Object.keys(STOFF) }
+window.syn = { bygg, teikn, bilete, ark, speglTal: () => S.speglTal ?? null, SYN: Object.keys(SYN), STOFF: Object.keys(STOFF) }
 window.klar = true

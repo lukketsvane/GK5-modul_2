@@ -18,6 +18,17 @@ Dato: 18.11.2026. Lampekroppar laga som plater med halvt-i-halvt-spor i motoren 
 | 3 | Kule 180, bjørk 3 mm | 12 | 24 | 2 | 0,23 kg | 285 mm | 106 × 106 mm |
 | 4 | Kule 240, bjørk 3 mm, 8 × 8 | 16 | 52 | 3 | 0,61 kg | 405 mm | 134 × 134 mm |
 
+### Globus (5 og 6)
+
+Same kule, sett inn i formspråket frå `grunnlag/00-ramme.md` punkt 7: kule, tynn line og rund fot, éin matt farge, éin messingdetalj. Kula heng i ein bøyel og vert vippa om to messingtappar.
+
+| Nr | Design | Plater | Ark 600 × 400 | Kula åleine | Høgd | Fot |
+| --- | --- | --- | --- | --- | --- | --- |
+| 5 | Globus 180, 3 mm MDF, mørkegrøn eller gråbeige | 12 | 2 | 0,26 kg | 345 mm | Ø 150 (177 cm²) |
+| 6 | Globus 220, 3 mm MDF, svart | 12 | 2 | 0,39 kg | 385 mm | Ø 158 (196 cm²) |
+
+Bøyel, stilk, fot og messingtappar er berre teikna i bileta. Festet mellom tapp og kule er ikkje løyst, og det finst ikkje skjerefiler for Globus enno.
+
 I kvar mappe:
 
 - `stemning-arbeid.png`: begge stillingar, i dagslys og i mørkt rom.

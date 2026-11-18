@@ -21,6 +21,9 @@ export type Val = {
   fotMat?: string
   nett?: number[]
   hr?: number
+  stativ?: "bukk" | "globus"
+  farge?: string
+  stilk?: number
 }
 
 export function nord(v: Val) {
@@ -141,12 +144,32 @@ export function nord(v: Val) {
   const utstyr = (): Utstyr => {
     bygg()
     const lk = 0.34 * v.b
+    const kjerne = [
+      { slag: "sylinder" as const, senter: paa((zs - 8 + H + 4) / 2), diameter: 2 * hr - 12 * k, lengd: H + 4 - (zs - 8), retning: akse, farge: "#26272a" },
+      { slag: "paere" as const, senter: paa(zs - 10 - (lk + 12) / 2), diameter: lk, lengd: lk + 12, retning: akse },
+    ]
+    const delar: Record<string, { material?: string; farge?: string }> = {}
+    if (v.farge) for (let i = 0; i < d.length; i++) for (const id of [1 + i, 21 + i]) delar[String(id)] = { material: "mdf", farge: v.farge }
+    if (v.stativ !== "globus") return { utstyr: kjerne, ekstra: [fotplate(45, true), fotplate(135, false)], delar }
+    const ry = v.b + 10
+    const stilk = v.stilk ?? 130
+    const zg = C[2] - ry - stilk - 12
+    const fg = v.farge ?? "#2b2b2b"
+    const boge: V3[] = []
+    for (let i = 0; i <= 28; i++) {
+      const t = Math.PI + (Math.PI * i) / 28
+      boge.push([C[0] + ry * Math.cos(t), C[1], C[2] + ry * Math.sin(t)])
+    }
     return {
+      delar,
       utstyr: [
-        { slag: "sylinder", senter: paa((zs - 8 + H + 4) / 2), diameter: 2 * hr - 12 * k, lengd: H + 4 - (zs - 8), retning: akse, farge: "#26272a" },
-        { slag: "paere", senter: paa(zs - 10 - (lk + 12) / 2), diameter: lk, lengd: lk + 12, retning: akse },
+        ...kjerne,
+        { slag: "sylinder", senter: [C[0], C[1], zg + 6], diameter: v.fotBreidd ?? 150, lengd: 12, retning: [0, 0, 1], farge: fg, ru: 0.8 },
+        { slag: "sylinder", senter: [C[0], C[1], zg + 12 + stilk / 2], diameter: 8, lengd: stilk, retning: [0, 0, 1], farge: fg, ru: 0.8 },
+        { slag: "leidning", punkt: boge, diameter: 8, farge: fg },
+        { slag: "sylinder", senter: [C[0] - ry - 5, C[1], C[2]], diameter: 18, lengd: 12, retning: [1, 0, 0], farge: "#b8935a", metall: 1, ru: 0.35 },
+        { slag: "sylinder", senter: [C[0] + ry + 5, C[1], C[2]], diameter: 18, lengd: 12, retning: [1, 0, 0], farge: "#b8935a", metall: 1, ru: 0.35 },
       ],
-      ekstra: [fotplate(45, true), fotplate(135, false)],
     }
   }
   return { namn: v.namn, kropp: bygg, bag, plan, utstyr }

@@ -1,0 +1,17 @@
+{
+  "revision": "R07",
+  "source": "one reference photograph; inferred dimensions",
+  "height_mm": 220,
+  "width_target_mm": 115.3,
+  "base_od_mm": 58.6,
+  "rib_count": 8,
+  "rib_groups": [
+    "front",
+    "shoulder",
+    "outer",
+    "rear"
+  ],
+  "rib_wall_mm": 2.3,
+  "diffuser": "tapered opal hollow polycarbonate",
+  "tests": "STEP solid validity only; photometry, mechanics, electricity are not certified"
+}

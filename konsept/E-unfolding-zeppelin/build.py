@@ -13,6 +13,7 @@ L = 45.0
 ALPHA = math.asin(14.0 / L)
 YA = -math.sqrt(L * L - 14.0 * 14.0)
 FRONT = YA + 9.0
+HOOD_CROWN = 69.0
 POSES = {"closed": 0.0, "middle": 0.5, "open": 1.0}
 PALETTE = {
     "pearl": (0.923, 0.902, 0.847, 1.0),
@@ -202,10 +203,10 @@ def catalogue():
     add("thermal_channel", rail, "nickel", "static_light", "fixed aluminium heat spreader")
     add("cob_strip", box(-117, 117, -32.5, -27.5, 155.7, 156.9), "light", "static_light", "upward-facing COB on thermally bonded MCPCB")
 
-    outer = hood_volume(220, 77.5, 40, 0)
-    cavity = hood_volume(218.5, 76, 38.5, 2.5)
+    outer = hood_volume(220, 77.5, HOOD_CROWN, 0)
+    cavity = hood_volume(218.5, 76, HOOD_CROWN - 1.5, 2.5)
     add("formed_hood", outer.cut(cavity).clean(), "pearl", "hood", "vacuum-formed opaque PETG, nominal 1.5 mm")
-    saddle_stock = cq.Workplane("XY", origin=(124, 0, 4)).rect(13, 37).extrude(34).edges("|Z").fillet(2.3).val()
+    saddle_stock = cq.Workplane("XY", origin=(124, 0, 4)).rect(13, 37).extrude(HOOD_CROWN).edges("|Z").fillet(2.3).val()
     saddle = saddle_stock.intersect(cavity).cut(cx(115, 133, 0, 10, 9.08))
     add("roof_saddle", saddle, "stone", "hood_structure", "printed PA saddle, bonded roof and tube lands")
 
@@ -389,7 +390,9 @@ def v2_checks(parts, bb, failures):
     check(0.72 <= ratio <= 0.78, "base/hood physical width")
     check(close(bb["raked_post"], (151, -9, 16, 171, 9, 171)), "upright post stock")
     check(close(bb["opal_leaf"], (-165, -62.5, 108.5, 165, 62.5, 160)), "formed leaf extents")
-    crowns = [bounds(hood.intersect(box(x - 0.1, x + 0.1, -90, 90, -1, 42)))[5] for x in (-180, 180)]
+    for key in ("roof_saddle", "roof_saddle_L"):
+        check(distance(parts[key][0], hood) < 1e-5, key + " roof contact")
+    crowns = [bounds(hood.intersect(box(x - 0.1, x + 0.1, -90, 90, -1, HOOD_CROWN + 1)))[5] for x in (-180, 180)]
     check(crowns[0] > crowns[1] + 5, "fuller image-right crown section")
     for x in (-127, -64, 0, 64, 127):
         for z in (154, 157.8):
@@ -476,7 +479,7 @@ def validate():
         samples.append({"t": t, "theta_deg": round(math.degrees(a), 6), "hood_y_z": [round(y, 5), round(trim, 5)], "vertical_clearance_lower_bound_mm": round(gap, 5), "hood_to_leaf_occ_mm": round(hd, 5), "enclosing_aabb_mm": [round(x, 4) for x in env], "other_narrow_phase_tests": near_tests})
     failures.extend(sorted(contact_errors))
     targets = {}
-    for key, nominal in (("plinth", (343, 115, 16)), ("opal_leaf", (330, 125, 51.5)), ("formed_hood", (440, 155, 40))):
+    for key, nominal in (("plinth", (343, 115, 16)), ("opal_leaf", (330, 125, 51.5)), ("formed_hood", (440, 155, HOOD_CROWN))):
         measured = dims(bb[key])
         ok = all(abs(x - y) < 0.2 for x, y in zip(measured, nominal))
         targets[key] = {"target_mm": nominal, "measured_mm": measured, "within_0.2mm": ok}
@@ -484,10 +487,10 @@ def validate():
             failures.append("target dimension: " + key)
     envelope = dims(enclosing(all_envelopes))
     targets["v2_geometry"] = v2_checks(parts, bb, failures)
-    if envelope[2] > 240.1 or max(b[5] for b in all_envelopes) > 300:
+    if envelope[2] > 270.1 or max(b[5] for b in all_envelopes) > 300:
         failures.append("sampled height limit")
-    env_ok = all(x <= y + 0.1 for x, y in zip(envelope, (440, 160, 240)))
-    targets["sampled_swept_box"] = {"conservative_size_mm": envelope, "design_box_mm": [440, 160, 240], "within_box": env_ok}
+    env_ok = all(x <= y + 0.1 for x, y in zip(envelope, (440, 160, 270)))
+    targets["sampled_swept_box"] = {"conservative_size_mm": envelope, "design_box_mm": [440, 160, 270], "within_box": env_ok}
     return {"ok": not failures, "units": "mm", "parts": results, "samples": samples, "target_checks": targets, "translation_closed_to_open_mm": [0, 0, 28], "maximum_intermediate_side_step_mm": round(YA + L, 6), "nominal_slot_closed_middle_open_mm": [12, 26, 40], "occ_distance_calls": calls, "named_mating_pairs_excluded": sorted(masks), "method": "Nine discrete configurations. Conservative transformed part AABBs, OCC solid distance for unresolved nonmating pairs and for hood/leaf at every sample. Named mates allow contact but not common solid volume above 0.001 mm3. Rigid co-moving pairs need only one test. Envelope uses enclosing boxes, not oriented silhouettes.", "limitations": "Ideal unloaded geometry only; no continuous sweep, tolerance, guarding, life, electrical or thermal validation. External actuation required; no holding brake modeled.", "failures": failures}
 
 

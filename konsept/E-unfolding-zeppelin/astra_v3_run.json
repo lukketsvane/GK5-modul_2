@@ -1,0 +1,22 @@
+{
+  "id": "resp_0e1a5fa006ebc588006afdcb3d679087d2a30744ef18d31445",
+  "model": "gpt-6.2-astra",
+  "status": "completed",
+  "chars": 7140,
+  "usage": {
+    "input_tokens": 12871,
+    "input_tokens_details": {
+      "cache_write_tokens": 12868,
+      "cache_write_tokens_details": {
+        "ttl_12h_tokens": 0,
+        "ttl_30m_tokens": 12868
+      },
+      "cached_tokens": 0
+    },
+    "output_tokens": 14853,
+    "output_tokens_details": {
+      "reasoning_tokens": 12763
+    },
+    "total_tokens": 27724
+  }
+}

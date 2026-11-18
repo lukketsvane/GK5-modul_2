@@ -99,7 +99,7 @@ def material(name, rgb, metallic, roughness):
 
 def warm_emission(mat, shader, strength):
     source = mat.node_tree.nodes.new("ShaderNodeBlackbody")
-    source.inputs["Temperature"].default_value = 5100.0
+    source.inputs["Temperature"].default_value = 3200.0
     mat.node_tree.links.new(source.outputs["Color"], shader.inputs["Emission Color"])
     shader.inputs["Emission Strength"].default_value = strength
 
@@ -128,17 +128,25 @@ def dress(mesh, key, spec, palette):
         bs.inputs["Coat Roughness"].default_value = 0.37
     elif pigment == "opal":
         bs.inputs["IOR"].default_value = 1.58
-        bs.inputs["Transmission Weight"].default_value = 1.0 - swatch[3]
+        bs.inputs["Transmission Weight"].default_value = 0.42
         bs.inputs["Subsurface Weight"].default_value = 0.24
         bs.inputs["Subsurface Scale"].default_value = 0.00065
-        warm_emission(mat, bs, 1.55)
+        tree = mat.node_tree
+        scatter = tree.nodes.new("ShaderNodeBsdfTranslucent")
+        scatter.inputs["Color"].default_value = (*color, 1.0)
+        mix = tree.nodes.new("ShaderNodeMixShader")
+        mix.inputs[0].default_value = 0.45
+        tree.links.new(bs.outputs["BSDF"], mix.inputs[1])
+        tree.links.new(scatter.outputs["BSDF"], mix.inputs[2])
+        tree.links.new(mix.outputs[0], tree.nodes["Material Output"].inputs["Surface"])
+        warm_emission(mat, bs, 2.7)
     elif pigment == "silicone":
         bs.inputs["Transmission Weight"].default_value = 1.0 - swatch[3]
     elif key == "cob_strip":
         emitting = mat.copy()
         emitting.name = "COB | upward emitting face"
         shader = emitting.node_tree.nodes["Principled BSDF"]
-        warm_emission(emitting, shader, 9.0)
+        warm_emission(emitting, shader, 75.0)
         mesh.materials.append(emitting)
         for face in mesh.polygons:
             if face.normal.z > 0.99:
@@ -168,8 +176,8 @@ BLACK = (
 
 
 def set_lighting(black, boxes, background, floor, floors):
-    background.inputs["Color"].default_value = (0.0, 0.0, 0.0, 1.0) if black else (0.49, 0.46, 0.42, 1.0)
-    background.inputs["Strength"].default_value = 0.0 if black else 0.34
+    background.inputs["Color"].default_value = (0.0, 0.0, 0.0, 1.0) if black else (0.72, 0.69, 0.66, 1.0)
+    background.inputs["Strength"].default_value = 0.0 if black else 0.65
     floor.data.materials[0] = floors[int(black)]
     for obj, (xyz, watts, color, width, height) in zip(boxes, BLACK if black else STUDIO):
         obj.location = xyz
@@ -225,9 +233,9 @@ def main():
     scene.unit_settings.scale_length = 1.0
     scene.render.engine = "CYCLES"
     scene.cycles.device = "CPU"
-    scene.cycles.samples = 20 if FAST else 80
+    scene.cycles.samples = 32 if FAST else 80
     scene.cycles.use_denoising = True
-    scene.render.resolution_x, scene.render.resolution_y = (960, 640) if FAST else (1536, 1024)
+    scene.render.resolution_x, scene.render.resolution_y = (1536, 1024) if FAST else (1536, 1024)
     scene.render.resolution_percentage = 100
     scene.render.film_transparent = False
     scene.render.image_settings.file_format = "PNG"
@@ -255,7 +263,7 @@ def main():
     bpy.ops.mesh.primitive_plane_add(size=50.0, location=(0.0, 0.0, -0.00001))
     floor = bpy.context.object
     floor.name = "Stage | tabletop"
-    ivory, _ = material("Stage | matte taupe", linear((0.444, 0.417, 0.385)), 0.0, 0.85)
+    ivory, _ = material("Stage | matte taupe", tuple(1.35 * v for v in linear((0.444, 0.417, 0.385))), 0.0, 0.85)
     black_mat, bs = material("Stage | matte black", (0.0014, 0.0014, 0.0014), 0.0, 0.73)
     bs.inputs["Specular IOR Level"].default_value = 0.075
     floors = (ivory, black_mat)
@@ -269,6 +277,14 @@ def main():
     for i in range(3):
         name = f"Studio | softbox {i + 1}"
         boxes.append(new_object(scene.collection, name, bpy.data.lights.new(name, "AREA")))
+    bar = bpy.data.lights.new("COB | 3200 K strip flux", "AREA")
+    bar.shape = "RECTANGLE"
+    bar.size, bar.size_y = 234.0 * MM, 5.0 * MM
+    bar.color = (1.0, 0.72, 0.44)
+    bar.energy = 12.0
+    source = new_object(scene.collection, bar.name, bar)
+    source.location = (0.0, -30.0 * MM, (156.9 + 0.05) * MM)
+    source.rotation_euler = (math.pi, 0.0, 0.0)
     camera = new_object(scene.collection, "Studio | camera", bpy.data.cameras.new("Product perspective"))
     camera.data.type = "PERSP"
     camera.data.lens = 55.0

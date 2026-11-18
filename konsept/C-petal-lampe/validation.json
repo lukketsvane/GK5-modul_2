@@ -1,0 +1,23 @@
+{
+  "fin_base_interference_mm3": 0.0,
+  "fin_diffuser_interference_mm3": 0.0,
+  "adjacent_fin_interference_mm3": 0.0,
+  "top_collar_fin_interference_mm3": 0.035,
+  "base_ballast_interference_mm3": 0.0,
+  "base_bottom_interference_mm3": 0.0,
+  "base_core_interference_mm3": 0.0,
+  "base_diffuser_interference_mm3": 0.0,
+  "core_socket_clearance_each_side_mm": 0.222,
+  "collar_cap_interference_mm3": 0.0,
+  "all_solids_valid": true,
+  "print_STL_watertight": true,
+  "fits_P1S": true,
+  "overall_diameter_x_mm": 118.98,
+  "overall_diameter_y_mm": 118.98,
+  "overall_height_mm": 220.0,
+  "model_height_diameter_ratio": 1.849,
+  "reference_height_diameter_ratio_approx": 1.89,
+  "reference_ratio_difference_pct": 2.2,
+  "estimated_steel_mass_g": 55.3,
+  "no_unexpected_intersection": true
+}

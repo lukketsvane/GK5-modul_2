@@ -336,6 +336,24 @@ def export_diffuser_dxf(flat_coords: np.ndarray, total_arc_mm: float, total_h_mm
     doc.saveas(str(out_dxf))
 
 
+def export_ballast_dxf(flat_coords: np.ndarray, holes: list[tuple[float, float, float]], thick_mm: float, out_dxf: Path):
+    """Eksporter 1:1 mm laserskjeringsfil for S235 stålballastplata med 3x Ø3.4 mm M3-hol."""
+    doc = ezdxf.new("R2010")
+    doc.units = 4  # millimeter
+    doc.layers.new("KUTT_1_1", dxfattribs={"color": 7})
+    doc.layers.new("REFERANSE", dxfattribs={"color": 3})
+    msp = doc.modelspace()
+    msp.add_lwpolyline(flat_coords.tolist(), close=True, dxfattribs={"layer": "KUTT_1_1"})
+    for hx, hy, hr in holes:
+        msp.add_circle((hx, hy), hr, dxfattribs={"layer": "KUTT_1_1"})
+    msp.add_line((-50.0, -75.0), (50.0, -75.0), dxfattribs={"layer": "REFERANSE"})
+    msp.add_text(
+        f"RAUP STALBALLAST S235 {thick_mm:g} MM (1:1 MM) | 3x Ø3.4 MM M3-HOL | KONTROLLINJE = 100.0 MM",
+        dxfattribs={"layer": "REFERANSE", "height": 3.5},
+    ).set_placement((-50.0, -82.0))
+    doc.saveas(str(out_dxf))
+
+
 def run_production_build(wall_mm: float = 2.5, total_height_mm: float = 200.0):
     t0 = time.time()
     for d in (CAD_DIR, OUT_DIR, TEST_DIR, PRINT_DIR):
@@ -454,9 +472,17 @@ def run_production_build(wall_mm: float = 2.5, total_height_mm: float = 200.0):
     assy_reread = cq.importers.importStep(str(assy_step))
     print(f"  Export raup_assembly.step       : {assy_step.stat().st_size/1e3:6.1f} KB ({len(assy_reread.solids().vals())} solids)", flush=True)
 
-    # Eksporter 1:1 DXF flatmønster for diffusoren
+    # Eksporter 1:1 DXF flatmønster for diffusoren og 1:1 DXF laserskjeringsfil for S235 stålballastplata
     dxf_path = OUT_DIR / "raup_diffusor_1til1.dxf"
     export_diffuser_dxf(diff_meta["flat_coords"], diff_meta["total_arc_mm"], params.total_height_mm, dxf_path)
+    ballast_dxf_path = OUT_DIR / "raup_ballast_1til1.dxf"
+    if "ballast_flat_coords" in body_meta:
+        export_ballast_dxf(
+            body_meta["ballast_flat_coords"],
+            body_meta.get("ballast_holes", []),
+            params.ballast_thick_mm,
+            ballast_dxf_path,
+        )
 
     # Eksporter eksakt 1:1 mm nativ Bambu Lab P1S .3mf med mikro-papirmasse Fuzzy Skin for hovudskalet
     wall_tag = f"{params.wall_mm:g}mm"

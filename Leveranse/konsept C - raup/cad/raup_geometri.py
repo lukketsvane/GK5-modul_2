@@ -740,7 +740,7 @@ def build_diffuser_and_flat(body_meta: dict, params: RaupParams = RaupParams()):
 # ---------------------------------------------------------------------------
 
 def build_assembly_components(body_meta: dict, diff_meta: dict, params: RaupParams = RaupParams()):
-    """Bygg alle funksjonelle komponentar i produksjonssamanstillinga med garantert klaring (0 kollisjon)."""
+    """Bygg alle funksjonelle komponentar i produksjonssamanstillinga med mekaniske innfestingar og 0 kollisjon."""
     scale_ratio = body_meta["scale_ratio"]
     poly_base_out: Polygon = body_meta["poly_base_out"]
     poly_base_in: Polygon = body_meta["poly_base_in"]
@@ -751,7 +751,7 @@ def build_assembly_components(body_meta: dict, diff_meta: dict, params: RaupPara
     z_plate = params.base_plate_h_mm  # 3.5 mm: hovudskalet kviler på z = 3.5 mm i samanstillinga!
 
     # --- A. Botnchassis (02_raup_botn_chassis) ---
-    # 1) Nedre botnplate (z = 0..3.5 mm): følgjer hovudkroppen sin fot + glatt bro fram til diffusorfoten
+    # 1) Nedre botnplate (z = 0..3.5 mm): følgjer hovudkroppen sin fot + glatt bru fram til diffusorfoten
     #    (med 0.8 mm skuggefuge-innsprang langs ytterkanten så hovudskalet får skarpt svev mot bordet!)
     poly_under_body = poly_base_out.buffer(-0.8, join_style=1, quad_segs=24)
 
@@ -776,25 +776,93 @@ def build_assembly_components(body_meta: dict, diff_meta: dict, params: RaupPara
     poly_lip_in = poly_lip_out.buffer(-lip_wall, join_style=1, quad_segs=24)
     if poly_lip_in.geom_type == "MultiPolygon":
         poly_lip_in = max(poly_lip_in.geoms, key=lambda g: g.area)
-    lip_outer = _make_extruded_poly_solid(poly_lip_out, z_plate - 0.5, z_plate + params.chassis_lip_h_mm, s=1.0 * (scale_ratio ** 2), n_pts=72)
-    lip_inner = _make_extruded_poly_solid(poly_lip_in, z_plate + 0.5, z_plate + params.chassis_lip_h_mm + 2.0, s=1.0 * (scale_ratio ** 2), n_pts=72)
+    z_lip_top = z_plate + params.chassis_lip_h_mm
+    lip_outer = _make_extruded_poly_solid(poly_lip_out, z_plate - 0.5, z_lip_top, s=1.0 * (scale_ratio ** 2), n_pts=72)
+    lip_inner = _make_extruded_poly_solid(poly_lip_in, z_plate + 0.5, z_lip_top + 2.0, s=1.0 * (scale_ratio ** 2), n_pts=72)
     chassis_lip = lip_outer.cut(lip_inner)
 
     # 3) Diffusorfot (plinth) som løftar seg rundt diffusorens nedre kant, med 1.40 mm boga spor!
-    #    NB: pass på at diffusorfoten ikkje rører hovudskalet (klipp bort alt innanfor poly_base_out + 0.8 mm!)
     poly_plinth_xy = poly_diff_foot.difference(poly_base_out.buffer(0.8, join_style=1)).buffer(0)
     if poly_plinth_xy.geom_type == "MultiPolygon":
         poly_plinth_xy = max(poly_plinth_xy.geoms, key=lambda g: g.area)
     plinth_solid = _make_extruded_poly_solid(poly_plinth_xy, z_plate - 0.5, params.diffuser_plinth_h_mm, s=0.5 * (scale_ratio ** 2), n_pts=64)
 
-    # Skjer presist boga 1.40 mm diffusorspor i foten -> +0.20 mm klaring per side til 1.0 mm film!
     cl_slot = LineString(cl_xy[(u_arc >= 0.10 * total_arc) & (u_arc <= 0.88 * total_arc)])
     poly_slot = cl_slot.buffer(0.5 * params.diffuser_slot_w_mm, cap_style=2, join_style=1)
     slot_cutter = _make_extruded_poly_solid(poly_slot, params.diffuser_z_seat_mm - 0.6, params.diffuser_plinth_h_mm + 3.0, s=0.15, n_pts=72)
     plinth_slotted = plinth_solid.cut(slot_cutter)
 
-    # Slå saman botnplate + innvendig styrekant + diffusorfot til eitt komplett aluminiums botnchassis!
-    chassis = chassis_plate.fuse(chassis_lip).fuse(plinth_slotted)
+    # --- Komponent-koordinatar og mekaniske innfestingar ---
+    z_bal0 = z_plate + 0.8
+    z_bal1 = z_bal0 + params.ballast_thick_mm
+
+    bat_r, bat_len = (9.2, 65.2) if params.total_height_mm < 240.0 else (10.6, 70.5)
+    bat_cx, bat_cy, bat_ang = -8.0 * scale_ratio, 54.0 * scale_ratio, 22.0
+    bat_z = z_lip_top + 1.5 + bat_r
+
+    pcb_l, pcb_w, pcb_h = (32.0, 14.0, 4.8) if params.total_height_mm < 240.0 else (38.0, 18.0, 5.8)
+    pcb_cx, pcb_cy, pcb_ang = -68.0 * scale_ratio, -12.0 * scale_ratio, 76.0
+    pcb_z = z_lip_top + 1.6
+
+    led_x, led_y = 20.0 * scale_ratio, 14.2 * scale_ratio
+    led_w = 12.0 if params.total_height_mm < 240.0 else 16.0
+    led_d = 5.5 if params.total_height_mm < 240.0 else 7.0
+    led_h = 145.0 * scale_ratio
+    led_z0 = z_plate + 0.5
+
+    # 4) Integrert 18650 batterivugge-sadel (forankra direkte i botnplata z = z_plate - 0.4, med 0.35 mm klaring til cella)
+    bat_ped_l, bat_ped_w = 26.0 * scale_ratio, 13.5 * scale_ratio
+    cradle_raw = (
+        cq.Workplane("XY")
+        .box(bat_ped_l, bat_ped_w, (bat_z - 2.2) - (z_plate - 0.4), centered=(True, True, False))
+        .edges("|Z")
+        .fillet(1.5)
+        .rotate((0, 0, 0), (0, 0, 1), bat_ang)
+        .translate((bat_cx, bat_cy, z_plate - 0.4))
+        .val()
+    )
+    bat_clear_cyl = (
+        cq.Workplane("YZ")
+        .circle(bat_r + 0.35)
+        .extrude(bat_len + 2.0, both=False)
+        .translate((-0.5 * (bat_len + 2.0), 0, 0))
+        .rotate((0, 0, 0), (0, 0, 1), bat_ang)
+        .translate((bat_cx, bat_cy, bat_z))
+        .val()
+    )
+    bat_cradle = cradle_raw.cut(bat_clear_cyl)
+
+    # 5) Integrert PCB-piedestall for USB-C & dimmar-PCB (forankra direkte i botnplata, 0.30 mm klaring under PCB)
+    pcb_ped_l, pcb_ped_w = 18.0 * scale_ratio, 9.5 * scale_ratio
+    pcb_shelf = (
+        cq.Workplane("XY")
+        .box(pcb_ped_l, pcb_ped_w, (pcb_z - 0.30) - (z_plate - 0.4), centered=(True, True, False))
+        .edges("|Z")
+        .fillet(1.2)
+        .rotate((0, 0, 0), (0, 0, 1), pcb_ang)
+        .translate((pcb_cx, pcb_cy, z_plate - 0.4))
+        .val()
+    )
+
+    # 6) Integrert vertikal sokkelhylse for LED-kjølesøyla (z = z_plate - 0.4 .. z_bal1 + 2.5 mm)
+    led_collar_out = (
+        cq.Workplane("XY")
+        .box(led_w + 4.0, led_d + 4.0, (z_bal1 + 2.5) - (z_plate - 0.4), centered=(True, True, False))
+        .edges("|Z")
+        .fillet(1.4)
+        .translate((led_x, led_y, z_plate - 0.4))
+        .val()
+    )
+    led_collar_hole = (
+        cq.Workplane("XY")
+        .box(led_w + 0.6, led_d + 0.6, (z_bal1 + 4.0) - (z_plate + 0.2), centered=(True, True, False))
+        .translate((led_x, led_y, z_plate + 0.2))
+        .val()
+    )
+    led_collar = led_collar_out.cut(led_collar_hole)
+
+    # Slå saman botnplate + registerflens + diffusorfot + batterivugge + PCB-piedestall + LED-sokkel
+    chassis = chassis_plate.fuse(chassis_lip).fuse(plinth_slotted).fuse(bat_cradle).fuse(pcb_shelf).fuse(led_collar)
 
     # Kabelutgang / USB-C-utsparing bak-høgre i botnplata (z = 0.0 .. base_plate_h)
     cable_notch = (
@@ -806,56 +874,99 @@ def build_assembly_components(body_meta: dict, diff_meta: dict, params: RaupPara
     )
     chassis = chassis.cut(cable_notch)
 
-    # 3x M3 skruehol gjennom botnplata (til festebossar / service)
-    screw_pts = [(-58.0 * scale_ratio, -54.0 * scale_ratio), (-42.0 * scale_ratio, 42.0 * scale_ratio), (24.0 * scale_ratio, 66.0 * scale_ratio)]
+    # 3x M3 forsenka gjennomgåande skruehol (ISO 10642 / DIN 7991 M3x10) gjennom botnplata og stålballasten
+    screw_pts = [(-58.0 * scale_ratio, -48.0 * scale_ratio), (-42.0 * scale_ratio, 42.0 * scale_ratio), (18.0 * scale_ratio, 54.0 * scale_ratio)]
     for sx, sy in screw_pts:
-        chassis = chassis.cut(cq.Solid.makeCylinder(1.7, z_plate + 4.0, cq.Vector(sx, sy, -1.0)))
+        if poly_chassis_plate.buffer(-4.2).contains(Point(sx, sy)):
+            pad = cq.Solid.makeCylinder(3.8, (z_bal0 - 0.20) - (z_plate - 0.3), cq.Vector(sx, sy, z_plate - 0.3))
+            chassis = chassis.fuse(pad)
+        chassis = chassis.cut(cq.Solid.makeCylinder(1.7, z_bal1 + 4.0, cq.Vector(sx, sy, -1.0)))
+        chassis = chassis.cut(cq.Solid.makeCylinder(3.1, 1.4, cq.Vector(sx, sy, -0.1)))
 
-    # --- B. Stålballastplate S235 (03_raup_ballast) ---
+    # 4x Ø10.4 x 0.6 mm lommer på undersida (z = 0..0.6 mm) for 3M Bumpon SJ5312 (Ø10 x 2 mm) silikonføter
+    foot_pts = [
+        (-52.0 * scale_ratio, -18.0 * scale_ratio),
+        (-22.0 * scale_ratio, 54.0 * scale_ratio),
+        (36.0 * scale_ratio, 42.0 * scale_ratio),
+        (38.0 * scale_ratio, -24.0 * scale_ratio),
+    ]
+    for fx, fy in foot_pts:
+        if poly_chassis_plate.buffer(-6.0).contains(Point(fx, fy)):
+            chassis = chassis.cut(cq.Solid.makeCylinder(5.2, 0.7, cq.Vector(fx, fy, -0.1)))
+
+    # --- B. Stålballastplate S235 (03_raup_ballast) med M3-hol og 3D-klaring rundt piedestallane ---
     poly_ballast = poly_lip_in.buffer(-1.5, join_style=1, quad_segs=24)
     if poly_ballast.geom_type == "MultiPolygon":
         poly_ballast = max(poly_ballast.geoms, key=lambda g: g.area)
-    z_bal0 = z_plate + 1.0
-    z_bal1 = z_bal0 + params.ballast_thick_mm
-    ballast = _make_extruded_poly_solid(poly_ballast, z_bal0, z_bal1, s=0.8 * (scale_ratio ** 2), n_pts=64)
+    ballast = _make_extruded_poly_solid(poly_ballast, z_bal0, z_bal1, s=0.6 * (scale_ratio ** 2), n_pts=72)
+    bal_cut_bat = (
+        cq.Workplane("XY")
+        .box(bat_ped_l + 1.4, bat_ped_w + 1.4, params.ballast_thick_mm + 2.0, centered=(True, True, False))
+        .rotate((0, 0, 0), (0, 0, 1), bat_ang)
+        .translate((bat_cx, bat_cy, z_bal0 - 1.0))
+        .val()
+    )
+    bal_cut_pcb = (
+        cq.Workplane("XY")
+        .box(pcb_ped_l + 1.4, pcb_ped_w + 1.4, params.ballast_thick_mm + 2.0, centered=(True, True, False))
+        .rotate((0, 0, 0), (0, 0, 1), pcb_ang)
+        .translate((pcb_cx, pcb_cy, z_bal0 - 1.0))
+        .val()
+    )
+    bal_cut_led = (
+        cq.Workplane("XY")
+        .box(led_w + 5.4, led_d + 5.4, params.ballast_thick_mm + 2.0, centered=(True, True, False))
+        .translate((led_x, led_y, z_bal0 - 1.0))
+        .val()
+    )
+    ballast = ballast.cut(bal_cut_bat).cut(bal_cut_pcb).cut(bal_cut_led)
+    ballast_holes = []
     for sx, sy in screw_pts:
-        if poly_ballast.contains(Point(sx, sy)):
+        if poly_ballast.buffer(-2.5).contains(Point(sx, sy)):
             ballast = ballast.cut(cq.Solid.makeCylinder(1.7, params.ballast_thick_mm + 2.0, cq.Vector(sx, sy, z_bal0 - 1.0)))
+            ballast_holes.append((float(sx), float(sy), 1.7))
 
-    # --- C. Utskiftbar Li-ion celle (04_raup_batteri_21700) ---
-    # 18650 (Ø18.4 x 65.2 mm) i kompakt 200 mm skala, eller 21700 (Ø21.2 x 70.5 mm) ved >= 240 mm
-    bat_r, bat_len = (9.2, 65.2) if params.total_height_mm < 240.0 else (10.6, 70.5)
-    bat_cx, bat_cy, bat_ang = -8.0 * scale_ratio, 54.0 * scale_ratio, 22.0
-    bat_z = z_plate + params.chassis_lip_h_mm + 1.5 + bat_r
-    battery = (
+    # --- C. Utskiftbar 18650 Li-ion celle med polknapp (04_raup_batteri_21700) ---
+    bat_body = (
         cq.Workplane("YZ")
         .circle(bat_r)
-        .extrude(bat_len, both=False)
+        .extrude(bat_len - 1.4, both=False)
         .translate((-0.5 * bat_len, 0, 0))
+    )
+    bat_nub = (
+        cq.Workplane("YZ")
+        .circle(3.2)
+        .extrude(2.0, both=False)
+        .translate((0.5 * bat_len - 2.0, 0, 0))
+    )
+    battery = (
+        bat_body.union(bat_nub)
         .rotate((0, 0, 0), (0, 0, 1), bat_ang)
         .translate((bat_cx, bat_cy, bat_z))
         .val()
     )
 
-    # --- D. Drivar / Dimmar / USB-C PCB (05_raup_drivar_pcb) ---
-    pcb_l, pcb_w, pcb_h = (32.0, 14.0, 5.0) if params.total_height_mm < 240.0 else (38.0, 18.0, 6.0)
-    pcb_cx, pcb_cy, pcb_ang = -68.0 * scale_ratio, -12.0 * scale_ratio, 76.0
-    pcb_z = z_plate + params.chassis_lip_h_mm + 1.8
-    pcb = (
+    # --- D. Drivar / Dimmar / USB-C PCB med komponentar og USB-C-kontakt (05_raup_drivar_pcb) ---
+    pcb_board = cq.Workplane("XY").box(pcb_l, pcb_w, 1.6, centered=(True, True, False))
+    usbc_port = (
         cq.Workplane("XY")
-        .box(pcb_l, pcb_w, pcb_h, centered=(True, True, False))
+        .box(7.5, 8.9, 3.1, centered=(True, True, False))
+        .translate((0.5 * pcb_l - 3.2, 0.0, 1.6))
+    )
+    ic_pack = (
+        cq.Workplane("XY")
+        .box(11.0, 7.5, 2.4, centered=(True, True, False))
+        .translate((-3.5, 0.0, 1.6))
+    )
+    pcb = (
+        pcb_board.union(usbc_port).union(ic_pack)
         .rotate((0, 0, 0), (0, 0, 1), pcb_ang)
         .translate((pcb_cx, pcb_cy, pcb_z))
         .val()
     )
 
-    # --- E. Vertikal LED-kjølesøyle i eloksert aluminium (06_raup_led_berar) ---
-    led_x, led_y = 20.0 * scale_ratio, 14.2 * scale_ratio
-    led_w = 12.0 if params.total_height_mm < 240.0 else 16.0
-    led_d = 5.5 if params.total_height_mm < 240.0 else 7.0
-    led_h = 145.0 * scale_ratio
-    led_z0 = z_plate + 0.5
-    led_bar = (
+    # --- E. Vertikal LED-kjølesøyle i eloksert aluminium med COB-spor og kjøleriller (06_raup_led_berar) ---
+    led_raw = (
         cq.Workplane("XY")
         .box(led_w, led_d, led_h, centered=(True, True, False))
         .edges("|Z")
@@ -863,23 +974,50 @@ def build_assembly_components(body_meta: dict, diff_meta: dict, params: RaupPara
         .translate((led_x, led_y, led_z0))
         .val()
     )
+    # 8.2 x 0.9 mm vertikal optisk kanal på framsida (-Y, vendt mot diffusor) for 8 mm CRI 95+ COB LED-stripe
+    cob_groove = (
+        cq.Workplane("XY")
+        .box(8.2, 1.4, led_h - 12.0, centered=(True, True, False))
+        .translate((led_x, led_y - 0.5 * led_d + 0.2, led_z0 + 8.0))
+        .val()
+    )
+    led_bar = led_raw.cut(cob_groove)
+    # 2x langsgåande kjøleriller / kabelspor på baksida (+Y)
+    for dx in (-2.6, 2.6):
+        fin_cut = (
+            cq.Workplane("XY")
+            .box(1.6, 1.2, led_h - 10.0, centered=(True, True, False))
+            .translate((led_x + dx, led_y + 0.5 * led_d - 0.2, led_z0 + 8.0))
+            .val()
+        )
+        led_bar = led_bar.cut(fin_cut)
     for dx in (-3.5, 3.5):
         led_bar = led_bar.cut(cq.Solid.makeCylinder(1.25, 8.0, cq.Vector(led_x + dx, led_y, led_z0 - 0.5)))
 
-    # --- F. Skånsam boga styreklips ved spiralmunningen (08_raup_filmklips) ---
+    # --- F. Skånsam boga styreklips ved spiralmunningen — forankra direkte på botnchassiset (08_raup_filmklips) ---
     t_left = cl_xy[1] - cl_xy[0]
     t_left = t_left / np.linalg.norm(t_left)
     p_back = cl_xy[0] - 4.0 * t_left
     cl_clip_ext = LineString(np.vstack([p_back, cl_xy[u_arc <= 0.10 * total_arc]]))
-    poly_clip_ext = cl_clip_ext.buffer(2.8, cap_style=1, join_style=1).difference(poly_base_out.buffer(0.6, join_style=1)).buffer(0)
+    poly_clip_ext = (
+        cl_clip_ext.buffer(2.8, cap_style=1, join_style=1)
+        .difference(poly_base_out.buffer(0.6, join_style=1))
+        .difference(poly_diff_foot.buffer(0.45, join_style=1))
+        .buffer(0)
+    )
     if poly_clip_ext.geom_type == "MultiPolygon":
         poly_clip_ext = max(poly_clip_ext.geoms, key=lambda g: g.area)
     cl_slot_clip = LineString(cl_xy[u_arc <= 0.14 * total_arc])
     poly_slot_clip = cl_slot_clip.buffer(0.80, cap_style=2, join_style=1)
-    clip_z0, clip_z1 = 15.0 * scale_ratio, 32.0 * scale_ratio
+    # Strekk ned til z_plate + 0.30 mm slik at klipsen kviler direkte på botnchassis-brua!
+    clip_z0, clip_z1 = z_plate + 0.30, 32.0 * scale_ratio
+    clip_slot_z0 = params.diffuser_z_seat_mm - 0.5
     clip = _make_extruded_poly_solid(poly_clip_ext, clip_z0, clip_z1, s=0.25, n_pts=48).cut(
-        _make_extruded_poly_solid(poly_slot_clip, clip_z0 - 1.0, clip_z1 + 1.0, s=0.15, n_pts=48)
+        _make_extruded_poly_solid(poly_slot_clip, clip_slot_z0, clip_z1 + 1.0, s=0.15, n_pts=48)
     )
+
+    body_meta["ballast_flat_coords"] = clean_ccw(np.asarray(poly_ballast.exterior.coords))
+    body_meta["ballast_holes"] = ballast_holes
 
     return {
         "raup_botn_chassis": chassis,

@@ -1,0 +1,23 @@
+REGLAR — pillestemning.stl
+
+Ingen harde brot: delane let seg lage og setje saman.
+
+Alle linene:
+
+     plana grip             30 ledd
+     delar å skjere         13 stk
+     kan monterast          éin veg inn for kvar
+     ingen står i kvarandre ingen klemmer
+     utan ledd · kasta      ingen
+     gods i leddet          5,5 mm
+     delane får plass       1 ark
+     klaring                0,10 mm
+     snittbreidd            0,20 mm i fila
+     snittet mot sporet     0,20 mm mot 4,10 mm
+     opning mellom plan     22,0 mm
+     lukka nett             lukka
+     nettoppløysing         29878 av 30000
+     utnytting              31 %
+     bøyeradius             ingen bøygde plan
+     ledd på bøygde plan    ingen
+     møte på bøygde plan    ingen bøygde

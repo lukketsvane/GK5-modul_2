@@ -1,0 +1,1 @@
+{"stl": "/home/claude/arb2/blad/fot.stl", "pitch": 0.8, "glatt": 1.2, "tris": 24000, "ut": "/home/claude/arb2/blad/lampe.stl", "steg": [{"op": "minus", "slag": "kule", "senter": [0, 0, 82.5], "r": 25}, {"op": "minus", "slag": "sylinder", "senter": [0, 0, 28], "r": 15.5, "lengd": 62, "retning": [0, 0, 1]}, {"op": "storste"}]}

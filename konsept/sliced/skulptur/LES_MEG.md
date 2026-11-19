@@ -2,6 +2,12 @@
 
 19.11.2026. Utgangspunktet er dei tolv formene i «skulptur»-lista i slicerman (`skulptur-01-12.png`), skorne til 3 mm plater med motoren til slicer.iverfinne.no (origin/main 705b8ee, køyrd utan nettlesar). Platene står som eit gitter av lameller som gøymer lyskjelda, og éi handling skiftar mellom arbeid og kveld.
 
+## Runde 3 (`runde3/`)
+
+Fem lamper med synleg opal standardpære, bjørk 4 mm og éin messingdetalj: HATT (07), KOVE (09), HETTE (03), PILLE (12) og BLAD (10). Alle seks kroppane er ALT OK i full bygging. Sjå `runde3/LES_MEG.md`, `runde3/oversyn.png` og `runde3/profilar.png`.
+
+Iver: berre BLAD i stemning (`runde3/5-blad/ark-stemning.png`) er rett retning estetisk. Tynt, bøygd opalark over ein liten kropp.
+
 ## Runde 2 (`runde2-hette-lykt-halo.png`)
 
 | Design | Skulptur | Handling | Arbeid | Kveld og møte | Delar · ark · vekt |

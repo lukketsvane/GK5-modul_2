@@ -1,0 +1,38 @@
+hatt-fot — 92 x 97 x 56 mm · bjork 4 mm · klaring 0.1 · snitt 0.2 · ALT OK
+nett     20000 trekantar · lukka · 1 skal · 423 cm3 · boks -52, -49, 0 .. 52, 49, 56
+tal      4 plan · 4 delar (4 unike) · 4 ledd (0 tapp, 0 avviste) · 0 lause
+kutt     1.57 m · 1.3 min ved 20 mm/s · 1 ark 600 x 400 · utnytting 46 % · 0.048 kg · spor 4.10 mm · minste gods 28.0 mm
+harde reglar
+  ok   grip       plana grip               4 ledd
+  ok   delar      delar å skjere           4 stk
+  ok   orden      kan monterast            éin veg inn for kvar
+  ok   klem       ingen står i kvarandre   ingen klemmer
+  ok   gods       gods i leddet            28,0 mm
+  ok   plate      delane får plass         1 ark
+  ok   snittspor  snittet mot sporet       0,20 mm mot 4,10 mm
+mjuke reglar: ingen bryt
+ark
+  1  1 21 22 2 · 46 % av brukt hogd, 7 % av arket
+delar    adr    form   b x h mm        ledd  ark
+         1              D01   96.8 x 56.0     2     1
+         2              D02   89.0 x 56.0     2     1
+         21             D03   91.4 x 56.0     2     1
+         22             D04   91.5 x 56.0     2     1
+montering (motoren si eiga rekkjefylgje)
+  1-2  ligg: 1 2
+  3-4  ned mot 2,1: 21 22
+krav
+  ok   nettet er lukka og vender ut: 20000 trekantar · 0 opne · 0 mangfaldige · 0 vrengde · 1 skal
+  ok   nettet held trekantbudsjettet: 20000 av 40000: over det vert nettet forenkla
+  ok   kroppen står sentrert på z = 0: ja
+  ok   1:1: storleik 104.294 mot lengste side 104.29 · glatt 0 forenkl 0 hol 0
+  ok   motoren les same volum som nettet: 423 cm3 mot 423 cm3
+  ok   alle plan kom med: 4 skrivne · 4 lesne · 4 i motoren
+  ok   appen opnar posen uendra: ja
+  ok   ingen lause eller kasta stykke: 0 lause
+  ok   alle delar ligg på eit ark: ja
+  ok   kvart plan gjev minst éin del: ja
+  ok   ingen spalte held fram gjennom gods forbi munnen: ja
+  ok   fine kuttfiler (1200 celler) gjev same delar, ledd og ark: 4 delar · 1 ark · 1.57 m
+fin      produksjon/fin/: 1200 celler · 4 delar · 1 ark · 1.57 m · same tal på delar, ledd og ark som ved 220 · same delar på kvart ark
+tid      kropp 0.0 s · motor 0.3 s · ark 6.4 s · produksjon 1.0 s · bilete 39.9 s · alt 47.8 s

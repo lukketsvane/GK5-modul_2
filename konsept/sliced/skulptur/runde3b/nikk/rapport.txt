@@ -1,0 +1,95 @@
+nikk-arbeid — 94 x 181 x 96 mm · mdf 3 mm · klaring 0.1 · snitt 0.2 · ALT OK
+nett     25812 trekantar · lukka · 1 skal · 881 cm3 · boks -47, -90, 0 .. 47, 90, 96
+tal      10 plan · 10 delar (10 unike) · 24 ledd (0 tapp, 0 avviste) · 0 lause
+kutt     6.62 m · 5.5 min ved 20 mm/s · 1 ark 600 x 400 · utnytting 54 % · 0.145 kg · spor 3.10 mm · minste gods 19.8 mm
+harde reglar
+  ok   grip       plana grip               24 ledd
+  ok   delar      delar å skjere           10 stk
+  ok   orden      kan monterast            éin veg inn for kvar
+  ok   klem       ingen står i kvarandre   ingen klemmer
+  ok   gods       gods i leddet            19,8 mm
+  ok   plate      delane får plass         1 ark
+  ok   snittspor  snittet mot sporet       0,20 mm mot 3,10 mm
+mjuke reglar: ingen bryt
+ark
+  1  4 1 2 3 26 25 24 23 22 21 · 54 % av brukt hogd, 27 % av arket
+delar    adr    form   b x h mm        ledd  ark
+         1              D01   180.6 x 95.5    6     1
+         2              D02   179.1 x 95.6    6     1
+         3              D03   179.1 x 95.6    6     1
+         4              D04   180.5 x 95.6    6     1
+         21             D05   91.9 x 39.9     4     1
+         22             D06   92.8 x 41.2     4     1
+         23             D07   93.5 x 41.3     4     1
+         24             D08   93.1 x 45.6     4     1
+         25             D09   91.8 x 63.1     4     1
+         26             D10   91.4 x 95.7     4     1
+ekstra   (ikkje frå motoren: ingen reglar, ingen ledd, ikkje på arka)
+         led-list       10.0 x 58.0 mm flatt · 1.6 mm mdf
+montering (motoren si eiga rekkjefylgje)
+  1-4  ligg: 1 2 3 4
+  5  ned langs (0.00, 0.00, -1.00) mot 1,4,2,3: 21
+  6  ned langs (0.00, 0.00, -1.00) mot 2,1,4,3: 22
+  7  ned langs (0.00, 0.00, -1.00) mot 3,4,1,2: 23
+  8  ned langs (0.00, 0.00, -1.00) mot 3,2,1,4: 24
+  9  ned langs (0.00, 0.00, -1.00) mot 4,1,2,3: 25
+  10  ned langs (0.00, 0.00, -1.00) mot 2,4,1,3: 26
+krav
+  ok   nettet er lukka og vender ut: 25812 trekantar · 0 opne · 0 mangfaldige · 0 vrengde · 1 skal
+  ok   nettet held trekantbudsjettet: 25812 av 40000: over det vert nettet forenkla
+  ok   kroppen står sentrert på z = 0: ja
+  ok   1:1: storleik 180.893 mot lengste side 180.89 · glatt 0 forenkl 0 hol 0
+  ok   motoren les same volum som nettet: 881 cm3 mot 881 cm3
+  ok   alle plan kom med: 10 skrivne · 10 lesne · 10 i motoren
+  ok   appen opnar posen uendra: ja
+  ok   ingen lause eller kasta stykke: 0 lause
+  ok   alle delar ligg på eit ark: ja
+  ok   kvart plan gjev minst éin del: ja
+  ok   ingen spalte held fram gjennom gods forbi munnen: ja
+  ok   fine kuttfiler (1200 celler) gjev same delar, ledd og ark: 10 delar · 1 ark · 6.64 m
+fin      produksjon/fin/: 1200 celler · 10 delar · 1 ark · 6.64 m · same tal på delar, ledd og ark som ved 220 · same delar på kvart ark
+tid      kropp 0.0 s · motor 0.3 s · ark 14.1 s · produksjon 1.1 s · bilete 75.5 s · alt 91.2 s
+
+========================================================================
+NIKK v2 (etter kritikk) — tillegg til motorrapporten over
+========================================================================
+Kropp: skulptur-03, storst 200, dreiX 90, kappBotn 40 (stubben 10 mm lengre ned), 93,6 x 180,9 x 95,7 mm,
+25 812 trekantar, lukka, 1 skal (kjelde/nikk.json -> nikk6.stl). Hatten går z 54..95,7 (41,7 mm).
+Hol i kroppen: kjøl/finnar under sokkelen; lysvindauge 8 x 60 mm ope nedover (z 54..75); lisespor 10,4 x 1,8
+for LED-lista (z 75..76,8, 1,2 mm skulder kvar side) i plate 22 og 23; kabelkanal 8 x 6 (z 84..90) gjennom
+plate 24-26; aksel Ø6,2 og stoppinne Ø4,1 gjennom alle fire finnane.
+
+Gitter: finnar 1-4 på x ±13,5 og ±40,5 (avstand 27). Dei ytre er lukka kinn som ber heile nebbprofilen.
+Tverrplater 21-26 på y ±14, ±42, ±70. 21-23 (nasebandet over lista) i opal akryl, 24-26 bak lista i MDF gråbeige.
+LED-lista ligg midt i hatten: om lag 21 mm celle under og over. Celle-kutt frå lista: om lag 30° på tvers
+(frå midten av lista), maks 39° frå kanten. På langs: opal.
+
+Ledd: nav Ø16 x 18 på lina, aksel Ø6 x 84 gjennom finnane, messingknapp Ø14 x 8 på -x (fri side, vekk frå skjermen).
+Hardt stopp: pinne Ø4 i hovudet (20° framom loddrett over aksen, r 11) mot ein knast på navet. Stoppar nikket på 25°.
+Nedre stopp (0°, arbeid) er ikkje modellert: arbeid står på friksjon/hakk.
+
+Modusar:
+  arbeid  vipp 0, 3000 K (#ffe0bc), to LED-punkt under lista 2,0, eitt over 0,08. Foten står på bordet 47 mm
+          framfor skjermplanet, A4 framfor foten (ikkje under han).
+  møte    vipp -25 (ikkje -35: ved 35° peikar opalnasen 35° over andletet og lampa les som "strekk seg opp"),
+          lampa vridd 35° på den runde foten mot brukaren. 2200-2400 K (#ffa860). Opp 0,8, nasefill bak plate 21 1,0
+          (#ffc080), ned 0,3. Bordet roterer om foten i biletet, foten står på same bordpunkt i begge modusar.
+Andletsprøve (andlet-mote.png, ark-andlet-mote.png): kule Ø160 der brukaren sit (x 370, 600 mm framfor skjermen,
+  440 mm over bordet). Utan sving skjermar finnane andletet heilt (nasen peikar 40° forbi). Med 35° sving får kula
+  ei synleg varm fill-side. Fill-lyset er svakt: grovt overslag 30-40 lx frå opalnasen på 0,6 m.
+
+Produksjon: motoren tek eitt material per køyring og godtek ikkje plater utan kryssledd, så begge køyringane har alle 10:
+  MDF 3 mm (skjerefiler/, klaring 0,10): skjer 1, 2, 3, 4, 24, 25, 26.
+  Opal akryl 3 mm (skjerefiler/opal/, klaring 0,15, spor 3,15): skjer berre 21, 22, 23.
+  LED-lista er aluminiumsprofil 10 x 58 x 1,6 (ekstra-led-list.svg/dxf), ikkje MDF som rapporten seier.
+Montering: finnane 1-4, så 21, 22, 23. Skyv LED-lista inn bakfrå gjennom spora i 23 og 22 før 24 vert sett i.
+  Så 24, 25, 26 (kabelen gjennom kanalen i 24-26). Aksel gjennom finnane og navet, messingknappen på -x.
+Vekt (overslag): MDF-plater 542,6 cm² -> 0,122 kg, opalplater 100,9 cm² -> 0,036 kg, line Ø8x1 stålrøyr 380 mm
+  -> 0,07 kg, ledd, knapp og LED-list -> 0,05 kg. Hovudet sitt tyngdepunkt ligg 62 mm framfor lina (arbeid).
+  For 2x tryggleik mot velt på Ø120-foten må foten vege minst 0,36 kg (batteri og stålskive). Heile lampa
+  blir om lag 0,7 kg.
+Lampa er om lag 445 mm høg i arbeid (line 380 + hovud), foten Ø120 (113 cm²).
+
+Ikkje løyst: renderaren teiknar opal 90 % gjennomsiktig og utan skugge, og punktlysa lyser i alle retningar.
+LYS-bileta viser difor LED-en som ein lys strek gjennom opalplate 21 i møte. I røynda ser du ei jamt glødande
+opalflate. Ein opal-variant med 0,4 gjennomslepp krev endring i syn-side.js, som er skriveverna.

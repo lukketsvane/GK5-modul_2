@@ -1,0 +1,17 @@
+MONTERING — heiarbeid.stl
+11 plan, 3 mm plate. Adressa er gravert på kvar del.
+
+I denne rekkjefylgja. Sporet på delen som kjem opnar seg i fartsretninga; sporet på delen som ligg opnar seg mot han.
+  1  1  ligg — ingen ledd mot delar som alt ligg
+  2  2  ligg — ingen ledd mot delar som alt ligg
+  3  3  ligg — ingen ledd mot delar som alt ligg
+  4  4  ligg — ingen ledd mot delar som alt ligg
+  5  22  ovanfrå og ned, mot 1, 4, 2, 3
+  6  23  ovanfrå og ned, mot 1, 4, 2, 3
+  7  24  ovanfrå og ned, mot 1, 4, 2, 3
+  8  25  ovanfrå og ned, mot 1, 4, 2, 3
+  9  26  ovanfrå og ned, mot 1, 2, 3, 4
+  10  27  ovanfrå og ned, mot 2, 1, 3, 4
+  11  28  ovanfrå og ned, mot 3, 2, 1, 4
+
+Sit eit ledd for hardt, er klaringa for liten: skjer passprøva i den same plata og set klaringa til det sporet avkappet går i med tommelkraft.

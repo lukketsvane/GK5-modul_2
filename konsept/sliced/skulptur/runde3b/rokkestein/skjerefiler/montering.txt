@@ -1,0 +1,14 @@
+MONTERING — rokkesteinarbeid.stl
+8 plan, 3 mm plate. Adressa er gravert på kvar del.
+
+I denne rekkjefylgja. Sporet på delen som kjem opnar seg i fartsretninga; sporet på delen som ligg opnar seg mot han.
+  1  1  ligg — ingen ledd mot delar som alt ligg
+  2  2  ligg — ingen ledd mot delar som alt ligg
+  3  3  ligg — ingen ledd mot delar som alt ligg
+  4  4  ligg — ingen ledd mot delar som alt ligg
+  5  5  ligg — ingen ledd mot delar som alt ligg
+  6  6  ligg — ingen ledd mot delar som alt ligg
+  7  21  ovanfrå og ned, mot 2, 3, 4, 5, 1, 6
+  8  22  ovanfrå og ned, mot 2, 4, 3, 5, 1, 6
+
+Sit eit ledd for hardt, er klaringa for liten: skjer passprøva i den same plata og set klaringa til det sporet avkappet går i med tommelkraft.

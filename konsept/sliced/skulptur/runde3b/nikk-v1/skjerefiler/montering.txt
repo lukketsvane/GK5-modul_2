@@ -1,0 +1,16 @@
+MONTERING — nikkarbeid.stl
+10 plan, 3 mm plate. Adressa er gravert på kvar del.
+
+I denne rekkjefylgja. Sporet på delen som kjem opnar seg i fartsretninga; sporet på delen som ligg opnar seg mot han.
+  1  1  ligg — ingen ledd mot delar som alt ligg
+  2  2  ligg — ingen ledd mot delar som alt ligg
+  3  3  ligg — ingen ledd mot delar som alt ligg
+  4  4  ligg — ingen ledd mot delar som alt ligg
+  5  21  ovanfrå og ned, mot 3, 2, 4, 1
+  6  22  ovanfrå og ned, mot 1, 2, 4, 3
+  7  23  ovanfrå og ned, mot 1, 3, 4, 2
+  8  24  ovanfrå og ned, mot 2, 3, 4, 1
+  9  25  ovanfrå og ned, mot 4, 3, 1, 2
+  10  26  ovanfrå og ned, mot 3, 2, 4, 1
+
+Sit eit ledd for hardt, er klaringa for liten: skjer passprøva i den same plata og set klaringa til det sporet avkappet går i med tommelkraft.

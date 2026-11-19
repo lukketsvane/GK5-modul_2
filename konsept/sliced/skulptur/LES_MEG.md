@@ -8,6 +8,22 @@ Fem lamper med synleg opal standardpære, bjørk 4 mm og éin messingdetalj: HAT
 
 Iver: berre BLAD i stemning (`runde3/5-blad/ark-stemning.png`) er rett retning estetisk. Tynt, bøygd opalark over ein liten kropp.
 
+## Runde 3b (`runde3b/runde3b.png`)
+
+Skulpturforma er konvolutten: ho blir kappa, av og til fylt eller skoren radialt, og gitteret av plater fyller ut det som er att. Kvar lampe har ei tynn line, ein rund fot med batteri, éin matt farge, éin messingdetalj og opal som einaste lysande flate.
+
+| Design | Konvolutt | Handling | Modusar | Delar · ark · vekt | Motor |
+| --- | --- | --- | --- | --- | --- |
+| Nikk, `runde3b/nikk-01b/` | 01, flat linse | Rull linsa i messingnavet | Arbeid 0° (pøl på tastaturet), møte 100° (opalfelt bak gitter mot andletet), kveld 160° (mot taket); møte òg i gråbeige | 12 + 5 ekstra · 1 · 0,09 kg plater, om lag 1,4 kg heil | ALT OK, full bygging i alle tre (gråbeige `--rask`) |
+| Nikk, `runde3b/nikk-forrige/` | 04, rund tromme | Trykk messingknappen ned | Arbeid −6° (pott ned), møte 85° (opal-andlet og veggvask), kveld 35° (opalmåne) | 14 + 3 ekstra · 1 · 0,11 kg plater, om lag 0,8 kg heil | ALT OK, arbeid full, møte og kveld `--rask` |
+| Rokkestein, `runde3b/rokkestein/` | 05, flat stein | Løft framkanten, steinen rokkar | Arbeid 0° (nedre LED-rad, pøl), kveld og møte −30° (øvre rad, glorie på veggen) | 8 (alle opal) · 1 · om lag 1,0 kg heil | ALT OK, full bygging i begge |
+| Hei, `runde3b/hei/` | 11, hatten utan stilk | Lett på hatten | Arbeid 0° (tre nedlys), møte og kveld −20° (varm vifte på veggen bak) | 11 + 6 opalskiver · 1 · 0,10 kg plater, om lag 0,85 kg heil | ALT OK, arbeid full, møte `--rask` |
+| Nikk, `runde3b/nikk/` | 03, velta til eit nebb | Vipp hovudet om messingknappen | Arbeid 0° (LED-list, flekk på bordet), møte og kveld 25° og vridd 35° (opalnase mot andletet) | 10 (7 MDF + 3 opal) · 2 · 0,16 kg plater, om lag 0,7 kg heil | ALT OK, arbeid full og eiga opal-køyring, møte `--rask` |
+
+Frå runde 2 til runde 3b har lampene gått frå skulpturar med lameller til Northern-lamper. Hovudet er no ei lita, roleg primærform på ei tynn line over ein rund fot, ikkje heile skulpturen. Kvar lampe har éin matt farge (svart, mørkegrøn eller gråbeige), og fargeveksling i gitteret er teken bort. Opal er einaste lysande flate, og LED-en ligg alltid bak opal eller djupt i ei celle. Handlinga er meir fysisk og leiken: tre av fem nikkar, éin rokkar og éin lettar på hatten, og ein vippesensor skal byte lysoppskrift i same rørsla. Briefen er teken meir på ordet: alle har tre lyslag (arbeid, møte, kveld) med dim-to-warm, og scena har tastatur, skjerm med fot, vegg og ofte eit andlet eller tak, så LYS-panela viser kvar lyset fell. Skjermen er mørk i alle modusar. Arbeidslyset fell likevel oftast på foten og venstre del av tastaturet, og ansiktslyset er vist, ikkje målt.
+
+Merk mappene: Nikk/04 låg i `nikk/`, men vart skriven over av Nikk/03 og ligg no i `nikk-forrige/`. `nikk-v1/` er ein eldre versjon av Nikk/03. I `nikk-01b/skjerefiler/ekstra/` gjeld berre opal, saumring, bakskal og leppring1–2; `ekstra-leppe1–32` er gamle. Tavla er laga med `kjelde/tavle3.py (`runde3b/`)`. Motoren er køyrd med esbuild og sharp frå npx-cachen, fordi `node_modules` i slicer manglar plattformbinærane.
+
 ## Runde 2 (`runde2-hette-lykt-halo.png`)
 
 | Design | Skulptur | Handling | Arbeid | Kveld og møte | Delar · ark · vekt |

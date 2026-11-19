@@ -1,23 +1,115 @@
 {
   "filer": [
     "cad/raup_skal.step",
-    "produksjon/raup_skal_P1S.stl"
+    "produksjon/raup_skal_P1S.stl",
+    "print/RAUP_P1S_H200_2.5mm_fuzzy.3mf"
   ],
-  "metode": "3D-erosjon av snitta med kule (raup_skal_snitt.py)",
-  "veggtjukkleik_mm": 3.0,
-  "margin_mm": 0.3,
-  "botn": "open",
-  "hòlrom_til_z_mm": 192.0,
-  "gyldig_BRep": false,
-  "STEP_attlest_gyldig": false,
+  "metode": "Class-A NURBS (grad <= 3) periodisk B-rep med eksakt 3D normal-offset kuppel og ope botn",
+  "skala": "Eksakt 1:1 mm (total lampehøgd 200.0 mm)",
+  "veggtjukkleik_mm": 2.5,
+  "botn": "open (z = 0.000 mm)",
+  "gyldig_BRep": true,
+  "BRepCheck_Analyzer": true,
+  "STEP_attlest_gyldig": true,
   "eitt_solid": true,
+  "flater": 11,
   "mal_mm": [
-    193.8,
-    170.9,
-    196.2
+    143.26,
+    126.43,
+    145.74
   ],
   "passar_P1S_256": true,
-  "volum_cm3": 1089.7,
-  "masse_PLA_g": 1351,
-  "utskrift": "Ståande på den opne botnen. Inga fylling: veggen er heile skalet. Set veggliner så dei fyller veggen (3 mm / 0,42 mm = 7), eller sparse infill 100 %. Taket i hòlrommet er flatt: brubygging, eller støtte inne om taket er breitt."
+  "volum_cm3": 182.8,
+  "masse_papirmasse_g": 119,
+  "masse_PLA_g": 227,
+  "veggkontroll": {
+    "target_wall_mm": 2.5,
+    "horisontale_snitt": {
+      "z=7.4mm": {
+        "min_mm": 2.22,
+        "p05_mm": 2.39,
+        "median_mm": 2.5,
+        "p95_mm": 2.79
+      },
+      "z=25.9mm": {
+        "min_mm": 2.22,
+        "p05_mm": 2.41,
+        "median_mm": 2.51,
+        "p95_mm": 2.72
+      },
+      "z=51.9mm": {
+        "min_mm": 2.22,
+        "p05_mm": 2.41,
+        "median_mm": 2.51,
+        "p95_mm": 2.86
+      },
+      "z=81.5mm": {
+        "min_mm": 1.14,
+        "p05_mm": 2.35,
+        "median_mm": 2.54,
+        "p95_mm": 3.99
+      }
+    },
+    "toppkuppel_normal": {
+      "n_probes": 51,
+      "min_mm": 2.36,
+      "median_mm": 2.5,
+      "max_mm": 2.53
+    },
+    "innsprang_hylle_mm": 2.5
+  },
+  "fbx_avvik_ytterform": {
+    "n_samples": 400,
+    "rms_mm": 0.87,
+    "median_mm": 0.22,
+    "p95_mm": 1.72,
+    "max_mm": 4.94
+  },
+  "bambu_3mf_verifisering": {
+    "fil": "print/RAUP_P1S_H200_2.5mm_fuzzy.3mf",
+    "application": "BambuStudio-02.08.04.57",
+    "pre_sliced_gcode": true,
+    "gcode_time": "model printing time: 7h 28m 27s; total estimated time: 7h 28m 47s",
+    "gcode_weight_g": "218.88",
+    "gcode_fuzzy_skin": "external",
+    "unit": "millimeter",
+    "transform": "1 0 0 0 1 0 0 0 1 0 0 -3.0162394",
+    "is_identity_scale": true,
+    "size_mm": [
+      143.264,
+      126.433,
+      145.621
+    ],
+    "size_error_vs_brep_mm": [
+      0.001,
+      0.001,
+      0.12
+    ],
+    "zmin_mm": 0.0,
+    "bed_bounds_xy_mm": [
+      [
+        56.37,
+        199.63
+      ],
+      [
+        64.78,
+        191.21
+      ]
+    ],
+    "fits_P1S_256": true,
+    "vertices": 72346,
+    "triangles": 144688,
+    "open_boundary_edges": 0,
+    "non_manifold_edges": 0,
+    "watertight_manifold": true,
+    "mesh_volume_cm3": 160.67,
+    "layer_height": "0.16",
+    "wall_generator": "arachne",
+    "wall_loops": "6",
+    "sparse_infill_density": "0%",
+    "fuzzy_skin": "external",
+    "fuzzy_skin_thickness": "0.1",
+    "fuzzy_skin_point_distance": "0.25"
+  },
+  "utskrift": "Ståande 1:1 på den opne botnen (z=0). 2.5 mm vegg utan fylling: layer_height=0.16 mm, wall_generator=arachne, wall_loops=6, sparse_infill=0%, bottom_shell_layers=0, fuzzy_skin=outer (thickness=0.1 mm, point_distance=0.25 mm) for papirmasse-/steinstruktur, enable_support=tree(auto) frå byggjeplata for det bakre 37.8 mm innspranget."
 }

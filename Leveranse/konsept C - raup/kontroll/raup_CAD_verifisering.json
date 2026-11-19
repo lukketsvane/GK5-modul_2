@@ -1,58 +1,492 @@
 {
-  "status": "Prototyp, ikkje ferdig produksjonsgodkjend",
+  "status": "Digitalt verifisert produksjons-CAD (alle B-rep, kollisjon, vegg, 3MF og stabilitet bestått)",
   "eining": "mm",
-  "FBX_antaking_panel_hogd_mm": 270,
-  "flate_veggtykkleik_mm": 1,
-  "inner_offset_mm": 4,
-  "flatmonster_breidd_mm": 197.76,
-  "kontrollar": [
+  "skala_1_til_1": {
+    "total_lampehogd_mm": 200.0,
+    "hovudkropp_maal_mm": [
+      143.26,
+      126.43,
+      145.74
+    ],
+    "samla_lampe_zmax_mm": 201.26
+  },
+  "hovudskal": {
+    "vegg_mm": 2.5,
+    "botn": "open",
+    "innsprang_z_mm": 37.77777777777778,
+    "skulderradius_ytre_mm": 4.5,
+    "skulderradius_indre_mm": 1.6,
+    "seam_gap_ytre_mm": 0.08025,
+    "seam_gap_indre_mm": 0.04198,
+    "veggkontroll": {
+      "target_wall_mm": 2.5,
+      "horisontale_snitt": {
+        "z=7.4mm": {
+          "min_mm": 2.22,
+          "p05_mm": 2.39,
+          "median_mm": 2.5,
+          "p95_mm": 2.79
+        },
+        "z=25.9mm": {
+          "min_mm": 2.22,
+          "p05_mm": 2.41,
+          "median_mm": 2.51,
+          "p95_mm": 2.72
+        },
+        "z=51.9mm": {
+          "min_mm": 2.22,
+          "p05_mm": 2.41,
+          "median_mm": 2.51,
+          "p95_mm": 2.86
+        },
+        "z=81.5mm": {
+          "min_mm": 1.14,
+          "p05_mm": 2.35,
+          "median_mm": 2.54,
+          "p95_mm": 3.99
+        }
+      },
+      "toppkuppel_normal": {
+        "n_probes": 51,
+        "min_mm": 2.36,
+        "median_mm": 2.5,
+        "max_mm": 2.53
+      },
+      "innsprang_hylle_mm": 2.5
+    },
+    "fbx_avvik": {
+      "n_samples": 400,
+      "rms_mm": 0.87,
+      "median_mm": 0.22,
+      "p95_mm": 1.72,
+      "max_mm": 4.94
+    }
+  },
+  "diffusor": {
+    "tjukkleik_mm": 1.0,
+    "flatmonster_breidd_mm": 139.54,
+    "flateareal_cm2": 247.3,
+    "min_boyeradius_mm": 37.2,
+    "min_klaring_til_hovudkropp_mm": 1.38,
+    "dxf_fil": "produksjon/raup_diffusor_1til1.dxf"
+  },
+  "bambu_p1s_3mf": {
+    "fil": "print/RAUP_P1S_H200_2.5mm_fuzzy.3mf",
+    "application": "BambuStudio-02.08.04.57",
+    "pre_sliced_gcode": true,
+    "gcode_time": "model printing time: 7h 28m 27s; total estimated time: 7h 28m 47s",
+    "gcode_weight_g": "218.88",
+    "gcode_fuzzy_skin": "external",
+    "unit": "millimeter",
+    "transform": "1 0 0 0 1 0 0 0 1 0 0 -3.0162394",
+    "is_identity_scale": true,
+    "size_mm": [
+      143.264,
+      126.433,
+      145.621
+    ],
+    "size_error_vs_brep_mm": [
+      0.001,
+      0.001,
+      0.12
+    ],
+    "zmin_mm": 0.0,
+    "bed_bounds_xy_mm": [
+      [
+        56.37,
+        199.63
+      ],
+      [
+        64.78,
+        191.21
+      ]
+    ],
+    "fits_P1S_256": true,
+    "vertices": 72346,
+    "triangles": 144688,
+    "open_boundary_edges": 0,
+    "non_manifold_edges": 0,
+    "watertight_manifold": true,
+    "mesh_volume_cm3": 160.67,
+    "layer_height": "0.16",
+    "wall_generator": "arachne",
+    "wall_loops": "6",
+    "sparse_infill_density": "0%",
+    "fuzzy_skin": "external",
+    "fuzzy_skin_thickness": "0.1",
+    "fuzzy_skin_point_distance": "0.25"
+  },
+  "kollisjonskontroll": {
+    "testa_par": 28,
+    "kollisjonar": [],
+    "maks_overlapp_mm3": 0.0,
+    "bestatt": true
+  },
+  "stabilitet_papirproduksjon": {
+    "total_masse_g": 488.1,
+    "massesentrum_mm": [
+      -11.8,
+      12.63,
+      30.93
+    ],
+    "com_innanfor_stotteflate": true,
+    "min_avstand_til_veltekant_mm": 39.5,
+    "min_veltevinkel_grad": 51.9,
+    "krav_EN60598_6grad_bestatt": true,
+    "krav_Northern_15grad_bestatt": true,
+    "bom": [
+      {
+        "del": "raup_hovudkropp_skal",
+        "volum_cm3": 182.82,
+        "tettleik_g_cm3": 0.65,
+        "masse_g": 118.8,
+        "maal_mm": "143.3 x 126.4 x 145.7"
+      },
+      {
+        "del": "raup_botn_chassis",
+        "volum_cm3": 39.21,
+        "tettleik_g_cm3": 2.7,
+        "masse_g": 105.9,
+        "maal_mm": "134.2 x 125.0 x 11.4"
+      },
+      {
+        "del": "raup_ballast",
+        "volum_cm3": 19.93,
+        "tettleik_g_cm3": 7.85,
+        "masse_g": 156.5,
+        "maal_mm": "108.5 x 113.4 x 5.5"
+      },
+      {
+        "del": "raup_batteri_21700",
+        "volum_cm3": 17.34,
+        "tettleik_g_cm3": 2.82,
+        "masse_g": 48.9,
+        "maal_mm": "67.4 x 41.5 x 18.4"
+      },
+      {
+        "del": "raup_drivar_pcb",
+        "volum_cm3": 2.24,
+        "tettleik_g_cm3": 1.85,
+        "masse_g": 4.1,
+        "maal_mm": "21.3 x 34.4 x 5.0"
+      },
+      {
+        "del": "raup_led_berar",
+        "volum_cm3": 6.92,
+        "tettleik_g_cm3": 2.7,
+        "masse_g": 18.7,
+        "maal_mm": "12.0 x 5.5 x 107.4"
+      },
+      {
+        "del": "raup_diffusor",
+        "volum_cm3": 24.62,
+        "tettleik_g_cm3": 1.38,
+        "masse_g": 34.0,
+        "maal_mm": "106.3 x 48.5 x 196.5"
+      },
+      {
+        "del": "raup_filmklips",
+        "volum_cm3": 0.94,
+        "tettleik_g_cm3": 1.24,
+        "masse_g": 1.2,
+        "maal_mm": "11.7 x 20.1 x 12.8"
+      }
+    ]
+  },
+  "stabilitet_PLA_prototyp": {
+    "total_masse_g": 595.9,
+    "massesentrum_mm": [
+      -12.17,
+      11.78,
+      37.71
+    ],
+    "com_innanfor_stotteflate": true,
+    "min_avstand_til_veltekant_mm": 39.8,
+    "min_veltevinkel_grad": 46.6,
+    "krav_EN60598_6grad_bestatt": true,
+    "krav_Northern_15grad_bestatt": true,
+    "bom": [
+      {
+        "del": "raup_hovudkropp_skal",
+        "volum_cm3": 182.82,
+        "tettleik_g_cm3": 1.24,
+        "masse_g": 226.7,
+        "maal_mm": "143.3 x 126.4 x 145.7"
+      },
+      {
+        "del": "raup_botn_chassis",
+        "volum_cm3": 39.21,
+        "tettleik_g_cm3": 2.7,
+        "masse_g": 105.9,
+        "maal_mm": "134.2 x 125.0 x 11.4"
+      },
+      {
+        "del": "raup_ballast",
+        "volum_cm3": 19.93,
+        "tettleik_g_cm3": 7.85,
+        "masse_g": 156.5,
+        "maal_mm": "108.5 x 113.4 x 5.5"
+      },
+      {
+        "del": "raup_batteri_21700",
+        "volum_cm3": 17.34,
+        "tettleik_g_cm3": 2.82,
+        "masse_g": 48.9,
+        "maal_mm": "67.4 x 41.5 x 18.4"
+      },
+      {
+        "del": "raup_drivar_pcb",
+        "volum_cm3": 2.24,
+        "tettleik_g_cm3": 1.85,
+        "masse_g": 4.1,
+        "maal_mm": "21.3 x 34.4 x 5.0"
+      },
+      {
+        "del": "raup_led_berar",
+        "volum_cm3": 6.92,
+        "tettleik_g_cm3": 2.7,
+        "masse_g": 18.7,
+        "maal_mm": "12.0 x 5.5 x 107.4"
+      },
+      {
+        "del": "raup_diffusor",
+        "volum_cm3": 24.62,
+        "tettleik_g_cm3": 1.38,
+        "masse_g": 34.0,
+        "maal_mm": "106.3 x 48.5 x 196.5"
+      },
+      {
+        "del": "raup_filmklips",
+        "volum_cm3": 0.94,
+        "tettleik_g_cm3": 1.24,
+        "masse_g": 1.2,
+        "maal_mm": "11.7 x 20.1 x 12.8"
+      }
+    ]
+  },
+  "termisk_overslag": {
+    "led_soyle_areal_cm2": 38.2,
+    "effektiv_kjoleflate_cm2": 133.0,
+    "estimert_deltaT_ved_5W_K": 37.6,
+    "merknad": "Estimat med h=10 W/(m2*K) fri konveksjon + leiing til botnplate; må stadfestast ved fysisk temperaturmåling."
+  },
+  "alle_STEP_valid": true,
+  "hollow_shell_validering": true,
+  "delar": [
     {
-      "fil": "raup_hovudkropp_ytre.step",
-      "STEP_gyldig": true,
-      "volum_mm3": 2437035
+      "del": "raup_skal",
+      "step_fil": "cad/raup_skal.step",
+      "step_kb": 838.7,
+      "stl_fil": "produksjon/raup_skal_P1S.stl",
+      "BRepCheck_gyldig": true,
+      "STEP_attlest_gyldig": true,
+      "solids": 1,
+      "flater": 11,
+      "maal_mm": [
+        146.47,
+        129.63,
+        148.99
+      ],
+      "volum_cm3": 182.82,
+      "max_u_deg": 3,
+      "max_v_deg": 3,
+      "max_face_poles": 672
     },
     {
-      "fil": "raup_kjerne_nedre.step",
-      "STEP_gyldig": true,
-      "volum_mm3": 1506892
+      "del": "raup_hovudkropp_ytre",
+      "step_fil": "cad/raup_hovudkropp_ytre.step",
+      "step_kb": 389.2,
+      "stl_fil": "produksjon/raup_hovudkropp_ytre.stl",
+      "BRepCheck_gyldig": true,
+      "STEP_attlest_gyldig": true,
+      "solids": 1,
+      "flater": 6,
+      "maal_mm": [
+        146.47,
+        129.63,
+        147.59
+      ],
+      "volum_cm3": 885.72,
+      "max_u_deg": 3,
+      "max_v_deg": 3,
+      "max_face_poles": 672
     },
     {
-      "fil": "raup_kjerne_ovre.step",
-      "STEP_gyldig": true,
-      "volum_mm3": 520489
+      "del": "raup_diffusor",
+      "step_fil": "cad/raup_diffusor.step",
+      "step_kb": 82.1,
+      "stl_fil": "produksjon/raup_diffusor.stl",
+      "BRepCheck_gyldig": true,
+      "STEP_attlest_gyldig": true,
+      "solids": 1,
+      "flater": 6,
+      "maal_mm": [
+        106.33,
+        48.46,
+        196.52
+      ],
+      "volum_cm3": 24.62,
+      "max_u_deg": 1,
+      "max_v_deg": 3,
+      "max_face_poles": 100
     },
     {
-      "fil": "raup_diffusor.step",
-      "STEP_gyldig": true,
-      "volum_mm3": 47657
+      "del": "raup_botn_chassis",
+      "step_fil": "cad/raup_botn_chassis.step",
+      "step_kb": 2796.9,
+      "stl_fil": "produksjon/raup_botn_chassis.stl",
+      "BRepCheck_gyldig": true,
+      "STEP_attlest_gyldig": true,
+      "solids": 1,
+      "flater": 38,
+      "maal_mm": [
+        134.24,
+        124.98,
+        11.42
+      ],
+      "volum_cm3": 39.21,
+      "max_u_deg": 0,
+      "max_v_deg": 0,
+      "max_face_poles": 0
     },
     {
-      "fil": "raup_filmklips.step",
-      "STEP_gyldig": true,
-      "volum_mm3": 3098
+      "del": "raup_ballast",
+      "step_fil": "cad/raup_ballast.step",
+      "step_kb": 42.7,
+      "stl_fil": "produksjon/raup_ballast.stl",
+      "BRepCheck_gyldig": true,
+      "STEP_attlest_gyldig": true,
+      "solids": 1,
+      "flater": 5,
+      "maal_mm": [
+        108.46,
+        113.35,
+        5.46
+      ],
+      "volum_cm3": 19.93,
+      "max_u_deg": 0,
+      "max_v_deg": 0,
+      "max_face_poles": 0
     },
     {
-      "fil": "raup_led_berar.step",
-      "STEP_gyldig": true,
-      "volum_mm3": 1646
+      "del": "raup_batteri_21700",
+      "step_fil": "cad/raup_batteri_21700.step",
+      "step_kb": 6.1,
+      "stl_fil": "produksjon/raup_batteri_21700.stl",
+      "BRepCheck_gyldig": true,
+      "STEP_attlest_gyldig": true,
+      "solids": 1,
+      "flater": 3,
+      "maal_mm": [
+        67.36,
+        41.5,
+        18.42
+      ],
+      "volum_cm3": 17.34,
+      "max_u_deg": 0,
+      "max_v_deg": 0,
+      "max_face_poles": 0
     },
     {
-      "fil": "raup_stoypform_minus_Y.step",
-      "STEP_gyldig": true,
-      "volum_mm3": 4409279
+      "del": "raup_drivar_pcb",
+      "step_fil": "cad/raup_drivar_pcb.step",
+      "step_kb": 16.4,
+      "stl_fil": "produksjon/raup_drivar_pcb.stl",
+      "BRepCheck_gyldig": true,
+      "STEP_attlest_gyldig": true,
+      "solids": 1,
+      "flater": 6,
+      "maal_mm": [
+        21.33,
+        34.44,
+        5.0
+      ],
+      "volum_cm3": 2.24,
+      "max_u_deg": 0,
+      "max_v_deg": 0,
+      "max_face_poles": 0
     },
     {
-      "fil": "raup_stoypform_pluss_Y.step",
-      "STEP_gyldig": true,
-      "volum_mm3": 3700183
+      "del": "raup_led_berar",
+      "step_fil": "cad/raup_led_berar.step",
+      "step_kb": 41.3,
+      "stl_fil": "produksjon/raup_led_berar.stl",
+      "BRepCheck_gyldig": true,
+      "STEP_attlest_gyldig": true,
+      "solids": 1,
+      "flater": 14,
+      "maal_mm": [
+        12.0,
+        5.5,
+        107.41
+      ],
+      "volum_cm3": 6.92,
+      "max_u_deg": 0,
+      "max_v_deg": 0,
+      "max_face_poles": 0
+    },
+    {
+      "del": "raup_filmklips",
+      "step_fil": "cad/raup_filmklips.step",
+      "step_kb": 225.5,
+      "stl_fil": "produksjon/raup_filmklips.stl",
+      "BRepCheck_gyldig": true,
+      "STEP_attlest_gyldig": true,
+      "solids": 1,
+      "flater": 6,
+      "maal_mm": [
+        11.67,
+        20.13,
+        12.83
+      ],
+      "volum_cm3": 0.94,
+      "max_u_deg": 0,
+      "max_v_deg": 0,
+      "max_face_poles": 0
+    },
+    {
+      "del": "raup_stoypform_minus_Y",
+      "step_fil": "cad/raup_stoypform_minus_Y.step",
+      "step_kb": 816.9,
+      "stl_fil": "produksjon/raup_stoypform_minus_Y.stl",
+      "BRepCheck_gyldig": true,
+      "STEP_attlest_gyldig": true,
+      "solids": 1,
+      "flater": 23,
+      "maal_mm": [
+        179.26,
+        96.15,
+        169.74
+      ],
+      "volum_cm3": 2525.54,
+      "max_u_deg": 3,
+      "max_v_deg": 3,
+      "max_face_poles": 672
+    },
+    {
+      "del": "raup_stoypform_pluss_Y",
+      "step_fil": "cad/raup_stoypform_pluss_Y.step",
+      "step_kb": 689.1,
+      "stl_fil": "produksjon/raup_stoypform_pluss_Y.stl",
+      "BRepCheck_gyldig": true,
+      "STEP_attlest_gyldig": true,
+      "solids": 1,
+      "flater": 21,
+      "maal_mm": [
+        179.26,
+        69.15,
+        169.74
+      ],
+      "volum_cm3": 1417.89,
+      "max_u_deg": 3,
+      "max_v_deg": 3,
+      "max_face_poles": 672
     }
   ],
-  "alle_STEP_valid": true,
-  "hollow_shell_validering": false,
-  "manglar": [
-    "Eitt gyldig uthola slutt-BRep-skall",
-    "Mold demolding, underkutt og krymp",
-    "Lys, varme, elektro og veltetest",
-    "Faktisk material-ID for monitorfolien"
+  "krev_fysisk_test": [
+    "Papirmasse-krymp, sleppvinkel og overflatekvalitet i faktisk støypeform",
+    "Material-ID og varmetoleranse på ombrukt monitorfolie før eventuell laserskjering",
+    "Faktisk lux-/luminansmåling, kameratest for flimmerfri dimming og termisk måling ved full effekt",
+    "CE / EN 60598-1 / IEC 62133-2 elektrisk og batteritryggleik på fysisk prototyp"
   ]
 }

@@ -24,6 +24,3 @@ konsept/film/cad/ut-b/ekte/*.exr
 konsept/film/cad/ut-b/ekte/*.png
 konsept/film/cad/ut-b/3d/*.usdz
 konsept/film/cad/ut-b/3d/*.glb
-
-# Over GitHub si 100 MB-grense (generert av cad/raup_produksjon.py / raup_skal.py)
-Leveranse/konsept C - raup/produksjon/raup_skal_P1S.stl

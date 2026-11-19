@@ -1,0 +1,9 @@
+del,materiale,maal_mm,volum_cm3,masse_papirprod_g,masse_PLA_prototyp_g
+raup_hovudkropp_skal,Resirkulert papirmasse (prod.) / PLA matt med Fuzzy Skin (P1S 1:1),143.3 x 126.4 x 145.7,182.82,118.8,226.7
+raup_botn_chassis,Eloksert/pulverlakkert aluminium 6061 (eller PETG prototyp),134.2 x 125.0 x 11.4,39.21,105.9,105.9
+raup_ballast,Laserskoren S235 stålplate 5 mm,108.5 x 113.4 x 5.5,19.93,156.5,156.5
+raup_batteri_21700,"18650 Li-ion celle (Ø18.4x65.2 mm, 3.6V 3500mAh, 12.6Wh, brukarutskiftbar)",67.4 x 41.5 x 18.4,17.34,48.9,48.9
+raup_drivar_pcb,2-kanals dimmar + USB-C straumsti + 4.05V ladegrense PCB,21.3 x 34.4 x 5.0,2.24,4.1,4.1
+raup_led_berar,Eloksert aluminiumsprofil 6063-T5 + CRI>90 2200K/3500K LED-stripe,12.0 x 5.5 x 107.4,6.92,18.7,18.7
+raup_diffusor,"Ombrukt monitor-diffusor/prismefilm (1.0 mm, avviklingsbar)",106.3 x 48.5 x 196.5,24.62,34.0,34.0
+raup_filmklips,PETG/PA12 styreklips med mjuk silikonforing (ikkje klemmande),11.7 x 20.1 x 12.8,0.94,1.2,1.2

@@ -1,51 +1,92 @@
 # -*- coding: utf-8 -*-
-"""raup_skal.py · hovudforma til Raup som tjukt skal for 3D-print (P1S), utan innvendig gitter.
+"""raup_skal.py · Bygg berre hovudskalet til RAUP (Class-A ope-botn B-rep) for STEP, STL og Bambu Lab P1S 3MF.
 
-Les den ytre kroppen (raup_hovudkropp_ytre.step, laga av raup_produksjon.py), held ytterflata urørt
-og hòlar kroppen innanfrå med jamn veggtjukkleik VEGG. Botnen er open, så kabel og LED kan inn nedanfrå.
-Skriv cad/raup_skal.step og produksjon/raup_skal_P1S.stl, og kontrollerer at skalet er gyldig, tett
-og får plass i 256 x 256 x 256 mm.
+    py -3 cad/raup_skal.py [vegg_mm] [total_lampehogd_mm]
 
-    py -3 cad/raup_skal.py [vegg_mm]
+Standard: 4.0 mm jamn veggtjukkleik, 270.0 mm total lampehøgd (1:1 mm-skala).
+Skriv cad/raup_skal.step, produksjon/raup_skal_P1S.stl, print/RAUP_P1S_<vegg>mm_0infill.3mf og kontroll/raup_skal.json.
 """
-import sys, json
+from __future__ import annotations
+
+import json
+import sys
+import time
 from pathlib import Path
+
 import cadquery as cq
+from OCP.BRepCheck import BRepCheck_Analyzer
 
-VEGG = float(sys.argv[1]) if len(sys.argv) > 1 else 3.0     # mm
-P1S = 256.0                                                  # byggjevolum, mm
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from raup_geometri import (
+    CAD_DIR,
+    OUT_DIR,
+    PRINT_DIR,
+    TEST_DIR,
+    RaupParams,
+    build_main_body_shell,
+    export_bambu_p1s_3mf,
+)
+from raup_produksjon import _measure_fbx_deviation, _measure_shell_wall_thickness, _verify_3mf_scale_and_manifold
 
-R = Path(__file__).resolve().parents[1]
-CAD, UT, KONTROLL = R / 'cad', R / 'produksjon', R / 'kontroll'
 
-kropp = cq.importers.importStep(str(CAD / 'raup_hovudkropp_ytre.step')).val()
-bb = kropp.BoundingBox()
-print(f'ytre kropp: {bb.xlen:.1f} x {bb.ylen:.1f} x {bb.zlen:.1f} mm, volum {kropp.Volume()/1e3:.0f} cm3')
+def main():
+    t0 = time.time()
+    wall_mm = float(sys.argv[1]) if len(sys.argv) > 1 else 2.5
+    total_h = float(sys.argv[2]) if len(sys.argv) > 2 else 200.0
+    params = RaupParams(total_height_mm=total_h, wall_mm=wall_mm)
 
-# Fjern botnflata (den plane flata med lågast z) og tjukn inn resten med -VEGG.
-skal = cq.Workplane('XY').add(kropp).faces('<Z').shell(-VEGG).val()
-if not skal.isValid():
-    skal = skal.fix()
-ok = skal.isValid() and skal.Volume() > 0
+    for d in (CAD_DIR, OUT_DIR, PRINT_DIR, TEST_DIR):
+        d.mkdir(parents=True, exist_ok=True)
 
-sb = skal.BoundingBox()
-passar = all(d <= P1S for d in (sb.xlen, sb.ylen, sb.zlen))
-masse_pla = skal.Volume() / 1e3 * 1.24                      # g, PLA 1,24 g/cm3
+    shell, outer_body, meta = build_main_body_shell(params)
+    bb = shell.BoundingBox()
 
-cq.exporters.export(skal, str(CAD / 'raup_skal.step'))
-cq.exporters.export(skal, str(UT / 'raup_skal_P1S.stl'), tolerance=0.05, angularTolerance=0.1)
+    step_path = CAD_DIR / "raup_skal.step"
+    stl_path = OUT_DIR / "raup_skal_P1S.stl"
+    out_3mf = PRINT_DIR / f"RAUP_P1S_H{total_h:g}_{wall_mm:g}mm_fuzzy.3mf"
 
-rapport = {
-    'fil': 'cad/raup_skal.step, produksjon/raup_skal_P1S.stl',
-    'veggtjukkleik_mm': VEGG,
-    'botn': 'open',
-    'gyldig_BRep': bool(ok),
-    'mal_mm': [round(sb.xlen, 1), round(sb.ylen, 1), round(sb.zlen, 1)],
-    'passar_P1S_256': bool(passar),
-    'volum_cm3': round(skal.Volume() / 1e3, 1),
-    'masse_PLA_g': round(masse_pla),
-    'utskrift': 'Ståande på den opne botnen. Inga fylling: veggen er heile skalet. '
-                'Set talet på veggliner så dei fyller veggen (3 mm / 0,42 mm = 7 liner), eller sparse infill 100 %.',
-}
-(KONTROLL / 'raup_skal.json').write_text(json.dumps(rapport, indent=2, ensure_ascii=False), encoding='utf-8')
-print(json.dumps(rapport, indent=2, ensure_ascii=False))
+    cq.exporters.export(shell, str(step_path))
+    reimp = cq.importers.importStep(str(step_path)).val()
+    re_ok = bool(reimp.isValid() and BRepCheck_Analyzer(reimp.wrapped).IsValid())
+    cq.exporters.export(shell, str(stl_path), tolerance=0.05, angularTolerance=0.10)
+    info_3mf = export_bambu_p1s_3mf(
+        shell,
+        out_3mf,
+        wall_mm=wall_mm,
+        total_height_mm=total_h,
+        lin_deflection=0.05,
+        ang_deflection=0.10,
+        layer_height_mm=0.16,
+        fuzzy_skin="external",
+        fuzzy_thickness_mm=params.fuzzy_skin_thickness_mm,
+        fuzzy_point_dist_mm=params.fuzzy_skin_point_dist_mm,
+    )
+    v3mf = _verify_3mf_scale_and_manifold(out_3mf, (bb.xlen, bb.ylen, bb.zlen))
+
+    report = {
+        "filer": ["cad/raup_skal.step", "produksjon/raup_skal_P1S.stl", v3mf["fil"]],
+        "metode": "Class-A NURBS (grad <= 3) periodisk B-rep med eksakt 3D normal-offset kuppel og ope botn",
+        "skala": f"Eksakt 1:1 mm (total lampehøgd {total_h:.1f} mm)",
+        "veggtjukkleik_mm": wall_mm,
+        "botn": "open (z = 0.000 mm)",
+        "gyldig_BRep": bool(shell.isValid() and BRepCheck_Analyzer(shell.wrapped).IsValid()),
+        "STEP_attlest_gyldig": re_ok,
+        "eitt_solid": len(shell.Solids()) == 1,
+        "flater": len(shell.Faces()),
+        "mal_mm": [round(bb.xlen, 2), round(bb.ylen, 2), round(bb.zlen, 2)],
+        "passar_P1S_256": v3mf["fits_P1S_256"],
+        "volum_cm3": round(shell.Volume() / 1e3, 1),
+        "masse_papirmasse_g": round(shell.Volume() / 1e3 * 0.65),
+        "masse_PLA_g": round(shell.Volume() / 1e3 * 1.24),
+        "veggkontroll": _measure_shell_wall_thickness(shell, meta, params),
+        "fbx_avvik_ytterform": _measure_fbx_deviation(outer_body, total_h),
+        "bambu_3mf_verifisering": v3mf,
+        "wall_loops_anbefalt": info_3mf["wall_loops"],
+        "tid_s": round(time.time() - t0, 2),
+    }
+    (TEST_DIR / "raup_skal.json").write_text(json.dumps(report, indent=2, ensure_ascii=False), encoding="utf-8")
+    print(json.dumps(report, indent=2, ensure_ascii=False))
+
+
+if __name__ == "__main__":
+    main()

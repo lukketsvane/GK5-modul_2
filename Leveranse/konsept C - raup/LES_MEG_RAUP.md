@@ -8,6 +8,7 @@ Parametrisk Class-A B-rep (NURBS grad ≤ 3) i kompakt **1:1-skala** med **200,0
 - **[`INNKJOPSPLAN_OG_MONTERING.md`](file:///c:/Users/Iver/Documents/github/GK5-modul_2/Leveranse/konsept%20C%20-%20raup/INNKJOPSPLAN_OG_MONTERING.md)** — Komplett innkjøpsguide med eksakte delenummer, norske/europeiske leverandørar (DigiKey.no, Mouser.no, Elfa Distrelec, Kjell & Co, Polyalkemi.no, Xometry.eu), stykkprisar (**476 kr** for 1-stk prototyp / **335 kr** per lampe ved 50 stk) og steg-for-steg montering.
 - **[`kontroll/raup_innkjopsliste.csv`](file:///c:/Users/Iver/Documents/github/GK5-modul_2/Leveranse/konsept%20C%20-%20raup/kontroll/raup_innkjopsliste.csv)** — Strukturert innkjøps-CSV med leverandørar, delenummer og prisar.
 - **[`kontroll/raup_BOM.csv`](file:///c:/Users/Iver/Documents/github/GK5-modul_2/Leveranse/konsept%20C%20-%20raup/kontroll/raup_BOM.csv)** — CAD-volum og massebudsjett (papirmasse vs. PLA-prototyp).
+- **[`render/11_produksjon_samanstilling.png`](file:///c:/Users/Iver/Documents/github/GK5-modul_2/Leveranse/konsept%20C%20-%20raup/render/11_produksjon_samanstilling.png)** — Tekniske snitt- og eksploderte samanstillingsvisningar av alle 8 komponentar (`01`–`08`).
 
 ---
 

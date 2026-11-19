@@ -1,0 +1,27 @@
+REGLAR — skolmarbeid.stl
+
+Ingen harde brot: delane let seg lage og setje saman.
+
+Og desse kan gå betre:
+
+  !! utnytting              29 %
+
+Alle linene:
+
+     plana grip             74 ledd
+     delar å skjere         39 stk
+     kan monterast          éin veg inn for kvar
+     ingen står i kvarandre ingen klemmer
+     utan ledd · kasta      ingen
+     gods i leddet          9,6 mm
+     delane får plass       4 ark
+     klaring                0,15 mm
+     snittbreidd            0,20 mm i fila
+     snittet mot sporet     0,20 mm mot 3,15 mm
+     opning mellom plan     11,0 mm
+     lukka nett             lukka
+     nettoppløysing         28344 av 28344
+  !! utnytting              29 %
+     bøyeradius             ingen bøygde plan
+     ledd på bøygde plan    ingen
+     møte på bøygde plan    ingen bøygde

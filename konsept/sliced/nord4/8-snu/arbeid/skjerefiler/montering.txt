@@ -1,0 +1,22 @@
+MONTERING — snuarbeid.stl
+16 plan, 2 mm plate. Adressa er gravert på kvar del.
+
+I denne rekkjefylgja. Sporet på delen som kjem opnar seg i fartsretninga; sporet på delen som ligg opnar seg mot han.
+  1  1  ligg — ingen ledd mot delar som alt ligg
+  2  2  ligg — ingen ledd mot delar som alt ligg
+  3  3  ligg — ingen ledd mot delar som alt ligg
+  4  4  ligg — ingen ledd mot delar som alt ligg
+  5  5  ligg — ingen ledd mot delar som alt ligg
+  6  6  ligg — ingen ledd mot delar som alt ligg
+  7  7  ligg — ingen ledd mot delar som alt ligg
+  8  8  ligg — ingen ledd mot delar som alt ligg
+  9  21  ovanfrå og ned, mot 4, 5, 6, 3
+  10  22  ovanfrå og ned, mot 3, 6, 2, 7, 4, 5
+  11  23  ovanfrå og ned, mot 2, 7, 1, 8, 6, 3, 4, 5
+  12  24  ovanfrå og ned, mot 8, 1, 7, 2, 6, 3, 4, 5
+  13  25  ovanfrå og ned, mot 1, 8, 7, 2, 6, 3, 4, 5
+  14  26  ovanfrå og ned, mot 2, 7, 1, 8, 6, 3, 4, 5
+  15  27  ovanfrå og ned, mot 3, 6, 2, 7, 4, 5
+  16  28  ovanfrå og ned, mot 4, 5, 6, 3
+
+Sit eit ledd for hardt, er klaringa for liten: skjer passprøva i den same plata og set klaringa til det sporet avkappet går i med tommelkraft.

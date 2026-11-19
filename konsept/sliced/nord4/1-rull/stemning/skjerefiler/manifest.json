@@ -1,0 +1,206 @@
+{
+ "namn": "rullstemning",
+ "mappe": "/tmp/claude-0/-home-user-slicer-iverfinne-no/0351339b-1ff7-580f-bca7-9071db1d2f3c/scratchpad/lampe/nord4/boygd/rull-stemning/ut/produksjon",
+ "ok": true,
+ "tal": {
+  "plan": 3,
+  "delar": 3,
+  "unike": 2,
+  "ledd": 4,
+  "avviste": 0,
+  "lause": 0,
+  "ark": 1,
+  "utnytting": 0.7189186649159354,
+  "kuttMm": 3430.362942011181,
+  "gravMm": 120.34648133255335,
+  "tidS": 171.51814710055905,
+  "masseKg": 0.062252605032400675,
+  "ytre": [
+   167.90441103256,
+   320.01599999999996,
+   167.80879588592495
+  ],
+  "sporMm": 2.05,
+  "godsMm": 2.898416833810665
+ },
+ "harde": [],
+ "mjuke": [],
+ "ark": [
+  {
+   "nr": 1,
+   "delar": [
+    "10",
+    "1",
+    "2"
+   ],
+   "utnytting": 0.7189186649159354,
+   "avHeileArket": 0.589513305231067,
+   "gravMm": 120.34648133255335,
+   "umerkte": [],
+   "iHol": [],
+   "dxf": "ark-1.dxf",
+   "svg": "ark-1.svg",
+   "png": "ark-1.png"
+  }
+ ],
+ "delar": [
+  {
+   "adr": "1",
+   "id": "D01",
+   "w": 167.90441103256,
+   "h": 167.80879588592495,
+   "area": 21530.1210056105,
+   "cutLen": 1052.6673226736348,
+   "joints": 2,
+   "ark": 1,
+   "plan": 1
+  },
+  {
+   "adr": "2",
+   "id": "D01",
+   "w": 167.90441103256,
+   "h": 167.80879588592495,
+   "area": 21530.1210056105,
+   "cutLen": 1052.6673226736348,
+   "joints": 2,
+   "ark": 1,
+   "plan": 2
+  },
+  {
+   "adr": "10",
+   "id": "D02",
+   "w": 335.102,
+   "h": 320.01599999999996,
+   "area": 98422.95124423508,
+   "cutLen": 1325.0282966639118,
+   "joints": 4,
+   "ark": 1,
+   "plan": 10
+  }
+ ],
+ "filer": [
+  {
+   "namn": "ark-1.dxf",
+   "byte": 36157,
+   "detalj": 220,
+   "kva": "kuttfil, R12 ASCII, mm, lag KUTT og GRAVER, snittet teke"
+  },
+  {
+   "namn": "ark-1.svg",
+   "byte": 10263,
+   "detalj": 220,
+   "kva": "kuttfil 1:1, svart graver, blaa kutt, snittet teke"
+  },
+  {
+   "namn": "ark-1.png",
+   "byte": 111707,
+   "detalj": 220,
+   "kva": "bilete av arket, ikkje til maskina"
+  },
+  {
+   "namn": "profilar.svg",
+   "byte": 10264,
+   "detalj": 220,
+   "kva": "alle profilane side om side, 1:1"
+  },
+  {
+   "namn": "samla.glb",
+   "byte": 328332,
+   "detalj": 1200,
+   "kva": "montert, meter, Y opp, ein node per del"
+  },
+  {
+   "namn": "flat.glb",
+   "byte": 84744,
+   "detalj": 220,
+   "kva": "delane flatt som paa arka, ei gruppe per ark"
+  },
+  {
+   "namn": "deler.3mf",
+   "byte": 281449,
+   "detalj": 1200,
+   "kva": "flate delar, eitt objekt per del, mm, Z opp"
+  },
+  {
+   "namn": "samla.stl",
+   "byte": 454084,
+   "detalj": 1200,
+   "kva": "montert, ei trekantsuppe, mm, Z opp"
+  },
+  {
+   "namn": "samla.usdz",
+   "byte": 865454,
+   "detalj": 1200,
+   "kva": "montert, AR Quick Look"
+  },
+  {
+   "namn": "passprove.svg",
+   "byte": 10404,
+   "detalj": null,
+   "kva": "passprove: sju spor, 0,05 mm breiare kvar gong"
+  },
+  {
+   "namn": "bogprove.svg",
+   "byte": 39771,
+   "detalj": null,
+   "kva": "boyeprove: fem felt"
+  },
+  {
+   "namn": "alt.zip",
+   "byte": 433018,
+   "detalj": 220,
+   "kva": "ALT-pakka slik appen lastar ho ned"
+  },
+  {
+   "namn": "montering.txt",
+   "byte": 508,
+   "detalj": 220,
+   "kva": "rekkjefylgja, del for del, med retning"
+  },
+  {
+   "namn": "deler.csv",
+   "byte": 174,
+   "detalj": 220,
+   "kva": "kuttlista, semikolon, desimalkomma"
+  },
+  {
+   "namn": "reglar.txt",
+   "byte": 781,
+   "detalj": 220,
+   "kva": "kvar regel, og dei harde brota med kvifor"
+  },
+  {
+   "namn": "rullstemning.zip",
+   "byte": 2734,
+   "detalj": null,
+   "kva": "prosjektfila (LAGRE)"
+  },
+  {
+   "namn": "delar.json",
+   "byte": 23597,
+   "detalj": 220,
+   "kva": "per del: omriss, hol, tjukn, matrise; og rekkjefylgja"
+  }
+ ],
+ "fin": {
+  "celler": 1200,
+  "delar": 3,
+  "ledd": 8,
+  "ark": 1,
+  "kuttMm": 3432.0726172254053,
+  "likt": true,
+  "filer": [
+   "ark-1.dxf",
+   "ark-1.svg",
+   "delar.json"
+  ],
+  "paaArk": [
+   [
+    "10",
+    "1",
+    "2"
+   ]
+  ],
+  "sameArk": true
+ }
+}

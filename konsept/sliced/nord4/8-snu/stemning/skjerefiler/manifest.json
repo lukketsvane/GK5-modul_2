@@ -1,0 +1,404 @@
+{
+ "namn": "snustemning",
+ "mappe": "/tmp/claude-0/-home-user-slicer-iverfinne-no/0351339b-1ff7-580f-bca7-9071db1d2f3c/scratchpad/lampe/nord4/kula/snu-stemning/ut/produksjon",
+ "ok": true,
+ "tal": {
+  "plan": 16,
+  "delar": 16,
+  "unike": 9,
+  "ledd": 52,
+  "avviste": 0,
+  "lause": 0,
+  "ark": 2,
+  "utnytting": 0.4259791002076044,
+  "kuttMm": 18299.117544074612,
+  "gravMm": 700.2119003356436,
+  "tidS": 914.9558772037306,
+  "masseKg": 0.4322972222218836,
+  "ytre": [
+   198.40759525741933,
+   198.49102215067052,
+   160.78907641649621
+  ],
+  "sporMm": 2.15,
+  "godsMm": 16.77723118692511
+ },
+ "harde": [],
+ "mjuke": [],
+ "ark": [
+  {
+   "nr": 1,
+   "delar": [
+    "22",
+    "27",
+    "2",
+    "7",
+    "23",
+    "26",
+    "3",
+    "1"
+   ],
+   "utnytting": 0.41518007773630516,
+   "avHeileArket": 0.4110282769589421,
+   "gravMm": 326.44715263649334,
+   "umerkte": [],
+   "iHol": [],
+   "dxf": "ark-1.dxf",
+   "svg": "ark-1.svg",
+   "png": "ark-1.png"
+  },
+  {
+   "nr": 2,
+   "delar": [
+    "6",
+    "24",
+    "25",
+    "4",
+    "5",
+    "8",
+    "21",
+    "28"
+   ],
+   "utnytting": 0.43956939543631574,
+   "avHeileArket": 0.34579459107656835,
+   "gravMm": 373.7647476991503,
+   "umerkte": [],
+   "iHol": [],
+   "dxf": "ark-2.dxf",
+   "svg": "ark-2.svg",
+   "png": "ark-2.png"
+  }
+ ],
+ "delar": [
+  {
+   "adr": "1",
+   "id": "D01",
+   "w": 108.32088676784997,
+   "h": 108.35345063324303,
+   "area": 8762.885047506277,
+   "cutLen": 734.7681228101997,
+   "joints": 4,
+   "ark": 1,
+   "plan": 1
+  },
+  {
+   "adr": "2",
+   "id": "D02",
+   "w": 159.76380045741647,
+   "h": 141.9780976323932,
+   "area": 13577.906280663145,
+   "cutLen": 1228.2969374623328,
+   "joints": 6,
+   "ark": 1,
+   "plan": 2
+  },
+  {
+   "adr": "3",
+   "id": "D03",
+   "w": 186.39362810597282,
+   "h": 155.24853482738862,
+   "area": 11852.46379390599,
+   "cutLen": 1331.5344697076516,
+   "joints": 8,
+   "ark": 1,
+   "plan": 3
+  },
+  {
+   "adr": "4",
+   "id": "D04",
+   "w": 198.49102215067052,
+   "h": 160.78907641649621,
+   "area": 11183.898747118274,
+   "cutLen": 1288.8763216953785,
+   "joints": 8,
+   "ark": 2,
+   "plan": 4
+  },
+  {
+   "adr": "5",
+   "id": "D04",
+   "w": 198.49096357683985,
+   "h": 160.78902311022588,
+   "area": 11183.913418008444,
+   "cutLen": 1288.8763878954146,
+   "joints": 8,
+   "ark": 2,
+   "plan": 5
+  },
+  {
+   "adr": "6",
+   "id": "D03",
+   "w": 186.39347363431057,
+   "h": 155.24839751381094,
+   "area": 11852.533315212415,
+   "cutLen": 1331.5316704608022,
+   "joints": 8,
+   "ark": 2,
+   "plan": 6
+  },
+  {
+   "adr": "7",
+   "id": "D02",
+   "w": 159.76348173603705,
+   "h": 141.97784266903946,
+   "area": 13577.953382614261,
+   "cutLen": 1228.2968641054456,
+   "joints": 6,
+   "ark": 1,
+   "plan": 7
+  },
+  {
+   "adr": "8",
+   "id": "D01",
+   "w": 108.32025619833679,
+   "h": 108.3523853434564,
+   "area": 8762.749760662276,
+   "cutLen": 734.7622099808179,
+   "joints": 4,
+   "ark": 2,
+   "plan": 8
+  },
+  {
+   "adr": "21",
+   "id": "D05",
+   "w": 108.35991977507425,
+   "h": 108.31367226831395,
+   "area": 8812.16518402485,
+   "cutLen": 709.8693712864127,
+   "joints": 4,
+   "ark": 2,
+   "plan": 21
+  },
+  {
+   "adr": "22",
+   "id": "D06",
+   "w": 159.8322370315595,
+   "h": 141.8720565601995,
+   "area": 13580.130631039123,
+   "cutLen": 1228.9241796096767,
+   "joints": 6,
+   "ark": 1,
+   "plan": 22
+  },
+  {
+   "adr": "23",
+   "id": "D07",
+   "w": 186.38876282771008,
+   "h": 155.21760405651943,
+   "area": 11857.603216913662,
+   "cutLen": 1332.0887020269383,
+   "joints": 8,
+   "ark": 1,
+   "plan": 23
+  },
+  {
+   "adr": "24",
+   "id": "D08",
+   "w": 198.40759525741933,
+   "h": 160.6844585653454,
+   "area": 11191.70078104804,
+   "cutLen": 1295.214419128552,
+   "joints": 8,
+   "ark": 2,
+   "plan": 24
+  },
+  {
+   "adr": "25",
+   "id": "D08",
+   "w": 198.40753819816592,
+   "h": 160.6847523661818,
+   "area": 11191.718396618615,
+   "cutLen": 1295.2134933167656,
+   "joints": 8,
+   "ark": 2,
+   "plan": 25
+  },
+  {
+   "adr": "26",
+   "id": "D07",
+   "w": 186.38860125035418,
+   "h": 155.2174667106671,
+   "area": 11857.676498089124,
+   "cutLen": 1332.0860244414646,
+   "joints": 8,
+   "ark": 1,
+   "plan": 26
+  },
+  {
+   "adr": "27",
+   "id": "D09",
+   "w": 159.83192002644608,
+   "h": 141.8718042126402,
+   "area": 13580.167619414528,
+   "cutLen": 1228.92003233983,
+   "joints": 6,
+   "ark": 1,
+   "plan": 27
+  },
+  {
+   "adr": "28",
+   "id": "D05",
+   "w": 108.35928909067133,
+   "h": 108.31259624372268,
+   "area": 8812.02225568349,
+   "cutLen": 709.8583378069255,
+   "joints": 4,
+   "ark": 2,
+   "plan": 28
+  }
+ ],
+ "filer": [
+  {
+   "namn": "ark-1.dxf",
+   "byte": 60126,
+   "detalj": 220,
+   "kva": "kuttfil, R12 ASCII, mm, lag KUTT og GRAVER, snittet teke"
+  },
+  {
+   "namn": "ark-1.svg",
+   "byte": 16736,
+   "detalj": 220,
+   "kva": "kuttfil 1:1, svart graver, blaa kutt, snittet teke"
+  },
+  {
+   "namn": "ark-1.png",
+   "byte": 192456,
+   "detalj": 220,
+   "kva": "bilete av arket, ikkje til maskina"
+  },
+  {
+   "namn": "ark-2.dxf",
+   "byte": 60052,
+   "detalj": 220,
+   "kva": "kuttfil, R12 ASCII, mm, lag KUTT og GRAVER, snittet teke"
+  },
+  {
+   "namn": "ark-2.svg",
+   "byte": 16634,
+   "detalj": 220,
+   "kva": "kuttfil 1:1, svart graver, blaa kutt, snittet teke"
+  },
+  {
+   "namn": "ark-2.png",
+   "byte": 182755,
+   "detalj": 220,
+   "kva": "bilete av arket, ikkje til maskina"
+  },
+  {
+   "namn": "profilar.svg",
+   "byte": 33915,
+   "detalj": 220,
+   "kva": "alle profilane side om side, 1:1"
+  },
+  {
+   "namn": "samla.glb",
+   "byte": 450988,
+   "detalj": 1200,
+   "kva": "montert, meter, Y opp, ein node per del"
+  },
+  {
+   "namn": "flat.glb",
+   "byte": 268596,
+   "detalj": 220,
+   "kva": "delane flatt som paa arka, ei gruppe per ark"
+  },
+  {
+   "namn": "deler.3mf",
+   "byte": 776433,
+   "detalj": 1200,
+   "kva": "flate delar, eitt objekt per del, mm, Z opp"
+  },
+  {
+   "namn": "samla.stl",
+   "byte": 617684,
+   "detalj": 1200,
+   "kva": "montert, ei trekantsuppe, mm, Z opp"
+  },
+  {
+   "namn": "samla.usdz",
+   "byte": 1062973,
+   "detalj": 1200,
+   "kva": "montert, AR Quick Look"
+  },
+  {
+   "namn": "passprove.svg",
+   "byte": 10691,
+   "detalj": null,
+   "kva": "passprove: sju spor, 0,05 mm breiare kvar gong"
+  },
+  {
+   "namn": "alt.zip",
+   "byte": 568437,
+   "detalj": 220,
+   "kva": "ALT-pakka slik appen lastar ho ned"
+  },
+  {
+   "namn": "montering.txt",
+   "byte": 1154,
+   "detalj": 220,
+   "kva": "rekkjefylgja, del for del, med retning"
+  },
+  {
+   "namn": "deler.csv",
+   "byte": 667,
+   "detalj": 220,
+   "kva": "kuttlista, semikolon, desimalkomma"
+  },
+  {
+   "namn": "reglar.txt",
+   "byte": 771,
+   "detalj": 220,
+   "kva": "kvar regel, og dei harde brota med kvifor"
+  },
+  {
+   "namn": "snustemning.zip",
+   "byte": 1614081,
+   "detalj": null,
+   "kva": "prosjektfila (LAGRE)"
+  },
+  {
+   "namn": "delar.json",
+   "byte": 80857,
+   "detalj": 220,
+   "kva": "per del: omriss, hol, tjukn, matrise; og rekkjefylgja"
+  }
+ ],
+ "fin": {
+  "celler": 1200,
+  "delar": 16,
+  "ledd": 104,
+  "ark": 2,
+  "kuttMm": 18375.933794599554,
+  "likt": true,
+  "filer": [
+   "ark-1.dxf",
+   "ark-1.svg",
+   "ark-2.dxf",
+   "ark-2.svg",
+   "delar.json"
+  ],
+  "paaArk": [
+   [
+    "22",
+    "27",
+    "2",
+    "7",
+    "23",
+    "26",
+    "3",
+    "1"
+   ],
+   [
+    "6",
+    "24",
+    "25",
+    "4",
+    "5",
+    "8",
+    "21",
+    "28"
+   ]
+  ],
+  "sameArk": true
+ }
+}

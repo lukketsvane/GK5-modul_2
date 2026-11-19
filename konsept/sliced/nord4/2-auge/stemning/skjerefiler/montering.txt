@@ -1,0 +1,11 @@
+MONTERING — augestemning.stl
+5 plan, 2 mm plate. Adressa er gravert på kvar del.
+
+I denne rekkjefylgja. Sporet på delen som kjem opnar seg i fartsretninga; sporet på delen som ligg opnar seg mot han.
+  1  10  ligg — ingen ledd mot delar som alt ligg
+  2  1  nedanfrå og opp, mot 10
+  3  2  ovanfrå og ned, mot 10
+  4  3  ligg — ingen ledd mot delar som alt ligg
+  5  11  nedanfrå og opp, mot 3
+
+Sit eit ledd for hardt, er klaringa for liten: skjer passprøva i den same plata og set klaringa til det sporet avkappet går i med tommelkraft.

@@ -1,0 +1,984 @@
+{
+ "namn": "lamellarbeid",
+ "id": "lamellarbeid",
+ "mappe": "/tmp/claude-0/-home-user-slicer-iverfinne-no/0351339b-1ff7-580f-bca7-9071db1d2f3c/scratchpad/lampe/nord4/skjerm/lamell-arbeid",
+ "ok": true,
+ "rask": false,
+ "nett": {
+  "tris": 736,
+  "hjorne": 368,
+  "flate": 139302.6045245139,
+  "opne": 0,
+  "mangfaldige": 0,
+  "vrengde": 0,
+  "utarta": 0,
+  "skal": [
+   928684.0290727959
+  ],
+  "volum": 928684.0290727959,
+  "min": [
+   -48,
+   -36,
+   0
+  ],
+  "max": [
+   48,
+   36,
+   280
+  ],
+  "lukka": true,
+  "samstemt": true,
+  "utover": true,
+  "ok": true,
+  "motorVolum": 928684.0412862761
+ },
+ "pose": {
+  "kjelde": "lamellarbeid",
+  "scene": "",
+  "storleik": 280,
+  "rotX": 0,
+  "rotY": 0,
+  "rotZ": 0,
+  "glatt": 0,
+  "trekant": 40,
+  "forenkl": 0,
+  "hol": 0,
+  "tjukn": 3,
+  "lause": 1,
+  "merk": 0,
+  "snapp": 3,
+  "klaring": 0.1,
+  "ledd": 0.5,
+  "kilar": 0,
+  "snitt": 0.15,
+  "snittveg": 0,
+  "fart": 20,
+  "arkB": 600,
+  "arkH": 400,
+  "material": "bjork",
+  "plan": "42@0.5,0.5,0/0.866,0.5,0/n:1/p:0.0429,-0.0357,0.7143,-0.0357,0.7143,1.0357,0.0429,1.0357;43@0.5,0.5,0/0,1,0/n:1/p:0.0429,-0.0357,0.7143,-0.0357,0.7143,1.0357,0.0429,1.0357;1@0.5,0.5,0.05/0,0,1;2@0.5,0.5,0.1062/0,0,1;3@0.5,0.5,0.1625/0,0,1;4@0.5,0.5,0.2188/0,0,1;5@0.5,0.5,0.275/0,0,1;6@0.5,0.5,0.3312/0,0,1;7@0.5,0.5,0.3875/0,0,1;8@0.5,0.5,0.4437/0,0,1;9@0.5,0.5,0.5/0,0,1;10@0.5,0.5,0.5563/0,0,1;11@0.5,0.5,0.6125/0,0,1;12@0.5,0.5,0.6687/0,0,1;13@0.5,0.5,0.725/0,0,1;14@0.5,0.5,0.7813/0,0,1;15@0.5,0.5,0.8375/0,0,1;16@0.5,0.5,0.8938/0,0,1;17@0.5,0.5,0.95/0,0,1;40@0.5,0.5,0/0,-1,0/n:1/p:0.0429,-0.0357,0.7143,-0.0357,0.7143,1.0357,0.0429,1.0357;41@0.5,0.5,0/0.866,-0.5,0/n:1/p:0.0429,-0.0357,0.7143,-0.0357,0.7143,1.0357,0.0429,1.0357",
+  "fest": "",
+  "deling": ""
+ },
+ "plan": "42@0.5,0.5,0/0.866,0.5,0/n:1/p:0.0429,-0.0357,0.7143,-0.0357,0.7143,1.0357,0.0429,1.0357;43@0.5,0.5,0/0,1,0/n:1/p:0.0429,-0.0357,0.7143,-0.0357,0.7143,1.0357,0.0429,1.0357;1@0.5,0.5,0.05/0,0,1;2@0.5,0.5,0.1062/0,0,1;3@0.5,0.5,0.1625/0,0,1;4@0.5,0.5,0.2188/0,0,1;5@0.5,0.5,0.275/0,0,1;6@0.5,0.5,0.3312/0,0,1;7@0.5,0.5,0.3875/0,0,1;8@0.5,0.5,0.4437/0,0,1;9@0.5,0.5,0.5/0,0,1;10@0.5,0.5,0.5563/0,0,1;11@0.5,0.5,0.6125/0,0,1;12@0.5,0.5,0.6687/0,0,1;13@0.5,0.5,0.725/0,0,1;14@0.5,0.5,0.7813/0,0,1;15@0.5,0.5,0.8375/0,0,1;16@0.5,0.5,0.8938/0,0,1;17@0.5,0.5,0.95/0,0,1;40@0.5,0.5,0/0,-1,0/n:1/p:0.0429,-0.0357,0.7143,-0.0357,0.7143,1.0357,0.0429,1.0357;41@0.5,0.5,0/0.866,-0.5,0/n:1/p:0.0429,-0.0357,0.7143,-0.0357,0.7143,1.0357,0.0429,1.0357",
+ "tal": {
+  "plan": 21,
+  "delar": 21,
+  "unike": 3,
+  "ledd": 68,
+  "tappar": 0,
+  "avviste": 0,
+  "lause": 0,
+  "ark": 1,
+  "utnytting": 0.4245520373378524,
+  "kuttMm": 12284.768048869819,
+  "tidS": 614.2384024434909,
+  "masseKg": 0.1392666539120104,
+  "ytre": [
+   95.8367378925297,
+   71.99999705037374,
+   280
+  ],
+  "sporMm": 3.1,
+  "godsMm": 7.075706181353386
+ },
+ "reglar": [
+  {
+   "id": "grip",
+   "label": "plana grip",
+   "hard": true,
+   "ok": true,
+   "value": "68 ledd",
+   "why": "Utan eit einaste kryssledd er dette ikkje eit objekt, men ein bunke laust liggjande plater. Vanlegaste grunnen er at plana ikkje kryssar kvarandre der kroppen har gods, eller at det står for få av dei til at nokon møtest. Er nokre avviste, kryssa dei — men det stod for lite gods ved sida av sporet til at noko heldt. Rutenettet på lina set kolonner og rader med to fingrar."
+  },
+  {
+   "id": "delar",
+   "label": "delar å skjere",
+   "hard": true,
+   "ok": true,
+   "value": "21 stk",
+   "why": "Ingen plan råka nettet. Anten står plana utanfor kroppen, eller so er nettet so tynt at kvar profil fell under minstearealet — eller du har ikkje låst noko enno. Rutenettet på lina set kolonner og rader med to fingrar."
+  },
+  {
+   "id": "orden",
+   "label": "kan monterast",
+   "hard": true,
+   "ok": true,
+   "value": "éin veg inn for kvar",
+   "why": "Ein del vert skuva inn langs spora sine, og eit spor går langs lina der dei to plana kryssar. Delen her har ledd mot to delar som alt ligg, langs liner som ikkje er parallelle, og han kan berre gå éin veg. Verdien seier kva for to han står mellom. Byt rekkjefylgja, so han kjem inn før den eine av dei; vinkle planet om, so dei to linene vert parallelle; eller flytt han ut av vegen til den eine. Med to familiar ribber som kryssar kvarandre vert det alltid éin som kjem sist, og han er bunden av båe — ei plate på tvers av eit rutenett går ikkje i hop med spor åleine."
+  },
+  {
+   "id": "klem",
+   "label": "ingen står i kvarandre",
+   "hard": true,
+   "ok": true,
+   "value": "ingen klemmer",
+   "why": "To plan kryssar der begge har gods, men møtet fekk ikkje spor: det stod for lite gods ved sida av sporet til at noko heldt. Godset står difor att i båe, og dei to delane skal vera same staden — det går ikkje i hop, same rekkjefylgje du tek. Eit grovare rutenett er det som hjelper oftast; tynnare plate gjev færre, tjukkare gjev fleire."
+  },
+  {
+   "id": "lause",
+   "label": "utan ledd · kasta",
+   "hard": false,
+   "ok": true,
+   "value": "ingen",
+   "why": "Eit stykke som ikkje kryssar eit einaste anna plan heng ikkje i noko: det står i kuttlista, kostar plass på plata, og ligg laust i eska. Eit plan til gjennom stykket gjev det eit ledd; `lause` på «kast» tek lause øyer ut av fila."
+  },
+  {
+   "id": "gods",
+   "label": "gods i leddet",
+   "hard": true,
+   "ok": true,
+   "value": "7,1 mm",
+   "why": "Sporet et halve overlappet, og det som er att må bera resten av delen. Under 3,0 mm knekk finéren i sporbotnen når du pressar delane saman. Flytt leddelinga, eller set planet der nettet er tjukkare."
+  },
+  {
+   "id": "plate",
+   "label": "delane får plass",
+   "hard": true,
+   "ok": true,
+   "value": "1 ark",
+   "why": "Ein del er større enn plata. Anten mindre objekt, fleire plan (kvar del vert mindre), eller ei større plate enn 600 × 400 mm."
+  },
+  {
+   "id": "klaring",
+   "label": "klaring",
+   "hard": false,
+   "ok": true,
+   "value": "0,10 mm",
+   "why": "Sporet er tjukna pluss klaringa, so talet gjeld den MÅLTE plata: 3 mm MDF måler jamt 2,8–2,9, og set du 3 er sporet 0,2 for vidt før klaringa er talt med. Mål plata med skyvelær og set tjukna til det. Under 0,05 mm får du ikkje delane i hop utan hammar, og finér som vert slegen i hop flisar seg. Over 0,35 mm sit dei ikkje fast. Passprøva skjer heile stigen og let deg kjenne etter."
+  },
+  {
+   "id": "snitt",
+   "label": "snittbreidd",
+   "hard": false,
+   "ok": true,
+   "value": "0,15 mm i fila",
+   "why": "Stråla har breidd, og kutten et henne ut av delen. Er snittbreidda null, kompenserer korkje fila eller maskina for henne: kvart spor kjem ut ei snittbreidd for vidt. Passprøva måler henne og klaringa i eitt."
+  },
+  {
+   "id": "snittspor",
+   "label": "snittet mot sporet",
+   "hard": true,
+   "ok": true,
+   "value": "0,15 mm mot 3,10 mm",
+   "why": "Snittbreidda vert kompensert ved å skuve omrisset utover, og sporet vert teikna like mykje smalare. Er snittet like breitt som sporet, er det teikna sporet borte, og konturen brettar seg over seg sjølv."
+  },
+  {
+   "id": "opning",
+   "label": "opning mellom plan",
+   "hard": false,
+   "ok": true,
+   "value": "12,7 mm",
+   "why": "To nesten parallelle plan står so tett at fingrane ikkje kjem imellom dei når du monterer. Flytt det eine, eller ta det bort."
+  },
+  {
+   "id": "lukka",
+   "label": "lukka nett",
+   "hard": false,
+   "ok": true,
+   "value": "lukka",
+   "why": "Snittinga les nettet med strålar og tel kva veg kvar trekant vender. Eit nett med hòl i har ingen innside å telje, og då kan ein profil kome ut som eit stykke der han skulle vore to."
+  },
+  {
+   "id": "nett",
+   "label": "nettoppløysing",
+   "hard": false,
+   "ok": true,
+   "value": "736 av 736",
+   "why": "Trekanttaket står på det lågaste hakket sitt, og nettet hadde meir å gje. Plana vert lesne av nett desse trekantane, so profilen er so grov som dei er. Skru opp taket."
+  },
+  {
+   "id": "utnytting",
+   "label": "utnytting",
+   "hard": false,
+   "ok": true,
+   "value": "42 %",
+   "why": "Meir enn to tredelar av plata går i søppelbøtta. Prøv ei anna plate, eller færre og større delar. Pakkinga fylgjer omrisset og reknar hòla som ledig plass, so det som står att er luft ho ikkje fann nokon del til."
+  },
+  {
+   "id": "bog",
+   "label": "bøyeradius",
+   "hard": false,
+   "ok": true,
+   "value": "ingen bøygde plan",
+   "why": "Under 450,0 mm vert plata RILLA: rader med snitt på tvers av bøyen, 2,7 mm mellom kvar, som tek vekk godset som elles vart strekt. Rundt kvart spor står ei stiv øy — godset som ber eit ledd skal ikkje vera perforert. Prisen er kuttlengd og mindre gods. Om brua held er ikkje rekna her: skjer ein prøvestrimmel."
+  },
+  {
+   "id": "bogledd",
+   "label": "ledd på bøygde plan",
+   "hard": false,
+   "ok": true,
+   "value": "ingen",
+   "why": "Ei bøygd ribbe får spor på to måtar: eit flatt plan LANGS sylinderaksen hennar møter henne i ei rett line, og eit flatt plan VINKELRETT på aksen — eit golv — møter henne i ein sirkelboge med sylinderradien. Desse ribbene fann ingen av delane: eit plan som SKRÅR mot aksen møter flata i ei kurve som korkje er det eine eller det andre, og den finnaren er ikkje skriven. Dei kjem ut som lause plater du må feste sjølv. Rett ut bøyen, legg eit plan langs aksen, eller eit golv på tvers av han."
+  },
+  {
+   "id": "bogkurve",
+   "label": "møte på bøygde plan",
+   "hard": false,
+   "ok": true,
+   "value": "ingen bøygde",
+   "why": "Eit flatt plan som SKRÅR mot sylinderaksen til eit bøygt plan møter det i eit kjeglesnitt, og den finnaren er ikkje skriven. Møta er talde her og vart ikkje ledd: dei to delane kjem ut utan spor for kvarandre. Legg planet LANGS aksen, eller VINKELRETT på han — då er møtet ei line eller ein sirkelboge, og båe ber spor — eller rett ut bøyen."
+  }
+ ],
+ "harde": [],
+ "mjuke": [],
+ "krav": [
+  {
+   "namn": "nettet er lukka og vender ut",
+   "ok": true,
+   "verdi": "736 trekantar · 0 opne · 0 mangfaldige · 0 vrengde · 1 skal"
+  },
+  {
+   "namn": "nettet held trekantbudsjettet",
+   "ok": true,
+   "verdi": "736 av 40000: over det vert nettet forenkla"
+  },
+  {
+   "namn": "kroppen står sentrert på z = 0",
+   "ok": true,
+   "verdi": "ja"
+  },
+  {
+   "namn": "1:1",
+   "ok": true,
+   "verdi": "storleik 280 mot lengste side 280.00 · glatt 0 forenkl 0 hol 0"
+  },
+  {
+   "namn": "motoren les same volum som nettet",
+   "ok": true,
+   "verdi": "929 cm3 mot 929 cm3"
+  },
+  {
+   "namn": "alle plan kom med",
+   "ok": true,
+   "verdi": "21 skrivne · 21 lesne · 21 i motoren"
+  },
+  {
+   "namn": "appen opnar posen uendra",
+   "ok": true,
+   "verdi": "ja"
+  },
+  {
+   "namn": "ingen lause eller kasta stykke",
+   "ok": true,
+   "verdi": "0 lause"
+  },
+  {
+   "namn": "alle delar ligg på eit ark",
+   "ok": true,
+   "verdi": "ja"
+  },
+  {
+   "namn": "kvart plan gjev minst éin del",
+   "ok": true,
+   "verdi": "ja"
+  },
+  {
+   "namn": "ingen spalte held fram gjennom gods forbi munnen",
+   "ok": true,
+   "verdi": "ja"
+  },
+  {
+   "namn": "kvar finne og ribbe er ein del",
+   "ok": true,
+   "verdi": "21 delar"
+  },
+  {
+   "namn": "ingen tapp",
+   "ok": true,
+   "verdi": "0 tappar"
+  },
+  {
+   "namn": "foten under 200 cm2",
+   "ok": true,
+   "verdi": "113 cm2"
+  },
+  {
+   "namn": "fine kuttfiler (1200 celler) gjev same delar, ledd og ark",
+   "ok": true,
+   "verdi": "21 delar · 1 ark · 12.34 m"
+  }
+ ],
+ "ark": [
+  {
+   "nr": 1,
+   "delar": [
+    "42",
+    "43",
+    "40",
+    "41",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "10",
+    "11",
+    "12",
+    "13",
+    "14",
+    "15",
+    "16",
+    "17"
+   ],
+   "utnytting": 0.4245520373378524,
+   "avHeileArket": 0.2886953853897396,
+   "gravMm": 520.4227059673624,
+   "umerkte": [],
+   "iHol": []
+  }
+ ],
+ "delar": [
+  {
+   "adr": "42",
+   "id": "D01",
+   "w": 14.163290766022676,
+   "h": 280,
+   "area": 3588.6727987212967,
+   "cutLen": 821.4793457064441,
+   "joints": 17,
+   "ark": 1,
+   "plan": 42
+  },
+  {
+   "adr": "43",
+   "id": "D02",
+   "w": 14.66429282451881,
+   "h": 280,
+   "area": 3704.88074920922,
+   "cutLen": 828.7396781913553,
+   "joints": 17,
+   "ark": 1,
+   "plan": 43
+  },
+  {
+   "adr": "1",
+   "id": "D03",
+   "w": 95.83673789252967,
+   "h": 71.99999705037372,
+   "area": 3217.633900045667,
+   "cutLen": 528.4901506088902,
+   "joints": 4,
+   "ark": 1,
+   "plan": 1
+  },
+  {
+   "adr": "2",
+   "id": "D03",
+   "w": 95.8367378925297,
+   "h": 71.99999705037372,
+   "area": 3217.633900045666,
+   "cutLen": 528.4901506088903,
+   "joints": 4,
+   "ark": 1,
+   "plan": 2
+  },
+  {
+   "adr": "3",
+   "id": "D03",
+   "w": 95.83673789252968,
+   "h": 71.99999705037374,
+   "area": 3217.633900045666,
+   "cutLen": 528.4901506088903,
+   "joints": 4,
+   "ark": 1,
+   "plan": 3
+  },
+  {
+   "adr": "4",
+   "id": "D03",
+   "w": 95.8367378925297,
+   "h": 71.99999705037374,
+   "area": 3217.633900045664,
+   "cutLen": 528.4901506088903,
+   "joints": 4,
+   "ark": 1,
+   "plan": 4
+  },
+  {
+   "adr": "5",
+   "id": "D03",
+   "w": 95.83673789252968,
+   "h": 71.99999705037374,
+   "area": 3217.6339000456646,
+   "cutLen": 528.4901506088903,
+   "joints": 4,
+   "ark": 1,
+   "plan": 5
+  },
+  {
+   "adr": "6",
+   "id": "D03",
+   "w": 95.8367378925297,
+   "h": 71.99999705037374,
+   "area": 3217.633900045666,
+   "cutLen": 528.4901506088903,
+   "joints": 4,
+   "ark": 1,
+   "plan": 6
+  },
+  {
+   "adr": "7",
+   "id": "D03",
+   "w": 95.8367378925297,
+   "h": 71.99999705037374,
+   "area": 3217.6339000456646,
+   "cutLen": 528.4901506088902,
+   "joints": 4,
+   "ark": 1,
+   "plan": 7
+  },
+  {
+   "adr": "8",
+   "id": "D03",
+   "w": 95.8367378925297,
+   "h": 71.99999705037374,
+   "area": 3217.633900045666,
+   "cutLen": 528.4901506088903,
+   "joints": 4,
+   "ark": 1,
+   "plan": 8
+  },
+  {
+   "adr": "9",
+   "id": "D03",
+   "w": 95.8367378925297,
+   "h": 71.99999705037374,
+   "area": 3217.6339000456665,
+   "cutLen": 528.4901506088903,
+   "joints": 4,
+   "ark": 1,
+   "plan": 9
+  },
+  {
+   "adr": "10",
+   "id": "D03",
+   "w": 95.8367378925297,
+   "h": 71.99999705037374,
+   "area": 3217.6339000456665,
+   "cutLen": 528.4901506088904,
+   "joints": 4,
+   "ark": 1,
+   "plan": 10
+  },
+  {
+   "adr": "11",
+   "id": "D03",
+   "w": 95.8367378925297,
+   "h": 71.99999705037374,
+   "area": 3217.6339000456646,
+   "cutLen": 528.4901506088903,
+   "joints": 4,
+   "ark": 1,
+   "plan": 11
+  },
+  {
+   "adr": "12",
+   "id": "D03",
+   "w": 95.8367378925297,
+   "h": 71.99999705037374,
+   "area": 3217.6339000456646,
+   "cutLen": 528.4901506088903,
+   "joints": 4,
+   "ark": 1,
+   "plan": 12
+  },
+  {
+   "adr": "13",
+   "id": "D03",
+   "w": 95.8367378925297,
+   "h": 71.99999705037374,
+   "area": 3217.633900045667,
+   "cutLen": 528.4901506088903,
+   "joints": 4,
+   "ark": 1,
+   "plan": 13
+  },
+  {
+   "adr": "14",
+   "id": "D03",
+   "w": 95.8367378925297,
+   "h": 71.99999705037374,
+   "area": 3217.6339000456665,
+   "cutLen": 528.4901506088904,
+   "joints": 4,
+   "ark": 1,
+   "plan": 14
+  },
+  {
+   "adr": "15",
+   "id": "D03",
+   "w": 95.8367378925297,
+   "h": 71.99999705037374,
+   "area": 3217.633900045666,
+   "cutLen": 528.4901506088903,
+   "joints": 4,
+   "ark": 1,
+   "plan": 15
+  },
+  {
+   "adr": "16",
+   "id": "D03",
+   "w": 95.8367378925297,
+   "h": 71.99999705037374,
+   "area": 3217.633900045664,
+   "cutLen": 528.4901506088903,
+   "joints": 4,
+   "ark": 1,
+   "plan": 16
+  },
+  {
+   "adr": "17",
+   "id": "D03",
+   "w": 95.8367378925297,
+   "h": 71.99999705037374,
+   "area": 3217.6339000456665,
+   "cutLen": 528.4901506088903,
+   "joints": 4,
+   "ark": 1,
+   "plan": 17
+  },
+  {
+   "adr": "40",
+   "id": "D02",
+   "w": 14.664266800825068,
+   "h": 280,
+   "area": 3704.8865695036266,
+   "cutLen": 828.7403278342115,
+   "joints": 17,
+   "ark": 1,
+   "plan": 40
+  },
+  {
+   "adr": "41",
+   "id": "D01",
+   "w": 14.163278762776734,
+   "h": 280,
+   "area": 3588.6760753270714,
+   "cutLen": 821.4761367866755,
+   "joints": 17,
+   "ark": 1,
+   "plan": 41
+  }
+ ],
+ "orden": [
+  {
+   "nr": 1,
+   "plan": 1,
+   "delar": [
+    "1"
+   ],
+   "steg": 1,
+   "veg": "ligg",
+   "retning": null,
+   "mot": [],
+   "fast": false
+  },
+  {
+   "nr": 2,
+   "plan": 2,
+   "delar": [
+    "2"
+   ],
+   "steg": 1,
+   "veg": "ligg",
+   "retning": null,
+   "mot": [],
+   "fast": false
+  },
+  {
+   "nr": 3,
+   "plan": 3,
+   "delar": [
+    "3"
+   ],
+   "steg": 1,
+   "veg": "ligg",
+   "retning": null,
+   "mot": [],
+   "fast": false
+  },
+  {
+   "nr": 4,
+   "plan": 4,
+   "delar": [
+    "4"
+   ],
+   "steg": 1,
+   "veg": "ligg",
+   "retning": null,
+   "mot": [],
+   "fast": false
+  },
+  {
+   "nr": 5,
+   "plan": 5,
+   "delar": [
+    "5"
+   ],
+   "steg": 1,
+   "veg": "ligg",
+   "retning": null,
+   "mot": [],
+   "fast": false
+  },
+  {
+   "nr": 6,
+   "plan": 6,
+   "delar": [
+    "6"
+   ],
+   "steg": 1,
+   "veg": "ligg",
+   "retning": null,
+   "mot": [],
+   "fast": false
+  },
+  {
+   "nr": 7,
+   "plan": 7,
+   "delar": [
+    "7"
+   ],
+   "steg": 1,
+   "veg": "ligg",
+   "retning": null,
+   "mot": [],
+   "fast": false
+  },
+  {
+   "nr": 8,
+   "plan": 8,
+   "delar": [
+    "8"
+   ],
+   "steg": 1,
+   "veg": "ligg",
+   "retning": null,
+   "mot": [],
+   "fast": false
+  },
+  {
+   "nr": 9,
+   "plan": 9,
+   "delar": [
+    "9"
+   ],
+   "steg": 1,
+   "veg": "ligg",
+   "retning": null,
+   "mot": [],
+   "fast": false
+  },
+  {
+   "nr": 10,
+   "plan": 10,
+   "delar": [
+    "10"
+   ],
+   "steg": 1,
+   "veg": "ligg",
+   "retning": null,
+   "mot": [],
+   "fast": false
+  },
+  {
+   "nr": 11,
+   "plan": 11,
+   "delar": [
+    "11"
+   ],
+   "steg": 1,
+   "veg": "ligg",
+   "retning": null,
+   "mot": [],
+   "fast": false
+  },
+  {
+   "nr": 12,
+   "plan": 12,
+   "delar": [
+    "12"
+   ],
+   "steg": 1,
+   "veg": "ligg",
+   "retning": null,
+   "mot": [],
+   "fast": false
+  },
+  {
+   "nr": 13,
+   "plan": 13,
+   "delar": [
+    "13"
+   ],
+   "steg": 1,
+   "veg": "ligg",
+   "retning": null,
+   "mot": [],
+   "fast": false
+  },
+  {
+   "nr": 14,
+   "plan": 14,
+   "delar": [
+    "14"
+   ],
+   "steg": 1,
+   "veg": "ligg",
+   "retning": null,
+   "mot": [],
+   "fast": false
+  },
+  {
+   "nr": 15,
+   "plan": 15,
+   "delar": [
+    "15"
+   ],
+   "steg": 1,
+   "veg": "ligg",
+   "retning": null,
+   "mot": [],
+   "fast": false
+  },
+  {
+   "nr": 16,
+   "plan": 16,
+   "delar": [
+    "16"
+   ],
+   "steg": 1,
+   "veg": "ligg",
+   "retning": null,
+   "mot": [],
+   "fast": false
+  },
+  {
+   "nr": 17,
+   "plan": 17,
+   "delar": [
+    "17"
+   ],
+   "steg": 1,
+   "veg": "ligg",
+   "retning": null,
+   "mot": [],
+   "fast": false
+  },
+  {
+   "nr": 18,
+   "plan": 42,
+   "delar": [
+    "42"
+   ],
+   "steg": 2,
+   "veg": "side",
+   "retning": [
+    0.5000110003630133,
+    -0.866019052628739,
+    0
+   ],
+   "mot": [
+    1,
+    3,
+    4,
+    2,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17
+   ],
+   "fast": false
+  },
+  {
+   "nr": 19,
+   "plan": 43,
+   "delar": [
+    "43"
+   ],
+   "steg": 3,
+   "veg": "side",
+   "retning": [
+    1,
+    0,
+    0
+   ],
+   "mot": [
+    1,
+    2,
+    3,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    12,
+    13,
+    14,
+    17,
+    4,
+    15,
+    16,
+    11
+   ],
+   "fast": false
+  },
+  {
+   "nr": 20,
+   "plan": 40,
+   "delar": [
+    "40"
+   ],
+   "steg": 3,
+   "veg": "side",
+   "retning": [
+    -1,
+    0,
+    0
+   ],
+   "mot": [
+    1,
+    5,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    2,
+    3,
+    6,
+    4
+   ],
+   "fast": false
+  },
+  {
+   "nr": 21,
+   "plan": 41,
+   "delar": [
+    "41"
+   ],
+   "steg": 4,
+   "veg": "side",
+   "retning": [
+    -0.5000110003630133,
+    -0.866019052628739,
+    0
+   ],
+   "mot": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17
+   ],
+   "fast": false
+  }
+ ],
+ "lause": [],
+ "ekstra": [
+  "opal",
+  "lokk",
+  "botn"
+ ],
+ "fin": {
+  "celler": 1200,
+  "delar": 21,
+  "ledd": 136,
+  "ark": 1,
+  "kuttMm": 12344.359620295885,
+  "likt": true,
+  "filer": [
+   "ark-1.dxf",
+   "ark-1.svg",
+   "delar.json"
+  ],
+  "paaArk": [
+   [
+    "42",
+    "43",
+    "40",
+    "41",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "10",
+    "11",
+    "12",
+    "13",
+    "14",
+    "15",
+    "16",
+    "17"
+   ]
+  ],
+  "sameArk": true
+ },
+ "bilete": {
+  "ark": "/tmp/claude-0/-home-user-slicer-iverfinne-no/0351339b-1ff7-580f-bca7-9071db1d2f3c/scratchpad/lampe/nord4/skjerm/lamell-arbeid/ut/ark.png",
+  "helt": "/tmp/claude-0/-home-user-slicer-iverfinne-no/0351339b-1ff7-580f-bca7-9071db1d2f3c/scratchpad/lampe/nord4/skjerm/lamell-arbeid/ut/bilete/lamellarbeid-helt.png",
+  "front": "/tmp/claude-0/-home-user-slicer-iverfinne-no/0351339b-1ff7-580f-bca7-9071db1d2f3c/scratchpad/lampe/nord4/skjerm/lamell-arbeid/ut/bilete/lamellarbeid-front.png",
+  "side": "/tmp/claude-0/-home-user-slicer-iverfinne-no/0351339b-1ff7-580f-bca7-9071db1d2f3c/scratchpad/lampe/nord4/skjerm/lamell-arbeid/ut/bilete/lamellarbeid-side.png",
+  "topp": "/tmp/claude-0/-home-user-slicer-iverfinne-no/0351339b-1ff7-580f-bca7-9071db1d2f3c/scratchpad/lampe/nord4/skjerm/lamell-arbeid/ut/bilete/lamellarbeid-topp.png",
+  "under": "/tmp/claude-0/-home-user-slicer-iverfinne-no/0351339b-1ff7-580f-bca7-9071db1d2f3c/scratchpad/lampe/nord4/skjerm/lamell-arbeid/ut/bilete/lamellarbeid-under.png",
+  "lys": "/tmp/claude-0/-home-user-slicer-iverfinne-no/0351339b-1ff7-580f-bca7-9071db1d2f3c/scratchpad/lampe/nord4/skjerm/lamell-arbeid/ut/bilete/lamellarbeid-lys.png",
+  "sprengt": "/tmp/claude-0/-home-user-slicer-iverfinne-no/0351339b-1ff7-580f-bca7-9071db1d2f3c/scratchpad/lampe/nord4/skjerm/lamell-arbeid/ut/bilete/lamellarbeid-sprengt.png"
+ },
+ "synFeil": [],
+ "tid": {
+  "kropp": 58,
+  "motor": 782,
+  "ark": 47168,
+  "produksjon": 2525,
+  "bilete": 286951,
+  "alt": 337826
+ },
+ "filer": {
+  "rapport": "/tmp/claude-0/-home-user-slicer-iverfinne-no/0351339b-1ff7-580f-bca7-9071db1d2f3c/scratchpad/lampe/nord4/skjerm/lamell-arbeid/ut/rapport.txt",
+  "delar": "/tmp/claude-0/-home-user-slicer-iverfinne-no/0351339b-1ff7-580f-bca7-9071db1d2f3c/scratchpad/lampe/nord4/skjerm/lamell-arbeid/ut/delar.json",
+  "scene": "/tmp/claude-0/-home-user-slicer-iverfinne-no/0351339b-1ff7-580f-bca7-9071db1d2f3c/scratchpad/lampe/nord4/skjerm/lamell-arbeid/ut/scene.json",
+  "kropp": "/tmp/claude-0/-home-user-slicer-iverfinne-no/0351339b-1ff7-580f-bca7-9071db1d2f3c/scratchpad/lampe/nord4/skjerm/lamell-arbeid/ut/kropp.stl",
+  "ark": "/tmp/claude-0/-home-user-slicer-iverfinne-no/0351339b-1ff7-580f-bca7-9071db1d2f3c/scratchpad/lampe/nord4/skjerm/lamell-arbeid/ut/ark.png",
+  "produksjon": "/tmp/claude-0/-home-user-slicer-iverfinne-no/0351339b-1ff7-580f-bca7-9071db1d2f3c/scratchpad/lampe/nord4/skjerm/lamell-arbeid/ut/produksjon",
+  "bilete": "/tmp/claude-0/-home-user-slicer-iverfinne-no/0351339b-1ff7-580f-bca7-9071db1d2f3c/scratchpad/lampe/nord4/skjerm/lamell-arbeid/ut/bilete",
+  "step": null
+ }
+}

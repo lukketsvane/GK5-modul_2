@@ -1,0 +1,232 @@
+{
+ "namn": "augearbeid",
+ "mappe": "/tmp/claude-0/-home-user-slicer-iverfinne-no/0351339b-1ff7-580f-bca7-9071db1d2f3c/scratchpad/lampe/nord4/boygd/auge-arbeid/ut/produksjon",
+ "ok": true,
+ "tal": {
+  "plan": 5,
+  "delar": 5,
+  "unike": 5,
+  "ledd": 4,
+  "avviste": 0,
+  "lause": 0,
+  "ark": 1,
+  "utnytting": 0.7004643972051836,
+  "kuttMm": 4375.204594053227,
+  "gravMm": 196.01871383037798,
+  "tidS": 218.76022970266135,
+  "masseKg": 0.06977746139199156,
+  "ytre": [
+   153.86806212986576,
+   153.86806212986576,
+   260.024
+  ],
+  "sporMm": 2.05,
+  "godsMm": 2.759461249548681
+ },
+ "harde": [],
+ "mjuke": [],
+ "ark": [
+  {
+   "nr": 1,
+   "delar": [
+    "11",
+    "10",
+    "1",
+    "3",
+    "2"
+   ],
+   "utnytting": 0.7004643972051836,
+   "avHeileArket": 0.6607714146968899,
+   "gravMm": 196.01871383037798,
+   "umerkte": [],
+   "iHol": [],
+   "dxf": "ark-1.dxf",
+   "svg": "ark-1.svg",
+   "png": "ark-1.png"
+  }
+ ],
+ "delar": [
+  {
+   "adr": "1",
+   "id": "D01",
+   "w": 153.86806212986576,
+   "h": 153.86806212986576,
+   "area": 18239.881084220742,
+   "cutLen": 803.3960561609993,
+   "joints": 1,
+   "ark": 1,
+   "plan": 1
+  },
+  {
+   "adr": "2",
+   "id": "D02",
+   "w": 139.83029899072005,
+   "h": 139.83029899072005,
+   "area": 14971.27876300917,
+   "cutLen": 784.3170918253597,
+   "joints": 1,
+   "ark": 1,
+   "plan": 2
+  },
+  {
+   "adr": "3",
+   "id": "D03",
+   "w": 153.86806212986576,
+   "h": 153.86806212986576,
+   "area": 18153.85869527421,
+   "cutLen": 863.3752953195146,
+   "joints": 2,
+   "ark": 1,
+   "plan": 3
+  },
+  {
+   "adr": "10",
+   "id": "D04",
+   "w": 211.95,
+   "h": 255.006,
+   "area": 50846.171054386905,
+   "cutLen": 937.2529805298192,
+   "joints": 2,
+   "ark": 1,
+   "plan": 10
+  },
+  {
+   "adr": "11",
+   "id": "D05",
+   "w": 234.414,
+   "h": 255.01999999999998,
+   "area": 56373.949930362534,
+   "cutLen": 986.8631702175342,
+   "joints": 2,
+   "ark": 1,
+   "plan": 11
+  }
+ ],
+ "filer": [
+  {
+   "namn": "ark-1.dxf",
+   "byte": 48924,
+   "detalj": 220,
+   "kva": "kuttfil, R12 ASCII, mm, lag KUTT og GRAVER, snittet teke"
+  },
+  {
+   "namn": "ark-1.svg",
+   "byte": 14167,
+   "detalj": 220,
+   "kva": "kuttfil 1:1, svart graver, blaa kutt, snittet teke"
+  },
+  {
+   "namn": "ark-1.png",
+   "byte": 99127,
+   "detalj": 220,
+   "kva": "bilete av arket, ikkje til maskina"
+  },
+  {
+   "namn": "profilar.svg",
+   "byte": 14082,
+   "detalj": 220,
+   "kva": "alle profilane side om side, 1:1"
+  },
+  {
+   "namn": "samla.glb",
+   "byte": 285228,
+   "detalj": 1200,
+   "kva": "montert, meter, Y opp, ein node per del"
+  },
+  {
+   "namn": "flat.glb",
+   "byte": 112036,
+   "detalj": 220,
+   "kva": "delane flatt som paa arka, ei gruppe per ark"
+  },
+  {
+   "namn": "deler.3mf",
+   "byte": 311660,
+   "detalj": 1200,
+   "kva": "flate delar, eitt objekt per del, mm, Z opp"
+  },
+  {
+   "namn": "samla.stl",
+   "byte": 393084,
+   "detalj": 1200,
+   "kva": "montert, ei trekantsuppe, mm, Z opp"
+  },
+  {
+   "namn": "samla.usdz",
+   "byte": 750918,
+   "detalj": 1200,
+   "kva": "montert, AR Quick Look"
+  },
+  {
+   "namn": "passprove.svg",
+   "byte": 10404,
+   "detalj": null,
+   "kva": "passprove: sju spor, 0,05 mm breiare kvar gong"
+  },
+  {
+   "namn": "bogprove.svg",
+   "byte": 39771,
+   "detalj": null,
+   "kva": "boyeprove: fem felt"
+  },
+  {
+   "namn": "alt.zip",
+   "byte": 437261,
+   "detalj": 220,
+   "kva": "ALT-pakka slik appen lastar ho ned"
+  },
+  {
+   "namn": "montering.txt",
+   "byte": 550,
+   "detalj": 220,
+   "kva": "rekkjefylgja, del for del, med retning"
+  },
+  {
+   "namn": "deler.csv",
+   "byte": 246,
+   "detalj": 220,
+   "kva": "kuttlista, semikolon, desimalkomma"
+  },
+  {
+   "namn": "reglar.txt",
+   "byte": 779,
+   "detalj": 220,
+   "kva": "kvar regel, og dei harde brota med kvifor"
+  },
+  {
+   "namn": "augearbeid.zip",
+   "byte": 21984,
+   "detalj": null,
+   "kva": "prosjektfila (LAGRE)"
+  },
+  {
+   "namn": "delar.json",
+   "byte": 32509,
+   "detalj": 220,
+   "kva": "per del: omriss, hol, tjukn, matrise; og rekkjefylgja"
+  }
+ ],
+ "fin": {
+  "celler": 1200,
+  "delar": 5,
+  "ledd": 8,
+  "ark": 1,
+  "kuttMm": 4372.612498101567,
+  "likt": true,
+  "filer": [
+   "ark-1.dxf",
+   "ark-1.svg",
+   "delar.json"
+  ],
+  "paaArk": [
+   [
+    "11",
+    "10",
+    "1",
+    "3",
+    "2"
+   ]
+  ],
+  "sameArk": true
+ }
+}

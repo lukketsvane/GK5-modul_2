@@ -6,6 +6,8 @@ Dato: 18.11.2026. Lampekroppar laga som plater med halvt-i-halvt-spor i motoren 
 | --- | --- |
 | `northern/` | Fire design mot briefen. Éi handling: snu kula. Holet opp og bak er stemning, holet ned er arbeid |
 | `spegl/` | Seks design med spegelakryl mot innsida og éin matt farge ut, kvart i stemning og arbeid |
+| `nord4/` | Åtte design i fire retningar (kula, zeppelin, skjerm, bøygd), rangerte av ein kritikar, med bilete frå eit Blender-miljø og skjerefiler for kvar stilling |
+| `skulptur/` | Northern-lamper frå dei tolv skulpturformene i slicerman, i fleire rundar |
 | `kula-studie/` | Formstudien før: kule A til I, pendelen (F) og bordkula, som prosjektfiler og to oversynsark |
 | `oversyn/` | Tavlene: dei fire Northern-designa, ni kulevariantar, kulene opna i appen, og prosessen fram til kula |
 | `kjelde/` | Koden som laga alt: `nord/` (Northern-designa), `kule/` (studien), `verkty/` (verktykassa rundt motoren) og `kart/` (kva motoren kan skjere) |
@@ -54,6 +56,10 @@ Neste grep kritikaren peika på: Måne treng ein opal lekam rundt kjelda, Blunk 
 I kvar mappe: `stemning-arbeid.png`, `prosjekt-stemning.zip`, `prosjekt-arbeid.zip` og rapportane frå motoren. Det finst ikkje skjerefiler for desse enno.
 
 Ikkje prøvd for `spegl/`: at spegelen ikkje kastar kjelda mot auget (F1), lux (F3, F6), samla vekt (F8) og velting (T2). Bøyel, stilk, fot, tappar, opalkule og trommelhus er berre teikna. Lysbileta følgjer 240 000 strålar gjennom opptil åtte spegelrefleksar og viser kvar lyset går, ikkje kor mykje. Meir om spegelen i teiknaren: `kjelde/kart/spegl.md`.
+
+## nord4
+
+Åtte nye design, kvar i to stillingar (Rull i tre), alle `ALT OK` i motoren. Kritikaren rangerte dei frå tavlene: Rull 8, Auge 7,5, Nikk 7, Belg 6, Skolm 5, Lamell 4,5, Seil 4 og Snu 3. Kvar mappe har tavla, fire bilete frå Blender-miljøet (dag, kveld, arbeid, modus), prosjektfiler og skjerefiler. Sjå `nord4/LES_MEG.md` og `nord4/oversyn.png`. Koden ligg i `kjelde/nord4/`.
 
 ## Kva prøvinga viste
 

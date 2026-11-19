@@ -1,0 +1,9 @@
+MONTERING — rullstemning.stl
+3 plan, 2 mm plate. Adressa er gravert på kvar del.
+
+I denne rekkjefylgja. Sporet på delen som kjem opnar seg i fartsretninga; sporet på delen som ligg opnar seg mot han.
+  1  10  ligg — ingen ledd mot delar som alt ligg
+  2  1  sidelengs, langs (0,00, 1,00, 0,00), mot 10
+  3  2  sidelengs, langs (0,00, -1,00, 0,00), mot 10
+
+Sit eit ledd for hardt, er klaringa for liten: skjer passprøva i den same plata og set klaringa til det sporet avkappet går i med tommelkraft.

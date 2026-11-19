@@ -1,0 +1,23 @@
+REGLAR — nikkarbeid.stl
+
+Ingen harde brot: delane let seg lage og setje saman.
+
+Alle linene:
+
+     plana grip             52 ledd
+     delar å skjere         16 stk
+     kan monterast          éin veg inn for kvar
+     ingen står i kvarandre ingen klemmer
+     utan ledd · kasta      ingen
+     gods i leddet          16,8 mm
+     delane får plass       3 ark
+     klaring                0,15 mm
+     snittbreidd            0,20 mm i fila
+     snittet mot sporet     0,20 mm mot 2,15 mm
+     opning mellom plan     22,0 mm
+     lukka nett             lukka
+     nettoppløysing         32256 av 32256
+     utnytting              36 %
+     bøyeradius             ingen bøygde plan
+     ledd på bøygde plan    ingen
+     møte på bøygde plan    ingen bøygde

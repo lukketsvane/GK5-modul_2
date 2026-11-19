@@ -1,0 +1,98 @@
+﻿ID;Del;Gruppe;Materiale;Volum_mm3;Tettleik_g_cm3;Masse_g;Prosess
+101;Fotplate;10 Sokkel og lys;EN AW-6061 T6;46454.9;2.7;125.4282;Drei / skjer. Tre gjennomgåande senkhol Ø3,4 på delesirkel Ø40.
+102;Ballastskive;10 Sokkel og lys;AISI 304;11253.97;8.0;90.0318;Laserskjer. Lim under fotplata med sentrering.
+103-1;Fotpute;10 Sokkel og lys;Silikon, nominell;395.84;1.15;0.4552;Sjølvklebande fotpute Ø12 × 3,5.
+103-2;Fotpute;10 Sokkel og lys;Silikon, nominell;395.84;1.15;0.4552;Sjølvklebande fotpute Ø12 × 3,5.
+103-3;Fotpute;10 Sokkel og lys;Silikon, nominell;395.84;1.15;0.4552;Sjølvklebande fotpute Ø12 × 3,5.
+103-4;Fotpute;10 Sokkel og lys;Silikon, nominell;395.84;1.15;0.4552;Sjølvklebande fotpute Ø12 × 3,5.
+104;Hol sokkelstamme;10 Sokkel og lys;EN AW-6061 T6;34744.47;2.7;93.8101;CNC-drei og bor. M3 × 0,5 i endeflensane. Ø8,10 uttak for DC-gjennomføring.
+105;Bærebru;10 Sokkel og lys;EN AW-6061 T6;16111.82;2.7;43.5019;Fres. To Ø4,10 tverrhol på 78 mm deling, to Ø3,4 vertikale festehol og sentral leidningskanal.
+106;LED-profil;10 Sokkel og lys;EN AW-6061 T6;9465.58;2.7;25.5571;Fres U-profil 360 × 14 × 5,2 med 1,2 mm botn og sideveggar. Skruefeste samansett med bru.
+107;Diffusor;10 Sokkel og lys;Opal polykarbonat;4989.6;1.2;5.9875;Opal PC, passast i profil og festast med fleksible limpunkt i endane.
+108-1;Endestykke;10 Sokkel og lys;POM-C;72.8;1.41;0.1026;Press-/limfeste ved profilenden.
+108-2;Endestykke;10 Sokkel og lys;POM-C;72.8;1.41;0.1026;Press-/limfeste ved profilenden.
+109;Leidningsgjennomføring;10 Sokkel og lys;Silikon, nominell;197.5;1.15;0.2271;Tilpass gummigjennomføring til vald kabel.
+201;Fast røyr;20 Fast røyr;EN AW-6061 T6;8942.04;2.7;24.1435;Ø8 × 1, lengd 414. Seks Ø4,05 tverrhol med 78,00 deling. Første hol 12 frå enden.
+202-L;Endeplugg;20 Fast røyr;POM-C;123.91;1.41;0.1747;Trykk inn med lett press.
+202-R;Endeplugg;20 Fast røyr;POM-C;123.91;1.41;0.1747;Trykk inn med lett press.
+301;Reguleringsrøyr;30 Reguleringsrøyr;EN AW-6061 T6, bronseeloksert;8942.04;2.7;24.1435;Ø8 × 1, lengd 414. Seks Ø4,05 tverrhol med 78,00 deling. Første hol 12 frå enden.
+302-L;Endeplugg;30 Reguleringsrøyr;POM-C;123.91;1.41;0.1747;Trykk inn med lett press.
+302-R;Endeplugg;30 Reguleringsrøyr;POM-C;123.91;1.41;0.1747;Trykk inn med lett press.
+S01;Samanhengande skjell;41 Skjell 1;EN AW-5754 H22;14584.51;2.68;39.0865;Skjer DXF. Konvals på nøytralflata. Jiggbor Ø6,14 etter valsing. Avgrad og mattbørst.
+B1F;Flensforing;41 Skjell 1;POM-C;468.93;1.41;0.6612;"Maskiner matchande konisk anleggsflate. Akseltapp Ø4,00; boring Ø4,11."
+W1F;Motring;41 Skjell 1;POM-C;283.05;1.41;0.3991;Maskiner konisk anleggsflate. Monter frå innsida av skjellet.
+P1F;Skuldertapp;20 Fast røyr;EN AW-6061 T6;1891.56;2.7;5.1072;Drei. Ø4,00 journal og røyrtapp. Lås røyrtappen i jigg. M2 × 0,4 i indre ende, 4 djup.
+K1F;Endeskive;20 Fast røyr;AISI 304;56.09;8.0;0.4488;Maskinert endeskive. Sikre med M2-skrue.
+V1F;M2 × 4 låseskrue;20 Fast røyr;AISI 304;25.29;8.0;0.2023;M2 × 4 med låg sylinderhovud. Forenkla hovud og kosmetiske gjengar.
+B1R;Flensforing;41 Skjell 1;POM-C;468.32;1.41;0.6603;"Maskiner matchande konisk anleggsflate. Akseltapp Ø4,00; boring Ø4,11."
+W1R;Motring;41 Skjell 1;POM-C;283.41;1.41;0.3996;Maskiner konisk anleggsflate. Monter frå innsida av skjellet.
+P1R;Skuldertapp;30 Reguleringsrøyr;EN AW-6061 T6;1606.24;2.7;4.3368;Drei. Ø4,00 journal og røyrtapp. Lås røyrtappen i jigg. M2 × 0,4 i indre ende, 4 djup.
+K1R;Endeskive;30 Reguleringsrøyr;AISI 304;56.09;8.0;0.4488;Maskinert endeskive. Sikre med M2-skrue.
+V1R;M2 × 4 låseskrue;30 Reguleringsrøyr;AISI 304;25.29;8.0;0.2023;M2 × 4 med låg sylinderhovud. Forenkla hovud og kosmetiske gjengar.
+S02;Samanhengande skjell;42 Skjell 2;EN AW-5754 H22;18272.57;2.68;48.9705;Skjer DXF. Konvals på nøytralflata. Jiggbor Ø6,14 etter valsing. Avgrad og mattbørst.
+B2F;Flensforing;42 Skjell 2;POM-C;398.49;1.41;0.5619;"Maskiner matchande konisk anleggsflate. Akseltapp Ø4,00; boring Ø4,11."
+W2F;Motring;42 Skjell 2;POM-C;240.69;1.41;0.3394;Maskiner konisk anleggsflate. Monter frå innsida av skjellet.
+P2F;Skuldertapp;20 Fast røyr;EN AW-6061 T6;1195.04;2.7;3.2266;Drei. Ø4,00 journal og røyrtapp. Lås røyrtappen i jigg. M2 × 0,4 i indre ende, 4 djup.
+K2F;Endeskive;20 Fast røyr;AISI 304;56.09;8.0;0.4488;Maskinert endeskive. Sikre med M2-skrue.
+V2F;M2 × 4 låseskrue;20 Fast røyr;AISI 304;25.29;8.0;0.2023;M2 × 4 med låg sylinderhovud. Forenkla hovud og kosmetiske gjengar.
+B2R;Flensforing;42 Skjell 2;POM-C;398.22;1.41;0.5615;"Maskiner matchande konisk anleggsflate. Akseltapp Ø4,00; boring Ø4,11."
+W2R;Motring;42 Skjell 2;POM-C;240.8;1.41;0.3395;Maskiner konisk anleggsflate. Monter frå innsida av skjellet.
+P2R;Skuldertapp;30 Reguleringsrøyr;EN AW-6061 T6;1002.68;2.7;2.7072;Drei. Ø4,00 journal og røyrtapp. Lås røyrtappen i jigg. M2 × 0,4 i indre ende, 4 djup.
+K2R;Endeskive;30 Reguleringsrøyr;AISI 304;56.09;8.0;0.4488;Maskinert endeskive. Sikre med M2-skrue.
+V2R;M2 × 4 låseskrue;30 Reguleringsrøyr;AISI 304;25.29;8.0;0.2023;M2 × 4 med låg sylinderhovud. Forenkla hovud og kosmetiske gjengar.
+S03;Samanhengande skjell;43 Skjell 3;EN AW-5754 H22;21114.19;2.68;56.586;Skjer DXF. Konvals på nøytralflata. Jiggbor Ø6,14 etter valsing. Avgrad og mattbørst.
+B3F;Flensforing;43 Skjell 3;POM-C;340.52;1.41;0.4801;"Maskiner matchande konisk anleggsflate. Akseltapp Ø4,00; boring Ø4,11."
+W3F;Motring;43 Skjell 3;POM-C;205.08;1.41;0.2892;Maskiner konisk anleggsflate. Monter frå innsida av skjellet.
+P3F;Beretapp;20 Fast røyr;AISI 304;1822.38;8.0;14.579;Drei. Ø4,00 journal og røyrtapp. Lås røyrtappen i jigg. Går inn i bærebrua.
+K3F;Stoppkrage;20 Fast røyr;EN AW-6061 T6;239.26;2.7;0.646;Ø4,06 stoppring med radial M2-gjenge. Juster fjørtrykk før låsing.
+F3F;Friksjonsfjør;20 Fast røyr;AISI 304;8.48;8.0;0.0679;"Profil ved nominell arbeidshøgd 0,68. Fjørstål og fjørkurve skal stadfestast; her nytta erstatningstettleik 8,00."
+G3F;Settskrue M2;20 Fast røyr;AISI 304;8.48;8.0;0.0679;"M2 flatenda settskrue; kosmetiske gjengar."
+B3R;Flensforing;43 Skjell 3;POM-C;340.39;1.41;0.48;"Maskiner matchande konisk anleggsflate. Akseltapp Ø4,00; boring Ø4,11."
+W3R;Motring;43 Skjell 3;POM-C;205.1;1.41;0.2892;Maskiner konisk anleggsflate. Monter frå innsida av skjellet.
+P3R;Skuldertapp;30 Reguleringsrøyr;EN AW-6061 T6;523.07;2.7;1.4123;Drei. Ø4,00 journal og røyrtapp. Lås røyrtappen i jigg. M2 × 0,4 i indre ende, 4 djup.
+K3R;Endeskive;30 Reguleringsrøyr;AISI 304;56.09;8.0;0.4488;Maskinert endeskive. Sikre med M2-skrue.
+V3R;M2 × 4 låseskrue;30 Reguleringsrøyr;AISI 304;25.29;8.0;0.2023;M2 × 4 med låg sylinderhovud. Forenkla hovud og kosmetiske gjengar.
+S04;Samanhengande skjell;44 Skjell 4;EN AW-5754 H22;19505.51;2.68;52.2748;Skjer DXF. Konvals på nøytralflata. Jiggbor Ø6,14 etter valsing. Avgrad og mattbørst.
+B4F;Flensforing;44 Skjell 4;POM-C;272.52;1.41;0.3843;"Maskiner matchande konisk anleggsflate. Akseltapp Ø4,00; boring Ø4,11."
+W4F;Motring;44 Skjell 4;POM-C;161.92;1.41;0.2283;Maskiner konisk anleggsflate. Monter frå innsida av skjellet.
+P4F;Beretapp;20 Fast røyr;AISI 304;1931.86;8.0;15.4549;Drei. Ø4,00 journal og røyrtapp. Lås røyrtappen i jigg. Går inn i bærebrua.
+K4F;Stoppkrage;20 Fast røyr;EN AW-6061 T6;239.26;2.7;0.646;Ø4,06 stoppring med radial M2-gjenge. Juster fjørtrykk før låsing.
+F4F;Friksjonsfjør;20 Fast røyr;AISI 304;8.48;8.0;0.0679;"Profil ved nominell arbeidshøgd 0,68. Fjørstål og fjørkurve skal stadfestast; her nytta erstatningstettleik 8,00."
+G4F;Settskrue M2;20 Fast røyr;AISI 304;8.48;8.0;0.0679;"M2 flatenda settskrue; kosmetiske gjengar."
+B4R;Flensforing;44 Skjell 4;POM-C;272.46;1.41;0.3842;"Maskiner matchande konisk anleggsflate. Akseltapp Ø4,00; boring Ø4,11."
+W4R;Motring;44 Skjell 4;POM-C;161.86;1.41;0.2282;Maskiner konisk anleggsflate. Monter frå innsida av skjellet.
+P4R;Skuldertapp;30 Reguleringsrøyr;EN AW-6061 T6;766.22;2.7;2.0688;Drei. Ø4,00 journal og røyrtapp. Lås røyrtappen i jigg. M2 × 0,4 i indre ende, 4 djup.
+K4R;Endeskive;30 Reguleringsrøyr;AISI 304;56.09;8.0;0.4488;Maskinert endeskive. Sikre med M2-skrue.
+V4R;M2 × 4 låseskrue;30 Reguleringsrøyr;AISI 304;25.29;8.0;0.2023;M2 × 4 med låg sylinderhovud. Forenkla hovud og kosmetiske gjengar.
+S05;Samanhengande skjell;45 Skjell 5;EN AW-5754 H22;15634.0;2.68;41.8991;Skjer DXF. Konvals på nøytralflata. Jiggbor Ø6,14 etter valsing. Avgrad og mattbørst.
+B5F;Flensforing;45 Skjell 5;POM-C;266.95;1.41;0.3764;"Maskiner matchande konisk anleggsflate. Akseltapp Ø4,00; boring Ø4,11."
+W5F;Motring;45 Skjell 5;POM-C;157.32;1.41;0.2218;Maskiner konisk anleggsflate. Monter frå innsida av skjellet.
+P5F;Skuldertapp;20 Fast røyr;EN AW-6061 T6;1387.52;2.7;3.7463;Drei. Ø4,00 journal og røyrtapp. Lås røyrtappen i jigg. M2 × 0,4 i indre ende, 4 djup.
+K5F;Endeskive;20 Fast røyr;AISI 304;56.09;8.0;0.4488;Maskinert endeskive. Sikre med M2-skrue.
+V5F;M2 × 4 låseskrue;20 Fast røyr;AISI 304;25.29;8.0;0.2023;M2 × 4 med låg sylinderhovud. Forenkla hovud og kosmetiske gjengar.
+B5R;Flensforing;45 Skjell 5;POM-C;266.94;1.41;0.3764;"Maskiner matchande konisk anleggsflate. Akseltapp Ø4,00; boring Ø4,11."
+W5R;Motring;45 Skjell 5;POM-C;157.14;1.41;0.2216;Maskiner konisk anleggsflate. Monter frå innsida av skjellet.
+P5R;Skuldertapp;30 Reguleringsrøyr;EN AW-6061 T6;1422.57;2.7;3.8409;Drei. Ø4,00 journal og røyrtapp. Lås røyrtappen i jigg. M2 × 0,4 i indre ende, 4 djup.
+K5R;Endeskive;30 Reguleringsrøyr;AISI 304;56.09;8.0;0.4488;Maskinert endeskive. Sikre med M2-skrue.
+V5R;M2 × 4 låseskrue;30 Reguleringsrøyr;AISI 304;25.29;8.0;0.2023;M2 × 4 med låg sylinderhovud. Forenkla hovud og kosmetiske gjengar.
+S06;Samanhengande skjell;46 Skjell 6;EN AW-5754 H22;11634.64;2.68;31.1808;Skjer DXF. Konvals på nøytralflata. Jiggbor Ø6,14 etter valsing. Avgrad og mattbørst.
+B6F;Flensforing;46 Skjell 6;POM-C;350.84;1.41;0.4947;"Maskiner matchande konisk anleggsflate. Akseltapp Ø4,00; boring Ø4,11."
+W6F;Motring;46 Skjell 6;POM-C;208.14;1.41;0.2935;Maskiner konisk anleggsflate. Monter frå innsida av skjellet.
+P6F;Skuldertapp;20 Fast røyr;EN AW-6061 T6;2082.52;2.7;5.6228;Drei. Ø4,00 journal og røyrtapp. Lås røyrtappen i jigg. M2 × 0,4 i indre ende, 4 djup.
+K6F;Endeskive;20 Fast røyr;AISI 304;56.09;8.0;0.4488;Maskinert endeskive. Sikre med M2-skrue.
+V6F;M2 × 4 låseskrue;20 Fast røyr;AISI 304;25.29;8.0;0.2023;M2 × 4 med låg sylinderhovud. Forenkla hovud og kosmetiske gjengar.
+B6R;Flensforing;46 Skjell 6;POM-C;351.19;1.41;0.4952;"Maskiner matchande konisk anleggsflate. Akseltapp Ø4,00; boring Ø4,11."
+W6R;Motring;46 Skjell 6;POM-C;207.33;1.41;0.2923;Maskiner konisk anleggsflate. Monter frå innsida av skjellet.
+P6R;Skuldertapp;30 Reguleringsrøyr;EN AW-6061 T6;2236.73;2.7;6.0392;Drei. Ø4,00 journal og røyrtapp. Lås røyrtappen i jigg. M2 × 0,4 i indre ende, 4 djup.
+K6R;Endeskive;30 Reguleringsrøyr;AISI 304;56.09;8.0;0.4488;Maskinert endeskive. Sikre med M2-skrue.
+V6R;M2 × 4 låseskrue;30 Reguleringsrøyr;AISI 304;25.29;8.0;0.2023;M2 × 4 med låg sylinderhovud. Forenkla hovud og kosmetiske gjengar.
+205;Stopplate;20 Fast røyr;EN AW-6061 T6;2575.45;2.7;6.9537;Fres bogespor R14, breidd 3,14. Lås plata på dei to beretappane. Kontroller stoppvinkelen ved montering.
+206;Stopptapp;43 Skjell 3;AISI 304;239.34;8.0;1.9147;Ø3 stopptapp. Sikre ved innfestinga i det tredje skjellet, med lokal låsehylse.
+H1-1;M3 × 8 senkskrue;10 Sokkel og lys;AISI 304;71.77;8.0;0.5742;ISO 10642 M3 × 8. Gjengar viste med nominelt omriss.
+H1-2;M3 × 8 senkskrue;10 Sokkel og lys;AISI 304;71.77;8.0;0.5742;ISO 10642 M3 × 8. Gjengar viste med nominelt omriss.
+H1-3;M3 × 8 senkskrue;10 Sokkel og lys;AISI 304;71.77;8.0;0.5742;ISO 10642 M3 × 8. Gjengar viste med nominelt omriss.
+H2-1;M3 × 18 låg sylinderhovudskrue;10 Sokkel og lys;AISI 304;174.75;8.0;1.398;M3 × 18, lågt hovud. Går gjennom profil og bru til gjenge i sokkel.
+H2-2;M3 × 18 låg sylinderhovudskrue;10 Sokkel og lys;AISI 304;174.75;8.0;1.398;M3 × 18, lågt hovud. Går gjennom profil og bru til gjenge i sokkel.
+E01;LED-band 150 mm;10 Sokkel og lys;Innkjøpt LED-band, konvolutt;2880.0;;;LUXLEDLICHT 9103, tre kappelengder à 50 mm. Masse inngår i innkjøpsbudsjettet.
+E02;LED-band 150 mm;10 Sokkel og lys;Innkjøpt LED-band, konvolutt;2880.0;;;LUXLEDLICHT 9103, tre kappelengder à 50 mm. Masse inngår i innkjøpsbudsjettet.
+E03;Fleksibel leidning, vist føring;10 Sokkel og lys;Innkjøpt kabelsett, konvolutt;1690.84;;;Referanse for leidningsføringa på bordet. Ferdig DC-hylse, brytar og leidningssett er budsjetterte innkjøpsdelar.

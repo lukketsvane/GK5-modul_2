@@ -1,0 +1,814 @@
+# -*- coding: utf-8 -*-
+"""FURU B03 | FreeCAD 1.0 | mm | freecadcmd Furu-B03.FCMacro"""
+import os
+import sys
+import csv
+import json
+import math
+from pathlib import Path
+import FreeCAD as A
+import Part
+import Import
+
+V = A.Vector
+pi = math.pi
+sin, cos, sqrt, rad = math.sin, math.cos, math.sqrt, math.radians
+macro = next((p for p in sys.argv if str(p).lower().endswith(".fcmacro")),
+             globals().get("__file__", "Furu-B03.FCMacro"))
+ROOT = Path(os.environ.get("FURU_DIR", str(Path(macro).resolve().parent/"Regenerert-B03")))
+OUT, WORK = ROOT/"packet", ROOT/"work"
+DXFS = OUT/"Rullesjablonar"
+for folder in (OUT, WORK, DXFS):
+    folder.mkdir(parents=True, exist_ok=True)
+
+N, Z, ZA = 30, 171., 144.
+P, LEAD, DX, DZ = 78., 22., 38., -4.
+YF, YR, CY = 104., 124., 23.5
+T, BIAS, GAP = .68, .40, 1.8
+E = [-234.,-156.,-78.,0.,78.,156.,234.]
+C = [24.,73.,88.,89.,80.,60.,24.]
+ST = [(a+b)/2-LEAD for a,b in zip(E,E[1:])]
+TIP_L, TIP_R = (-213.,3.,28.5), (212.,10.,34.)
+SR, CR = sin(rad(N)), cos(rad(N))
+YS = -33.                          # centreline of downward aperture
+SUB = set()                        # detachable cartridge IDs
+doc = A.newDocument("Furu_B03")
+sheet = doc.addObject("Spreadsheet::Sheet","Controls")
+sheet.Label = "Styring"
+for cell,value in {
+    "A1":"Opning (0 til 30 grader)","B1":"0 deg","A2":"Stasjonsdeling (mm)",
+    "B2":"78","A3":"Skjelltjukkleik (mm)","B3":"0.68","A4":"Revisjon","B4":"B03",
+    "A5":"Arbeidsoptikk over bord (mm)","B5":"144","A6":"Modulbuss (V DC)",
+    "B6":"24","A7":"Effekttak for korta (W)","B7":"6.10"
+}.items():
+    sheet.set(cell,value)
+sheet.setAlias("B1","Opening")
+sheet.setColumnWidth("A",250)
+root = doc.addObject("App::Part","Furu")
+root.Label = "Furu B03"
+
+def grp(name,label):
+    g = doc.addObject("App::Part",name)
+    g.Label = label
+    root.addObject(g)
+    return g
+
+base = grp("Body","10 Sokkel og lys")
+fixed = grp("Fixed","20 Fast røyr")
+move = grp("Drive","30 Reguleringsrøyr")
+sgs = [grp("Shell%d"%i,"%d Skjell %d"%(40+i,i)) for i in range(1,7)]
+aa = "min(30 deg;max(0 deg;Controls.Opening))"
+def expr(pos,ang):
+    return ("create(<<placement>>;create(<<vector>>;" + pos +
+            ");create(<<rotation>>;create(<<vector>>;0;1;0);" + ang + "))")
+for x,g in zip(ST,sgs):
+    g.setExpression("Placement",expr("%g;0;%g"%(x,Z),"-"+aa))
+move.setExpression("Placement",expr(
+    "%g*cos(%s)-(%g)*sin(%s);0;%g+%g*sin(%s)+(%g)*cos(%s)" %
+    (DX,aa,DZ,aa,Z,DX,aa,DZ,aa),"0 deg"))
+
+M = {"sheet":("EN AW-5754 H22",2.68),"al":("EN AW-6061 T6",2.70),
+     "bronze":("EN AW-6061 T6, bronseeloksert",2.70),"steel":("AISI 304",8.),
+     "spring":("EN 1.4310 fjørstål",7.90),"pom":("POM-C",1.41),
+     "pc":("Opal polykarbonat",1.20),"rubber":("Silikon",1.15),
+     "ledref":("Innkjøpt LED-lyskort, konvolutt",0.),
+     "cordref":("Innkjøpt kabelsett, vist leidning",0.),
+     "hall":("Hall-kort med straumregulatorar, konvolutt",0.),
+     "mag":("NdFeB, fornikla",7.5),
+     "plug":("Kontaktinnsats, PBT og koparlegering, konvolutt",0.)}
+parts, byid = [], {}
+
+def ax(r,l,p,d=(0,0,1)):
+    return Part.makeCylinder(r,l,V(*p),V(*d))
+def box(x,y,z,p):
+    return Part.makeBox(x,y,z,V(*p))
+def ring(ro,ri,l,p,d=(0,0,1)):
+    return ax(ro,l,p,d).cut(ax(ri,l,p,d))
+def loop(pts):
+    return Part.makePolygon([V(*p) for p in list(pts)+[pts[0]]])
+def xz(pts,y,d):
+    return Part.Face(loop([(x,y,z) for x,z in pts])).extrude(V(0,d,0))
+def yz(pts,x,d):
+    return Part.Face(loop([(x,y,z) for y,z in pts])).extrude(V(d,0,0))
+def turn(pts):
+    return Part.Face(loop([(r,0,z) for r,z in pts])).revolve(V(),V(0,0,1),360)
+def shift(sh,d):
+    sh.translate(V(*d))
+    return sh
+def join(*shapes):
+    sh = shapes[0]
+    for o in shapes[1:]:
+        sh = sh.fuse(o)
+    return sh.removeSplitter()
+def cut(sh,*tools):
+    for tool in tools:
+        sh = sh.cut(tool)
+    return sh.removeSplitter()
+def add(g,key,name,sh,m,method,grams=None,sub=False):
+    ss = sh.Solids
+    if key in byid or len(ss)!=1 or not ss[0].isValid() or ss[0].Volume<=0:
+        raise RuntimeError("Invalid item: "+key+" / "+str(len(ss)))
+    sh = ss[0]
+    ob = doc.addObject("Part::Feature","P_"+key.replace("-","_"))
+    g.addObject(ob)
+    ob.Label = key+" "+name
+    ob.Shape = sh
+    spec,rho = M[m]
+    if grams is not None:
+        rho = grams*1000./sh.Volume
+        method += " Konvolutt; budsjettert masse %g g."%grams
+    for typ,n,v in [("String","Item",key),("String","MaterialSpec",spec),
+                    ("String","Process",method),("Float","Density_g_cm3",rho),
+                    ("Float","Mass_g",round(rho*sh.Volume/1000.,5))]:
+        ob.addProperty("App::Property"+typ,n,"Verkstad")
+        setattr(ob,n,v)
+    parts.append((ob,g,m))
+    byid[key] = (ob,g)
+    if sub:
+        SUB.add(key)
+    return ob
+def screw(x,y,z,dia,l,hr,hh,up=1):
+    return join(ax(dia/2,l,(x,y,z),(0,0,up)),ax(hr,hh,(x,y,z-up*hh),(0,0,up)))
+def J(path,data):
+    path.write_text(json.dumps(data,ensure_ascii=False,separators=(",",":")),encoding="utf-8")
+
+# Pedestal meridian. Beziers have common tangent directions at the waist,
+# rim and shoulder. The neck is hollow right up to the transverse top rib.
+def pedestal():
+    start = (70.,1.3)
+    here = start
+    edges = []
+    def v(p): return V(p[0],0,p[1])
+    def seg(p):
+        nonlocal here
+        edges.append(Part.makeLine(v(here),v(p)))
+        here = p
+    def bez(p,q,r):
+        nonlocal here
+        cv = Part.BezierCurve()
+        cv.setPoles([v(t) for t in (here,p,q,r)])
+        edges.append(cv.toShape())
+        here = r
+    seg((74.35,1.3))
+    bez((75.9,1.3),(76.8,2.25),(76.8,3.55))
+    bez((76.8,4.95),(75.8,5.85),(74.05,5.88))
+    bez((61,6.10),(42,6.05),(32,7.35))
+    bez((19.5,8.98),(15.7,21.0),(15.0,40.))
+    bez((14.5,53.57),(14.2,74),(14.2,90))
+    bez((14.2,110),(16.0,127),(19.7,138))
+    bez((23.4,149),(28.1,158.3),(32.3,163))
+    seg((30.0,163))
+    bez((25.4,157.7),(20.9,148),(17.9,138.5))
+    bez((14.1,126.5),(12.35,109),(12.35,90))
+    bez((12.35,70),(12.8,54),(13.15,40))
+    bez((13.65,20),(18,7.25),(31.6,5.48))
+    bez((42,4.12),(60,4.18),(70,4.03))
+    seg(start)
+    return shift(Part.Face(Part.Wire(edges)).revolve(V(),V(0,0,1),360),(0,CY,0))
+ped = pedestal()
+rib = Part.makeCone(27.5,31.4,5.4,V(0,CY,157.6)).common(
+    box(66,13,5.4,(-33,CY-6.5,157.6)))
+# Straight withdrawal space behind cartridge flange; not a through-slot in foot.
+ped = cut(join(ped,rib),box(46,65,ZA+10-81,(-23,-63,81)))
+land = xz([(-20,ZA+10),(20,ZA+10),(20,ZA+12.8),(15,ZA+16.2),
+           (-15,ZA+16.2),(-20,ZA+12.8)],-9,31)
+ped = cut(join(ped,land),ring(74.55,71.65,1.5,(0,CY,1.15)),
+          ax(4.08,27,(0,CY,18),(0,1,0)),
+          box(7.8,4.8,7,(-3.9,-6.9,ZA+9.95)),
+          ax(2.4,30,(0,-4.5,ZA+14),(0,1,0)),ax(2.5,7,(0,CY,157)))
+for x in (-13.,13.):
+    ped = cut(ped,ax(1.52,5.6,(x,-4.5,ZA+9.95)))
+for x in (-9.,9.):
+    ped = cut(ped,ax(1.52,5.6,(x,CY,157.5)))
+add(base,"101","Fot med utsvinga hals",ped,"al",
+    "Drei hol profil; fres sitjeflate og tverribbe frå attståande gods. "
+    "Dreia radiuskant og strekkspor for sålen. M3 i hals og kassettsete.")
+sole = shift(turn([(71.8,0),(74.4,0),(74.65,.55),(74.4,1.28),(74.4,2.62),
+                   (71.8,2.62),(71.8,1.26),(71.55,.55)]),(0,CY,0))
+add(base,"102","Sålering",sole,"rubber","Strekkmontering i undersporet, utan lim.")
+u3,u4 = ST[2],ST[3]
+yoke = xz([(u3-6,Z-4),(u3-2,Z-8),(u4+2,Z-8),(u4+6,Z-4),(u4+6,Z+3),
+           (u4+3,Z+6),(u3-3,Z+6),(u3-6,Z+3)],CY-8,16)
+for j,x in enumerate((u3,u4),1):
+    yoke = cut(yoke,ax(2.06,18,(x,CY-9,Z),(0,1,0)),ax(1.53,5,(x,CY,Z+1.5)))
+    add(base,"H2-%d"%j,"Låseskrue for beretapp",ax(1.5,3.8,(x,CY,Z+2)),"steel",
+        "M3 flat ende. Gjengar i heile modellen har frie nominelle konvoluttar.")
+for j,x in enumerate((-9.,9.),1):
+    yoke = cut(yoke,ax(1.65,16,(x,CY,Z-9)),ax(2.85,3,(x,CY,Z+3.4)))
+    add(base,"H1-%d"%j,"M3 toppskrue",screw(x,CY,Z+3.4,3,16,2.7,2.4,-1),
+        "steel","M3 × 16 ned i tverribba.")
+add(base,"103","Tverrsadel",cut(yoke,ax(2.45,16,(0,CY,Z-9))),"al",
+    "Fres frå stong. Monter på halsen med to M3. Leidningshol midt i sadelen.")
+add(base,"104","Strekkavlasting",
+    join(ring(3.98,2.05,9.8,(0,CY+12,18),(0,1,0)),
+         ring(5.3,2.05,1.4,(0,CY+21.8,18),(0,1,0))),"rubber",
+    "Stuk inn i radialholet. Tilpass halslengda til produksjonsprofilen.")
+cv = Part.BSplineCurve()
+cv.interpolate([V(0,CY+12,18),V(0,CY+31,18),V(3,74,13),V(9,94,4.3),
+                V(18,114,2.3),V(35,138,2.3),V(48,154,2.3)])
+cord = Part.Wire([cv.toShape()]).makePipeShell([Part.Wire([Part.makeCircle(
+    1.85,V(0,CY+12,18),cv.tangent(cv.FirstParameter)[0])])],True,False)
+add(base,"E03","Lågspenningsleidning",cord,"cordref",
+    "Føringsreferanse. Laus leidning og primærbrytar er budsjetterte separat.")
+
+# The light engine is an inset, bottom-loaded shoe. Its visible lower rim
+# is smaller than its belly and round in plan; there are no black end blocks.
+def capsule(a,r,y,z):
+    p,q = V(-a,y-r,z),V(a,y-r,z)
+    t,s = V(a,y+r,z),V(-a,y+r,z)
+    return Part.Wire([Part.makeLine(p,q),Part.Arc(q,V(a+r,y,z),t).toShape(),
+                      Part.makeLine(t,s),Part.Arc(s,V(-a-r,y,z),p).toShape()])
+def capsule_solid(a,r,y,z,h):
+    return Part.Face(capsule(a,r,y,z)).extrude(V(0,0,h))
+shoe = Part.makeLoft([capsule(84,r,YS,ZA+h) for r,h in
+                      [(18.9,-1.5),(21.5,1.1),(21.5,7.65),(18.9,10.)]],True,True)
+shoe = cut(shoe,capsule_solid(82,17.65,YS,ZA-2,10.05))
+# Back mounting tongue, a roofed cove machined from the top island.
+shoe = join(shoe,box(40,18,1.8,(-20,-17.5,ZA+8.2)))
+hood = capsule_solid(65,9.,-26.,ZA+9.90,8.55)
+hood = cut(hood,box(142,22,6.9,(-71,-30.6,ZA+9.96)))
+shoe = join(shoe,hood)
+# End seat and a small interference bead on the opal insert are dry snap fits.
+shoe = cut(shoe,box(141,1.58,.72,(-70.5,-25.8,ZA+9.42)),
+           box(141,1.58,.85,(-70.5,-25.8,ZA+16.54)),
+           box(7.55,4.65,2.3,(-3.775,-6.825,ZA+8.1)))
+for j,x in enumerate((-13.,13.),1):
+    shoe = cut(shoe,ax(1.67,2.5,(x,-4.5,ZA+8.05)))
+    add(base,"H3-%d"%j,"Serviceskrue M3",screw(x,-4.5,ZA+8.2,3,7,2.75,2.4),
+        "steel","M3 × 7, 2 mm sekskant frå undersida. Ta heilt ut ved byte.")
+lens = capsule_solid(82,17.38,YS,ZA,1.50)
+for j,side in enumerate((-1,1),1):
+    x = side*96.35
+    shoe = join(shoe,ax(2.90,6.72,(x,YS,ZA+1.5)))
+    shoe = cut(shoe,ax(1.02,6.8,(x,YS,ZA+1.44)))
+    lens = cut(lens,ax(1.12,2,(x,YS,ZA-.1)))
+    lens = join(lens,ax(1.95,5.05,(side*90.,YS,ZA+1.45)))
+    add(base,"109-%d"%j,"Optikkskrue M2",screw(x,YS,ZA,2,7,1.62,1.22),
+        "steel","Held optikk og trykkpunkt for kortet. Treng ikkje løysast ved eigarbyte.",sub=True)
+add(base,"106","Innfelt lyssko",shoe,"al",
+    "Fres frå plate, med avrunda planomriss, to gjengeknastar og bakovervend lyshole. "
+    "Lys, matt innside; utsida har same varme metalltone som skala. Tørr kjølekontakt.",sub=True)
+add(base,"107","Inntrekt bordoptikk",lens,"pc",
+    "Innkjøpsmål: asymmetrisk mikroprismeoptikk med spreiesjikt. To trykkpunkt i "
+    "mørke endesoner held kortet mot kjøleflata. Ikkje ei plan Lambert-plate.",sub=True)
+washlens = box(140.8,1.28,7.72,(-70.4,-25.65,ZA+9.53))
+for x in (-67.,67.):
+    washlens = join(washlens,box(2.1,3.65,2.1,(x-1.05,-29.25,ZA+12.3)))
+add(base,"108","Opal vaskelysinnsats",washlens,"pc",
+    "Bøy den tynne lista inn i spora under visiret. Knastar held vaskekortet mot veggen.",sub=True)
+add(base,"E01","Arbeidskort 2700 K",box(186,24,1.55,(-93,YS-12,ZA+6.50)),
+    "ledref","180 mm aktiv line på undersida, tørre kontaktflater, Ra ≥ 90.",10.,True)
+add(base,"E02","Vaskelyskort 2000 og 2700 K",box(138,1.35,5.7,(-69,-30.6,ZA+10.45)),
+    "ledref","To kanalar på same kort; lys mot +Y under visiret, Ra ≥ 90 på begge.",2.8,True)
+plug = join(box(8.8,5.6,.9,(-4.4,-7.3,ZA+7.30)),
+            box(7.34,4.44,1.85,(-3.67,-6.72,ZA+8.20)),
+            box(4.85,2.35,3.2,(-2.425,-5.675,ZA+10.05)))
+sock = cut(box(7.55,4.55,5.85,(-3.775,-6.775,ZA+10.07)),
+           box(5.05,2.55,3.50,(-2.525,-5.775,ZA+10.05)))
+add(base,"J01","Kassettplugg",plug,"plug","Polarisert firepol på lysskoen.",1.2,True)
+add(base,"J02","Fast kontaktinnsats",sock,"plug","Klipsfeste i halsen.",1.4)
+
+for drive,gr,y,ro in [(False,fixed,-YF,4.5),(True,move,YR,5.)]:
+    rz = 0. if drive else Z
+    xlo,xhi = ST[0]-12,ST[-1]+12
+    rail = ring(ro,ro-1,xhi-xlo,(xlo,y,rz),(1,0,0))
+    for xp in ST:
+        rail = cut(rail,ax(2.035,2*ro+2,(xp,y-ro-1,rz),(0,1,0)))
+    add(gr,"301" if drive else "201","Reguleringsrøyr" if drive else "Fast røyr",
+        rail,"bronze" if drive else "al","Ø%g × 1, L414. Jiggbor Ø4,07, deling 78."%(2*ro))
+    for s,xe in [(-1,xlo),(1,xhi)]:
+        cap = join(ax(ro-1.02,3,(xe-3*s,y,rz),(s,0,0)),ax(ro,.8,(xe,y,rz),(s,0,0)))
+        add(gr,("302" if drive else "202")+("-L" if s<0 else "-R"),
+            "Endeplugg",cap,"pom","Trykkpassning.")
+grippts = [(-33.5,5.03),(-33.5,5.8),(-32,7.15),(-27,8.4),(-18,9.5),(-7,10),
+           (7,10),(18,9.5),(27,8.4),(32,7.15),(33.5,5.8),(33.5,5.03)]
+grip = Part.Face(loop([(x-LEAD,YR,r) for x,r in grippts])).revolve(V(0,YR,0),V(1,0,0),360)
+add(move,"303","Løftegrep",grip,"rubber",
+    "67 × Ø20, matt varmgrå silikon. Tre på bronserøyret før stikking av tappane.")
+
+def dxf(name,pts):
+    h = ("0\nSECTION\n2\nHEADER\n9\n$ACADVER\n1\nAC1015\n9\n$INSUNITS\n70\n4\n"
+         "0\nENDSEC\n0\nSECTION\n2\nENTITIES\n0\nLWPOLYLINE\n100\nAcDbEntity\n"
+         "8\nCUT\n100\nAcDbPolyline\n90\n%d\n70\n1\n"%len(pts))
+    with (DXFS/(name+".dxf")).open("w",encoding="ascii",newline="\n") as f:
+        f.write(h)
+        for x,y in pts: f.write("10\n%.6f\n20\n%.6f\n"%(x,y))
+        f.write("0\nENDSEC\n0\nEOF\n")
+
+# Rocker knife in the frame (u,v) tangent/normal to a closed hem line.
+# The descending end is a line, a circular arc about the actual pivot,
+# then a line. It cannot swing below the closed tangent during the stroke.
+def floor_v(u,h):
+    if u < -h*SR: return (-h-u*SR)/CR
+    if u < 0: return -sqrt(max(0,h*h-u*u))
+    return -h
+
+def rocker_tool(m,h,front):
+    w = sqrt(1+m*m)
+    y = -145. if front else 0.
+    def pt(u,v):
+        return V((u-m*v)/w,y,(m*u+v)/w)
+    a,b = pt(-175,floor_v(-175,h)),pt(-h*SR,-h*CR)
+    c,d = pt(0,-h),pt(175,-h)
+    e,f = pt(175,-170),pt(-175,-170)
+    arc = Part.Arc(b,pt(-h*sin(rad(N/2)),-h*cos(rad(N/2))),c).toShape()
+    edges = [Part.makeLine(a,b),arc,Part.makeLine(c,d),Part.makeLine(d,e),
+             Part.makeLine(e,f),Part.makeLine(f,a)]
+    return Part.Face(Part.Wire(edges)).extrude(V(0,145,0))
+
+def blank(i,b,k,rear,front,rock):
+    xp = ST[i]
+    def end(right,a):
+        c = cos(a)
+        if (not right and i==0) or (right and i==5):
+            xc,zc,r = TIP_R if right else TIP_L
+            u,v,d = xc-xp,b*c-zc,k*c
+            D = (d*v-u)**2-(1+d*d)*(u*u+v*v-r*r)
+            return (u-d*v+(1 if right else -1)*sqrt(max(0.,D)))/(1+d*d)
+        e = LEAD+(P-GAP)/2 if right else LEAD-(P-GAP)/2
+        return (e+BIAS*b*c)/(1-BIAS*k*c)
+    def flat(a,right):
+        l,r = end(False,a),end(True,a)
+        m,h = rock[a>=0]
+        w = sqrt(1+m*m)
+        def safe(x):
+            z = (b+k*x)*cos(a)
+            return (z-m*x)/w >= floor_v((x+m*z)/w,h)
+        if not safe(l):
+            lo,hi = l,r
+            if not safe(hi):
+                raise ValueError("Blank generator lost")
+            for n in range(43):
+                mid = (lo+hi)/2
+                if safe(mid): hi=mid
+                else: lo=mid
+            l = hi
+        x = r if right else l
+        w = sqrt(1+k*k)
+        g = (b+k*x)*w/k
+        return (g*cos(k*a/w)-b*w/k,g*sin(k*a/w))
+    ang = [-rear+(rear+front)*n/400 for n in range(401)]
+    dxf("S%02d"%(i+1),[flat(a,False) for a in ang]+[flat(a,True) for a in reversed(ang)])
+
+def along(side,r,a,b,x,z):
+    return ax(r,b-a,(x,side*a,z),(0,side,0))
+
+# The balance blade is rigid with shell 5. Its tip lies INSIDE the lens,
+# behind the optical path; it does not need a spring cable or a tenth group.
+armblank = None
+thrust = {}
+for i,(xp,g) in enumerate(zip(ST,sgs)):
+    sid = i+1
+    q = (C[i+1]-C[i])/P
+    k = q/(1+BIAS*q)
+    b = (C[i]+q*(P/2-LEAD))/(1+BIAS*q)
+    def hem(lam):
+        return math.acos(-lam/(1-BIAS*k*(1+lam)))
+    front,rear = hem(.38),hem(.54)
+    off = .5*T*sqrt(1+k*k)
+    xl = LEAD+(-58. if i==0 else -85.)
+    xr = LEAD+(59. if i==5 else 100.)
+    def cone(pad):
+        return Part.makeCone(b+k*xl+pad,b+k*xr+pad,xr-xl,V(xl,0,0),V(1,0,0))
+    r0,r1 = b+k*xl,b+k*xr
+    w = loop([(xl,0,r0-off),(xr,0,r1-off),(xr,0,r1+off),(xl,0,r0+off)])
+    sh = Part.Face(w).revolve(V(),V(1,0,0),math.degrees(rear+front))
+    sh.rotate(V(),V(1,0,0),-math.degrees(rear))
+    el = LEAD-P/2+GAP/2 if i else -180.
+    er = LEAD+P/2-GAP/2 if i<5 else 180.
+    sh = sh.common(xz([(el-130*BIAS,-130),(er-130*BIAS,-130),
+                       (er+130*BIAS,130),(el+130*BIAS,130)],-135,270))
+    if i in (0,5):
+        xc,zc,r = TIP_L if i==0 else TIP_R
+        xc -= xp
+        outside = box(155,280,280,(xc-155 if i==0 else xc,-140,-140))
+        sh = cut(sh,outside.cut(ax(r,282,(xc,-141,zc),(0,1,0))))
+    rock = {}
+    for fr,ang in [(True,front),(False,rear)]:
+        m = k*cos(ang)
+        h = -(b+off)*cos(ang)/sqrt(1+m*m)+.12
+        rock[fr] = (m,h)
+        sh = cut(sh,rocker_tool(m,h,fr))
+    outer,inner = cone(off+.08),cone(-off-.08)
+    for xx,zz,side in [(0,0,-1),(DX,DZ,1)]:
+        sh = cut(sh,ax(3.19,133,(xx,0,zz),(0,side,0)))
+    if sid==3:
+        sh = cut(sh,ax(1.59,133,(14,0,0),(0,-1,0)))
+    if sid==5:
+        for xx in (4.,22.):
+            sh = cut(sh,ax(1.62,133,(xx,0,21),(0,1,0)))
+    add(g,"S%02d"%sid,"Samanhengande skjell",sh,"sheet",
+        "Konvals nøytral DXF. Same kronelinje; avlasta tå på begge faldar. "
+        "Avgrad og jiggbor etter valsing. k=%.6f, r ved hengsel=%.3f. "
+        "Lys, diffus innside og silkematt utside."%(k,b))
+    blank(i,b,k,rear,front,rock)
+    for drive in (False,True):
+        side = 1 if drive else -1
+        tag = "%d%s"%(sid,"R" if drive else "F")
+        xx,zz = (DX,DZ) if drive else (0.,0.)
+        gr,rz = (move,0.) if drive else (fixed,Z)
+        yd,ro = (YR,5.) if drive else (YF,4.5)
+        ray = (0,side,0)
+        mid = sqrt((b+k*xx)**2-zz**2)
+        half = 3.35+4.7*abs(k)
+        lo,hi = mid-half,mid+half
+        def sleeve(r):
+            return ring(r,2.055,hi-lo,(xx,side*lo,zz),ray)
+        bush = join(sleeve(3.12),sleeve(4.9).cut(outer),sleeve(3.68).common(inner))
+        a_,b_ = sorted((side*(lo-.1),side*(hi-.95)))
+        bush = cut(bush,box(8.4,b_-a_,.85,(xx-4.2,a_,zz-.425)))
+        add(g,"B"+tag,"Salforing",bush,"pom",
+            "Eitt stykke, splitta innføringsende og koniske anlegg. Boring Ø4,11.")
+        ext = not drive and sid in (3,4)
+        shoulder = hi if ext else hi+.18
+        def shaft(r,l,h): return along(side,r,l,h,xp,rz)
+        pin = join(shaft(2,-(CY+8.5) if ext else lo-1.9,shoulder),
+                   shaft(3.15,shoulder,yd-ro),shaft(2,yd-ro,yd+ro),
+                   shaft(3.45,yd+ro,yd+ro+1))
+        if not ext:
+            pin = cut(pin,ring(2.15,1.55,.73,(xp,side*(lo-1.10),rz),ray))
+        add(gr,"P"+tag,"Beretapp" if ext else "Skuldertapp",pin,"al",
+            "Ø4,00 journal. Kaldstukk røyrenden. "+(
+            "Plan ytre trykkskulder mot foringa." if ext else "Spor for radiell låsering."))
+        if ext:
+            col = cut(ring(4.9,2.025,3.65,(xp,side*(lo-4.45),rz),ray),
+                      ax(1.02,3.4,(xp,side*(lo-2.65),rz+1.8)))
+            add(gr,"K"+tag,"Justerkrage",col,"al","M2 radielt. Still inn montert fjørhøgd.")
+            add(gr,"G"+tag,"Låseskrue M2",ax(1,2.75,(xp,side*(lo-2.65),rz+2)),
+                "steel","Flat ende mot beretapp.")
+            # Flat annuli at BOTH ends. Outer land fits on the split POM
+            # face (R3.68), not beyond it. CAD section is the INSTALLED one.
+            disc = turn([(2.09,0),(2.48,0),(3.15,.48),(3.57,.48),
+                         (3.57,.80),(3.15,.80),(2.48,.32),(2.09,.32)])
+            disc.rotate(V(),V(1,0,0),90)
+            disc.translate(V(xp,-(lo-.80),rz))
+            add(gr,"F"+tag,"Forspent friksjonsfjør",disc,"spring",
+                "Forma trykkskive med flate land R2,09–2,48 og R3,15–3,57. "
+                "Fri høgd 1,00, arbeidshøgd 0,80. Kraftkurve må kvalifiserast.")
+            thrust[tag] = (-(lo-.80),-lo,-hi)
+        else:
+            clip = ring(3.55,1.58,.62,(xp,side*(lo-1.055),rz),ray)
+            clip = cut(clip,box(4,2,2.45,
+                       (xp,min(side*(lo-1.055),side*(lo-.435))-.5,rz-1.225)))
+            add(gr,"K"+tag,"Radiell låsering",clip,"steel","Fjørande C-ring i dreia spor.")
+    if sid==3:
+        rr = b+14*k
+        peg = join(along(-1,1.53,56.8,rr+1.9,14,0),
+                   along(-1,2.65,rr-1.8,rr+1.9,14,0).cut(outer),
+                   along(-1,2.46,rr-1.75,rr+1.55,14,0).common(inner))
+        peg = cut(peg,ax(1.025,2.24,(14,-56.77,0),(0,-1,0)))
+        add(g,"206","Stopptapp med magnetsete",peg,"al","Stukne skuldrer rundt Ø3,18.")
+        add(g,"207","Posisjonsmagnet",ax(1,2,(14,-56.92,0),(0,-1,0)),"mag",
+            "Pressete med mekanisk sikra leppe.")
+    if sid==5:
+        armblank = xz([(-160,50),(-141,44),(-18,19),(2,14),(24,14),(28,18),
+                       (28,24),(24,28),(0,28),(-19,26),(-141,51),(-160,56)],58.5,3.)
+        for j,xx in enumerate((4.,22.),1):
+            yy = sqrt((b+k*xx)**2-21**2)
+            post = ax(3.35,53,(xx,60,21),(0,1,0)).common(cone(-off))
+            armblank = cut(join(armblank,post),ax(1.52,30,(xx,yy-8,21),(0,1,0)))
+            head = ax(2.70,5,(xx,yy-2,21),(0,1,0)).cut(cone(off))
+            bolt = join(ax(1.50,10,(xx,yy-7.2,21),(0,1,0)),head)
+            add(g,"H6-%d"%j,"Skalbolt M3",bolt,"steel",
+                "M3 med sadelskiveforma underside. Låser balansebladet mot innsida.")
+
+# Slot on the rising side of pivot 3.
+rs,ws = 14.,1.58
+sector = Part.Face(loop([(u3+rs-ws,-65,Z),(u3+rs+ws,-65,Z),
+                         (u3+rs+ws,-58,Z),(u3+rs-ws,-58,Z)]))
+slot = sector.revolve(V(u3,0,Z),V(0,-1,0),N)
+for a in (0,N):
+    slot = join(slot,ax(ws,7,(u3+rs*cos(rad(a)),-65,Z+rs*sin(rad(a))),(0,1,0)))
+plate = xz([(u3-5,Z-3),(u3-2,Z-5),(u4+2,Z-5),(u4+5,Z-2),(u4+5,Z+3),
+            (u4+2,Z+5),(u3+26,Z+5),(u3+22,Z+10),(u3+6,Z+10),(u3-5,Z+4)],
+           -63.2,3.)
+for x in (u3+7,u3+21):
+    plate = join(plate,ax(2,4.50,(x,-60.3,Z+3.5),(0,1,0)))
+    plate = cut(plate,ax(1.02,5.1,(x,-60.7,Z+3.5),(0,1,0)))
+plate = cut(plate,slot)
+for j,x in enumerate((u3,u4),1):
+    plate = cut(plate,ax(2.055,5,(x,-64,Z),(0,1,0)),ax(.82,4,(x,-61.7,Z+1.8)))
+    add(fixed,"H4-%d"%j,"Stopplatelås",ax(.8,2.9,(x,-61.7,Z+2)),"steel",
+        "M1,6 flat ende. Lås plata etter innstilling i jigg.")
+add(fixed,"205","Stopplate og sensorfeste",plate,"al","Fres bogespor R14, breidd 3,16.")
+pcb = box(31,3.1,18,(u3+3,-55.8,Z-5))
+for j,x in enumerate((u3+7,u3+21),1):
+    pcb = cut(pcb,ax(1.08,4,(x,-56,Z+3.5),(0,1,0)))
+    add(fixed,"H5-%d"%j,"Kortskrue M2",
+        join(ax(1,6,(x,-52.7,Z+3.5),(0,-1,0)),ax(1.75,1.4,(x,-52.7,Z+3.5),(0,1,0))),
+        "steel","M2 × 6 i avstandsknasten.")
+add(fixed,"E04","Vinkelgjevar og dimmetrinn",pcb,"hall",
+    "Fast 3D Hall-gjevar og tre straumsøkkjer. Kalibrer på dei fysiske endestoppa.",6.)
+
+def grav(a):
+    c,s = cos(rad(a)),sin(rad(a))
+    gm = 0.
+    for o,g,m in parts:
+        if g in sgs:
+            v = o.Shape.CenterOfMass
+            gm += o.Mass_g*(c*v.x-s*v.z)
+        elif g==move:
+            gm += o.Mass_g*(c*DX-s*DZ)
+    return gm*9.80665e-6             # N m, positive opposes opening
+
+# Size the local thickness of the balance blade to centre the residual
+# gravity torque between the end positions. No off-board mass helps it.
+tip_outline = [(-162,48),(-159,46),(-129,38),(-126,40),
+               (-126,49),(-129,52),(-159,60),(-162,58)]
+unit = xz(tip_outline,57.5,1.)
+def twosum(sh):
+    p = sh.CenterOfMass
+    return .008*sh.Volume*((1+CR)*p.x-SR*p.z)
+tip_t = max(1.0,min(18.,-((grav(0)+grav(N))/9.80665e-6+twosum(armblank))/twosum(unit)))
+blade = join(armblank,xz(tip_outline,58.5-tip_t,tip_t))
+add(sgs[4],"208","Innvendig balanseblad",blade,"steel",
+    "Fres frå rustfri plate med to integrerte avstandsføter. Tuppgods %.2f mm. "
+    "Bladet følgjer skjell 5, bak lysvegen. Prøveveg og finjuster på innvendig side."%tip_t)
+
+def setangle(a):
+    sheet.set("B1","%d deg"%a)
+    doc.recompute()
+    c,s = cos(rad(a)),sin(rad(a))
+    if (move.Placement.Base-V(c*DX-s*DZ,0,Z+s*DX+c*DZ)).Length>1e-6:
+        raise RuntimeError("Drive placement not evaluated")
+    for x,g in zip(ST,sgs):
+        if (g.Placement.multVec(V(1,0,0))-V(x+c,0,Z+s)).Length>1e-6:
+            raise RuntimeError("Shell placement not evaluated")
+def world(o,g):
+    sh = o.Shape.copy()
+    sh.Placement = g.Placement.multiply(sh.Placement)
+    return sh
+
+# Ray testing in the work plane. Only geometry BELOW the emitting plane
+# can intercept these rays. Store a small bounding-volume tree of triangles.
+def cross(a,b):
+    return (a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0])
+def sub(a,b):
+    return (a[0]-b[0],a[1]-b[1],a[2]-b[2])
+def dot(a,b):
+    return a[0]*b[0]+a[1]*b[1]+a[2]*b[2]
+def tree(ts):
+    if not ts: return None
+    lo = tuple(min(t[3][i] for t in ts) for i in range(3))
+    hi = tuple(max(t[4][i] for t in ts) for i in range(3))
+    if len(ts)<=10: return (lo,hi,ts,None,None)
+    i = max(range(3),key=lambda k:hi[k]-lo[k])
+    ts.sort(key=lambda t:t[3][i]+t[4][i])
+    n = len(ts)//2
+    return (lo,hi,None,tree(ts[:n]),tree(ts[n:]))
+def blocked(node,o,d):
+    if node is None: return False
+    lo,hi,ts,l,r = node
+    t0,t1 = 0.,1.
+    for i in range(3):
+        if abs(d[i])<1e-10:
+            if o[i]<lo[i] or o[i]>hi[i]: return False
+        else:
+            a,b = (lo[i]-o[i])/d[i],(hi[i]-o[i])/d[i]
+            if a>b: a,b=b,a
+            t0,t1=max(t0,a),min(t1,b)
+            if t0>t1: return False
+    if ts is None:
+        return blocked(l,o,d) or blocked(r,o,d)
+    for p,e,f,_,_ in ts:
+        h = cross(d,f)
+        det = dot(e,h)
+        if abs(det)<1e-10: continue
+        s = sub(o,p)
+        u = dot(s,h)/det
+        if not 0.<=u<=1.: continue
+        q = cross(s,e)
+        v = dot(d,q)/det
+        if v>=0. and u+v<=1. and 1e-7<dot(f,q)/det<1.-1e-7: return True
+    return False
+
+PSU,LEADS,LOOM,RESERVE = 205.,52.,10.,35.
+bounds,stability = {},{}
+opt_tree = None
+for a in (N,0):
+    setangle(a)
+    result,tri = [],[]
+    lo,hi = [float("inf")]*3,[-float("inf")]*3
+    mom,mass = V(),0.
+    for o,g,m in parts:
+        sh = world(o,g)
+        vs,fs = sh.tessellate(.085)
+        vv = [[round(v.x,4),round(v.y,4),round(v.z,4)] for v in vs]
+        if m!="cordref":
+            mom = mom+sh.CenterOfMass*o.Mass_g
+            mass += o.Mass_g
+            for i,col in enumerate(zip(*vv)):
+                lo[i],hi[i] = min(lo[i],min(col)),max(hi[i],max(col))
+            if a==N:
+                for ids in fs:
+                    p,q,r = [vv[k] for k in ids]
+                    if min(p[2],q[2],r[2])>=ZA-.012 or min(p[1],q[1],r[1])>=YS: continue
+                    tri.append((p,sub(q,p),sub(r,p),tuple(map(min,zip(p,q,r))),
+                                tuple(map(max,zip(p,q,r)))))
+        result.append({"key":o.Item,"label":o.Label,"group":g.Name,"mat":m,"v":vv,"f":fs})
+    if a==N: opt_tree=tree(tri)
+    J(WORK/("mesh%d.json"%a),result)
+    bounds[a] = [round(v-u,4) for v,u in zip(hi,lo)]
+    cm = mom*(1./mass)
+    rho = math.hypot(cm.x,cm.y-CY)
+    extra = LOOM+RESERVE
+    rw = max(math.hypot(x,y-CY) for x in (lo[0],hi[0]) for y in (lo[1],hi[1]))
+    run = (mass*rho+rw*extra)/(mass+extra)
+    h = (mass*cm.z+hi[2]*extra)/(mass+extra)
+    stability[a] = {"cad_mass_g":mass,"com_mm":[cm.x,cm.y,cm.z],"tilt_deg":10,
+        "support_radius_used_mm":72.,"foot_centre_xy":[0.,CY],
+        "nominal_margin_mm":72.-rho-cm.z*math.tan(rad(10)),
+        "adverse_margin_mm":72.-run-h*math.tan(rad(10)),
+        "nominal_tip_deg":math.degrees(math.atan2(72.-rho,cm.z)),
+        "min_mm":lo,"max_mm":hi}
+J(WORK/"bounds.json",bounds)
+J(WORK/"stability.json",stability)
+
+# Loaded contact witnesses, in global coordinates. Only count coplanar
+# face area, not an intersection volume or proximity of two sharp edges.
+def lands(sh,y):
+    out = []
+    for f in sh.Faces:
+        if not isinstance(f.Surface,Part.Plane): continue
+        if abs(abs(f.Surface.Axis.y)-1)<1e-8 and abs(f.CenterOfMass.y-y)<2e-5:
+            out.append(f)
+    return out
+def witness(k1,k2,y):
+    s1,s2 = world(*byid[k1]),world(*byid[k2])
+    area = sum(f.common(g).Area for f in lands(s1,y) for g in lands(s2,y))
+    return {"pair":[k1,k2],"distance_mm":s1.distToShape(s2)[0],"land_area_mm2":area}
+max_grav = max(abs(grav(i/4.)) for i in range(4*N+1))
+brake = max(.018,1.22*max_grav)
+# Lower-bound effective radii of two friction paths per pivot. In the
+# inner path either spring face can slip. These are design coefficients.
+preload = brake/(2*.12*(.002055+.00209))
+fr = {"free_mm":1.00,"installed_mm":.80,"deflection_mm":.20,
+      "design_mu_floor":.12,"target_breakaway_Nm":brake,
+      "preload_per_pivot_N_design":preload,"poses":[]}
+mechanism = []
+check = os.environ.get("FURU_CHECK","0")=="1"
+hits = []
+for a in range(0,N+1,5):
+    setangle(a)
+    checks = []
+    for tag,(yc,yb,yp) in thrust.items():
+        checks += [witness("K"+tag,"F"+tag,yc),witness("F"+tag,"B"+tag,yb),
+                   witness("P"+tag,"B"+tag,yp)]
+    fr["poses"].append({"angle_deg":a,"contacts":checks})
+    c,s = cos(rad(a)),sin(rad(a))
+    vz = DX*c-DZ*s
+    mechanism.append({"angle_deg":a,"skin_slab_gap_x_mm":GAP+P*(c+BIAS*s-1),
+        "gravity_torque_to_overcome_Nm":grav(a),"drive_rise_mm":DX*s+DZ*(c-1),
+        "opening_force_N_at_target_friction":(grav(a)+brake)*1000/vz})
+    if check:
+        shapes = [(o.Item,g,world(o,g)) for o,g,m in parts]
+        for n,(k,g,sh) in enumerate(shapes):
+            for k2,g2,s2 in shapes[n+1:]:
+                if g==g2 or (g in (base,fixed) and g2 in (base,fixed)): continue
+                if sh.BoundBox.intersect(s2.BoundBox):
+                    vol = sum(abs(v.Volume) for v in sh.common(s2).Solids)
+                    if vol>1e-4: hits.append([a,k,k2,vol])
+J(WORK/"mechanism.json",mechanism)
+J(WORK/"friction.json",fr)
+if check: J(WORK/"crossings.json",hits)
+setangle(0)
+
+# Service motion is a withdrawal in two directions, NOT a horizontal pull
+# from the seated position. The two H3 screws have first been removed.
+service = {"closed_deg":0,"remove":["H3-1","H3-2"],"module":sorted(SUB),
+           "travel_mm":[[0,0,-40],[0,-110,0]]}
+if check:
+    obstacle = [(o.Item,world(o,g)) for o,g,m in parts if o.Item not in SUB
+                and o.Item not in service["remove"] and m!="cordref"]
+    mod = Part.makeCompound([world(*byid[k]) for k in sorted(SUB)])
+    swept_hits = []
+    for dz,dy in [(z,0) for z in range(0,41,2)]+[(40,y) for y in range(5,111,5)]:
+        test = shift(mod.copy(),(0,-dy,-dz))
+        for key,sh in obstacle:
+            if test.BoundBox.intersect(sh.BoundBox):
+                vol = sum(abs(v.Volume) for v in test.common(sh).Solids)
+                if vol>1e-4: swept_hits.append([dz,dy,key,vol])
+    service["sampled_crossings"]=swept_hits
+J(WORK/"service.json",service)
+
+# Procurement photometry, not a substitute for an IES/LDT measurement.
+# Uniform flux per slope product in a specified part of an asymmetric fan.
+led_w,eff,f_task,trans,fan = 6.10,112.,.80,.75,.45
+raw = led_w*eff
+exit_lm = raw*f_task*trans
+watts = (led_w/.94+.14)/.90
+ex = exit_lm*fan/(4.8*(3.42-.32)*(ZA/1000.)**2)
+Lsrc = 180.
+grid = []
+for y in range(-500,-99,50):
+    for x in range(-300,301,50):
+        l,r = max(-Lsrc/2,x-2.40*ZA),min(Lsrc/2,x+2.40*ZA)
+        frac = max(0.,r-l)/Lsrc if .32<=(YS-y)/ZA<=3.42 else 0.
+        nclear = 0
+        ns = 40
+        if frac:
+            for j in range(ns):
+                o = (l+(j+.5)*(r-l)/ns,YS,ZA-.016)
+                if not blocked(opt_tree,o,sub((x,y,.001),o)): nclear+=1
+        grid.append({"x_mm":x,"y_mm":y,"unobstructed_lx":round(ex*frac,1),
+                     "clear_samples":nclear,"lx":round(ex*frac*nclear/ns,1)})
+emin = min(p["lx"] for p in grid)
+def wt(p):
+    return (.5 if abs(p["x_mm"])==300 else 1.)*(.5 if p["y_mm"] in (-500,-100) else 1.)
+eavg = sum(wt(p)*p["lx"] for p in grid)/sum(wt(p) for p in grid)
+photo = {"status":"Innkjøpsmål for optikk, ikkje måledata","height_mm":ZA,
+    "field_xy_mm":[[-300,-500],[300,-100]],"led_w":led_w,"raw_work_lm":raw,
+    "exit_task_lm":exit_lm,"assumed_room_wash_lm":raw*.20*.58,"estimated_input_w":watts,
+    "task_transmission_including_lip":trans,"fraction_in_specified_fan":fan,
+    "fan_slope_intervals":[[-2.40,2.40],[.32,3.42]],"emitting_line_mm":Lsrc,
+    "fan_flux_density":"constant per unit slope product, NOT per steradian",
+    "visibility":"40 strålar frå aktiv line mot kvart rutenettpunkt ved full opning",
+    "pitch_mm":50,"field_avg_lx":eavg,"grid_min_lx":emin,"grid":grid,
+    "render":{"E01":{"face":"-Z","behind":"107"},"E02":{"face":"+Y","behind":"108"},
+              "closed":"Berre E02, 2 % av full effekt, 2000 K",
+              "open":"E01:E02 = 80:20, 2700 K. Berre utgangsflatene lyser."}}
+J(OUT/"Lysmaal.json",photo)
+
+rows = [{"ID":o.Item,"Del":o.Label[len(o.Item)+1:],"Gruppe":g.Label,
+         "Materiale":o.MaterialSpec,"Volum_mm3":round(o.Shape.Volume,3),
+         "Tettleik_g_cm3":round(o.Density_g_cm3,6) if o.Density_g_cm3 else "",
+         "Masse_g":o.Mass_g if o.Density_g_cm3 else "","Prosess":o.Process} for o,g,m in parts]
+with (OUT/"Stykkliste.csv").open("w",encoding="utf-8-sig",newline="") as f:
+    w = csv.DictWriter(f,fieldnames=list(rows[0]),delimiter=";")
+    w.writeheader()
+    w.writerows(rows)
+J(WORK/"parts.json",rows)
+onboard = sum(o.Mass_g for o,g,m in parts)
+total = onboard+PSU+LEADS+LOOM+RESERVE
+J(WORK/"budget.json",{"model_including_purchased_envelopes_g":onboard,"external_supply_g":PSU,
+  "external_lead_and_primary_switch_g":LEADS,"internal_loom_g":LOOM,"reserve_g":RESERVE,
+  "total_g":total,"margin_g":1200-total,"bom_items":len(parts),"main_assemblies":10,
+  "balance_blade_g":byid["208"][0].Mass_g})
+
+(OUT/"Modulgrensesnitt.md").write_text("""# FURU B03 · servicegrense L24-4
+
+Fram er −Y. Lukk lampa, kople frå SELV-forsyninga og legg lampa støtt på eit
+mjukt underlag. Hald rundt metallet på lysskoen. Ta ut dei to H3-skruane
+med 2 mm sekskant. Senk skoen i −Z: kontakten går fri etter 8 mm. Hald fram
+til 40 mm før du fører skoen fram under falden. Ikkje trekk han rett fram
+frå setet. I motsett rekkjefølgje: før opp, blindpar, trekk dei to skruane
+jamt, prøv begge endestoppa. Ikkje løys optikkskruane eller beretappane.
+
+* Referanse: midt mellom H3 på anleggsflata (0; −4,5; 154) mm. To M3 på
+  26 mm deling i X, Ø3,34 gjennom 1,8 mm laus flens. H3 = M3 × 7.
+* Polarisert J01/J02 i Z, minst 30 V DC / 0,5 A per pol. Pinnar i aukande X:
+  +24 V felles, arbeidsretur 2700 K, vaskeretur 2700 K, vaskeretur 2000 K.
+  Tørr blindparing utan spenning. Kontaktserie og føringstoleransar må
+  kvalifiserast saman før bestilling av reservedelar.
+* Kort tilpassa straumsøkkjer. 24 V SELV med kortslutningsvern, maks 6,10 W
+  samla til korta. Hall-null/full vert lagra ved dei mekaniske stoppa.
+  t = vinkel / 30, avgrensa til [0,1], u = t²(3−2t). Effekt = 0,02 + 0,98u
+  relativt til full effekt. Arbeidsdelen er 0,80u av dette; del resten
+  mellom varm og kjøleg vask i tilhøvet (1−u):u. Kalibrer for diodebina.
+  Ved sensorfeil: lågt pådrag. Primærbrytar for heilt av.
+* Prototypetest: luxrutenett, spegling ved tre augehøgder, Ra/CCT, PstLM/SVM
+  og kamerabanding på lågt pådrag, åtte timar temperatur på kort, sko og grep.
+  Same effekt på kortare lengd krev nytt varmgangsforsøk.
+* Optikk og kort kan takast ut av laus sko utan lim. Elektronikk er eiga
+  avfallsfraksjon. Mål: eigarbyte under 5 min og reservedelar i 10 år.
+  Ingen batteripakke eller nettdelar i foten.
+""",encoding="utf-8")
+def dims(v): return " × ".join("%.1f"%x for x in v)
+contacts = [c for p in fr["poses"] for c in p["contacts"] if c["pair"][0] in ("F3F","F4F")]
+(OUT/"Endringar-B03.md").write_text(
+    "# Endringar B02 → B03\n\n"
+    "- E1/E2/M1: 211 mm avrunda lyssko, inntrekt i falden. Hals Ø28,4 ved livet "
+    "og Ø64,6 ved sadelen. Lukka %s mm; open %s mm ved 30° (nett utan lausleidning).\n"
+    "- E3/F2: 22 mm tidlegare hengsle på kvart skal; løft %.1f mm. Rulla tå "
+    "på den fallande kanten. Innvendig balanseblad %.1f g.\n"
+    "- T2: fjør 1,00 → 0,80 mm. Minste målt kontaktareal F/B %.2f mm², "
+    "største avstand %.5f mm. Dimensjoneringsmål %.1f N per fjør; "
+    "prøv losrivingsmoment %.3f Nm mot tyngdemoment opptil %.3f Nm.\n"
+    "- F3/B3: %.2f W til korta, %.0f lm rått; %.0f lm ut av bordoptikken. "
+    "%.2f W på nett føresett verknadsgrad. Modell ved %.0f mm høgd: "
+    "%.0f lx i middel, %.0f lx på svakaste punkt. Ikkje måledata.\n"
+    "- F8/F9/T2: %.1f g i CAD; %.1f g komplett; %.1f g att til grensa. "
+    "185,3 cm² fot. Open massesenter (%.1f; %.1f; %.1f) mm. Margin på "
+    "10° plan %.1f mm nominelt, %.1f mm med ugunstig plassert reserve.\n"
+    "- B1/B2/T6/B7: %d BOM-posisjonar, 10 hovudeiningar "
+    "(seks skal, to røyr, sokkel og lysmodul). Byte nedanfrå med éin nøkkel.\n" %
+    (dims(bounds[0]),dims(bounds[N]),mechanism[-1]["drive_rise_mm"],byid["208"][0].Mass_g,
+     min(c["land_area_mm2"] for c in contacts),max(c["distance_mm"] for c in contacts),
+     preload,brake,max_grav,led_w,raw,exit_lm,watts,ZA,eavg,emin,onboard,total,1200-total,
+     *stability[N]["com_mm"],stability[N]["nominal_margin_mm"],
+     stability[N]["adverse_margin_mm"],len(parts)),encoding="utf-8")
+
+doc.recompute()
+doc.saveAs(str(OUT/"Furu-B03.FCStd"))
+prefs = A.ParamGet("User parameter:BaseApp/Preferences/Mod/Part/STEP")
+prefs.SetString("Scheme","AP214IS")
+prefs.SetString("Unit","MM")
+A.ParamGet("User parameter:BaseApp/Preferences/Mod/Import").SetBool("ExportLegacy",False)
+stepfile = OUT/"Furu-B03.step"
+Import.export([root],str(stepfile))
+with stepfile.open("rb") as f:
+    if b"AUTOMOTIVE_DESIGN" not in f.read(8192).upper():
+        raise RuntimeError("Expected AP214 FILE_SCHEMA")
+print("FURU B03 |",len(parts),"items | bounds",bounds,"| total %.1f g"%total,
+      "| preload target %.1f N"%preload,"| conditional mean/min %.0f/%.0f lx"%(eavg,emin),
+      flush=True)

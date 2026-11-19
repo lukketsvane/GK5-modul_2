@@ -1,0 +1,23 @@
+{
+  "filer": [
+    "cad/raup_skal.step",
+    "produksjon/raup_skal_P1S.stl"
+  ],
+  "metode": "3D-erosjon av snitta med kule (raup_skal_snitt.py)",
+  "veggtjukkleik_mm": 3.0,
+  "margin_mm": 0.3,
+  "botn": "open",
+  "hòlrom_til_z_mm": 192.0,
+  "gyldig_BRep": false,
+  "STEP_attlest_gyldig": false,
+  "eitt_solid": true,
+  "mal_mm": [
+    193.8,
+    170.9,
+    196.2
+  ],
+  "passar_P1S_256": true,
+  "volum_cm3": 1089.7,
+  "masse_PLA_g": 1351,
+  "utskrift": "Ståande på den opne botnen. Inga fylling: veggen er heile skalet. Set veggliner så dei fyller veggen (3 mm / 0,42 mm = 7), eller sparse infill 100 %. Taket i hòlrommet er flatt: brubygging, eller støtte inne om taket er breitt."
+}

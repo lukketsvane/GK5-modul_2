@@ -1,0 +1,58 @@
+{
+  "status": "Prototyp, ikkje ferdig produksjonsgodkjend",
+  "eining": "mm",
+  "FBX_antaking_panel_hogd_mm": 270,
+  "flate_veggtykkleik_mm": 1,
+  "inner_offset_mm": 4,
+  "flatmonster_breidd_mm": 197.76,
+  "kontrollar": [
+    {
+      "fil": "raup_hovudkropp_ytre.step",
+      "STEP_gyldig": true,
+      "volum_mm3": 2437035
+    },
+    {
+      "fil": "raup_kjerne_nedre.step",
+      "STEP_gyldig": true,
+      "volum_mm3": 1506892
+    },
+    {
+      "fil": "raup_kjerne_ovre.step",
+      "STEP_gyldig": true,
+      "volum_mm3": 520489
+    },
+    {
+      "fil": "raup_diffusor.step",
+      "STEP_gyldig": true,
+      "volum_mm3": 47657
+    },
+    {
+      "fil": "raup_filmklips.step",
+      "STEP_gyldig": true,
+      "volum_mm3": 3098
+    },
+    {
+      "fil": "raup_led_berar.step",
+      "STEP_gyldig": true,
+      "volum_mm3": 1646
+    },
+    {
+      "fil": "raup_stoypform_minus_Y.step",
+      "STEP_gyldig": true,
+      "volum_mm3": 4409279
+    },
+    {
+      "fil": "raup_stoypform_pluss_Y.step",
+      "STEP_gyldig": true,
+      "volum_mm3": 3700183
+    }
+  ],
+  "alle_STEP_valid": true,
+  "hollow_shell_validering": false,
+  "manglar": [
+    "Eitt gyldig uthola slutt-BRep-skall",
+    "Mold demolding, underkutt og krymp",
+    "Lys, varme, elektro og veltetest",
+    "Faktisk material-ID for monitorfolien"
+  ]
+}

@@ -1,0 +1,219 @@
+"""Regenerate the Furu B01 solids, neutral assembly, CAD views and rolled blanks. Units mm."""
+import FreeCAD as A,Part,Import,math,os,json,csv,sys
+from pathlib import Path
+from math import pi,sin,cos,sqrt,radians,asin
+V=A.Vector
+ROOT=Path(os.environ.get('FURU_DIR',Path(__file__).resolve().parent/'Regenerert-B01'))
+OUT=ROOT/'packet';WORK=ROOT/'work'
+OUT.mkdir(parents=True,exist_ok=True);WORK.mkdir(parents=True,exist_ok=True);(OUT/'Rullesjablonar').mkdir(exist_ok=True)
+doc=A.newDocument('Furu_B01')
+controls=doc.addObject('Spreadsheet::Sheet','Controls'); controls.Label='Styring'
+for cell,val in {'A1':'Opning (0 til 40 grader)','B1':'0 deg','A2':'Stasjonsdeling (mm)','B2':'78','A3':'Skjelltjukkleik (mm)','B3':'0.7','A4':'Revisjon','B4':'B01'}.items():controls.set(cell,val)
+controls.setAlias('B1','Opening');controls.setColumnWidth('A',215)
+root=doc.addObject('App::Part','Furu');root.Label='Furu B01'
+def group(n,label):
+ ob=doc.addObject('App::Part',n);ob.Label=label;root.addObject(ob);return ob
+base=group('Body','10 Sokkel og lys');fixed=group('Fixed','20 Fast røyr');move=group('Drive','30 Reguleringsrøyr')
+stations=[-195,-117,-39,39,117,195]
+radii=[55,75,91,87,70,50]; slopes=[.53,.36,.22,.055,-.04,-.24]
+thick=.7; Y=110.;Z=130.;DX=16.;DZ=-7.; X0=-43.; X1=54.
+props={'sheet':('EN AW-5754 H22',2.68,[.64,.62,.57]),'al':('EN AW-6061 T6',2.70,[.52,.53,.51]),'bronze':('EN AW-6061 T6, bronseeloksert',2.70,[.49,.29,.13]),'steel':('AISI 304',8.00,[.57,.58,.58]),'pom':('POM-C',1.41,[.17,.18,.17]),'pc':('Opal polykarbonat',1.20,[.88,.83,.69]),'rubber':('Silikon, nominell',1.15,[.09,.09,.08])}
+props['ledref']=('Innkjøpt LED-band, konvolutt',0,[.86,.73,.56]);props['cordref']=('Innkjøpt kabelsett, konvolutt',0,[.045,.04,.034])
+allparts=[];switches=[]
+def add(gr,key,name,sh,mat,method):
+ if len(sh.Solids)!=1 or not sh.isValid() or sh.Volume<=0:raise RuntimeError(f'Invalid solid {key} {name} {len(sh.Solids)} {sh.Volume}')
+ ob=doc.addObject('Part::Feature','P_'+key.replace('-','_'));gr.addObject(ob);ob.Label=key+' '+name;ob.Shape=sh
+ for typ,prop,val in [('App::PropertyString','Item',key),('App::PropertyString','MaterialSpec',props[mat][0]),('App::PropertyString','Process',method),('App::PropertyFloat','Density_g_cm3',props[mat][1]),('App::PropertyFloat','Mass_g',round(sh.Volume*props[mat][1]/1000,4))]:
+  ob.addProperty(typ,prop,'Verkstad');setattr(ob,prop,val)
+ allparts.append((ob,gr,mat));return ob
+def ax(r,l,p,d=(0,0,1)):return Part.makeCylinder(r,l,V(*p),V(*d))
+def box(x,y,z,p):return Part.makeBox(x,y,z,V(*p))
+def poly(pts):return Part.makePolygon([V(*v) for v in pts+[pts[0]]])
+def revolve(coords):return Part.Face(poly([(r,0,z) for r,z in coords])).revolve(V(),V(0,0,1),360)
+def xpoly(pts,y,depth):return Part.Face(poly([(x,y,z) for x,z in pts])).extrude(V(0,depth,0))
+def cut(sh,*tools):
+ for tool in tools:sh=sh.cut(tool)
+ return sh.removeSplitter()
+def union(*parts):
+ sh=parts[0]
+ for v in parts[1:]:sh=sh.fuse(v)
+ return sh.removeSplitter()
+def ring(ro,ri,l,p,d=(0,0,1)):
+ return ax(ro,l,p,d).cut(ax(ri,l,p,d))
+def ctrl_expr(x,z,moving=False):
+ rot="create(<<rotation>>; create(<<vector>>; 0; 1; 0); "+("0 deg" if moving else "-min(40 deg;max(0 deg;Controls.Opening))")+")"
+ a='min(40 deg;max(0 deg;Controls.Opening))'
+ pos=f'{DX} * cos({a}) - ({DZ}) * sin({a}); 0; {Z} + {DX} * sin({a}) + ({DZ}) * cos({a})' if moving else f'{x}; 0; {z}'
+ return 'create(<<placement>>;create(<<vector>>;'+pos+');'+rot+')'
+move.setExpression('Placement',ctrl_expr(0,0,True))
+# Foot and central column. Three countersunk base screws engage the lower flange.
+foot=ax(77,2.5,(0,0,3.5))
+for a in [0,120,240]:
+ x,y=20*cos(radians(a)),20*sin(radians(a))
+ foot=cut(foot,ax(1.7,3,(x,y,3.4)),Part.makeCone(3.15,1.7,1.45,V(x,y,3.5)))
+add(base,'101','Fotplate',foot,'al','Drei / skjer. Tre gjennomgåande senkhol Ø3,4 på delesirkel Ø40.')
+add(base,'102','Ballastskive',ring(62,27,1.15,(0,0,2.35)),'steel','Laserskjer. Lim under fotplata med sentrering.')
+for i,a in enumerate([45,135,225,315]):
+ add(base,f'103-{i+1}','Fotpute',ax(6,3.5,(68*cos(radians(a)),68*sin(radians(a)),0)),'rubber','Sjølvklebande fotpute Ø12 × 3,5.')
+stem=revolve([(26,6),(27,7.5),(26.3,10),(23,13),(20,18),(18,26),(16.3,42),(15,82),(15.7,99),(16.4,105),(16.4,108),(6,108),(6,103),(12.8,103),(12.7,81),(14,43),(15.6,26),(18,17),(19,14),(14.8,14),(14.8,6)])
+for a in [0,120,240]:
+ x,y=20*cos(radians(a)),20*sin(radians(a));stem=cut(stem,ax(1.25,7,(x,y,6)))
+for x in [-10,10]:stem=cut(stem,ax(1.25,6,(x,0,103)))
+stem=cut(stem,ax(4.05,24,(0,30,22),(0,-1,0)))
+add(base,'104','Hol sokkelstamme',stem,'al','CNC-drei og bor. M3 × 0,5 i endeflensane. Ø8,10 uttak for DC-gjennomføring.')
+bridge=xpoly([(-46,124),(-18,108),(18,108),(46,124),(46,135),(32,135),(28,127),(15,119),(-15,119),(-28,127),(-32,135),(-46,135)],-7,14)
+for x in [-39,39]:bridge=cut(bridge,ax(2.05,20,(x,-9,Z),(0,1,0)))
+for x in [-10,10]:bridge=cut(bridge,ax(1.7,14,(x,0,107)),ax(3.0,4,(x,0,115.5)))
+bridge=cut(bridge,ax(2.1,15,(0,0,107)))
+add(base,'105','Bærebru',bridge,'al','Fres. To Ø4,10 tverrhol på 78 mm deling, to Ø3,4 vertikale festehol og sentral leidningskanal.')
+# Central light channel lies on the central bridge and has a serviceable cover.
+L=360.
+channel=cut(box(L,14,5.2,(-L/2,-7,119)),box(L+2,11.6,5,(-L/2-1,-5.8,120.2)),ax(2.1,3,(0,0,118)))
+for x in [-10,10]:channel=cut(channel,ax(1.7,3,(x,0,118)))
+add(base,'106','LED-profil',channel,'al','Fres U-profil 360 × 14 × 5,2 med 1,2 mm botn og sideveggar. Skruefeste samansett med bru.')
+lens=box(360,11.55,1.2,(-180,-5.775,123))
+add(base,'107','Diffusor',lens,'pc','Opal PC, passast i profil og festast med fleksible limpunkt i endane.')
+for i,x in enumerate([-181,180]):add(base,f'108-{i+1}','Endestykke',box(1,14,5.2,(x,-7,119)),'pom','Press-/limfeste ved profilenden.')
+# A turned low-voltage grommet guides a pigtail through the hollow foot.
+add(base,'109','Leidningsgjennomføring',union(ring(3.95,2.05,3,(0,16,22),(0,1,0)),ring(5.3,2.05,1.2,(0,19,22),(0,1,0))),'rubber','Tilpass gummigjennomføring til vald kabel.')
+# Hollow longitudinal rails, Ø8 × 1 and Ø4.05 cross-drillings in a common jig.
+for drive,gr in [(False,fixed),(True,move)]:
+ y=Y if drive else -Y;z=0 if drive else Z
+ rail=ring(4,3,414,(-207,y,z),(1,0,0))
+ for x in stations:rail=cut(rail,ax(2.025,10,(x,y-5,z),(0,1,0)))
+ add(gr,'301' if drive else '201','Reguleringsrøyr' if drive else 'Fast røyr',rail,'bronze' if drive else 'al','Ø8 × 1, lengd 414. Seks Ø4,05 tverrhol med 78,00 deling. Første hol 12 frå enden.')
+ for side in [-1,1]:
+  endx=207*side
+  cap=union(ax(2.98,3,(endx-3*side,y,z),(side,0,0)),ax(4,.8,(endx,y,z),(side,0,0)))
+  add(gr,('302' if drive else '202')+('-R' if side==1 else '-L'),'Endeplugg',cap,'pom','Trykk inn med lett press.')
+def theta(u):return radians(48+71*sin(pi*u)**.92)
+def blank(i,r,k):
+ # Flat pattern on the neutral cone; holes drilled on the assembled forming jig.
+ def xy(u,sign):
+  x=X0+(X1-X0)*u;a=theta(u)*sign;h=(1+k*k)**.5
+  return ((r+k*x)*h/k*cos(a*k/h)-r*h/k,(r+k*x)*h/k*sin(a*k/h))
+ pts=[xy(i/140,1) for i in range(141)]
+ # The ends of the conical development are circular arcs in the flat plane.
+ def arc(u,start,end):
+  x=X0+(X1-X0)*u;h=sqrt(1+k*k)
+  return [((r+k*x)*h/k*cos((start+(end-start)*j/80)*k/h)-r*h/k,(r+k*x)*h/k*sin((start+(end-start)*j/80)*k/h)) for j in range(1,81)]
+ pts+=arc(1,theta(1),-theta(1));pts+=[xy(j/140,-1) for j in reversed(range(140))];pts+=arc(0,-theta(0),theta(0))[:-1]
+ def wr(code,value):return f'{code}\n{value}\n'
+ s='0\nSECTION\n2\nHEADER\n9\n$ACADVER\n1\nAC1015\n9\n$INSUNITS\n70\n4\n0\nENDSEC\n0\nSECTION\n2\nENTITIES\n0\nLWPOLYLINE\n100\nAcDbEntity\n8\nCUT\n100\nAcDbPolyline\n90\n'+str(len(pts))+'\n70\n1\n'
+ for x,y in pts:s+=wr(10,round(x,5))+wr(20,round(y,5))
+ s+='0\nENDSEC\n0\nEOF\n';(OUT/'Rullesjablonar'/f'S{i+1:02}.dxf').write_text(s)
+def cone(r,k,pad):
+ R0=r+k*X0+pad;R1=r+k*X1+pad
+ return Part.makeCone(R0,R1,X1-X0,V(X0,0,0),V(1,0,0))
+def trim(r,k):
+ pts=[]
+ for i in range(41):
+  u=i/40;x=X0+(X1-X0)*u;pts.append(V(x,-150,(r+k*x)*cos(theta(u))))
+ curve=Part.BSplineCurve();curve.interpolate(pts);edges=[curve.toShape(),Part.makeLine(pts[-1],V(X1,-150,145)),Part.makeLine(V(X1,-150,145),V(X0,-150,145)),Part.makeLine(V(X0,-150,145),pts[0])]
+ return Part.Face(Part.Wire(edges)).extrude(V(0,300,0))
+for i,(xp,r,k) in enumerate(zip(stations,radii,slopes)):
+ sid=i+1;sg=group(f'Shell{sid}',f'{40+sid} Skjell {sid}');sg.setExpression('Placement',ctrl_expr(xp,Z))
+ off=thick*.5*sqrt(1+k*k)
+ outer=cone(r,k,off);inner=cone(r,k,-off)
+ sh=outer.cut(inner).common(trim(r,k))
+ for drive in [False,True]:
+  xx,zz,side=(DX,DZ,1) if drive else (0,0,-1)
+  bore=ax(3.07,145,(xx,0,zz),(0,side,0));sh=sh.cut(bore)
+ add(sg,f'S{sid:02}','Samanhengande skjell',(sh.cut(ax(1.57,145,(-14,0,0),(0,-1,0))) if sid==3 else sh).removeSplitter(),'sheet','Skjer DXF. Konvals på nøytralflata. Jiggbor Ø6,14 etter valsing. Avgrad og mattbørst.')
+ blank(i,r,k)
+ for drive in [False,True]:
+  gr=move if drive else fixed
+  xx,zz,side=(DX,DZ,1) if drive else (0,0,-1)
+  rz=0 if drive else Z;ray=(0,side,0)
+  mid=sqrt((r+k*xx)**2-zz**2);h=3.2+5*abs(k)
+  # POM bearing halves have a face fitted to the local conical shell.
+  def bearing(R,ri,a,b):return ring(R,ri,b-a,(xx,side*a,zz),ray)
+  bush=union(bearing(2.98,2.055,mid-h,mid+h),bearing(5.1,2.055,mid-h,mid+h).cut(outer))
+  inside=bearing(5.1,3.04,mid-h,mid+h).common(inner)
+  add(sg,f'B{sid}'+('R' if drive else 'F'),'Flensforing',bush,'pom','Maskiner matchande konisk anleggsflate. Akseltapp Ø4,00; boring Ø4,11.')
+  add(sg,f'W{sid}'+('R' if drive else 'F'),'Motring',inside,'pom','Maskiner konisk anleggsflate. Monter frå innsida av skjellet.')
+  lo=mid-h; hi=mid+h; ext=(not drive and sid in (3,4))
+  # Shoulder seats stop ±0.15 mm from bearing ends. Outer spigot bonded to rail.
+  def shaft(rad,a,b):return ax(rad,b-a,(xp,side*a,rz),ray)
+  innerEnd=-7.8 if ext else lo-1.05
+  pin=union(shaft(2,innerEnd,hi+.15),shaft(3.35,hi+.15,Y-4),shaft(2,Y-4,Y+4.2),shaft(3.8,Y+4.2,Y+5.3))
+  if not ext:pin=cut(pin,ax(.80,5,(xp,side*(innerEnd-.01),rz),ray))
+  add(gr,f'P{sid}'+('R' if drive else 'F'),'Beretapp' if ext else 'Skuldertapp',pin,'steel' if ext else 'al','Drei. Ø4,00 journal og røyrtapp. Lås røyrtappen i jigg. '+('Går inn i bærebrua.' if ext else 'M2 × 0,4 i indre ende, 4 djup.'))
+  if ext:
+   # Clamp collar is split by a radial kerf; screw size selected after prototype.
+   col=cut(shaft(4.8,lo-4.8,lo-.68),shaft(2.03,lo-4.9,lo),ax(.8,4,(xp,-(lo-2.8),rz+1.8)))
+   add(gr,f'K{sid}F','Stoppkrage',col,'al','Ø4,06 stoppring med radial M2-gjenge. Juster fjørtrykk før låsing.')
+   spring=revolve([(2.10,0),(3.90,.43),(3.90,.68),(2.10,.25)])
+   spring.rotate(V(),V(1,0,0),-90);spring.translate(V(xp,-lo,rz))
+   add(gr,f'F{sid}F','Friksjonsfjør',spring,'steel','Profil ved nominell arbeidshøgd 0,68. Fjørstål og fjørkurve skal stadfestast; her nytta erstatningstettleik 8,00.')
+   lock=ax(1,2.7,(xp,-(lo-2.8),rz+2.04));add(gr,f'G{sid}F','Settskrue M2',lock,'steel','M2 flatenda settskrue; kosmetiske gjengar.')
+  else:
+   washer=ring(4.6,1.1,1,(xp,side*(lo-1.35),rz),ray)
+   # Inner counterbore in washer accepts pin end, leaving a lip for the screw.
+   washer=washer.cut(shaft(2.05,lo-1.05,lo-.30))
+   add(gr,f'K{sid}'+('R' if drive else 'F'),'Endeskive',washer,'steel','Maskinert endeskive. Sikre med M2-skrue.')
+   ret=union(shaft(1.8,lo-2.6,lo-1.35),shaft(1.0,lo-1.35,lo+2.65))
+   add(gr,f'V{sid}'+('R' if drive else 'F'),'M2 × 4 låseskrue',ret,'steel','M2 × 4 med låg sylinderhovud. Forenkla hovud og kosmetiske gjengar.')
+# Guide plate on both stationary central pivots. A shouldered peg on shell 3
+# follows its arcuate slot, ending the mechanism travel at both ends.
+def arc(a):
+ return V(-39-14*cos(radians(a)),-64,130-14*sin(radians(a)))
+def arcedge(radius,a,b):
+ def pt(d):return V(-39-radius*cos(radians(d)),-64,130-radius*sin(radians(d)))
+ return Part.Arc(pt(a),pt((a+b)/2),pt(b)).toShape()
+R=14;w=1.57
+e1=arcedge(R+w,0,40);e2=arcedge(R-w,40,0)
+a0=e1.Vertexes[0].Point;a1=e1.Vertexes[-1].Point;b0=e2.Vertexes[0].Point;b1=e2.Vertexes[-1].Point
+# Parametric arc order is fixed by oriented point order.
+slot=Part.Face(Part.Wire([e1,Part.makeLine(a1,b0),e2,Part.makeLine(b1,a0)])).extrude(V(0,6,0))
+slot=union(slot,ax(w,6,(-53,-64,130),(0,1,0)),ax(w,6,tuple(arc(40)),(0,1,0)))
+plate=xpoly([(-59,115),(-41,115),(-33,125),(40,125),(44,128),(44,133),(40,135),(-56,135),(-59,132)],-63,2.2)
+plate=cut(plate,slot,*[ax(2.05,4,(x,-64,130),(0,1,0)) for x in (-39,39)])
+add(fixed,'205','Stopplate',plate,'al','Fres bogespor R14, breidd 3,14. Lås plata på dei to beretappane. Kontroller stoppvinkelen ved montering.')
+sg=doc.getObject('Shell3');pegY=91+.22*(-14)
+peg=union(ax(1.5,pegY+1.7-59.0,(-14,-59,0),(0,-1,0)),ax(2.7,1,(-14,-pegY-1.7,0),(0,-1,0)))
+add(sg,'206','Stopptapp',peg,'steel','Ø3 stopptapp. Sikre ved innfestinga i det tredje skjellet, med lokal låsehylse.')
+# Threaded fasteners are represented by their nominal envelope, with cosmetic threads.
+def screw(station,loc,dia,ln,headR,headH,axis=(0,0,1),csk=False):
+ vec=V(*axis);start=V(*loc)
+ body=ax(dia/2,ln,tuple(start),axis)
+ if csk:head=Part.makeCone(headR,dia/2,headH,start,vec)
+ else:head=ax(headR,headH,tuple(start-vec*headH),axis)
+ return union(body,head)
+for i,a in enumerate([0,120,240]):
+ x,y=20*cos(radians(a)),20*sin(radians(a))
+ add(base,f'H1-{i+1}','M3 × 8 senkskrue',screw(i,(x,y,3.5),3,8,3.05,1.55,csk=True),'steel','ISO 10642 M3 × 8. Gjengar viste med nominelt omriss.')
+for i,x in enumerate([-10,10]):
+ # Long screw bridges the LED channel floor and the bridge in a common stack.
+ add(base,f'H2-{i+1}','M3 × 18 låg sylinderhovudskrue',screw(i,(x,0,120.2),3,18,2.75,2.0,(0,0,-1)),'steel','M3 × 18, lågt hovud. Går gjennom profil og bru til gjenge i sokkel.')
+# Electronic envelopes are kept in the native assembly. Their procurement
+# allowances, including the pigtail and switch, are accounted separately.
+for eid,xx in enumerate((-166,16)):
+ add(base,f'E0{eid+1}','LED-band 150 mm',box(150,8,2.4,(xx,-4,120.2)),'ledref','LUXLEDLICHT 9103, tre kappelengder à 50 mm. Masse inngår i innkjøpsbudsjettet.')
+path=Part.BSplineCurve();path.interpolate([V(0,18,22),V(0,28,22),V(1,43,18),V(6,62,8),V(12,85,2.1),V(26,116,2.1),V(48,143,2.1),V(66,160,2.1)])
+wire=Part.Wire([path.toShape()]);normal=path.tangent(path.FirstParameter)[0]
+cord=wire.makePipeShell([Part.Wire([Part.makeCircle(1.8,V(0,18,22),normal)])],True,False)
+add(base,'E03','Fleksibel leidning, vist føring',cord,'cordref','Referanse for leidningsføringa på bordet. Ferdig DC-hylse, brytar og leidningssett er budsjetterte innkjøpsdelar.')
+doc.recompute()
+print('MASS',sum(o.Mass_g for o,g,m in allparts),'N',len(allparts),flush=True)
+for o in [move]+[g for o,g,m in allparts]:
+ if 'Invalid' in o.State:raise ValueError(o.Label)
+def globalshape(ob,gr):s=ob.Shape.copy();s.Placement=gr.Placement.multiply(s.Placement);return s
+def dump(angle):
+ controls.set('B1',str(angle)+' deg');doc.recompute();result=[];bd=A.BoundBox()
+ for ob,gr,mat in allparts:
+  sh=globalshape(ob,gr);
+  if mat!='cordref':bd.add(sh.BoundBox)
+  vs,fs=sh.tessellate(.085)
+  result.append({'key':ob.Item,'label':ob.Label,'group':gr.Name,'mat':mat,'v':[[round(v.x,4),round(v.y,4),round(v.z,4)] for v in vs],'f':fs})
+ (WORK/f'mesh{angle}.json').write_text(json.dumps(result,separators=(',',':')))
+ print('Bounds',angle,[bd.XLength,bd.YLength,bd.ZLength],flush=True)
+ return [bd.XLength,bd.YLength,bd.ZLength]
+bounds={v:dump(v) for v in [40,0]}
+doc.recompute();doc.saveAs(str(OUT/'Furu-B01.FCStd'))
+Import.export([root],str(OUT/'Furu-B01.step'))
+rows=[{'ID':o.Item,'Del':o.Label[len(o.Item)+1:],'Gruppe':g.Label,'Materiale':props[m][0],'Volum_mm3':round(o.Shape.Volume,2),'Tettleik_g_cm3':props[m][1] or '', 'Masse_g':o.Mass_g if props[m][1] else '','Prosess':o.Process} for o,g,m in allparts]
+(WORK/'parts.json').write_text(json.dumps(rows,ensure_ascii=False));(WORK/'bounds.json').write_text(json.dumps(bounds))
+with (OUT/'Stykkliste.csv').open('w',encoding='utf-8-sig',newline='') as f:
+ w=csv.DictWriter(f,fieldnames=list(rows[0]),delimiter=';');w.writeheader();w.writerows(rows)
+print('DONE',flush=True)

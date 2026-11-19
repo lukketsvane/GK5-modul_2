@@ -1,0 +1,973 @@
+import bpy
+import bmesh
+import math
+import os
+import sys
+from bisect import bisect_right
+from mathutils import Vector
+from mathutils.bvhtree import BVHTree
+
+PI = math.pi
+TAU = 2 * PI
+MM = 0.001
+ZPIN = 155.0
+CLOSED, OPENED = 35.0, 3.0
+A = math.radians(CLOSED)
+C, S, K = math.cos(A), math.sin(A), math.tan(A)
+RAIL, EAR = 81.65, 75.12
+PINS = (-251.0, -163.0, -60.0, 50.0, 153.0, 241.0)
+CUT = (-300.0, -193.0, -71.0, 65.5, 170.0, 246.0, 300.0)
+SETDOWN = 3.25
+
+
+def optional(block, key, val):
+    try:
+        setattr(block, key, val)
+        return True
+    except (AttributeError, TypeError, ValueError, RuntimeError):
+        return False
+
+
+def clamp(x, a, b):
+    return max(a, min(b, x))
+
+
+def smooth(t):
+    t = clamp(t, 0.0, 1.0)
+    return t*t*(3-2*t)
+
+
+def mix(a, b, t):
+    return a+(b-a)*t
+
+
+def bias(y):
+    return 0.60*y-0.0022*y*y
+
+
+scene = bpy.context.scene
+for lib in (bpy.data.objects, bpy.data.collections, bpy.data.meshes, bpy.data.curves,
+            bpy.data.materials, bpy.data.lights, bpy.data.cameras, bpy.data.worlds):
+    for item in list(lib):
+        lib.remove(item, do_unlink=True)
+
+
+def collection(name):
+    c = bpy.data.collections.new(name)
+    scene.collection.children.link(c)
+    return c
+
+
+rig = collection("00 | Adjustment")
+scales = collection("01 | Formed shells")
+frame = collection("02 | Chassis")
+fittings = collection("03 | Pivot fittings")
+optics = collection("04 | Recessed optics")
+studio = collection("05 | Studio")
+scene.unit_settings.system = 'METRIC'
+scene.unit_settings.scale_length = 1.0
+scene.unit_settings.length_unit = 'MILLIMETERS'
+
+ctrl = bpy.data.objects.new("LAMP_CTRL", None)
+rig.objects.link(ctrl)
+ctrl.empty_display_type = 'PLAIN_AXES'
+ctrl.empty_display_size = 0.024
+ctrl["open"] = 0.0
+ctrl.id_properties_ui("open").update(
+    min=0.0, max=1.0, soft_min=0.0, soft_max=1.0, default=0.0,
+    description="Common aperture — nested to upright")
+
+
+def lin(x):
+    v = x/255
+    return v/12.92 if v <= 0.04045 else ((v+0.055)/1.055)**2.4
+
+
+def sock(node, *names):
+    for n in names:
+        try:
+            return node.inputs[n]
+        except (KeyError, TypeError):
+            pass
+    return None
+
+
+def put(node, names, v):
+    s = sock(node, *names)
+    if s is not None:
+        try:
+            s.default_value = v
+        except (TypeError, ValueError, RuntimeError):
+            pass
+
+
+def material(name, rgb, rough, metal=0):
+    m = bpy.data.materials.new(name)
+    m.diffuse_color = (*rgb, 1)
+    m.use_nodes = True
+    p = m.node_tree.nodes.get("Principled BSDF")
+    put(p, ("Base Color",), (*rgb, 1))
+    put(p, ("Roughness",), rough)
+    put(p, ("Metallic",), metal)
+    return m, p
+
+
+coat, pc = material("01 / Warm grey • fine mineral powder",
+                    tuple(lin(c) for c in (185, 182, 175)), 0.515)
+nt = coat.node_tree
+tc = nt.nodes.new("ShaderNodeTexCoord")
+grain = nt.nodes.new("ShaderNodeTexNoise")
+grain.inputs["Scale"].default_value = 13500
+grain.inputs["Detail"].default_value = 2
+nt.links.new(tc.outputs["Object"], grain.inputs["Vector"])
+bn = nt.nodes.new("ShaderNodeBump")
+bn.inputs["Distance"].default_value = 0.000020
+bn.inputs["Strength"].default_value = 0.105
+nt.links.new(grain.outputs["Fac"], bn.inputs["Height"])
+nt.links.new(bn.outputs[0], pc.inputs["Normal"])
+
+steel, ps = material("02 / 316L • drawn satin", (0.66, 0.68, 0.70), 0.285, 1)
+put(ps, ("Anisotropic IOR Level", "Anisotropic"), 0.56)
+nt = steel.node_tree
+uv = nt.nodes.new("ShaderNodeUVMap")
+uv.uv_map = "Brush"
+st = nt.nodes.new("ShaderNodeVectorMath")
+st.operation = 'MULTIPLY'
+st.inputs[1].default_value = (8, 510, 1)
+nt.links.new(uv.outputs[0], st.inputs[0])
+gr = nt.nodes.new("ShaderNodeTexNoise")
+gr.inputs["Scale"].default_value = 1
+gr.inputs["Detail"].default_value = 1.5
+nt.links.new(st.outputs[0], gr.inputs["Vector"])
+rr = nt.nodes.new("ShaderNodeValToRGB")
+rr.color_ramp.elements[0].color = (0.24, 0.24, 0.24, 1)
+rr.color_ramp.elements[1].color = (0.335, 0.335, 0.335, 1)
+nt.links.new(gr.outputs["Fac"], rr.inputs[0])
+nt.links.new(rr.outputs[0], ps.inputs["Roughness"])
+try:
+    tg = nt.nodes.new("ShaderNodeTangent")
+    tg.direction_type = 'UV_MAP'
+    tg.uv_map = "Brush"
+    nt.links.new(tg.outputs[0], ps.inputs["Tangent"])
+except (AttributeError, KeyError, RuntimeError, TypeError):
+    pass
+
+opal, po = material("03 / Recessed opal • 2700 K", (0.87, 0.83, 0.74), 0.38)
+bb = opal.node_tree.nodes.new("ShaderNodeBlackbody")
+bb.inputs[0].default_value = 2700
+em = sock(po, "Emission Color", "Emission")
+if em is not None:
+    opal.node_tree.links.new(bb.outputs[0], em)
+put(po, ("Emission Strength",), 7.0)
+black, pb = material("04 / Black cyclorama", (0.00024, 0.00024, 0.00024), 0.98)
+put(pb, ("Specular IOR Level", "Specular"), 0.006)
+
+
+class Tool:
+    def __init__(self):
+        self.v, self.f = [], []
+
+    def pt(self, p):
+        self.v.append(tuple(p))
+        return len(self.v)-1
+
+    def face(self, *indices):
+        f = tuple(dict.fromkeys(indices))
+        if len(f) >= 3:
+            self.f.append(f)
+
+    def bridge(self, a, b, loop=True):
+        for j in range(len(a) if loop else len(a)-1):
+            k = (j+1) % len(a)
+            self.face(a[j], a[k], b[k], b[j])
+
+    def obj(self, name, mat, coll, uvfunc=None, shading=True):
+        me = bpy.data.meshes.new(name+" | tooling")
+        me.from_pydata([(x*MM, y*MM, z*MM) for x, y, z in self.v], [], self.f)
+        bm = bmesh.new()
+        bm.from_mesh(me)
+        loose = [v for v in bm.verts if not v.link_faces]
+        if loose:
+            bmesh.ops.delete(bm, geom=loose, context='VERTS')
+        bmesh.ops.recalc_face_normals(bm, faces=list(bm.faces))
+        bm.to_mesh(me)
+        bm.free()
+        me.update()
+        for p in me.polygons:
+            p.use_smooth = shading
+        if uvfunc:
+            layer = me.uv_layers.new(name="Brush")
+            data = [uvfunc(v.co) for v in me.vertices]
+            for p in me.polygons:
+                ids = list(p.loop_indices)
+                par = [data[me.loops[i].vertex_index] for i in ids]
+                seam = max(v for u, v in par)-min(v for u, v in par) > 0.5
+                for i, (u, v) in zip(ids, par):
+                    layer.data[i].uv = (u, v+(1 if seam and v < 0.5 else 0))
+        o = bpy.data.objects.new(name, me)
+        coll.objects.link(o)
+        me.materials.append(mat)
+        return o
+
+
+def bevel(ob, mm, seg=3, angle=30):
+    b = ob.modifiers.new("Finished edge", 'BEVEL')
+    b.width = mm*MM
+    b.segments = seg
+    b.limit_method = 'ANGLE'
+    b.angle_limit = math.radians(angle)
+    optional(b, "harden_normals", True)
+
+
+def lathe(name, profile, loc, axis, mat, coll, n=96, oval=1.0, angles=None):
+    tool = Tool()
+    aa = angles if angles is not None else [TAU*i/n for i in range(n)]
+    prev = None
+    for row in profile:
+        z, r = row[:2]
+        ring = []
+        if r < 1e-7:
+            ring = [tool.pt((0, 0, z))]*len(aa)
+        else:
+            for a in aa:
+                d = r
+                if len(row) == 3 and row[2]:
+                    d *= math.cos(PI/6)/math.cos(a % (PI/3)-PI/6)
+                ring.append(tool.pt((d*math.cos(a), oval*d*math.sin(a), z)))
+        if prev is not None:
+            tool.bridge(prev, ring)
+        prev = ring
+    z0 = min(row[0] for row in profile)*MM
+    span = max(0.001, max(row[0] for row in profile)*MM-z0)
+
+    def uvf(v):
+        return ((v.z-z0+0.14*math.hypot(v.x, v.y))/span,
+                (math.atan2(v.y, v.x)/TAU) % 1)
+    o = tool.obj(name, mat, coll, uvf if mat == steel else None)
+    o.location = Vector(loc)*MM
+    if tuple(axis) != (0, 0, 1):
+        o.rotation_euler = Vector(axis).to_track_quat('Z', 'Y').to_euler()
+    return o
+
+
+def area(name, loc, direction, power, color, sx, sy=None, coll=studio):
+    d = bpy.data.lights.new(name, 'AREA')
+    d.energy = power
+    d.color = color
+    d.shape = 'RECTANGLE' if sy is not None else 'DISK'
+    d.size = sx
+    if sy is not None:
+        d.size_y = sy
+    o = bpy.data.objects.new(name, d)
+    coll.objects.link(o)
+    o.location = loc
+    o.rotation_euler = Vector(direction).to_track_quat('-Z', 'Y').to_euler()
+    return o
+
+
+def cubic_profile(samples):
+    xs, ys = zip(*samples)
+    hs = [b-a for a, b in zip(xs, xs[1:])]
+    ds = [(b-a)/h for a, b, h in zip(ys, ys[1:], hs)]
+
+    def end(u, v, a, b):
+        m = ((2*u+v)*a-u*b)/(u+v)
+        if m*a <= 0:
+            return 0.0
+        if a*b < 0 and abs(m) > 3*abs(a):
+            return 3*a
+        return m
+
+    ms = [end(hs[0], hs[1], ds[0], ds[1])]
+    for i in range(1, len(xs)-1):
+        a, b = ds[i-1:i+1]
+        u, v = 2*hs[i]+hs[i-1], hs[i]+2*hs[i-1]
+        ms.append(0.0 if a*b <= 0 else (u+v)/(u/a+v/b))
+    ms.append(end(hs[-1], hs[-2], ds[-1], ds[-2]))
+    coef = []
+    for i, h in enumerate(hs):
+        d = ys[i+1]-ys[i]
+        m, n = h*ms[i], h*ms[i+1]
+        coef.append((ys[i], m, 3*d-2*m-n, m+n-2*d))
+
+    def ev(x):
+        i = clamp(bisect_right(xs, x)-1, 0, len(hs)-1)
+        t = (x-xs[i])/hs[i]
+        a, b, c, d = coef[i]
+        return a+t*(b+t*(c+t*d)), (b+t*(2*c+3*t*d))/hs[i]
+    return ev
+
+
+upper = cubic_profile([(-300, 0), (-270, 33), (-226, 65), (-167, 80), (-98, 95),
+                       (21, 105), (120, 83), (194, 63), (258, 37), (300, 0)])
+lower = cubic_profile([(-300, 0), (-251, -36), (-137, -53), (-28, -58),
+                       (70, -51), (194, -36), (268, -11), (300, 0)])
+
+
+def master(x, sn, cs):
+    u, du = upper(x)
+    l, dl = lower(x)
+    c, r = (u+l)*0.5, (u-l)*0.5
+    dc, dr = (du+dl)*0.5, (du-dl)*0.5
+    s = 300-abs(x)
+    if s < 100:
+        s = max(s, 1e-12)
+        nose = 3.75*math.sqrt(s)*math.exp(-s/7.5)
+        r += nose
+        dr += (1 if x < 0 else -1)*nose*(0.5/s-1/7.5)
+    nx, ny, nz = -(dr+dc*cs), sn/0.9, cs
+    inv = 1/math.sqrt(nx*nx+ny*ny+nz*nz)
+    return 0.9*r*sn, c+r*cs, nx*inv, ny*inv, nz*inv
+
+
+def inverse_turn(x, y, z):
+    return C*x-S*z, y, S*x+C*z
+
+
+shells, leds = [], []
+
+
+def make_shell(i):
+    px = PINS[i]
+    left = CUT[i] + (3.25 if i == 3 else (-0.18 if i else 0))
+    right = CUT[i+1] + (-3.25 if i == 2 else (0.18 if i < 5 else 0))
+    span = right-left
+
+    def skin(x, a, wall):
+        y, h, nx, ny, nz = master(x, math.sin(a), math.cos(a))
+        t = x-K*h-bias(y)
+        # Parallel normal skins: no radial bell, lip joggle, or scallop.
+        drop = SETDOWN*smooth((t-left-2.5)/(span-5)) if i < 5 else 0.0
+        d = drop+wall
+        return (x-d*nx, y-d*ny, h-d*nz)
+
+    def surf(t, a, wall):
+        lo, hi = -300.0, 300.0
+        for _ in range(26):
+            x = (lo+hi)*0.5
+            p = skin(x, a, wall)
+            if p[0]-K*p[2]-bias(p[1]) < t:
+                lo = x
+            else:
+                hi = x
+        return p
+
+    def angle_at(t, sg, h):
+        lo, hi = 0.0, PI
+        for _ in range(22):
+            a = (lo+hi)/2
+            if surf(t, sg*a, 0)[2] > h:
+                lo = a
+            else:
+                hi = a
+        return a if sg == 1 else TAU-a
+
+    tool = Tool()
+    roots = {}
+    for sg in (-1, 1):
+        tp = px-bias(sg*EAR)
+        low, high = max(left+10.5, -265), min(right-10.5, 264)
+        candidates = [clamp(tp+d, low, high) for d in (-18.5, 18.5)]
+        candidates += [low, high]
+        valid = [t for t in candidates if abs(t-tp) >= 15.8]
+        def cost(t):
+            a = angle_at(t, sg, 0)
+            x, y, h = surf(t, a, 0)
+            return 0.72*abs(x-px)+0.58*abs(t-tp)
+        roots[sg] = min(valid or candidates, key=cost)
+    if abs(roots[1]-roots[-1]) < 4.6:
+        roots[1] = roots[-1] = (roots[1]+roots[-1])/2
+
+    lamp_t = (left+right)/2
+    # Keep the narrow tooling footprints disjoint in the longitudinal grid.
+    for _ in range(12):
+        if all(min(abs(lamp_t-8.6-r), abs(lamp_t+8.6-r)) > 3.0 for r in roots.values()):
+            break
+        lamp_t += 1.35
+
+    lamp_ranges = {1: (0.347, 0.389), -1: (TAU-0.389, TAU-0.347)}
+    ear_ranges = {}
+    angular_anchors = [0, PI, TAU]
+    for sg in (-1, 1):
+        t = roots[sg]
+        ear_ranges[sg] = tuple(sorted((angle_at(t, sg, 7.25), angle_at(t, sg, -7.25))))
+        angular_anchors += list(ear_ranges[sg])+list(lamp_ranges[sg])
+    def subdiv(knots, spacing, protected=()):
+        knots = sorted(set(knots))
+        out = [knots[0]]
+        for a, b in zip(knots, knots[1:]):
+            count = max(1, math.ceil((b-a)/spacing))
+            for u, v, m in protected:
+                if abs(a-u) < 1e-6 and abs(b-v) < 1e-6:
+                    count = m
+            out.extend(mix(a, b, k/count) if k < count else b for k in range(1, count+1))
+        return out
+
+    angles = subdiv(angular_anchors, TAU/192,
+                    [(*r, 14) for r in ear_ranges.values()]+
+                    [(*r, 3) for r in lamp_ranges.values()])[:-1]
+    na = len(angles)
+    anchors = [left, right, lamp_t-8.6, lamp_t+8.6]
+    pairs = []
+    for t in roots.values():
+        anchors.extend((t-1.85, t+1.85))
+        pairs.append((t-1.85, t+1.85, 1))
+    if i == 0:
+        anchors.append(-280)
+        pairs.append((left, -280, 23))
+    if i == 5:
+        anchors.append(280)
+        pairs.append((280, right, 23))
+    ts = subdiv(anchors, 2.9, pairs)
+    def ix(seq, a):
+        return min(range(len(seq)), key=lambda j: abs(seq[j]-a))
+
+    ears, slots = {}, {}
+    for sg in (-1, 1):
+        t = roots[sg]
+        ears[sg] = (ix(ts, t-1.85), ix(ts, t+1.85),
+                    *(ix(angles, a) for a in ear_ranges[sg]))
+        slots[sg] = (ix(ts, lamp_t-8.6), ix(ts, lamp_t+8.6),
+                     *(ix(angles, a) for a in lamp_ranges[sg]))
+
+    grids = []
+    for layer in (0, 2):
+        grid = []
+        nose = {}
+        for t in ts:
+            if (i == 0 and t == left) or (i == 5 and t == right):
+                idx = tool.pt(((-300+layer) if i == 0 else (300-layer), 0, 0))
+                grid.append([idx]*na)
+                continue
+            row = []
+            for k, a in enumerate(angles):
+                if (i == 0 and t < -280) or (i == 5 and t > 280):
+                    side = -1 if i == 0 else 1
+                    if k not in nose:
+                        p = surf(side*280, a, layer)
+                        lo, hi = -300, 300
+                        for _ in range(26):
+                            x = (lo+hi)/2
+                            if skin(x, a, layer)[0] < p[0]:
+                                lo = x
+                            else:
+                                hi = x
+                        nose[k] = (lo+hi)/2
+                    f = ((300-abs(t))/20)**1.80
+                    p = skin(mix(side*300, nose[k], f), a, layer)
+                else:
+                    p = surf(t, a, layer)
+                row.append(tool.pt(p))
+            grid.append(row)
+        patches = ears if layer == 0 else slots
+        for j in range(len(ts)-1):
+            for k in range(na):
+                if any(l <= j < r and u <= k < d for l, r, u, d in patches.values()):
+                    continue
+                n = (k+1) % na
+                tool.face(grid[j][k], grid[j+1][k], grid[j+1][n], grid[j][n])
+        grids.append(grid)
+    g, inner = grids
+    for j in (0, -1):
+        if len(set(g[j])) > 1:
+            tool.bridge(g[j], inner[j])
+
+    for sg in (-1, 1):
+        l, r, u, d = ears[sg]
+        js = sorted(range(u, d+1), key=lambda k: tool.v[g[l][k]][2])
+        a0, b0 = [g[l][k] for k in js], [g[r][k] for k in js]
+        mids = [(Vector(tool.v[j])+Vector(tool.v[k]))/2 for j, k in zip(a0, b0)]
+        tr = roots[sg]
+        direct = 1 if px > tr+bias(sg*EAR) else -1
+        rad = min(3.65, 0.63*(EAR-max(sg*p.y for p in mids)))
+        bend_y = EAR-rad
+        sections = []
+        for j in range(19):
+            f = j/18
+            row = []
+            for k, p in enumerate(mids):
+                eta = -1+2*k/(len(mids)-1)
+                h = mix(p.z, 4.0*eta, smooth(f))
+                y = sg*mix(sg*p.y, bend_y, f)
+                row.append(Vector((tr+K*h+bias(y), y, h)))
+            sections.append(row)
+        for j in range(1, 14):
+            a = PI*j/26
+            y = sg*(bend_y+rad*math.sin(a))
+            sections.append([Vector((tr+bias(y)+K*p.z+direct*rad*(1-math.cos(a)), y, p.z))
+                             for p in sections[18]])
+        flat = sections[-1]
+        joinx = px-direct*7.25
+        nn = max(4, math.ceil(abs(joinx-flat[len(flat)//2].x)/2.8))
+        for j in range(1, nn+1):
+            f = j/nn
+            sections.append([Vector((mix(p.x, joinx, f), sg*EAR, p.z)) for p in flat])
+
+        aa, ba = a0, b0
+        for j in range(1, len(sections)):
+            aa1, ba1 = [], []
+            for k, p in enumerate(sections[j]):
+                tangent = sections[min(j+1, len(sections)-1)][k]-sections[j-1][k]
+                cross = sections[j][min(k+1, len(mids)-1)]-sections[j][max(0, k-1)]
+                norm = tangent.cross(cross).normalized()*sg
+                aa1.append(tool.pt(p-norm))
+                ba1.append(tool.pt(p+norm))
+            tool.bridge(aa, aa1, False)
+            tool.bridge(ba, ba1, False)
+            tool.face(aa[0], ba[0], ba1[0], aa1[0])
+            tool.face(aa[-1], aa1[-1], ba1[-1], ba[-1])
+            aa, ba = aa1, ba1
+
+        layers, holes = [], []
+        for start in (aa, ba):
+            y = tool.v[start[0]][1]
+            edge = list(start)
+            for j in range(1, 10):
+                f = j/9
+                edge.append(tool.pt((mix(joinx, px, f), y, mix(4, 5.85, smooth(f)))))
+            for j in range(1, 41):
+                a = PI/2-PI*j/40
+                edge.append(tool.pt((px+direct*5.85*math.cos(a), y, 5.85*math.sin(a))))
+            for j in range(1, 9):
+                f = j/9
+                edge.append(tool.pt((mix(px, joinx, f), y, -mix(5.85, 4, smooth(f)))))
+            hole = []
+            for k in edge:
+                x, y, h = tool.v[k]
+                f = 2.20/math.hypot(x-px, h)
+                hole.append(tool.pt((px+f*(x-px), y, f*h)))
+            tool.bridge(edge, hole)
+            layers.append(edge)
+            holes.append(hole)
+        for k in range(len(aa)-1, len(layers[0])):
+            n = (k+1) % len(layers[0])
+            tool.face(layers[0][k], layers[1][k], layers[1][n], layers[0][n])
+        tool.bridge(*holes)
+
+    def local(p):
+        return inverse_turn(p[0]-px, p[1], p[2])
+
+    inserts = []
+    for sg in (-1, 1):
+        l, r, u, d = slots[sg]
+        well = {}
+        for j in range(l, r+1):
+            for k in range(u, d+1):
+                well[j, k] = tool.pt(surf(ts[j], angles[k], 0.86))
+        for j in range(l, r):
+            for k in range(u, d):
+                tool.face(well[j, k], well[j+1, k], well[j+1, k+1], well[j, k+1])
+        outline = ([(j, u) for j in range(l, r)]+[(r, k) for k in range(u, d)]+
+                   [(j, d) for j in range(r, l, -1)]+[(l, k) for k in range(d, u, -1)])
+        tool.bridge([inner[j][k] for j, k in outline], [well[j, k] for j, k in outline])
+        lens = Tool()
+        sheets = []
+        for depth in (1.15, 1.64):
+            grid = [[lens.pt(local(surf(mix(lamp_t-8.15, lamp_t+8.15, j/12),
+                                        mix(angles[u]+0.005, angles[d]-0.005, k/3), depth)))
+                     for k in range(4)] for j in range(13)]
+            for j in range(12):
+                lens.bridge(grid[j], grid[j+1], False)
+            sheets.append(grid)
+        a, b = sheets
+        for j in (0, -1):
+            lens.bridge(a[j], b[j], False)
+        for k in (0, -1):
+            lens.bridge([row[k] for row in a], [row[k] for row in b], False)
+        label = "%d_%s" % (i+1, "Front" if sg < 0 else "Back")
+        led = lens.obj("LED_"+label, opal, optics)
+        leds.append(led)
+        inserts.append(led)
+        ang = (angles[u]+angles[d])/2
+        p = Vector(surf(lamp_t, ang, 2))
+        nrm = (p-Vector(surf(lamp_t, ang, 0.86))).normalized()
+        loc = Vector(local(p+0.8*nrm))*MM
+        aim = Vector(inverse_turn(*nrm))
+        src = area("LED_Photometry_"+label, loc, aim, 0.10+0.19*clamp(p.z/104, 0, 1)**2,
+                   (1, 0.478, 0.19), 0.0155, 0.0018, optics)
+        if optional(src.data, "temperature", 2700) and optional(src.data, "use_temperature", True):
+            src.data.color = (1, 1, 1)
+        inserts.append(src)
+
+    tool.v = [local(p) for p in tool.v]
+    o = tool.obj("Shell_"+str(i+1), coat, scales)
+    bevel(o, 0.21, 3, 32)
+    o.location = (px*MM, 0, ZPIN*MM)
+    o.rotation_euler.y = A
+    for insert in inserts:
+        insert.parent = o
+    drv = o.driver_add("rotation_euler", 1).driver
+    drv.type = 'SCRIPTED'
+    var = drv.variables.new()
+    var.name = "aperture"
+    var.type = 'SINGLE_PROP'
+    var.targets[0].id = ctrl
+    var.targets[0].data_path = '["open"]'
+    drv.expression = "%.16g - %.16g * aperture" % (A, A-math.radians(OPENED))
+    shells.append(o)
+
+
+for si in range(6):
+    make_shell(si)
+
+
+def make_tube(sg, label):
+    tool = Tool()
+    xs, zones = [-304.8], []
+    n = 96
+    for p in PINS:
+        first = len(xs)
+        xs.extend(p+mix(-3.35, 3.35, j/14) for j in range(15))
+        zones.append((first, first+14, p))
+    xs.append(304.8)
+    grids = []
+    for rad in (5.0, 3.78):
+        grid = [[tool.pt((x, rad*math.cos(TAU*k/n), rad*math.sin(TAU*k/n)))
+                 for k in range(n)] for x in xs]
+        grids.append(grid)
+        for j in range(len(xs)-1):
+            drilled = any(a <= j < b for a, b, p in zones)
+            for k in range(n):
+                q = (k+0.5) % (n/2)
+                if drilled and min(q, n/2-q) < n/8:
+                    continue
+                h = (k+1) % n
+                tool.face(grid[j][k], grid[j+1][k], grid[j+1][h], grid[j][h])
+    for l, r, p in zones:
+        for c0, side in ((0, 1), (n//2, -1)):
+            a, b = c0-n//8, c0+n//8
+            rim = ([(j, a) for j in range(l, r)]+[(r, k) for k in range(a, b)]+
+                   [(j, b) for j in range(r, l, -1)]+[(l, k) for k in range(b, a, -1)])
+            holes = []
+            for g, rad in zip(grids, (5, 3.78)):
+                prev = [g[j][k % n] for j, k in rim]
+                for step in range(1, 5):
+                    ids = []
+                    for j, k in rim:
+                        sn = math.sin(TAU*k/n)
+                        ang = math.atan2(5*sn, xs[j]-p)
+                        x = mix(xs[j], p+1.98*math.cos(ang), step/4)
+                        h = mix(rad*sn, 1.98*math.sin(ang), step/4)
+                        ids.append(tool.pt((x, side*math.sqrt(rad*rad-h*h), h)))
+                    tool.bridge(prev, ids)
+                    prev = ids
+                holes.append(prev)
+            tool.bridge(*holes)
+    for j in (0, -1):
+        tool.bridge(grids[0][j], grids[1][j])
+    ob = tool.obj("Tube_"+label, steel, frame,
+                  lambda v: (v.x/0.6096+0.5, math.atan2(v.z, v.y)/TAU % 1))
+    ob.location = (0, sg*RAIL*MM, ZPIN*MM)
+    bevel(ob, 0.085, 3, 34)
+    return ob
+
+
+tubes, pins, caps = [], [], []
+for sg, side in ((-1, "Front"), (1, "Back")):
+    tubes.append(make_tube(sg, side))
+    for direction, end in ((-1, "L"), (1, "R")):
+        p = [(-2.05, 0), (-2.05, 3.58), (-1.91, 3.71), (0.035, 3.71),
+             (0.035, 4.70), (0.13, 4.90), (0.31, 4.98)]
+        for j in range(1, 26):
+            a = PI*j/50
+            p.append((0.31+2.89*math.sin(a), 4.98*math.cos(a)))
+        caps.append(lathe("Cap_"+side+"_"+end, p, (direction*304.8, sg*RAIL, ZPIN),
+                          (direction, 0, 0), steel, fittings))
+    for j, px in enumerate(PINS):
+        d = RAIL+5.0
+        p = [(EAR-1.46, 0), (EAR-1.46, 1.35), (EAR-1.28, 1.67),
+             (d-0.16, 1.67), (d+0.026, 1.84), (d+0.035, 3.13),
+             (d+0.14, 3.40), (d+0.34, 3.52), (d+0.53, 3.52),
+             (d+0.82, 3.38), (d+1.11, 3.05), (d+1.40, 2.54),
+             (d+1.65, 1.91), (d+1.80, 1.29), (d+1.81, 1.05, True),
+             (d+1.69, 0.94, True), (d+1.05, 0.94, True), (d+0.99, 0.84, True),
+             (d+0.99, 0)]
+        pins.append(lathe("Pin_%d_%s" % (j+1, side), p, (px, 0, ZPIN),
+                          (0, sg, 0), steel, fittings, 72))
+
+
+bp = [(0, 0), (0, 93.7)]
+for j in range(16):
+    a = mix(-PI/2, 0, j/15)
+    bp.append((2.55+2.55*math.sin(a), 94.95+2.55*math.cos(a)))
+for j in range(16):
+    a = PI*j/30
+    bp.append((8.15+2.85*math.sin(a), 94.65+2.85*math.cos(a)))
+bp += [(11, 93.5), (11, 0)]
+base = lathe("Base", bp, (0, 0, 0), (0, 0, 1), coat, frame, 192, 130/195)
+
+
+def make_saddle():
+    tool = Tool()
+    radius, half = 7.85, 3.25
+    arm = RAIL-math.sqrt(radius*radius-half*half)
+    ys = ([mix(-arm, -32, j/52) for j in range(52)]+
+          [mix(-32, 32, j/84) for j in range(84)]+
+          [mix(32, arm, j/52) for j in range(53)])
+    j0, j1 = 52, 136
+    nh, nw = 12, 18
+    plane, cells = [], []
+
+    def add(y, h):
+        plane.append((y, h))
+        return len(plane)-1
+
+    def dims(y):
+        s = abs(y)
+        t = min(1, s/arm)
+        h = -62.4+(62.4+half)*(0.55*t*t+0.45*t**6)
+        if y < 0:
+            h += 4.0*smooth((s-54)/10)*(1-smooth((s-65)/(arm-65)))
+        thickness = 2*half+7.5*math.exp(-(s/33)**2.6)
+        return h-thickness, h
+
+    rows = []
+    for y in ys:
+        l, r = dims(y)
+        rows.append([add(y, mix(l, r, k/nh)) for k in range(nh+1)])
+    for a, b in zip(rows, rows[1:]):
+        cells.extend((a[k], a[k+1], b[k+1], b[k]) for k in range(nh))
+    for sg, row in ((-1, rows[0]), (1, rows[-1])):
+        beta = math.asin(half/radius)
+        outer = list(row)
+        for j in range(1, 104):
+            a = mix(PI-beta, -PI+beta, j/104)
+            outer.append(add(sg*(RAIL+radius*math.cos(a)), radius*math.sin(a)))
+        inner = []
+        for idx in outer:
+            y, h = plane[idx]
+            dy = y-sg*RAIL
+            f = 5.07/math.hypot(dy, h)
+            inner.append(add(sg*RAIL+f*dy, f*h))
+        for j in range(len(outer)):
+            k = (j+1) % len(outer)
+            cells.append((outer[j], outer[k], inner[k], inner[j]))
+
+    def shape(y, h):
+        s = abs(y)
+        low, high = dims(y)
+        v = clamp((h-low)/(high-low), 0, 1)
+        w = 3.65+33.4*math.exp(-(s/31.5)**2.8)
+        w *= 1-0.23*smooth(v)*math.exp(-(s/35)**2.6)
+        xc = -12.2*smooth((s-13)/28)
+        if y < 0:
+            f = smooth((s-52)/13)
+            xc = mix(xc, CUT[3]+K*h+bias(y), f)
+            w = mix(w, 2.22, f)
+        f = smooth((s-69)/(arm-69))
+        xc = mix(xc, CUT[3]+bias(-75.0) if y < 0 else -5.0, f)
+        return xc, mix(w, 3.05, f)
+
+    flanks = []
+    for side in (-1, 1):
+        ids = []
+        for y, h in plane:
+            xc, w = shape(y, h)
+            ids.append(tool.pt((xc+side*w, y, ZPIN+h)))
+        flanks.append(ids)
+        for cell in cells:
+            tool.face(*(ids[k] for k in cell))
+    edgecount = {}
+    for cell in cells:
+        for a, b in zip(cell, cell[1:]+cell[:1]):
+            e = tuple(sorted((a, b)))
+            edgecount[e] = edgecount.get(e, 0)+1
+    omit = {tuple(sorted((rows[j][0], rows[j+1][0]))) for j in range(j0, j1)}
+    top_ids = {row[-1] for row in rows}
+    cross = {}
+
+    def section(q):
+        if q not in cross:
+            y, h = plane[q]
+            xc, w = shape(y, h)
+            crown = 2.4*math.exp(-(abs(y)/32)**2.6) if q in top_ids else 0
+            cross[q] = [flanks[0][q]]
+            for k in range(1, nw):
+                f = -1+2*k/nw
+                cross[q].append(tool.pt((xc+w*f, y, ZPIN+h+crown*(1-f*f))))
+            cross[q].append(flanks[1][q])
+        return cross[q]
+
+    for (a, b), count in edgecount.items():
+        if count == 1 and (a, b) not in omit:
+            tool.bridge(section(a), section(b), False)
+
+    rim = ([flanks[0][rows[j][0]] for j in range(j0, j1)]+
+           section(rows[j1][0])+
+           [flanks[1][rows[j][0]] for j in range(j1-1, j0, -1)]+
+           list(reversed(section(rows[j0][0])))[:-1])
+    angles = [math.atan2(tool.v[k][1], tool.v[k][0]) for k in rim]
+    prev = None
+    for j in range(19):
+        t = j/18
+        ids = []
+        for idx, ang in zip(rim, angles):
+            x, y, z = tool.v[idx]
+            r = math.hypot(x, y)
+            dz = z-72.0
+            rr = mix(31.7, r, smooth(t))+0.17*dz*t*(1-t)**2
+            ids.append(idx if j == 18 else tool.pt((rr*math.cos(ang), rr*math.sin(ang),
+                                                    mix(72, z, t))))
+        if prev is not None:
+            tool.bridge(prev, ids)
+        else:
+            pole = tool.pt((0, 0, 72))
+            for k in range(len(ids)):
+                tool.face(ids[k], ids[(k+1) % len(ids)], pole)
+        prev = ids
+    ob = tool.obj("Yoke", coat, frame)
+    bevel(ob, 0.72, 4, 31)
+    return ob, sorted(angles)
+
+
+yoke, stem_angles = make_saddle()
+
+
+def bez(a, b, c, d, n):
+    out = []
+    for j in range(1, n+1):
+        t = j/n
+        s = 1-t
+        out.append(tuple(s**3*a[k]+3*s*s*t*b[k]+3*s*t*t*c[k]+t**3*d[k]
+                         for k in range(2)))
+    return out
+
+
+pp = [(10.90, 0), (10.90, 40.7), (10.92, 42.5)]
+for b, c, d, n in [((11.15, 40.4), (14.4, 35.5), (18.7, 33.6), 22),
+                    ((24.3, 31.1), (34, 28.5), (45, 28.5), 32),
+                    ((56, 28.5), (65, 30.51), (72.0, 31.7), 32)]:
+    pp += bez(pp[-1], b, c, d, n)
+pp += [(72, 31.50), (72, 0)]
+stem = lathe("Stem", pp, (0, 0, 0), (0, 0, 1), coat, frame, angles=stem_angles)
+kn = Vector((0.202, -math.sqrt(1-0.202**2), 0))
+kp = [(-0.65, 0), (-0.65, 4.1), (0.27, 4.1), (0.31, 4.56), (0.45, 4.86),
+      (0.69, 5), (2.30, 5), (2.61, 4.94), (2.86, 4.73), (3, 4.32), (3, 3.95), (3, 0)]
+knob = lathe("Dimmer_Knob", kp, (28.5*kn.x, 28.5*kn.y, 45), kn, coat, frame)
+
+ft = Tool()
+ft.v = [(-8000, -8000, 0), (8000, -8000, 0), (8000, 8000, 0), (-8000, 8000, 0)]
+ft.face(0, 1, 2, 3)
+floor = ft.obj("Floor", black, studio, shading=False)
+
+world = bpy.data.worlds.new("Studio / black")
+scene.world = world
+world.color = (0, 0, 0)
+world.use_nodes = True
+bg = world.node_tree.nodes.get("Background")
+if bg:
+    bg.inputs["Color"].default_value = (0, 0, 0, 1)
+    bg.inputs["Strength"].default_value = 0
+
+for name, loc, aim, energy, rgb, w, h in [
+    ("Key", (-0.46, -0.69, 0.84), (-0.04, 0, 0.125), 12.0, (1, 0.971, 0.939), 0.68, 0.53),
+    ("Fill", (0.51, -0.42, 0.39), (0.045, 0, 0.15), 2.9, (0.94, 0.967, 1), 0.49, 0.36),
+    ("Rim", (0.09, 0.43, 0.65), (0, 0, 0.163), 8.1, (1, 0.976, 0.940), 0.72, 0.22)
+]:
+    area(name, loc, Vector(aim)-Vector(loc), energy, rgb, w, h)
+
+cd = bpy.data.cameras.new("Camera")
+cam = bpy.data.objects.new("Camera", cd)
+studio.objects.link(cam)
+cd.lens = 100
+cd.sensor_width = 36
+cd.sensor_fit = 'HORIZONTAL'
+cd.clip_start, cd.clip_end = 0.01, 50
+pitch, target_z = math.radians(9), 0.134
+distance = 0.616/(0.79*0.36)+RAIL*MM*math.cos(pitch)+(ZPIN*MM-target_z)*math.sin(pitch)
+cam.location = (0, -distance*math.cos(pitch), target_z+distance*math.sin(pitch))
+cam.rotation_euler = (Vector((0, 0, target_z))-cam.location).to_track_quat('-Z', 'Y').to_euler()
+scene.camera = cam
+scene.render.engine = 'CYCLES'
+optional(scene.cycles, "device", 'CPU')
+optional(scene.cycles, "samples", 96)
+optional(scene.cycles, "use_denoising", True)
+optional(scene.cycles, "denoiser", 'OPENIMAGEDENOISE')
+optional(scene.cycles, "denoising_use_gpu", False)
+optional(scene.cycles, "max_bounces", 10)
+scene.render.resolution_x = 1536
+scene.render.resolution_y = 864
+scene.render.resolution_percentage = 100
+scene.render.pixel_aspect_x = scene.render.pixel_aspect_y = 1
+scene.render.film_transparent = False
+optional(scene.view_settings, "view_transform", 'AgX')
+for look in ("AgX - Medium High Contrast", "Medium High Contrast"):
+    if optional(scene.view_settings, "look", look):
+        break
+optional(scene.view_settings, "exposure", -0.68)
+scene.render.filepath = "//Lamp"
+for screen in bpy.data.screens:
+    for ar in screen.areas:
+        if ar.type == 'VIEW_3D':
+            ar.spaces.active.region_3d.view_perspective = 'CAMERA'
+            ar.spaces.active.overlay.show_overlays = False
+
+
+def aperture(v, fr):
+    ctrl["open"] = float(v)
+    ctrl.update_tag()
+    bpy.context.view_layer.update()
+    scene.frame_set(fr)
+    bpy.context.view_layer.update()
+
+
+def tree(ob, dg):
+    ev = ob.evaluated_get(dg)
+    me = ev.to_mesh()
+    try:
+        mw = ev.matrix_world
+        pts = [mw @ v.co for v in me.vertices]
+        me.calc_loop_triangles()
+        bvh = BVHTree.FromPolygons(pts, [tuple(t.vertices) for t in me.loop_triangles],
+                                   all_triangles=True, epsilon=0.0)
+        box = tuple((min(p[k] for p in pts), max(p[k] for p in pts)) for k in range(3))
+        return bvh, box
+    finally:
+        ev.to_mesh_clear()
+
+
+fixed = tubes+pins+caps+[yoke, stem, base, knob]
+static, bounds = {}, {}
+for step, opening in enumerate((0.0, 0.25, 0.5, 0.75, 1.0)):
+    aperture(opening, step+1)
+    dg = bpy.context.evaluated_depsgraph_get()
+    if step == 0:
+        for ob in fixed:
+            static[ob], bounds[ob] = tree(ob, dg)
+    tested = dict(static)
+    # The optics move with their pockets. Rebuild their world BVHs too.
+    for ob in shells+leds:
+        tested[ob], box = tree(ob, dg)
+        if step == 0:
+            bounds[ob] = box
+    hits = []
+    for j, ob in enumerate(shells):
+        for other in shells[j+1:]+fixed+leds:
+            if tested[ob].overlap(tested[other]):
+                hits.append(ob.name+"/"+other.name)
+    print("SELFTEST open=%.2f %s" % (opening, "COLLISION "+" ".join(hits) if hits else "OK"),
+          flush=True)
+
+aperture(0, 1)
+
+
+def extent(obs, k):
+    return (max(bounds[o][k][1] for o in obs)-min(bounds[o][k][0] for o in obs))/MM
+
+
+product = fixed+shells+leds
+print("DIMS closed overall L %.2f mm  H %.2f mm" % (extent(product, 0), extent(product, 2)))
+print("DIMS closed shells L %.2f mm  H %.2f mm  Z %.2f .. %.2f mm" %
+      (extent(shells, 0), extent(shells, 2), min(bounds[o][2][0] for o in shells)/MM,
+       max(bounds[o][2][1] for o in shells)/MM))
+print("DIMS base %.2f x %.2f x %.2f mm" % tuple(extent([base], k) for k in range(3)))
+print("DIMS shell pin X (mm): "+", ".join("%.2f" % x for x in PINS))
+print("DIMS pitch (mm): "+", ".join("%.2f" % (b-a) for a, b in zip(PINS, PINS[1:])))
+print("DIMS tilt closed %.2f deg / open %.2f deg; pin line Z %.2f mm" % (CLOSED, OPENED, ZPIN))
+
+if "--" in sys.argv:
+    args = sys.argv[sys.argv.index("--")+1:]
+    if args and args[0]:
+        path = os.path.abspath(os.path.expanduser(args[0]))
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        bpy.ops.wm.save_as_mainfile(filepath=path)

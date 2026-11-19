@@ -1,0 +1,85 @@
+﻿ID;Del;Gruppe;Materiale;Volum_mm3;Tettleik_g_cm3;Masse_g;Prosess
+101;Fot med utsvinga hals;10 Sokkel og lys;EN AW-6061 T6;77632.697;2.7;209.60828;"Drei hol profil; fres sitjeflate og tverribbe frå attståande gods. Dreia radiuskant og strekkspor for sålen. M3 i hals og kassettsete."
+102;Sålering;10 Sokkel og lys;Silikon;3274.607;1.15;3.7658;Strekkmontering i undersporet, utan lim.
+H2-1;Låseskrue for beretapp;10 Sokkel og lys;AISI 304;26.861;8.0;0.21488;M3 flat ende. Gjengar i heile modellen har frie nominelle konvoluttar.
+H2-2;Låseskrue for beretapp;10 Sokkel og lys;AISI 304;26.861;8.0;0.21488;M3 flat ende. Gjengar i heile modellen har frie nominelle konvoluttar.
+H1-1;M3 toppskrue;10 Sokkel og lys;AISI 304;168.063;8.0;1.3445;M3 × 16 ned i tverribba.
+H1-2;M3 toppskrue;10 Sokkel og lys;AISI 304;168.063;8.0;1.3445;M3 × 16 ned i tverribba.
+103;Tverrsadel;10 Sokkel og lys;EN AW-6061 T6;18681.483;2.7;50.44001;Fres frå stong. Monter på halsen med to M3. Leidningshol midt i sadelen.
+104;Strekkavlasting;10 Sokkel og lys;Silikon;463.366;1.15;0.53287;Stuk inn i radialholet. Tilpass halslengda til produksjonsprofilen.
+E03;Lågspenningsleidning;10 Sokkel og lys;Innkjøpt kabelsett, vist leidning;1444.42;;;Føringsreferanse. Laus leidning og primærbrytar er budsjetterte separat.
+H3-1;Serviceskrue M3;10 Sokkel og lys;AISI 304;106.5;8.0;0.852;M3 × 7, 2 mm sekskant frå undersida. Ta heilt ut ved byte.
+H3-2;Serviceskrue M3;10 Sokkel og lys;AISI 304;106.5;8.0;0.852;M3 × 7, 2 mm sekskant frå undersida. Ta heilt ut ved byte.
+109-1;Optikkskrue M2;10 Sokkel og lys;AISI 304;32.05;8.0;0.2564;Held optikk og trykkpunkt for kortet. Treng ikkje løysast ved eigarbyte.
+109-2;Optikkskrue M2;10 Sokkel og lys;AISI 304;32.05;8.0;0.2564;Held optikk og trykkpunkt for kortet. Treng ikkje løysast ved eigarbyte.
+106;Innfelt lyssko;10 Sokkel og lys;EN AW-6061 T6;41820.737;2.7;112.91599;"Fres frå plate, med avrunda planomriss, to gjengeknastar og bakovervend lyshole. Lys, matt innside; utsida har same varme metalltone som skala. Tørr kjølekontakt."
+107;Inntrekt bordoptikk;10 Sokkel og lys;Opal polykarbonat;10082.042;1.2;12.09845;Innkjøpsmål: asymmetrisk mikroprismeoptikk med spreiesjikt. To trykkpunkt i mørke endesoner held kortet mot kjøleflata. Ikkje ei plan Lambert-plate.
+108;Opal vaskelysinnsats;10 Sokkel og lys;Opal polykarbonat;1423.081;1.2;1.7077;Bøy den tynne lista inn i spora under visiret. Knastar held vaskekortet mot veggen.
+E01;Arbeidskort 2700 K;10 Sokkel og lys;Innkjøpt LED-lyskort, konvolutt;6919.2;1.445254;10.0;"180 mm aktiv line på undersida, tørre kontaktflater, Ra ≥ 90. Konvolutt; budsjettert masse 10 g."
+E02;Vaskelyskort 2000 og 2700 K;10 Sokkel og lys;Innkjøpt LED-lyskort, konvolutt;1061.91;2.636758;2.8;"To kanalar på same kort; lys mot +Y under visiret, Ra ≥ 90 på begge. Konvolutt; budsjettert masse 2.8 g."
+J01;Kassettplugg;10 Sokkel og lys;Kontaktinnsats, PBT og koparlegering, konvolutt;141.115;8.503717;1.2;"Polarisert firepol på lysskoen. Konvolutt; budsjettert masse 1.2 g."
+J02;Fast kontaktinnsats;10 Sokkel og lys;Kontaktinnsats, PBT og koparlegering, konvolutt;156.148;8.965829;1.4;"Klipsfeste i halsen. Konvolutt; budsjettert masse 1.4 g."
+201;Fast røyr;20 Fast røyr;EN AW-6061 T6;10243.064;2.7;27.65627;Ø9 × 1, L414. Jiggbor Ø4,07, deling 78.
+202-L;Endeplugg;20 Fast røyr;POM-C;165.032;1.41;0.23269;Trykkpassning.
+202-R;Endeplugg;20 Fast røyr;POM-C;165.032;1.41;0.23269;Trykkpassning.
+301;Reguleringsrøyr;30 Reguleringsrøyr;EN AW-6061 T6, bronseeloksert;11545.017;2.7;31.17155;Ø10 × 1, L414. Jiggbor Ø4,07, deling 78.
+302-L;Endeplugg;30 Reguleringsrøyr;POM-C;212.124;1.41;0.29909;Trykkpassning.
+302-R;Endeplugg;30 Reguleringsrøyr;POM-C;212.124;1.41;0.29909;Trykkpassning.
+303;Løftegrep;30 Reguleringsrøyr;Silikon;12479.581;1.15;14.35152;67 × Ø20, matt varmgrå silikon. Tre på bronserøyret før stikking av tappane.
+S01;Samanhengande skjell;41 Skjell 1;EN AW-5754 H22;12782.457;2.68;34.25698;"Konvals nøytral DXF. Same kronelinje; avlasta tå på begge faldar. Avgrad og jiggbor etter valsing. k=0.502049, r ved hengsel=27.715. Lys, diffus innside og silkematt utside."
+B1F;Salforing;41 Skjell 1;POM-C;469.382;1.41;0.66183;Eitt stykke, splitta innføringsende og koniske anlegg. Boring Ø4,11.
+P1F;Skuldertapp;20 Fast røyr;EN AW-6061 T6;2370.578;2.7;6.40056;Ø4,00 journal. Kaldstukk røyrenden. Spor for radiell låsering.
+K1F;Radiell låsering;20 Fast røyr;AISI 304;16.532;8.0;0.13226;Fjørande C-ring i dreia spor.
+B1R;Salforing;41 Skjell 1;POM-C;467.121;1.41;0.65864;Eitt stykke, splitta innføringsende og koniske anlegg. Boring Ø4,11.
+P1R;Skuldertapp;30 Reguleringsrøyr;EN AW-6061 T6;2401.643;2.7;6.48444;Ø4,00 journal. Kaldstukk røyrenden. Spor for radiell låsering.
+K1R;Radiell låsering;30 Reguleringsrøyr;AISI 304;16.532;8.0;0.13226;Fjørande C-ring i dreia spor.
+S02;Samanhengande skjell;42 Skjell 2;EN AW-5754 H22;17549.644;2.68;47.03305;"Konvals nøytral DXF. Same kronelinje; avlasta tå på begge faldar. Avgrad og jiggbor etter valsing. k=0.178571, r ved hengsel=70.821. Lys, diffus innside og silkematt utside."
+B2F;Salforing;42 Skjell 2;POM-C;338.746;1.41;0.47763;Eitt stykke, splitta innføringsende og koniske anlegg. Boring Ø4,11.
+P2F;Skuldertapp;20 Fast røyr;EN AW-6061 T6;1036.033;2.7;2.79729;Ø4,00 journal. Kaldstukk røyrenden. Spor for radiell låsering.
+K2F;Radiell låsering;20 Fast røyr;AISI 304;16.532;8.0;0.13226;Fjørande C-ring i dreia spor.
+B2R;Salforing;42 Skjell 2;POM-C;338.536;1.41;0.47734;Eitt stykke, splitta innføringsende og koniske anlegg. Boring Ø4,11.
+P2R;Skuldertapp;30 Reguleringsrøyr;EN AW-6061 T6;1448.15;2.7;3.91001;Ø4,00 journal. Kaldstukk røyrenden. Spor for radiell låsering.
+K2R;Radiell låsering;30 Reguleringsrøyr;AISI 304;16.532;8.0;0.13226;Fjørande C-ring i dreia spor.
+S03;Samanhengande skjell;43 Skjell 3;EN AW-5754 H22;18620.739;2.68;49.90358;"Konvals nøytral DXF. Same kronelinje; avlasta tå på begge faldar. Avgrad og jiggbor etter valsing. k=0.012755, r ved hengsel=87.768. Lys, diffus innside og silkematt utside."
+B3F;Salforing;43 Skjell 3;POM-C;272.381;1.41;0.38406;Eitt stykke, splitta innføringsende og koniske anlegg. Boring Ø4,11.
+P3F;Beretapp;20 Fast røyr;EN AW-6061 T6;1957.811;2.7;5.28609;Ø4,00 journal. Kaldstukk røyrenden. Plan ytre trykkskulder mot foringa.
+K3F;Justerkrage;20 Fast røyr;EN AW-6061 T6;218.769;2.7;0.59068;M2 radielt. Still inn montert fjørhøgd.
+G3F;Låseskrue M2;20 Fast røyr;AISI 304;8.639;8.0;0.06912;Flat ende mot beretapp.
+F3F;Forspent friksjonsfjør;20 Fast røyr;EN 1.4310 fjørstål;8.421;7.9;0.06653;Forma trykkskive med flate land R2,09–2,48 og R3,15–3,57. Fri høgd 1,00, arbeidshøgd 0,80. Kraftkurve må kvalifiserast.
+B3R;Salforing;43 Skjell 3;POM-C;272.353;1.41;0.38402;Eitt stykke, splitta innføringsende og koniske anlegg. Boring Ø4,11.
+P3R;Skuldertapp;30 Reguleringsrøyr;EN AW-6061 T6;1120.625;2.7;3.02569;Ø4,00 journal. Kaldstukk røyrenden. Spor for radiell låsering.
+K3R;Radiell låsering;30 Reguleringsrøyr;AISI 304;16.532;8.0;0.13226;Fjørande C-ring i dreia spor.
+206;Stopptapp med magnetsete;43 Skjell 3;EN AW-6061 T6;273.061;2.7;0.73726;Stukne skuldrer rundt Ø3,18.
+207;Posisjonsmagnet;43 Skjell 3;NdFeB, fornikla;6.283;7.5;0.04712;Pressete med mekanisk sikra leppe.
+S04;Samanhengande skjell;44 Skjell 4;EN AW-5754 H22;17643.046;2.68;47.28336;"Konvals nøytral DXF. Same kronelinje; avlasta tå på begge faldar. Avgrad og jiggbor etter valsing. k=-0.120968, r ved hengsel=91.250. Lys, diffus innside og silkematt utside."
+B4F;Salforing;44 Skjell 4;POM-C;315.41;1.41;0.44473;Eitt stykke, splitta innføringsende og koniske anlegg. Boring Ø4,11.
+P4F;Beretapp;20 Fast røyr;EN AW-6061 T6;1883.559;2.7;5.08561;Ø4,00 journal. Kaldstukk røyrenden. Plan ytre trykkskulder mot foringa.
+K4F;Justerkrage;20 Fast røyr;EN AW-6061 T6;218.769;2.7;0.59068;M2 radielt. Still inn montert fjørhøgd.
+G4F;Låseskrue M2;20 Fast røyr;AISI 304;8.639;8.0;0.06912;Flat ende mot beretapp.
+F4F;Forspent friksjonsfjør;20 Fast røyr;EN 1.4310 fjørstål;8.421;7.9;0.06653;Forma trykkskive med flate land R2,09–2,48 og R3,15–3,57. Fri høgd 1,00, arbeidshøgd 0,80. Kraftkurve må kvalifiserast.
+B4R;Salforing;44 Skjell 4;POM-C;315.481;1.41;0.44483;Eitt stykke, splitta innføringsende og koniske anlegg. Boring Ø4,11.
+P4R;Skuldertapp;30 Reguleringsrøyr;EN AW-6061 T6;1167.461;2.7;3.15214;Ø4,00 journal. Kaldstukk røyrenden. Spor for radiell låsering.
+K4R;Radiell låsering;30 Reguleringsrøyr;AISI 304;16.532;8.0;0.13226;Fjørande C-ring i dreia spor.
+S05;Samanhengande skjell;45 Skjell 5;EN AW-5754 H22;14807.969;2.68;39.68536;"Konvals nøytral DXF. Same kronelinje; avlasta tå på begge faldar. Avgrad og jiggbor etter valsing. k=-0.285714, r ved hengsel=84.286. Lys, diffus innside og silkematt utside."
+B5F;Salforing;45 Skjell 5;POM-C;380.76;1.41;0.53687;Eitt stykke, splitta innføringsende og koniske anlegg. Boring Ø4,11.
+P5F;Skuldertapp;20 Fast røyr;EN AW-6061 T6;613.277;2.7;1.65585;Ø4,00 journal. Kaldstukk røyrenden. Spor for radiell låsering.
+K5F;Radiell låsering;20 Fast røyr;AISI 304;16.532;8.0;0.13226;Fjørande C-ring i dreia spor.
+B5R;Salforing;45 Skjell 5;POM-C;381.0;1.41;0.53721;Eitt stykke, splitta innføringsende og koniske anlegg. Boring Ø4,11.
+P5R;Skuldertapp;30 Reguleringsrøyr;EN AW-6061 T6;1575.548;2.7;4.25398;Ø4,00 journal. Kaldstukk røyrenden. Spor for radiell låsering.
+K5R;Radiell låsering;30 Reguleringsrøyr;AISI 304;16.532;8.0;0.13226;Fjørande C-ring i dreia spor.
+H6-1;Skalbolt M3;45 Skjell 5;AISI 304;114.066;8.0;0.91252;M3 med sadelskiveforma underside. Låser balansebladet mot innsida.
+H6-2;Skalbolt M3;45 Skjell 5;AISI 304;114.059;8.0;0.91247;M3 med sadelskiveforma underside. Låser balansebladet mot innsida.
+S06;Samanhengande skjell;46 Skjell 6;EN AW-5754 H22;10021.481;2.68;26.85757;"Konvals nøytral DXF. Same kronelinje; avlasta tå på begge faldar. Avgrad og jiggbor etter valsing. k=-0.566038, r ved hengsel=63.962. Lys, diffus innside og silkematt utside."
+B6F;Salforing;46 Skjell 6;POM-C;491.316;1.41;0.69275;Eitt stykke, splitta innføringsende og koniske anlegg. Boring Ø4,11.
+P6F;Skuldertapp;20 Fast røyr;EN AW-6061 T6;1238.851;2.7;3.3449;Ø4,00 journal. Kaldstukk røyrenden. Spor for radiell låsering.
+K6F;Radiell låsering;20 Fast røyr;AISI 304;16.532;8.0;0.13226;Fjørande C-ring i dreia spor.
+B6R;Salforing;46 Skjell 6;POM-C;492.451;1.41;0.69436;Eitt stykke, splitta innføringsende og koniske anlegg. Boring Ø4,11.
+P6R;Skuldertapp;30 Reguleringsrøyr;EN AW-6061 T6;2535.669;2.7;6.84631;Ø4,00 journal. Kaldstukk røyrenden. Spor for radiell låsering.
+K6R;Radiell låsering;30 Reguleringsrøyr;AISI 304;16.532;8.0;0.13226;Fjørande C-ring i dreia spor.
+H4-1;Stopplatelås;20 Fast røyr;AISI 304;5.831;8.0;0.04665;M1,6 flat ende. Lås plata etter innstilling i jigg.
+H4-2;Stopplatelås;20 Fast røyr;AISI 304;5.831;8.0;0.04665;M1,6 flat ende. Lås plata etter innstilling i jigg.
+205;Stopplate og sensorfeste;20 Fast røyr;EN AW-6061 T6;2836.122;2.7;7.65753;Fres bogespor R14, breidd 3,16.
+H5-1;Kortskrue M2;20 Fast røyr;AISI 304;32.319;8.0;0.25855;M2 × 6 i avstandsknasten.
+H5-2;Kortskrue M2;20 Fast røyr;AISI 304;32.319;8.0;0.25855;M2 × 6 i avstandsknasten.
+E04;Vinkelgjevar og dimmetrinn;20 Fast røyr;Hall-kort med straumregulatorar, konvolutt;1707.081;3.514772;6.0;"Fast 3D Hall-gjevar og tre straumsøkkjer. Kalibrer på dei fysiske endestoppa. Konvolutt; budsjettert masse 6 g."
+208;Innvendig balanseblad;45 Skjell 5;AISI 304;11445.352;8.0;91.56282;Fres frå rustfri plate med to integrerte avstandsføter. Tuppgods 11.90 mm. Bladet følgjer skjell 5, bak lysvegen. Prøveveg og finjuster på innvendig side.

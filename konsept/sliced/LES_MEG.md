@@ -8,6 +8,7 @@ Dato: 18.11.2026. Lampekroppar laga som plater med halvt-i-halvt-spor i motoren 
 | `spegl/` | Seks design med spegelakryl mot innsida og éin matt farge ut, kvart i stemning og arbeid |
 | `nord4/` | Åtte design i fire retningar (kula, zeppelin, skjerm, bøygd), rangerte av ein kritikar, med bilete frå eit Blender-miljø og skjerefiler for kvar stilling |
 | `skulptur/` | Northern-lamper frå dei tolv skulpturformene i slicerman, i fleire rundar |
+| `utval/` | Bileta Iver plukka ut og bad om å hugse: BLAD, SEGL, LE, NEBB, HETTE, SKJOLD, HATT, PILLE og eit foto av ei utskrift |
 | `kula-studie/` | Formstudien før: kule A til I, pendelen (F) og bordkula, som prosjektfiler og to oversynsark |
 | `oversyn/` | Tavlene: dei fire Northern-designa, ni kulevariantar, kulene opna i appen, og prosessen fram til kula |
 | `kjelde/` | Koden som laga alt: `nord/` (Northern-designa), `kule/` (studien), `verkty/` (verktykassa rundt motoren) og `kart/` (kva motoren kan skjere) |

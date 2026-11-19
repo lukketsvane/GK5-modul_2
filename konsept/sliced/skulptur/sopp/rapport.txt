@@ -1,0 +1,58 @@
+sopp-arbeid — 355 x 357 x 132 mm · mdf 3 mm · klaring 0.1 · snitt 0.2 · ALT OK
+nett     32000 trekantar · lukka · 1 skal · 4878 cm3 · boks -179, -180, 0 .. 179, 180, 132
+tal      16 plan · 16 delar (16 unike) · 68 ledd (0 tapp, 0 avviste) · 0 lause
+kutt     20.87 m · 17.4 min ved 20 mm/s · 3 ark 600 x 400 · utnytting 44 % · 0.603 kg · spor 3.10 mm · minste gods 5.3 mm
+harde reglar
+  ok   grip       plana grip               68 ledd
+  ok   delar      delar å skjere           16 stk
+  ok   orden      kan monterast            éin veg inn for kvar
+  ok   klem       ingen står i kvarandre   ingen klemmer
+  ok   gods       gods i leddet            5,3 mm
+  ok   plate      delane får plass         3 ark
+  ok   snittspor  snittet mot sporet       0,20 mm mot 3,10 mm
+mjuke reglar: ingen bryt
+ark
+  1  5 24 4 3 27 · 42 % av brukt hogd, 42 % av arket
+  2  25 26 6 2 7 1 · 44 % av brukt hogd, 42 % av arket
+  3  23 22 28 8 21 · 47 % av brukt hogd, 28 % av arket
+delar    adr    form   b x h mm        ledd  ark
+         1              D01   290.2 x 59.5    8     2
+         2              D02   323.7 x 64.2    8     2
+         3              D03   345.1 x 131.9   8     1
+         4              D04   355.5 x 131.9   10    1
+         5              D05   355.6 x 132.0   10    1
+         6              D06   344.4 x 131.9   8     2
+         7              D07   323.0 x 59.5    8     2
+         8              D08   289.4 x 57.2    8     3
+         21             D09   289.6 x 57.2    8     3
+         22             D10   321.9 x 59.5    8     3
+         23             D11   343.9 x 131.9   8     3
+         24             D12   355.2 x 132.0   10    1
+         25             D13   355.5 x 132.0   10    2
+         26             D14   345.3 x 131.9   8     2
+         27             D15   324.0 x 64.1    8     1
+         28             D16   290.2 x 59.5    8     3
+montering (motoren si eiga rekkjefylgje)
+  1-8  ligg: 1 2 3 4 5 6 7 8
+  9  ned langs (0.00, 0.00, -1.00) mot 6,7,5,8,4,3,1,2: 21
+  10  ned langs (0.00, 0.00, -1.00) mot 5,4,6,7,8,3,2,1: 22
+  11  ned langs (0.00, 0.00, -1.00) mot 4,5,6,7,8,3,2,1: 23
+  12  ned langs (0.00, 0.00, -1.00) mot 4,5,3,6,2,7,8,1: 24
+  13  ned langs (0.00, 0.00, -1.00) mot 4,5,6,3,2,1,7,8: 25
+  14-15  ned mot 5,4,3,2,1,6,7,8: 26 27
+  16  ned langs (0.00, 0.00, -1.00) mot 4,3,2,1,5,6,8,7: 28
+krav
+  ok   nettet er lukka og vender ut: 32000 trekantar · 0 opne · 0 mangfaldige · 0 vrengde · 1 skal
+  ok   nettet held trekantbudsjettet: 32000 av 40000: over det vert nettet forenkla
+  ok   kroppen står sentrert på z = 0: ja
+  ok   1:1: storleik 359.565 mot lengste side 359.56 · glatt 0 forenkl 0 hol 0
+  ok   motoren les same volum som nettet: 4878 cm3 mot 4878 cm3
+  ok   alle plan kom med: 16 skrivne · 16 lesne · 16 i motoren
+  ok   appen opnar posen uendra: ja
+  ok   ingen lause eller kasta stykke: 0 lause
+  ok   alle delar ligg på eit ark: ja
+  ok   kvart plan gjev minst éin del: ja
+  ok   ingen spalte held fram gjennom gods forbi munnen: ja
+  ok   fine kuttfiler (1200 celler) gjev same delar, ledd og ark: 16 delar · 3 ark · 20.98 m
+fin      produksjon/fin/: 1200 celler · 16 delar · 3 ark · 20.98 m · same tal på delar, ledd og ark som ved 220 · DELANE LIGG PÅ ANDRE ARK ENN LISTA OVER: fin/ark-1: 5 4 24 27 2 · fin/ark-2: 25 3 26 7 22 28 8 · fin/ark-3: 6 23 1 21
+tid      kropp 0.0 s · motor 0.4 s · ark 13.5 s · produksjon 1.9 s · bilete 86.6 s · alt 102.7 s

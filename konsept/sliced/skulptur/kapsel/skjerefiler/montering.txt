@@ -1,0 +1,23 @@
+MONTERING — kapselarbeid.stl
+17 plan, 3 mm plate. Adressa er gravert på kvar del.
+
+I denne rekkjefylgja. Sporet på delen som kjem opnar seg i fartsretninga; sporet på delen som ligg opnar seg mot han.
+  1  1  ligg — ingen ledd mot delar som alt ligg
+  2  2  ligg — ingen ledd mot delar som alt ligg
+  3  3  ligg — ingen ledd mot delar som alt ligg
+  4  4  ligg — ingen ledd mot delar som alt ligg
+  5  21  ovanfrå og ned, mot 2, 3, 4, 1
+  6  22 (2 stykke)  ovanfrå og ned, mot 3, 2, 4, 1
+  7  23  ovanfrå og ned, mot 3, 2, 1, 4
+  8  24  ovanfrå og ned, mot 2, 3, 1, 4
+  9  25  ovanfrå og ned, mot 1, 4, 3, 2
+  10  26  ovanfrå og ned, mot 1, 4, 3, 2
+  11  27  ovanfrå og ned, mot 1, 4, 3, 2
+  12  28  ovanfrå og ned, mot 1, 4, 3, 2
+  13  29  ovanfrå og ned, mot 1, 4, 3, 2
+  14  30  ovanfrå og ned, mot 1, 4, 3, 2
+  15  31  ovanfrå og ned, mot 1, 4, 3, 2
+  16  32  ovanfrå og ned, mot 1, 4, 3, 2
+  17  33  ovanfrå og ned, mot 2, 3, 1, 4
+
+Sit eit ledd for hardt, er klaringa for liten: skjer passprøva i den same plata og set klaringa til det sporet avkappet går i med tommelkraft.

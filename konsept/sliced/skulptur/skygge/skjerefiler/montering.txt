@@ -1,0 +1,21 @@
+MONTERING — skyggearbeid.stl
+15 plan, 3 mm plate. Adressa er gravert på kvar del.
+
+I denne rekkjefylgja. Sporet på delen som kjem opnar seg i fartsretninga; sporet på delen som ligg opnar seg mot han.
+  1  2  ligg — ingen ledd mot delar som alt ligg
+  2  3  ligg — ingen ledd mot delar som alt ligg
+  3  4  ligg — ingen ledd mot delar som alt ligg
+  4  5  ligg — ingen ledd mot delar som alt ligg
+  5  6  ligg — ingen ledd mot delar som alt ligg
+  6  7  ligg — ingen ledd mot delar som alt ligg
+  7  8  ligg — ingen ledd mot delar som alt ligg
+  8  21  ovanfrå og ned, mot 6, 5, 2, 4, 3
+  9  22  ovanfrå og ned, mot 6, 2, 5, 3, 4
+  10  23  ovanfrå og ned, mot 7, 6, 2, 5, 3, 4
+  11  24  ovanfrå og ned, mot 7, 8, 2, 6, 3, 5, 4
+  12  25  ovanfrå og ned, mot 2, 7, 8, 3, 6, 5, 4
+  13  26  ovanfrå og ned, mot 6, 7, 5, 4, 8, 3, 2
+  14  27  ovanfrå og ned, mot 6, 7, 5, 8, 4, 3
+  15  28  ovanfrå og ned, mot 6, 5, 7, 8, 4, 3
+
+Sit eit ledd for hardt, er klaringa for liten: skjer passprøva i den same plata og set klaringa til det sporet avkappet går i med tommelkraft.

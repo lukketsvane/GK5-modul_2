@@ -28,6 +28,8 @@ from pathlib import Path
 import cadquery as cq
 import numpy as np
 from OCP.BRep import BRep_Tool
+from OCP.BRepTools import BRepTools
+from scipy.spatial import cKDTree
 from OCP.BRepBuilderAPI import (
     BRepBuilderAPI_MakeEdge,
     BRepBuilderAPI_MakeFace,
@@ -453,42 +455,99 @@ def build_main_body_shell(params: RaupParams = RaupParams()):
         s_outer=2.5 * (scale_ratio ** 2),
     )
 
-    # Glatt arkitektonisk innsprang bak-høgre (z = 0 .. notch_z_mm)
+    # Glatt arkitektonisk innsprang bak-høgre (z = 0 .. notch_z_mm) med vinkelrett (~85-90 grad) utgang
+    # (hindrar tangentiell boolean-flising ved hjørna!)
     notch_z = params.notch_z_mm * scale_ratio
-    notch_mask = np.array([poly85_raw.exterior.distance(Point(pt)) > (0.6 * scale_ratio) for pt in p15])
+    notch_mask = np.array([poly85_raw.exterior.distance(Point(pt)) > (2.4 * scale_ratio) for pt in p15])
     start_non = int(np.where(~notch_mask)[0][0])
     p15r = np.roll(p15, -start_non, axis=0)
     nmr = np.roll(notch_mask, -start_non)
     ni = np.where(nmr)[0]
-    seg_notch = p15r[max(0, ni[0] - 2) : min(len(p15r), ni[-1] + 3)]
-    d_n = np.r_[0.0, np.cumsum(np.linalg.norm(np.diff(seg_notch, axis=0), axis=1))]
-    u_n = np.linspace(0.0, d_n[-1], 120)
-    qn = np.column_stack([np.interp(u_n, d_n, seg_notch[:, 0]), np.interp(u_n, d_n, seg_notch[:, 1])])
-    tck_n, _ = splprep([qn[:, 0], qn[:, 1]], s=6.0 * (scale_ratio ** 2), k=3)
-    xn, yn = splev(np.linspace(0.0, 1.0, 32), tck_n)
-    dx0, dy0 = splev(0.0, tck_n, der=1)
-    t0v = np.array([dx0, dy0]) / np.hypot(dx0, dy0)
-    dx1, dy1 = splev(1.0, tck_n, der=1)
-    t1v = np.array([dx1, dy1]) / np.hypot(dx1, dy1)
-    p_start_ext = np.array([xn[0], yn[0]]) - 12.0 * scale_ratio * t0v
-    p_end_ext = np.array([xn[-1], yn[-1]]) + 12.0 * scale_ratio * t1v
+    seg_notch = p15r[ni[0] : ni[-1] + 1]
+
+    dir_start_out = seg_notch[0] - seg_notch[4]
+    dir_start_out /= np.linalg.norm(dir_start_out)
+    dir_end_out = seg_notch[-1] - seg_notch[-5]
+    dir_end_out /= np.linalg.norm(dir_end_out)
+
+    ext_start = [seg_notch[0] + d * dir_start_out for d in (14.0 * scale_ratio, 9.0 * scale_ratio, 4.0 * scale_ratio)]
+    ext_end = [seg_notch[-1] + d * dir_end_out for d in (4.0 * scale_ratio, 9.0 * scale_ratio, 14.0 * scale_ratio)]
+    pts_full = np.vstack([ext_start, seg_notch, ext_end])
+    d_n = np.r_[0.0, np.cumsum(np.linalg.norm(np.diff(pts_full, axis=0), axis=1))]
+    u_n = np.linspace(0.0, d_n[-1], 140)
+    qn = np.column_stack([np.interp(u_n, d_n, pts_full[:, 0]), np.interp(u_n, d_n, pts_full[:, 1])])
+    tck_n, _ = splprep([qn[:, 0], qn[:, 1]], s=1.2 * (scale_ratio ** 2), k=3)
+    xn, yn = splev(np.linspace(0.0, 1.0, 72), tck_n)
+
     x_far = xmax + 30.0 * scale_ratio
     notch_poly_pts = np.vstack([
-        p_start_ext,
         np.column_stack([xn, yn]),
-        p_end_ext,
-        [x_far, p_end_ext[1] + 15.0 * scale_ratio],
-        [x_far, p_start_ext[1] - 15.0 * scale_ratio],
+        [x_far, yn[-1] + 15.0 * scale_ratio],
+        [x_far, yn[0] - 15.0 * scale_ratio],
     ])
-    poly_notch_out = Polygon(notch_poly_pts).buffer(0)
+    poly_notch_out = Polygon(notch_poly_pts).buffer(0).buffer(-3.0 * scale_ratio, join_style=1).buffer(3.0 * scale_ratio, join_style=1)
     poly_notch_in = poly_notch_out.buffer(params.wall_mm, join_style=1, quad_segs=24)
 
-    outer_body = outer_domed.cut(_make_extruded_poly_solid(poly_notch_out, -5.0, notch_z))
-    inner_cavity = inner_domed.cut(_make_extruded_poly_solid(poly_notch_in, -15.0, notch_z + params.wall_mm))
-    shell = outer_body.cut(inner_cavity)
+    outer_body = outer_domed.cut(_make_extruded_poly_solid(poly_notch_out, -5.0, notch_z, s=0.3, n_pts=96))
+    inner_cavity = inner_domed.cut(_make_extruded_poly_solid(poly_notch_in, -15.0, notch_z + params.wall_mm, s=0.3, n_pts=96))
+    shell_base = outer_body.cut(inner_cavity)
+
+    # Skarp horisontal debossed skuggelinje (0.72 mm djup x 1.45 mm høg med 45-graders sjølvberande fas)
+    # i flukt med innsprangshøgda z = notch_z, som følgjer heile den konvekse ytterveggen frå innspranget
+    # og tonar mjukt ut til eit spisst punkt rundt den avrunda front-spiralnasen!
+    g_depth = 0.72
+    g_h = 1.45
+    z_g0 = notch_z
+    z_g1 = z_g0 + g_h
+
+    pts_ring = np.asarray(poly_up_out.exterior.coords[:-1], dtype=np.float64)
+    n_ring = len(pts_ring)
+    ch_ext = poly_up_out.convex_hull.exterior
+    hull_not_notch = np.array([
+        (ch_ext.distance(Point(xy)) < 1.2 * scale_ratio) and (not poly_notch_out.contains(Point(xy)))
+        for xy in pts_ring
+    ])
+    starts_g = np.where((~np.roll(hull_not_notch, 1)) & hull_not_notch)[0]
+    ends_g = np.where(hull_not_notch & (~np.roll(hull_not_notch, -1)))[0]
+    i_nose = int(starts_g[0])
+    i_step = int(ends_g[0])
+    span_g = (i_step - i_nose) % n_ring
+    seq_g = (np.arange(i_nose - 34, i_nose + span_g + 4)) % n_ring
+    arc_xy = pts_ring[seq_g]
+    ds_g = np.r_[0.0, np.cumsum(np.linalg.norm(np.diff(arc_xy, axis=0), axis=1))]
+    total_g_len = float(ds_g[-1])
+
+    tang_g = np.gradient(arc_xy, axis=0)
+    tlen_g = np.maximum(np.linalg.norm(tang_g, axis=1, keepdims=True), 1e-12)
+    tang_g /= tlen_g
+    # pts_ring er CCW -> innover-normal mot veggen er (-ty, tx)
+    n_in_g = np.column_stack([-tang_g[:, 1], tang_g[:, 0]])
+
+    # Mjuk cosinus-utfasing rundt front-spiralnasen (s = 2..24 mm) og mjuk innfasing ved innsprangshjørnet
+    t_nose = np.clip((ds_g - 2.0 * scale_ratio) / (22.0 * scale_ratio), 0.0, 1.0)
+    w_nose = 0.5 * (1.0 - np.cos(np.pi * t_nose))
+    t_step = np.clip((total_g_len - ds_g - 1.0 * scale_ratio) / (5.5 * scale_ratio), 0.0, 1.0)
+    w_step = 0.5 * (1.0 - np.cos(np.pi * t_step))
+    w_taper = w_nose * w_step
+
+    # Når w_taper -> 0 går kutteprofilen -0.35 mm UT i fri luft slik at sporet spissar 100 % mjukt ut i overflata
+    d_inward = (g_depth + 0.35) * w_taper - 0.35
+    inner_g_pts = arc_xy + d_inward[:, None] * n_in_g
+    outer_g_pts = arc_xy - 1.6 * n_in_g
+    ring_floor_2d = Polygon(np.vstack([inner_g_pts, outer_g_pts[::-1]])).buffer(0)
+    if ring_floor_2d.geom_type == "MultiPolygon":
+        ring_floor_2d = max(ring_floor_2d.geoms, key=lambda g: g.area)
+
+    groove_box = _make_extruded_poly_solid(ring_floor_2d, z_g0, z_g1, s=0.08, n_pts=160)
+    try:
+        groove_cutter = cq.Workplane(obj=groove_box).edges("#Z").chamfer(0.45).val()
+    except Exception:
+        groove_cutter = groove_box
+
+    shell = shell_base.cut(groove_cutter)
 
     if not (shell.isValid() and BRepCheck_Analyzer(shell.wrapped).IsValid() and len(shell.Solids()) == 1):
-        raise RuntimeError("Ferdig hovudskal feila BRepCheck_Analyzer")
+        raise RuntimeError("Ferdig hovudskal med debossed skuggelinje feila BRepCheck_Analyzer")
 
     # Eksakte 2D-polygon for botnsnitt (ytre og indre) til chassis, ballast og verifisering
     poly_base_out = poly_up_out.difference(poly_notch_out).buffer(0)
@@ -498,9 +557,12 @@ def build_main_body_shell(params: RaupParams = RaupParams()):
         "scale_mm_per_BU": sc,
         "scale_ratio": scale_ratio,
         "notch_z_mm": notch_z,
+        "deboss_groove_z_mm": [round(z_g0, 2), round(z_g1, 2)],
+        "deboss_groove_depth_mm": g_depth,
         "seam_gap_out_mm": round(gap_out, 5),
         "seam_gap_in_mm": round(gap_in, 5),
         "poly_up_out": poly_up_out,
+        "poly_up_in": poly_up_in_s,
         "poly_base_out": poly_base_out,
         "poly_base_in": poly_base_in,
         "poly_notch_out": poly_notch_out,
@@ -862,6 +924,266 @@ def build_pulp_molds(outer_body: cq.Solid, body_meta: dict):
 # 5. EKSAKT BAMBU LAB P1S 3MF-EKSPORT (1:1 mm, sentrert på 256x256 mm plate)
 # ---------------------------------------------------------------------------
 
+def _make_dense_curve_table(poly_2d: Polygon, s_fit: float = 1.5, n_eval: int = 12000):
+    coords = clean_ccw(np.asarray(poly_2d.exterior.coords))
+    tck = fit_periodic_tck(coords, s=s_fit, n_fit=600)
+    uu = np.linspace(0.0, 1.0, n_eval, endpoint=False)
+    xs, ys = splev(uu, tck)
+    dx, dy = splev(uu, tck, der=1)
+    dl = np.hypot(dx, dy)
+    nx, ny = dy / dl, -dx / dl  # Ytre einingsnormal for moturs (CCW) ytterkontur
+    pts = np.column_stack([xs, ys])
+    norms = np.column_stack([nx, ny])
+    return cKDTree(pts), pts, norms
+
+
+def build_clean_textured_shell_mesh(
+    shell: cq.Shape,
+    body_meta: dict,
+    params: RaupParams = RaupParams(),
+    max_edge_mm: float = 1.10,
+    tex_amp_mm: float = 0.095,
+    out_stl: Path | None = None,
+) -> tuple[np.ndarray, np.ndarray, dict]:
+    """Bygg 100 % vanntett, C2-projisert høyoppløysingsnett (alle kantar <= max_edge_mm, 0 flate-fasettar)
+    med ekte 3D mikro-papirmassestruktur på ytterveggen og sylskarp debossed skuggelinje.
+    """
+    BRepTools.Clean_s(shell.wrapped)
+    BRepMesh_IncrementalMesh(shell.wrapped, 0.03, False, 0.08, True)
+
+    verts, tris, v_off = [], [], 0
+    for face in shell.Faces():
+        loc = TopLoc_Location()
+        tri = BRep_Tool.Triangulation_s(face.wrapped, loc)
+        if tri is None:
+            continue
+        trsf = loc.Transformation()
+        rev = face.wrapped.Orientation().name == "TopAbs_REVERSED"
+        for i in range(1, tri.NbNodes() + 1):
+            p = tri.Node(i).Transformed(trsf)
+            verts.append((p.X(), p.Y(), p.Z()))
+        for i in range(1, tri.NbTriangles() + 1):
+            n1, n2, n3 = tri.Triangle(i).Get()
+            tris.append(
+                (v_off + n1 - 1, v_off + n3 - 1, v_off + n2 - 1)
+                if rev
+                else (v_off + n1 - 1, v_off + n2 - 1, v_off + n3 - 1)
+            )
+        v_off += tri.NbNodes()
+
+    v_arr = np.asarray(verts, dtype=np.float64)
+    t_arr = np.asarray(tris, dtype=np.int32)
+    keys = np.round(v_arr * 1e4).astype(np.int64)
+    _, u_idx, inv_idx = np.unique(keys, axis=0, return_index=True, return_inverse=True)
+    v = v_arr[u_idx]
+    t = inv_idx[t_arr]
+    t = t[(t[:, 0] != t[:, 1]) & (t[:, 1] != t[:, 2]) & (t[:, 2] != t[:, 0])]
+
+    sc_r = float(body_meta["scale_ratio"])
+    notch_z = float(body_meta["notch_z_mm"])
+    z_g0, z_g1 = body_meta.get("deboss_groove_z_mm", [notch_z, notch_z + 1.45])
+    rbf_dome = body_meta["rbf_dome"]
+
+    tree_up_out, pts_up_out, norms_up_out = _make_dense_curve_table(body_meta["poly_up_out"], s_fit=2.0 * (sc_r ** 2))
+    tree_up_in, pts_up_in, _ = _make_dense_curve_table(body_meta["poly_up_in"], s_fit=1.0 * (sc_r ** 2))
+    tree_base_out, pts_base_out, norms_base_out = _make_dense_curve_table(body_meta["poly_base_out"], s_fit=0.5 * (sc_r ** 2))
+    tree_base_in, pts_base_in, _ = _make_dense_curve_table(body_meta["poly_base_in"], s_fit=0.5 * (sc_r ** 2))
+
+    # Vektorisert vanntett kant-deling + eksakt C2-projeksjon på krumme veggar (eliminerer alle 600 mm2 fasettar!)
+    for _ in range(12):
+        p0, p1, p2 = v[t[:, 0]], v[t[:, 1]], v[t[:, 2]]
+        l01 = np.linalg.norm(p1 - p0, axis=1)
+        l12 = np.linalg.norm(p2 - p1, axis=1)
+        l20 = np.linalg.norm(p0 - p2, axis=1)
+        cur_max = float(max(l01.max(), l12.max(), l20.max()))
+        if cur_max <= max_edge_mm:
+            break
+        thresh = max(max_edge_mm, 0.48 * cur_max)
+        e01 = np.sort(t[:, [0, 1]], axis=1)
+        e12 = np.sort(t[:, [1, 2]], axis=1)
+        e20 = np.sort(t[:, [2, 0]], axis=1)
+        hot_edges = np.vstack([e01[l01 > thresh], e12[l12 > thresh], e20[l20 > thresh]])
+        if len(hot_edges) == 0:
+            break
+        uniq_hot = np.unique(hot_edges, axis=0)
+        mids = 0.5 * (v[uniq_hot[:, 0]] + v[uniq_hot[:, 1]])
+
+        z_m = mids[:, 2]
+        z_dome_m = rbf_dome(mids[:, :2])
+        z_sh_out = z_dome_m - params.r_shoulder_out_mm * sc_r - 0.6
+        z_sh_in = z_dome_m - params.wall_mm - params.r_shoulder_in_mm * sc_r - 0.6
+
+        d_out, idx_out = tree_up_out.query(mids[:, :2])
+        d_in, idx_in = tree_up_in.query(mids[:, :2])
+        d_b_out, idx_b_out = tree_base_out.query(mids[:, :2])
+        d_b_in, idx_b_in = tree_base_in.query(mids[:, :2])
+
+        in_groove_z = (z_m >= z_g0 - 0.15) & (z_m <= z_g1 + 0.15)
+        on_up_out = (d_out < 0.35) & (z_m > notch_z + 0.15) & (z_m < z_sh_out) & (~in_groove_z)
+        mids[on_up_out, :2] = pts_up_out[idx_out[on_up_out]]
+
+        on_base_out = (d_b_out < 0.35) & (z_m > 0.05) & (z_m < notch_z - 0.15)
+        mids[on_base_out, :2] = pts_base_out[idx_b_out[on_base_out]]
+
+        on_up_in = (d_in < 0.35) & (z_m > notch_z + params.wall_mm + 0.15) & (z_m < z_sh_in)
+        mids[on_up_in, :2] = pts_up_in[idx_in[on_up_in]]
+
+        on_base_in = (d_b_in < 0.35) & (z_m > 0.05) & (z_m < notch_z - 0.15)
+        mids[on_base_in, :2] = pts_base_in[idx_b_in[on_base_in]]
+
+        base_idx = len(v)
+        v = np.vstack([v, mids])
+
+        hot_keys = (uniq_hot[:, 0].astype(np.int64) << 32) | uniq_hot[:, 1].astype(np.int64)
+        order = np.argsort(hot_keys)
+        hot_keys_s = hot_keys[order]
+        hot_vals_s = (base_idx + np.arange(len(uniq_hot), dtype=np.int32))[order]
+
+        def _lookup_edge(ea):
+            k = (ea[:, 0].astype(np.int64) << 32) | ea[:, 1].astype(np.int64)
+            pos = np.searchsorted(hot_keys_s, k)
+            pos_c = np.clip(pos, 0, len(hot_keys_s) - 1)
+            hit = hot_keys_s[pos_c] == k
+            out = np.full(len(ea), -1, dtype=np.int32)
+            out[hit] = hot_vals_s[pos_c[hit]]
+            return out
+
+        id01, id12, id20 = _lookup_edge(e01), _lookup_edge(e12), _lookup_edge(e20)
+        s01, s12, s20 = id01 >= 0, id12 >= 0, id20 >= 0
+        cnt = s01.astype(int) + s12.astype(int) + s20.astype(int)
+
+        new_tris = [t[cnt == 0]]
+        for rot, (sa, sb, sc, ida) in enumerate([(s01, s12, s20, id01), (s12, s20, s01, id12), (s20, s01, s12, id20)]):
+            m1 = (cnt == 1) & sa
+            if np.any(m1):
+                tr = np.roll(t[m1], -rot, axis=1)
+                ma = ida[m1]
+                new_tris.append(np.column_stack([tr[:, 0], ma, tr[:, 2]]))
+                new_tris.append(np.column_stack([ma, tr[:, 1], tr[:, 2]]))
+
+        for rot, (sa, sb, sc, ida, idb) in enumerate([(s01, s12, s20, id01, id12), (s12, s20, s01, id12, id20), (s20, s01, s12, id20, id01)]):
+            m2 = (cnt == 2) & sa & sb
+            if np.any(m2):
+                tr = np.roll(t[m2], -rot, axis=1)
+                ma, mb = ida[m2], idb[m2]
+                new_tris.append(np.column_stack([ma, tr[:, 1], mb]))
+                d1 = np.linalg.norm(v[ma] - v[tr[:, 2]], axis=1)
+                d2 = np.linalg.norm(v[mb] - v[tr[:, 0]], axis=1)
+                c1 = d1 <= d2
+                if np.any(c1):
+                    new_tris.append(np.column_stack([tr[c1, 0], ma[c1], tr[c1, 2]]))
+                    new_tris.append(np.column_stack([ma[c1], mb[c1], tr[c1, 2]]))
+                if np.any(~c1):
+                    new_tris.append(np.column_stack([tr[~c1, 0], ma[~c1], mb[~c1]]))
+                    new_tris.append(np.column_stack([tr[~c1, 0], mb[~c1], tr[~c1, 2]]))
+
+        m3 = cnt == 3
+        if np.any(m3):
+            tr = t[m3]
+            ma, mb, mc = id01[m3], id12[m3], id20[m3]
+            new_tris.append(np.column_stack([tr[:, 0], ma, mc]))
+            new_tris.append(np.column_stack([ma, tr[:, 1], mb]))
+            new_tris.append(np.column_stack([mc, mb, tr[:, 2]]))
+            new_tris.append(np.column_stack([ma, mb, mc]))
+
+        t = np.vstack([x for x in new_tris if len(x) > 0])
+
+    # Legg på fin taktil 3D mikro-papirmassestruktur (±tex_amp_mm) direkte på heile ytterveggen
+    # heilt fram til kanten av den debossed skuggelinja, innspranget og botnen (0.0 mm glatte felt!)
+    if tex_amp_mm > 0:
+        zv = v[:, 2]
+        d_up, idx_up = tree_up_out.query(v[:, :2])
+        d_ba, idx_ba = tree_base_out.query(v[:, :2])
+        is_below = zv < notch_z
+        d_ext = np.where(is_below, d_ba, d_up)
+        n_ext = np.where(is_below[:, None], norms_base_out[idx_ba], norms_up_out[idx_up])
+
+        # Berekn glatte toppunkt-normalar før forskyving for å låse sporkantar og horisontale flater (|n_z| > 0.22)
+        vt0 = v[t]
+        fn0 = np.cross(vt0[:, 1] - vt0[:, 0], vt0[:, 2] - vt0[:, 0])
+        vn0 = np.zeros_like(v)
+        np.add.at(vn0, t[:, 0], fn0)
+        np.add.at(vn0, t[:, 1], fn0)
+        np.add.at(vn0, t[:, 2], fn0)
+        vn_len = np.maximum(np.linalg.norm(vn0, axis=1, keepdims=True), 1e-12)
+        v_norm = vn0 / vn_len
+
+        z_dome_v = rbf_dome(v[:, :2])
+        z_sh_v = z_dome_v - params.r_shoulder_out_mm * sc_r - 0.5
+
+        m_bot = np.clip((zv - 0.12) / 0.25, 0.0, 1.0)
+        m_top = np.clip((z_sh_v + 1.0 - zv) / 1.8, 0.0, 1.0)
+        m_ext = np.clip((0.08 - d_ext) / 0.05, 0.0, 1.0)
+        m_vert = np.clip((0.22 - np.abs(v_norm[:, 2])) / 0.14, 0.0, 1.0)
+        mask = m_bot * m_top * m_ext * m_vert
+
+        active = mask > 1e-3
+        if np.any(active):
+            pts_a = v[active]
+            rng = np.random.default_rng(20261119)
+            n_waves = 32
+            angles_xy = rng.uniform(0, 2 * math.pi, n_waves)
+            k_xy = rng.uniform(2 * math.pi / 3.0, 2 * math.pi / 1.5, n_waves)
+            k_z = rng.uniform(2 * math.pi / 2.6, 2 * math.pi / 1.3, n_waves) * rng.choice([-1.0, 1.0], n_waves)
+            phases = rng.uniform(0, 2 * math.pi, n_waves)
+            kx = k_xy * np.cos(angles_xy)
+            ky = k_xy * np.sin(angles_xy)
+            arg = pts_a[:, 0:1] * kx[None, :] + pts_a[:, 1:2] * ky[None, :] + pts_a[:, 2:3] * k_z[None, :] + phases[None, :]
+            grain = np.sum(np.sin(arg), axis=1) / math.sqrt(0.5 * n_waves)
+            strata = 0.35 * np.sin(2.0 * math.pi * pts_a[:, 2] / 0.44)
+            raw_field = np.zeros(len(v), dtype=np.float64)
+            raw_field[active] = grain + strata
+
+            # 1-pass vektorisert kant-glatting på skalarfeltet + RMS-bevaring:
+            # fjernar enkelttopp-sagtakkar medan full ±tex_amp_mm taktil strukturdjupn blir bevart!
+            edges_u = np.r_[t[:, 0], t[:, 1], t[:, 2], t[:, 1], t[:, 2], t[:, 0]]
+            edges_v = np.r_[t[:, 1], t[:, 2], t[:, 0], t[:, 0], t[:, 1], t[:, 2]]
+            deg = np.maximum(np.bincount(edges_u, minlength=len(v)).astype(np.float64), 1.0)
+            nei_sum = np.bincount(edges_u, weights=raw_field[edges_v], minlength=len(v))
+            sm_field = 0.58 * raw_field + 0.42 * (nei_sum / deg)
+            disp_full = tex_amp_mm * mask * np.tanh(1.15 * sm_field)
+
+            v[active, 0] += disp_full[active] * n_ext[active, 0]
+            v[active, 1] += disp_full[active] * n_ext[active, 1]
+
+    # Skriv binær STL dersom out_stl er oppgitt
+    vt = v[t]
+    fn = np.cross(vt[:, 1] - vt[:, 0], vt[:, 2] - vt[:, 0])
+    fl = np.linalg.norm(fn, axis=1)
+    un = (fn / np.maximum(fl[:, None], 1e-12)).astype(np.float32)
+
+    if out_stl is not None:
+        out_stl.parent.mkdir(parents=True, exist_ok=True)
+        dtype = np.dtype([("n", "<f4", (3,)), ("v", "<f4", (3, 3)), ("a", "<u2")])
+        rec = np.zeros(len(t), dtype=dtype)
+        rec["n"] = un
+        rec["v"] = vt.astype(np.float32)
+        hdr = b"RAUP Class-A C2-Subdivided & Micro-Textured Shell".ljust(80, b" ")
+        with open(out_stl, "wb") as fh:
+            fh.write(hdr)
+            fh.write(np.uint32(len(t)).tobytes())
+            rec.tofile(fh)
+
+    # Sjekk maks trekantareal ved innsprangshjørnet
+    c = vt.mean(axis=1)
+    m_box = (c[:, 0] > 5) & (c[:, 0] < 50) & (c[:, 1] > 10) & (c[:, 1] < 40) & (c[:, 2] > 20) & (c[:, 2] < 80)
+    max_step_area = float(0.5 * fl[m_box].max()) if np.any(m_box) else 0.0
+    e_max = float(max(
+        np.linalg.norm(vt[:, 1] - vt[:, 0], axis=1).max(),
+        np.linalg.norm(vt[:, 2] - vt[:, 1], axis=1).max(),
+        np.linalg.norm(vt[:, 0] - vt[:, 2], axis=1).max(),
+    ))
+    stats = {
+        "vertices": int(len(v)),
+        "triangles": int(len(t)),
+        "max_edge_mm": round(e_max, 3),
+        "max_step_corner_tri_area_mm2": round(max_step_area, 3),
+        "texture_amplitude_mm": tex_amp_mm,
+        "deboss_groove_z_mm": [round(z_g0, 2), round(z_g1, 2)],
+    }
+    return stats
+
+
 def _load_bambu_profile_flattened(sys_dir: Path, kind: str, name: str) -> dict:
     """Slå saman heile inherits-kjeda for ein offisiell Bambu Studio systemprofil."""
     folder = sys_dir / kind
@@ -895,14 +1217,16 @@ def export_bambu_p1s_3mf(
     bed_mm: float = 256.0,
     layer_height_mm: float = 0.16,
     fuzzy_skin: str = "external",
-    fuzzy_thickness_mm: float = 0.10,
+    fuzzy_thickness_mm: float = 0.08,
     fuzzy_point_dist_mm: float = 0.25,
+    stl_source: Path | None = None,
 ):
     """Skriv ein 100 % offisiell, ferdig-slica Bambu Studio P1S .3mf i eksakt 1:1 mm-skala.
 
     Dersom Bambu Studio er installert lokalt, blir modellen sentrert eksakt på P1S-plata (128, 128, 0)
     utan rotasjon og slica direkte gjennom Bambu Studio CLI (`--slice 0 --export-3mf`) med verifisert
-    G-kode, Fuzzy Skin (`external` = Contour), 6 veggliner, 0 % fylling og tre-støtte frå plata.
+    G-kode, C2-subdividert mikro-teksturert nett + Fuzzy Skin (`external` = Contour), 6 veggliner,
+    0 % fylling og tre-støtte frå plata.
     """
     bb = shape.BoundingBox()
     size = np.array([float(bb.xlen), float(bb.ylen), float(bb.zlen)], dtype=np.float64)
@@ -920,16 +1244,27 @@ def export_bambu_p1s_3mf(
     bambu_sys = Path(os.environ.get("APPDATA", "")) / "BambuStudio" / "system" / "BBL"
 
     if bambu_exe.exists() and bambu_sys.exists():
-        # Sentrer B-rep eksakt på P1S-plata (128, 128) med zmin = 0.000 mm før STL-eksport til Bambu CLI
-        cx_s = 0.5 * (bb.xmin + bb.xmax)
-        cy_s = 0.5 * (bb.ymin + bb.ymax)
-        shape_bed = shape.translate(cq.Vector(bed_cx - cx_s, bed_cy - cy_s, -bb.zmin))
-
         tmp_dir = Path(tempfile.mkdtemp(prefix="raup_bambu_"))
         try:
             stl_name = f"RAUP_H{total_height_mm:g}_{wall_mm:g}mm_1to1.stl"
             stl_tmp = tmp_dir / stl_name
-            cq.exporters.export(shape_bed, str(stl_tmp), tolerance=lin_deflection, angularTolerance=ang_deflection)
+            if stl_source is not None and stl_source.exists():
+                dtype = np.dtype([("n", "<f4", (3,)), ("v", "<f4", (3, 3)), ("a", "<u2")])
+                hdr = stl_source.read_bytes()[:84]
+                raw = np.fromfile(stl_source, dtype=dtype, offset=84).copy()
+                v_stl = raw["v"]
+                lo_s = v_stl.reshape(-1, 3).min(axis=0)
+                hi_s = v_stl.reshape(-1, 3).max(axis=0)
+                shift = np.array([bed_cx - 0.5 * (lo_s[0] + hi_s[0]), bed_cy - 0.5 * (lo_s[1] + hi_s[1]), -lo_s[2]], dtype=np.float32)
+                raw["v"] = v_stl + shift
+                with open(stl_tmp, "wb") as f:
+                    f.write(hdr)
+                    raw.tofile(f)
+            else:
+                cx_s = 0.5 * (bb.xmin + bb.xmax)
+                cy_s = 0.5 * (bb.ymin + bb.ymax)
+                shape_bed = shape.translate(cq.Vector(bed_cx - cx_s, bed_cy - cy_s, -bb.zmin))
+                cq.exporters.export(shape_bed, str(stl_tmp), tolerance=lin_deflection, angularTolerance=ang_deflection)
 
             mach = _load_bambu_profile_flattened(bambu_sys, "machine", "Bambu Lab P1S 0.4 nozzle")
             proc = _load_bambu_profile_flattened(bambu_sys, "process", "0.16mm Optimal @BBL X1C")

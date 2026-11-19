@@ -23,27 +23,27 @@
       "horisontale_snitt": {
         "z=7.4mm": {
           "min_mm": 2.22,
-          "p05_mm": 2.39,
+          "p05_mm": 2.42,
           "median_mm": 2.5,
-          "p95_mm": 2.79
+          "p95_mm": 2.65
         },
         "z=25.9mm": {
           "min_mm": 2.22,
           "p05_mm": 2.41,
-          "median_mm": 2.51,
-          "p95_mm": 2.72
+          "median_mm": 2.5,
+          "p95_mm": 2.88
         },
         "z=51.9mm": {
-          "min_mm": 2.22,
-          "p05_mm": 2.41,
-          "median_mm": 2.51,
-          "p95_mm": 2.86
+          "min_mm": 2.21,
+          "p05_mm": 2.42,
+          "median_mm": 2.5,
+          "p95_mm": 2.75
         },
         "z=81.5mm": {
-          "min_mm": 1.14,
-          "p05_mm": 2.35,
-          "median_mm": 2.54,
-          "p95_mm": 3.99
+          "min_mm": 1.17,
+          "p05_mm": 2.42,
+          "median_mm": 2.51,
+          "p95_mm": 3.6
         }
       },
       "toppkuppel_normal": {
@@ -57,7 +57,7 @@
     "fbx_avvik": {
       "n_samples": 400,
       "rms_mm": 0.87,
-      "median_mm": 0.22,
+      "median_mm": 0.23,
       "p95_mm": 1.72,
       "max_mm": 4.94
     }
@@ -74,46 +74,46 @@
     "fil": "print/RAUP_P1S_H200_2.5mm_fuzzy.3mf",
     "application": "BambuStudio-02.08.04.57",
     "pre_sliced_gcode": true,
-    "gcode_time": "model printing time: 7h 28m 27s; total estimated time: 7h 28m 47s",
-    "gcode_weight_g": "218.88",
+    "gcode_time": "model printing time: 8h 9m 50s; total estimated time: 8h 10m 10s",
+    "gcode_weight_g": "221.08",
     "gcode_fuzzy_skin": "external",
     "unit": "millimeter",
-    "transform": "1 0 0 0 1 0 0 0 1 0 0 -3.0162394",
+    "transform": "1 0 0 0 1 0 0 0 1 0 0 0",
     "is_identity_scale": true,
     "size_mm": [
-      143.264,
-      126.433,
-      145.621
+      143.441,
+      126.612,
+      145.721
     ],
     "size_error_vs_brep_mm": [
-      0.001,
-      0.001,
-      0.12
+      0.176,
+      0.178,
+      0.02
     ],
     "zmin_mm": 0.0,
     "bed_bounds_xy_mm": [
       [
-        56.37,
-        199.63
+        56.28,
+        199.72
       ],
       [
-        64.78,
-        191.21
+        64.69,
+        191.31
       ]
     ],
     "fits_P1S_256": true,
-    "vertices": 72346,
-    "triangles": 144688,
+    "vertices": 501643,
+    "triangles": 1003282,
     "open_boundary_edges": 0,
     "non_manifold_edges": 0,
     "watertight_manifold": true,
-    "mesh_volume_cm3": 160.67,
+    "mesh_volume_cm3": 160.97,
     "layer_height": "0.16",
     "wall_generator": "arachne",
     "wall_loops": "6",
     "sparse_infill_density": "0%",
     "fuzzy_skin": "external",
-    "fuzzy_skin_thickness": "0.1",
+    "fuzzy_skin_thickness": "0.08",
     "fuzzy_skin_point_distance": "0.25"
   },
   "kollisjonskontroll": {
@@ -123,38 +123,38 @@
     "bestatt": true
   },
   "stabilitet_papirproduksjon": {
-    "total_masse_g": 488.1,
+    "total_masse_g": 489.6,
     "massesentrum_mm": [
-      -11.8,
-      12.63,
-      30.93
+      -11.55,
+      13.09,
+      30.7
     ],
     "com_innanfor_stotteflate": true,
-    "min_avstand_til_veltekant_mm": 39.5,
-    "min_veltevinkel_grad": 51.9,
+    "min_avstand_til_veltekant_mm": 39.3,
+    "min_veltevinkel_grad": 52.0,
     "krav_EN60598_6grad_bestatt": true,
     "krav_Northern_15grad_bestatt": true,
     "bom": [
       {
         "del": "raup_hovudkropp_skal",
-        "volum_cm3": 182.82,
+        "volum_cm3": 178.33,
         "tettleik_g_cm3": 0.65,
-        "masse_g": 118.8,
+        "masse_g": 115.9,
         "maal_mm": "143.3 x 126.4 x 145.7"
       },
       {
         "del": "raup_botn_chassis",
-        "volum_cm3": 39.21,
+        "volum_cm3": 40.86,
         "tettleik_g_cm3": 2.7,
-        "masse_g": 105.9,
-        "maal_mm": "134.2 x 125.0 x 11.4"
+        "masse_g": 110.3,
+        "maal_mm": "134.3 x 125.0 x 11.4"
       },
       {
         "del": "raup_ballast",
         "volum_cm3": 19.93,
         "tettleik_g_cm3": 7.85,
         "masse_g": 156.5,
-        "maal_mm": "108.5 x 113.4 x 5.5"
+        "maal_mm": "108.4 x 113.4 x 5.5"
       },
       {
         "del": "raup_batteri_21700",
@@ -194,38 +194,38 @@
     ]
   },
   "stabilitet_PLA_prototyp": {
-    "total_masse_g": 595.9,
+    "total_masse_g": 594.8,
     "massesentrum_mm": [
-      -12.17,
-      11.78,
-      37.71
+      -11.87,
+      12.37,
+      37.5
     ],
     "com_innanfor_stotteflate": true,
-    "min_avstand_til_veltekant_mm": 39.8,
+    "min_avstand_til_veltekant_mm": 39.6,
     "min_veltevinkel_grad": 46.6,
     "krav_EN60598_6grad_bestatt": true,
     "krav_Northern_15grad_bestatt": true,
     "bom": [
       {
         "del": "raup_hovudkropp_skal",
-        "volum_cm3": 182.82,
+        "volum_cm3": 178.33,
         "tettleik_g_cm3": 1.24,
-        "masse_g": 226.7,
+        "masse_g": 221.1,
         "maal_mm": "143.3 x 126.4 x 145.7"
       },
       {
         "del": "raup_botn_chassis",
-        "volum_cm3": 39.21,
+        "volum_cm3": 40.86,
         "tettleik_g_cm3": 2.7,
-        "masse_g": 105.9,
-        "maal_mm": "134.2 x 125.0 x 11.4"
+        "masse_g": 110.3,
+        "maal_mm": "134.3 x 125.0 x 11.4"
       },
       {
         "del": "raup_ballast",
         "volum_cm3": 19.93,
         "tettleik_g_cm3": 7.85,
         "masse_g": 156.5,
-        "maal_mm": "108.5 x 113.4 x 5.5"
+        "maal_mm": "108.4 x 113.4 x 5.5"
       },
       {
         "del": "raup_batteri_21700",
@@ -266,8 +266,8 @@
   },
   "termisk_overslag": {
     "led_soyle_areal_cm2": 38.2,
-    "effektiv_kjoleflate_cm2": 133.0,
-    "estimert_deltaT_ved_5W_K": 37.6,
+    "effektiv_kjoleflate_cm2": 135.0,
+    "estimert_deltaT_ved_5W_K": 37.0,
     "merknad": "Estimat med h=10 W/(m2*K) fri konveksjon + leiing til botnplate; må stadfestast ved fysisk temperaturmåling."
   },
   "alle_STEP_valid": true,
@@ -276,18 +276,18 @@
     {
       "del": "raup_skal",
       "step_fil": "cad/raup_skal.step",
-      "step_kb": 838.7,
+      "step_kb": 1080.1,
       "stl_fil": "produksjon/raup_skal_P1S.stl",
       "BRepCheck_gyldig": true,
       "STEP_attlest_gyldig": true,
       "solids": 1,
-      "flater": 11,
+      "flater": 14,
       "maal_mm": [
-        146.47,
-        129.63,
-        148.99
+        143.81,
+        126.97,
+        146.13
       ],
-      "volum_cm3": 182.82,
+      "volum_cm3": 178.33,
       "max_u_deg": 3,
       "max_v_deg": 3,
       "max_face_poles": 672
@@ -295,18 +295,18 @@
     {
       "del": "raup_hovudkropp_ytre",
       "step_fil": "cad/raup_hovudkropp_ytre.step",
-      "step_kb": 389.2,
+      "step_kb": 394.1,
       "stl_fil": "produksjon/raup_hovudkropp_ytre.stl",
       "BRepCheck_gyldig": true,
       "STEP_attlest_gyldig": true,
       "solids": 1,
       "flater": 6,
       "maal_mm": [
-        146.47,
-        129.63,
-        147.59
+        153.61,
+        136.77,
+        151.03
       ],
-      "volum_cm3": 885.72,
+      "volum_cm3": 884.86,
       "max_u_deg": 3,
       "max_v_deg": 3,
       "max_face_poles": 672
@@ -333,18 +333,18 @@
     {
       "del": "raup_botn_chassis",
       "step_fil": "cad/raup_botn_chassis.step",
-      "step_kb": 2796.9,
+      "step_kb": 3062.4,
       "stl_fil": "produksjon/raup_botn_chassis.stl",
       "BRepCheck_gyldig": true,
       "STEP_attlest_gyldig": true,
       "solids": 1,
-      "flater": 38,
+      "flater": 41,
       "maal_mm": [
-        134.24,
-        124.98,
-        11.42
+        134.27,
+        125.0,
+        11.43
       ],
-      "volum_cm3": 39.21,
+      "volum_cm3": 40.86,
       "max_u_deg": 0,
       "max_v_deg": 0,
       "max_face_poles": 0
@@ -359,8 +359,8 @@
       "solids": 1,
       "flater": 5,
       "maal_mm": [
-        108.46,
-        113.35,
+        108.43,
+        113.38,
         5.46
       ],
       "volum_cm3": 19.93,
@@ -447,7 +447,7 @@
     {
       "del": "raup_stoypform_minus_Y",
       "step_fil": "cad/raup_stoypform_minus_Y.step",
-      "step_kb": 816.9,
+      "step_kb": 815.3,
       "stl_fil": "produksjon/raup_stoypform_minus_Y.stl",
       "BRepCheck_gyldig": true,
       "STEP_attlest_gyldig": true,
@@ -466,7 +466,7 @@
     {
       "del": "raup_stoypform_pluss_Y",
       "step_fil": "cad/raup_stoypform_pluss_Y.step",
-      "step_kb": 689.1,
+      "step_kb": 692.3,
       "stl_fil": "produksjon/raup_stoypform_pluss_Y.stl",
       "BRepCheck_gyldig": true,
       "STEP_attlest_gyldig": true,
@@ -474,10 +474,10 @@
       "flater": 21,
       "maal_mm": [
         179.26,
-        69.15,
+        69.17,
         169.74
       ],
-      "volum_cm3": 1417.89,
+      "volum_cm3": 1417.79,
       "max_u_deg": 3,
       "max_v_deg": 3,
       "max_face_poles": 672

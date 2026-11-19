@@ -23,6 +23,7 @@ from raup_geometri import (
     PRINT_DIR,
     TEST_DIR,
     RaupParams,
+    build_clean_textured_shell_mesh,
     build_main_body_shell,
     export_bambu_p1s_3mf,
 )
@@ -48,7 +49,7 @@ def main():
     cq.exporters.export(shell, str(step_path))
     reimp = cq.importers.importStep(str(step_path)).val()
     re_ok = bool(reimp.isValid() and BRepCheck_Analyzer(reimp.wrapped).IsValid())
-    cq.exporters.export(shell, str(stl_path), tolerance=0.05, angularTolerance=0.10)
+    build_clean_textured_shell_mesh(shell, meta, params, max_edge_mm=1.10, tex_amp_mm=0.095, out_stl=stl_path)
     info_3mf = export_bambu_p1s_3mf(
         shell,
         out_3mf,
@@ -58,8 +59,9 @@ def main():
         ang_deflection=0.10,
         layer_height_mm=0.16,
         fuzzy_skin="external",
-        fuzzy_thickness_mm=params.fuzzy_skin_thickness_mm,
+        fuzzy_thickness_mm=0.08,
         fuzzy_point_dist_mm=params.fuzzy_skin_point_dist_mm,
+        stl_source=stl_path,
     )
     v3mf = _verify_3mf_scale_and_manifold(out_3mf, (bb.xlen, bb.ylen, bb.zlen))
 

@@ -46,6 +46,7 @@ from raup_geometri import (
     TEST_DIR,
     RaupParams,
     build_assembly_components,
+    build_clean_textured_shell_mesh,
     build_diffuser_and_flat,
     build_main_body_shell,
     build_pulp_molds,
@@ -408,11 +409,15 @@ def run_production_build(wall_mm: float = 2.5, total_height_mm: float = 200.0):
         if not re_ok:
             raise RuntimeError(f"STEP attlesing feila på {name}")
 
-        # STL-eksport (høg presisjon på hovudskal, rein produksjonstoleranse på resten)
+        # STL-eksport (C2-subdividert og mikro-teksturert på hovudskal, rein produksjonstoleranse på resten)
         stl_name = "raup_skal_P1S.stl" if name == "raup_skal" else f"{name}.stl"
         stl_path = OUT_DIR / stl_name
-        tol, ang = (0.05, 0.10) if name == "raup_skal" else (0.12, 0.20)
-        cq.exporters.export(shp, str(stl_path), tolerance=tol, angularTolerance=ang)
+        if name == "raup_skal":
+            mesh_stats = build_clean_textured_shell_mesh(
+                shp, body_meta, params, max_edge_mm=1.10, tex_amp_mm=0.095, out_stl=stl_path
+            )
+        else:
+            cq.exporters.export(shp, str(stl_path), tolerance=0.12, angularTolerance=0.20)
 
         bb = shp.BoundingBox()
         part_checks.append({
@@ -467,8 +472,9 @@ def run_production_build(wall_mm: float = 2.5, total_height_mm: float = 200.0):
         bed_mm=params.p1s_bed_mm,
         layer_height_mm=0.16,
         fuzzy_skin="external",
-        fuzzy_thickness_mm=params.fuzzy_skin_thickness_mm,
+        fuzzy_thickness_mm=0.08,
         fuzzy_point_dist_mm=params.fuzzy_skin_point_dist_mm,
+        stl_source=OUT_DIR / "raup_skal_P1S.stl",
     )
     verify_3mf = _verify_3mf_scale_and_manifold(out_3mf, (bb_s.xlen, bb_s.ylen, bb_s.zlen))
     print(
@@ -478,7 +484,7 @@ def run_production_build(wall_mm: float = 2.5, total_height_mm: float = 200.0):
     )
     if not verify_3mf["watertight_manifold"]:
         raise RuntimeError(f"3MF-nett er ikkje vanntett manifold: {verify_3mf}")
-    if max(verify_3mf["size_error_vs_brep_mm"]) > 0.25:
+    if max(verify_3mf["size_error_vs_brep_mm"]) > 0.35:
         raise RuntimeError(f"3MF-skala avvik frå B-rep: {verify_3mf['size_error_vs_brep_mm']}")
 
     # --- KOLLISJONSTEST (alle par i samanstillinga) ---

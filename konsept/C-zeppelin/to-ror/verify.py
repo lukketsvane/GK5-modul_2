@@ -5,12 +5,12 @@ from OCP.BRepExtrema import BRepExtrema_DistShapeShape
 
 root=Path(__file__).resolve().parent
 scene=json.loads((root/"scene.json").read_text(encoding="utf-8"))
-shells=[p for p in scene["parts"] if p["name"].startswith("shell_")]
-assert len(shells)==12, len(shells)
-assert len({p["name"].split("_")[1] for p in shells})==6
-for shell_id in map(str,range(1,7)):
-    assert {p["name"].split("_")[2] for p in shells if p["name"].split("_")[1]==shell_id}=={"upper","lower"}
-print("SHELL_COUNT_CONFIRMED=6",flush=True)
+shells=sorted((o for o in scene["parts"] if o["name"].startswith("shell_")),key=lambda x:int(x["name"].split("_")[1]))
+assert [o["name"] for o in shells]==[f"shell_{i}" for i in range(1,7)]
+assert [o["motion"] for o in shells]==["upper","lower"]*3
+assert len({o["g"] for o in shells})==6
+assert all((root/"delar"/(o["g"]+".step")).is_file() for o in shells)
+print("SIX_UNSPLIT_SHELLS_CONFIRMED",flush=True)
 
 files=root/"delar"
 A=cq.importers.importStep(str(files/"shutter_upper.step")).val()
@@ -45,8 +45,8 @@ assert all(row["shutter_min_clearance_mm"]>=.5 for row in test)
 report={"status":"GEOMETRIC TWO-AXIS PROOF OF CONCEPT; NOT PHYSICAL VALIDATION",
         "tube_axes":[[0,-10,136],[0,10,136]],
         "two_tubes_counterrotating":True,
-        "station_count":9,
-        "petal_count":18,
+        "station_count":6,
+        "shell_count":6,
         "aperture_width_under_LED_mm":test,
         "led_face_width_mm":13,
         "remaining_checks":["actual involute tooth contact, backlash and loaded torque",

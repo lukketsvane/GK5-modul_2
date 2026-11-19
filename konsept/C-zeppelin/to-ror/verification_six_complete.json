@@ -1,0 +1,176 @@
+{
+  "shell_count": 6,
+  "one_piece_per_shell": true,
+  "rod_assignment": [
+    "upper",
+    "lower",
+    "upper",
+    "lower",
+    "upper",
+    "lower"
+  ],
+  "neighbor_shell_samples": [
+    {
+      "pose": 0,
+      "pair": "1-2",
+      "gap_mm": 32.201,
+      "overlap_mm3": 0.0
+    },
+    {
+      "pose": 0,
+      "pair": "2-3",
+      "gap_mm": 32.383,
+      "overlap_mm3": 0.0
+    },
+    {
+      "pose": 0,
+      "pair": "3-4",
+      "gap_mm": 32.772,
+      "overlap_mm3": 0.0
+    },
+    {
+      "pose": 0,
+      "pair": "4-5",
+      "gap_mm": 31.813,
+      "overlap_mm3": 0.0
+    },
+    {
+      "pose": 0,
+      "pair": "5-6",
+      "gap_mm": 32.592,
+      "overlap_mm3": 0.0
+    },
+    {
+      "pose": 8,
+      "pair": "1-2",
+      "gap_mm": 32.462,
+      "overlap_mm3": 0.0
+    },
+    {
+      "pose": 8,
+      "pair": "2-3",
+      "gap_mm": 32.679,
+      "overlap_mm3": 0.0
+    },
+    {
+      "pose": 8,
+      "pair": "3-4",
+      "gap_mm": 33.067,
+      "overlap_mm3": 0.0
+    },
+    {
+      "pose": 8,
+      "pair": "4-5",
+      "gap_mm": 32.075,
+      "overlap_mm3": 0.0
+    },
+    {
+      "pose": 8,
+      "pair": "5-6",
+      "gap_mm": 32.743,
+      "overlap_mm3": 0.0
+    },
+    {
+      "pose": 16,
+      "pair": "1-2",
+      "gap_mm": 32.426,
+      "overlap_mm3": 0.0
+    },
+    {
+      "pose": 16,
+      "pair": "2-3",
+      "gap_mm": 32.668,
+      "overlap_mm3": 0.0
+    },
+    {
+      "pose": 16,
+      "pair": "3-4",
+      "gap_mm": 33.054,
+      "overlap_mm3": 0.0
+    },
+    {
+      "pose": 16,
+      "pair": "4-5",
+      "gap_mm": 32.041,
+      "overlap_mm3": 0.0
+    },
+    {
+      "pose": 16,
+      "pair": "5-6",
+      "gap_mm": 32.612,
+      "overlap_mm3": 0.0
+    },
+    {
+      "pose": 24,
+      "pair": "1-2",
+      "gap_mm": 30.723,
+      "overlap_mm3": 0.0
+    },
+    {
+      "pose": 24,
+      "pair": "2-3",
+      "gap_mm": 30.956,
+      "overlap_mm3": 0.0
+    },
+    {
+      "pose": 24,
+      "pair": "3-4",
+      "gap_mm": 31.325,
+      "overlap_mm3": 0.0
+    },
+    {
+      "pose": 24,
+      "pair": "4-5",
+      "gap_mm": 30.348,
+      "overlap_mm3": 0.0
+    },
+    {
+      "pose": 24,
+      "pair": "5-6",
+      "gap_mm": 30.741,
+      "overlap_mm3": 0.0
+    },
+    {
+      "pose": 32,
+      "pair": "1-2",
+      "gap_mm": 28.916,
+      "overlap_mm3": 0.0
+    },
+    {
+      "pose": 32,
+      "pair": "2-3",
+      "gap_mm": 29.138,
+      "overlap_mm3": 0.0
+    },
+    {
+      "pose": 32,
+      "pair": "3-4",
+      "gap_mm": 29.513,
+      "overlap_mm3": 0.0
+    },
+    {
+      "pose": 32,
+      "pair": "4-5",
+      "gap_mm": 28.542,
+      "overlap_mm3": 0.0
+    },
+    {
+      "pose": 32,
+      "pair": "5-6",
+      "gap_mm": 28.938,
+      "overlap_mm3": 0.0
+    }
+  ],
+  "checked_angles": [
+    0,
+    8,
+    16,
+    24,
+    32
+  ],
+  "limitations": [
+    "nonadjacent collision pairs not checked",
+    "hardware and shutter interference not checked",
+    "no load or light measurements"
+  ]
+}

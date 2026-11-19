@@ -4,7 +4,7 @@ Denne varianten erstattar den feilaktige mekanismehypotesen med ni individuelle 
 
 ## Prinsipp
 
-To kontinuerlege, parallelle røyr langs X-aksen, med 20 mm avstand mellom senterlinjene, roterer motsatt veg. Eit nominelt 1:1-tannhjulpar (modul 1, 20 tenner) koplar røra. Det fremste røret ber seks øvre skjeldelar og ei langsgåande indre lysluke, det bakre seks nedre skjeldelar og den andre lysluka. Til saman dannar dei **seks skjel langs lampeskjermen**. Ein fast LED-kanal ligg mellom røra. Røra kan vridast 0–32 grader for å sleppe meir nedretta lys. Særskilde skjelflater er skorne som tynne, utviklingsbare (sylindrisk bøygde) plater.
+To kontinuerlege, parallelle røyr langs X-aksen, med 20 mm avstand mellom senterlinjene, roterer motsatt veg. Eit nominelt 1:1-tannhjulpar (modul 1, 20 tenner) koplar røra. Seks **heile, samanhengande skjel** er festa vekselvis til røra, tre på kvart. Kvart skjel er éi bøygd plate med integrert rørfeste, ikkje to halvdeler. Kvar røyraksling ber dessutan ei langsgåande indre lysluke. Ein fast LED-kanal ligg mellom røra. Røra kan vridast 0–32 grader for å sleppe meir nedretta lys. Særskilde skjelflater er skorne som tynne, utviklingsbare (sylindrisk bøygde) plater.
 
 Ved 0 grader møtest lyslukene med ei nominell lysopning på 1,8 mm. Ved 32 grader er lysopninga 26,82 mm. Dette er geometrisk fri opning, ikkje lysmålt lumen, lux eller blendingskontroll.
 
@@ -23,7 +23,7 @@ Ved 0 grader møtest lyslukene med ei nominell lysopning på 1,8 mm. Ved 32 grad
 
 ## Kva som er kontrollert
 
-- 43 gyldige CAD-deltypar og 37 delinstansar, med seks skjel (tolv skjeldelar).
+- 17 gyldige CAD-deltypar og 19 delinstansar, inkludert seks samanhengande skjelsolidar.
 - To akslar og motrotasjon frå 0 til 32 grader.
 - Oppmålte lyslukeklaringar ved fem stillingar; minste nominelle klaring mellom shutterflak 1,97 mm.
 - Spurhjul har ingen solid-overlapp i dei fem kontrollerte stillingane. Nominell flateavstand i desse stillingane er om lag 0,0004–0,0021 mm.

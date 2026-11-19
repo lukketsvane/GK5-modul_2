@@ -13,8 +13,8 @@
     ]
   ],
   "two_tubes_counterrotating": true,
-  "station_count": 9,
-  "petal_count": 18,
+  "station_count": 6,
+  "shell_count": 6,
   "aperture_width_under_LED_mm": [
     {
       "angle_deg": 0,

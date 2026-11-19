@@ -2,7 +2,7 @@
   "pivots": 2,
   "moving_tubes": 2,
   "shells": 6,
-  "half_shells": 12,
+  "shell_parts": 6,
   "axis_spacing_mm": 20,
   "gear": "20T module1 paired external gears",
   "closed_angle": 0,

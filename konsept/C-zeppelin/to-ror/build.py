@@ -20,32 +20,40 @@ def tube():
     inner=cq.Solid.makeCylinder(2.8,409,cq.Vector(-198.5,0,0),cq.Vector(1,0,0))
     return outer.cut(inner)
 
-def leaf(kind,lane,which):
-    side=1 if which=="upper" else -1
-    ys=-1 if which=="upper" else 1
-    reach=HEIGHTS[which][kind]
-    span=[41,40,38,33,24][kind]
+def full_shell(kind,lane,which):
+    side=-1 if which=="upper" else 1
+    H,D=HEIGHTS["upper"][kind],HEIGHTS["lower"][kind]
+    waist=18.0+0.4*lane
     wires=[]
-    for j in range(35):
-        u=j/34
-        z=side*(7.8+(reach-7.8)*u)
-        half=max(0.8,7.5*(1-u)+span*math.sin(math.pi*u)**0.85)
-        centre=8.0+13*u
-        y=ys*(18+13*lane+6*u*u)
-        pts=[cq.Vector(centre-half,y-.35,z),cq.Vector(centre+half,y-.35,z),
-             cq.Vector(centre+half,y+.35,z),cq.Vector(centre-half,y+.35,z)]
+    for j in range(21):
+        t=math.pi*j/20
+        u=-math.cos(t)
+        z=(H-D+(H+D)*u)/2
+        half=.45+(50-.4*kind)*math.sin(t)*(1-.09*u)
+        cx=5*u+2*u*u
+        # Straight X generators on a bent sheet; thickness measured along its normal.
+        y=side*(waist+.28*z+.0055*z*z)
+        slope=side*(.28+.011*z)
+        ny=.35/math.hypot(1,slope)
+        corners=((cx-half,-1),(cx+half,-1),(cx+half,1),(cx-half,1))
+        pts=[cq.Vector(x,y+q*ny,z-q*ny*slope) for x,q in corners]
         wires.append(cq.Wire.makePolygon(pts+[pts[0]]))
-    return cq.Solid.makeLoft(wires,ruled=True)
+    skin=cq.Solid.makeLoft(wires,ruled=False)
+    if not skin.isValid() or len(skin.Solids())!=1 or skin.Volume()<=0:
+        raise ValueError(f"Invalid continuous sheet: {kind}, {which}")
 
-def mount(lane,which):
-    zz=1 if which=="upper" else -1
-    yy=-1 if which=="upper" else 1
-    ring=cq.Solid.makeCylinder(6.5,7.0,cq.Vector(-3.5,0,0),cq.Vector(1,0,0))
-    bore=cq.Solid.makeCylinder(4.55,7.2,cq.Vector(-3.6,0,0),cq.Vector(1,0,0))
-    arm_len=18+13*lane+1
-    arm=cq.Workplane("XY").box(7.0,arm_len,4).translate((0,yy*arm_len/2,zz*6.2)).val()
-    hub=ring.cut(bore).fuse(arm)
-    return hub
+    # The tongue ends inside the sheet at its waist tangent. Model the welded union.
+    yz=[(side*5,-2),(side*(waist-.56),-2),(side*(waist+.56),2),(side*5,2)]
+    tongue=cq.Workplane("YZ").polyline(yz).close().extrude(4,both=True).val()
+    ax=cq.Vector(1,0,0)
+    ring=cq.Solid.makeCylinder(5.55,9,cq.Vector(-4.5,0,0),ax)
+    boss=cq.Workplane("XY").box(7,6,5.5).translate((0,0,5.75)).val()
+    bore=cq.Solid.makeCylinder(4.53,10,cq.Vector(-5,0,0),ax)
+    pilot=cq.Solid.makeCylinder(1.25,10,cq.Vector(0,0,0),cq.Vector(0,0,1))
+    collar=ring.fuse(tongue,boss).cut(bore).cut(pilot)
+    solids=skin.fuse(collar).clean().Solids()
+    if len(solids)!=1: raise ValueError("Collar and continuous sheet did not unite")
+    return solids[0]
 
 def shutter(which):
     yy=1 if which=="upper" else -1
@@ -110,18 +118,14 @@ PARTS={"tube":tube(),"shutter_upper":shutter("upper"),"shutter_lower":shutter("l
        "led":cq.Workplane("XY").box(340,13,1.7).translate((0,0,127.2)).val(),
        "gear_upper":gear(),"gear_lower":gear(math.pi/20),"knob":knob(),
        "end_frame":bearing_block(0)}
-for k in sorted(set(SHELL_KINDS)):
-    for lane in range(4):
-        for which in ("upper","lower"):
-            PARTS[f"leaf_{which}_{k}_{lane}"]=leaf(k,lane,which)
-for lane in range(4):
-    for which in ("upper","lower"):
-        PARTS[f"mount_{which}_{lane}"]=mount(lane,which)
+for i in STATIONS:
+    which="upper" if i%2==0 else "lower"
+    PARTS[f"shell_{i+1}"]=full_shell(SHELL_KINDS[i],i%4,which)
 
 for name,s in PARTS.items():
     if not s.isValid() or s.Volume()<=0:
         raise ValueError(f"Invalid CAD: {name} {s.Volume()}")
-    if name in ("tube","shutter_upper","shutter_lower","gear_upper","gear_lower","knob") or name.startswith("leaf_"):
+    if name in ("tube","shutter_upper","shutter_lower","gear_upper","gear_lower","knob") or name.startswith("shell_"):
         cq.exporters.export(s,str(ROOT/"delar"/(name+".step")))
 
 INST=[]
@@ -138,12 +142,10 @@ for which in ("upper","lower"):
     add("tube","tube_"+which,which,y=yy,z=AXIS_Z,color="frame")
     add("shutter_"+which,"light_gate_"+which,which,y=yy,z=AXIS_Z,color="metal")
     add("gear_"+which,"synchronizing_gear_"+which,which,x=199,y=yy,z=AXIS_Z,color="metal")
-    for i in STATIONS:
-        lane=i%4
-        x=(i-2.5)*PITCH
-        kind=SHELL_KINDS[i]
-        add(f"leaf_{which}_{kind}_{lane}",f"shell_{i+1}_{which}",which,x,yy,AXIS_Z)
-        add(f"mount_{which}_{lane}",f"pipe_clamp_{which}_{i+1}",which,x,yy,AXIS_Z,color="metal")
+for i in STATIONS:
+    which="upper" if i%2==0 else "lower"
+    add(f"shell_{i+1}",f"shell_{i+1}",which,(i-2.5)*PITCH,SHAFT_Y[which],AXIS_Z)
+
 add("knob","hand_control","upper",208,-10,AXIS_Z,color="metal")
 
 def transform(item,opening):
@@ -178,7 +180,7 @@ scene={"models":models,"parts":INST,"units":"mm","kinematics":{"open_deg":32,"cl
        "drive":"20tooth module1 external spur gear pair (nominal only)",
        "source":"CadQuery solids; Blender receives exact tessellation"}}
 (ROOT/"scene.json").write_text(json.dumps(scene,separators=(",",":")),encoding="utf-8")
-(ROOT/"mechanism.json").write_text(json.dumps({"pivots":2,"moving_tubes":2,"shells":6,"half_shells":12,
+(ROOT/"mechanism.json").write_text(json.dumps({"pivots":2,"moving_tubes":2,"shells":6,"shell_parts":6,
     "axis_spacing_mm":20,"gear": "20T module1 paired external gears",
     "closed_angle":0,"open_angle":32,"shutter_inner_edge_closed_y_mm":[-.9,.9],
     "validation_status":"not yet production qualified"},indent=2),encoding="utf-8")

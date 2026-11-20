@@ -18,6 +18,9 @@ Parametrisk Class-A B-rep (NURBS grad ≤ 3) i kompakt **1:1-skala** med **200,0
    - Ferdig-slica (`0,16 mm` laghøgd, `6` veggløkker, `0 %` fylling, `tree(auto)` støtte under det bakre `37,78 mm` innspranget, `220,5 g`, `7 t 58 min`).
 2. **[`print/RAUP_P1S_H200_chassis_og_klips.3mf`](file:///c:/Users/Iver/Documents/github/GK5-modul_2/Leveranse/konsept%20C%20-%20raup/print/RAUP_P1S_H200_chassis_og_klips.3mf)** — **Plate 2: Mekanisk botnchassis (`02`)**
    - Ferdig-slica utan fuzzy skin for eksakte mekaniske pasningar (`1,40 mm` diffusorspor, 18650-batterivugge, PCB-piedestall, vertikal LED-sokkel, 3× forsenka M3-hol og 4× `Ø10,4 × 0,6 mm` lommer for 3M Bumpon SJ5312 føter).
+3. **[`print/RAUP_P1S_H200_diffusor_flat_AMS3.3mf`](file:///c:/Users/Iver/Documents/github/GK5-modul_2/Leveranse/konsept%20C%20-%20raup/print/RAUP_P1S_H200_diffusor_flat_AMS3.3mf)** — **Plate 3: Utbretta flat, bøybar diffusorskjerm (`139,6 × 194,0 × 0,80 mm`) på AMS-spor 3 (Transparent)**
+   - Ferdig-slica for **AMS-spor 3 (`extruder = 3`, Transparent PETG/PLA)**: `0,80 mm` tjukkleik = eksakt **4 massive lag à `0,20 mm`** (`top_shell_layers = 4`, `bottom_shell_layers = 4`, `monotonic` linjemønster, `0,15 mm` elefantfot-kompensasjon, utan brim, `24,8 g`, `~33 min`).
+   - Bøyetøying ved $R_{\min} = 37,2\text{ mm}$ er berre `1,07 %` — mjuk å bøye for hand utan sprekk/kvitning og stiv i full `194 mm` høgd når han står i det `1,40 mm` boga fotsporet ([`cad/raup_diffusor_flat.step`](file:///c:/Users/Iver/Documents/github/GK5-modul_2/Leveranse/konsept%20C%20-%20raup/cad/raup_diffusor_flat.step) · [`produksjon/raup_diffusor_flat_P1S.stl`](file:///c:/Users/Iver/Documents/github/GK5-modul_2/Leveranse/konsept%20C%20-%20raup/produksjon/raup_diffusor_flat_P1S.stl)).
 
 ---
 

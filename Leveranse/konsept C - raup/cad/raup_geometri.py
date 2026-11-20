@@ -1550,3 +1550,147 @@ def export_bambu_p1s_3mf(
         "fuzzy_skin_thickness_mm": fuzzy_thickness_mm,
         "fuzzy_skin_point_distance_mm": fuzzy_point_dist_mm,
     }
+
+
+def build_flat_diffuser_sheet(diff_meta: dict, sheet_thick_mm: float = 0.80) -> cq.Solid:
+    """Bygg 1:1 utbretta flat 3D-skjerm (z = 0.000 .. sheet_thick_mm) klar til å printast flatt på P1S og bøyast i form.
+
+    Tjukkleik = 0.80 mm (eksakt 4 massive lag à 0.20 mm):
+      - Bøyetøying ved R_min = 37.2 mm er berre 1.07 % -> mjuk å bøye for hand utan sprekk eller kvitning.
+      - Når han er bøygd i sylinderbogen og sett ned i det 1.40 mm fotsporet (+0.30 mm klaring per side),
+        gir sylinderkrumminga høy vertikal bøyestivleik i full 194 mm høgd.
+    """
+    poly_flat = Polygon(diff_meta["flat_coords"]).buffer(0)
+    flat_raw = _make_extruded_poly_solid(poly_flat, 0.0, sheet_thick_mm, s=0.04, n_pts=180)
+    bb = flat_raw.BoundingBox()
+    cx = 0.5 * (bb.xmin + bb.xmax)
+    cy = 0.5 * (bb.ymin + bb.ymax)
+    flat_centered = flat_raw.translate(cq.Vector(-cx, -cy, -bb.zmin))
+    if not (flat_centered.isValid() and BRepCheck_Analyzer(flat_centered.wrapped).IsValid()):
+        raise RuntimeError("Flat utbretta diffusorplate feila BRepCheck_Analyzer")
+    return flat_centered
+
+
+def export_bambu_p1s_flat_diffuser_3mf(
+    flat_shape: cq.Shape,
+    out_3mf: Path,
+    sheet_thick_mm: float = 0.80,
+    layer_height_mm: float = 0.20,
+    ams_slot: int = 3,
+    bed_mm: float = 256.0,
+) -> dict:
+    """Eksporter ferdig-slica Bambu Studio P1S .3mf for den flate, bøybare diffusorskjermen på AMS-spor 3 (Transparent)."""
+    bb = flat_shape.BoundingBox()
+    size = np.array([float(bb.xlen), float(bb.ylen), float(bb.zlen)], dtype=np.float64)
+    bed_cx = 0.5 * bed_mm
+    bed_cy = 0.5 * bed_mm
+    n_layers = max(2, int(round(sheet_thick_mm / layer_height_mm)))
+
+    bambu_exe = Path(r"C:\Program Files\Bambu Studio\bambu-studio.exe")
+    bambu_sys = Path(os.environ.get("APPDATA", "")) / "BambuStudio" / "system" / "BBL"
+
+    if bambu_exe.exists() and bambu_sys.exists():
+        tmp_dir = Path(tempfile.mkdtemp(prefix="raup_diff_flat_"))
+        try:
+            cx_s = 0.5 * (bb.xmin + bb.xmax)
+            cy_s = 0.5 * (bb.ymin + bb.ymax)
+            shape_bed = flat_shape.translate(cq.Vector(bed_cx - cx_s, bed_cy - cy_s, -bb.zmin))
+            stl_tmp = tmp_dir / f"RAUP_diffusor_flat_{sheet_thick_mm:.2f}mm_AMS{ams_slot}.stl"
+            cq.exporters.export(shape_bed, str(stl_tmp), tolerance=0.02, angularTolerance=0.05)
+
+            mach = _load_bambu_profile_flattened(bambu_sys, "machine", "Bambu Lab P1S 0.4 nozzle")
+            proc = _load_bambu_profile_flattened(bambu_sys, "process", "0.20mm Standard @BBL X1C")
+
+            # Konfigurer 4 AMS-spor der Spor 3 = Transparent filament (Generic PETG / Translucent)
+            f1 = _load_bambu_profile_flattened(bambu_sys, "filament", "Bambu PLA Basic @BBL X1C")
+            f1["filament_colour"] = ["#FFFFFF"]
+            f1["default_filament_colour"] = ["#FFFFFF"]
+
+            f2 = _load_bambu_profile_flattened(bambu_sys, "filament", "Bambu PLA Wood @BBL X1C")
+            f2["filament_colour"] = ["#918669"]
+            f2["default_filament_colour"] = ["#918669"]
+
+            f3 = _load_bambu_profile_flattened(bambu_sys, "filament", "Generic PETG")
+            f3["filament_colour"] = ["#E8F6FF"]
+            f3["default_filament_colour"] = ["#E8F6FF"]
+            f3["filament_flow_ratio"] = ["0.99"]
+            f3["nozzle_temperature_initial_layer"] = ["255"]
+            f3["nozzle_temperature"] = ["255"]
+            f3["textured_plate_temp_initial_layer"] = ["75"]
+            f3["textured_plate_temp"] = ["75"]
+            f3["fan_min_speed"] = ["10"]
+            f3["fan_max_speed"] = ["35"]
+
+            f4 = _load_bambu_profile_flattened(bambu_sys, "filament", "Bambu PLA Matte @BBL P1S 0.4 nozzle")
+            f4["filament_colour"] = ["#D3C5A3"]
+            f4["default_filament_colour"] = ["#D3C5A3"]
+
+            proc.update({
+                "curr_bed_type": "Textured PEI Plate",
+                "layer_height": f"{layer_height_mm:g}",
+                "initial_layer_print_height": f"{layer_height_mm:g}",
+                "wall_generator": "arachne",
+                "wall_loops": "2",
+                "top_shell_layers": str(n_layers),
+                "bottom_shell_layers": str(n_layers),
+                "top_shell_thickness": f"{sheet_thick_mm:g}",
+                "bottom_shell_thickness": f"{sheet_thick_mm:g}",
+                "bottom_surface_pattern": "monotonic",
+                "top_surface_pattern": "monotonicline",
+                "elefant_foot_compensation": "0.15",
+                "brim_type": "no_brim",
+                "enable_support": "0",
+                "enable_prime_tower": "0",
+                "fuzzy_skin": "none",
+            })
+
+            m_json = tmp_dir / "machine.json"
+            p_json = tmp_dir / "process.json"
+            m_json.write_text(json.dumps(mach, indent=2), encoding="utf-8")
+            p_json.write_text(json.dumps(proc, indent=2), encoding="utf-8")
+
+            f_paths = []
+            for idx, fd in enumerate([f1, f2, f3, f4], 1):
+                fp = tmp_dir / f"filament_{idx}.json"
+                fp.write_text(json.dumps(fd, indent=2), encoding="utf-8")
+                f_paths.append(str(fp))
+
+            cmd = [
+                str(bambu_exe),
+                "--orient", "0",
+                "--arrange", "0",
+                "--load-settings", f"{m_json};{p_json}",
+                "--load-filaments", ";".join(f_paths),
+                "--load-filament-ids", str(ams_slot),
+                "--slice", "0",
+                "--outputdir", str(tmp_dir),
+                "--export-3mf", out_3mf.name,
+                str(stl_tmp),
+            ]
+            res = subprocess.run(cmd, capture_output=True, text=True)
+            rjson_path = tmp_dir / "result.json"
+            rinfo = json.loads(rjson_path.read_text(encoding="utf-8")) if rjson_path.exists() else {}
+            gen_3mf = tmp_dir / out_3mf.name
+            if res.returncode != 0 or not gen_3mf.exists():
+                raise RuntimeError(f"Bambu Studio CLI-slicing av flat diffusor feila (rc={res.returncode}): {rinfo}")
+
+            out_3mf.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(gen_3mf, out_3mf)
+
+            plate = (rinfo.get("sliced_plates") or [{}])[0]
+            fil_used = (plate.get("filaments") or [{}])[0]
+            return {
+                "fil": str(out_3mf.resolve().relative_to(ROOT.resolve())).replace("\\", "/"),
+                "ams_slot": ams_slot,
+                "filament_profile": "Generic PETG (Transparent / AMS Slot 3)",
+                "sheet_thick_mm": sheet_thick_mm,
+                "layer_height_mm": layer_height_mm,
+                "solid_layers": n_layers,
+                "size_mm": [round(float(s), 2) for s in size],
+                "sliced_print_time_s": round(float(plate.get("total_predication", 0.0)), 1),
+                "sliced_filament_g": round(float(fil_used.get("total_used_g", 0.0)), 1),
+                "slicer_warning": plate.get("warning_message", ""),
+            }
+        finally:
+            shutil.rmtree(tmp_dir, ignore_errors=True)
+    raise RuntimeError("Bambu Studio er ikkje installert")

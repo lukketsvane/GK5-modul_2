@@ -1,0 +1,23 @@
+REGLAR — seilarbeid.stl
+
+Ingen harde brot: delane let seg lage og setje saman.
+
+Alle linene:
+
+     plana grip             4 ledd
+     delar å skjere         3 stk
+     kan monterast          éin veg inn for kvar
+     ingen står i kvarandre ingen klemmer
+     utan ledd · kasta      ingen
+     gods i leddet          4,3 mm
+     delane får plass       1 ark
+     klaring                0,10 mm
+     snittbreidd            0,15 mm i fila
+     snittet mot sporet     0,15 mm mot 3,10 mm
+     opning mellom plan     374,0 mm
+     lukka nett             lukka
+     nettoppløysing         256 av 256
+     utnytting              74 %
+     bøyeradius             98,0 mm — rilla, 2,7 mm steg
+     ledd på bøygde plan    1 bøygde, alle med ledd
+     møte på bøygde plan    ingen

@@ -1,0 +1,8 @@
+import { lag } from "../felles"
+const x = lag({ namn: "snu-stemning", stativ: "heng", snor: 320, munn: { fram: false, elev: 90 } })
+export const namn = x.namn
+export const kropp = x.kropp
+export const bag = x.bag
+export const plan = x.plan
+export const utstyr = x.utstyr
+export const krav = x.krav

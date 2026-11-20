@@ -1,0 +1,23 @@
+REGLAR — rullmote.stl
+
+Ingen harde brot: delane let seg lage og setje saman.
+
+Alle linene:
+
+     plana grip             4 ledd
+     delar å skjere         3 stk
+     kan monterast          éin veg inn for kvar
+     ingen står i kvarandre ingen klemmer
+     utan ledd · kasta      ingen
+     gods i leddet          2,8 mm
+     delane får plass       1 ark
+     klaring                0,05 mm
+     snittbreidd            0,30 mm i fila
+     snittet mot sporet     0,30 mm mot 2,05 mm
+     opning mellom plan     316,0 mm
+     lukka nett             lukka
+     nettoppløysing         12 av 12
+     utnytting              72 %
+     bøyeradius             80,0 mm av minst 20,0 mm
+     ledd på bøygde plan    1 bøygde, alle med ledd
+     møte på bøygde plan    ingen

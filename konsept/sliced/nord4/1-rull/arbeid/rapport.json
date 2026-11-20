@@ -1,0 +1,461 @@
+{
+ "namn": "rullarbeid",
+ "id": "rullarbeid",
+ "mappe": "/tmp/claude-0/-home-user-slicer-iverfinne-no/0351339b-1ff7-580f-bca7-9071db1d2f3c/scratchpad/lampe/nord4/boygd/rull-arbeid",
+ "ok": true,
+ "rask": false,
+ "nett": {
+  "tris": 12,
+  "hjorne": 8,
+  "flate": 271488,
+  "opne": 0,
+  "mangfaldige": 0,
+  "vrengde": 0,
+  "utarta": 0,
+  "skal": [
+   9031680
+  ],
+  "volum": 9031680,
+  "min": [
+   -84,
+   -160,
+   0
+  ],
+  "max": [
+   84,
+   160,
+   168
+  ],
+  "lukka": true,
+  "samstemt": true,
+  "utover": true,
+  "ok": true,
+  "motorVolum": 9031680
+ },
+ "pose": {
+  "kjelde": "rullarbeid",
+  "scene": "",
+  "storleik": 320,
+  "rotX": 0,
+  "rotY": 0,
+  "rotZ": 0,
+  "glatt": 0,
+  "trekant": 40,
+  "forenkl": 0,
+  "hol": 0,
+  "tjukn": 2,
+  "lause": 1,
+  "merk": 0,
+  "snapp": 3,
+  "klaring": 0.05,
+  "ledd": 0.5,
+  "kilar": 0,
+  "snitt": 0.3,
+  "snittveg": 0,
+  "fart": 20,
+  "arkB": 600,
+  "arkH": 400,
+  "material": "papp",
+  "plan": "1@0.5,0.0031,0.5/0,1,0/p:0.2625,0,0.2536,0.0679,0.2273,0.1312,0.1856,0.1856,0.1313,0.2273,0.0679,0.2536,0,0.2625,-0.0679,0.2536,-0.1312,0.2273,-0.1856,0.1856,-0.2273,0.1312,-0.2536,0.0679,-0.2625,0,-0.2536,-0.0679,-0.2273,-0.1312,-0.1856,-0.1856,-0.1313,-0.2273,-0.0679,-0.2536,0,-0.2625,0.0679,-0.2536,0.1313,-0.2273,0.1856,-0.1856,0.2273,-0.1313,0.2536,-0.0679/r:0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23/-o:0,0,0.0313,0.0313,0/-o:0,-0.25,0.0187,0.0187,0;2@0.5,0.9969,0.5/0,1,0/p:0.2625,0,0.2536,0.0679,0.2273,0.1312,0.1856,0.1856,0.1313,0.2273,0.0679,0.2536,0,0.2625,-0.0679,0.2536,-0.1312,0.2273,-0.1856,0.1856,-0.2273,0.1312,-0.2536,0.0679,-0.2625,0,-0.2536,-0.0679,-0.2273,-0.1312,-0.1856,-0.1856,-0.1313,-0.2273,-0.0679,-0.2536,0,-0.2625,0.0679,-0.2536,0.1313,-0.2273,0.1856,-0.1856,0.2273,-0.1313,0.2536,-0.0679/r:0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23/-o:0,0,0.0313,0.0313,0/-o:0,-0.25,0.0187,0.0187,0;10@0.5,0.5,0.9762/0,0,-1/b:4/p:0.5236,-0.5,0.5034,-0.4,0.4851,-0.3,0.4706,-0.2,0.4614,-0.1,0.4581,0,0.4614,0.1,0.4706,0.2,0.4851,0.3,0.5034,0.4,0.5236,0.5,-0.5236,0.5,-0.5034,0.4,-0.4851,0.3,-0.4706,0.2,-0.4614,0.1,-0.4581,0,-0.4614,-0.1,-0.4706,-0.2,-0.4851,-0.3,-0.5034,-0.4,-0.5236,-0.5/r:1,2,3,4,5,6,7,8,9,12,13,14,15,16,17,18,19,20",
+  "fest": "",
+  "deling": ""
+ },
+ "plan": "1@0.5,0.0031,0.5/0,1,0/p:0.2625,0,0.2536,0.0679,0.2273,0.1312,0.1856,0.1856,0.1313,0.2273,0.0679,0.2536,0,0.2625,-0.0679,0.2536,-0.1312,0.2273,-0.1856,0.1856,-0.2273,0.1312,-0.2536,0.0679,-0.2625,0,-0.2536,-0.0679,-0.2273,-0.1312,-0.1856,-0.1856,-0.1313,-0.2273,-0.0679,-0.2536,0,-0.2625,0.0679,-0.2536,0.1313,-0.2273,0.1856,-0.1856,0.2273,-0.1313,0.2536,-0.0679/r:0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23/-o:0,0,0.0313,0.0313,0/-o:0,-0.25,0.0187,0.0187,0;2@0.5,0.9969,0.5/0,1,0/p:0.2625,0,0.2536,0.0679,0.2273,0.1312,0.1856,0.1856,0.1313,0.2273,0.0679,0.2536,0,0.2625,-0.0679,0.2536,-0.1312,0.2273,-0.1856,0.1856,-0.2273,0.1312,-0.2536,0.0679,-0.2625,0,-0.2536,-0.0679,-0.2273,-0.1312,-0.1856,-0.1856,-0.1313,-0.2273,-0.0679,-0.2536,0,-0.2625,0.0679,-0.2536,0.1313,-0.2273,0.1856,-0.1856,0.2273,-0.1313,0.2536,-0.0679/r:0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23/-o:0,0,0.0313,0.0313,0/-o:0,-0.25,0.0187,0.0187,0;10@0.5,0.5,0.9762/0,0,-1/b:4/p:0.5236,-0.5,0.5034,-0.4,0.4851,-0.3,0.4706,-0.2,0.4614,-0.1,0.4581,0,0.4614,0.1,0.4706,0.2,0.4851,0.3,0.5034,0.4,0.5236,0.5,-0.5236,0.5,-0.5034,0.4,-0.4851,0.3,-0.4706,0.2,-0.4614,0.1,-0.4581,0,-0.4614,-0.1,-0.4706,-0.2,-0.4851,-0.3,-0.5034,-0.4,-0.5236,-0.5/r:1,2,3,4,5,6,7,8,9,12,13,14,15,16,17,18,19,20",
+ "tal": {
+  "plan": 3,
+  "delar": 3,
+  "unike": 2,
+  "ledd": 4,
+  "tappar": 4,
+  "avviste": 0,
+  "lause": 0,
+  "ark": 1,
+  "utnytting": 0.7189250383182108,
+  "kuttMm": 3435.8635202706646,
+  "tidS": 171.79317601353324,
+  "masseKg": 0.0622531569180505,
+  "ytre": [
+   167.90441103256,
+   320.01599999999996,
+   167.80879588592495
+  ],
+  "sporMm": 2.05,
+  "godsMm": 2.835756514155281
+ },
+ "reglar": [
+  {
+   "id": "grip",
+   "label": "plana grip",
+   "hard": true,
+   "ok": true,
+   "value": "4 ledd",
+   "why": "Utan eit einaste kryssledd er dette ikkje eit objekt, men ein bunke laust liggjande plater. Vanlegaste grunnen er at plana ikkje kryssar kvarandre der kroppen har gods, eller at det står for få av dei til at nokon møtest. Er nokre avviste, kryssa dei — men det stod for lite gods ved sida av sporet til at noko heldt. Rutenettet på lina set kolonner og rader med to fingrar."
+  },
+  {
+   "id": "delar",
+   "label": "delar å skjere",
+   "hard": true,
+   "ok": true,
+   "value": "3 stk",
+   "why": "Ingen plan råka nettet. Anten står plana utanfor kroppen, eller so er nettet so tynt at kvar profil fell under minstearealet — eller du har ikkje låst noko enno. Rutenettet på lina set kolonner og rader med to fingrar."
+  },
+  {
+   "id": "orden",
+   "label": "kan monterast",
+   "hard": true,
+   "ok": true,
+   "value": "éin veg inn for kvar",
+   "why": "Ein del vert skuva inn langs spora sine, og eit spor går langs lina der dei to plana kryssar. Delen her har ledd mot to delar som alt ligg, langs liner som ikkje er parallelle, og han kan berre gå éin veg. Verdien seier kva for to han står mellom. Byt rekkjefylgja, so han kjem inn før den eine av dei; vinkle planet om, so dei to linene vert parallelle; eller flytt han ut av vegen til den eine. Med to familiar ribber som kryssar kvarandre vert det alltid éin som kjem sist, og han er bunden av båe — ei plate på tvers av eit rutenett går ikkje i hop med spor åleine."
+  },
+  {
+   "id": "klem",
+   "label": "ingen står i kvarandre",
+   "hard": true,
+   "ok": true,
+   "value": "ingen klemmer",
+   "why": "To plan kryssar der begge har gods, men møtet fekk ikkje spor: det stod for lite gods ved sida av sporet til at noko heldt. Godset står difor att i båe, og dei to delane skal vera same staden — det går ikkje i hop, same rekkjefylgje du tek. Eit grovare rutenett er det som hjelper oftast; tynnare plate gjev færre, tjukkare gjev fleire."
+  },
+  {
+   "id": "lause",
+   "label": "utan ledd · kasta",
+   "hard": false,
+   "ok": true,
+   "value": "ingen",
+   "why": "Eit stykke som ikkje kryssar eit einaste anna plan heng ikkje i noko: det står i kuttlista, kostar plass på plata, og ligg laust i eska. Eit plan til gjennom stykket gjev det eit ledd; `lause` på «kast» tek lause øyer ut av fila."
+  },
+  {
+   "id": "gods",
+   "label": "gods i leddet",
+   "hard": true,
+   "ok": true,
+   "value": "2,8 mm",
+   "why": "Sporet et halve overlappet, og det som er att må bera resten av delen. Under 2,0 mm knekk finéren i sporbotnen når du pressar delane saman. Flytt leddelinga, eller set planet der nettet er tjukkare."
+  },
+  {
+   "id": "plate",
+   "label": "delane får plass",
+   "hard": true,
+   "ok": true,
+   "value": "1 ark",
+   "why": "Ein del er større enn plata. Anten mindre objekt, fleire plan (kvar del vert mindre), eller ei større plate enn 600 × 400 mm."
+  },
+  {
+   "id": "klaring",
+   "label": "klaring",
+   "hard": false,
+   "ok": true,
+   "value": "0,05 mm",
+   "why": "Sporet er tjukna pluss klaringa, so talet gjeld den MÅLTE plata: 3 mm MDF måler jamt 2,8–2,9, og set du 3 er sporet 0,2 for vidt før klaringa er talt med. Mål plata med skyvelær og set tjukna til det. Under 0,05 mm får du ikkje delane i hop utan hammar, og finér som vert slegen i hop flisar seg. Over 0,35 mm sit dei ikkje fast. Passprøva skjer heile stigen og let deg kjenne etter."
+  },
+  {
+   "id": "snitt",
+   "label": "snittbreidd",
+   "hard": false,
+   "ok": true,
+   "value": "0,30 mm i fila",
+   "why": "Stråla har breidd, og kutten et henne ut av delen. Er snittbreidda null, kompenserer korkje fila eller maskina for henne: kvart spor kjem ut ei snittbreidd for vidt. Passprøva måler henne og klaringa i eitt."
+  },
+  {
+   "id": "snittspor",
+   "label": "snittet mot sporet",
+   "hard": true,
+   "ok": true,
+   "value": "0,30 mm mot 2,05 mm",
+   "why": "Snittbreidda vert kompensert ved å skuve omrisset utover, og sporet vert teikna like mykje smalare. Er snittet like breitt som sporet, er det teikna sporet borte, og konturen brettar seg over seg sjølv."
+  },
+  {
+   "id": "opning",
+   "label": "opning mellom plan",
+   "hard": false,
+   "ok": true,
+   "value": "316,0 mm",
+   "why": "To nesten parallelle plan står so tett at fingrane ikkje kjem imellom dei når du monterer. Flytt det eine, eller ta det bort."
+  },
+  {
+   "id": "lukka",
+   "label": "lukka nett",
+   "hard": false,
+   "ok": true,
+   "value": "lukka",
+   "why": "Snittinga les nettet med strålar og tel kva veg kvar trekant vender. Eit nett med hòl i har ingen innside å telje, og då kan ein profil kome ut som eit stykke der han skulle vore to."
+  },
+  {
+   "id": "nett",
+   "label": "nettoppløysing",
+   "hard": false,
+   "ok": true,
+   "value": "12 av 12",
+   "why": "Trekanttaket står på det lågaste hakket sitt, og nettet hadde meir å gje. Plana vert lesne av nett desse trekantane, so profilen er so grov som dei er. Skru opp taket."
+  },
+  {
+   "id": "utnytting",
+   "label": "utnytting",
+   "hard": false,
+   "ok": true,
+   "value": "72 %",
+   "why": "Meir enn to tredelar av plata går i søppelbøtta. Prøv ei anna plate, eller færre og større delar. Pakkinga fylgjer omrisset og reknar hòla som ledig plass, so det som står att er luft ho ikkje fann nokon del til."
+  },
+  {
+   "id": "bog",
+   "label": "bøyeradius",
+   "hard": false,
+   "ok": true,
+   "value": "80,0 mm av minst 20,0 mm",
+   "why": "Under 20,0 mm vert plata RILLA: rader med snitt på tvers av bøyen, 4,0 mm mellom kvar, som tek vekk godset som elles vart strekt. Rundt kvart spor står ei stiv øy — godset som ber eit ledd skal ikkje vera perforert. Prisen er kuttlengd og mindre gods. Om brua held er ikkje rekna her: skjer ein prøvestrimmel."
+  },
+  {
+   "id": "bogledd",
+   "label": "ledd på bøygde plan",
+   "hard": false,
+   "ok": true,
+   "value": "1 bøygde, alle med ledd",
+   "why": "Ei bøygd ribbe får spor på to måtar: eit flatt plan LANGS sylinderaksen hennar møter henne i ei rett line, og eit flatt plan VINKELRETT på aksen — eit golv — møter henne i ein sirkelboge med sylinderradien. Desse ribbene fann ingen av delane: eit plan som SKRÅR mot aksen møter flata i ei kurve som korkje er det eine eller det andre, og den finnaren er ikkje skriven. Dei kjem ut som lause plater du må feste sjølv. Rett ut bøyen, legg eit plan langs aksen, eller eit golv på tvers av han."
+  },
+  {
+   "id": "bogkurve",
+   "label": "møte på bøygde plan",
+   "hard": false,
+   "ok": true,
+   "value": "ingen",
+   "why": "Eit flatt plan som SKRÅR mot sylinderaksen til eit bøygt plan møter det i eit kjeglesnitt, og den finnaren er ikkje skriven. Møta er talde her og vart ikkje ledd: dei to delane kjem ut utan spor for kvarandre. Legg planet LANGS aksen, eller VINKELRETT på han — då er møtet ei line eller ein sirkelboge, og båe ber spor — eller rett ut bøyen."
+  }
+ ],
+ "harde": [],
+ "mjuke": [],
+ "krav": [
+  {
+   "namn": "nettet er lukka og vender ut",
+   "ok": true,
+   "verdi": "12 trekantar · 0 opne · 0 mangfaldige · 0 vrengde · 1 skal"
+  },
+  {
+   "namn": "nettet held trekantbudsjettet",
+   "ok": true,
+   "verdi": "12 av 40000: over det vert nettet forenkla"
+  },
+  {
+   "namn": "kroppen står sentrert på z = 0",
+   "ok": true,
+   "verdi": "ja"
+  },
+  {
+   "namn": "1:1",
+   "ok": true,
+   "verdi": "storleik 320 mot lengste side 320.00 · glatt 0 forenkl 0 hol 0"
+  },
+  {
+   "namn": "motoren les same volum som nettet",
+   "ok": true,
+   "verdi": "9032 cm3 mot 9032 cm3"
+  },
+  {
+   "namn": "alle plan kom med",
+   "ok": true,
+   "verdi": "3 skrivne · 3 lesne · 3 i motoren"
+  },
+  {
+   "namn": "appen opnar posen uendra",
+   "ok": true,
+   "verdi": "ja"
+  },
+  {
+   "namn": "ingen lause eller kasta stykke",
+   "ok": true,
+   "verdi": "0 lause"
+  },
+  {
+   "namn": "alle delar ligg på eit ark",
+   "ok": true,
+   "verdi": "ja"
+  },
+  {
+   "namn": "kvart plan gjev minst éin del",
+   "ok": true,
+   "verdi": "ja"
+  },
+  {
+   "namn": "ingen spalte held fram gjennom gods forbi munnen",
+   "ok": true,
+   "verdi": "ja"
+  },
+  {
+   "namn": "tre delar",
+   "ok": true,
+   "verdi": "3 delar"
+  },
+  {
+   "namn": "hetta sit med tappar i begge kinn",
+   "ok": true,
+   "verdi": "4 tappar"
+  },
+  {
+   "namn": "fot under 200 cm2",
+   "ok": true,
+   "verdi": "ø150 = 177 cm2"
+  },
+  {
+   "namn": "opalen gøymd for auge 250..600 mm over bordet, 600 mm unna",
+   "ok": true,
+   "verdi": "opning 120..150° mot 0° · auga ser frå 78..110° · gøymd · akse 380 mm over bordet"
+  },
+  {
+   "namn": "fine kuttfiler (1200 celler) gjev same delar, ledd og ark",
+   "ok": true,
+   "verdi": "3 delar · 1 ark · 3.43 m"
+  }
+ ],
+ "ark": [
+  {
+   "nr": 1,
+   "delar": [
+    "10",
+    "1",
+    "2"
+   ],
+   "utnytting": 0.7189250383182108,
+   "avHeileArket": 0.5895185314209328,
+   "gravMm": 120.34648133255348,
+   "umerkte": [],
+   "iHol": []
+  }
+ ],
+ "delar": [
+  {
+   "adr": "1",
+   "id": "D01",
+   "w": 167.90441103256,
+   "h": 167.80879588592495,
+   "area": 21531.35765209104,
+   "cutLen": 1055.4167706555165,
+   "joints": 2,
+   "ark": 1,
+   "plan": 1
+  },
+  {
+   "adr": "2",
+   "id": "D01",
+   "w": 167.90441103256,
+   "h": 167.80879588592495,
+   "area": 21531.35765209104,
+   "cutLen": 1055.4167706555165,
+   "joints": 2,
+   "ark": 1,
+   "plan": 2
+  },
+  {
+   "adr": "10",
+   "id": "D02",
+   "w": 335.102,
+   "h": 320.01599999999996,
+   "area": 98421.73223684178,
+   "cutLen": 1325.0299789596313,
+   "joints": 4,
+   "ark": 1,
+   "plan": 10
+  }
+ ],
+ "orden": [
+  {
+   "nr": 1,
+   "plan": 10,
+   "delar": [
+    "10"
+   ],
+   "steg": 1,
+   "veg": "ligg",
+   "retning": null,
+   "mot": [],
+   "fast": false
+  },
+  {
+   "nr": 2,
+   "plan": 1,
+   "delar": [
+    "1"
+   ],
+   "steg": 2,
+   "veg": "side",
+   "retning": [
+    0,
+    1,
+    0
+   ],
+   "mot": [
+    10
+   ],
+   "fast": false
+  },
+  {
+   "nr": 3,
+   "plan": 2,
+   "delar": [
+    "2"
+   ],
+   "steg": 2,
+   "veg": "side",
+   "retning": [
+    0,
+    -1,
+    0
+   ],
+   "mot": [
+    10
+   ],
+   "fast": false
+  }
+ ],
+ "lause": [],
+ "ekstra": [
+  "opal"
+ ],
+ "fin": {
+  "celler": 1200,
+  "delar": 3,
+  "ledd": 8,
+  "ark": 1,
+  "kuttMm": 3431.259169777675,
+  "likt": true,
+  "filer": [
+   "ark-1.dxf",
+   "ark-1.svg",
+   "delar.json"
+  ],
+  "paaArk": [
+   [
+    "10",
+    "1",
+    "2"
+   ]
+  ],
+  "sameArk": true
+ },
+ "bilete": {
+  "ark": "/tmp/claude-0/-home-user-slicer-iverfinne-no/0351339b-1ff7-580f-bca7-9071db1d2f3c/scratchpad/lampe/nord4/boygd/rull-arbeid/ut/ark.png",
+  "helt": "/tmp/claude-0/-home-user-slicer-iverfinne-no/0351339b-1ff7-580f-bca7-9071db1d2f3c/scratchpad/lampe/nord4/boygd/rull-arbeid/ut/bilete/rullarbeid-helt.png",
+  "front": "/tmp/claude-0/-home-user-slicer-iverfinne-no/0351339b-1ff7-580f-bca7-9071db1d2f3c/scratchpad/lampe/nord4/boygd/rull-arbeid/ut/bilete/rullarbeid-front.png",
+  "side": "/tmp/claude-0/-home-user-slicer-iverfinne-no/0351339b-1ff7-580f-bca7-9071db1d2f3c/scratchpad/lampe/nord4/boygd/rull-arbeid/ut/bilete/rullarbeid-side.png",
+  "topp": "/tmp/claude-0/-home-user-slicer-iverfinne-no/0351339b-1ff7-580f-bca7-9071db1d2f3c/scratchpad/lampe/nord4/boygd/rull-arbeid/ut/bilete/rullarbeid-topp.png",
+  "under": "/tmp/claude-0/-home-user-slicer-iverfinne-no/0351339b-1ff7-580f-bca7-9071db1d2f3c/scratchpad/lampe/nord4/boygd/rull-arbeid/ut/bilete/rullarbeid-under.png",
+  "lys": "/tmp/claude-0/-home-user-slicer-iverfinne-no/0351339b-1ff7-580f-bca7-9071db1d2f3c/scratchpad/lampe/nord4/boygd/rull-arbeid/ut/bilete/rullarbeid-lys.png",
+  "sprengt": "/tmp/claude-0/-home-user-slicer-iverfinne-no/0351339b-1ff7-580f-bca7-9071db1d2f3c/scratchpad/lampe/nord4/boygd/rull-arbeid/ut/bilete/rullarbeid-sprengt.png"
+ },
+ "synFeil": [],
+ "tid": {
+  "kropp": 2,
+  "motor": 327,
+  "ark": 25879,
+  "produksjon": 2298,
+  "bilete": 158474,
+  "alt": 187048
+ },
+ "filer": {
+  "rapport": "/tmp/claude-0/-home-user-slicer-iverfinne-no/0351339b-1ff7-580f-bca7-9071db1d2f3c/scratchpad/lampe/nord4/boygd/rull-arbeid/ut/rapport.txt",
+  "delar": "/tmp/claude-0/-home-user-slicer-iverfinne-no/0351339b-1ff7-580f-bca7-9071db1d2f3c/scratchpad/lampe/nord4/boygd/rull-arbeid/ut/delar.json",
+  "scene": "/tmp/claude-0/-home-user-slicer-iverfinne-no/0351339b-1ff7-580f-bca7-9071db1d2f3c/scratchpad/lampe/nord4/boygd/rull-arbeid/ut/scene.json",
+  "kropp": "/tmp/claude-0/-home-user-slicer-iverfinne-no/0351339b-1ff7-580f-bca7-9071db1d2f3c/scratchpad/lampe/nord4/boygd/rull-arbeid/ut/kropp.stl",
+  "ark": "/tmp/claude-0/-home-user-slicer-iverfinne-no/0351339b-1ff7-580f-bca7-9071db1d2f3c/scratchpad/lampe/nord4/boygd/rull-arbeid/ut/ark.png",
+  "produksjon": "/tmp/claude-0/-home-user-slicer-iverfinne-no/0351339b-1ff7-580f-bca7-9071db1d2f3c/scratchpad/lampe/nord4/boygd/rull-arbeid/ut/produksjon",
+  "bilete": "/tmp/claude-0/-home-user-slicer-iverfinne-no/0351339b-1ff7-580f-bca7-9071db1d2f3c/scratchpad/lampe/nord4/boygd/rull-arbeid/ut/bilete",
+  "step": null
+ }
+}

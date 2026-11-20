@@ -1,0 +1,47 @@
+lamellarbeid — 96 x 72 x 280 mm · bjork 3 mm · klaring 0.1 · snitt 0.15 · ALT OK
+nett     736 trekantar · lukka · 1 skal · 929 cm3 · boks -48, -36, 0 .. 48, 36, 280
+tal      21 plan · 21 delar (3 unike) · 68 ledd (0 tapp, 0 avviste) · 0 lause
+kutt     12.28 m · 10.2 min ved 20 mm/s · 1 ark 600 x 400 · utnytting 42 % · 0.139 kg · spor 3.10 mm · minste gods 7.1 mm
+harde reglar
+  ok   grip       plana grip               68 ledd
+  ok   delar      delar å skjere           21 stk
+  ok   orden      kan monterast            éin veg inn for kvar
+  ok   klem       ingen står i kvarandre   ingen klemmer
+  ok   gods       gods i leddet            7,1 mm
+  ok   plate      delane får plass         1 ark
+  ok   snittspor  snittet mot sporet       0,15 mm mot 3,10 mm
+mjuke reglar: ingen bryt
+ark
+  1  42 43 40 41 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 · 42 % av brukt hogd, 29 % av arket
+delar    adr    form   b x h mm        ledd  ark
+         42..41 (2)     D01   14.2 x 280.0    17    1
+         43..40 (2)     D02   14.7 x 280.0    17    1
+         1..17 (17)     D03   95.8 x 72.0     4     1
+ekstra   (ikkje frå motoren: ingen reglar, ingen ledd, ikkje på arka)
+         opal           84.0 x 276.0 mm flatt · 3 mm akryl-opal
+         lokk           96.0 x 72.0 mm flatt · 2 mm mdf
+         botn           96.0 x 72.0 mm flatt · 2 mm mdf
+montering (motoren si eiga rekkjefylgje)
+  1-17  ligg: 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17
+  18  side langs (0.50, -0.87, 0.00) mot 1,3,4,2,5,6,7,8,9,10,11,12,13,14,15,16,17: 42
+  19  side langs (1.00, 0.00, 0.00) mot 1,2,3,5,6,7,8,9,10,12,13,14,17,4,15,16,11: 43
+  20  side langs (-1.00, 0.00, 0.00) mot 1,5,7,8,9,10,11,12,13,14,15,16,17,2,3,6,4: 40
+  21  side langs (-0.50, -0.87, 0.00) mot 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17: 41
+krav
+  ok   nettet er lukka og vender ut: 736 trekantar · 0 opne · 0 mangfaldige · 0 vrengde · 1 skal
+  ok   nettet held trekantbudsjettet: 736 av 40000: over det vert nettet forenkla
+  ok   kroppen står sentrert på z = 0: ja
+  ok   1:1: storleik 280 mot lengste side 280.00 · glatt 0 forenkl 0 hol 0
+  ok   motoren les same volum som nettet: 929 cm3 mot 929 cm3
+  ok   alle plan kom med: 21 skrivne · 21 lesne · 21 i motoren
+  ok   appen opnar posen uendra: ja
+  ok   ingen lause eller kasta stykke: 0 lause
+  ok   alle delar ligg på eit ark: ja
+  ok   kvart plan gjev minst éin del: ja
+  ok   ingen spalte held fram gjennom gods forbi munnen: ja
+  ok   kvar finne og ribbe er ein del: 21 delar
+  ok   ingen tapp: 0 tappar
+  ok   foten under 200 cm2: 113 cm2
+  ok   fine kuttfiler (1200 celler) gjev same delar, ledd og ark: 21 delar · 1 ark · 12.34 m
+fin      produksjon/fin/: 1200 celler · 21 delar · 1 ark · 12.34 m · same tal på delar, ledd og ark som ved 220 · same delar på kvart ark
+tid      kropp 0.1 s · motor 0.8 s · ark 47.2 s · produksjon 2.5 s · bilete 287.0 s · alt 337.8 s

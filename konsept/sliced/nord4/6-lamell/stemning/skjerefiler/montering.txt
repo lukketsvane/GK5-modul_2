@@ -1,0 +1,27 @@
+MONTERING — lamellstemning.stl
+21 plan, 3 mm plate. Adressa er gravert på kvar del.
+
+I denne rekkjefylgja. Sporet på delen som kjem opnar seg i fartsretninga; sporet på delen som ligg opnar seg mot han.
+  1  1  ligg — ingen ledd mot delar som alt ligg
+  2  2  ligg — ingen ledd mot delar som alt ligg
+  3  3  ligg — ingen ledd mot delar som alt ligg
+  4  4  ligg — ingen ledd mot delar som alt ligg
+  5  5  ligg — ingen ledd mot delar som alt ligg
+  6  6  ligg — ingen ledd mot delar som alt ligg
+  7  7  ligg — ingen ledd mot delar som alt ligg
+  8  8  ligg — ingen ledd mot delar som alt ligg
+  9  9  ligg — ingen ledd mot delar som alt ligg
+  10  10  ligg — ingen ledd mot delar som alt ligg
+  11  11  ligg — ingen ledd mot delar som alt ligg
+  12  12  ligg — ingen ledd mot delar som alt ligg
+  13  13  ligg — ingen ledd mot delar som alt ligg
+  14  14  ligg — ingen ledd mot delar som alt ligg
+  15  15  ligg — ingen ledd mot delar som alt ligg
+  16  16  ligg — ingen ledd mot delar som alt ligg
+  17  17  ligg — ingen ledd mot delar som alt ligg
+  18  40  sidelengs, langs (1,00, 0,00, 0,00), mot 16, 2, 6, 8, 11, 12, 15, 17, 1, 3, 4, 5, 7, 9, 10, 13, 14
+  19  41  sidelengs, langs (0,50, 0,87, 0,00), mot 2, 4, 6, 7, 8, 9, 10, 11, 12, 14, 1, 3, 5, 13, 15, 16, 17
+  20  42  sidelengs, langs (-0,50, 0,87, 0,00), mot 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17
+  21  43  sidelengs, langs (-1,00, 0,00, 0,00), mot 7, 1, 4, 8, 9, 10, 13, 14, 15, 2, 3, 5, 6, 11, 12, 17, 16
+
+Sit eit ledd for hardt, er klaringa for liten: skjer passprøva i den same plata og set klaringa til det sporet avkappet går i med tommelkraft.

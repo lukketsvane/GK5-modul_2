@@ -1,0 +1,23 @@
+REGLAR — lamellstemning.stl
+
+Ingen harde brot: delane let seg lage og setje saman.
+
+Alle linene:
+
+     plana grip             68 ledd
+     delar å skjere         21 stk
+     kan monterast          éin veg inn for kvar
+     ingen står i kvarandre ingen klemmer
+     utan ledd · kasta      ingen
+     gods i leddet          7,1 mm
+     delane får plass       1 ark
+     klaring                0,10 mm
+     snittbreidd            0,15 mm i fila
+     snittet mot sporet     0,15 mm mot 3,10 mm
+     opning mellom plan     12,7 mm
+     lukka nett             lukka
+     nettoppløysing         736 av 736
+     utnytting              38 %
+     bøyeradius             ingen bøygde plan
+     ledd på bøygde plan    ingen
+     møte på bøygde plan    ingen bøygde

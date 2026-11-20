@@ -1,0 +1,206 @@
+{
+ "namn": "seilarbeid",
+ "mappe": "/tmp/claude-0/-home-user-slicer-iverfinne-no/0351339b-1ff7-580f-bca7-9071db1d2f3c/scratchpad/lampe/nord4/skjerm/seil-arbeid/ut/produksjon",
+ "ok": true,
+ "tal": {
+  "plan": 3,
+  "delar": 3,
+  "unike": 2,
+  "ledd": 4,
+  "avviste": 0,
+  "lause": 0,
+  "ark": 1,
+  "utnytting": 0.7381861500735802,
+  "kuttMm": 27994.88494266879,
+  "gravMm": 120.34648133255347,
+  "tidS": 1399.7442471334393,
+  "masseKg": 0.20772558263070548,
+  "ytre": [
+   193.5971400905333,
+   66.91363855647671,
+   380.03599999999994
+  ],
+  "sporMm": 3.1,
+  "godsMm": 4.259338518376653
+ },
+ "harde": [],
+ "mjuke": [],
+ "ark": [
+  {
+   "nr": 1,
+   "delar": [
+    "10",
+    "1",
+    "2"
+   ],
+   "utnytting": 0.7381861500735802,
+   "avHeileArket": 0.3827631889270416,
+   "gravMm": 120.34648133255347,
+   "umerkte": [],
+   "iHol": [],
+   "dxf": "ark-1.dxf",
+   "svg": "ark-1.svg",
+   "png": "ark-1.png"
+  }
+ ],
+ "delar": [
+  {
+   "adr": "1",
+   "id": "D01",
+   "w": 193.5971400905333,
+   "h": 66.91363855647671,
+   "area": 8971.316615150632,
+   "cutLen": 773.2748144801449,
+   "joints": 2,
+   "ark": 1,
+   "plan": 1
+  },
+  {
+   "adr": "2",
+   "id": "D01",
+   "w": 193.5971400905333,
+   "h": 66.91363855647671,
+   "area": 8971.316615150632,
+   "cutLen": 773.2748144801451,
+   "joints": 2,
+   "ark": 1,
+   "plan": 2
+  },
+  {
+   "adr": "10",
+   "id": "D02",
+   "w": 225.79399999999998,
+   "h": 380.03599999999994,
+   "area": 85403.42777999997,
+   "cutLen": 26448.3353137085,
+   "joints": 4,
+   "ark": 1,
+   "plan": 10
+  }
+ ],
+ "filer": [
+  {
+   "namn": "ark-1.dxf",
+   "byte": 155983,
+   "detalj": 220,
+   "kva": "kuttfil, R12 ASCII, mm, lag KUTT og GRAVER, snittet teke"
+  },
+  {
+   "namn": "ark-1.svg",
+   "byte": 68587,
+   "detalj": 220,
+   "kva": "kuttfil 1:1, svart graver, blaa kutt, snittet teke"
+  },
+  {
+   "namn": "ark-1.png",
+   "byte": 70497,
+   "detalj": 220,
+   "kva": "bilete av arket, ikkje til maskina"
+  },
+  {
+   "namn": "profilar.svg",
+   "byte": 69367,
+   "detalj": 220,
+   "kva": "alle profilane side om side, 1:1"
+  },
+  {
+   "namn": "samla.glb",
+   "byte": 135744,
+   "detalj": 1200,
+   "kva": "montert, meter, Y opp, ein node per del"
+  },
+  {
+   "namn": "flat.glb",
+   "byte": 38696,
+   "detalj": 220,
+   "kva": "delane flatt som paa arka, ei gruppe per ark"
+  },
+  {
+   "namn": "deler.3mf",
+   "byte": 165727,
+   "detalj": 1200,
+   "kva": "flate delar, eitt objekt per del, mm, Z opp"
+  },
+  {
+   "namn": "samla.stl",
+   "byte": 186484,
+   "detalj": 1200,
+   "kva": "montert, ei trekantsuppe, mm, Z opp"
+  },
+  {
+   "namn": "samla.usdz",
+   "byte": 345685,
+   "detalj": 1200,
+   "kva": "montert, AR Quick Look"
+  },
+  {
+   "namn": "passprove.svg",
+   "byte": 10865,
+   "detalj": null,
+   "kva": "passprove: sju spor, 0,05 mm breiare kvar gong"
+  },
+  {
+   "namn": "bogprove.svg",
+   "byte": 33484,
+   "detalj": null,
+   "kva": "boyeprove: fem felt"
+  },
+  {
+   "namn": "alt.zip",
+   "byte": 446859,
+   "detalj": 220,
+   "kva": "ALT-pakka slik appen lastar ho ned"
+  },
+  {
+   "namn": "montering.txt",
+   "byte": 466,
+   "detalj": 220,
+   "kva": "rekkjefylgja, del for del, med retning"
+  },
+  {
+   "namn": "deler.csv",
+   "byte": 169,
+   "detalj": 220,
+   "kva": "kuttlista, semikolon, desimalkomma"
+  },
+  {
+   "namn": "reglar.txt",
+   "byte": 787,
+   "detalj": 220,
+   "kva": "kvar regel, og dei harde brota med kvifor"
+  },
+  {
+   "namn": "seilarbeid.zip",
+   "byte": 13785,
+   "detalj": null,
+   "kva": "prosjektfila (LAGRE)"
+  },
+  {
+   "namn": "delar.json",
+   "byte": 48500,
+   "detalj": 220,
+   "kva": "per del: omriss, hol, tjukn, matrise; og rekkjefylgja"
+  }
+ ],
+ "fin": {
+  "celler": 1200,
+  "delar": 3,
+  "ledd": 8,
+  "ark": 1,
+  "kuttMm": 27996.745341964775,
+  "likt": true,
+  "filer": [
+   "ark-1.dxf",
+   "ark-1.svg",
+   "delar.json"
+  ],
+  "paaArk": [
+   [
+    "10",
+    "1",
+    "2"
+   ]
+  ],
+  "sameArk": true
+ }
+}

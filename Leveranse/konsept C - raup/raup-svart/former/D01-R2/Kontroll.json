@@ -1,0 +1,35 @@
+{
+  "source_step_sha256": "4e84f7d495a49f522176051dcb89afb9db74d0ece4ee763bb75bdacbbb98a278",
+  "stl_sha256": "a10b922a0e62af145091e84810cca92716ae5cab0ef909ac7ba51592f4f12749",
+  "old_sole_mm": 8,
+  "new_sole_mm": 6,
+  "old_contact_with_bed_mm2": 35153.8,
+  "new_contact_with_bed_mm2": 16761.5,
+  "sole_area_reduction_percent": 52.3,
+  "sole_volume_reduction_percent": 64.2,
+  "d02_stop_area_mm2": 5496.85,
+  "d02_supported_stop_area_mm2": 5496.85,
+  "guide_x_y_r_mm": [
+    [
+      -98.0,
+      -29.0,
+      3.45
+    ],
+    [
+      0.0,
+      100.0,
+      3.45
+    ],
+    [
+      107.0,
+      -17.0,
+      3.45
+    ]
+  ],
+  "print_dimensions_mm": [
+    224.904,
+    149.467,
+    145.361
+  ],
+  "stl_single_watertight_solid": true
+}

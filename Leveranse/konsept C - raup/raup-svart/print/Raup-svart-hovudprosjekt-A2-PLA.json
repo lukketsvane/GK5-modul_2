@@ -1,0 +1,19 @@
+{
+  "fil": "Raup-svart-hovudprosjekt-A2-PLA.3mf",
+  "delar": [
+    "D03-retur.stl",
+    "M01-Nedrelist.stl",
+    "B01-tupp.stl",
+    "D04-rand.stl",
+    "B02_1_Limfot.stl",
+    "B02_2_Limfot.stl",
+    "B04_1_Skivehaldar.stl",
+    "B04_2_Skivehaldar.stl",
+    "E04_Kabelbru.stl"
+  ],
+  "tid_s": 10058,
+  "vekt_g": 84.93,
+  "stotte_brukt": "true",
+  "filament": "Generic PLA",
+  "prosess": "0.20mm Standard @BBL X1C"
+}

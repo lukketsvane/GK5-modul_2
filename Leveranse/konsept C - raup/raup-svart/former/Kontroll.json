@@ -1,0 +1,32 @@
+{
+  "step": "Raup-tupp.step",
+  "sha256": "3f8acfa6078e47e8cfc95a82349fd40c8fe84772c353179883f5241eb62e9fa6",
+  "D03": {
+    "stl": "D03-retur.stl",
+    "sha256": "3035a967d97e995bcb6084213e2d8a3ab27889f6afcb41d2e3e595b023995b92",
+    "xyz_mm": [
+      42.601,
+      71.536,
+      46.361
+    ],
+    "prover": {
+      "tal": 108,
+      "median_mm": 0.149,
+      "95_prosent_mm": 0.192,
+      "maks_mm": 0.24
+    },
+    "overlapp_mm3": 0
+  },
+  "D04": {
+    "stl": "D04-rand.stl",
+    "sha256": "efa68d1f59958fd6d8ced9fce638f7c80fb4983ab3b0d0d1065950d8d9d64f27",
+    "xyz_mm": [
+      75.491,
+      30.663,
+      12.0
+    ],
+    "strimmel_lengd_mm": 76.573,
+    "strimmel_hogd_mm": 6.1,
+    "snitt_mm2": 0.0
+  }
+}

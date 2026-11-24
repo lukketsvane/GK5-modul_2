@@ -24,9 +24,9 @@ CELLE_BLAA = (0.20, 0.35, 0.65)
 
 # (id, namn, byggjar, materiale, tettleik, farge, type, tal)
 DELAR = [
-    ("D01", "Kropp", lambda: K.kropp(), "EN AW-5754 H22 1,5 mm, pulverlakk", 2.67, GRAA, "lag", 1),
-    ("D02", "Chassis", lambda: K.chassis(), "EN AW-5754 H22 2,0 mm, pulverlakk", 2.67, GRAA, "lag", 1),
-    ("D03", "Lysbrett", lambda: L.lysbrett(), "EN AW-5754 H22 2,0 mm, blank", 2.67, ALU, "lag", 1),
+    ("D01", "Kropp", lambda: K.kropp(), f"EN AW-5754 H22 {P0.t:.1f} mm, pulverlakk".replace(".", ","), 2.67, GRAA, "lag", 1),
+    ("D02", "Chassis", lambda: K.chassis(), f"EN AW-5754 H22 {P0.tc:.1f} mm, pulverlakk".replace(".", ","), 2.67, GRAA, "lag", 1),
+    ("D03", "Lysbrett", lambda: L.lysbrett(), f"EN AW-5754 H22 {P0.tb:.1f} mm, blank".replace(".", ","), 2.67, ALU, "lag", 1),
     ("D04", "LED-kort opp", lambda: L.opp_kort(), "FR-4 1,0 mm, 2 lag, termiske via", 1.85, GROEN, "lag", 1),
     ("D04L", "LED opp 2700K x16", lambda: L.opp_led(), "3030 LED", 1.80, LED_GUL, "kjop", 16),
     ("D05", "LED-kort ned", lambda: L.ned_kort(), "MCPCB alu 1,6 mm", 2.40, GROEN, "lag", 1),
@@ -50,7 +50,7 @@ DELAR = [
     ("K05", "Låsande avstand 16", lambda: L.laas_avstand(), "PA 6.6 kvit", 1.14, KVIT, "kjop", 6),
     ("K06", "Avstand USB SO-M3-3", lambda: I.usb_avstand(), "PEM SO-M3-3", 7.9, STAAL, "kjop", 2),
     ("K07", "PEM-mutrar i chassiset CLS-M3-1", lambda: I.pem_mutrar(), "PEM CLS-M3-1", 7.9, STAAL, "kjop", 10),
-    ("K08", "Føter", lambda: I.foter(), "TPE 60 ShA, push-in", 1.10, SVART, "kjop", 4),
+    ("K08", "Føter", lambda: I.foter(), "TPE 60 ShA lys grå, push-in", 1.10, GRAA, "kjop", 4),
     ("K09", "Skruar kropp ISO 7380 M3x6", lambda: I.kropp_skruar(), "A2", 7.9, STAAL, "kjop", 4),
     ("K10", "Skruar modul ISO 7380 M3x5", lambda: L.modul_skruar(), "A2", 7.9, STAAL, "kjop", 4),
     ("K11", "Skruar opp-kort M3x4", lambda: L.opp_kort_skruar(), "A2", 7.9, STAAL, "kjop", 6),

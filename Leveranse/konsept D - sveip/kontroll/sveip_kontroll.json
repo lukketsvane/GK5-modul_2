@@ -8,7 +8,7 @@
   {
    "id": "D01",
    "namn": "Kropp",
-   "materiale": "EN AW-5754 H22 1,5 mm, pulverlakk",
+   "materiale": "EN AW-5754 H22 1,2 mm, pulverlakk",
    "type": "lag",
    "tal": 1,
    "gyldig": true,
@@ -26,7 +26,7 @@
   {
    "id": "D02",
    "namn": "Chassis",
-   "materiale": "EN AW-5754 H22 2,0 mm, pulverlakk",
+   "materiale": "EN AW-5754 H22 1,5 mm, pulverlakk",
    "type": "lag",
    "tal": 1,
    "gyldig": true,
@@ -44,7 +44,7 @@
   {
    "id": "D03",
    "namn": "Lysbrett",
-   "materiale": "EN AW-5754 H22 2,0 mm, blank",
+   "materiale": "EN AW-5754 H22 1,5 mm, blank",
    "type": "lag",
    "tal": 1,
    "gyldig": true,
@@ -139,8 +139,8 @@
    "tal": 1,
    "gyldig": true,
    "step_attlest": true,
-   "volum_cm3": 18.286,
-   "masse_g": 21.9,
+   "volum_cm3": 23.54,
+   "masse_g": 28.2,
    "maal_mm": [
     121.84,
     101.67,
@@ -476,7 +476,7 @@
   {
    "id": "K08",
    "namn": "Føter",
-   "materiale": "TPE 60 ShA, push-in",
+   "materiale": "TPE 60 ShA lys grå, push-in",
    "type": "kjop",
    "tal": 4,
    "gyldig": true,
@@ -960,7 +960,7 @@
   "bestatt": true
  },
  "masse": {
-  "total_g": 1110.7,
+  "total_g": 1117.1,
   "lakk_g": 42.5,
   "tillegg": [
    {
@@ -978,30 +978,30 @@
   ],
   "krav_F8_g": 1200,
   "F8_bestatt": true,
-  "margin_g": 89.3
+  "margin_g": 82.9
  },
  "stabilitet": {
   "tyngdepunkt_mm": [
-   136.4,
+   136.9,
    -0.0,
-   143.1
+   143.3
   ],
-  "over_bordet_mm": 146.1,
+  "over_bordet_mm": 146.3,
   "innanfor_stotteflata": true,
-  "min_avstand_kant_mm": 40.6,
+  "min_avstand_kant_mm": 40.1,
   "veltevinkel_grad": {
-   "mot_utkraginga_+x": 15.5,
-   "mot_hakket_-x": 27.9,
+   "mot_utkraginga_+x": 15.3,
+   "mot_hakket_-x": 28.0,
    "framover_-y": 19.2,
    "bakover_+y": 19.2
   },
-  "min_veltevinkel_grad": 15.5,
+  "min_veltevinkel_grad": 15.3,
   "krav_EN60598_2_4_innearmatur_grad": 6.0,
   "eige_krav_grad": 15.0,
   "bestatt_EN": true,
   "bestatt_eige": true,
-  "kraft_N_vaagrett_i_toppen_mot_utkraginga": 1.46,
-  "kraft_N_vaagrett_i_toppen_framover": 1.83
+  "kraft_N_vaagrett_i_toppen_mot_utkraginga": 1.45,
+  "kraft_N_vaagrett_i_toppen_framover": 1.84
  },
  "innsetjing_ovanfra": {
   "metode": "modulen flytta opp 10..330 mm i steg på 10 mm (diskret), snitt mot kroppen med berøringspunkta",
@@ -1164,5 +1164,5 @@
   "fysisk_prototype": "ikkje laga",
   "rorsle": "diskret prøvd (steg 10 mm / 5 mm), ikkje kontinuerleg"
  },
- "tid_s": 46.1
+ "tid_s": 56.4
 }

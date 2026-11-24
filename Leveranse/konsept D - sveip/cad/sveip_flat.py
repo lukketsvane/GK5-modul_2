@@ -195,3 +195,48 @@ def enkel_dxf(sti: Path, form, tekst):
     msp.add_text(tekst, height=3, dxfattribs={"layer": "TEKST"}).set_placement((bb.xmin, bb.ymax + 5))
     doc.saveas(sti)
     return dict(maal_mm=(round(bb.xlen, 2), round(bb.ylen, 2)))
+
+
+def mal_pdf(dxf: Path, ut: Path, side=(420.0, 297.0), marg=12.0):
+    """1:1-mal av eit flatmønster, flislagd over A3-sider med passmerke og 100 mm kontrollmål.
+    Skriv ut i 100 % (ikkje «tilpass side»)."""
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    from ezdxf import path as epath
+    from matplotlib.backends.backend_pdf import PdfPages
+    doc = ezdxf.readfile(dxf)
+    liner = []
+    for e in doc.modelspace():
+        if e.dxftype() in ("LWPOLYLINE", "LINE", "CIRCLE") and e.dxf.layer != "TEKST":
+            pts = [(v.x, v.y) for v in epath.make_path(e).flattening(0.05)]
+            liner.append((pts, e.dxf.layer))
+    xs = [p[0] for pts, _ in liner for p in pts]
+    ys = [p[1] for pts, _ in liner for p in pts]
+    x0, y0, x1, y1 = min(xs) - 5, min(ys) - 5, max(xs) + 5, max(ys) + 5
+    bw, bh = side[0] - 2 * marg, side[1] - 2 * marg - 8
+    nx = math.ceil((x1 - x0) / bw)
+    ny = math.ceil((y1 - y0) / bh)
+    with PdfPages(ut) as pdf:
+        for j in range(ny):
+            for i in range(nx):
+                fig = plt.figure(figsize=(side[0] / 25.4, side[1] / 25.4))
+                ax = fig.add_axes([0, 0, 1, 1])
+                ax.set_xlim(0, side[0]); ax.set_ylim(0, side[1]); ax.axis("off")
+                ox, oy = x0 + i * bw, y0 + j * bh
+                for pts, lag in liner:
+                    farge = {"SKJER": "k", "BOY": "#c00", "VALS": "#06c"}.get(lag, "k")
+                    ax.plot([marg + p[0] - ox for p in pts], [marg + 8 + p[1] - oy for p in pts], color=farge,
+                            lw=0.6 if lag == "SKJER" else 0.4, ls="-" if lag == "SKJER" else (0, (6, 3)))
+                ax.add_patch(plt.Rectangle((marg, marg + 8), bw, bh, fill=False, lw=0.3, ls=(0, (2, 2)), color="#888"))
+                for cx, cy in ((marg, marg + 8), (marg + bw, marg + 8), (marg, marg + 8 + bh), (marg + bw, marg + 8 + bh)):
+                    ax.plot([cx - 4, cx + 4], [cy, cy], color="k", lw=0.4)
+                    ax.plot([cx, cx], [cy - 4, cy + 4], color="k", lw=0.4)
+                ax.plot([marg, marg + 100], [marg + 2, marg + 2], color="k", lw=0.8)
+                ax.text(marg + 102, marg + 1, "100 mm: kontroller utskrifta (100 %, ikkje tilpass)", fontsize=6)
+                ax.text(side[0] - marg, marg + 1, f"Sveip D01 · mal 1:1 · side {j * nx + i + 1} av {nx * ny} "
+                        f"(kolonne {i + 1}, rad {j + 1}) · skjer langs stipla ramme og legg kant i kant",
+                        fontsize=6, ha="right")
+                pdf.savefig(fig)
+                plt.close(fig)
+    return nx * ny

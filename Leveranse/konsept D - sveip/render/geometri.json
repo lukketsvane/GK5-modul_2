@@ -317,9 +317,9 @@
    "namn": "Føter",
    "stl": "produksjon/stl/sveip_k08_foter.stl",
    "farge": [
-    0.08,
-    0.08,
-    0.08
+    0.8,
+    0.8,
+    0.79
    ],
    "type": "kjop",
    "modul": false

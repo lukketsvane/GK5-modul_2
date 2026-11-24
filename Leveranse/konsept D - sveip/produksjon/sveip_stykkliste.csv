@@ -1,12 +1,12 @@
 id;namn;tal;materiale / delenummer;type;masse_g;mål_mm;step
-D01;Kropp;1;EN AW-5754 H22 1,5 mm, pulverlakk;lag;502.2;300.01 x 105.02 x 300.02;cad/step/sveip_d01_kropp.step
-D02;Chassis;1;EN AW-5754 H22 2,0 mm, pulverlakk;lag;159.5;173.84 x 97.67 x 184.81;cad/step/sveip_d02_chassis.step
-D03;Lysbrett;1;EN AW-5754 H22 2,0 mm, blank;lag;107.6;294.67 x 99.67 x 1.57;cad/step/sveip_d03_lysbrett.step
+D01;Kropp;1;EN AW-5754 H22 1,2 mm, pulverlakk;lag;502.2;300.01 x 105.02 x 300.02;cad/step/sveip_d01_kropp.step
+D02;Chassis;1;EN AW-5754 H22 1,5 mm, pulverlakk;lag;159.5;173.84 x 97.67 x 184.81;cad/step/sveip_d02_chassis.step
+D03;Lysbrett;1;EN AW-5754 H22 1,5 mm, blank;lag;107.6;294.67 x 99.67 x 1.57;cad/step/sveip_d03_lysbrett.step
 D04;LED-kort opp;1;FR-4 1,0 mm, 2 lag, termiske via;lag;15.9;240.0 x 36.0 x 1.0;cad/step/sveip_d04_led_kort_opp.step
 D04L;LED opp 2700K x16;16;3030 LED;kjop;0.2;213.0 x 19.0 x 0.65;cad/step/sveip_d04l_led_opp_2700k_x16.step
 D05;LED-kort ned;1;MCPCB alu 1,6 mm;lag;26.9;101.53 x 76.05 x 1.65;cad/step/sveip_d05_led_kort_ned.step
 D05L;LED ned 3000K x24;24;3030 LED;kjop;0.3;83.0 x 51.0 x 0.65;cad/step/sveip_d05l_led_ned_3000k_x24.step
-D06;Ramme;1;PC kvit (PETG i prototypen);lag;21.9;121.84 x 101.67 x 17.57;cad/step/sveip_d06_ramme.step
+D06;Ramme;1;PC kvit (PETG i prototypen);lag;28.2;121.84 x 101.67 x 17.57;cad/step/sveip_d06_ramme.step
 D07;Diffusor ned;1;PMMA opal 2 mm;lag;25.2;118.43 x 98.27 x 2.07;cad/step/sveip_d07_diffusor_ned.step
 D08;Diffusor opp;1;PMMA opal 1,5 mm;lag;47.2;292.67 x 97.67 x 1.57;cad/step/sveip_d08_diffusor_opp.step
 D09;Hovudkort;1;FR-4 1,6 mm;lag;17.3;98.0 x 60.0 x 1.6;cad/step/sveip_d09_hovudkort.step
@@ -25,7 +25,7 @@ K03;Avstand hovudkort M3x20;4;alu sekskant F-F 5,5 NV;kjop;4.1;96.35 x 57.5 x 20
 K05;Låsande avstand 16;6;PA 6.6 kvit;kjop;3.2;207.5 x 93.5 x 21.9;cad/step/sveip_k05_laasande_avstand_16.step
 K06;Avstand USB SO-M3-3;2;PEM SO-M3-3;kjop;1.0;5.2 x 31.2 x 4.5;cad/step/sveip_k06_avstand_usb_so_m3_3.step
 K07;PEM-mutrar i chassiset CLS-M3-1;10;PEM CLS-M3-1;kjop;2.6;98.34 x 98.34 x 181.8;cad/step/sveip_k07_pem_mutrar_i_chassiset_cls_m3_1.step
-K08;Føter;4;TPE 60 ShA, push-in;kjop;1.2;118.01 x 102.01 x 5.21;cad/step/sveip_k08_foter.step
+K08;Føter;4;TPE 60 ShA lys grå, push-in;kjop;1.2;118.01 x 102.01 x 5.21;cad/step/sveip_k08_foter.step
 K09;Skruar kropp ISO 7380 M3x6;4;A2;kjop;2.4;53.7 x 97.7 x 7.65;cad/step/sveip_k09_skruar_kropp_iso_7380_m3x6.step
 K10;Skruar modul ISO 7380 M3x5;4;A2;kjop;2.2;21.7 x 75.7 x 6.65;cad/step/sveip_k10_skruar_modul_iso_7380_m3x5.step
 K11;Skruar opp-kort M3x4;6;A2;kjop;2.5;192.5 x 33.5 x 5.3;cad/step/sveip_k11_skruar_opp_kort_m3x4.step

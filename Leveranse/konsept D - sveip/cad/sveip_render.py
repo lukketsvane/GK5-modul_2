@@ -82,6 +82,9 @@ def lin(c):
 
 
 def importer(geo, lys_paa=False, flytt_modul=0.0):
+    global LAMPE
+    LAMPE = bpy.data.collections.new("lampe")
+    bpy.context.scene.collection.children.link(LAMPE)
     objs = []
     kropp = mat("kropp", lin((0.80, 0.80, 0.79)), rough=0.62)
     alu = mat("alu", lin((0.78, 0.79, 0.80)), rough=0.35, metal=1.0)
@@ -99,7 +102,7 @@ def importer(geo, lys_paa=False, flytt_modul=0.0):
     m_for = {"D01": kropp, "D02": kropp, "D10": kropp, "D03": alu, "D04": pcb, "D05": pcb,
              "D09": pcb, "D11": pcb, "D14": pcb, "D04L": led, "D05L": led, "D06": kvit,
              "D07": opal_ned, "D08": opal, "D12F": messing, "D12B": messing, "D13F": svart,
-             "D13B": svart, "K01": celle, "K02": svart, "K08": svart, "E01": svart,
+             "D13B": svart, "K01": celle, "K02": svart, "K08": kropp, "E01": svart,
              "D09K": svart, "D11J": kvit, "K18": kvit, "K05": kvit, "K20": messing}
     for d in geo["delar"]:
         sti = ROT / d["stl"]
@@ -114,6 +117,9 @@ def importer(geo, lys_paa=False, flytt_modul=0.0):
         o.data.materials.append(m_for.get(d["id"], staal))
         if d["modul"] and flytt_modul:
             o.location.z += flytt_modul
+        for c in list(o.users_collection):
+            c.objects.unlink(o)
+        LAMPE.objects.link(o)
         objs.append(o)
     return objs
 
@@ -134,7 +140,10 @@ def kamera(s, pos, maal, brennvidd=135, orto=None):
     return o
 
 
-def areal(s, namn, pos, maal, storleik, energi, farge=(1, 1, 1)):
+LAMPE = None   # samling med lampedelane (lyslenking: studiolyset treffer berre lampa)
+
+
+def areal(s, namn, pos, maal, storleik, energi, farge=(1, 1, 1), berre_lampa=False):
     l = bpy.data.lights.new(namn, "AREA")
     l.size = storleik
     l.energy = energi
@@ -143,6 +152,11 @@ def areal(s, namn, pos, maal, storleik, energi, farge=(1, 1, 1)):
     s.collection.objects.link(o)
     o.location = Vector(pos)
     o.rotation_euler = (Vector(maal) - Vector(pos)).to_track_quat("-Z", "Y").to_euler()
+    if berre_lampa and LAMPE is not None:
+        try:
+            o.light_linking.receiver_collection = LAMPE
+        except Exception as e:
+            print("lyslenking feila:", e)
     return o
 
 
@@ -194,10 +208,12 @@ def main():
         golv(s, (0.02, 0.02, 0.02), rough=0.35)
         kamera(s, (-0.62, -1.45, 0.62), (0.150, 0.0, 0.140), 105)
         if MODUS == "svart":
-            areal(s, "nokkel", (-0.5, -0.9, 1.3), (0.15, 0, 0.15), 1.2, 520)
-            areal(s, "kant", (1.2, 0.9, 0.7), (0.15, 0, 0.18), 0.8, 160, (0.85, 0.9, 1.0))
+            areal(s, "nokkel", (-0.5, -0.9, 1.3), (0.15, 0, 0.15), 1.2, 42, berre_lampa=True)
+            areal(s, "kant", (1.2, 0.9, 0.7), (0.15, 0, 0.18), 0.8, 14, (0.85, 0.9, 1.0), berre_lampa=True)
+            # svak flate bak kameraet: gjev messingpunktet ein refleks
+            areal(s, "spegel", (-0.95, -2.2, 0.75), (0.15, 0, 0.14), 1.4, 6, berre_lampa=True)
         else:
-            areal(s, "svak", (-0.5, -0.9, 1.3), (0.15, 0, 0.15), 1.2, 25)
+            areal(s, "svak", (-0.5, -0.9, 1.3), (0.15, 0, 0.15), 1.2, 2.5, berre_lampa=True)
         px = (1600, 1200)
         s.cycles.samples = 96 if PROVE else 384
     elif MODUS == "sprengt":
@@ -207,7 +223,7 @@ def main():
         verd(s, (1.0, 1.0, 1.0), 0.35)
         g = golv(s, (0.8, 0.8, 0.8), rough=1.0)
         g.is_shadow_catcher = True
-        kamera(s, (-1.30, -2.40, 1.50), (0.150, 0.0, 0.32), 85)
+        kamera(s, (-0.80, -1.45, 1.00), (0.150, 0.0, 0.31), 85)
         areal(s, "nokkel", (-0.9, -1.6, 1.8), (0.15, 0, 0.3), 1.8, 30)
         areal(s, "fyll", (1.6, -1.2, 0.9), (0.15, 0, 0.3), 2.0, 6)
         px = (1200, 1500)

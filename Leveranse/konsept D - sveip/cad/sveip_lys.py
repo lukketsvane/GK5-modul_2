@@ -134,6 +134,15 @@ def ramme():
     klem = d_form(X_RAMME, yt, Z_NED_KORT - 2.0, 2.0).cut(
         d_form(X_NED0 + 2.0, R_NED - 2.0, Z_NED_KORT - 3, 4))
     r = r.union(klem)
+    # lomme for nedkortet: fyller mellom kortkanten og veggen (styrer kortet, ingen overheng ved print)
+    fyll = d_form(X_RAMME, yt, Z_NED_KORT, T_PCB).cut(
+        d_form(X_NED0 - 0.5, R_NED + 0.5, Z_NED_KORT - 1, T_PCB + 2))
+    fyll = fyll.cut(boks(X_RAMME + T_RAMME - 0.5, X_NED0, H2[1] - 3.0, H2[1] + 3.0,
+                         Z_NED_KORT - 1, Z_BRETT + 1))                     # leidningskanal
+    r = r.union(fyll)
+    for x, y in LAAS_AVST:      # fri for sperra under brettet på dei låsande avstandsstykka
+        if x > X_RAMME:
+            r = r.cut(syl_z(x, y, 3.0, Z_NED_KORT - 0.1, Z_BRETT + 1))
     # skrueknastar: M3 frå undersida opp i brettet
     for x, y in RAMME_SKRUAR:
         r = r.union(syl_z(x, y, 3.5, Z_NED_KORT - 2.0, zt))

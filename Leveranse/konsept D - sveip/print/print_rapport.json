@@ -1,0 +1,99 @@
+[
+ {
+  "plate": "Sveip_A_skissemodell_1-2_PLA",
+  "delar": [
+   "Sveip_1-2_skissemodell"
+  ],
+  "filament": "Bambu PLA Matte @BBL P1S 0.4 nozzle",
+  "ams": "A4 Bambu PLA Matte",
+  "prosess": "0.20mm Standard @BBL X1C",
+  "veggloekker": 4,
+  "skrivar": "Bambu Lab P1S 0.4 nozzle",
+  "plate_type": "Textured PEI Plate",
+  "returkode": 0,
+  "slica": true,
+  "tid_t": 1.15,
+  "masse_g": 77.69,
+  "utanfor_plata": [
+   "false"
+  ]
+ },
+ {
+  "plate": "Sveip_B_volum_1-1_skjerm_PLA",
+  "delar": [
+   "Sveip_1-1_skjerm"
+  ],
+  "filament": "Bambu PLA Matte @BBL P1S 0.4 nozzle",
+  "ams": "A4 Bambu PLA Matte",
+  "prosess": "0.20mm Standard @BBL X1C",
+  "veggloekker": 5,
+  "skrivar": "Bambu Lab P1S 0.4 nozzle",
+  "plate_type": "Textured PEI Plate",
+  "returkode": 0,
+  "slica": true,
+  "tid_t": 2.98,
+  "masse_g": 239.68,
+  "utanfor_plata": [
+   "false"
+  ]
+ },
+ {
+  "plate": "Sveip_C_volum_1-1_stamme_PLA",
+  "delar": [
+   "Sveip_1-1_stamme"
+  ],
+  "filament": "Bambu PLA Matte @BBL P1S 0.4 nozzle",
+  "ams": "A4 Bambu PLA Matte",
+  "prosess": "0.20mm Standard @BBL X1C",
+  "veggloekker": 5,
+  "skrivar": "Bambu Lab P1S 0.4 nozzle",
+  "plate_type": "Textured PEI Plate",
+  "returkode": 0,
+  "slica": true,
+  "tid_t": 2.11,
+  "masse_g": 151.56,
+  "utanfor_plata": [
+   "false"
+  ]
+ },
+ {
+  "plate": "Sveip_E_volum_1-1_skoyteband_PLA",
+  "delar": [
+   "Sveip_1-1_skoyteband"
+  ],
+  "filament": "Bambu PLA Matte @BBL P1S 0.4 nozzle",
+  "ams": "A4 Bambu PLA Matte",
+  "prosess": "0.20mm Standard @BBL X1C",
+  "veggloekker": 4,
+  "skrivar": "Bambu Lab P1S 0.4 nozzle",
+  "plate_type": "Textured PEI Plate",
+  "returkode": 0,
+  "slica": true,
+  "tid_t": 0.22,
+  "masse_g": 13.46,
+  "utanfor_plata": [
+   "false"
+  ]
+ },
+ {
+  "plate": "Sveip_D_prototypedelar_PETG",
+  "delar": [
+   "Sveip_D06_ramme",
+   "Sveip_D13_hylse_1",
+   "Sveip_D13_hylse_2"
+  ],
+  "filament": "Bambu PETG HF @BBL P1S 0.4 nozzle",
+  "ams": "A3 PETG",
+  "prosess": "0.20mm Standard @BBL X1C",
+  "veggloekker": 3,
+  "skrivar": "Bambu Lab P1S 0.4 nozzle",
+  "plate_type": "Textured PEI Plate",
+  "returkode": 0,
+  "slica": true,
+  "tid_t": 0.75,
+  "masse_g": 23.59,
+  "utanfor_plata": [
+   "false"
+  ]
+ }
+]

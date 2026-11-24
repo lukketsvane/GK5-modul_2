@@ -50,6 +50,13 @@ RENDER = ROT / "render"
 for d in (STEP, DXF, STL, KONTROLL, RENDER):
     d.mkdir(parents=True, exist_ok=True)
 
+
+def rydd():
+    """Fjern gamle eksportar, så mappene berre har delane i gjeldande register."""
+    for d, ending in ((STEP, "*.step"), (STL, "*.stl"), (DXF, "*.dxf")):
+        for f in d.glob("sveip_" + ending):
+            f.unlink()
+
 ASCII = str.maketrans({"æ": "ae", "ø": "o", "å": "aa", "Æ": "AE", "Ø": "O", "Å": "AA", " ": "_",
                        "×": "x", ",": "_", "/": "_", "(": "", ")": "", "-": "_"})
 
@@ -89,6 +96,7 @@ def main(rask=False):
     t0 = time.time()
     rap = {"lampe": "Sveip", "revisjon": "A", "eining": "mm", "dato": "2026-11-24",
            "koordinatar": "x mot utkraginga, y djupn (framside negativ), z opp; bordet i z = -%.1f" % P0.fot_h}
+    rydd()
     print("byggjer delar ...")
     former, meta = {}, {}
     for d in SA.DELAR:

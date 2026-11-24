@@ -149,7 +149,7 @@ def ark(tittel, nr, skala_tekst, merknad=""):
     ax.plot([x0, x0 + b], [y0 + 12, y0 + 12], color="k", lw=TYNN * MM)
     ax.plot([x0 + 100, x0 + 100], [y0, y0 + h], color="k", lw=TYNN * MM)
     tekst(ax, x0 + 3, y0 + 16, f"Sveip · {tittel}", 11)
-    tekst(ax, x0 + 3, y0 + 4, "Konsept D for Northern · rev. A · 24.11.2026 · mål i mm", 7.5)
+    tekst(ax, x0 + 3, y0 + 4, "Konsept D for Northern · rev. B · 24.11.2026 · mål i mm", 7.5)
     tekst(ax, x0 + 103, y0 + 16, f"Ark {nr}", 9)
     tekst(ax, x0 + 103, y0 + 4, f"{skala_tekst} · ISO E", 7.5)
     if merknad:
@@ -178,10 +178,18 @@ SIDE_V = ((-1, 0, 0), (0, -1, 0))
 ISO = ((-1.0, -1.35, 0.85), (1.35, -1.0, 0.0))
 
 
+def _kontroll():
+    import json as _j
+    return _j.loads((ROT / "kontroll" / "sveip_kontroll.json").read_text(encoding="utf-8"))
+
+
 def ark_ga(pdf):
+    kt = _kontroll()
+    m, v = kt["masse"]["total_g"], kt["stabilitet"]["min_veltevinkel_grad"]
     fig, ax = ark("Generalarrangement", 1, "Skala 1:2",
-                  "Kropp EN AW-5754 H22 1,2 mm, valsa og pulverlakkert (matt, lys grå, fargeprøve krevst). "
-                  "Masse 1111 g. Veltevinkel 15,5° mot utkraginga. Toleransar ISO 2768-m der ikkje anna står.")
+                  f"Kropp EN AW-5754 H22 {k(P0.t)} mm, valsa, saum i nasen (laser, slipt), matt pulverlakk lys grå "
+                  f"(fargeprøve). Masse {k(m, 0)} g. Veltar ved {k(v)}°. D = 105 ±0,3 (kalibrert i fikstur). "
+                  "Elles ISO 2768-m.")
     s = 0.5
     ytre = former({"D01", "D12F", "D12B", "D13F", "D13B", "K08"})
     # framvising
@@ -198,10 +206,10 @@ def ark_ga(pdf):
     maal_v(ax, Z(0), Z(P0.z_hakk), X(P0.x_hakk) + 6, X(P0.x_hakk), X(P0.x_hakk), "61", venstre=False)
     peikar(ax, X(P0.x_stamme + 3.5), Z(P0.z_skjerm - 3.5), X(P0.x_stamme + 30), Z(P0.z_skjerm - 30), "R12 (inner)")
     peikar(ax, X(P0.x_hakk - 2), Z(P0.z_hakk - 2), X(P0.x_hakk + 25), Z(P0.z_hakk - 40), "R7")
-    peikar(ax, X(P0.pkt_x), Z(P0.pkt_z), X(P0.pkt_x + 70), Z(P0.pkt_z - 20),
-           "Ø10 messing, flukt (berøring)")
-    maal_h(ax, X(0), X(P0.pkt_x), Z(P0.pkt_z), Z(P0.pkt_z), Z(P0.pkt_z), "165")
-    maal_v(ax, Z(0), Z(P0.pkt_z), X(P0.pkt_x) - 6, X(P0.pkt_x), X(P0.pkt_x), "140")
+    peikar(ax, X(P0.pkt_x), Z(P0.pkt_z), X(P0.pkt_x + 62), Z(P0.pkt_z + 34),
+           "messingknapp Ø12,8 (berøring), framme og bak")
+    maal_h(ax, X(0), X(P0.pkt_x), Z(P0.pkt_z), Z(P0.pkt_z), Z(P0.pkt_z), k(P0.pkt_x, 0))
+    maal_v(ax, Z(0), Z(P0.pkt_z), X(P0.pkt_x) - 6, X(P0.pkt_x), X(P0.pkt_x), k(P0.pkt_z, 0))
     tekst(ax, X(S / 2), Z(-44), "Framfrå", 9, ha="center")
     # vising ovanfrå (under framvisinga i ISO E)
     tx, ty = fx, 62.0
@@ -210,6 +218,7 @@ def ark_ga(pdf):
     Y = lambda y: ty + y * s
     maal_v(ax, Y(-P0.R), Y(P0.R), tx - 10, tx, tx, "105")
     peikar(ax, X(S - P0.R + P0.R * 0.7), Y(P0.R * 0.7), X(S + 18), Y(P0.R + 8), "R52,5 (ytre)")
+    peikar(ax, X(S), Y(0), X(S + 14), Y(-P0.R - 6), "saum i nasen")
     tekst(ax, X(S / 2), ty - 34, "Ovanfrå (med innmat)", 9, ha="center")
     # vising frå venstre: til høgre for framvisinga (ISO E)
     sx, sy = 225.0, fy
@@ -246,13 +255,15 @@ def ark_snitt(pdf):
     teikn(ax, hlr([f for _, f in s_], *FRAMME), fx, fy, s)
     X = lambda x: fx + x * s
     Z = lambda z: fy + z * s
-    merk = [("D01", 2, 250, "D01 kropp 1,2 mm"), ("D08", 150, 205, "D08 diffusor opp, PMMA opal 1,5"),
-            ("D04", 100, 188.5, "D04 LED opp 2700 K, 16 stk"), ("D03", 60, 187, "D03 lysbrett 1,5 mm"),
-            ("D05", 230, 185, "D05 LED ned 3000 K, 24 stk"), ("D06", 290, 175, "D06 ramme"),
-            ("D07", 240, 170.5, "D07 diffusor ned, PMMA opal 2"), ("D02", 175, 100, "D02 chassis 1,5 mm (rygg)"),
-            ("D09", 120, 23.8, "D09 hovudkort"), ("K01", 120, 13, "K01 celle 18650"),
-            ("D10", 120, 0.6, "D10 luke, 2 myntskruar"), ("D11", 23, 66, "D11 USB-C, munning i taket"),
-            ("D14", 170.7, 150, "D14 berøringskort med fjør")]
+    import sveip_innmat as _I
+    import sveip_lys as _L
+    merk = [("D01", 2, 250, f"D01 kropp {k(P0.t)} mm"), ("D08", 150, _L.Z_DIFF_OPP + 0.7, "D08 diffusor opp, PMMA opal 1,5"),
+            ("D04", 100, _L.Z_OPP_KORT + 0.5, "D04 LED opp 2700 K, 16 stk"), ("D03", 60, _L.Z_BRETT + 0.7, "D03 lysbrett 1,5 mm"),
+            ("D05", 230, _L.Z_NED_KORT + 0.8, "D05 LED ned 3000 K, 24 stk"), ("D06", 290, 175, "D06 ramme, innsatsar M3"),
+            ("D07", 240, _L.Z_DIFF_NED + 1, "D07 diffusor ned, PMMA opal 2"), ("D02", 175, 110, "D02 chassis 1,5 mm, rygg med sideflensar"),
+            ("D09", 120, _I.Z_HK + 0.8, "D09 hovudkort"), ("K01", 120, _I.CELLE_Z, "K01 celle 21700"),
+            ("D10", 120, 0.4, "D10 luke, 2 myntskruar"), ("D11", 23, _I.Z_USB + 0.8, "D11 USB-C, munning i taket"),
+            ("D14", 170.7, P0.pkt_z + 8, "D14 berøringskort med fjør")]
     for i, (pid, x, z, s_txt) in enumerate(merk):
         xt = X(320) if x > 140 else X(-60)
         yt = Z(300 - i * 23)
@@ -262,16 +273,17 @@ def ark_snitt(pdf):
 
 
 def ark_sprengt(pdf):
-    fig, ax = ark("Sprengd vising og stykkliste", 3, "Skala 1:3",
-                  "Montering: modulen ned gjennom toppen (1), 4 skruar nedanfrå (2), berøringspunkta smett inn (3), "
-                  "føter (4), celle og luke (5).")
+    fig, ax = ark("Sprengd vising og stykkliste", 3, "Skala 1:4",
+                  "Montering: innmaten ned gjennom toppen (1), 4 skruar nedanfrå (2), berøringspunkta smett inn (3), "
+                  "føtene over skruehovuda (4), celle og luke (5). Service i motsett rekkjefølgje.")
     flytt = {}
     for d in SA.DELAR:
         i = d[0]
         if i in ("D01", "E01"):
             continue
         dz = 0.0
-        if i in ("D03", "D04", "D04L", "D05", "D05L", "D06", "D07", "D08", "K05", "K11", "K12", "K18", "K21", "K10"):
+        if i in ("D03", "D04", "D04L", "D05", "D05L", "D06", "D07", "D08", "K05", "K11", "K12", "K18", "K21", "K10",
+                 "K22", "K23"):
             dz = 330.0
         elif i in ("D10", "K14"):
             dz = -90.0
@@ -314,7 +326,7 @@ def ark_sprengt(pdf):
     x0, y0 = 262.0, 280.0
     tekst(ax, x0, y0, "Nr.   Del                                          Tal   Materiale / delenummer", 7)
     for k, d in enumerate(rad):
-        y = y0 - 5.6 * (k + 1)
+        y = y0 - 5.3 * (k + 1)
         tekst(ax, x0, y, d[0], 6.5)
         tekst(ax, x0 + 10, y, d[1][:30], 6.5)
         tekst(ax, x0 + 58, y, str(d[7]), 6.5)
@@ -326,8 +338,8 @@ def ark_flat(pdf):
     import ezdxf
     from ezdxf import path as epath
     fig, ax = ark("Flatmønster D01 kropp", 4, "Skala 1:2",
-                  "Laserskjering 1,2 mm EN AW-5754 H22. K = 0,5 i bogane (R/t > 40). Saum i s = 0 / s = L: "
-                  "laser-buttsveis, slipast plan før lakk. Bøy flensane (90°, ri 2) før bogane.")
+                  "Laserskjering 1,2 mm EN AW-5754 H22. K = 0,5 i bogane, 0,42 i flensbøyen. Saum i nasen (s = 0 / s = L): "
+                  "laser-buttsveis frå flik til flik, flikane skjerast av, slipast. Flensane (90°, ri 2) først, så bogane.")
     doc = ezdxf.readfile(ROT / "produksjon/dxf/sveip_D01_kropp_flat.dxf")
     s = 0.5
     ox, oy = 30.0, 80.0
@@ -347,11 +359,12 @@ def ark_flat(pdf):
     Z = lambda z: oy + z * s
     maal_h(ax, X(0), X(L), Z(S) + 10, Z(S), Z(S), k(L) + " (utbretta lengd)")
     maal_v(ax, Z(f["z_fl2"]), Z(S), X(0) - 8, X(f["sa"]), X(0), k(S - f['z_fl2']))
-    for (a, b), namn in zip(f["s_boge"], ("valsesone høgre boge", "valsesone venstre boge")):
+    for (a, b), namn in zip(f["s_boge"], ("valsing nase", "valsing venstre boge", "valsing nase")):
         maal_h(ax, X(a), X(b), Z(S) + 3.5, Z(S), Z(S), k(b - a) + "  " + namn)
     maal_h(ax, X(f["ha"]), X(f["hb"]), Z(P0.z_hakk) + 4, Z(P0.z_hakk), Z(P0.z_hakk), k(f['hb'] - f['ha']) + " hakk")
     maal_h(ax, X(f["sa"]), X(f["sb"]), Z(f["z_fl2"]) - 9, Z(f["z_fl2"]), Z(f["z_fl2"]), k(f['sb'] - f['sa']) + " stamme", opp=False)
-    tekst(ax, X(5), Z(S) - 8, "baksida, saum", 7)
+    tekst(ax, X(12), Z(S) - 8, "saum", 7)
+    tekst(ax, X(L - 12), Z(S) - 8, "saum", 7, ha="right")
     tekst(ax, X(L / 2), Z(S / 2 + 40), "innsida opp", 8, ha="center", color="#555")
     tekst(ax, ox, oy - 30, "Raud stipla: bøyeline flens (90° innover).  Blå stipla: start og slutt for 180°-bogane (Ri 51,3).", 7)
     pdf.savefig(fig); fig.savefig(UT / "side-04.png", dpi=150); plt.close(fig)

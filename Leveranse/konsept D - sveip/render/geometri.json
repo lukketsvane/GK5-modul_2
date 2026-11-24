@@ -242,8 +242,8 @@
   },
   {
    "id": "K01",
-   "namn": "Celle 18650",
-   "stl": "produksjon/stl/sveip_k01_celle_18650.stl",
+   "namn": "Celle 21700",
+   "stl": "produksjon/stl/sveip_k01_celle_21700.stl",
    "farge": [
     0.2,
     0.35,
@@ -266,8 +266,8 @@
   },
   {
    "id": "K03",
-   "namn": "Avstand hovudkort M3x20",
-   "stl": "produksjon/stl/sveip_k03_avstand_hovudkort_m3x20.stl",
+   "namn": "Avstand hovudkort M3x25",
+   "stl": "produksjon/stl/sveip_k03_avstand_hovudkort_m3x25.stl",
    "farge": [
     0.75,
     0.76,
@@ -278,8 +278,8 @@
   },
   {
    "id": "K05",
-   "namn": "Låsande avstand 16",
-   "stl": "produksjon/stl/sveip_k05_laasande_avstand_16.stl",
+   "namn": "Nylonavstand M3x28 + 2 nylonskruar M3x6",
+   "stl": "produksjon/stl/sveip_k05_nylonavstand_m3x28_+_2_nylonskruar_m3x6.stl",
    "farge": [
     0.95,
     0.95,
@@ -302,8 +302,8 @@
   },
   {
    "id": "K07",
-   "namn": "PEM-mutrar i chassiset CLS-M3-1",
-   "stl": "produksjon/stl/sveip_k07_pem_mutrar_i_chassiset_cls_m3_1.stl",
+   "namn": "PEM-mutrar i chassiset CLS-M3-2",
+   "stl": "produksjon/stl/sveip_k07_pem_mutrar_i_chassiset_cls_m3_2.stl",
    "farge": [
     0.62,
     0.63,
@@ -362,12 +362,36 @@
   },
   {
    "id": "K12",
-   "namn": "Skruar ramme M3x6",
-   "stl": "produksjon/stl/sveip_k12_skruar_ramme_m3x6.stl",
+   "namn": "Skruar ramme M3x6 ovanfrå",
+   "stl": "produksjon/stl/sveip_k12_skruar_ramme_m3x6_ovanfraa.stl",
    "farge": [
     0.62,
     0.63,
     0.65
+   ],
+   "type": "kjop",
+   "modul": true
+  },
+  {
+   "id": "K23",
+   "namn": "Gjengeinnsats M3 x 5",
+   "stl": "produksjon/stl/sveip_k23_gjengeinnsats_m3_x_5.stl",
+   "farge": [
+    0.78,
+    0.62,
+    0.32
+   ],
+   "type": "kjop",
+   "modul": true
+  },
+  {
+   "id": "K22",
+   "namn": "Glideputer",
+   "stl": "produksjon/stl/sveip_k22_glideputer.stl",
+   "farge": [
+    0.95,
+    0.95,
+    0.94
    ],
    "type": "kjop",
    "modul": true
@@ -446,8 +470,8 @@
   },
   {
    "id": "K21",
-   "namn": "PEM-mutrar i lysbrettet CLS-M3-1",
-   "stl": "produksjon/stl/sveip_k21_pem_mutrar_i_lysbrettet_cls_m3_1.stl",
+   "namn": "PEM-mutrar i lysbrettet CLS-M3-2",
+   "stl": "produksjon/stl/sveip_k21_pem_mutrar_i_lysbrettet_cls_m3_2.stl",
    "farge": [
     0.62,
     0.63,

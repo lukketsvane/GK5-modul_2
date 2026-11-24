@@ -1,6 +1,6 @@
 {
  "lampe": "Sveip",
- "revisjon": "A",
+ "revisjon": "B",
  "eining": "mm",
  "dato": "2026-11-24",
  "koordinatar": "x mot utkraginga, y djupn (framside negativ), z opp; bordet i z = -3.0",
@@ -13,8 +13,8 @@
    "tal": 1,
    "gyldig": true,
    "step_attlest": true,
-   "volum_cm3": 188.086,
-   "masse_g": 502.2,
+   "volum_cm3": 189.136,
+   "masse_g": 505.0,
    "maal_mm": [
     300.01,
     105.02,
@@ -31,12 +31,12 @@
    "tal": 1,
    "gyldig": true,
    "step_attlest": true,
-   "volum_cm3": 59.748,
-   "masse_g": 159.5,
+   "volum_cm3": 62.198,
+   "masse_g": 166.1,
    "maal_mm": [
-    173.84,
-    97.67,
-    184.81
+    172.34,
+    97.6,
+    184.8
    ],
    "step": "cad/step/sveip_d02_chassis.step",
    "stl": "produksjon/stl/sveip_d02_chassis.stl"
@@ -49,11 +49,11 @@
    "tal": 1,
    "gyldig": true,
    "step_attlest": true,
-   "volum_cm3": 40.282,
-   "masse_g": 107.6,
+   "volum_cm3": 38.697,
+   "masse_g": 103.3,
    "maal_mm": [
-    294.67,
-    99.67,
+    291.67,
+    96.67,
     1.57
    ],
    "step": "cad/step/sveip_d03_lysbrett.step",
@@ -139,11 +139,11 @@
    "tal": 1,
    "gyldig": true,
    "step_attlest": true,
-   "volum_cm3": 23.54,
-   "masse_g": 28.2,
+   "volum_cm3": 21.646,
+   "masse_g": 26.0,
    "maal_mm": [
-    121.84,
-    101.67,
+    120.33,
+    98.67,
     17.57
    ],
    "step": "cad/step/sveip_d06_ramme.step",
@@ -157,11 +157,11 @@
    "tal": 1,
    "gyldig": true,
    "step_attlest": true,
-   "volum_cm3": 21.184,
-   "masse_g": 25.2,
+   "volum_cm3": 20.313,
+   "masse_g": 24.2,
    "maal_mm": [
-    118.43,
-    98.27,
+    116.93,
+    95.27,
     2.07
    ],
    "step": "cad/step/sveip_d07_diffusor_ned.step",
@@ -175,7 +175,7 @@
    "tal": 1,
    "gyldig": true,
    "step_attlest": true,
-   "volum_cm3": 39.657,
+   "volum_cm3": 39.689,
    "masse_g": 47.2,
    "maal_mm": [
     292.67,
@@ -229,11 +229,11 @@
    "tal": 1,
    "gyldig": true,
    "step_attlest": true,
-   "volum_cm3": 4.665,
-   "masse_g": 12.5,
+   "volum_cm3": 5.685,
+   "masse_g": 15.2,
    "maal_mm": [
-    98.0,
-    32.0,
+    106.0,
+    36.0,
     1.5
    ],
    "step": "cad/step/sveip_d10_luke.step",
@@ -296,17 +296,17 @@
   {
    "id": "D12F",
    "namn": "Berøringspunkt framme",
-   "materiale": "CuZn39Pb3 messing, stansa skive, rifla kant",
+   "materiale": "CuZn37 (blyfri), dreia knapp, klarlakk",
    "type": "lag",
    "tal": 1,
    "gyldig": true,
    "step_attlest": true,
-   "volum_cm3": 0.094,
-   "masse_g": 0.8,
+   "volum_cm3": 0.128,
+   "masse_g": 1.1,
    "maal_mm": [
-    10.0,
-    1.2,
-    10.0
+    12.8,
+    3.1,
+    12.8
    ],
    "step": "cad/step/sveip_d12f_beroringspunkt_framme.step",
    "stl": "produksjon/stl/sveip_d12f_beroringspunkt_framme.stl"
@@ -314,17 +314,17 @@
   {
    "id": "D12B",
    "namn": "Berøringspunkt bak",
-   "materiale": "CuZn39Pb3 messing, stansa skive, rifla kant",
+   "materiale": "CuZn37 (blyfri), dreia knapp, klarlakk",
    "type": "lag",
    "tal": 1,
    "gyldig": true,
    "step_attlest": true,
-   "volum_cm3": 0.094,
-   "masse_g": 0.8,
+   "volum_cm3": 0.128,
+   "masse_g": 1.1,
    "maal_mm": [
-    10.0,
-    1.2,
-    10.0
+    12.8,
+    3.1,
+    12.8
    ],
    "step": "cad/step/sveip_d12b_beroringspunkt_bak.step",
    "stl": "produksjon/stl/sveip_d12b_beroringspunkt_bak.stl"
@@ -332,17 +332,17 @@
   {
    "id": "D13F",
    "namn": "Hylse framme",
-   "materiale": "POM svart, sneppehakar",
+   "materiale": "POM, sneppehakar (usynleg under kragen)",
    "type": "lag",
    "tal": 1,
    "gyldig": true,
    "step_attlest": true,
-   "volum_cm3": 0.181,
+   "volum_cm3": 0.246,
    "masse_g": 0.3,
    "maal_mm": [
-    12.91,
+    13.01,
     2.71,
-    12.91
+    13.01
    ],
    "step": "cad/step/sveip_d13f_hylse_framme.step",
    "stl": "produksjon/stl/sveip_d13f_hylse_framme.stl"
@@ -350,92 +350,92 @@
   {
    "id": "D13B",
    "namn": "Hylse bak",
-   "materiale": "POM svart, sneppehakar",
+   "materiale": "POM, sneppehakar (usynleg under kragen)",
    "type": "lag",
    "tal": 1,
    "gyldig": true,
    "step_attlest": true,
-   "volum_cm3": 0.181,
+   "volum_cm3": 0.246,
    "masse_g": 0.3,
    "maal_mm": [
-    12.91,
+    13.01,
     2.71,
-    12.91
+    13.01
    ],
    "step": "cad/step/sveip_d13b_hylse_bak.step",
    "stl": "produksjon/stl/sveip_d13b_hylse_bak.stl"
   },
   {
    "id": "K01",
-   "namn": "Celle 18650",
-   "materiale": "Samsung INR18650-35E (utan vern)",
+   "namn": "Celle 21700",
+   "materiale": "Samsung INR21700-50E (utan vern, vern på D09)",
    "type": "kjop",
    "tal": 1,
    "gyldig": true,
    "step_attlest": true,
-   "volum_cm3": 17.634,
-   "masse_g": 48.5,
+   "volum_cm3": 25.11,
+   "masse_g": 69.6,
    "maal_mm": [
-    65.26,
-    18.56,
-    18.56
+    70.81,
+    21.26,
+    21.26
    ],
-   "step": "cad/step/sveip_k01_celle_18650.step",
-   "stl": "produksjon/stl/sveip_k01_celle_18650.stl"
+   "step": "cad/step/sveip_k01_celle_21700.step",
+   "stl": "produksjon/stl/sveip_k01_celle_21700.stl"
   },
   {
    "id": "K02",
    "namn": "Batterihaldar",
-   "materiale": "Keystone 1043P",
+   "materiale": "Keystone 1121 (21700, polarisert)",
    "type": "kjop",
    "tal": 1,
    "gyldig": true,
    "step_attlest": true,
-   "volum_cm3": 8.641,
-   "masse_g": 13.8,
+   "volum_cm3": 13.435,
+   "masse_g": 21.5,
    "maal_mm": [
-    77.1,
-    20.7,
-    18.01
+    82.2,
+    23.1,
+    21.6
    ],
    "step": "cad/step/sveip_k02_batterihaldar.step",
    "stl": "produksjon/stl/sveip_k02_batterihaldar.stl"
   },
   {
    "id": "K03",
-   "namn": "Avstand hovudkort M3x20",
+   "namn": "Avstand hovudkort M3x25",
    "materiale": "alu sekskant F-F 5,5 NV",
    "type": "kjop",
    "tal": 4,
    "gyldig": true,
    "step_attlest": true,
-   "volum_cm3": 1.53,
-   "masse_g": 4.1,
+   "volum_cm3": 1.913,
+   "masse_g": 5.2,
    "maal_mm": [
     96.35,
     57.5,
-    20.0
+    25.0
    ],
-   "step": "cad/step/sveip_k03_avstand_hovudkort_m3x20.step",
-   "stl": "produksjon/stl/sveip_k03_avstand_hovudkort_m3x20.stl"
+   "step": "cad/step/sveip_k03_avstand_hovudkort_m3x25.step",
+   "stl": "produksjon/stl/sveip_k03_avstand_hovudkort_m3x25.stl"
   },
   {
    "id": "K05",
-   "namn": "Låsande avstand 16",
+   "namn": "Nylonavstand M3x28 + 2 nylonskruar M3x6",
    "materiale": "PA 6.6 kvit",
    "type": "kjop",
    "tal": 6,
    "gyldig": true,
    "step_attlest": true,
-   "volum_cm3": 2.849,
-   "masse_g": 3.2,
+   "volum_cm3": 4.736,
+   "masse_g": 5.4,
    "maal_mm": [
-    207.5,
-    93.5,
-    21.9
+    224.0,
+    86.0,
+    35.0
    ],
-   "step": "cad/step/sveip_k05_laasande_avstand_16.step",
-   "stl": "produksjon/stl/sveip_k05_laasande_avstand_16.stl"
+   "step": "cad/step/sveip_k05_nylonavstand_m3x28_+_2_nylonskruar_m3x6.step",
+   "stl": "produksjon/stl/sveip_k05_nylonavstand_m3x28_+_2_nylonskruar_m3x6.stl"
   },
   {
    "id": "K06",
@@ -457,36 +457,36 @@
   },
   {
    "id": "K07",
-   "namn": "PEM-mutrar i chassiset CLS-M3-1",
-   "materiale": "PEM CLS-M3-1",
+   "namn": "PEM-mutrar i chassiset CLS-M3-2",
+   "materiale": "PEM CLS-M3-2",
    "type": "kjop",
    "tal": 10,
    "gyldig": true,
    "step_attlest": true,
-   "volum_cm3": 0.328,
-   "masse_g": 2.6,
+   "volum_cm3": 0.368,
+   "masse_g": 2.9,
    "maal_mm": [
-    98.34,
-    98.34,
+    101.34,
+    91.34,
     181.8
    ],
-   "step": "cad/step/sveip_k07_pem_mutrar_i_chassiset_cls_m3_1.step",
-   "stl": "produksjon/stl/sveip_k07_pem_mutrar_i_chassiset_cls_m3_1.stl"
+   "step": "cad/step/sveip_k07_pem_mutrar_i_chassiset_cls_m3_2.step",
+   "stl": "produksjon/stl/sveip_k07_pem_mutrar_i_chassiset_cls_m3_2.stl"
   },
   {
    "id": "K08",
    "namn": "Føter",
-   "materiale": "TPE 60 ShA lys grå, push-in",
+   "materiale": "TPE 60 ShA lys grå, sneppar over skruehovudet",
    "type": "kjop",
    "tal": 4,
    "gyldig": true,
    "step_attlest": true,
-   "volum_cm3": 1.113,
-   "masse_g": 1.2,
+   "volum_cm3": 1.172,
+   "masse_g": 1.3,
    "maal_mm": [
-    118.01,
-    102.01,
-    5.21
+    92.01,
+    97.01,
+    3.01
    ],
    "step": "cad/step/sveip_k08_foter.step",
    "stl": "produksjon/stl/sveip_k08_foter.stl"
@@ -502,8 +502,8 @@
    "volum_cm3": 0.306,
    "masse_g": 2.4,
    "maal_mm": [
-    53.7,
-    97.7,
+    85.7,
+    90.7,
     7.65
    ],
    "step": "cad/step/sveip_k09_skruar_kropp_iso_7380_m3x6.step",
@@ -520,7 +520,7 @@
    "volum_cm3": 0.283,
    "masse_g": 2.2,
    "maal_mm": [
-    21.7,
+    18.7,
     75.7,
     6.65
    ],
@@ -547,7 +547,7 @@
   },
   {
    "id": "K12",
-   "namn": "Skruar ramme M3x6",
+   "namn": "Skruar ramme M3x6 ovanfrå",
    "materiale": "A2",
    "type": "kjop",
    "tal": 4,
@@ -556,12 +556,48 @@
    "volum_cm3": 0.261,
    "masse_g": 2.1,
    "maal_mm": [
-    100.5,
-    93.5,
+    99.5,
+    91.5,
     7.3
    ],
-   "step": "cad/step/sveip_k12_skruar_ramme_m3x6.step",
-   "stl": "produksjon/stl/sveip_k12_skruar_ramme_m3x6.stl"
+   "step": "cad/step/sveip_k12_skruar_ramme_m3x6_ovanfraa.step",
+   "stl": "produksjon/stl/sveip_k12_skruar_ramme_m3x6_ovanfraa.stl"
+  },
+  {
+   "id": "K23",
+   "namn": "Gjengeinnsats M3 x 5",
+   "materiale": "messing, varmepressa",
+   "type": "kjop",
+   "tal": 4,
+   "gyldig": true,
+   "step_attlest": true,
+   "volum_cm3": 0.137,
+   "masse_g": 1.1,
+   "maal_mm": [
+    98.0,
+    90.0,
+    5.0
+   ],
+   "step": "cad/step/sveip_k23_gjengeinnsats_m3_x_5.step",
+   "stl": "produksjon/stl/sveip_k23_gjengeinnsats_m3_x_5.stl"
+  },
+  {
+   "id": "K22",
+   "namn": "Glideputer",
+   "materiale": "POM kvit, snepp",
+   "type": "kjop",
+   "tal": 4,
+   "gyldig": true,
+   "step_attlest": true,
+   "volum_cm3": 1.052,
+   "masse_g": 1.5,
+   "maal_mm": [
+    70.0,
+    101.6,
+    6.0
+   ],
+   "step": "cad/step/sveip_k22_glideputer.step",
+   "stl": "produksjon/stl/sveip_k22_glideputer.stl"
   },
   {
    "id": "K13",
@@ -576,7 +612,7 @@
    "maal_mm": [
     95.7,
     57.7,
-    26.05
+    31.05
    ],
    "step": "cad/step/sveip_k13_skruar_hovudkort_m3x5.step",
    "stl": "produksjon/stl/sveip_k13_skruar_hovudkort_m3x5.stl"
@@ -584,17 +620,17 @@
   {
    "id": "K14",
    "namn": "Myntskruar luke M3x6",
-   "materiale": "A2, fanga",
+   "materiale": "A2, fanga, hovud Ø8 x 2, spor 1,2 x 1,0",
    "type": "kjop",
    "tal": 2,
    "gyldig": true,
    "step_attlest": true,
-   "volum_cm3": 0.189,
-   "masse_g": 1.5,
+   "volum_cm3": 0.27,
+   "masse_g": 2.1,
    "maal_mm": [
-    98.01,
+    103.01,
     8.01,
-    7.2
+    8.0
    ],
    "step": "cad/step/sveip_k14_myntskruar_luke_m3x6.step",
    "stl": "produksjon/stl/sveip_k14_myntskruar_luke_m3x6.stl"
@@ -656,16 +692,16 @@
   {
    "id": "K20",
    "namn": "Fjørkontaktar",
-   "materiale": "CuSn6 forgylt",
+   "materiale": "CuSn6 forgylt, 0,8 mm forspenning, 2 mm slag",
    "type": "kjop",
    "tal": 2,
    "gyldig": true,
    "step_attlest": true,
-   "volum_cm3": 0.052,
-   "masse_g": 0.5,
+   "volum_cm3": 0.049,
+   "masse_g": 0.4,
    "maal_mm": [
     6.9,
-    102.5,
+    99.6,
     4.0
    ],
    "step": "cad/step/sveip_k20_fjorkontaktar.step",
@@ -673,21 +709,21 @@
   },
   {
    "id": "K21",
-   "namn": "PEM-mutrar i lysbrettet CLS-M3-1",
-   "materiale": "PEM CLS-M3-1",
+   "namn": "PEM-mutrar i lysbrettet CLS-M3-2",
+   "materiale": "PEM CLS-M3-2",
    "type": "kjop",
-   "tal": 10,
+   "tal": 6,
    "gyldig": true,
    "step_attlest": true,
-   "volum_cm3": 0.271,
-   "masse_g": 2.1,
+   "volum_cm3": 0.221,
+   "masse_g": 1.7,
    "maal_mm": [
-    249.35,
-    94.35,
-    3.7
+    193.35,
+    34.35,
+    1.5
    ],
-   "step": "cad/step/sveip_k21_pem_mutrar_i_lysbrettet_cls_m3_1.step",
-   "stl": "produksjon/stl/sveip_k21_pem_mutrar_i_lysbrettet_cls_m3_1.stl"
+   "step": "cad/step/sveip_k21_pem_mutrar_i_lysbrettet_cls_m3_2.step",
+   "stl": "produksjon/stl/sveip_k21_pem_mutrar_i_lysbrettet_cls_m3_2.stl"
   },
   {
    "id": "K18",
@@ -715,19 +751,19 @@
    "tal": 1,
    "gyldig": true,
    "step_attlest": true,
-   "volum_cm3": 3.345,
-   "masse_g": 4.0,
+   "volum_cm3": 2.81,
+   "masse_g": 3.4,
    "maal_mm": [
-    121.88,
-    13.78,
-    71.59
+    135.32,
+    26.99,
+    78.2
    ],
    "step": "cad/step/sveip_e01_usb_c_leidning_og_plugg.step",
    "stl": "produksjon/stl/sveip_e01_usb_c_leidning_og_plugg.stl"
   }
  ],
  "kollisjon": {
-  "testa_par": 780,
+  "testa_par": 861,
   "grense_mm3": 0.05,
   "kollisjonar": [],
   "bestatt": true
@@ -737,29 +773,43 @@
    {
     "a": "D01*",
     "b": "D02",
-    "min_mm": 1.0,
-    "krav_mm": 0.8,
+    "min_mm": 2.001,
+    "krav_mm": 2.0,
     "ok": true
    },
    {
     "a": "D01",
     "b": "D03",
-    "min_mm": 1.5,
-    "krav_mm": 1.0,
+    "min_mm": 3.0,
+    "krav_mm": 2.5,
     "ok": true
    },
    {
     "a": "D01",
     "b": "D06",
-    "min_mm": 0.5,
-    "krav_mm": 0.4,
+    "min_mm": 2.0,
+    "krav_mm": 1.5,
     "ok": true
    },
    {
     "a": "D01",
     "b": "D08",
     "min_mm": 2.5,
-    "krav_mm": 1.5,
+    "krav_mm": 2.0,
+    "ok": true
+   },
+   {
+    "a": "D01",
+    "b": "K22",
+    "min_mm": 0.5,
+    "krav_mm": 0.3,
+    "ok": true
+   },
+   {
+    "a": "D01",
+    "b": "K20",
+    "min_mm": 4.308,
+    "krav_mm": 1.0,
     "ok": true
    },
    {
@@ -791,30 +841,16 @@
     "ok": true
    },
    {
-    "a": "D01",
-    "b": "D12F",
-    "min_mm": 1.0,
-    "krav_mm": 0.5,
-    "ok": true
-   },
-   {
-    "a": "D01",
-    "b": "D12B",
-    "min_mm": 1.0,
-    "krav_mm": 0.5,
-    "ok": true
-   },
-   {
     "a": "D02",
     "b": "D13F",
-    "min_mm": 3.21,
+    "min_mm": 1.0,
     "krav_mm": 0.4,
     "ok": true
    },
    {
     "a": "D02",
     "b": "D13B",
-    "min_mm": 3.21,
+    "min_mm": 1.0,
     "krav_mm": 0.4,
     "ok": true
    },
@@ -849,15 +885,15 @@
    {
     "a": "D09",
     "b": "K01",
-    "min_mm": 0.325,
-    "krav_mm": 0.2,
+    "min_mm": 1.575,
+    "krav_mm": 1.0,
     "ok": true
    },
    {
     "a": "D02",
     "b": "K01",
-    "min_mm": 6.474,
-    "krav_mm": 0.5,
+    "min_mm": 6.949,
+    "krav_mm": 1.5,
     "ok": true
    },
    {
@@ -877,8 +913,8 @@
    {
     "a": "D08",
     "b": "D04L",
-    "min_mm": 14.35,
-    "krav_mm": 12.0,
+    "min_mm": 26.35,
+    "krav_mm": 25.0,
     "ok": true
    },
    {
@@ -896,15 +932,15 @@
    {
     "a": "K20",
     "b": "D12F",
-    "avstand_mm": 0.05,
-    "maks_mm": 0.1,
+    "avstand_mm": 0.0,
+    "maks_mm": 0.01,
     "ok": true
    },
    {
     "a": "K20",
     "b": "D12B",
-    "avstand_mm": 0.05,
-    "maks_mm": 0.1,
+    "avstand_mm": 0.0,
+    "maks_mm": 0.01,
     "ok": true
    },
    {
@@ -955,13 +991,27 @@
     "avstand_mm": 0.0,
     "maks_mm": 0.01,
     "ok": true
+   },
+   {
+    "a": "D12F",
+    "b": "D01",
+    "avstand_mm": 0.0,
+    "maks_mm": 0.01,
+    "ok": true
+   },
+   {
+    "a": "D13F",
+    "b": "D01",
+    "avstand_mm": 0.0,
+    "maks_mm": 0.15,
+    "ok": true
    }
   ],
   "bestatt": true
  },
  "masse": {
-  "total_g": 1117.1,
-  "lakk_g": 42.5,
+  "total_g": 1158.2,
+  "lakk_g": 43.2,
   "tillegg": [
    {
     "namn": "leidningar og kabelband",
@@ -978,33 +1028,40 @@
   ],
   "krav_F8_g": 1200,
   "F8_bestatt": true,
-  "margin_g": 82.9
+  "margin_g": 41.8
  },
  "stabilitet": {
   "tyngdepunkt_mm": [
-   136.9,
+   136.5,
    -0.0,
-   143.3
+   139.3
   ],
-  "over_bordet_mm": 146.3,
+  "over_bordet_mm": 142.3,
   "innanfor_stotteflata": true,
-  "min_avstand_kant_mm": 40.1,
+  "min_avstand_kant_mm": 32.0,
   "veltevinkel_grad": {
-   "mot_utkraginga_+x": 15.3,
-   "mot_hakket_-x": 28.0,
-   "framover_-y": 19.2,
-   "bakover_+y": 19.2
+   "mot_utkraginga_+x": 12.7,
+   "mot_hakket_-x": 20.4,
+   "framover_-y": 17.5,
+   "bakover_+y": 17.6
   },
-  "min_veltevinkel_grad": 15.3,
+  "min_veltevinkel_grad": 12.7,
   "krav_EN60598_2_4_innearmatur_grad": 6.0,
-  "eige_krav_grad": 15.0,
+  "eige_krav_grad": 12.0,
   "bestatt_EN": true,
   "bestatt_eige": true,
-  "kraft_N_vaagrett_i_toppen_mot_utkraginga": 1.45,
-  "kraft_N_vaagrett_i_toppen_framover": 1.84
+  "kraft_N_vaagrett_i_toppen_mot_utkraginga": 1.2,
+  "kraft_N_vaagrett_i_toppen_framover": 1.69,
+  "fotkant": "effektiv kant 2,5 mm frå fotsenteret (TPE Ø12)",
+  "trykk_paa_punktet": {
+   "hogd_mm": 73.0,
+   "kraft_N_for_vipp_bakover": 7.01,
+   "friksjon_N_mu05": 5.68,
+   "merknad": "berøringa er kapasitiv; eit trykk under vippekrafta flyttar ikkje lampa"
+  }
  },
  "innsetjing_ovanfra": {
-  "metode": "modulen flytta opp 10..330 mm i steg på 10 mm (diskret), snitt mot kroppen med berøringspunkta",
+  "metode": "modulen flytta opp 0,5..10 mm i steg på 0,5 mm og vidare til 330 mm i steg på 5 mm (diskret); berøringspunkta er ikkje i (dei kjem sist og skal ut først ved service)",
   "steg_med_kollisjon": [],
   "bestatt": true
  },
@@ -1066,51 +1123,85 @@
  "flatmonster": {
   "D01_kropp": {
    "L": 716.0973174426206,
-   "H": 307.6840704496667,
+   "H": 313.53327400229443,
    "blank_mm": [
     716.1,
-    307.68
+    323.53
    ],
-   "s_saum": 0.0,
+   "saum": "nasen (s = 0 og s = L)",
    "hakk_s": [
-    399.57,
-    548.58
+    283.55,
+    432.55
    ],
    "stamme_s": [
-    267.05,
-    681.1
+    151.02,
+    565.07
    ],
    "flens_s": [
     [
-     267.05,
-     387.05
+     151.02,
+     249.02
     ],
     [
-     561.1,
-     681.1
+     467.07,
+     565.07
     ]
    ],
    "valsesoner_s": [
     [
-     34.5,
-     197.55
+     0.0,
+     81.52
     ],
     [
-     392.55,
-     555.6
+     276.52,
+     439.57
+    ],
+    [
+     634.57,
+     716.1
     ]
    ],
+   "hol_s_z": {
+    "punkt": [
+     [
+      164.02,
+      70.0
+     ],
+     [
+      552.07,
+      70.0
+     ]
+    ],
+    "spor": [
+     [
+      243.02,
+      -7.53
+     ],
+     [
+      473.07,
+      -7.53
+     ],
+     [
+      163.02,
+      -7.53
+     ],
+     [
+      553.07,
+      -7.53
+     ]
+    ]
+   },
    "samsvar": {
-    "blank_areal_cm2": 1567.38,
-    "areal_x_t_cm3": 188.09,
-    "volum_3d_cm3": 188.09,
-    "avvik_pst": -0.0
+    "blank_areal_cm2": 1580.42,
+    "areal_x_t_cm3": 189.65,
+    "volum_3d_cm3": 189.14,
+    "avvik_pst": 0.27
    }
   },
   "D02_chassis": {
    "utbretta_mm": [
     443.92,
-    97.6
+    108.39
    ],
    "felt_mm": [
     44.0,
@@ -1120,49 +1211,136 @@
     27.75
    ],
    "BA": 3.393,
-   "hol": 24
+   "sideflens_u": [
+    236.98,
+    409.78
+   ]
   },
   "D03_lysbrett": {
    "maal_mm": [
-    294.6,
-    99.6
-   ]
+    291.6,
+    96.6
+   ],
+   "konturar": 1,
+   "sirklar": 26
   },
   "D10_luke": {
    "maal_mm": [
-    98.0,
-    32.0
-   ]
+    106.0,
+    36.0
+   ],
+   "konturar": 1,
+   "sirklar": 2
   },
   "D07_diffusor_ned": {
    "maal_mm": [
-    118.4,
-    98.2
-   ]
+    116.9,
+    95.2
+   ],
+   "konturar": 1,
+   "sirklar": 0
   },
   "D08_diffusor_opp": {
    "maal_mm": [
     292.6,
     97.6
-   ]
+   ],
+   "konturar": 1,
+   "sirklar": 6
+  }
+ },
+ "effekt": {
+  "foresetnader": {
+   "lmW_3000": 150.0,
+   "lmW_2700": 140.0,
+   "varme_tap": 0.95,
+   "T_diff_ned": 0.65,
+   "T_diff_opp": 0.7,
+   "kammer_ned": 0.9,
+   "romning_opp": 0.65,
+   "boost": 0.88,
+   "varmedel": 0.58,
+   "celle_Wh": 17.64,
+   "brukbar": 0.9,
+   "aldra": 0.8
+  },
+  "kjelde": "lm/W frå Tridonic LLE 24x140 CRI90 (160/155 lm/W ved 100 mA), nedjustert; transmisjon PMMA opal 50-70 % (må målast); romning opp er eit overslag",
+  "arbeid_400lm_ut": {
+   "LED_W": 4.8,
+   "skinne_W": 5.45
+  },
+  "stemning_200lm_ut": {
+   "LED_W": 3.3,
+   "skinne_W": 3.76
+  },
+  "usb_tak_W": {
+   "standard_0_5A": 2.2,
+   "A1_5": 6.5,
+   "merknad": "fastvara les CC og avgrensar summen av kanalane"
+  },
+  "driftstid_t": {
+   "arbeid_ny": 2.9,
+   "arbeid_aldra": 2.3,
+   "stemning_ny": 4.2,
+   "stemning_aldra": 3.4
+  },
+  "krav": {
+   "T5_arbeid_1_5t": true,
+   "T7_stemning_4t": true
   }
  },
  "termisk": {
-  "metode": "overslag: all LED-effekt ut gjennom lysbrettet (begge sider, 85 % effektiv), h = 9 W/m2K",
-  "W_arbeid": 3.8,
-  "W_stemning": 1.9,
-  "brett_m2": 0.0552,
-  "dT_brett_K": 13.5,
-  "T_brett_C": 38.5,
-  "T_led_loddepunkt_C": 42.5,
-  "kroppen_K": "brettet har 1,5 mm luft til kroppen; gripeflata blir varma berre av lufta (< 5 K)",
-  "krav_T8": "gripeflater om lag 40 grader C"
+  "metode": "to nodar (brett, kropp): brett mot luft h = 4 W/m2K, brett til kropp gjennom skrueskøyt, rygg og flens, kropp mot luft h = 8 W/m2K på 75 % av flata, varmedel 0,58 av LED-effekten; overslag",
+  "W_brett": 3.32,
+  "W_stamme": 1.2,
+  "R_K_per_W": {
+   "brett_luft": 4.7,
+   "brett_kropp": 10.2,
+   "kropp_luft": 0.52
+  },
+  "T_brett_C": 36.0,
+  "T_led_loddepunkt_C": 39.0,
+  "T_kropp_C": 26.1,
+  "krav_T8": "gripeflater om lag 40 grader C",
+  "T8_bestatt": true
+ },
+ "flat_mot_3d": {
+  "metode": "hol frå flatmønsteret ført til 3D; ein stav Ø1 gjennom kvart hol skal ikkje treffe kroppen",
+  "hol": [
+   {
+    "hol": "punkt framme",
+    "s": 164.02,
+    "fritt": true
+   },
+   {
+    "hol": "punkt bak",
+    "s": 552.07,
+    "fritt": true
+   },
+   {
+    "hol": "spor x 86 y -42.5",
+    "fritt": true
+   },
+   {
+    "hol": "spor x 86 y 42.5",
+    "fritt": true
+   },
+   {
+    "hol": "spor x 166 y -42.5",
+    "fritt": true
+   },
+   {
+    "hol": "spor x 166 y 42.5",
+    "fritt": true
+   }
+  ],
+  "bestatt": true
  },
  "status": {
   "digital_kontroll": true,
-  "slicer_kontroll": "ikkje gjort",
+  "slicer_kontroll": "5 av 5 plater slica i Bambu Studio CLI (print/print_rapport.json); verktøybanene ikkje sette over i GUI",
   "fysisk_prototype": "ikkje laga",
-  "rorsle": "diskret prøvd (steg 10 mm / 5 mm), ikkje kontinuerleg"
+  "rorsle": "diskret prøvd (innsetjing 0,5 mm dei siste 10 mm, elles 5 mm; batteri og plugg 5 mm), ikkje kontinuerleg"
  },
- "tid_s": 56.4
+ "tid_s": 52.7
 }

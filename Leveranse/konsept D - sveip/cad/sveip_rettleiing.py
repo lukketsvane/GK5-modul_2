@@ -77,14 +77,14 @@ def main():
         lin = hlr(former({"D01", "D12F", "D13F", "D12B", "D13B", "K08", "E01"}), *ISO)
         plasser(ax, lin, 150, 110, 0.42)
         tekst(ax, 14, 20, "Sveip", 28)
-        tekst(ax, 14, 12, "Montering og service · rev. A", 9, color="#333")
+        tekst(ax, 14, 12, "Montering og service · rev. B", 9, color="#333")
         lagre(pdf, fig, 1)
 
         # 2 delar og verktøy
         fig, ax = side(0, "Delar og verktøy")
         grupper = [("Kropp", ["D01"], (60, 125), 0.22), ("Innmatsmodul", UTAN_CELLE, (152, 125), 0.22),
                    ("2 x berøringspunkt", ["D12F", "D13F"], (238, 140), 1.6),
-                   ("Celle 18650", ["K01"], (238, 92), 0.9), ("Luke", ["D10"], (150, 52), 0.5),
+                   ("Celle 21700", ["K01"], (238, 92), 0.9), ("Luke", ["D10"], (150, 52), 0.5),
                    ("4 x M3 x 6", ["K09"], (60, 45), 0.9), ("2 x myntskrue", ["K14"], (100, 45), 0.9),
                    ("4 x fot", ["K08"], (235, 45), 0.7)]
         for namn, ids, (cx, cy), s in grupper:
@@ -108,14 +108,15 @@ def main():
         lagre(pdf, fig, 3)
 
         # 4 fire skruar nedanfrå
-        fig, ax = side(2, "Snu lampa. Fire skruar gjennom botnflensane")
+        fig, ax = side(2, "Legg lampa på ryggen. Fire skruar gjennom botnflensane")
         f = former({"D01", "D02"}) + [s_.translate(cq.Vector(0, 0, -40)) for s_ in former({"K09"})]
         s = 0.40
         x0, y0 = plasser(ax, hlr(f, *UNDER), 140, 110, s)
-        for x in P0.skrue_x:
+        for x in P0.fot_x:
             for sy in (-1, 1):
                 pil(ax, (x, sy * P0.fl_yc, -40), (x, sy * P0.fl_yc, -8), x0, y0, s, UNDER, lw=0.9)
-        tekst(ax, 205, 30, "M3 x 6, 2,0 mm unbrako. Ikkje stram hardare enn 0,6 Nm.", 8.5)
+        tekst(ax, 190, 36, "Mjukt underlag, hald innmaten inne med den andre handa.", 8.5)
+        tekst(ax, 190, 29, "M3 x 6, 2,0 mm unbrako, høgst 0,6 Nm. Tannskiva under skruen framme til venstre.", 8.5)
         lagre(pdf, fig, 4)
 
         # 5 berøringspunkta
@@ -125,7 +126,7 @@ def main():
         s = 0.42
         x0, y0 = plasser(ax, hlr(f, *ISO), 140, 105, s)
         pil(ax, (P0.pkt_x, -95, P0.pkt_z), (P0.pkt_x, -58, P0.pkt_z), x0, y0, s, ISO)
-        tekst(ax, 200, 30, "Trykk til det klikkar. Skiva skal liggje flukt med plata.", 8.5)
+        tekst(ax, 190, 30, "Trykk til det klikkar. Kragen ligg an mot plata.", 8.5)
         lagre(pdf, fig, 5)
 
         # 6 føter, celle og luke
@@ -135,8 +136,9 @@ def main():
         s = 0.40
         x0, y0 = plasser(ax, hlr(f, *UNDER), 140, 112, s)
         pil(ax, (120, 0, -150), (120, 0, -105), x0, y0, s, UNDER, lw=0.9)
-        tekst(ax, 200, 34, "Pluss (+) mot hakket. Berre Samsung INR18650-35E", 8.5)
-        tekst(ax, 200, 27, "eller tilsvarande celle utan vernekrets.", 8.5)
+        tekst(ax, 190, 41, "Trykk føtene over skruehovuda.", 8.5)
+        tekst(ax, 190, 34, "Pluss (+) mot hakket, trekkbandet under cella. Li-ion 21700, 3,6 V,", 8.5)
+        tekst(ax, 190, 27, "til dømes Samsung INR21700-50E. Vernet sit på kortet.", 8.5)
         lagre(pdf, fig, 6)
 
         # 7 i bruk
@@ -146,10 +148,10 @@ def main():
         x0, y0 = plasser(ax, hlr(f, *ISO), 120, 105, s)
         p = proj((P0.pkt_x, -P0.R, P0.pkt_z), *ISO)
         ring(ax, x0 + p[0] * s, y0 + p[1] * s, 9)
-        tekst(ax, 200, 150, "Trykk kort: på og av.", 9)
-        tekst(ax, 200, 141, "Hald inne: frå stemningslys (opp, varmt)", 9)
+        tekst(ax, 200, 150, "Rør kort: på og av. Ein treng ikkje trykkje.", 9)
+        tekst(ax, 200, 141, "Hald fingeren på: frå stemningslys (opp, varmt)", 9)
         tekst(ax, 200, 134, "til arbeidslys (ned, 3000 K) og attende.", 9)
-        tekst(ax, 200, 122, "USB-C 5 V, minst 1,5 A for fullt lys.", 9)
+        tekst(ax, 200, 122, "USB-C 5 V, minst 1,5 A og C-til-C-leidning for fullt lys.", 9)
         tekst(ax, 200, 115, "Snu lampa: utkraginga skal liggje inn", 9)
         tekst(ax, 200, 108, "over arbeidsflata.", 9)
         lagre(pdf, fig, 7)
@@ -160,10 +162,11 @@ def main():
                                                                                       "D07", "D08", "K05", "K21"})]
         s = 0.30
         x0, y0 = plasser(ax, hlr(f, *ISO), 95, 100, s)
+        tekst(ax, 175, 158, "Trekk alltid ut USB-C først.", 9)
         tekst(ax, 175, 150, "Celle: to myntskruar, under 1 minutt.", 9)
-        tekst(ax, 175, 141, "Lysmodul: fire skruar nedanfrå, løft innmaten", 9)
-        tekst(ax, 175, 134, "ut, ta av øvre diffusor, éin plugg og fire skruar.", 9)
-        tekst(ax, 175, 127, "Om lag 5 minutt, éin unbrakonøkkel.", 9)
+        tekst(ax, 175, 141, "Lysmodul: ta ut cella, lirk ut dei to messingknappane,", 9)
+        tekst(ax, 175, 134, "fire skruar nedanfrå, løft innmaten ut, ta av øvre", 9)
+        tekst(ax, 175, 127, "diffusor, éin plugg og fire skruar. Om lag 5 minutt.", 9)
         tekst(ax, 175, 115, "Ingenting er limt. Aluminium, PMMA, PC, POM og", 9)
         tekst(ax, 175, 108, "kretskort kan skiljast for gjenvinning.", 9)
         lagre(pdf, fig, 8)

@@ -13,7 +13,7 @@
   "returkode": 0,
   "slica": true,
   "tid_t": 1.15,
-  "masse_g": 77.69,
+  "masse_g": 77.74,
   "utanfor_plata": [
    "false"
   ]
@@ -50,27 +50,8 @@
   "plate_type": "Textured PEI Plate",
   "returkode": 0,
   "slica": true,
-  "tid_t": 2.11,
-  "masse_g": 151.56,
-  "utanfor_plata": [
-   "false"
-  ]
- },
- {
-  "plate": "Sveip_E_volum_1-1_skoyteband_PLA",
-  "delar": [
-   "Sveip_1-1_skoyteband"
-  ],
-  "filament": "Bambu PLA Matte @BBL P1S 0.4 nozzle",
-  "ams": "A4 Bambu PLA Matte",
-  "prosess": "0.20mm Standard @BBL X1C",
-  "veggloekker": 4,
-  "skrivar": "Bambu Lab P1S 0.4 nozzle",
-  "plate_type": "Textured PEI Plate",
-  "returkode": 0,
-  "slica": true,
-  "tid_t": 0.22,
-  "masse_g": 13.46,
+  "tid_t": 2.12,
+  "masse_g": 151.75,
   "utanfor_plata": [
    "false"
   ]
@@ -90,8 +71,27 @@
   "plate_type": "Textured PEI Plate",
   "returkode": 0,
   "slica": true,
-  "tid_t": 0.75,
-  "masse_g": 23.59,
+  "tid_t": 0.72,
+  "masse_g": 22.41,
+  "utanfor_plata": [
+   "false"
+  ]
+ },
+ {
+  "plate": "Sveip_E_volum_1-1_skoyteband_PLA",
+  "delar": [
+   "Sveip_1-1_skoyteband"
+  ],
+  "filament": "Bambu PLA Matte @BBL P1S 0.4 nozzle",
+  "ams": "A4 Bambu PLA Matte",
+  "prosess": "0.20mm Standard @BBL X1C",
+  "veggloekker": 4,
+  "skrivar": "Bambu Lab P1S 0.4 nozzle",
+  "plate_type": "Textured PEI Plate",
+  "returkode": 0,
+  "slica": true,
+  "tid_t": 0.22,
+  "masse_g": 13.46,
   "utanfor_plata": [
    "false"
   ]

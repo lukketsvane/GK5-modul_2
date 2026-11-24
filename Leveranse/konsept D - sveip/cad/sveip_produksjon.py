@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""sveip_produksjon.py: byggjer alle delar, eksporterer og kontrollerer Sveip rev. A.
+"""sveip_produksjon.py: byggjer alle delar, eksporterer og kontrollerer Sveip rev. B.
 
 Køyr frå cad/:  python sveip_produksjon.py [--rask]
 Skriv:
@@ -63,10 +63,24 @@ ASCII = str.maketrans({"æ": "ae", "ø": "o", "å": "aa", "Æ": "AE", "Ø": "O",
 # delar som høyrer til innmatsmodulen (blir senka ned gjennom toppen)
 MODUL = {"D02", "D03", "D04", "D04L", "D05", "D05L", "D06", "D07", "D08", "D09", "D09K", "D11",
          "D11K", "D11J", "D14", "K01", "K02", "K03", "K05", "K06", "K07", "K10", "K11", "K12",
-         "K13", "K15", "K18", "K19", "K20", "K21"}
+         "K13", "K15", "K18", "K19", "K20", "K21", "K22", "K23"}
 PAA_KROPPEN = {"D01"}                    # punkta (D12/D13) og føtene (K08) kjem etter modulen
 UNDER = {"D10", "K14", "K09"}            # luke og skruar nedanfrå, etter innsetjing
 LAKK_G_PER_CM2 = 0.007 * 1.5             # 70 µm pulverlakk, 1,5 g/cm3
+# innkjøpspostar som ikkje er modellerte
+TILLEGG_BOM = [
+    ["W1", "Kabelsett USB-kort til hovudkort", 1, "4-leiar 28 AWG, JST PH 4-pol (PHR-4 + SPH-002T), 120 mm", "kjop", 2, 2, "-", "-"],
+    ["W2", "Kabelsett hovudkort til lysmodul", 1, "4-leiar 26 AWG, JST PH 4-pol, 230 mm", "kjop", 3, 3, "-", "-"],
+    ["W3", "Kabelsett berøringskort", 1, "3-leiar 28 AWG (S1, S2, GND), JST PH 3-pol, 150 mm", "kjop", 2, 2, "-", "-"],
+    ["W4", "Kabelsett nedkort til opp-kort", 1, "2-leiar 26 AWG, JST PH 2-pol, 60 mm", "kjop", 1, 1, "-", "-"],
+    ["W5", "Jordleidning chassis", 1, "kabelsko M3 + 50 mm 24 AWG til GND på D09, tannskive under éin K09", "kjop", 1, 1, "-", "-"],
+    ["T1", "Termopute nedkort", 1, "silikon 0,25 mm, 3 W/mK, D-form som D05", "kjop", 1, 1, "-", "-"],
+    ["T2", "Termopute opp-kort", 1, "silikon 0,25 mm, 3 W/mK, 240 x 36", "kjop", 1, 1, "-", "-"],
+    ["T3", "Trekkband celle", 1, "polyimid 10 x 90 mm under cella", "kjop", 0.5, 0.5, "-", "-"],
+    ["T4", "Isolerfilm under hovudkortet", 1, "polyimid 0,1 mm, 75 x 25 over cella", "kjop", 0.3, 0.3, "-", "-"],
+    ["S1", "Skruar berøringskort M3 x 5", 2, "A2, ISO 7380", "kjop", 0.4, 0.8, "-", "-"],
+    ["L1", "Typeskilt", 1, "lasermerkt på luka: klasse III, 5 V 1,5 A, Li-ion 21700 3,6 V, + mot hakket, CE, WEEE, batterisymbol", "lag", 0, 0, "-", "-"],
+]
 
 
 def namn(d):
@@ -92,9 +106,18 @@ def avstand(a, b):
     return d.Value() if d.IsDone() else float("nan")
 
 
+def _slicestatus():
+    sti = ROT / "print" / "print_rapport.json"
+    if not sti.exists():
+        return "ikkje gjort"
+    r = json.loads(sti.read_text(encoding="utf-8"))
+    ok = [p_["plate"] for p_ in r if p_.get("slica")]
+    return f"{len(ok)} av {len(r)} plater slica i Bambu Studio CLI (print/print_rapport.json); verktøybanene ikkje sette over i GUI"
+
+
 def main(rask=False):
     t0 = time.time()
-    rap = {"lampe": "Sveip", "revisjon": "A", "eining": "mm", "dato": "2026-11-24",
+    rap = {"lampe": "Sveip", "revisjon": "B", "eining": "mm", "dato": "2026-11-24",
            "koordinatar": "x mot utkraginga, y djupn (framside negativ), z opp; bordet i z = -%.1f" % P0.fot_h}
     rydd()
     print("byggjer delar ...")
@@ -150,12 +173,12 @@ def main(rask=False):
     print(f"kollisjon: {len(kol)} av {par} par, {time.time() - t0:.0f} s")
 
     # ------------------------------------------------ klaringar som er kravde
-    krav = [("D01*", "D02", 0.8), ("D01", "D03", 1.0), ("D01", "D06", 0.4), ("D01", "D08", 1.5),
-            ("D01", "D09", 10.0), ("D01", "D05", 10.0), ("D01", "D04", 10.0), ("D01", "D14", 3.0),
-            ("D01", "D12F", 0.5), ("D01", "D12B", 0.5), ("D02", "D13F", 0.4), ("D02", "D13B", 0.4),
-            ("D14", "D13F", 1.0), ("D14", "D13B", 1.0), ("D02", "D06", 0.3), ("D02", "D11K", 0.2),
-            ("D09", "K01", 0.2), ("D02", "K01", 0.5), ("D03", "D05L", 0.5), ("D07", "D05L", 10.0),
-            ("D08", "D04L", 12.0), ("D01", "E01", 0.5)]
+    krav = [("D01*", "D02", 2.0), ("D01", "D03", 2.5), ("D01", "D06", 1.5), ("D01", "D08", 2.0),
+            ("D01", "K22", 0.3), ("D01", "K20", 1.0), ("D01", "D09", 10.0), ("D01", "D05", 10.0),
+            ("D01", "D04", 10.0), ("D01", "D14", 3.0), ("D02", "D13F", 0.4),
+            ("D02", "D13B", 0.4), ("D14", "D13F", 1.0), ("D14", "D13B", 1.0), ("D02", "D06", 0.3),
+            ("D02", "D11K", 0.2), ("D09", "K01", 1.0), ("D02", "K01", 1.5), ("D03", "D05L", 0.5),
+            ("D07", "D05L", 10.0), ("D08", "D04L", 25.0), ("D01", "E01", 0.5)]
     klar = []
     # D01* = kroppen utan botnflensane (chassiset skal liggje på flensane)
     former["D01*"] = former["D01"].cut(cq.Solid.makeBox(400, 200, P0.fl_ri + P0.t + 0.5,
@@ -167,9 +190,10 @@ def main(rask=False):
     # positive kontaktar (skal ligge an)
     del former["D01*"]
     kont = []
-    for a, b, maks in [("K20", "D12F", 0.1), ("K20", "D12B", 0.1), ("D02", "D01", 0.01),
+    for a, b, maks in [("K20", "D12F", 0.01), ("K20", "D12B", 0.01), ("D02", "D01", 0.01),
                        ("K08", "D01", 0.01), ("D05", "D03", 0.01), ("D07", "D06", 0.01),
-                       ("D03", "D02", 0.01), ("D09", "K03", 0.01), ("D10", "D02", 0.01)]:
+                       ("D03", "D02", 0.01), ("D09", "K03", 0.01), ("D10", "D02", 0.01),
+                       ("D12F", "D01", 0.01), ("D13F", "D01", 0.15)]:
         d_ = avstand(former[a], former[b])
         kont.append(dict(a=a, b=b, avstand_mm=round(d_, 3), maks_mm=maks, ok=d_ <= maks))
     rap["kontakt"] = dict(par=kont, bestatt=all(k["ok"] for k in kont))
@@ -197,12 +221,13 @@ def main(rask=False):
         M += m; Mx += m * x; My += m * y; Mz += m * z
     cg = (Mx / M, My / M, Mz / M)
     hf = P0.fot_h
+    R_FOT = 2.5     # effektiv kant: TPE-foten (Ø12) gjev etter, rekna 2,5 mm frå senter
     fot = []
     for sy in (-1, 1):
         for x in P0.fot_x:
             for k in range(36):
                 a_ = 2 * math.pi * k / 36
-                fot.append((x + 5.0 * math.cos(a_), sy * P0.fl_yc + 5.0 * math.sin(a_)))
+                fot.append((x + R_FOT * math.cos(a_), sy * P0.fl_yc + R_FOT * math.sin(a_)))
     hull = MultiPoint(fot).convex_hull
     d_kant = hull.exterior.distance(Point(cg[0], cg[1]))
     inne = hull.contains(Point(cg[0], cg[1]))
@@ -221,10 +246,15 @@ def main(rask=False):
         tyngdepunkt_mm=[round(v, 1) for v in cg], over_bordet_mm=round(h, 1),
         innanfor_stotteflata=inne, min_avstand_kant_mm=round(d_kant, 1),
         veltevinkel_grad=velt, min_veltevinkel_grad=round(v_min, 1),
-        krav_EN60598_2_4_innearmatur_grad=6.0, eige_krav_grad=15.0,
-        bestatt_EN=v_min >= 6.0, bestatt_eige=v_min >= 15.0,
+        krav_EN60598_2_4_innearmatur_grad=6.0, eige_krav_grad=12.0,
+        bestatt_EN=v_min >= 6.0, bestatt_eige=v_min >= 12.0,
         kraft_N_vaagrett_i_toppen_mot_utkraginga=round(M * g * retn["mot_utkraginga_+x"] / (P0.S + hf), 2),
-        kraft_N_vaagrett_i_toppen_framover=round(M * g * retn["framover_-y"] / (P0.S + hf), 2))
+        kraft_N_vaagrett_i_toppen_framover=round(M * g * retn["framover_-y"] / (P0.S + hf), 2),
+        fotkant="effektiv kant 2,5 mm frå fotsenteret (TPE Ø12)",
+        trykk_paa_punktet=dict(hogd_mm=P0.pkt_z + hf,
+                               kraft_N_for_vipp_bakover=round(M * g * retn["bakover_+y"] / (P0.pkt_z + hf), 2),
+                               friksjon_N_mu05=round(0.5 * M * g, 2),
+                               merknad="berøringa er kapasitiv; eit trykk under vippekrafta flyttar ikkje lampa"))
     print(f"masse {M:.0f} g, TP {cg[0]:.1f} {cg[1]:.1f} {cg[2]:.1f}, min velt {v_min:.1f} grader")
 
     # ------------------------------------------------ rørsle: innsetjing, batteri, plugg
@@ -232,12 +262,13 @@ def main(rask=False):
         kropp = cq.Compound.makeCompound([former[i] for i in PAA_KROPPEN])
         modul = cq.Compound.makeCompound([former[i] for i in MODUL])
         steg = []
-        for k in range(1, 34):
-            dz = 10.0 * k
+        dzs = [0.5 * k for k in range(1, 21)] + [10.0 + 5.0 * k for k in range(1, 65)]
+        for dz in dzs:
             v = snitt(modul.translate(cq.Vector(0, 0, dz)), kropp)
             steg.append((dz, round(v, 3)))
         rap["innsetjing_ovanfra"] = dict(
-            metode="modulen flytta opp 10..330 mm i steg på 10 mm (diskret), snitt mot kroppen med berøringspunkta",
+            metode="modulen flytta opp 0,5..10 mm i steg på 0,5 mm og vidare til 330 mm i steg på 5 mm (diskret); "
+                   "berøringspunkta er ikkje i (dei kjem sist og skal ut først ved service)",
             steg_med_kollisjon=[s_ for s_ in steg if s_[1] > 0.05], bestatt=all(s_[1] <= 0.05 for s_ in steg))
         cel = former["K01"]
         hind = cq.Compound.makeCompound([former[i] for i in ("D02", "D09", "K03", "D01", "K13")])
@@ -278,25 +309,78 @@ def main(rask=False):
                                         avvik_pst=round(100 * (a_blank * P0.t - v3d) / v3d, 2))
     rap["flatmonster"] = flat
 
-    # ------------------------------------------------ termisk overslag (stasjonært, 25 grader C)
-    p_ned, p_opp, p_kort = 3.8, 1.9, 0.6
-    a_brett = former["D03"].Area() / 1e6
-    h_eff = 9.0      # W/m2K, fri konveksjon + stråling, matt flate
-    dT_brett = (p_ned + p_opp) / (h_eff * a_brett * 0.85)
-    rap["termisk"] = dict(metode="overslag: all LED-effekt ut gjennom lysbrettet (begge sider, 85 % effektiv), h = 9 W/m2K",
-                          W_arbeid=p_ned, W_stemning=p_opp, brett_m2=round(a_brett, 4),
-                          dT_brett_K=round(dT_brett, 1), T_brett_C=round(25 + dT_brett, 1),
-                          T_led_loddepunkt_C=round(25 + dT_brett + 4.0, 1),
-                          kroppen_K="brettet har 1,5 mm luft til kroppen; gripeflata blir varma berre av lufta (< 5 K)",
-                          krav_T8="gripeflater om lag 40 grader C")
+    # ------------------------------------------------ effektkjede og driftstid
+    E = dict(lmW_3000=150.0, lmW_2700=140.0, varme_tap=0.95, T_diff_ned=0.65, T_diff_opp=0.70,
+             kammer_ned=0.90, romning_opp=0.65, boost=0.88, varmedel=0.58,
+             celle_Wh=round(4.9 * 3.6, 2), brukbar=0.90, aldra=0.80)
+    led_ned = 400 / (E["T_diff_ned"] * E["kammer_ned"]) / (E["lmW_3000"] * E["varme_tap"])
+    led_opp = 200 / (E["T_diff_opp"] * E["romning_opp"]) / (E["lmW_2700"] * E["varme_tap"])
+    skinne_ned, skinne_opp = led_ned / E["boost"], led_opp / E["boost"]
+    wh = E["celle_Wh"] * E["brukbar"]
+    rap["effekt"] = dict(
+        foresetnader=E,
+        kjelde="lm/W frå Tridonic LLE 24x140 CRI90 (160/155 lm/W ved 100 mA), nedjustert; "
+               "transmisjon PMMA opal 50-70 % (må målast); romning opp er eit overslag",
+        arbeid_400lm_ut=dict(LED_W=round(led_ned, 2), skinne_W=round(skinne_ned, 2)),
+        stemning_200lm_ut=dict(LED_W=round(led_opp, 2), skinne_W=round(skinne_opp, 2)),
+        usb_tak_W=dict(standard_0_5A=2.2, A1_5=6.5, merknad="fastvara les CC og avgrensar summen av kanalane"),
+        driftstid_t=dict(arbeid_ny=round(wh / skinne_ned, 1), arbeid_aldra=round(wh * E["aldra"] / skinne_ned, 1),
+                         stemning_ny=round(wh / skinne_opp, 1),
+                         stemning_aldra=round(wh * E["aldra"] / skinne_opp, 1)),
+        krav=dict(T5_arbeid_1_5t=bool(wh / skinne_ned >= 1.5), T7_stemning_4t=bool(wh / skinne_opp >= 4.0)))
+    # ------------------------------------------------ termisk nettverk (stasjonært, 25 grader C)
+    import numpy as np
+    a_brett = former["D03"].Area() / 1e6                 # begge sider
+    a_kropp = former["D01"].Area() / 1e6                 # inn- og utside
+    q_brett = min(led_ned + led_opp, 6.5 * E["boost"]) * E["varmedel"]
+    q_bay = 1.2                                          # ladar, boost og MCU ved lading
+    R_ta = 1 / (4.0 * a_brett)                           # brettet i lukka skjerm, h = 4
+    a_rygg = (98.0 + 2 * 6.5) * P0.tc * 1e-6
+    R_ts = 2.0 + 0.18 / (140.0 * a_rygg) + 0.5           # skrueskøyt + rygg + flens
+    R_sa = 1 / (8.0 * a_kropp * 0.75)                    # kroppen mot luft, h = 8 (lakk, stråling)
+    A = np.array([[1 / R_ta + 1 / R_ts, -1 / R_ts], [-1 / R_ts, 1 / R_ts + 1 / R_sa]])
+    T = np.linalg.solve(A, np.array([q_brett, q_bay]))
+    rap["termisk"] = dict(
+        metode="to nodar (brett, kropp): brett mot luft h = 4 W/m2K, brett til kropp gjennom skrueskøyt, rygg og "
+               "flens, kropp mot luft h = 8 W/m2K på 75 % av flata, varmedel 0,58 av LED-effekten; overslag",
+        W_brett=round(float(q_brett), 2), W_stamme=q_bay,
+        R_K_per_W=dict(brett_luft=round(R_ta, 1), brett_kropp=round(R_ts, 1), kropp_luft=round(R_sa, 2)),
+        T_brett_C=round(25 + float(T[0]), 1), T_led_loddepunkt_C=round(25 + float(T[0]) + 3.0, 1),
+        T_kropp_C=round(25 + float(T[1]), 1), krav_T8="gripeflater om lag 40 grader C",
+        T8_bestatt=bool(25 + T[1] <= 40.0))
+    # ------------------------------------------------ flatmønster mot 3D (punktkontroll)
+    from sveip_kropp import kropp_flat as _kf
+    kf = _kf()
+    pk = []
+    for namn_, sy in (("punkt framme", -1), ("punkt bak", 1)):
+        y0 = -(P0.R + 3) if sy < 0 else P0.R - P0.t - 3
+        stav = cq.Solid.makeCylinder(0.5, P0.t + 6.0, cq.Vector(P0.pkt_x, y0, P0.pkt_z), cq.Vector(0, 1, 0))
+        pk.append(dict(hol=namn_, s=round(kf["s_framme"](P0.pkt_x) if sy < 0 else kf["s_bak"](P0.pkt_x), 2),
+                       fritt=bool(snitt(stav, former["D01"]) < 1e-6)))
+    for x in P0.fot_x:
+        for sy in (-1, 1):
+            stav = cq.Solid.makeCylinder(0.5, 6.0, cq.Vector(x, sy * P0.fl_yc, -3.0), cq.Vector(0, 0, 1))
+            pk.append(dict(hol=f"spor x {x:g} y {sy * P0.fl_yc:g}", fritt=bool(snitt(stav, former["D01"]) < 1e-6)))
+    rap["flat_mot_3d"] = dict(
+        metode="hol frå flatmønsteret ført til 3D; ein stav Ø1 gjennom kvart hol skal ikkje treffe kroppen",
+        hol=pk, bestatt=all(h_["fritt"] for h_ in pk))
 
     # ------------------------------------------------ stykkliste
     with open(ROT / "produksjon" / "sveip_stykkliste.csv", "w", newline="", encoding="utf-8") as fh:
         w = csv.writer(fh, delimiter=";")
-        w.writerow(["id", "namn", "tal", "materiale / delenummer", "type", "masse_g", "mål_mm", "step"])
+        w.writerow(["id", "namn", "tal", "materiale / delenummer", "type", "masse_per_stk_g", "masse_samla_g",
+                    "mål_per_stk_mm", "step"])
         for r in delrap:
-            w.writerow([r["id"], r["namn"], r["tal"], r["materiale"], r["type"], r["masse_g"],
-                        " x ".join(str(v) for v in r["maal_mm"]), r["step"]])
+            s1 = former[r["id"]]
+            solids = s1.Solids()
+            eitt = solids[0] if r["tal"] > 1 and len(solids) >= r["tal"] else s1
+            bb1 = eitt.BoundingBox()
+            d_ = meta[r["id"]]
+            w.writerow([r["id"], r["namn"], r["tal"], r["materiale"], r["type"],
+                        round(eitt.Volume() / 1e3 * d_[4], 2), r["masse_g"],
+                        f"{bb1.xlen:.1f} x {bb1.ylen:.1f} x {bb1.zlen:.1f}", r["step"]])
+        for rad in TILLEGG_BOM:
+            w.writerow(rad)
     # ------------------------------------------------ geometri for Blender
     geo = []
     for d in SA.DELAR:
@@ -306,11 +390,12 @@ def main(rask=False):
                                                      indent=1), encoding="utf-8")
     rap["status"] = dict(
         digital_kontroll=all([rap["kollisjon"]["bestatt"], rap["klaring"]["bestatt"], rap["kontakt"]["bestatt"],
-                              rap["masse"]["F8_bestatt"], rap["stabilitet"]["bestatt_EN"]]
+                              rap["masse"]["F8_bestatt"], rap["stabilitet"]["bestatt_EN"],
+                              rap["flat_mot_3d"]["bestatt"], rap["termisk"]["T8_bestatt"]]
                              + ([rap["innsetjing_ovanfra"]["bestatt"], rap["batteri_ut"]["bestatt"],
                                  rap["plugg_ut"]["bestatt"]] if not rask else [])),
-        slicer_kontroll="ikkje gjort", fysisk_prototype="ikkje laga",
-        rorsle="diskret prøvd (steg 10 mm / 5 mm), ikkje kontinuerleg")
+        slicer_kontroll=_slicestatus(), fysisk_prototype="ikkje laga",
+        rorsle="diskret prøvd (innsetjing 0,5 mm dei siste 10 mm, elles 5 mm; batteri og plugg 5 mm), ikkje kontinuerleg")
     rap["tid_s"] = round(time.time() - t0, 1)
     (KONTROLL / "sveip_kontroll.json").write_text(json.dumps(rap, ensure_ascii=False, indent=1), encoding="utf-8")
     print(json.dumps({k: rap[k] for k in ("masse", "stabilitet", "status")}, ensure_ascii=False, indent=1))

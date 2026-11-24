@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-"""Lystal for Sveip rev. A i lysmotoren til prosjektet (konsept/lysskisse/lysskisse.py),
+"""Lystal for Sveip rev. B i lysmotoren til prosjektet (konsept/lysskisse/lysskisse.py),
 same rom, same felt og same augepunkt som konsepta A til D vart rekna i.
 
 Geometrien er henta frå CAD-en (sveip_lys.py): nedre diffusor er ei D-form på 0,0105 m2,
-172,5 mm over bordet; øvre diffusor ligg 95 mm under toppkanten.
+172,5 mm over bordet; øvre diffusor ligg 84 mm under toppkanten (rev. B).
 Køyr frå cad/: python sveip_lystal.py   (om lag 20 s, éin prosess, lågaste prioritet)
 Skriv kontroll/sveip_lys.json.
 """
@@ -41,7 +41,7 @@ NED_A = 0.010504                      # areal nedre diffusor (D-form)
 NED_XC = 0.2326                       # tyngdepunkt av D-forma (frå venstre silhuett)
 NED_Z = 0.1695 + FOT                  # undersida av diffusoren over bordet
 OPP_A = 0.026513                      # areal øvre diffusor
-OPP_Z = 0.2050 + FOT
+OPP_Z = 0.2155 + FOT                  # rev. B: 28 mm blandehøgd
 TOPP_A = (S - D) * D + math.pi * R ** 2
 ROMNING_OPP = 0.65                    # del av opplyset som kjem ut av toppen (overslag, sjå notat)
 
@@ -114,6 +114,9 @@ def main():
                                                            diffusor_djupn_mm=95.0,
                                                            skjult=skjult_djupn(h, a) < 0.095)
         for h, a in ((0.47, 0.45), (0.60, 0.45), (0.60, 0.30), (1.70, 1.0))}
+    for v in ut["kjelda_skjult"].values():
+        v["diffusor_djupn_mm"] = round(1000 * (S + FOT - OPP_Z), 1)
+        v["skjult"] = v["synleg_djupn_mm"] < v["diffusor_djupn_mm"]
     ut["luminans_cd_m2"] = dict(
         nedre_diffusor_400lm=round(400 / (math.pi * NED_A)),
         ovre_diffusor_200lm=round(200 / (math.pi * OPP_A)),

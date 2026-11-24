@@ -164,22 +164,22 @@
  "kjelda_skjult": {
   "auge_47cm_45cm_unna": {
    "synleg_djupn_mm": 37.9,
-   "diffusor_djupn_mm": 95.0,
+   "diffusor_djupn_mm": 84.5,
    "skjult": true
   },
   "auge_60cm_45cm_unna": {
    "synleg_djupn_mm": 67.3,
-   "diffusor_djupn_mm": 95.0,
+   "diffusor_djupn_mm": 84.5,
    "skjult": true
   },
   "auge_60cm_30cm_unna": {
    "synleg_djupn_mm": 101.0,
-   "diffusor_djupn_mm": 95.0,
+   "diffusor_djupn_mm": 84.5,
    "skjult": false
   },
   "auge_170cm_100cm_unna": {
    "synleg_djupn_mm": 142.5,
-   "diffusor_djupn_mm": 95.0,
+   "diffusor_djupn_mm": 84.5,
    "skjult": false
   }
  },
@@ -188,5 +188,5 @@
   "ovre_diffusor_200lm": 2401,
   "toppopninga_snitt": 1420
  },
- "tid_s": 9.9
+ "tid_s": 6.2
 }

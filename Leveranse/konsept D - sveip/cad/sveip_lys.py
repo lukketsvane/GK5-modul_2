@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 """Lysmodulen (D03-D08): lysbrett, to LED-kort, ramme og to diffusorar.
 
-Modulen blir senka ned gjennom den opne toppen og skrudd med fire M3 x 25
-gjennom avstandsrøyr til toppflensen på chassiset. Éin 4-pols plugg (J1).
+Lysmodulen er skrudd med fire M3 x 5 ovanfrå til toppflensen på ryggen i chassiset, og heile
+innmaten blir senka ned gjennom den opne toppen. Ramma blir skrudd ovanfrå med fire M3 x 6 i
+gjengeinnsatsar, så diffusoren og nedkortet kan leggjast i ramma først. Éin 4-pols plugg (J1).
 """
 from __future__ import annotations
 
@@ -22,17 +23,17 @@ T_OPP = 1.0                          # oppkort FR-4 1,0 mm
 Z_OPP_KORT = Z_BRETT_O               # 187.5..188.5
 Z_NED_KORT = Z_BRETT - T_PCB         # 184.4..186
 LED = (3.0, 3.0, 0.65)               # 3030-hus
-SPACER_H = 16.0
-Z_DIFF_OPP = Z_BRETT_O + SPACER_H    # 204..206
+SPACER_H = 28.0                      # blandehøgd over opp-LED-ane (deling 30 mm)
+Z_DIFF_OPP = Z_BRETT_O + SPACER_H    # 215,5..217
 T_DIFF = 2.0                         # nedre diffusor
 T_DIFF_OPP = 1.5                     # øvre diffusor
-PEM_H = (3.175, 1.1)                 # CLS-M3-1: hovud Ø6,35 x 1,1
+PEM_H = (3.175, 1.5)                 # CLS-M3-2: hovud Ø6,35 x 1,5
 Z_RAMME0 = 168.5                     # ramma sin underkant (1 mm over skjermkanten)
 Z_DIFF_NED = Z_RAMME0 + 1.0          # 169.5..171.5
 
 # ------------------------------------------------------------ posisjonar
 XC = P0.S - P0.R                     # senter i høgre boge (247.5)
-R_RAMME_Y = P0.R - P0.t - 0.5        # 50.5: ytterkant ramme
+R_RAMME_Y = P0.R - P0.t - 2.0        # 49,3: ytterkant ramme (2 mm klaring)
 T_RAMME = 1.2
 X_RAMME = 176.5                      # venstre vegg (lysvegg)
 R_NED = 38.0                         # nedkortet: D-form
@@ -42,9 +43,11 @@ OPP_LED = [(45.0 + 30 * k, sy * 8.0) for k in range(8) for sy in (-1, 1)]
 NED_LED = [(190.0 + 16 * i, -24.0 + 16 * j) for i in range(6) for j in range(4)]
 OPP_SKRUAR = [(33.0, -14.0), (33.0, 14.0), (125.0, -14.0), (125.0, 14.0),
               (220.0, -14.0), (220.0, 14.0)]
-RAMME_SKRUAR = [(181.0, -44.0), (181.0, 44.0), (276.0, -34.0), (276.0, 34.0)]
-LAAS_AVST = [(60.0, -42.0), (60.0, 42.0), (140.0, -42.0), (140.0, 42.0),
-             (262.0, -44.0), (262.0, 44.0)]
+RAMME_SKRUAR = [(181.0, -43.0), (181.0, 43.0), (275.0, -33.0), (275.0, 33.0)]
+LAAS_AVST = [(40.0, -38.0), (40.0, 38.0), (140.0, -38.0), (140.0, 38.0),
+             (258.0, -40.0), (258.0, 40.0)]       # nylonavstand M3 x 28 for øvre diffusor
+PUTER = [(75.0, -45.3), (75.0, 45.3), (135.0, -45.3), (135.0, 45.3)]   # glideputer POM
+KL_BRETT = P0.t + 3.0
 H1 = (42.0, 28.0)                    # hovudleidning opp gjennom brettet
 H2 = (181.0, 28.0)                   # leidning til nedkortet
 J1 = (37.0, 0.0)
@@ -60,13 +63,13 @@ def d_form(xl, R, z0, h, xc=XC):
 
 # ------------------------------------------------------------ D03 lysbrett
 def lysbrett(p=P0):
-    kl = p.t + 1.5
+    kl = KL_BRETT
     b = stadion(p.S - 2 * kl, p.D - 2 * kl, Z_BRETT, TB, x0=kl)
-    for x, y in MODUL_HOL:
+    for x, y in MODUL_HOL + RAMME_SKRUAR + LAAS_AVST:   # frihol M3
         b = b.cut(syl_z(x, y, 1.7, Z_BRETT - 1, Z_BRETT_O + 1))
-    for x, y in OPP_SKRUAR + RAMME_SKRUAR:          # PEM CLS-M3-1 (hol 4,22)
+    for x, y in OPP_SKRUAR:                            # PEM CLS-M3-2, hovud under
         b = b.cut(syl_z(x, y, 2.11, Z_BRETT - 1, Z_BRETT_O + 1))
-    for x, y in LAAS_AVST:
+    for x, y in PUTER:                                 # sneppehol for glideputene
         b = b.cut(syl_z(x, y, 2.0, Z_BRETT - 1, Z_BRETT_O + 1))
     b = b.cut(syl_z(*H1, 5.0, Z_BRETT - 1, Z_BRETT_O + 1))
     b = b.cut(syl_z(*H2, 3.0, Z_BRETT - 1, Z_BRETT_O + 1))
@@ -105,7 +108,7 @@ def ned_kort():
     k = d_form(X_NED0, R_NED, Z_NED_KORT, T_PCB)
     for x, y in OPP_SKRUAR:                          # fri for skruespissane ovanfrå
         if x > X_NED0:
-            k = k.cut(syl_z(x, y, 3.75, Z_NED_KORT - 1, Z_BRETT + 1))
+            k = k.cut(syl_z(x, y, 3.75, Z_NED_KORT - 1, Z_BRETT + 1))   # PEM-hovud frå brettet
     return k
 
 
@@ -140,13 +143,13 @@ def ramme():
     fyll = fyll.cut(boks(X_RAMME + T_RAMME - 0.5, X_NED0, H2[1] - 3.0, H2[1] + 3.0,
                          Z_NED_KORT - 1, Z_BRETT + 1))                     # leidningskanal
     r = r.union(fyll)
-    for x, y in LAAS_AVST:      # fri for sperra under brettet på dei låsande avstandsstykka
+    for x, y in LAAS_AVST:      # lomme for skruehovudet til nylonavstanden
         if x > X_RAMME:
-            r = r.cut(syl_z(x, y, 3.0, Z_NED_KORT - 0.1, Z_BRETT + 1))
-    # skrueknastar: M3 frå undersida opp i brettet
+            r = r.cut(syl_z(x, y, 3.5, Z_BRETT - 2.4, Z_BRETT + 1))
+    # skrueknastar med hol for gjengeinnsats M3 (Ø4,0 x 5), skrue ovanfrå gjennom brettet
     for x, y in RAMME_SKRUAR:
         r = r.union(syl_z(x, y, 3.5, Z_NED_KORT - 2.0, zt))
-        r = r.cut(syl_z(x, y, 1.7, Z_RAMME0 - 1, zt + 1))
+        r = r.cut(syl_z(x, y, 2.0, zt - 5.0, zt + 1))
     # leidningshol til nedkortet går ovanfor ramma; ingenting å skjere
     return r.intersect(d_form(X_RAMME, yt, Z_RAMME0, h))
 
@@ -161,21 +164,44 @@ def diffusor_opp(p=P0):
     kl = p.t + 2.5
     d = stadion(p.S - 2 * kl, p.D - 2 * kl, Z_DIFF_OPP, T_DIFF_OPP, x0=kl)
     for x, y in LAAS_AVST:
-        d = d.cut(syl_z(x, y, 2.0, Z_DIFF_OPP - 1, Z_DIFF_OPP + T_DIFF_OPP + 1))
+        d = d.cut(syl_z(x, y, 1.7, Z_DIFF_OPP - 1, Z_DIFF_OPP + T_DIFF_OPP + 1))
     return d
 
 
 # ------------------------------------------------------------ smådelar
 def laas_avstand():
-    """Låsande avstandsstykke 16 mm, nylon 6.6 (snepper i Ø4-hol begge endar)."""
+    """Nylonavstand M3 x 28 F-F (rund Ø6) med to nylonskruar M3 x 6 (Ø5,5 x 2,0)."""
     f = None
     for x, y in LAAS_AVST:
-        s = syl_z(x, y, 2.75, Z_BRETT_O, Z_DIFF_OPP)
-        s = s.union(syl_z(x, y, 1.95, Z_BRETT - 0.3, Z_BRETT_O))      # nedre tapp
-        s = s.union(syl_z(x, y, 2.6, Z_BRETT - 1.4, Z_BRETT - 0.3))   # nedre sperre, kort
-        s = s.union(syl_z(x, y, 1.95, Z_DIFF_OPP, Z_DIFF_OPP + T_DIFF_OPP))
-        s = s.union(syl_z(x, y, 2.6, Z_DIFF_OPP + T_DIFF_OPP, Z_DIFF_OPP + T_DIFF_OPP + 1.5))
-        f = s if f is None else f.union(s)
+        st = syl_z(x, y, 3.0, Z_BRETT_O, Z_DIFF_OPP).cut(syl_z(x, y, 1.35, Z_BRETT_O - 1, Z_DIFF_OPP + 1))
+        st = st.union(syl_z(x, y, 2.75, Z_BRETT - 2.0, Z_BRETT))                       # skrue under brettet
+        st = st.union(syl_z(x, y, 1.35, Z_BRETT, Z_BRETT_O + 4.0))
+        top = Z_DIFF_OPP + T_DIFF_OPP
+        st = st.union(syl_z(x, y, 2.75, top, top + 2.0)).union(syl_z(x, y, 1.35, top - 4.0 - T_DIFF_OPP, top))
+        f = st if f is None else f.union(st)
+    return f
+
+
+def glideputer():
+    """Glideputer POM: ligg på brettet og står 2,5 mm ut over kanten, 0,5 mm frå kroppen."""
+    yk = P0.D / 2 - KL_BRETT          # kanten på brettet
+    f = None
+    for x, y in PUTER:
+        sy = 1 if y > 0 else -1
+        a, b = sorted((sy * (yk - 6.0), sy * (P0.R - P0.t - 0.5)))
+        pu = boks(x - 5.0, x + 5.0, a, b, Z_BRETT_O, Z_BRETT_O + 2.5)
+        pu = pu.union(syl_z(x, y, 1.95, Z_BRETT - 2.0, Z_BRETT_O))
+        pu = pu.union(syl_z(x, y, 2.4, Z_BRETT - 2.0, Z_BRETT - 0.6))
+        f = pu if f is None else f.union(pu)
+    return f
+
+
+def gjengeinnsats():
+    """Gjengeinnsats M3 messing (Ø4,0 x 5), varmepressa i knastane på ramma."""
+    f = None
+    for x, y in RAMME_SKRUAR:
+        s_ = syl_z(x, y, 2.0, Z_BRETT - 5.0, Z_BRETT).cut(syl_z(x, y, 1.35, Z_BRETT - 6, Z_BRETT + 1))
+        f = s_ if f is None else f.union(s_)
     return f
 
 
@@ -211,9 +237,10 @@ def opp_kort_skruar():
 
 
 def ramme_skruar():
+    """M3 x 6 ovanfrå gjennom brettet i gjengeinnsatsane i ramma."""
     f = None
     for x, y in RAMME_SKRUAR:
-        s = skrue_opp(x, y, Z_NED_KORT - 2.0, 6.0, dk=5.5, k=1.3)
+        s = skrue_ned(x, y, Z_BRETT_O, 6.0, dk=5.5, k=1.3)
         f = s if f is None else f.union(s)
     return f
 
@@ -224,14 +251,10 @@ def kontaktar_opp():
 
 
 def pem_brett():
-    """PEM CLS-M3-1 i brettet: hovud under for oppkortet, oppå for ramma."""
+    """PEM CLS-M3-2 i brettet for opp-kortet, hovudet under brettet."""
     f = None
     for x, y in OPP_SKRUAR:
         s = syl_z(x, y, PEM_H[0], Z_BRETT - PEM_H[1], Z_BRETT).cut(
             syl_z(x, y, 1.5, Z_BRETT - 2, Z_BRETT + 1))
         f = s if f is None else f.union(s)
-    for x, y in RAMME_SKRUAR:
-        s = syl_z(x, y, PEM_H[0], Z_BRETT_O, Z_BRETT_O + PEM_H[1]).cut(
-            syl_z(x, y, 1.5, Z_BRETT_O - 1, Z_BRETT_O + 2))
-        f = f.union(s)
     return f

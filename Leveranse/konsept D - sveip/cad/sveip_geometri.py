@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""sveip_geometri.py: parametrisk geometri for lampa Sveip (konsept D), rev. A.
+"""sveip_geometri.py: parametrisk geometri for lampa Sveip (konsept D), rev. B.
 
 Koordinatar (mm): x mot høgre (utkraginga), y djupn (framside y < 0), z opp.
 z = 0 er underkanten av kroppen. Bordet ligg i z = -P.fot_h (føtene).
@@ -31,30 +31,31 @@ class P:
     x_hakk: float = 45.5      # hakket for leidningen: loddrett kant
     z_hakk: float = 61.0      # hakket: overkant
     r_hakk: float = 7.0
-    x_saum: float = 213.0     # sveisesaum, bakre flate i skjermen
+    # sveisesaum: loddrett i nasen på skjermen (x = S, y = 0), 132,5 mm, laser-buttsveis
+    # med påløps- og avløpsflikar som blir skorne av; lampa er lik framme og bak
 
     # botnflensar (innover, berre på dei flate partia av stamma)
-    fl_b: float = 10.0        # flensbreidd målt frå ytterflata
+    fl_b: float = 16.0        # flensbreidd frå ytterflata: spor 3,4 x 5 med 3,5 mm til frikanten
     fl_ri: float = 2.0        # indre bøyeradius (5754 H22: min 1,5 t ved 90 grader)
-    fl_x0: float = 58.0       # flensen startar (5,5 mm etter tangentlina)
-    fl_avl: float = 2.0       # avlastingsspor framfor flensen
-    fl_avl_h: float = 4.5
+    fl_x0: float = 80.0       # flensen startar 27,5 mm etter tangentlina (valsen går fri)
+    fl_avl: float = 0.3       # avlasting: laserslisse 0,3 mm (lakken fyller han)
+    fl_avl_h: float = 5.0
+    K_flens: float = 0.42     # K-faktor for 90-gradarsbøyen (ri/t = 1,7)
 
-    # føter og skruar i flensane (x-posisjonar, y = +-fl_yc)
-    fot_x: tuple = (64.0, 172.0)
-    fot_h: float = 3.0        # TPE-føter; knappehovud M3 (1,65) går fritt
-    skrue_x: tuple = (92.0, 140.0)
-    fl_yc: float = 46.0
+    # fire skruar gjennom flensane, og TPE-føter som sneppar over skruehovuda
+    fot_x: tuple = (86.0, 166.0)
+    fot_h: float = 3.0
+    fl_yc: float = 42.5       # 6,3 mm til kanten på chassisbotnen, 5,1 mm frå holkant til bøy
 
     # berøringspunkt (messing), framme og bak
-    pkt_x: float = 165.0      # ved kneet der utkraginga byrjar
-    pkt_z: float = 140.0
-    pkt_hol: float = 12.0
+    pkt_x: float = 165.0      # nede på foten, under kneet (R5: «på foten»)
+    pkt_z: float = 70.0       # lågt: trykk på 7 N før lampa vippar
+    pkt_hol: float = 12.3     # Ø12,1 hylse + lakk
 
     # innmat (éin modul, senka ned gjennom toppen)
     tc: float = 1.5           # chassis, 5754 H22
     rc_i: float = 1.5         # indre bøyeradius chassis
-    klaring: float = 1.0      # mot kroppen
+    klaring: float = 2.5      # mot kroppen (valsetoleranse, lakk)
     brett_z: float = 186.0    # underside lysbrett = topp av ryggflensen
     tb: float = 1.5           # lysbrett, 5754 H22
     usb_x: float = 23.0       # leidningen ut (frå skissa)
@@ -66,6 +67,10 @@ class P:
     @property
     def ri(self):  # indre radius i bogane
         return self.R - self.t
+
+    @property
+    def skrue_x(self):  # skruane sit i fotposisjonane
+        return self.fot_x
 
 
 P0 = P()

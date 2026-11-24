@@ -31,6 +31,11 @@ def P(pts):
     return Polygon([tuple(p) for p in pts]).buffer(0)
 
 
+def lekk(pg, e=0.01):
+    """Lukk hårfine sprekker der to delflater berre nesten møtest (flyttal), før relieff og avrunding."""
+    return pg.buffer(e, join_style=2).buffer(-e, join_style=2)
+
+
 def avrund_alt(pg, r=G.R_KANT):
     return pg.buffer(-r, join_style=1).buffer(r, join_style=1)
 
@@ -64,7 +69,7 @@ def utbrett_d01():
     s_gjaer = lambda v: m.dot(uR) / m.dot(wR) * v
     hfl = [(s_gjaer(RI) + glipe, RI), (LR, RI), (LR, G.FLENS), (s_gjaer(G.FLENS) + glipe, G.FLENS)]
     flens_h = P([tuple(a * dr + (BA + (v - RI)) * nr) for a, v in hfl])
-    form = unary_union([fasett, boy_v, flens_v, tunge, boy_h, flens_h])
+    form = lekk(unary_union([fasett, boy_v, flens_v, tunge, boy_h, flens_h]))
     # relieff ved foten av falden: spalte 3,0 mm frå botnen av bøyen til 4 mm over, rund topp
     sp = unary_union([sbox(-1.5, -BA - 2.0, 1.5, 4.0 - 1.5), Point(0, 4.0 - 1.5).buffer(1.5, 32)])
     form = form.difference(sp)
@@ -122,7 +127,7 @@ def utbrett_d02():
     lp = [np.array([x0, yb0]), np.array([x1, yb0]), np.array([x1, yb0 - lh]), np.array([x0, yb0 - lh])]
     lp = C.avrund2d(C.avrund2d(lp, 3, G.R_HJORNE), 2, G.R_HJORNE)
     leppe = P([golv_flat(*p) for p in lp])
-    form = unary_union([fasett, boy_g, golv, boy_l, leppe])
+    form = lekk(unary_union([fasett, boy_g, golv, boy_l, leppe]))
     form = form.difference(Point(0.0, 0.0).buffer(G.MIN_SPALTE, 32))    # rundt relieff i foten av falden
     form = avrund_alt(form)
     for xb in G.BOLT_X:
@@ -162,7 +167,7 @@ def utbrett_e01():
     # vengen (venstre ende av skjermleppa, bak mot høgseglet) og endeveggen (høgre ende, fram)
     veng = sbox(xs - ba90 - (G.E01_VENG_Y - y1 - sb90 + t), yl1 - skj, xs, yl1)
     endev = sbox(x1, yl1 - skj, x1 + ba90 + (y1 - 6.0 - sb90), yl1)
-    form = unary_union([sete_p, b45, botn_u, botn_m, b90, skjerm, flik_v, veng, endev])
+    form = lekk(unary_union([sete_p, b45, botn_u, botn_m, b90, skjerm, flik_v, veng, endev]))
     form = avrund_alt(form)
     for xb, yb in G.E01_BOLT:
         yy = -ba45 / 2 - ((y1 - sb90 if xb > xs else y1) - yb) if False else -ba45 / 2 - (yb - (y0 + sb45))

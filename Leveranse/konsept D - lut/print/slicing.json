@@ -1,0 +1,69 @@
+{
+ "LUT_P1S_plate1_blad_PLA": {
+  "ok": true,
+  "prosess": "0.20mm Standard @BBL X1C",
+  "filament": "Bambu PLA Matte @BBL P1S 0.4 nozzle",
+  "val": {
+   "wall_loops": "3",
+   "sparse_infill_density": "15%",
+   "ironing_type": "top",
+   "brim_type": "no_brim"
+  },
+  "tid_min": 381.9,
+  "gram": 228.7,
+  "atvaring": ""
+ },
+ "LUT_P1S_plate2_fot_hovud_knott_PLA": {
+  "ok": true,
+  "prosess": "0.16mm Optimal @BBL X1C",
+  "filament": "Bambu PLA Matte @BBL P1S 0.4 nozzle",
+  "val": {
+   "wall_loops": "6",
+   "sparse_infill_density": "15%",
+   "brim_type": "no_brim"
+  },
+  "tid_min": 217.9,
+  "gram": 176.0,
+  "atvaring": ""
+ },
+ "LUT_P1S_plate3_lyskopp_PETG_kvit": {
+  "ok": true,
+  "prosess": "0.16mm Optimal @BBL X1C",
+  "filament": "Bambu PETG HF @BBL P1S 0.4 nozzle",
+  "val": {
+   "wall_loops": "4",
+   "sparse_infill_density": "15%",
+   "brim_type": "no_brim"
+  },
+  "tid_min": 36.2,
+  "gram": 18.7,
+  "atvaring": ""
+ },
+ "LUT_P1S_plate4_botnplate_PLA_alternativ": {
+  "ok": true,
+  "prosess": "0.20mm Standard @BBL X1C",
+  "filament": "Bambu PLA Matte @BBL P1S 0.4 nozzle",
+  "val": {
+   "wall_loops": "3",
+   "sparse_infill_density": "100%",
+   "sparse_infill_pattern": "zig-zag",
+   "brim_type": "no_brim"
+  },
+  "tid_min": 59.0,
+  "gram": 72.7,
+  "atvaring": ""
+ },
+ "LUT_P1S_plate0_passprove_PLA": {
+  "ok": true,
+  "prosess": "0.20mm Standard @BBL X1C",
+  "filament": "Bambu PLA Matte @BBL P1S 0.4 nozzle",
+  "val": {
+   "wall_loops": "3",
+   "sparse_infill_density": "15%",
+   "brim_type": "no_brim"
+  },
+  "tid_min": 29.5,
+  "gram": 21.7,
+  "atvaring": ""
+ }
+}

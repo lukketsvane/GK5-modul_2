@@ -1,0 +1,482 @@
+{
+ "D01": {
+  "namn": "Blad",
+  "farge": [
+   0.55,
+   0.55,
+   0.54
+  ],
+  "kjopt": false,
+  "fil": "D01_blad",
+  "senter": [
+   100.381,
+   0.0,
+   129.123
+  ]
+ },
+ "D02": {
+  "namn": "Hovud",
+  "farge": [
+   0.55,
+   0.55,
+   0.54
+  ],
+  "kjopt": false,
+  "fil": "D02_hovud",
+  "senter": [
+   204.333,
+   0.0,
+   236.989
+  ]
+ },
+ "D03": {
+  "namn": "Fot",
+  "farge": [
+   0.55,
+   0.55,
+   0.54
+  ],
+  "kjopt": false,
+  "fil": "D03_fot",
+  "senter": [
+   93.445,
+   -0.058,
+   24.501
+  ]
+ },
+ "D04": {
+  "namn": "Botnplate",
+  "farge": [
+   0.22,
+   0.22,
+   0.23
+  ],
+  "kjopt": false,
+  "fil": "D04_botnplate",
+  "senter": [
+   94.508,
+   0.0,
+   4.0
+  ]
+ },
+ "D05": {
+  "namn": "Knott",
+  "farge": [
+   0.55,
+   0.55,
+   0.54
+  ],
+  "kjopt": false,
+  "fil": "D05_knott",
+  "senter": [
+   155.0,
+   -0.0,
+   42.231
+  ]
+ },
+ "D06": {
+  "namn": "Lyskopp",
+  "farge": [
+   0.92,
+   0.92,
+   0.9
+  ],
+  "kjopt": false,
+  "fil": "D06_lyskopp",
+  "senter": [
+   204.5,
+   -0.0,
+   210.858
+  ]
+ },
+ "D07": {
+  "namn": "Spreiar",
+  "farge": [
+   0.98,
+   0.97,
+   0.93
+  ],
+  "kjopt": false,
+  "fil": "D07_spreiar",
+  "senter": [
+   204.5,
+   -0.0,
+   196.5
+  ]
+ },
+ "D08": {
+  "namn": "Kjøleplate",
+  "farge": [
+   0.75,
+   0.76,
+   0.78
+  ],
+  "kjopt": false,
+  "fil": "D08_kjoleplate",
+  "senter": [
+   204.5,
+   -0.0,
+   214.25
+  ]
+ },
+ "E01": {
+  "namn": "LED-modul",
+  "farge": [
+   0.95,
+   0.85,
+   0.55
+  ],
+  "kjopt": true,
+  "fil": "E01_led-modul",
+  "senter": [
+   204.5,
+   0.0,
+   212.7
+  ]
+ },
+ "E02": {
+  "namn": "Potensiometer med brytar",
+  "farge": [
+   0.3,
+   0.3,
+   0.32
+  ],
+  "kjopt": true,
+  "fil": "E02_potensiometer_med_brytar",
+  "senter": [
+   155.0,
+   0.0,
+   22.225
+  ]
+ },
+ "E02b": {
+  "namn": "Mutter og skive M7",
+  "farge": [
+   0.7,
+   0.7,
+   0.7
+  ],
+  "kjopt": true,
+  "fil": "E02b_mutter_og_skive_m7",
+  "senter": [
+   155.0,
+   -0.0,
+   33.291
+  ]
+ },
+ "E03": {
+  "namn": "PWM-dimmarkort",
+  "farge": [
+   0.1,
+   0.35,
+   0.15
+  ],
+  "kjopt": true,
+  "fil": "E03_pwm-dimmarkort",
+  "senter": [
+   165.405,
+   0.0,
+   13.524
+  ]
+ },
+ "E04": {
+  "namn": "USB-C-kontakt",
+  "farge": [
+   0.15,
+   0.15,
+   0.15
+  ],
+  "kjopt": true,
+  "fil": "E04_usb-c-kontakt",
+  "senter": [
+   115.0,
+   34.533,
+   14.0
+  ]
+ },
+ "M03-1": {
+  "namn": "Skrue",
+  "farge": [
+   0.12,
+   0.12,
+   0.13
+  ],
+  "kjopt": true,
+  "fil": "M03-1_skrue",
+  "senter": [
+   20.0,
+   0.0,
+   27.539
+  ]
+ },
+ "M03-2": {
+  "namn": "Skrue",
+  "farge": [
+   0.12,
+   0.12,
+   0.13
+  ],
+  "kjopt": true,
+  "fil": "M03-2_skrue",
+  "senter": [
+   104.0,
+   -11.0,
+   27.539
+  ]
+ },
+ "M03-3": {
+  "namn": "Skrue",
+  "farge": [
+   0.12,
+   0.12,
+   0.13
+  ],
+  "kjopt": true,
+  "fil": "M03-3_skrue",
+  "senter": [
+   104.0,
+   11.0,
+   27.539
+  ]
+ },
+ "M04-1": {
+  "namn": "Skrue",
+  "farge": [
+   0.12,
+   0.12,
+   0.13
+  ],
+  "kjopt": true,
+  "fil": "M04-1_skrue",
+  "senter": [
+   167.874,
+   -0.0,
+   235.0
+  ]
+ },
+ "M04-2": {
+  "namn": "Skrue",
+  "farge": [
+   0.12,
+   0.12,
+   0.13
+  ],
+  "kjopt": true,
+  "fil": "M04-2_skrue",
+  "senter": [
+   167.874,
+   -0.0,
+   265.0
+  ]
+ },
+ "M05-1": {
+  "namn": "Skrue",
+  "farge": [
+   0.12,
+   0.12,
+   0.13
+  ],
+  "kjopt": true,
+  "fil": "M05-1_skrue",
+  "senter": [
+   40.0,
+   -31.0,
+   3.86
+  ]
+ },
+ "M05-2": {
+  "namn": "Skrue",
+  "farge": [
+   0.12,
+   0.12,
+   0.13
+  ],
+  "kjopt": true,
+  "fil": "M05-2_skrue",
+  "senter": [
+   40.0,
+   31.0,
+   3.86
+  ]
+ },
+ "M05-3": {
+  "namn": "Skrue",
+  "farge": [
+   0.12,
+   0.12,
+   0.13
+  ],
+  "kjopt": true,
+  "fil": "M05-3_skrue",
+  "senter": [
+   135.0,
+   -31.0,
+   3.86
+  ]
+ },
+ "M05-4": {
+  "namn": "Skrue",
+  "farge": [
+   0.12,
+   0.12,
+   0.13
+  ],
+  "kjopt": true,
+  "fil": "M05-4_skrue",
+  "senter": [
+   135.0,
+   31.0,
+   3.86
+  ]
+ },
+ "M06-1": {
+  "namn": "Magnet Ø 6 × 3 N42",
+  "farge": [
+   0.78,
+   0.78,
+   0.8
+  ],
+  "kjopt": true,
+  "fil": "M06-1_magnet_o_6_x_3_n42",
+  "senter": [
+   236.5,
+   0.0,
+   218.55
+  ]
+ },
+ "M06-4": {
+  "namn": "Magnet Ø 6 × 3 N42",
+  "farge": [
+   0.78,
+   0.78,
+   0.8
+  ],
+  "kjopt": true,
+  "fil": "M06-4_magnet_o_6_x_3_n42",
+  "senter": [
+   236.5,
+   0.0,
+   215.45
+  ]
+ },
+ "M06-2": {
+  "namn": "Magnet Ø 6 × 3 N42",
+  "farge": [
+   0.78,
+   0.78,
+   0.8
+  ],
+  "kjopt": true,
+  "fil": "M06-2_magnet_o_6_x_3_n42",
+  "senter": [
+   188.5,
+   27.713,
+   218.55
+  ]
+ },
+ "M06-5": {
+  "namn": "Magnet Ø 6 × 3 N42",
+  "farge": [
+   0.78,
+   0.78,
+   0.8
+  ],
+  "kjopt": true,
+  "fil": "M06-5_magnet_o_6_x_3_n42",
+  "senter": [
+   188.5,
+   27.713,
+   215.45
+  ]
+ },
+ "M06-3": {
+  "namn": "Magnet Ø 6 × 3 N42",
+  "farge": [
+   0.78,
+   0.78,
+   0.8
+  ],
+  "kjopt": true,
+  "fil": "M06-3_magnet_o_6_x_3_n42",
+  "senter": [
+   188.5,
+   -27.713,
+   218.55
+  ]
+ },
+ "M06-6": {
+  "namn": "Magnet Ø 6 × 3 N42",
+  "farge": [
+   0.78,
+   0.78,
+   0.8
+  ],
+  "kjopt": true,
+  "fil": "M06-6_magnet_o_6_x_3_n42",
+  "senter": [
+   188.5,
+   -27.713,
+   215.45
+  ]
+ },
+ "M07-1": {
+  "namn": "Gummifot Ø 10 × 2",
+  "farge": [
+   0.05,
+   0.05,
+   0.05
+  ],
+  "kjopt": true,
+  "fil": "M07-1_gummifot_o_10_x_2",
+  "senter": [
+   10.0,
+   -27.0,
+   1.0
+  ]
+ },
+ "M07-2": {
+  "namn": "Gummifot Ø 10 × 2",
+  "farge": [
+   0.05,
+   0.05,
+   0.05
+  ],
+  "kjopt": true,
+  "fil": "M07-2_gummifot_o_10_x_2",
+  "senter": [
+   10.0,
+   27.0,
+   1.0
+  ]
+ },
+ "M07-3": {
+  "namn": "Gummifot Ø 10 × 2",
+  "farge": [
+   0.05,
+   0.05,
+   0.05
+  ],
+  "kjopt": true,
+  "fil": "M07-3_gummifot_o_10_x_2",
+  "senter": [
+   172.0,
+   -26.0,
+   1.0
+  ]
+ },
+ "M07-4": {
+  "namn": "Gummifot Ø 10 × 2",
+  "farge": [
+   0.05,
+   0.05,
+   0.05
+  ],
+  "kjopt": true,
+  "fil": "M07-4_gummifot_o_10_x_2",
+  "senter": [
+   172.0,
+   26.0,
+   1.0
+  ]
+ }
+}

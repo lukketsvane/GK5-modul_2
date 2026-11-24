@@ -1,0 +1,785 @@
+{
+ "dato": "2026-11-24 21:35",
+ "delar": {
+  "D01": {
+   "namn": "Blad",
+   "gyldig": true,
+   "volum_mm3": 745090.4,
+   "masse_g": 228.8,
+   "boks_mm": [
+    3.06,
+    -20.0,
+    32.0,
+    169.86,
+    20.0,
+    274.0
+   ]
+  },
+  "D02": {
+   "namn": "Hovud",
+   "gyldig": true,
+   "volum_mm3": 73162.8,
+   "masse_g": 90.7,
+   "boks_mm": [
+    164.5,
+    -40.0,
+    194.0,
+    244.5,
+    40.0,
+    274.0
+   ]
+  },
+  "D03": {
+   "namn": "Fot",
+   "gyldig": true,
+   "volum_mm3": 78571.8,
+   "masse_g": 97.4,
+   "boks_mm": [
+    -0.0,
+    -40.0,
+    2.0,
+    195.0,
+    40.0,
+    32.0
+   ]
+  },
+  "D04": {
+   "namn": "Botnplate",
+   "gyldig": true,
+   "volum_mm3": 56054.2,
+   "masse_g": 440.0,
+   "boks_mm": [
+    1.4,
+    -38.6,
+    2.0,
+    193.6,
+    38.6,
+    6.0
+   ]
+  },
+  "D05": {
+   "namn": "Knott",
+   "gyldig": true,
+   "volum_mm3": 4551.0,
+   "masse_g": 5.6,
+   "boks_mm": [
+    145.0,
+    -10.0,
+    32.8,
+    165.0,
+    10.0,
+    50.0
+   ]
+  },
+  "D06": {
+   "namn": "Lyskopp",
+   "gyldig": true,
+   "volum_mm3": 16126.0,
+   "masse_g": 20.5,
+   "boks_mm": [
+    167.3,
+    -37.2,
+    195.0,
+    241.7,
+    37.2,
+    217.0
+   ]
+  },
+  "D07": {
+   "namn": "Spreiar",
+   "gyldig": true,
+   "volum_mm3": 3959.2,
+   "masse_g": 4.8,
+   "boks_mm": [
+    169.0,
+    -35.5,
+    196.0,
+    240.0,
+    35.5,
+    197.0
+   ]
+  },
+  "D08": {
+   "namn": "Kjøleplate",
+   "gyldig": true,
+   "volum_mm3": 3392.9,
+   "masse_g": 9.2,
+   "boks_mm": [
+    177.5,
+    -27.0,
+    213.5,
+    231.5,
+    27.0,
+    215.0
+   ]
+  },
+  "E01": {
+   "namn": "LED-modul",
+   "gyldig": true,
+   "volum_mm3": 3141.6,
+   "masse_g": 6.0,
+   "boks_mm": [
+    179.5,
+    -25.0,
+    211.9,
+    229.5,
+    25.0,
+    213.5
+   ]
+  },
+  "E02": {
+   "namn": "Potensiometer med brytar",
+   "gyldig": true,
+   "volum_mm3": 4346.8,
+   "masse_g": 9.0,
+   "boks_mm": [
+    146.5,
+    -8.5,
+    12.0,
+    163.5,
+    8.5,
+    44.0
+   ]
+  },
+  "E02b": {
+   "namn": "Mutter og skive M7",
+   "gyldig": true,
+   "volum_mm3": 112.9,
+   "masse_g": 1.5,
+   "boks_mm": [
+    150.0,
+    -5.77,
+    32.0,
+    160.0,
+    5.77,
+    34.5
+   ]
+  },
+  "E03": {
+   "namn": "PWM-dimmarkort",
+   "gyldig": true,
+   "volum_mm3": 2486.4,
+   "masse_g": 6.0,
+   "boks_mm": [
+    143.0,
+    -10.5,
+    10.4,
+    177.0,
+    10.5,
+    19.0
+   ]
+  },
+  "E04": {
+   "namn": "USB-C-kontakt",
+   "gyldig": true,
+   "volum_mm3": 518.2,
+   "masse_g": 2.0,
+   "boks_mm": [
+    109.5,
+    29.8,
+    11.5,
+    120.5,
+    39.9,
+    16.5
+   ]
+  },
+  "M03-1": {
+   "namn": "Skrue",
+   "gyldig": true,
+   "volum_mm3": 345.1,
+   "masse_g": 2.7,
+   "boks_mm": [
+    16.5,
+    -3.5,
+    20.0,
+    23.5,
+    3.5,
+    40.0
+   ]
+  },
+  "M03-2": {
+   "namn": "Skrue",
+   "gyldig": true,
+   "volum_mm3": 345.1,
+   "masse_g": 2.7,
+   "boks_mm": [
+    100.5,
+    -14.5,
+    20.0,
+    107.5,
+    -7.5,
+    40.0
+   ]
+  },
+  "M03-3": {
+   "namn": "Skrue",
+   "gyldig": true,
+   "volum_mm3": 345.1,
+   "masse_g": 2.7,
+   "boks_mm": [
+    100.5,
+    7.5,
+    20.0,
+    107.5,
+    14.5,
+    40.0
+   ]
+  },
+  "M04-1": {
+   "namn": "Skrue",
+   "gyldig": true,
+   "volum_mm3": 137.3,
+   "masse_g": 1.1,
+   "boks_mm": [
+    159.5,
+    -2.75,
+    232.25,
+    172.5,
+    2.75,
+    237.75
+   ]
+  },
+  "M04-2": {
+   "namn": "Skrue",
+   "gyldig": true,
+   "volum_mm3": 137.3,
+   "masse_g": 1.1,
+   "boks_mm": [
+    159.5,
+    -2.75,
+    262.25,
+    172.5,
+    2.75,
+    267.75
+   ]
+  },
+  "M05-1": {
+   "namn": "Skrue",
+   "gyldig": true,
+   "volum_mm3": 94.9,
+   "masse_g": 0.8,
+   "boks_mm": [
+    37.15,
+    -33.85,
+    0.35,
+    42.85,
+    -28.15,
+    10.0
+   ]
+  },
+  "M05-2": {
+   "namn": "Skrue",
+   "gyldig": true,
+   "volum_mm3": 94.9,
+   "masse_g": 0.8,
+   "boks_mm": [
+    37.15,
+    28.15,
+    0.35,
+    42.85,
+    33.85,
+    10.0
+   ]
+  },
+  "M05-3": {
+   "namn": "Skrue",
+   "gyldig": true,
+   "volum_mm3": 94.9,
+   "masse_g": 0.8,
+   "boks_mm": [
+    132.15,
+    -33.85,
+    0.35,
+    137.85,
+    -28.15,
+    10.0
+   ]
+  },
+  "M05-4": {
+   "namn": "Skrue",
+   "gyldig": true,
+   "volum_mm3": 94.9,
+   "masse_g": 0.8,
+   "boks_mm": [
+    132.15,
+    28.15,
+    0.35,
+    137.85,
+    33.85,
+    10.0
+   ]
+  },
+  "M06-1": {
+   "namn": "Magnet Ø 6 × 3 N42",
+   "gyldig": true,
+   "volum_mm3": 84.8,
+   "masse_g": 0.7,
+   "boks_mm": [
+    233.5,
+    -3.0,
+    217.05,
+    239.5,
+    3.0,
+    220.05
+   ]
+  },
+  "M06-4": {
+   "namn": "Magnet Ø 6 × 3 N42",
+   "gyldig": true,
+   "volum_mm3": 84.8,
+   "masse_g": 0.7,
+   "boks_mm": [
+    233.5,
+    -3.0,
+    213.95,
+    239.5,
+    3.0,
+    216.95
+   ]
+  },
+  "M06-2": {
+   "namn": "Magnet Ø 6 × 3 N42",
+   "gyldig": true,
+   "volum_mm3": 84.8,
+   "masse_g": 0.7,
+   "boks_mm": [
+    185.5,
+    24.71,
+    217.05,
+    191.5,
+    30.71,
+    220.05
+   ]
+  },
+  "M06-5": {
+   "namn": "Magnet Ø 6 × 3 N42",
+   "gyldig": true,
+   "volum_mm3": 84.8,
+   "masse_g": 0.7,
+   "boks_mm": [
+    185.5,
+    24.71,
+    213.95,
+    191.5,
+    30.71,
+    216.95
+   ]
+  },
+  "M06-3": {
+   "namn": "Magnet Ø 6 × 3 N42",
+   "gyldig": true,
+   "volum_mm3": 84.8,
+   "masse_g": 0.7,
+   "boks_mm": [
+    185.5,
+    -30.71,
+    217.05,
+    191.5,
+    -24.71,
+    220.05
+   ]
+  },
+  "M06-6": {
+   "namn": "Magnet Ø 6 × 3 N42",
+   "gyldig": true,
+   "volum_mm3": 84.8,
+   "masse_g": 0.7,
+   "boks_mm": [
+    185.5,
+    -30.71,
+    213.95,
+    191.5,
+    -24.71,
+    216.95
+   ]
+  },
+  "M07-1": {
+   "namn": "Gummifot Ø 10 × 2",
+   "gyldig": true,
+   "volum_mm3": 157.1,
+   "masse_g": 0.2,
+   "boks_mm": [
+    5.0,
+    -32.0,
+    0.0,
+    15.0,
+    -22.0,
+    2.0
+   ]
+  },
+  "M07-2": {
+   "namn": "Gummifot Ø 10 × 2",
+   "gyldig": true,
+   "volum_mm3": 157.1,
+   "masse_g": 0.2,
+   "boks_mm": [
+    5.0,
+    22.0,
+    0.0,
+    15.0,
+    32.0,
+    2.0
+   ]
+  },
+  "M07-3": {
+   "namn": "Gummifot Ø 10 × 2",
+   "gyldig": true,
+   "volum_mm3": 157.1,
+   "masse_g": 0.2,
+   "boks_mm": [
+    167.0,
+    -31.0,
+    0.0,
+    177.0,
+    -21.0,
+    2.0
+   ]
+  },
+  "M07-4": {
+   "namn": "Gummifot Ø 10 × 2",
+   "gyldig": true,
+   "volum_mm3": 157.1,
+   "masse_g": 0.2,
+   "boks_mm": [
+    167.0,
+    21.0,
+    0.0,
+    177.0,
+    31.0,
+    2.0
+   ]
+  }
+ },
+ "kollisjonar": [],
+ "innføring": {
+  "lyskopp": {
+   "retning": [
+    0,
+    0,
+    -1.0
+   ],
+   "steg_mm": 1.0,
+   "tal_steg": 25,
+   "storste_overlapp_mm3": 0.0,
+   "metode": "diskret"
+  },
+  "hovud_paa_bladet": {
+   "retning": [
+    1.0,
+    0,
+    0
+   ],
+   "steg_mm": 1.0,
+   "tal_steg": 6,
+   "storste_overlapp_mm3": 0.0,
+   "metode": "diskret"
+  },
+  "knott": {
+   "retning": [
+    0,
+    0,
+    1.0
+   ],
+   "steg_mm": 1.0,
+   "tal_steg": 12,
+   "storste_overlapp_mm3": 0.0,
+   "metode": "diskret"
+  },
+  "botnplate": {
+   "retning": [
+    0,
+    0,
+    -1.0
+   ],
+   "steg_mm": 1.0,
+   "tal_steg": 8,
+   "storste_overlapp_mm3": 0.0,
+   "metode": "diskret"
+  }
+ },
+ "masse_g": 939.6,
+ "tyngdepunkt_mm": [
+  113.1,
+  0.1,
+  70.1
+ ],
+ "velting": {
+  "stottekant_mm": {
+   "venstre": 5.0,
+   "hogre": 177.0,
+   "framme": -31.0,
+   "bak": 31.0
+  },
+  "vinkel_grad": {
+   "mot_hovudet": 42.3,
+   "mot_bladet": 57.0,
+   "framover": 23.9,
+   "bakover": 23.8
+  },
+  "minste_grad": 23.8,
+  "krav_EN60598_grad": 6.0,
+  "merknad": "Statisk vippevinkel om ytterkanten av gummiføtene. Kabelen er ikkje med."
+ },
+ "velting_pla_botnplate": {
+  "masse_g": 569.1,
+  "tyngdepunkt_mm": [
+   125.3,
+   0.1,
+   113.2
+  ],
+  "vinkel_grad": {
+   "mot_hovudet": 24.6,
+   "mot_bladet": 46.7,
+   "framover": 15.4,
+   "bakover": 15.3
+  },
+  "minste_grad": 15.3
+ },
+ "geometri": {
+  "A": [
+   2.0,
+   32.0
+  ],
+  "B": [
+   127.185,
+   32.0
+  ],
+  "Pc": [
+   151.916,
+   194.0
+  ],
+  "T1": [
+   126.656,
+   253.61
+  ],
+  "T2": [
+   161.519,
+   274.0
+  ],
+  "T3": [
+   156.211,
+   194.0
+  ],
+  "T4": [
+   151.268,
+   189.755
+  ],
+  "M2": [
+   141.325,
+   268.528
+  ],
+  "M3": [
+   152.953,
+   192.793
+  ],
+  "C2": [
+   161.519,
+   234.0
+  ],
+  "C3": [
+   156.211,
+   189.0
+  ],
+  "Q": [
+   138.125,
+   274.0
+  ]
+ },
+ "kanal": {
+  "S": [
+   60.669,
+   27.228
+  ],
+  "Ta": [
+   136.468,
+   241.992
+  ],
+  "Tb": [
+   150.613,
+   252.0
+  ],
+  "C": [
+   150.613,
+   237.0
+  ],
+  "E": [
+   158.0,
+   252.0
+  ]
+ },
+ "parametrar": {
+  "RASK": false,
+  "FOT_L": 195.0,
+  "FOT_Z": 32.0,
+  "BAK_DXDZ": 0.5625,
+  "INN_X0": 122.3,
+  "INN_DXDZ": 0.15266,
+  "HOV_X": 204.5,
+  "HOV_R": 40.0,
+  "HOV_Z0": 194.0,
+  "HOV_Z1": 274.0,
+  "TOPP_R": 40.0,
+  "INNHJ_R": 5.0,
+  "KNOTT_D": 20.0,
+  "KNOTT_TOPP": 50.0,
+  "FOT_B": 80.0,
+  "BLAD_T": 40.0,
+  "FOT_RV": 20.0,
+  "FOT_RH": 40.0,
+  "BAK_X0": 2.0,
+  "KNOTT_X": 155.0,
+  "R_BLAD": 1.5,
+  "R_HOV_TOPP": 2.0,
+  "R_HOV_BOTN": 1.0,
+  "R_FOT_TOPP": 2.0,
+  "R_FOT_BOTN": 1.0,
+  "R_KNOTT_TOPP": 1.5,
+  "R_KNOTT_BOTN": 0.5,
+  "VEGG": 2.4,
+  "FOT_TAK": 3.0,
+  "FOT_BOTN": 2.0,
+  "PLATE_T": 4.0,
+  "FALS": 1.2,
+  "PLATE_KLARING": 0.2,
+  "SKUGGE_KNOTT": 0.8,
+  "RING_R0": 28.0,
+  "RING_Z0": 217.0,
+  "KOPP_Z0": 195.0,
+  "KOPP_RY": 37.2,
+  "KOPP_RI": 35.6,
+  "MAGNET_R": 32.0,
+  "MAGNET_VINKLAR": [
+   0.0,
+   120.0,
+   240.0
+  ],
+  "SPREIAR_R": 35.5,
+  "SPREIAR_T": 1.0,
+  "LED_R": 25.0,
+  "LED_T": 1.6,
+  "KJOL_R": 27.0,
+  "KJOL_T": 1.5,
+  "BLAD_SKRUAR": [
+   [
+    20.0,
+    0.0
+   ],
+   [
+    104.0,
+    -11.0
+   ],
+   [
+    104.0,
+    11.0
+   ]
+  ],
+  "KABEL_FOT": [
+   62.0,
+   0.0
+  ],
+  "PLATE_SKRUAR": [
+   [
+    40.0,
+    -31.0
+   ],
+   [
+    40.0,
+    31.0
+   ],
+   [
+    135.0,
+    -31.0
+   ],
+   [
+    135.0,
+    31.0
+   ]
+  ],
+  "FOTER": [
+   [
+    10.0,
+    -27.0
+   ],
+   [
+    10.0,
+    27.0
+   ],
+   [
+    172.0,
+    -26.0
+   ],
+   [
+    172.0,
+    26.0
+   ]
+  ],
+  "FOT_R_GUMMI": 5.0,
+  "FOT_H_GUMMI": 2.0,
+  "USB_X": 115.0,
+  "USB_Z": 14.0,
+  "HOV_SKRUAR_Z": [
+   235.0,
+   265.0
+  ],
+  "HOV_KABEL_Z": 252.0,
+  "PLA_GRAA": [
+   0.55,
+   0.55,
+   0.54
+  ]
+ },
+ "passprove": {
+  "gyldig": true,
+  "volum_mm3": 26395.4
+ },
+ "print": {
+  "D01": {
+   "storleik_mm": [
+    166.8,
+    242.0,
+    40.0
+   ],
+   "passar_P1S": true
+  },
+  "D02": {
+   "storleik_mm": [
+    80.0,
+    80.0,
+    80.0
+   ],
+   "passar_P1S": true
+  },
+  "D03": {
+   "storleik_mm": [
+    195.0,
+    80.0,
+    30.0
+   ],
+   "passar_P1S": true
+  },
+  "D05": {
+   "storleik_mm": [
+    20.0,
+    20.0,
+    17.2
+   ],
+   "passar_P1S": true
+  },
+  "D06": {
+   "storleik_mm": [
+    74.4,
+    74.4,
+    22.0
+   ],
+   "passar_P1S": true
+  },
+  "D04p": {
+   "storleik_mm": [
+    192.2,
+    77.2,
+    4.0
+   ],
+   "passar_P1S": true
+  }
+ }
+}

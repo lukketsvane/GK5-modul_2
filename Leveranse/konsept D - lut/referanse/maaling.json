@@ -1,0 +1,55 @@
+{
+  "kjelde": "referanse/skisse.png (952 x 1267 px, sideoppriss med svak perspektiv, mjukt studiolys på svart). Biletet ligg berre lokalt.",
+  "metode": "subpikselkantar langs rader og kolonnar (terskel 45 av 255), liner og ellipsebogar tilpassa med minste kvadrat",
+  "skala": {
+    "val": "0,5 mm per pikselpunkt",
+    "grunn": "gjev hovud Ø 80 mm og knott Ø 20 mm; heile lampa blir 244,5 x 80 x 274 mm og kvar del får plass på P1S-plata (256 mm)",
+    "status": "vald, ikkje målt. Skissa har ingen målestokk."
+  },
+  "piksel": {
+    "fot_venstre_x": 257.7,
+    "fot_hogre_x": 648.4,
+    "fot_botn_y_midtdjupn": 899.5,
+    "fot_topp_y_midtdjupn": 836.0,
+    "bakkant": {"x_ved_y0": 728.04, "dx_per_dy": -0.5625, "vinkel_fra_lodd_grad": 29.36, "rms_px": 0.18},
+    "innerkant": {"x_ved_y0": 639.65, "dx_per_dy": -0.15266, "vinkel_fra_lodd_grad": 8.68, "rms_px": 0.13},
+    "hovud_hogre_x": 747.1,
+    "hovud_akse_x": 667.0,
+    "hovud_radius": 80.0,
+    "hovud_topp_y_midtdjupn": 352.4,
+    "hovud_botn_y_midtdjupn": 511.0,
+    "toppavrunding_radius": 79.5,
+    "innerhjorne_radius": 10.0,
+    "knott_senter_x": 564.3,
+    "knott_diameter": 40.1,
+    "knott_topp_y": 799.0
+  },
+  "mm_i_oppriss": {
+    "merknad": "X frå venstre ende av foten, Z frå bordet. Same tal står som parametrar øvst i cad/lut.py.",
+    "fot_lengd": 195.35,
+    "fot_hogd": 31.75,
+    "bakkant": "X = 0,5625 (Z - 31,75), 29,36 grader frå loddrett",
+    "innerkant": "X = 122,3 + 0,15266 Z, 8,68 grader frå loddrett",
+    "hovud_akse_x": 204.65,
+    "hovud_diameter": 80.0,
+    "hovud_botn_z": 194.25,
+    "hovud_topp_z": 273.55,
+    "toppavrunding_radius": 39.8,
+    "knott_x": 153.3,
+    "knott_diameter": 20.0,
+    "knott_topp_z": 50.25
+  },
+  "lesing": [
+    "Hovudet er ein loddrett sylinder: lysflata under er ein heil ellipse sentrert i aksen, og den høgre kanten er ei rett loddline. Høgd og diameter er like (158,6 mot 160 px).",
+    "Bakkanten går rett ned til venstre hjørne av foten (avvik under 1 px til y = 835). Det finst inga stor avrunding der; det som ser ut som ei, er den runda toppkanten på foten.",
+    "Avrundinga mellom bakkanten og toppen har same radius som hovudet (79,5 mot 80 px).",
+    "Knotten står om lag midt i djupna, til høgre for bladet, under overgangen til hovudet.",
+    "Djupna kan ikkje lesast sikkert: perspektivet er ikkje konsistent mellom foten og hovudet (truleg eit generert bilete). Djupnemåla i CAD-en er difor valde, sjå 'valt'."
+  ],
+  "valt": {
+    "fot_djupn": "80 mm, lik hovuddiameteren. Grenser frå skissa: 73 til 136 mm alt etter kva perspektivteikn ein les.",
+    "fot_planform": "rett venstre ende med R20-hjørne (bladet står heilt ute i enden), halvsirkel R40 til høgre med same radius som hovudet",
+    "blad_tjukkleik": "40 mm, lik radien til hovudet. Grenser frå skissa: 28 til 64 mm.",
+    "knott_x": "155 mm, i senter av den runde enden (målt 153,3)"
+  }
+}

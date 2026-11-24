@@ -1,0 +1,17 @@
+{
+ "kamera": {
+  "f": 3400.0,
+  "Cx": -379.4,
+  "Cy": -1093.13,
+  "Cz": 212.16,
+  "theta": 25.48,
+  "phi": 3.48
+ },
+ "avvik_px": {
+  "topp D01": 8.3,
+  "topp D02": 9.0,
+  "loddkant D01 nede": 10.3,
+  "låg spiss": 3.7
+ },
+ "skala_mm_per_px_ved_spissen": 0.339
+}

@@ -1,0 +1,15 @@
+gruppe,pos,kva,delenummer,leverandor,tal,pris_1_NOK,merknad
+A plate,D01+D02+E01+E02-BOTN,"laserskjering og bøying, DC01 1,5 / AlMg3 1,5",DXF + STEP i produksjon/,"247TailorSteel eller norsk platebedrift (Stansefabrikken, ikkje stadfesta)",1,1600-3200 for eitt lakka sett (anslag),120-220 per sett ved 50 (anslag); ingen pris henta inn
+A plate,"H01, H03",sveisebolt ISO 13918 PT M3 x 8,PT M3x8,platebedrifta (CD-sveising),5,inkl. over,prøveplate først: sjå om bolten syner gjennom lakken
+A plate,D01+D02+E01,"pulverlakk fin struktur matt, RAL 8023",,platebedrift med lakkering,1,800-1500 minstepris (anslag),"RAL Design 050 40 50 er nærare skissa, men blir laga på bestilling"
+A fres/dreiing,"E02, E03",klampe og knapp i aluminium,STEP i cad/,Xometry EU eller lokal maskinverkstad,1,ikkje henta inn,prototype: PETG på P1S
+B elektronikk,E01-LED,"LED-stripe 24 V dim-to-warm 3000 til 1800 K, CRI 90, 10 mm, klipp 62,5",LEDYI LY224-S2216DTW-W24-IP20,LEDYI (prøvehjul på førespurnad),1,ikkje funne,"2 steg = 125 mm, 174 lm, 2,25 W (datablad)"
+B elektronikk,E01-LED (prototyp),"LED-stripe 5 V COB 2700 K, CRI over 90, 8 mm",BTF-Lighting FCOB DC5V 2700K,Amazon / btf-lighting.com,1,om lag 90 per meter (anslag),det einaste brukaren må kjøpe til prototypen
+B elektronikk,E04-ENK,"enkoder med trykk, aksel L = 20, D-flate",Bourns PEC12R-4220F-S0024,Mouser / DigiKey / Elfa,1,15-30 (anslag),mål lesne i datablad
+B elektronikk,E04-USB,"USB-C, berre straum, 6 pinnar",GCT USB4125-GF-A-0190,Mouser / DigiKey,1,ikkje lese,
+B elektronikk,E04-KOMP,"ATtiny412-SSNR, AO3400A, 2 x 5,1 kOhm (CC), PTC 2 A, TVS 5 V, boost 5 til 24 V",sjå LES_MEG,Mouser / DigiKey,1,om lag 60 til saman (anslag),kretskortet er ikkje teikna; kretsen er eit forslag
+B elektronikk,H07,JST PH 2-polar hus og kontaktar,"PHR-2 + SPH-002T-P0.5S, B2B-PH-K-S",Elfa / Kjell & Co,1,om lag 10,
+C festemiddel,H02,"flensmutter M3, rustfri",DIN 6923 M3 A2,Würth / Bossard / jernvarehandel,3,om lag 2 per stk,
+C festemiddel,H04,rifla mutter M3,DIN 466 M3 (Ø8) eller tilsvarande,Bossard / modellhobby,2,om lag 5 per stk,skal kunne skruast for hand
+C festemiddel,H05,"senkskrue M2,5 x 6 Torx, rustfri","DIN 965 / ISO 14581 M2,5x6 A2",Würth / Bossard,2,om lag 1 per stk,
+C festemiddel,PCB,"skrue M2 x 4 og M2,5 x 5 til kort og botnplate",ISO 7380 / DIN 965,Würth / Bossard,6,om lag 1 per stk,

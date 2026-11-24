@@ -1,0 +1,12 @@
+del_,nr,kva,vinkel_grader,retning,indre_radius_mm,lengd_mm
+D01_framsegl,B1,fotflens venstre,90.0,ned (mot framsida),1.65,121.4
+D01_framsegl,B2,fotflens høgre,90.0,ned (mot framsida),1.65,120.0
+D01_framsegl,B3,falden,5.8,dal sett frå framsida,1.65,229.2
+D02_hogsegl,B1,golvet,90.0,opp (inn i V-en),1.65,84.5
+D02_hogsegl,B2,leppa,87.05,opp (mot framseglet),1.65,70.0
+D02_hogsegl,B3,falden,10.36,dal sett frå innsida,1.65,307.9
+E01_lysberar,B1,setet,45.0,opp,1.5,128.5
+E01_lysberar,B2,skjermleppa,90.0,opp,1.5,44.5
+E01_lysberar,B3,endeflik venstre,90.0,opp,1.5,13.8
+E01_lysberar,B4,veng,90.0,bak,1.5,43.5
+E01_lysberar,B5,endevegg,90.0,fram,1.5,43.5

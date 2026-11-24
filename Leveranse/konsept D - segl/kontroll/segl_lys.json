@@ -1,0 +1,114 @@
+{
+ "siktliner": {
+  "framme (225-315°)": {
+   "høgd 0-30°": {
+    "retningar_med_synleg_stripe": "0 av 114",
+    "maks_andel": 0.0
+   },
+   "høgd 30-60°": {
+    "retningar_med_synleg_stripe": "2 av 114",
+    "maks_andel": 0.019
+   },
+   "høgd 60-85°": {
+    "retningar_med_synleg_stripe": "87 av 114",
+    "maks_andel": 1.0
+   }
+  },
+  "høgre ende (-45-45°)": {
+   "høgd 0-30°": {
+    "retningar_med_synleg_stripe": "37 av 114",
+    "maks_andel": 0.575
+   },
+   "høgd 30-60°": {
+    "retningar_med_synleg_stripe": "72 av 114",
+    "maks_andel": 0.821
+   },
+   "høgd 60-85°": {
+    "retningar_med_synleg_stripe": "107 av 114",
+    "maks_andel": 1.0
+   }
+  },
+  "bak (45-135°)": {
+   "høgd 0-30°": {
+    "retningar_med_synleg_stripe": "18 av 114",
+    "maks_andel": 0.013
+   },
+   "høgd 30-60°": {
+    "retningar_med_synleg_stripe": "29 av 114",
+    "maks_andel": 0.254
+   },
+   "høgd 60-85°": {
+    "retningar_med_synleg_stripe": "96 av 114",
+    "maks_andel": 1.0
+   }
+  },
+  "venstre (135-225°)": {
+   "høgd 0-30°": {
+    "retningar_med_synleg_stripe": "15 av 114",
+    "maks_andel": 0.872
+   },
+   "høgd 30-60°": {
+    "retningar_med_synleg_stripe": "54 av 114",
+    "maks_andel": 0.968
+   },
+   "høgd 60-85°": {
+    "retningar_med_synleg_stripe": "94 av 114",
+    "maks_andel": 1.0
+   }
+  }
+ },
+ "lys": {
+  "lm_kjelde": 173.6,
+  "lm_forste_treff": {
+   "ut_direkte": 35.1,
+   "D01_venstre": 10.3,
+   "D01_hogre": 3.0,
+   "D02_venstre": 17.2,
+   "D02_hogre": 53.4,
+   "D02_boy_h": 2.4,
+   "berar/klampe": 52.2
+  },
+  "felt": {
+   "D02_hogre": {
+    "lm": 53.4,
+    "E_maks_lx": 19320,
+    "E_p99_lx": 17645,
+    "L_maks_cd_m2": 1845,
+    "L_p99_cd_m2": 1685,
+    "L_snitt_cd_m2": 309
+   },
+   "D02_venstre": {
+    "lm": 17.2,
+    "E_maks_lx": 13317,
+    "E_p99_lx": 11416,
+    "L_maks_cd_m2": 1272,
+    "L_p99_cd_m2": 1090,
+    "L_snitt_cd_m2": 138
+   },
+   "D01_venstre": {
+    "lm": 10.3,
+    "E_maks_lx": 3108,
+    "E_p99_lx": 3095,
+    "L_maks_cd_m2": 297,
+    "L_p99_cd_m2": 296,
+    "L_snitt_cd_m2": 78
+   },
+   "D01_hogre": {
+    "lm": 3.0,
+    "E_maks_lx": 2617,
+    "E_p99_lx": 2114,
+    "L_maks_cd_m2": 250,
+    "L_p99_cd_m2": 202,
+    "L_snitt_cd_m2": 24
+   }
+  },
+  "ut_direkte": {
+   "lm": 35.1,
+   "opp": 24.4,
+   "mot_veggen": 8.8
+  },
+  "lm_ut_eitt_sprett": 60.3
+ },
+ "rho_anteke": 0.3,
+ "merknad": "Første treff og eitt sprett. Ingen inter-refleksjon, ingen rom."
+}

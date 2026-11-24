@@ -1,0 +1,20 @@
+pos,del,tal,materiale,masse_g,produksjon,prototyp,boks_mm (x0 y0 z0 x1 y1 z1)
+D01,Framsegl,1,"DC01 1,5 mm, pulverlakk",335.1,"laserskjering, 3 bøyar på kantpresse (2 x 90°, 1 x 5,8°), 3 CD-sveiseboltar, pulverlakk","aluminium- eller stålplate 1-1,5 mm frå verkstaden på AHO, eller papp etter malen",-31.0 -22.87 0.0 244.17 1.5 205.08
+D02,Høgsegl med golv og leppe,1,"DC01 1,5 mm, pulverlakk",331.9,"laserskjering, 3 bøyar (90°, 87°, 10,4°), 2 CD-sveiseboltar, pulverlakk",som D01,0.99 0.47 -0.07 180.0 53.88 305.0
+E01,Lysberar,1,"EN AW-5754 H22 1,5 mm",29.6,"laserskjering, 5 bøyar, pulverlakk (setet maskert)",3D-print PETG eller bøygd aluminiumsplate,44.0 3.39 1.5 172.5 50.0 48.0
+E01-LED,LED-stripe 125 mm,1,LED-stripe (FPC + COB),3.3,"innkjøpt, klipt i 2 steg","innkjøpt 5 V COB-stripe, 2700 K",45.5 6.0 4.55 170.5 13.92 12.47
+E02,"Klampe, skal",1,"EN AW-6082 fresa, pulverlakk",22.9,"fresa av 40 x 40 aluminium, pulverlakk",3D-print PETG,-35.0 -9.5 0.0 -1.0 29.5 18.7
+E02-BOTN,"Klampe, botnplate",1,"EN AW-5754 1,5 mm",3.4,laserskjering,3D-print PETG,-32.8 -1.7 0.0 -3.2 27.3 1.5
+E03,Knapp,1,"EN AW-6082 dreia, pulverlakk",7.3,"dreia aluminium, rett rifling, pulverlakk",3D-print PETG,-28.6 -1.0 19.7 -6.6 21.0 27.3
+E04,Kretskort med enkoder og USB-C,1,FR4 + komponentar,2.9,"kretskort 29 x 28,8 x 1,6, sjå innkjøpsplanen","Arduino Nano + MOSFET, sjå innkjøpsplanen",-32.5 -1.5 4.6 -3.5 27.3 6.2
+E04-ENK,Enkoder Bourns PEC12R-4220F-S0024,1,Bourns PEC12R,3.4,innkjøpt,innkjøpt eller potmeter du har,-23.8 2.5 2.7 -11.4 17.0 26.2
+E04-USB,USB-C GCT USB4125-GF-A-0190,1,GCT USB4125,0.7,innkjøpt,USB-kabelen frå Arduinoen,-22.07 21.1 6.2 -13.13 27.88 9.36
+E04-KOMP,"MCU, MOSFET, spole",1,komponentar,0.4,innkjøpt,,-30.0 4.0 6.2 -4.0 21.0 10.2
+H01,Sveisebolt ISO 13918 PT M3 x 8 (på D01),3,sveisebolt M3x8 stål,1.5,CD-sveisa på innsida,M3-skrue gjennom hol,52.75 0.54 17.33 107.25 8.72 21.86
+H02,Flensmutter M3 DIN 6923,3,flensmutter M3 DIN 6923 A2,1.9,innkjøpt,M3-mutter med skive,51.5 2.12 16.17 108.5 6.16 23.2
+H03,Sveisebolt ISO 13918 PT M3 x 8 (i golvet),2,sveisebolt M3x8 stål,1.0,CD-sveisa ovanfrå,M3-skrue nedanfrå,67.75 17.25 1.5 154.25 21.75 9.5
+H04,Rifla mutter M3,2,tommelmutter M3,3.4,innkjøpt,vanleg M3-mutter,66.0 15.5 3.0 156.0 23.5 8.0
+H05,"Senkskrue M2,5 x 6 DIN 965 A2",2,"senkskrue M2,5x6 DIN 965 A2",0.6,innkjøpt,,-26.35 -7.95 0.0 -5.65 -3.25 6.0
+H06,"Flat leidning 2 x 0,35 mm², 60 mm",1,"flat leidning 2x0,35 mm²",0.5,innkjøpt,,-4.0 1.9 0.0 43.0 9.5 2.7
+H07,"JST PH 2-polar, inline",1,"JST PH 2-polar, inline",0.1,innkjøpt,,37.0 5.75 2.7 43.0 10.25 5.7
+,sum,,,749.8,,,

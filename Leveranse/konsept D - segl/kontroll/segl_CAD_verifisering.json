@@ -1,0 +1,389 @@
+{
+ "eining": "mm",
+ "delar": {
+  "D01": {
+   "gyldig": true,
+   "volum_mm3": 42693.3,
+   "masse_g": 335.1,
+   "materiale": "DC01 1,5 mm, pulverlakk",
+   "boks": [
+    -31.0,
+    -22.87,
+    0.0,
+    244.17,
+    1.5,
+    205.08
+   ],
+   "solids": 1
+  },
+  "D02": {
+   "gyldig": true,
+   "volum_mm3": 42279.9,
+   "masse_g": 331.9,
+   "materiale": "DC01 1,5 mm, pulverlakk",
+   "boks": [
+    0.99,
+    0.47,
+    -0.07,
+    180.0,
+    53.88,
+    305.0
+   ],
+   "solids": 1
+  },
+  "E01": {
+   "gyldig": true,
+   "volum_mm3": 11131.0,
+   "masse_g": 29.6,
+   "materiale": "EN AW-5754 H22 1,5 mm",
+   "boks": [
+    44.0,
+    3.39,
+    1.5,
+    172.5,
+    50.0,
+    48.0
+   ],
+   "solids": 1
+  },
+  "E01-LED": {
+   "gyldig": true,
+   "volum_mm3": 1500.0,
+   "masse_g": 3.3,
+   "materiale": "LED-stripe (FPC + COB)",
+   "boks": [
+    45.5,
+    6.0,
+    4.55,
+    170.5,
+    13.92,
+    12.47
+   ],
+   "solids": 1
+  },
+  "E02": {
+   "gyldig": true,
+   "volum_mm3": 8467.9,
+   "masse_g": 22.9,
+   "materiale": "EN AW-6082 fresa, pulverlakk",
+   "boks": [
+    -35.0,
+    -9.5,
+    0.0,
+    -1.0,
+    29.5,
+    18.7
+   ],
+   "solids": 1
+  },
+  "E02-BOTN": {
+   "gyldig": true,
+   "volum_mm3": 1263.7,
+   "masse_g": 3.4,
+   "materiale": "EN AW-5754 1,5 mm",
+   "boks": [
+    -32.8,
+    -1.7,
+    0.0,
+    -3.2,
+    27.3,
+    1.5
+   ],
+   "solids": 1
+  },
+  "E03": {
+   "gyldig": true,
+   "volum_mm3": 2691.7,
+   "masse_g": 7.3,
+   "materiale": "EN AW-6082 dreia, pulverlakk",
+   "boks": [
+    -28.6,
+    -1.0,
+    19.7,
+    -6.6,
+    21.0,
+    27.3
+   ],
+   "solids": 1
+  },
+  "E04": {
+   "gyldig": true,
+   "volum_mm3": 1312.0,
+   "masse_g": 2.9,
+   "materiale": "FR4 + komponentar",
+   "boks": [
+    -32.5,
+    -1.5,
+    4.6,
+    -3.5,
+    27.3,
+    6.2
+   ],
+   "solids": 1
+  },
+  "E04-ENK": {
+   "gyldig": true,
+   "volum_mm3": 1694.4,
+   "masse_g": 3.4,
+   "materiale": "Bourns PEC12R",
+   "boks": [
+    -23.8,
+    2.5,
+    2.7,
+    -11.4,
+    17.0,
+    26.2
+   ],
+   "solids": 2
+  },
+  "E04-USB": {
+   "gyldig": true,
+   "volum_mm3": 177.0,
+   "masse_g": 0.7,
+   "materiale": "GCT USB4125",
+   "boks": [
+    -22.07,
+    21.1,
+    6.2,
+    -13.13,
+    27.88,
+    9.36
+   ],
+   "solids": 1
+  },
+  "E04-KOMP": {
+   "gyldig": true,
+   "volum_mm3": 170.6,
+   "masse_g": 0.4,
+   "materiale": "komponentar",
+   "boks": [
+    -30.0,
+    4.0,
+    6.2,
+    -4.0,
+    21.0,
+    10.2
+   ],
+   "solids": 3
+  },
+  "H01": {
+   "gyldig": true,
+   "volum_mm3": 185.6,
+   "masse_g": 1.5,
+   "materiale": "sveisebolt M3x8 stål",
+   "boks": [
+    52.75,
+    0.54,
+    17.33,
+    107.25,
+    8.72,
+    21.86
+   ],
+   "solids": 3
+  },
+  "H02": {
+   "gyldig": true,
+   "volum_mm3": 241.8,
+   "masse_g": 1.9,
+   "materiale": "flensmutter M3 DIN 6923 A2",
+   "boks": [
+    51.5,
+    2.12,
+    16.17,
+    108.5,
+    6.16,
+    23.2
+   ],
+   "solids": 3
+  },
+  "H03": {
+   "gyldig": true,
+   "volum_mm3": 123.7,
+   "masse_g": 1.0,
+   "materiale": "sveisebolt M3x8 stål",
+   "boks": [
+    67.75,
+    17.25,
+    1.5,
+    154.25,
+    21.75,
+    9.5
+   ],
+   "solids": 2
+  },
+  "H04": {
+   "gyldig": true,
+   "volum_mm3": 432.0,
+   "masse_g": 3.4,
+   "materiale": "tommelmutter M3",
+   "boks": [
+    66.0,
+    15.5,
+    3.0,
+    156.0,
+    23.5,
+    8.0
+   ],
+   "solids": 2
+  },
+  "H05": {
+   "gyldig": true,
+   "volum_mm3": 71.2,
+   "masse_g": 0.6,
+   "materiale": "senkskrue M2,5x6 DIN 965 A2",
+   "boks": [
+    -26.35,
+    -7.95,
+    0.0,
+    -5.65,
+    -3.25,
+    6.0
+   ],
+   "solids": 2
+  },
+  "H06": {
+   "gyldig": true,
+   "volum_mm3": 174.5,
+   "masse_g": 0.5,
+   "materiale": "flat leidning 2x0,35 mm²",
+   "boks": [
+    -4.0,
+    1.9,
+    0.0,
+    43.0,
+    9.5,
+    2.7
+   ],
+   "solids": 2
+  },
+  "H07": {
+   "gyldig": true,
+   "volum_mm3": 81.0,
+   "masse_g": 0.1,
+   "materiale": "JST PH 2-polar, inline",
+   "boks": [
+    37.0,
+    5.75,
+    2.7,
+    43.0,
+    10.25,
+    5.7
+   ],
+   "solids": 1
+  }
+ },
+ "kollisjonar": [
+  {
+   "par": [
+    "E02",
+    "H05"
+   ],
+   "volum_mm3": 13.0062,
+   "tillate": true
+  }
+ ],
+ "feil": [],
+ "masse_g": 749.8,
+ "tyngdepunkt_mm": [
+  115.8,
+  14.4,
+  66.1
+ ],
+ "fotavtrykk_cm2": 137.0,
+ "velting": {
+  "innafor": true,
+  "minste_avstand_mm": 31.8,
+  "minste_veltevinkel_grader": 25.7,
+  "kant": [
+   [
+    241.0,
+    -22.9
+   ],
+   [
+    2.0,
+    -12.5
+   ]
+  ],
+  "krav": "15° (Northern-mål), 6° (EN 60598-2-4)"
+ },
+ "hylster": [
+  241.3,
+  -22.9
+ ],
+ "lys": {
+  "midt": [
+   108.0,
+   10.386217536194481,
+   8.932159082212875
+  ],
+  "normal": [
+   0.0,
+   0.7071067811865476,
+   0.7071067811865476
+  ],
+  "lengd": 125.0,
+  "breidd": 10.0,
+  "fremste_kant": [
+   6.002155492837886,
+   11.619164850721756
+  ],
+  "bakre_kant": [
+   13.073223304703362,
+   4.54809703885628
+  ]
+ },
+ "geometri": {
+  "D01": {
+   "fald_grader": 5.8,
+   "spissvinkel_grader": 49.58,
+   "teoretisk_topp": 208.5,
+   "avrunda_topp": 205.0,
+   "S": [
+    3.69,
+    0.0,
+    3.15
+   ],
+   "Q": [
+    123.0,
+    0.0,
+    3.15
+   ],
+   "B": [
+    244.04,
+    -10.59,
+    3.15
+   ],
+   "A": [
+    244.04,
+    -10.59,
+    208.5
+   ]
+  },
+  "D02": {
+   "fald_grader": 10.36,
+   "spissvinkel_grader": 23.9,
+   "teoretisk_topp": 316.18,
+   "avrunda_topp": 305.0,
+   "S": [
+    -0.5,
+    6.5,
+    0.0
+   ],
+   "Q": [
+    48.03,
+    30.17,
+    0.0
+   ],
+   "B": [
+    130.7,
+    53.88,
+    3.15
+   ],
+   "A": [
+    130.7,
+    53.88,
+    316.18
+   ]
+  }
+ }
+}

@@ -192,11 +192,11 @@ for vis in VIS:
         flatelys(s, 'vindauge', (-0.9, -0.6, 0.9), (0.12, 0.05, 0.1), 0.8, 22.0, (0.85, 0.9, 1.0))
         render(s, '01_segl_skissevising')
     elif vis == 'dag':
-        verd(s, 0.25, (0.7, 0.75, 0.85))
+        verd(s, 0.06, (0.7, 0.75, 0.85))
         lampe(s, led_styrke=0.0)
         bord_og_vegg(s, bordfarge=(0.30, 0.20, 0.12), veggfarge=(0.45, 0.50, 0.58))
         kamera_skisse(s)
-        flatelys(s, 'vindauge', (-0.9, -0.6, 0.9), (0.12, 0.05, 0.1), 1.2, 180.0, (0.9, 0.95, 1.0))
+        flatelys(s, 'vindauge', (-0.9, -0.6, 0.9), (0.12, 0.05, 0.1), 1.2, 40.0, (0.9, 0.95, 1.0))
         render(s, '02_segl_dagslys')
     elif vis == 'sprengt':
         verd(s, 0.0)

@@ -1,16 +1,46 @@
 {
+ "LUT_P1S_plate0a_passprove_blad_PLA": {
+  "ok": true,
+  "prosess": "0.20mm Standard @BBL X1C",
+  "filament": "Bambu PLA Matte @BBL P1S 0.4 nozzle",
+  "val": {
+   "wall_loops": "5",
+   "top_shell_layers": "6",
+   "bottom_shell_layers": "6",
+   "sparse_infill_density": "20%",
+   "brim_type": "no_brim"
+  },
+  "tid_min": 19.5,
+  "gram": 11.6,
+  "atvaring": ""
+ },
+ "LUT_P1S_plate0b_passprove_hovud_fot_PLA": {
+  "ok": true,
+  "prosess": "0.16mm Optimal @BBL X1C",
+  "filament": "Bambu PLA Matte @BBL P1S 0.4 nozzle",
+  "val": {
+   "wall_loops": "6",
+   "sparse_infill_density": "15%",
+   "brim_type": "no_brim"
+  },
+  "tid_min": 36.7,
+  "gram": 17.2,
+  "atvaring": ""
+ },
  "LUT_P1S_plate1_blad_PLA": {
   "ok": true,
   "prosess": "0.20mm Standard @BBL X1C",
   "filament": "Bambu PLA Matte @BBL P1S 0.4 nozzle",
   "val": {
-   "wall_loops": "3",
-   "sparse_infill_density": "15%",
+   "wall_loops": "5",
+   "top_shell_layers": "6",
+   "bottom_shell_layers": "6",
+   "sparse_infill_density": "20%",
    "ironing_type": "top",
    "brim_type": "no_brim"
   },
-  "tid_min": 381.9,
-  "gram": 228.7,
+  "tid_min": 514.1,
+  "gram": 309.2,
   "atvaring": ""
  },
  "LUT_P1S_plate2_fot_hovud_knott_PLA": {
@@ -22,8 +52,8 @@
    "sparse_infill_density": "15%",
    "brim_type": "no_brim"
   },
-  "tid_min": 217.9,
-  "gram": 176.0,
+  "tid_min": 223.7,
+  "gram": 177.5,
   "atvaring": ""
  },
  "LUT_P1S_plate3_lyskopp_PETG_kvit": {
@@ -35,7 +65,7 @@
    "sparse_infill_density": "15%",
    "brim_type": "no_brim"
   },
-  "tid_min": 36.2,
+  "tid_min": 36.6,
   "gram": 18.7,
   "atvaring": ""
  },
@@ -49,21 +79,21 @@
    "sparse_infill_pattern": "zig-zag",
    "brim_type": "no_brim"
   },
-  "tid_min": 59.0,
-  "gram": 72.7,
+  "tid_min": 58.8,
+  "gram": 71.7,
   "atvaring": ""
  },
- "LUT_P1S_plate0_passprove_PLA": {
+ "LUT_P1S_plate5_hovud_PETG_alternativ": {
   "ok": true,
-  "prosess": "0.20mm Standard @BBL X1C",
-  "filament": "Bambu PLA Matte @BBL P1S 0.4 nozzle",
+  "prosess": "0.16mm Optimal @BBL X1C",
+  "filament": "Bambu PETG HF @BBL P1S 0.4 nozzle",
   "val": {
-   "wall_loops": "3",
+   "wall_loops": "6",
    "sparse_infill_density": "15%",
    "brim_type": "no_brim"
   },
-  "tid_min": 29.5,
-  "gram": 21.7,
+  "tid_min": 124.2,
+  "gram": 80.0,
   "atvaring": ""
  }
 }

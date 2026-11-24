@@ -1,22 +1,25 @@
 ﻿ID;Namn;Tal;Materiale / spesifikasjon;Masse g;Kjelde
-D01;Blad;1;PLA matt grå, print liggjande;228.8;eigen produksjon
-D02;Hovud;1;PLA matt grå, print opp-ned;90.7;eigen produksjon
-D03;Fot;1;PLA matt grå, print opp-ned;97.4;eigen produksjon
-D04;Botnplate;1;Stål S235 4 mm, laserskoren (alt.: PLA + ballast);440.0;eigen produksjon
-D05;Knott;1;PLA matt grå, print opp-ned;5.6;eigen produksjon
-D06;Lyskopp;1;PETG kvit, print opp-ned;20.5;eigen produksjon
-D07;Spreiar;1;Opal PC 1 mm eller LCD-diffusorark, Ø 71;4.8;eigen produksjon
-D08;Kjøleplate;1;Aluminium 1,5 mm, Ø 54 (valfri);9.2;eigen produksjon
-E01;LED-modul;1;Rund aluminiums-LED Ø 50, 5 V, ≤ 2 W, 2700 K, CRI ≥ 90;6.0;kjøpt
-E02;Potensiometer med brytar;1;WH148 16 mm, B10K (eller det dimmaren krev), M7-hals, riflet aksel Ø 6;9.0;kjøpt
-E02b;Mutter og skive M7;1;følgjer potensiometeret;1.5;kjøpt
-E03;PWM-dimmarkort;1;5–24 V, ≥ 1 A, potensiometeret lodda på kortet (nominelt 34 × 21 mm);6.0;kjøpt
-E04;USB-C-kontakt;1;USB-C hokontakt for panel, 2 pinnar (5 V), med 5,1 kΩ CC-motstandar;2.0;kjøpt
-E05;Kabel;1;2 × 0,25 mm² silikon, 450 mm (bladet 300 + slakk);5.0;kjøpt
-M01;Innpressmutter M4;3;messing, for hol Ø 5,6 × 9 (rota av bladet);1.0;kjøpt
-M02;Innpressmutter M3;6;messing, for hol Ø 4,0 (2 i enden av bladet, 4 i foten);0.5;kjøpt
-M03;Skrue M4 × 16;3;ISO 4762 sylinderhovud, frå innsida av foten opp i bladet;3.0;kjøpt
-M04;Skrue M3 × 10;2;ISO 4762 sylinderhovud, frå innsida av hovudet inn i bladet;1.2;kjøpt
-M05;Skrue M3 × 8;4;ISO 7380 linsehovud, botnplata;0.9;kjøpt
-M06;Magnet Ø 6 × 3;6;NdFeB N42, limast (3 i hovudet, 3 i lyskoppen, motsett pol);0.65;kjøpt
-M07;Gummifot Ø 10 × 2;4;sjølvklebande;0.2;kjøpt
+D01;Blad;1;PLA matt grå, print liggjande;333.4;print
+D02;Hovud;1;PLA matt grå, print opp-ned;90.7;print
+D03;Fot;1;PLA matt grå, print opp-ned;98.7;print
+D04;Botnplate;1;Stål S235 4 mm, laserskoren frå DXF, 4 hol senka 90° Ø 7 nedanfrå (alt.: PLA, plate 4, utan ballast);434.5;laserskjering frå DXF (stål) eller print plate 4 (PLA)
+D05;Knott;1;PLA matt grå, print opp-ned;5.7;print
+D06;Lyskopp;1;PETG kvit, print opp-ned;20.5;print
+D07;Spreiar;1;Opal PC 1 mm eller LCD-diffusorark, Ø 71;4.8;skjer ut etter DXF-mal
+D08;Kjøleplate;1;Aluminium 1,5 mm, Ø 50 med Ø 6-hol i senter, skoren frå DXF;7.8;skjer ut etter DXF-mal
+E01;LED-modul;1;Rund aluminiums-LED Ø 50, 5 V, ≤ 1,5 W med hovudet i PLA (≤ 2 W med hovudet i PETG, plate 5), 2700 K, CRI ≥ 90, loddepunkt + og − på LED-sida ved kanten;6.0;kjøp
+E02;Potensiometer med brytar;1;WH148 16 mm med brytar, B10K eller det dimmaren krev, M7 × 0,75-hals 7 mm (6,6–7,4: knotten stoppar mot enden av halsen), riflet aksel Ø 6 kappa til 15 mm frå monteringsflata (8 mm over halsen), låsetapp;9.0;kjøp
+E02b;Mutter og skive M7;1;følgjer potensiometeret;1.5;kjøp
+E03;PWM-dimmarkort;1;verkar frå 4,5 V (prøv ved 4,75 V), PWM ≥ 3 kHz, ≥ 1 A, potensiometeret lodda på kortet (nominelt 34 × 21 mm);6.0;kjøp
+E04;USB-C-kontakt;1;USB-C hokontakt for panel, 2 pinnar, med innebygde 5,1 kΩ på CC1 og CC2 kvar for seg;2.0;kjøp
+E05;Kabel til LED;1;"2 × 0,25 mm² silikon, 650 mm (blad 260, hovud med 80 mm serviceslakk 155, fot 165, avisolering og reserve 70); kapp til slutt";6.0;kjøp
+E06;Leidning i foten;2;0,25 mm² silikon raud og svart, 120 mm kvar (USB-C til brytar til dimmar);2.0;kjøp
+M01;Innpressmutter M4;3;messing M4 × 8,1 (lengd ≤ 8,1), for hol Ø 5,6 × 9 i rota av bladet;1.0;kjøp
+M02;Innpressmutter M3;6;messing M3 × 5,7, for hol Ø 4,0 × 7 (2 i enden av bladet, 4 i foten);0.5;kjøp
+M03;Skrue M4 × 16;3;"ISO 4762 sylinderhovud, frå innsida av foten opp i bladet; handstramt, om lag 1 N·m";3.0;kjøp
+M04;Skrue M3 × 10;2;ISO 4762 sylinderhovud, frå innsida av hovudet inn i bladet;1.2;kjøp
+M05;Skrue M3 × 8;4;ISO 10642 senkskrue, botnplata (hovudet i plan med plata);0.9;kjøp
+M06;Magnet Ø 6 × 3;6;NdFeB N42, limast med epoksy (3 i hovudet, 3 i lyskoppen, motsett pol);0.65;kjøp
+M07;Gummifot Ø 10 × 2;4;sjølvklebande;0.2;kjøp
+M08;Termisk teip;2;dobbeltsidig, Ø 50 × 0,25 mm: éin mellom kjøleplata og taket i koppen, éin mellom LED-kortet og kjøleplata;0.5;kjøp
+M09;Kaptonteip;1;60 × 40 mm, på oversida av botnplata under dimmarkortet;0.3;kjøp

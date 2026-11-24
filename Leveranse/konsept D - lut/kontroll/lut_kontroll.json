@@ -1,11 +1,11 @@
 {
- "dato": "2026-11-24 21:35",
+ "dato": "2026-11-24 22:47",
  "delar": {
   "D01": {
    "namn": "Blad",
    "gyldig": true,
-   "volum_mm3": 745090.4,
-   "masse_g": 228.8,
+   "volum_mm3": 745087.2,
+   "masse_g": 333.4,
    "boks_mm": [
     3.06,
     -20.0,
@@ -18,7 +18,7 @@
   "D02": {
    "namn": "Hovud",
    "gyldig": true,
-   "volum_mm3": 73162.8,
+   "volum_mm3": 73143.1,
    "masse_g": 90.7,
    "boks_mm": [
     164.5,
@@ -32,8 +32,8 @@
   "D03": {
    "namn": "Fot",
    "gyldig": true,
-   "volum_mm3": 78571.8,
-   "masse_g": 97.4,
+   "volum_mm3": 79558.4,
+   "masse_g": 98.7,
    "boks_mm": [
     -0.0,
     -40.0,
@@ -46,22 +46,22 @@
   "D04": {
    "namn": "Botnplate",
    "gyldig": true,
-   "volum_mm3": 56054.2,
-   "masse_g": 440.0,
+   "volum_mm3": 55353.2,
+   "masse_g": 434.5,
    "boks_mm": [
-    1.4,
-    -38.6,
+    1.7,
+    -38.3,
     2.0,
-    193.6,
-    38.6,
+    193.3,
+    38.3,
     6.0
    ]
   },
   "D05": {
    "namn": "Knott",
    "gyldig": true,
-   "volum_mm3": 4551.0,
-   "masse_g": 5.6,
+   "volum_mm3": 4620.5,
+   "masse_g": 5.7,
    "boks_mm": [
     145.0,
     -10.0,
@@ -74,7 +74,7 @@
   "D06": {
    "namn": "Lyskopp",
    "gyldig": true,
-   "volum_mm3": 16126.0,
+   "volum_mm3": 16112.8,
    "masse_g": 20.5,
    "boks_mm": [
     167.3,
@@ -102,14 +102,14 @@
   "D08": {
    "namn": "Kjøleplate",
    "gyldig": true,
-   "volum_mm3": 3392.9,
-   "masse_g": 9.2,
+   "volum_mm3": 2902.8,
+   "masse_g": 7.8,
    "boks_mm": [
-    177.5,
-    -27.0,
+    179.5,
+    -25.0,
     213.5,
-    231.5,
-    27.0,
+    229.5,
+    25.0,
     215.0
    ]
   },
@@ -256,56 +256,56 @@
   "M05-1": {
    "namn": "Skrue",
    "gyldig": true,
-   "volum_mm3": 94.9,
-   "masse_g": 0.8,
+   "volum_mm3": 76.7,
+   "masse_g": 0.6,
    "boks_mm": [
-    37.15,
-    -33.85,
-    0.35,
-    42.85,
-    -28.15,
+    36.64,
+    -34.36,
+    2.0,
+    43.36,
+    -27.64,
     10.0
    ]
   },
   "M05-2": {
    "namn": "Skrue",
    "gyldig": true,
-   "volum_mm3": 94.9,
-   "masse_g": 0.8,
+   "volum_mm3": 76.7,
+   "masse_g": 0.6,
    "boks_mm": [
-    37.15,
-    28.15,
-    0.35,
-    42.85,
-    33.85,
+    36.64,
+    27.64,
+    2.0,
+    43.36,
+    34.36,
     10.0
    ]
   },
   "M05-3": {
    "namn": "Skrue",
    "gyldig": true,
-   "volum_mm3": 94.9,
-   "masse_g": 0.8,
+   "volum_mm3": 76.7,
+   "masse_g": 0.6,
    "boks_mm": [
-    132.15,
-    -33.85,
-    0.35,
-    137.85,
-    -28.15,
+    131.64,
+    -34.36,
+    2.0,
+    138.36,
+    -27.64,
     10.0
    ]
   },
   "M05-4": {
    "namn": "Skrue",
    "gyldig": true,
-   "volum_mm3": 94.9,
-   "masse_g": 0.8,
+   "volum_mm3": 76.7,
+   "masse_g": 0.6,
    "boks_mm": [
-    132.15,
-    28.15,
-    0.35,
-    137.85,
-    33.85,
+    131.64,
+    27.64,
+    2.0,
+    138.36,
+    34.36,
     10.0
    ]
   },
@@ -495,13 +495,22 @@
    "tal_steg": 8,
    "storste_overlapp_mm3": 0.0,
    "metode": "diskret"
+  },
+  "usb_c": {
+   "veg": "2,4 mm attende, 20 mm opp, så 2,4 mm ut i lomma",
+   "steg_mm": [
+    1.0,
+    0.2
+   ],
+   "storste_overlapp_mm3": 0.0,
+   "metode": "diskret"
   }
  },
- "masse_g": 939.6,
+ "masse_g": 1038.1,
  "tyngdepunkt_mm": [
-  113.1,
+  111.9,
   0.1,
-  70.1
+  76.2
  ],
  "velting": {
   "stottekant_mm": {
@@ -511,29 +520,29 @@
    "bak": 31.0
   },
   "vinkel_grad": {
-   "mot_hovudet": 42.3,
-   "mot_bladet": 57.0,
-   "framover": 23.9,
-   "bakover": 23.8
+   "mot_hovudet": 40.5,
+   "mot_bladet": 54.5,
+   "framover": 22.2,
+   "bakover": 22.1
   },
-  "minste_grad": 23.8,
+  "minste_grad": 22.1,
   "krav_EN60598_grad": 6.0,
   "merknad": "Statisk vippevinkel om ytterkanten av gummiføtene. Kabelen er ikkje med."
  },
  "velting_pla_botnplate": {
-  "masse_g": 569.1,
+  "masse_g": 672.2,
   "tyngdepunkt_mm": [
-   125.3,
+   121.3,
    0.1,
-   113.2
+   115.5
   ],
   "vinkel_grad": {
-   "mot_hovudet": 24.6,
-   "mot_bladet": 46.7,
-   "framover": 15.4,
-   "bakover": 15.3
+   "mot_hovudet": 25.7,
+   "mot_bladet": 45.2,
+   "framover": 15.1,
+   "bakover": 15.0
   },
-  "minste_grad": 15.3
+  "minste_grad": 15.0
  },
  "geometri": {
   "A": [
@@ -640,7 +649,9 @@
   "FOT_BOTN": 2.0,
   "PLATE_T": 4.0,
   "FALS": 1.2,
-  "PLATE_KLARING": 0.2,
+  "PLATE_KLARING": 0.5,
+  "PLATE_HOL_R": 1.9,
+  "PLATE_SENK_D": 7.0,
   "SKUGGE_KNOTT": 0.8,
   "RING_R0": 28.0,
   "RING_Z0": 217.0,
@@ -657,8 +668,17 @@
   "SPREIAR_T": 1.0,
   "LED_R": 25.0,
   "LED_T": 1.6,
-  "KJOL_R": 27.0,
+  "KJOL_R": 25.0,
   "KJOL_T": 1.5,
+  "KABEL_SPOR_R": 26.6,
+  "KABEL_SPOR_VINKEL": 60.0,
+  "LUG_R": 7.8,
+  "LUG_VINKLAR": [
+   0.0,
+   90.0,
+   180.0,
+   270.0
+  ],
   "BLAD_SKRUAR": [
    [
     20.0,
@@ -717,6 +737,7 @@
   "FOT_H_GUMMI": 2.0,
   "USB_X": 115.0,
   "USB_Z": 14.0,
+  "USB_SPALTE": 3.0,
   "HOV_SKRUAR_Z": [
    235.0,
    265.0
@@ -728,9 +749,125 @@
    0.54
   ]
  },
+ "stl_tett": {
+  "D01": {
+   "tett": true,
+   "toleranse_mm": 0.005,
+   "trekantar": 63066,
+   "tetta_opne_kantar": 4
+  },
+  "D02": {
+   "tett": true,
+   "toleranse_mm": 0.01,
+   "trekantar": 55144,
+   "tetta_opne_kantar": 0
+  },
+  "D03": {
+   "tett": true,
+   "toleranse_mm": 0.01,
+   "trekantar": 49794,
+   "tetta_opne_kantar": 0
+  },
+  "D04": {
+   "tett": true,
+   "toleranse_mm": 0.01,
+   "trekantar": 7056,
+   "tetta_opne_kantar": 0
+  },
+  "D05": {
+   "tett": true,
+   "toleranse_mm": 0.01,
+   "trekantar": 27172,
+   "tetta_opne_kantar": 0
+  },
+  "D06": {
+   "tett": true,
+   "toleranse_mm": 0.01,
+   "trekantar": 6324,
+   "tetta_opne_kantar": 0
+  },
+  "D07": {
+   "tett": true,
+   "toleranse_mm": 0.01,
+   "trekantar": 748,
+   "tetta_opne_kantar": 0
+  },
+  "D08": {
+   "tett": true,
+   "toleranse_mm": 0.01,
+   "trekantar": 1264,
+   "tetta_opne_kantar": 0
+  },
+  "E01": {
+   "tett": true,
+   "toleranse_mm": 0.01,
+   "trekantar": 628,
+   "tetta_opne_kantar": 0
+  },
+  "E02": {
+   "tett": true,
+   "toleranse_mm": 0.01,
+   "trekantar": 1892,
+   "tetta_opne_kantar": 0
+  },
+  "E02b": {
+   "tett": true,
+   "toleranse_mm": 0.01,
+   "trekantar": 1928,
+   "tetta_opne_kantar": 0
+  },
+  "E03": {
+   "tett": true,
+   "toleranse_mm": 0.01,
+   "trekantar": 28,
+   "tetta_opne_kantar": 0
+  },
+  "E04": {
+   "tett": true,
+   "toleranse_mm": 0.01,
+   "trekantar": 964,
+   "tetta_opne_kantar": 0
+  },
+  "M03-1": {
+   "tett": true,
+   "toleranse_mm": 0.01,
+   "trekantar": 1260,
+   "tetta_opne_kantar": 0
+  },
+  "M04-1": {
+   "tett": true,
+   "toleranse_mm": 0.01,
+   "trekantar": 1260,
+   "tetta_opne_kantar": 0
+  },
+  "M05-1": {
+   "tett": true,
+   "toleranse_mm": 0.01,
+   "trekantar": 2366,
+   "tetta_opne_kantar": 0
+  },
+  "M06-1": {
+   "tett": true,
+   "toleranse_mm": 0.01,
+   "trekantar": 628,
+   "tetta_opne_kantar": 0
+  },
+  "M07-1": {
+   "tett": true,
+   "toleranse_mm": 0.01,
+   "trekantar": 628,
+   "tetta_opne_kantar": 0
+  }
+ },
  "passprove": {
-  "gyldig": true,
-  "volum_mm3": 26395.4
+  "P00a_passprove_blad": {
+   "gyldig": true,
+   "volum_mm3": 12849.6
+  },
+  "P00b_passprove_hovud_fot": {
+   "gyldig": true,
+   "volum_mm3": 14129.0
+  }
  },
  "print": {
   "D01": {
@@ -775,8 +912,8 @@
   },
   "D04p": {
    "storleik_mm": [
-    192.2,
-    77.2,
+    191.6,
+    76.6,
     4.0
    ],
    "passar_P1S": true

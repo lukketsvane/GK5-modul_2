@@ -63,15 +63,18 @@ VEGG = 2.4                    # vegg i fot, hovud (6 strengar à 0,4 mm)
 FOT_TAK = 3.0                 # topplata i foten (panel for potensiometeret)
 FOT_BOTN = 2.0                # gummiføtene: skalet står 2 mm over bordet
 PLATE_T = 4.0                 # botnplata: 4 mm S235, laserskoren
-FALS, PLATE_KLARING = 1.2, 0.2
+FALS, PLATE_KLARING = 1.2, 0.5    # 0,5 mm luft rundt stålplata: PLA krympar om lag 0,5 mm over 192 mm
+PLATE_HOL_R, PLATE_SENK_D = 1.9, 7.0   # hol Ø 3,8 i botnplata, senka 90° til Ø 7,0 nedanfrå (ISO 10642 M3, dk ≤ 6,72)
 SKUGGE_KNOTT = 0.8            # luft mellom knotten og foten
 RING_R0, RING_Z0 = 28.0, 217.0     # magnetringen i hovudet: indre radius, underflate (= toppen av lyskoppen)
 KOPP_Z0 = 195.0               # nedre kant av lyskoppen: 1 mm inne i hovudet
 KOPP_RY, KOPP_RI = 37.2, 35.6  # lyskoppen: ytre og indre radius (0,4 mm luft til hovudet)
 MAGNET_R, MAGNET_VINKLAR = 32.0, (0.0, 120.0, 240.0)
 SPREIAR_R, SPREIAR_T = 35.5, 1.0   # spreiaren: Ø 71 × 1 mm opal PC eller LCD-diffusorark
-LED_R, LED_T = 25.0, 1.6           # LED-kort Ø 50 (nominelt)
-KJOL_R, KJOL_T = 27.0, 1.5         # kjøleplate Ø 54 × 1,5 aluminium (valfri)
+LED_R, LED_T = 25.0, 1.6           # LED-kort Ø 50 (nominelt), loddepunkta på LED-sida ved kanten
+KJOL_R, KJOL_T = 25.0, 1.5         # kjøleplate Ø 50 × 1,5 aluminium, same storleik som LED-kortet
+KABEL_SPOR_R, KABEL_SPOR_VINKEL = 26.6, 60.0   # kabelspalta i lyskoppen: utanfor kjøleplata, innanfor magnetringen
+LUG_R, LUG_VINKLAR = 7.8, (0.0, 90.0, 180.0, 270.0)   # låsetappen på potensiometeret (nominelt; mål på delen)
 
 BLAD_SKRUAR = ((20.0, 0.0), (104.0, -11.0), (104.0, 11.0))   # M4 frå innsida av foten opp i bladet
 KABEL_FOT = (62.0, 0.0)
@@ -79,6 +82,7 @@ PLATE_SKRUAR = ((40.0, -31.0), (40.0, 31.0), (135.0, -31.0), (135.0, 31.0))
 FOTER = ((10.0, -27.0), (10.0, 27.0), (172.0, -26.0), (172.0, 26.0))
 FOT_R_GUMMI, FOT_H_GUMMI = 5.0, 2.0
 USB_X, USB_Z = 115.0, 14.0
+USB_SPALTE = 3.0              # luft bak USB-C-kontakten til ribba: kontakten må kunne gå 2,4 mm attende for å komme forbi veggen
 HOV_SKRUAR_Z = (235.0, 265.0)
 HOV_KABEL_Z = 252.0
 
@@ -205,7 +209,8 @@ def blad():
     s = s.fillet(R_BLAD, val)
     s = s.cut(Solid.makeCylinder(HOV_R, 120.0, V(HOV_X, 0, HOV_Z0 - 20.0)))   # enden blir hol som hovudet
     xi = HOV_X - HOV_R
-    s = s.fuse(sylinder_x(4.0, xi - 4.5, xi + VEGG + 0.5, 0, HOV_KABEL_Z))     # styretapp gjennom veggen i hovudet
+    s = s.fuse(sylinder_x(4.0, xi - 4.5, xi + VEGG, 0, HOV_KABEL_Z))           # styretapp gjennom veggen i hovudet
+    s = s.fuse(Solid.makeCone(4.0, 3.5, 0.5, V(xi + VEGG - 0.01, 0, HOV_KABEL_Z), V(1, 0, 0)))   # fas 0,5 × 45° på tuppen
     kn, _ = kanal()
     s = s.cut(kn)
     s = s.cut(sylinder_x(2.75, xi - 10.5, xi + VEGG + 1.5, 0, HOV_KABEL_Z))
@@ -239,7 +244,7 @@ def hovud():
         s = s.cut(sylinder(3.1, RING_Z0 - 0.1, RING_Z0 + 3.1, x, y))
     for zc in HOV_SKRUAR_Z:
         s = s.cut(sylinder_x(1.7, xi - 2.0, xi + 8.0, 0, zc))
-    s = s.cut(sylinder_x(4.15, xi - 2.0, xi + 8.0, 0, HOV_KABEL_Z))
+    s = s.cut(sylinder_x(4.45, xi - 2.0, xi + 8.0, 0, HOV_KABEL_Z))     # Ø 8,9 for styretappen Ø 8: begge printa liggjande
     return s.clean()
 
 
@@ -283,22 +288,38 @@ def fot():
         s = s.fuse(sylinder(4.0, zp, zt + 0.5, x, y))
     for x, y in BLAD_SKRUAR:
         s = s.fuse(sylinder(6.5, zt - 5.0, zt + 0.5, x, y))
-    for x, y in PLATE_SKRUAR:                                # innpressmutter M3: Ø 4,0 × 6
-        s = s.cut(sylinder(2.0, zp - 0.5, zp + 6.0, x, y))
+    s = s.fuse(usb_bakstotte())
+    for x, y in PLATE_SKRUAR:                                # innpressmutter M3 × 5,7: hol Ø 4,0 × 7
+        s = s.cut(sylinder(2.0, zp - 0.5, zp + 7.0, x, y))
     for x, y in BLAD_SKRUAR:
         s = s.cut(sylinder(2.25, zt - 6.0, FOT_Z + 1.0, x, y))
     s = s.cut(sylinder(5.5, zt - 1.0, FOT_Z + 1.0, *KABEL_FOT))
     s = s.cut(sylinder(3.65, zt - 1.0, FOT_Z + 1.0, KNOTT_X, 0))
+    for a in LUG_VINKLAR:                                    # lomme for låsetappen, 2 mm inn i topplata nedanfrå
+        lomme = boks(KNOTT_X + LUG_R - 1.5, KNOTT_X + LUG_R + 1.5, -0.9, 0.9, zt - 0.5, zt + 2.0)
+        s = s.cut(lomme.rotate(V(KNOTT_X, 0, 0), V(KNOTT_X, 0, 1), a))
     yv = FOT_B / 2
     s = s.cut(spor_y(USB_X, USB_Z, 9.4, 3.8, yv - VEGG - 1.0, yv + 1.0))
     s = s.cut(boks(USB_X - 6.0, USB_X + 6.0, yv - VEGG - 1.0, yv - VEGG + 1.0, USB_Z - 3.0, USB_Z + 3.0))
     return s.clean()
 
 
+def usb_bakstotte():
+    """Ribbe bak USB-C-kontakten, hengt frå topplata. Kontakten blir løfta inn bak ribba og skyvd ut i lomma, og spalta på 3,0 mm mellom
+    kontakten og ribba blir fylt med epoksy, så innstikkskrafta går gjennom epoksyen inn i ribba. Spor midt i ribba for
+    leidningane. Ved 20 N er bøyespenninga om lag 10 MPa."""
+    yb = FOT_B / 2 - VEGG + 1.0 - 8.8                      # baksida av kontakten (29,8)
+    zt = FOT_Z - FOT_TAK
+    r = boks(USB_X - 7.0, USB_X + 7.0, yb - USB_SPALTE - 4.5, yb - USB_SPALTE, 9.0, zt + 0.5)
+    return r.cut(boks(USB_X - 2.5, USB_X + 2.5, yb - USB_SPALTE - 6.0, yb - 1.0, 8.0, 17.0))
+
+
 def botnplate():
     s = prisme(d_flate(VEGG - FALS + PLATE_KLARING, FOT_BOTN), (0, 0, PLATE_T))
+    rs = PLATE_SENK_D / 2
     for x, y in PLATE_SKRUAR:
-        s = s.cut(sylinder(1.7, FOT_BOTN - 1.0, FOT_BOTN + PLATE_T + 1.0, x, y))
+        s = s.cut(sylinder(PLATE_HOL_R, FOT_BOTN - 1.0, FOT_BOTN + PLATE_T + 1.0, x, y))
+        s = s.cut(Solid.makeCone(rs + 0.01, PLATE_HOL_R, rs - PLATE_HOL_R + 0.01, V(x, y, FOT_BOTN - 0.01), V(0, 0, 1)))
     return s.clean()
 
 
@@ -307,8 +328,8 @@ def knott():
     s = sylinder(KNOTT_D / 2, z0, KNOTT_TOPP, KNOTT_X, 0)
     s = s.fillet(R_KNOTT_TOPP, kantar_ved_z(s, KNOTT_TOPP))
     s = s.fillet(R_KNOTT_BOTN, kantar_ved_z(s, z0))
-    s = s.cut(sylinder(6.75, z0 - 1.0, 37.0, KNOTT_X, 0))      # over mutter M7 og skive
-    s = s.cut(sylinder(2.95, 36.9, 45.0, KNOTT_X, 0))          # pressast på riflet aksel Ø 6
+    s = s.cut(sylinder(6.75, z0 - 1.0, 36.4, KNOTT_X, 0))      # over mutter M7 og skive; taket stoppar mot halsen
+    s = s.cut(sylinder(2.95, 36.3, 45.0, KNOTT_X, 0))          # pressast på riflet aksel Ø 6
     return s.clean()
 
 
@@ -324,6 +345,8 @@ def lyskopp():
     for sgn in (1, -1):                                      # to hakk for fingernegl
         y0, y1 = sorted((sgn * 34.0, sgn * 38.0))
         s = s.cut(boks(HOV_X - 1.5, HOV_X + 1.5, y0, y1, KOPP_Z0 - 1.0, KOPP_Z0 + 1.5))
+    spor = boks(HOV_X + KABEL_SPOR_R - 1.1, HOV_X + KABEL_SPOR_R + 1.1, -1.5, 1.5, RING_Z0 - 2.2, RING_Z0 + 0.1)
+    s = s.cut(spor.rotate(V(HOV_X, 0, 0), V(HOV_X, 0, 1), KABEL_SPOR_VINKEL))   # kabelen går forbi kanten av LED-kortet
     return s.clean()
 
 
@@ -382,8 +405,9 @@ def skruar():
     xi = HOV_X - HOV_R + 5.0
     for i, zc in enumerate(HOV_SKRUAR_Z):
         ut[f'M04-{i + 1}'] = skrue(3.0, 10.0, 5.5, 3.0, (xi, 0, zc), (-1, 0, 0))
-    for i, (x, y) in enumerate(PLATE_SKRUAR):
-        ut[f'M05-{i + 1}'] = skrue(3.0, 8.0, 5.7, 1.65, (x, y, FOT_BOTN), (0, 0, 1))
+    for i, (x, y) in enumerate(PLATE_SKRUAR):                # ISO 10642 M3 × 8 senkskrue: hovudet ligg i plan med plata
+        hovud = Solid.makeCone(3.36, 1.5, 1.86, V(x, y, FOT_BOTN), V(0, 0, 1))
+        ut[f'M05-{i + 1}'] = hovud.fuse(Solid.makeCylinder(1.45, 8.0, V(x, y, FOT_BOTN), V(0, 0, 1)))
     return ut
 
 
@@ -400,18 +424,42 @@ def gummifoter():
     return {f'M07-{i + 1}': sylinder(FOT_R_GUMMI, 0.0, FOT_H_GUMMI, x, y) for i, (x, y) in enumerate(FOTER)}
 
 
-def passprove():
-    """Små prøvedelar for dei kritiske passingane, printa før hovuddelane. Ligg alt i printretning.
-    Plata: innpresshol M4 (Ø 5,6) og M3 (Ø 4,0), magnetlomme (Ø 6,2), hol for potensiometeret (Ø 7,3) og klaring M4.
-    Knottstubben har same innside som knotten. Dei to ringane er veggen i hovudet og veggen i lyskoppen."""
-    plate = boks(0, 70, 0, 24, 0, 10)
-    for x, r, djup in ((8, 2.8, 9.0), (21, 2.0, 6.0), (34, 3.1, 3.1), (48, 3.65, 11.0), (62, 2.25, 11.0)):
-        plate = plate.cut(sylinder(r, 10 - djup, 10.5, x, 12))
-    stubb = sylinder(KNOTT_D / 2, 0, 12.0, 85, 12)
-    stubb = stubb.cut(sylinder(6.75, 12.0 - 4.2, 12.5, 85, 12)).cut(sylinder(2.95, 12.0 - 4.2 - 8.0, 12.0 - 4.1, 85, 12))
+def passprove_blad():
+    """Plate 0a, printa med innstillingane for bladet (plate 1): prøvene for bladet, liggjande som bladet.
+    Kloss med innpresshola frå rota og enden (M4 Ø 5,6 × 9 og M3 Ø 4,0 × 7), hola liggjande med opning i sideflata.
+    Kloss med styretappen (Ø 8, fas 0,5, røyr med Ø 5,5-hol som i bladet), liggjande 20 mm over plata."""
+    kloss = boks(0, 30, 0, 14, 0, 14)
+    kloss = kloss.cut(Solid.makeCylinder(2.8, 9.0, V(8, -0.1, 7), V(0, 1, 0)))
+    kloss = kloss.cut(Solid.makeCylinder(2.0, 7.0, V(22, -0.1, 7), V(0, 1, 0)))
+    tapp = boks(40, 52, 0, 22, 0, 28)
+    tapp = tapp.fuse(sylinder_x(4.0, 51.9, 52 + VEGG, 11, 20))
+    tapp = tapp.fuse(Solid.makeCone(4.0, 3.5, 0.5, V(52 + VEGG - 0.01, 11, 20), V(1, 0, 0)))
+    tapp = tapp.cut(sylinder_x(2.75, 44.0, 52 + VEGG + 1.0, 11, 20))
+    return kloss.fuse(tapp)
+
+
+def passprove_hovud_fot():
+    """Plate 0b, printa med innstillingane for plate 2 (hovud, fot og knott): kvar prøve ligg som i delen.
+    Vegg på 2,4 mm med holet til styretappen (Ø 8,9 liggjande, 22 mm over plata, som i hovudet opp-ned).
+    Magnetlomme Ø 6,2 × 3,1 opna oppover frå eit fast golv, som i ringen i hovudet.
+    Tårn Ø 8 med M3-hol Ø 4,0 × 7 ovanfrå, som tårna i foten.
+    Panel på 3 mm rett på plata med hol for potensiometeret (Ø 7,3) og fire lommer for låsetappen, 2 mm djupe ovanfrå,
+    som topplata i foten opp-ned. Knottstubb med same innside og stopp som knotten. Ring med veggen i hovudet;
+    lyskoppen (plate 3, 37 min) er sjølv prøva for passinga mot ringen og for magnetane i PETG."""
+    vegg = boks(0, 2.4, 0, 22, 0, 32).fuse(boks(-4, 6.4, 0, 22, 0, 3))
+    vegg = vegg.cut(sylinder_x(4.45, -2, 5, 11, 22))
+    magnet = boks(14, 28, 0, 14, 0, 6).cut(sylinder(3.1, 6 - 3.1, 6.5, 21, 7))
+    taarn = sylinder(4.0, 0, 23.5, 36, 7).cut(sylinder(2.0, 23.5 - 7.0, 24.0, 36, 7))
+    panel = boks(46, 70, 0, 24, 0, FOT_TAK).cut(sylinder(3.65, -0.5, FOT_TAK + 0.5, 58, 12))
+    for a in LUG_VINKLAR:
+        lomme = boks(58 + LUG_R - 1.5, 58 + LUG_R + 1.5, 12 - 0.9, 12 + 0.9, FOT_TAK - 2.0, FOT_TAK + 0.5)
+        panel = panel.cut(lomme.rotate(V(58, 12, 0), V(58, 12, 1), a))
+    zr = 14.0                                                  # knottstubb, opp-ned som knotten
+    djup_r, djup_b = 36.4 - (FOT_Z + SKUGGE_KNOTT), 45.0 - 36.3
+    stubb = sylinder(KNOTT_D / 2, 0, zr, 85, 12)
+    stubb = stubb.cut(sylinder(6.75, zr - djup_r, zr + 0.5, 85, 12)).cut(sylinder(2.95, zr - djup_r - djup_b, zr - djup_r + 0.1, 85, 12))
     ring_h = sylinder(HOV_R, 0, 8.0, 45, 75).cut(sylinder(HOV_R - VEGG, -1, 9.0, 45, 75))
-    ring_k = sylinder(KOPP_RY, 0, 8.0, 135, 75).cut(sylinder(KOPP_RI, -1, 9.0, 135, 75))
-    return plate.fuse(stubb).fuse(ring_h).fuse(ring_k)
+    return vegg.fuse(magnet).fuse(taarn).fuse(panel).fuse(stubb).fuse(ring_h)
 
 
 # ======================================================================== delliste
@@ -422,25 +470,28 @@ DELAR = [
     ('D01', 'Blad', 'PLA matt grå, print liggjande', 1.24, PLA_GRAA, blad, 'infill'),
     ('D02', 'Hovud', 'PLA matt grå, print opp-ned', 1.24, PLA_GRAA, hovud, 'massiv'),
     ('D03', 'Fot', 'PLA matt grå, print opp-ned', 1.24, PLA_GRAA, fot, 'massiv'),
-    ('D04', 'Botnplate', 'Stål S235 4 mm, laserskoren (alt.: PLA + ballast)', 7.85, (0.22, 0.22, 0.23), botnplate, 'massiv'),
+    ('D04', 'Botnplate', 'Stål S235 4 mm, laserskoren frå DXF, 4 hol senka 90° Ø 7 nedanfrå (alt.: PLA, plate 4, utan ballast)',
+     7.85, (0.22, 0.22, 0.23), botnplate, 'massiv'),
     ('D05', 'Knott', 'PLA matt grå, print opp-ned', 1.24, PLA_GRAA, knott, 'massiv'),
     ('D06', 'Lyskopp', 'PETG kvit, print opp-ned', 1.27, (0.92, 0.92, 0.90), lyskopp, 'massiv'),
     ('D07', 'Spreiar', 'Opal PC 1 mm eller LCD-diffusorark, Ø 71', 1.20, (0.98, 0.97, 0.93),
      lambda: skive(SPREIAR_R, KOPP_Z0 + 1.0, SPREIAR_T), 'massiv'),
-    ('D08', 'Kjøleplate', 'Aluminium 1,5 mm, Ø 54 (valfri)', 2.70, (0.75, 0.76, 0.78),
+    ('D08', 'Kjøleplate', 'Aluminium 1,5 mm, Ø 50 med Ø 6-hol i senter, skoren frå DXF', 2.70, (0.75, 0.76, 0.78),
      lambda: skive(KJOL_R, RING_Z0 - 2.0 - KJOL_T, KJOL_T, 3.0), 'massiv'),
 ]
 KJOPT = [
     # id, namn, spesifikasjon, masse g (anslått), farge, byggjar
-    ('E01', 'LED-modul', 'Rund aluminiums-LED Ø 50, 5 V, ≤ 2 W, 2700 K, CRI ≥ 90', 6.0, (0.95, 0.85, 0.55),
-     lambda: skive(LED_R, RING_Z0 - 2.0 - KJOL_T - LED_T, LED_T)),
-    ('E02', 'Potensiometer med brytar', 'WH148 16 mm, B10K (eller det dimmaren krev), M7-hals, riflet aksel Ø 6',
-     9.0, (0.30, 0.30, 0.32), potmeter),
+    ('E01', 'LED-modul', 'Rund aluminiums-LED Ø 50, 5 V, ≤ 1,5 W med hovudet i PLA (≤ 2 W med hovudet i PETG, plate 5), '
+     '2700 K, CRI ≥ 90, loddepunkt + og − på LED-sida ved kanten',
+     6.0, (0.95, 0.85, 0.55), lambda: skive(LED_R, RING_Z0 - 2.0 - KJOL_T - LED_T, LED_T)),
+    ('E02', 'Potensiometer med brytar', 'WH148 16 mm med brytar, B10K eller det dimmaren krev, M7 × 0,75-hals 7 mm '
+     '(6,6–7,4: knotten stoppar mot enden av halsen), riflet aksel Ø 6 kappa til 15 mm frå monteringsflata '
+     '(8 mm over halsen), låsetapp', 9.0, (0.30, 0.30, 0.32), potmeter),
     ('E02b', 'Mutter og skive M7', 'følgjer potensiometeret', 1.5, (0.70, 0.70, 0.70), mutter_m7),
-    ('E03', 'PWM-dimmarkort', '5–24 V, ≥ 1 A, potensiometeret lodda på kortet (nominelt 34 × 21 mm)', 6.0,
-     (0.10, 0.35, 0.15), dimmarkort),
-    ('E04', 'USB-C-kontakt', 'USB-C hokontakt for panel, 2 pinnar (5 V), med 5,1 kΩ CC-motstandar', 2.0,
-     (0.15, 0.15, 0.15), usb_c),
+    ('E03', 'PWM-dimmarkort', 'verkar frå 4,5 V (prøv ved 4,75 V), PWM ≥ 3 kHz, ≥ 1 A, potensiometeret lodda på kortet '
+     '(nominelt 34 × 21 mm)', 6.0, (0.10, 0.35, 0.15), dimmarkort),
+    ('E04', 'USB-C-kontakt', 'USB-C hokontakt for panel, 2 pinnar, med innebygde 5,1 kΩ på CC1 og CC2 kvar for seg',
+     2.0, (0.15, 0.15, 0.15), usb_c),
 ]
 
 
@@ -468,9 +519,9 @@ def masse(d):
     if d['kjopt']:
         return d['masse']
     s, rho = d['form'], d['rho'] * 1e-3
-    if d['fyll'] == 'infill':                                # 3 vegger (1,2 mm) + 15 % gyroid inni
-        skal = min(s.Volume(), s.Area() * 1.2)
-        return rho * (skal + 0.15 * (s.Volume() - skal))
+    if d['fyll'] == 'infill':                                # 5 vegger (2,1 mm) + 20 % gyroid inni, som plate 1
+        skal = min(s.Volume(), s.Area() * 2.1)
+        return rho * (skal + 0.20 * (s.Volume() - skal))
     return rho * s.Volume()
 
 
@@ -537,6 +588,13 @@ def kontroll(delar):
     sveip('hovud_paa_bladet', 'D02', (1.0, 0, 0), 6, ('M06', 'M04', 'D06', 'D07', 'D08', 'E01'))
     sveip('knott', 'D05', (0, 0, 1.0), 12)
     sveip('botnplate', 'D04', (0, 0, -1.0), 8, ('M05', 'M07'))
+    verste = 0.0                                             # USB-C: 2,4 mm attende, opp frå undersida, så ut i lomma
+    for dz in range(-20, 1):
+        verste = max(verste, delar['E04']['form'].translate(V(0, -2.4, dz)).intersect(delar['D03']['form']).Volume())
+    for i in range(13):
+        verste = max(verste, delar['E04']['form'].translate(V(0, -2.4 + 0.2 * i, 0)).intersect(delar['D03']['form']).Volume())
+    ut['innføring']['usb_c'] = dict(veg='2,4 mm attende, 20 mm opp, så 2,4 mm ut i lomma', steg_mm=[1.0, 0.2],
+                                    storste_overlapp_mm3=round(verste, 3), metode='diskret')
     return ut
 
 
@@ -561,12 +619,33 @@ def skriv_step(delar):
 
 
 def skriv_stl(delar, mappe, alle=False):
-    """Éin STL per del i monteringsposisjon. Utan «alle» berre første eksemplar av like skruar, magnetar og føter."""
+    """Éin STL per del i monteringsposisjon. Utan «alle» berre første eksemplar av like skruar, magnetar og føter.
+    Kvar fil blir lesen inn att og sjekka for tett nett; er ho ikkje tett, blir ho skriven på nytt med finare netting."""
+    import trimesh
     mappe.mkdir(parents=True, exist_ok=True)
+    tett = {}
     for pid, d in delar.items():
         if not alle and pid.startswith('M0') and pid[-1] != '1':
             continue
-        d['form'].exportStl(str(mappe / f"{filnamn(pid, d['namn'])}.stl"), tolerance=0.01, angularTolerance=0.08, relative=False)
+        sti = mappe / f"{filnamn(pid, d['namn'])}.stl"
+        reparert = 0
+        for tol, ang in ((0.01, 0.08), (0.005, 0.05)):
+            d['form'].exportStl(str(sti), tolerance=tol, angularTolerance=ang, relative=False)
+            m = trimesh.load(str(sti), force='mesh')
+            if m.is_watertight:
+                break
+        if not m.is_watertight:                              # trekantar med null areal der tre avrundingar møtest i eit hjørne
+            opne = len(trimesh.grouping.group_rows(m.edges_sorted, require_count=1))
+            m.update_faces(m.nondegenerate_faces())
+            m.remove_unreferenced_vertices()
+            m.merge_vertices()
+            if not m.is_watertight:
+                m.fill_holes()
+            if m.is_watertight:
+                m.export(str(sti))
+                reparert = opne
+        tett[pid] = dict(tett=bool(m.is_watertight), toleranse_mm=tol, trekantar=int(len(m.faces)), tetta_opne_kantar=reparert)
+    return tett
 
 
 PRINTRETNING = {
@@ -630,38 +709,62 @@ def printplater(delar):
         'LUT_P1S_plate3_lyskopp_PETG_kvit.3mf': [('D06 Lyskopp', pr['D06'], (88.0, 88.0))],
         'LUT_P1S_plate4_botnplate_PLA_alternativ.3mf': [('D04 Botnplate (PLA)', pr['D04p'], ((256 - b2.xlen) / 2, 88.0))],
     }
-    pp = passprove()
-    bp = pp.BoundingBox()
-    plater['LUT_P1S_plate0_passprove_PLA.3mf'] = [('P00 Passprøve', pp, ((256 - bp.xlen) / 2, (256 - bp.ylen) / 2))]
+    for namn, pp, tittel in (('LUT_P1S_plate0a_passprove_blad_PLA.3mf', passprove_blad(), 'P00a Passprøve blad'),
+                             ('LUT_P1S_plate0b_passprove_hovud_fot_PLA.3mf', passprove_hovud_fot(), 'P00b Passprøve hovud og fot')):
+        bp = pp.BoundingBox()
+        pp = pp.translate(V(-bp.xmin, -bp.ymin, -bp.zmin))
+        plater[namn] = [(tittel, pp, ((256 - bp.xlen) / 2, (256 - bp.ylen) / 2))]
+    plater['LUT_P1S_plate5_hovud_PETG_alternativ.3mf'] = [('D02 Hovud (PETG)', pr['D02'], (88.0, 88.0))]
     for namn, innhald in plater.items():
         skriv_3mf(mappe / namn, innhald, namn[:-4])
     return info
 
 
 def skriv_dxf(delar):
-    """Botnplata som DXF i 1:1 for laserskjering: ytterkontur og hol."""
+    """DXF i 1:1: botnplata for laserskjering (kontur og hol, merknad om senking), spreiaren og kjøleplata som mal."""
+    import ezdxf
+    ut = ROT / 'produksjon'
     f = d_flate(VEGG - FALS + PLATE_KLARING, 0.0)
     w = cq.Workplane('XY').add(f)
     for x, y in PLATE_SKRUAR:
-        w = w.add(Wire.makeCircle(1.7, V(x, y, 0), V(0, 0, 1)))
-    cq.exporters.export(w, str(ROT / 'produksjon' / 'D04_botnplate_4mm_S235_1til1.dxf'), exportType='DXF')
+        w = w.add(Wire.makeCircle(PLATE_HOL_R, V(x, y, 0), V(0, 0, 1)))
+    sti = ut / 'D04_botnplate_4mm_S235_1til1.dxf'
+    cq.exporters.export(w, str(sti), exportType='DXF')
+    doc = ezdxf.readfile(str(sti))
+    doc.layers.add('MERKNAD')
+    doc.modelspace().add_text(f'D04 Lut · S235 4 mm · 4 hol Ø {2 * PLATE_HOL_R:.1f} · senk 90° til Ø {PLATE_SENK_D:.1f} '
+                              f'frå undersida (ISO 10642 M3)', dxfattribs={'height': 3.0, 'layer': 'MERKNAD'}).set_placement((0, -50))
+    doc.saveas(str(sti))
+    for namn, r, ri in (('D07_spreiar_1til1.dxf', SPREIAR_R, 0.0), ('D08_kjoleplate_1til1.dxf', KJOL_R, 3.0)):
+        w = cq.Workplane('XY').add(Wire.makeCircle(r, V(0, 0, 0), V(0, 0, 1)))
+        if ri:
+            w = w.add(Wire.makeCircle(ri, V(0, 0, 0), V(0, 0, 1)))
+        cq.exporters.export(w, str(ut / namn), exportType='DXF')
 
 
 def skriv_stykkliste(delar, k):
     rader = [('ID', 'Namn', 'Tal', 'Materiale / spesifikasjon', 'Masse g', 'Kjelde')]
+    kjelde = {'D04': 'laserskjering frå DXF (stål) eller print plate 4 (PLA)', 'D07': 'skjer ut etter DXF-mal',
+              'D08': 'skjer ut etter DXF-mal'}
     for pid, namn, mat, *_ in DELAR:
-        rader.append((pid, namn, 1, mat, k['delar'][pid]['masse_g'], 'eigen produksjon'))
+        rader.append((pid, namn, 1, mat, k['delar'][pid]['masse_g'], kjelde.get(pid, 'print')))
     for pid, namn, spes, m, *_ in KJOPT:
-        rader.append((pid, namn, 1, spes, m, 'kjøpt'))
+        rader.append((pid, namn, 1, spes, m, 'kjøp'))
     rader += [
-        ('E05', 'Kabel', 1, '2 × 0,25 mm² silikon, 450 mm (bladet 300 + slakk)', 5.0, 'kjøpt'),
-        ('M01', 'Innpressmutter M4', 3, 'messing, for hol Ø 5,6 × 9 (rota av bladet)', 1.0, 'kjøpt'),
-        ('M02', 'Innpressmutter M3', 6, 'messing, for hol Ø 4,0 (2 i enden av bladet, 4 i foten)', 0.5, 'kjøpt'),
-        ('M03', 'Skrue M4 × 16', 3, 'ISO 4762 sylinderhovud, frå innsida av foten opp i bladet', 3.0, 'kjøpt'),
-        ('M04', 'Skrue M3 × 10', 2, 'ISO 4762 sylinderhovud, frå innsida av hovudet inn i bladet', 1.2, 'kjøpt'),
-        ('M05', 'Skrue M3 × 8', 4, 'ISO 7380 linsehovud, botnplata', 0.9, 'kjøpt'),
-        ('M06', 'Magnet Ø 6 × 3', 6, 'NdFeB N42, limast (3 i hovudet, 3 i lyskoppen, motsett pol)', 0.65, 'kjøpt'),
-        ('M07', 'Gummifot Ø 10 × 2', 4, 'sjølvklebande', 0.2, 'kjøpt'),
+        ('E05', 'Kabel til LED', 1, '2 × 0,25 mm² silikon, 650 mm (blad 260, hovud med 80 mm serviceslakk 155, fot 165, '
+         'avisolering og reserve 70); kapp til slutt', 6.0, 'kjøp'),
+        ('E06', 'Leidning i foten', 2, '0,25 mm² silikon raud og svart, 120 mm kvar (USB-C til brytar til dimmar)', 2.0, 'kjøp'),
+        ('M01', 'Innpressmutter M4', 3, 'messing M4 × 8,1 (lengd ≤ 8,1), for hol Ø 5,6 × 9 i rota av bladet', 1.0, 'kjøp'),
+        ('M02', 'Innpressmutter M3', 6, 'messing M3 × 5,7, for hol Ø 4,0 × 7 (2 i enden av bladet, 4 i foten)', 0.5, 'kjøp'),
+        ('M03', 'Skrue M4 × 16', 3, 'ISO 4762 sylinderhovud, frå innsida av foten opp i bladet; handstramt, om lag 1 N·m',
+         3.0, 'kjøp'),
+        ('M04', 'Skrue M3 × 10', 2, 'ISO 4762 sylinderhovud, frå innsida av hovudet inn i bladet', 1.2, 'kjøp'),
+        ('M05', 'Skrue M3 × 8', 4, 'ISO 10642 senkskrue, botnplata (hovudet i plan med plata)', 0.9, 'kjøp'),
+        ('M06', 'Magnet Ø 6 × 3', 6, 'NdFeB N42, limast med epoksy (3 i hovudet, 3 i lyskoppen, motsett pol)', 0.65, 'kjøp'),
+        ('M07', 'Gummifot Ø 10 × 2', 4, 'sjølvklebande', 0.2, 'kjøp'),
+        ('M08', 'Termisk teip', 2, 'dobbeltsidig, Ø 50 × 0,25 mm: éin mellom kjøleplata og taket i koppen, éin mellom '
+         'LED-kortet og kjøleplata', 0.5, 'kjøp'),
+        ('M09', 'Kaptonteip', 1, '60 × 40 mm, på oversida av botnplata under dimmarkortet', 0.3, 'kjøp'),
     ]
     with open(ROT / 'kontroll' / 'lut_stykkliste.csv', 'w', newline='', encoding='utf-8-sig') as f:
         csv.writer(f, delimiter=';').writerows(rader)
@@ -681,19 +784,20 @@ def main():
     if not RASK:
         print(f'Eksporterer ({time.time() - t0:.0f} s)', flush=True)
         skriv_step(delar)
-        skriv_stl(delar, ROT / 'produksjon')
+        k['stl_tett'] = skriv_stl(delar, ROT / 'produksjon')
         skriv_stl(delar, ROT / 'render' / 'nett', alle=True)          # til Blender; ikkje i git
-        pp = passprove()
-        k['passprove'] = dict(gyldig=bool(pp.isValid()), volum_mm3=round(pp.Volume(), 1))
-        pp.exportStl(str(ROT / 'produksjon' / 'P00_passprove.stl'), tolerance=0.01, angularTolerance=0.08, relative=False)
+        k['passprove'] = {}
+        for namn, pp in (('P00a_passprove_blad', passprove_blad()), ('P00b_passprove_hovud_fot', passprove_hovud_fot())):
+            k['passprove'][namn] = dict(gyldig=bool(pp.isValid()), volum_mm3=round(pp.Volume(), 1))
+            pp.exportStl(str(ROT / 'produksjon' / f'{namn}.stl'), tolerance=0.01, angularTolerance=0.08, relative=False)
         k['print'] = printplater(delar)
         skriv_dxf(delar)
         skriv_stykkliste(delar, k)
         json.dump({pid: dict(namn=d['namn'], farge=d['farge'], kjopt=d['kjopt'], fil=filnamn(pid, d['namn']),
                              senter=[round(c, 3) for c in d['form'].Center().toTuple()]) for pid, d in delar.items()},
                   open(ROT / 'kontroll' / 'lut_delar.json', 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
-    (ROT / 'kontroll').mkdir(exist_ok=True)
-    json.dump(k, open(ROT / 'kontroll' / 'lut_kontroll.json', 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
+        (ROT / 'kontroll').mkdir(exist_ok=True)
+        json.dump(k, open(ROT / 'kontroll' / 'lut_kontroll.json', 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
     ugyldige = [p for p, d in k['delar'].items() if not d['gyldig']]
     print(json.dumps(dict(masse_g=k['masse_g'], tyngdepunkt=k['tyngdepunkt_mm'], velting=k['velting']['vinkel_grad'],
                           kollisjonar=k['kollisjonar'], ugyldige=ugyldige, innføring=k['innføring'],

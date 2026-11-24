@@ -29,11 +29,18 @@ FELLES = {'curr_bed_type': 'Textured PEI Plate', 'enable_support': '0', 'sparse_
           'wall_generator': 'arachne', 'seam_position': 'aligned', 'top_shell_layers': '5', 'bottom_shell_layers': '4'}
 PLATER = [
     # namn, prosess, filament, ekstra prosessval, objekt: (stl, rotasjon om X i grader, x, y på plata)
-    ('LUT_P1S_plate0_passprove_PLA', '0.20mm Standard @BBL X1C', PLA,
-     {'wall_loops': '3', 'sparse_infill_density': '15%', 'brim_type': 'no_brim'},
-     [('P00_passprove', 0.0, None, None)]),
+    # plate 0a har same innstillingar som bladet (plate 1), plate 0b same som hovud, fot og knott (plate 2):
+    # kvar prøve blir printa slik delen ho står for blir printa
+    ('LUT_P1S_plate0a_passprove_blad_PLA', '0.20mm Standard @BBL X1C', PLA,
+     {'wall_loops': '5', 'top_shell_layers': '6', 'bottom_shell_layers': '6', 'sparse_infill_density': '20%',
+      'brim_type': 'no_brim'},
+     [('P00a_passprove_blad', 0.0, None, None)]),
+    ('LUT_P1S_plate0b_passprove_hovud_fot_PLA', '0.16mm Optimal @BBL X1C', PLA,
+     {'wall_loops': '6', 'sparse_infill_density': '15%', 'brim_type': 'no_brim'},
+     [('P00b_passprove_hovud_fot', 0.0, None, None)]),
     ('LUT_P1S_plate1_blad_PLA', '0.20mm Standard @BBL X1C', PLA,
-     {'wall_loops': '3', 'sparse_infill_density': '15%', 'ironing_type': 'top', 'brim_type': 'no_brim'},
+     {'wall_loops': '5', 'top_shell_layers': '6', 'bottom_shell_layers': '6', 'sparse_infill_density': '20%',
+      'ironing_type': 'top', 'brim_type': 'no_brim'},
      [('D01_blad', 90.0, None, None)]),
     ('LUT_P1S_plate2_fot_hovud_knott_PLA', '0.16mm Optimal @BBL X1C', PLA,
      {'wall_loops': '6', 'sparse_infill_density': '15%', 'brim_type': 'no_brim'},
@@ -44,6 +51,9 @@ PLATER = [
     ('LUT_P1S_plate4_botnplate_PLA_alternativ', '0.20mm Standard @BBL X1C', PLA,
      {'wall_loops': '3', 'sparse_infill_density': '100%', 'sparse_infill_pattern': 'zig-zag', 'brim_type': 'no_brim'},
      [('D04_botnplate', 0.0, None, None)]),
+    ('LUT_P1S_plate5_hovud_PETG_alternativ', '0.16mm Optimal @BBL X1C', PETG,
+     {'wall_loops': '6', 'sparse_infill_density': '15%', 'brim_type': 'no_brim'},
+     [('D02_hovud', 180.0, None, None)]),
 ]
 
 

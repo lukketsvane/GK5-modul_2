@@ -1,0 +1,138 @@
+{
+ "LUT_P1S_plate0a_passprove_blad_PLA": {
+  "segment": 24619,
+  "lag": 141,
+  "hogd_mm": 28.0,
+  "stotte_segment": 0,
+  "utypa_segment": 0,
+  "typar": {
+   "Inner wall": 9482,
+   "Sparse infill": 6021,
+   "Outer wall": 3675,
+   "Internal solid infill": 3258,
+   "Floating vertical shell": 1245,
+   "Bridge": 493,
+   "Top surface": 216,
+   "Bottom surface": 172,
+   "Overhang wall": 40,
+   "Gap infill": 15,
+   "Custom": 2
+  }
+ },
+ "LUT_P1S_plate0b_passprove_hovud_fot_PLA": {
+  "segment": 60332,
+  "lag": 201,
+  "hogd_mm": 32.04,
+  "stotte_segment": 0,
+  "utypa_segment": 0,
+  "typar": {
+   "Inner wall": 41161,
+   "Outer wall": 8893,
+   "Internal solid infill": 7489,
+   "Top surface": 1043,
+   "Sparse infill": 654,
+   "Gap infill": 384,
+   "Bottom surface": 287,
+   "Bridge": 245,
+   "Floating vertical shell": 162,
+   "Overhang wall": 12,
+   "Custom": 2
+  }
+ },
+ "LUT_P1S_plate1_blad_PLA": {
+  "segment": 499465,
+  "lag": 201,
+  "hogd_mm": 40.0,
+  "stotte_segment": 0,
+  "utypa_segment": 0,
+  "typar": {
+   "Sparse infill": 436028,
+   "Inner wall": 23046,
+   "Internal solid infill": 12742,
+   "Outer wall": 9734,
+   "Ironing": 7587,
+   "Floating vertical shell": 4027,
+   "Bridge": 3487,
+   "Bottom surface": 1201,
+   "Top surface": 887,
+   "Gap infill": 650,
+   "Overhang wall": 74,
+   "Custom": 2
+  }
+ },
+ "LUT_P1S_plate2_fot_hovud_knott_PLA": {
+  "segment": 244121,
+  "lag": 501,
+  "hogd_mm": 80.04,
+  "stotte_segment": 0,
+  "utypa_segment": 0,
+  "typar": {
+   "Inner wall": 163888,
+   "Internal solid infill": 35005,
+   "Outer wall": 28088,
+   "Sparse infill": 10185,
+   "Top surface": 2380,
+   "Bridge": 2044,
+   "Gap infill": 1181,
+   "Bottom surface": 1072,
+   "Floating vertical shell": 241,
+   "Overhang wall": 35,
+   "Custom": 2
+  }
+ },
+ "LUT_P1S_plate3_lyskopp_PETG_kvit": {
+  "segment": 26349,
+  "lag": 138,
+  "hogd_mm": 21.96,
+  "stotte_segment": 0,
+  "utypa_segment": 0,
+  "typar": {
+   "Inner wall": 16454,
+   "Internal solid infill": 4954,
+   "Outer wall": 3157,
+   "Top surface": 678,
+   "Gap infill": 376,
+   "Bottom surface": 361,
+   "Sparse infill": 300,
+   "Bridge": 67,
+   "Custom": 2
+  }
+ },
+ "LUT_P1S_plate4_botnplate_PLA_alternativ": {
+  "segment": 23372,
+  "lag": 21,
+  "hogd_mm": 4.0,
+  "stotte_segment": 0,
+  "utypa_segment": 0,
+  "typar": {
+   "Sparse infill": 8905,
+   "Internal solid infill": 6895,
+   "Inner wall": 4265,
+   "Outer wall": 1967,
+   "Bottom surface": 757,
+   "Top surface": 487,
+   "Gap infill": 94,
+   "Custom": 2
+  }
+ },
+ "LUT_P1S_plate5_hovud_PETG_alternativ": {
+  "segment": 85556,
+  "lag": 501,
+  "hogd_mm": 80.04,
+  "stotte_segment": 0,
+  "utypa_segment": 0,
+  "typar": {
+   "Inner wall": 62948,
+   "Internal solid infill": 7873,
+   "Outer wall": 7195,
+   "Sparse infill": 4625,
+   "Top surface": 1068,
+   "Bridge": 969,
+   "Gap infill": 568,
+   "Bottom surface": 229,
+   "Floating vertical shell": 49,
+   "Overhang wall": 30,
+   "Custom": 2
+  }
+ }
+}

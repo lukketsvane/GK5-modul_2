@@ -46,6 +46,8 @@ Skalaen er ankra i høgda på framseglet, 205 mm. Då blir knappen Ø22, og det 
 - Kor djupt høgseglet står bak. Biletet kan ikkje skilje vinkelen; han er sett til 26° og 16° (fald 10,4°). Skuggen på det smale feltet avgjer kva veg falden går.
 - Falden på framseglet er 5,8° og ikkje 1 til 2° som biletet tyder på. Kantpressa bøyer ikkje mindre enn 5°.
 
+**Vedteke av brukaren 24.11.2026:** knappen er terrakotta som resten av lampa, ikkje messing. Northern-trekket H5 (eitt messingpunkt) er då medvite brote.
+
 **Avvik frå skissa:**
 - Ved foten av kvar fald er det eit relieff, på framseglet ei spalte 3 × 7 mm, og ei glipe på 1,6 mm i fotflensen. Platearbeid krev det. Spalta kan sveisast att og slipast før lakkering.
 - Alle frie spissar har R3, av omsyn til tryggleik (EN 60598-1 4.25).

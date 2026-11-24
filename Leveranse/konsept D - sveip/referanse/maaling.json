@@ -1,0 +1,41 @@
+{
+  "kjelde": "referanse/skisse-original.jpg (1000 x 1000 px, frontvising, kamera om lag 4 til 7 grader over horisonten)",
+  "metode": "subpikselkantar langs skannelinjer (scratch: maal/kantar.py); frontplanet er maalt, sylinderendane er tilpassa ellipsebogar",
+  "piksel": {
+    "venstre_silhuett_x": 220.0,
+    "hogre_silhuett_x": 767.0,
+    "toppkant_framme_y": 217.0,
+    "toppkant_bak_y": 204.0,
+    "skjerm_underkant_y": 463.3,
+    "hakk_overkant_y": 661.5,
+    "golv_y": 774.6,
+    "stamme_hogre_kant_x": 546.0,
+    "hakk_loddrett_kant_x": 299.3,
+    "enderadius_R": 95.0,
+    "enderadius_R_uvisse": [93, 105],
+    "innvendig_hjorneradius_skjerm_stamme": 22.0,
+    "hjorneradius_hakk": 13.0,
+    "kabel_ut_x": 262.0,
+    "kabel_ut_y": 660.0,
+    "kabel_breidd": 7.0
+  },
+  "forhold_av_S": {
+    "merknad": "S = total breidd = total hogd i frontplanet (kvadratisk oppriss, avvik under 1 %)",
+    "breidd_W": 1.0,
+    "hogd_H": 1.0,
+    "skjermhogd": 0.4417,
+    "hakk_hogd": 0.2028,
+    "stamme_hogre_kant_fra_venstre": 0.594,
+    "hakk_kant_fra_venstre": 0.151,
+    "djupn_D": 0.347,
+    "innvendig_hjorneradius": 0.040,
+    "hjorneradius_hakk": 0.024
+  },
+  "lesing": [
+    "Planforma er ein stadion (to flater, to halvsylindrar): flat skuggelegging i midten, gradient berre i endane.",
+    "Toppen er open: bandet oevst er innsida av bakveggen (moerkare i venstre ende, lysare i hogre), ikkje eit lok.",
+    "Venstre halvsylinder gaar heilt ned til hakket; under skjermen til hogre er plata skoren bort.",
+    "Hakket nede til venstre ligg i den krumme delen (kanten staar om lag 10 grader inn i bogen) og er kabelutgangen.",
+    "Baksida er ikkje synleg: at ho speglar framsida er ei antaking."
+  ]
+}

@@ -1,0 +1,5 @@
+# Samanlikningsbilete med skissa (opphav ikkje avklara) og mellombelse filer
+render/_*.png
+kontroll/_logg.txt
+__pycache__/
+*.pyc

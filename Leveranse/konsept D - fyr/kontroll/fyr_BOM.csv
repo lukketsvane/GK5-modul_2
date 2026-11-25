@@ -1,0 +1,37 @@
+variant,del,materiale,volum_cm3,masse_g,bbox_x,bbox_y,bbox_z
+serie,01_fot,"aluminium EN AW-6082 T6, pulverlakk RAL 3005 / PLA Matte mørk raud",69.916,188.8,99.0,99.0,14.0
+serie,03_chassis,PA12 SLS svart / PETG HF svart,69.269,70.0,86.0,85.7,76.5
+serie,04_mantel,"aluminiumsrøyr EN AW-6060 T66 90x2, pulverlakk RAL 3005 / PLA Matte",138.296,373.4,90.0,90.0,263.0
+serie,05_hylse,"messing CuZn37 0,8 valsa, børsta + klarlakk / PLA Silk+ gull",38.869,329.2,83.7,83.7,222.7
+serie,05b_hylsefot,POM-C sprøytestøypt / PLA (prenta saman med hylsa),15.566,21.9,82.0,82.0,14.0
+serie,05c_stoppskruar,3 x ISO 7380 M3x5 A2 svart,0.2,1.6,64.79,74.82,5.7
+serie,06_lysstav,"aluminium EN AW-6060 flat 15x2, bak svart eloksert",5.79,15.6,2.0,15.0,193.0
+serie,06b_led_side,"COB LED 5 V 8 mm RA90 2700 K, 158 mm",2.022,3.6,1.6,8.0,158.0
+serie,06c_led_topp,"COB LED 5 V 8 mm RA90 2700 K, 4 x 25 mm",1.28,2.3,54.45,54.45,1.6
+serie,06d_kontakt,"mastfot POM + 3,5 mm TRS-plugg",2.893,4.6,8.0,17.0,38.8
+serie,07_lysrist,PA12 SLS kvit / PETG HF kvit (ugjennomsiktig),66.138,66.8,81.3,81.3,224.4
+serie,08_lok,PMMA opal 3 mm (PLEXIGLAS Satinice WH02),14.556,17.3,78.6,78.6,3.0
+serie,10_glidering,"POM-C svart, delt ring / PETG HF svart",1.539,2.2,86.0,86.0,6.0
+serie,11_oring,O-ring silikon 85x3 60 ShA,1.987,2.3,93.5,93.5,3.0
+serie,11b_snor,3 x silikonsnor Ø2 x 10 (forspenning bajonett),0.06,0.1,71.77,82.54,1.0
+serie,12_brytarar,Omron 2 x D2F-01L3 + 1 x D2F-L3,1.406,2.2,71.88,74.35,9.4
+serie,13_jack,"3,5 mm TRS-kontakt, panel (M6)",1.417,2.8,11.0,11.0,15.9
+serie,14_kretskort,"hullkort: R1, R3, PTC F1, JST PH",1.78,2.5,24.0,15.0,7.5
+prototype,01_fot,"aluminium EN AW-6082 T6, pulverlakk RAL 3005 / PLA Matte mørk raud",69.585,86.3,99.0,99.0,14.0
+prototype,03_chassis,PA12 SLS svart / PETG HF svart,68.817,87.4,86.0,85.4,76.5
+prototype,04_mantel,"aluminiumsrøyr EN AW-6060 T66 90x2, pulverlakk RAL 3005 / PLA Matte",138.296,171.5,90.0,90.0,263.0
+prototype,05_hylse,"messing CuZn37 0,8 valsa, børsta + klarlakk / PLA Silk+ gull",76.509,94.9,83.1,83.1,223.0
+prototype,05b_hylsefot,POM-C sprøytestøypt / PLA (prenta saman med hylsa),11.733,14.5,79.8,79.8,14.0
+prototype,05c_stoppskruar,3 x ISO 7380 M3x5 A2 svart,0.2,1.6,64.34,74.3,5.7
+prototype,06_lysstav,"aluminium EN AW-6060 flat 15x2, bak svart eloksert",5.79,15.6,2.0,15.0,193.0
+prototype,06b_led_side,"COB LED 5 V 8 mm RA90 2700 K, 158 mm",2.022,3.6,1.6,8.0,158.0
+prototype,06c_led_topp,"COB LED 5 V 8 mm RA90 2700 K, 4 x 25 mm",1.28,2.3,54.45,54.45,1.6
+prototype,06d_kontakt,"mastfot POM + 3,5 mm TRS-plugg",2.889,4.6,8.0,17.0,38.8
+prototype,07_lysrist,PA12 SLS kvit / PETG HF kvit (ugjennomsiktig),67.951,86.3,79.1,79.1,224.4
+prototype,08_lok,PMMA opal 3 mm (PLEXIGLAS Satinice WH02),13.753,16.4,76.4,76.4,3.0
+prototype,10_glidering,"POM-C svart, delt ring / PETG HF svart",1.377,1.7,85.8,85.8,6.0
+prototype,11_oring,O-ring silikon 85x3 60 ShA,1.987,2.3,93.5,93.5,3.0
+prototype,11b_snor,3 x silikonsnor Ø2 x 10 (forspenning bajonett),0.06,0.1,71.77,82.54,1.0
+prototype,12_brytarar,Omron 2 x D2F-01L3 + 1 x D2F-L3,1.406,2.2,71.88,74.35,9.4
+prototype,13_jack,"3,5 mm TRS-kontakt, panel (M6)",1.417,2.8,11.0,11.0,15.9
+prototype,14_kretskort,"hullkort: R1, R3, PTC F1, JST PH",1.78,2.5,24.0,15.0,7.5

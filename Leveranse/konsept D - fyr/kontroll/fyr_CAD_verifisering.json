@@ -1,0 +1,3051 @@
+{
+  "skildring": "FYR v4 maskinell kontroll (2026-11-25)",
+  "revisjon": "v4",
+  "dato": "2026-11-25",
+  "variantar": {
+    "serie": {
+      "params": {
+        "variant": "serie",
+        "n_deling": 32,
+        "fot_d": 99.0,
+        "fot_h": 14.0,
+        "fot_loft": 1.0,
+        "fot_fas": 1.0,
+        "spor_djup": 6.0,
+        "spor_klaring_inn": 0.2,
+        "spor_klaring_ut": 0.25,
+        "fot_lomme_r": 30.0,
+        "fot_lomme_z": 4.0,
+        "kabel_d": 4.2,
+        "kabel_z": 6.2,
+        "oring_id": 85.0,
+        "oring_strekk_r": 1.25,
+        "oring_snor": 3.0,
+        "oring_spor_b": 3.1,
+        "oring_spor_djup": 2.0,
+        "skrue_r": 36.0,
+        "skrue_vinklar": [
+          0.0,
+          120.0,
+          240.0
+        ],
+        "baj_vinklar": [
+          60.0,
+          180.0,
+          290.0
+        ],
+        "baj_knast_b": 2.5,
+        "baj_knast_h": 2.5,
+        "baj_knast_ut": 1.25,
+        "baj_knast_z": 2.0,
+        "baj_vri": 14.0,
+        "baj_spel": 0.6,
+        "baj_nabb_h": 0.55,
+        "snor_vinklar": [
+          0.0,
+          120.0,
+          240.0
+        ],
+        "snor_d": 2.0,
+        "snor_l": 10.0,
+        "snor_spor_djup": 1.0,
+        "stolpe_pos": [
+          [
+            -26.0,
+            2.3
+          ],
+          [
+            -20.5,
+            -2.3
+          ],
+          [
+            -15.0,
+            2.3
+          ]
+        ],
+        "stolpe_topp": 13.0,
+        "kabel_ut_x": -10.5,
+        "mantel_d": 90.0,
+        "mantel_t": 2.0,
+        "mantel_synleg_h": 257.0,
+        "n_spalter": 6,
+        "spalte_b": 3.4,
+        "spalte_l": 167.0,
+        "spalte_topp": 12.0,
+        "glide_t": 1.0,
+        "glide_h": 6.0,
+        "glide_under_kant": 1.0,
+        "glide_klaring": 0.15,
+        "hylse_t": 0.8,
+        "krage_h": 27.0,
+        "port_margin": 3.9,
+        "port_under": 1.0,
+        "krone_b": 4.0,
+        "krone_topp": 6.0,
+        "krone_under": 0.0,
+        "krone_stasjonar": [
+          90.0,
+          180.0,
+          270.0
+        ],
+        "hylse_saum": 225.0,
+        "snepp_vinklar": [
+          45.0,
+          165.0,
+          285.0
+        ],
+        "toppdekk_z1": 76.0,
+        "fotring_h": 14.0,
+        "hylse_luft": 0.3,
+        "bor_r": 36.2,
+        "vandring": 90.0,
+        "stopp_vinklar": [
+          0.0,
+          120.0,
+          240.0
+        ],
+        "stopp_z": 81.0,
+        "stopp_hovud_d": 5.7,
+        "stopp_hovud_h": 1.65,
+        "stopp_l": 5.0,
+        "stopp_kjerne_d": 2.5,
+        "stopp_spor_h": 3.6,
+        "stopp_spor_botn": 34.1,
+        "klikk_z0": 84.4,
+        "klikk_djup": 1.15,
+        "sw": [
+          [
+            235.0,
+            87.0
+          ],
+          [
+            125.0,
+            65.0
+          ],
+          [
+            345.0,
+            76.0
+          ]
+        ],
+        "sw_namn": [
+          "SW1 D2F-01L3 gull (glød)",
+          "SW2 D2F-L3 sølv (sidelys)",
+          "SW3 D2F-01L3 gull (full glød)"
+        ],
+        "sw_r": 38.0,
+        "kam_r0": 36.0,
+        "kam_r1": 40.0,
+        "kam_djup": 1.8,
+        "kam_rampe": 6.2,
+        "sw_hol_z": 68.1,
+        "sw_just": 1.2,
+        "chassis_flens_t": 3.0,
+        "chassis_r": 42.5,
+        "soyle_vinklar": [
+          60.0,
+          180.0,
+          300.0
+        ],
+        "dekk_z": 40.0,
+        "dekk_t": 2.5,
+        "toppdekk_t": 6.0,
+        "mantel_styr_klaring": 0.15,
+        "lager_klaring": 0.2,
+        "tapp_ri": 33.0,
+        "tapp_topp": 89.5,
+        "tunge_vinklar": [
+          60.0,
+          172.5,
+          285.0
+        ],
+        "tunge_l": 12.0,
+        "tunge_t": 1.8,
+        "tunge_kul": 0.35,
+        "tunge_slisse": 1.2,
+        "tunge_ende_slisse": 1.6,
+        "knusribber_n": 6,
+        "innsats_hol_d": 4.0,
+        "innsats_l": 5.7,
+        "nokkel_r": 18.0,
+        "nokkel_d": 5.0,
+        "nokkel_z0": 57.0,
+        "sentrering_r": 29.85,
+        "stav_b": 15.0,
+        "stav_t": 2.0,
+        "stav_z0": 60.0,
+        "stav_z1": 253.0,
+        "stripe_b": 8.0,
+        "stripe_t": 1.6,
+        "stripe_z0": 92.0,
+        "stripe_z1": 250.0,
+        "mastfot_z0": 44.4,
+        "mastfot_z1": 68.0,
+        "mastfot_b": 8.0,
+        "mastfot_l": 17.0,
+        "mastfot_lomme_klaring": 0.1,
+        "mastfot_kanal": 1.2,
+        "trs_l": 14.0,
+        "trs_kropp_d": 6.0,
+        "trs_kropp_l": 14.0,
+        "leidning_b": 1.2,
+        "topp_n": 4,
+        "topp_l": 25.0,
+        "topp_r": 22.0,
+        "rist_r_inn": 10.0,
+        "rist_r_ut": 32.0,
+        "rist_helling": 55.0,
+        "rist_deling": 16.0,
+        "rist_t": 0.8,
+        "rist_vegg_t": 0.8,
+        "rist_vegg_vinkel": 45.0,
+        "rist_z0": 84.0,
+        "golv_t": 1.2,
+        "skjold_r": 31.5,
+        "skjold_t": 1.0,
+        "topp_berar_z": 255.0,
+        "skjort_z0": 255.0,
+        "skjort_t": 1.2,
+        "sete_t": 1.6,
+        "lok_t": 3.0,
+        "lok_under_krage": 18.0,
+        "lok_klaring_hylse": 0.4
+      },
+      "delar": {
+        "01_fot": {
+          "materiale": "aluminium EN AW-6082 T6, pulverlakk RAL 3005 / PLA Matte mørk raud",
+          "gyldig_brep": true,
+          "lekamar": 1,
+          "volum_cm3": 69.916,
+          "masse_g": 188.8,
+          "bbox_mm": [
+            99.0,
+            99.0,
+            14.0
+          ],
+          "z_mm": [
+            1.0,
+            15.0
+          ],
+          "tyngdepunkt_mm": [
+            0.1,
+            0.0,
+            7.26
+          ]
+        },
+        "03_chassis": {
+          "materiale": "PA12 SLS svart / PETG HF svart",
+          "gyldig_brep": true,
+          "lekamar": 1,
+          "volum_cm3": 69.269,
+          "masse_g": 70.0,
+          "bbox_mm": [
+            86.0,
+            85.7,
+            76.5
+          ],
+          "z_mm": [
+            13.0,
+            89.5
+          ],
+          "tyngdepunkt_mm": [
+            -0.16,
+            0.04,
+            53.66
+          ]
+        },
+        "04_mantel": {
+          "materiale": "aluminiumsrøyr EN AW-6060 T66 90x2, pulverlakk RAL 3005 / PLA Matte",
+          "gyldig_brep": true,
+          "lekamar": 1,
+          "volum_cm3": 138.296,
+          "masse_g": 373.4,
+          "bbox_mm": [
+            90.0,
+            90.0,
+            263.0
+          ],
+          "z_mm": [
+            9.0,
+            272.0
+          ],
+          "tyngdepunkt_mm": [
+            -2.03,
+            0.0,
+            139.05
+          ]
+        },
+        "05_hylse": {
+          "materiale": "messing CuZn37 0,8 valsa, børsta + klarlakk / PLA Silk+ gull",
+          "gyldig_brep": true,
+          "lekamar": 1,
+          "volum_cm3": 38.869,
+          "masse_g": 329.2,
+          "bbox_mm": [
+            83.7,
+            83.7,
+            222.7
+          ],
+          "z_mm": [
+            76.3,
+            299.0
+          ],
+          "tyngdepunkt_mm": [
+            -5.99,
+            -0.0,
+            186.73
+          ]
+        },
+        "05b_hylsefot": {
+          "materiale": "POM-C sprøytestøypt / PLA (prenta saman med hylsa)",
+          "gyldig_brep": true,
+          "lekamar": 1,
+          "volum_cm3": 15.566,
+          "masse_g": 21.9,
+          "bbox_mm": [
+            82.0,
+            82.0,
+            14.0
+          ],
+          "z_mm": [
+            76.0,
+            90.0
+          ],
+          "tyngdepunkt_mm": [
+            0.16,
+            0.01,
+            83.12
+          ]
+        },
+        "05c_stoppskruar": {
+          "materiale": "3 x ISO 7380 M3x5 A2 svart",
+          "gyldig_brep": true,
+          "lekamar": 3,
+          "volum_cm3": 0.2,
+          "masse_g": 1.6,
+          "bbox_mm": [
+            64.79,
+            74.82,
+            5.7
+          ],
+          "z_mm": [
+            78.15,
+            83.85
+          ],
+          "tyngdepunkt_mm": [
+            0.0,
+            -0.0,
+            81.0
+          ]
+        },
+        "06_lysstav": {
+          "materiale": "aluminium EN AW-6060 flat 15x2, bak svart eloksert",
+          "gyldig_brep": true,
+          "lekamar": 1,
+          "volum_cm3": 5.79,
+          "masse_g": 15.6,
+          "bbox_mm": [
+            2.0,
+            15.0,
+            193.0
+          ],
+          "z_mm": [
+            60.0,
+            253.0
+          ],
+          "tyngdepunkt_mm": [
+            0.0,
+            -0.0,
+            156.5
+          ]
+        },
+        "06b_led_side": {
+          "materiale": "COB LED 5 V 8 mm RA90 2700 K, 158 mm",
+          "gyldig_brep": true,
+          "lekamar": 1,
+          "volum_cm3": 2.022,
+          "masse_g": 3.6,
+          "bbox_mm": [
+            1.6,
+            8.0,
+            158.0
+          ],
+          "z_mm": [
+            92.0,
+            250.0
+          ],
+          "tyngdepunkt_mm": [
+            1.8,
+            0.0,
+            171.0
+          ]
+        },
+        "06c_led_topp": {
+          "materiale": "COB LED 5 V 8 mm RA90 2700 K, 4 x 25 mm",
+          "gyldig_brep": true,
+          "lekamar": 4,
+          "volum_cm3": 1.28,
+          "masse_g": 2.3,
+          "bbox_mm": [
+            54.45,
+            54.45,
+            1.6
+          ],
+          "z_mm": [
+            256.5,
+            258.1
+          ],
+          "tyngdepunkt_mm": [
+            0.0,
+            0.0,
+            257.3
+          ]
+        },
+        "06d_kontakt": {
+          "materiale": "mastfot POM + 3,5 mm TRS-plugg",
+          "gyldig_brep": true,
+          "lekamar": 1,
+          "volum_cm3": 2.893,
+          "masse_g": 4.6,
+          "bbox_mm": [
+            8.0,
+            17.0,
+            38.8
+          ],
+          "z_mm": [
+            29.2,
+            68.0
+          ],
+          "tyngdepunkt_mm": [
+            0.08,
+            0.0,
+            54.15
+          ]
+        },
+        "07_lysrist": {
+          "materiale": "PA12 SLS kvit / PETG HF kvit (ugjennomsiktig)",
+          "gyldig_brep": true,
+          "lekamar": 1,
+          "volum_cm3": 66.138,
+          "masse_g": 66.8,
+          "bbox_mm": [
+            81.3,
+            81.3,
+            224.4
+          ],
+          "z_mm": [
+            57.0,
+            281.4
+          ],
+          "tyngdepunkt_mm": [
+            0.3,
+            -0.0,
+            180.12
+          ]
+        },
+        "08_lok": {
+          "materiale": "PMMA opal 3 mm (PLEXIGLAS Satinice WH02)",
+          "gyldig_brep": true,
+          "lekamar": 1,
+          "volum_cm3": 14.556,
+          "masse_g": 17.3,
+          "bbox_mm": [
+            78.6,
+            78.6,
+            3.0
+          ],
+          "z_mm": [
+            278.0,
+            281.0
+          ],
+          "tyngdepunkt_mm": [
+            -0.0,
+            0.0,
+            279.5
+          ]
+        },
+        "10_glidering": {
+          "materiale": "POM-C svart, delt ring / PETG HF svart",
+          "gyldig_brep": true,
+          "lekamar": 1,
+          "volum_cm3": 1.539,
+          "masse_g": 2.2,
+          "bbox_mm": [
+            86.0,
+            86.0,
+            6.0
+          ],
+          "z_mm": [
+            265.0,
+            271.0
+          ],
+          "tyngdepunkt_mm": [
+            -0.0,
+            0.0,
+            268.0
+          ]
+        },
+        "11_oring": {
+          "materiale": "O-ring silikon 85x3 60 ShA",
+          "gyldig_brep": true,
+          "lekamar": 1,
+          "volum_cm3": 1.987,
+          "masse_g": 2.3,
+          "bbox_mm": [
+            93.5,
+            93.5,
+            3.0
+          ],
+          "z_mm": [
+            0.0,
+            3.0
+          ],
+          "tyngdepunkt_mm": [
+            -0.0,
+            0.0,
+            1.5
+          ]
+        },
+        "11b_snor": {
+          "materiale": "3 x silikonsnor Ø2 x 10 (forspenning bajonett)",
+          "gyldig_brep": true,
+          "lekamar": 3,
+          "volum_cm3": 0.06,
+          "masse_g": 0.1,
+          "bbox_mm": [
+            71.77,
+            82.54,
+            1.0
+          ],
+          "z_mm": [
+            8.0,
+            9.0
+          ],
+          "tyngdepunkt_mm": [
+            -0.0,
+            -0.0,
+            8.5
+          ]
+        },
+        "12_brytarar": {
+          "materiale": "Omron 2 x D2F-01L3 + 1 x D2F-L3",
+          "gyldig_brep": true,
+          "lekamar": 3,
+          "volum_cm3": 1.406,
+          "masse_g": 2.2,
+          "bbox_mm": [
+            71.88,
+            74.35,
+            9.4
+          ],
+          "z_mm": [
+            66.6,
+            76.0
+          ],
+          "tyngdepunkt_mm": [
+            -2.59,
+            -3.07,
+            70.21
+          ]
+        },
+        "13_jack": {
+          "materiale": "3,5 mm TRS-kontakt, panel (M6)",
+          "gyldig_brep": true,
+          "lekamar": 1,
+          "volum_cm3": 1.417,
+          "masse_g": 2.8,
+          "bbox_mm": [
+            11.0,
+            11.0,
+            15.9
+          ],
+          "z_mm": [
+            28.5,
+            44.4
+          ],
+          "tyngdepunkt_mm": [
+            -0.0,
+            0.0,
+            35.1
+          ]
+        },
+        "14_kretskort": {
+          "materiale": "hullkort: R1, R3, PTC F1, JST PH",
+          "gyldig_brep": true,
+          "lekamar": 1,
+          "volum_cm3": 1.78,
+          "masse_g": 2.5,
+          "bbox_mm": [
+            24.0,
+            15.0,
+            7.5
+          ],
+          "z_mm": [
+            42.5,
+            50.0
+          ],
+          "tyngdepunkt_mm": [
+            -25.5,
+            -0.0,
+            45.84
+          ]
+        }
+      },
+      "sum": {
+        "masse_g": 1107.2,
+        "tyngdepunkt_z_mm": 128.4,
+        "stotteradius_mm": 45.25,
+        "veltevinkel_grader": 19.4,
+        "total_hogd_mm": 299.0,
+        "fotavtrykk_cm2": 77.0
+      },
+      "innforingsveg_lysmodul": {
+        "mastfot_gjennom_03_chassis_mm3": 0.0,
+        "mastfot_gjennom_05b_hylsefot_mm3": 0.0,
+        "mastfot_gjennom_05_hylse_mm3": 0.0,
+        "mastfot_gjennom_13_jack_mm3": 0.0,
+        "modul_storste_radius_mm": 40.65,
+        "kragen_bor_radius_mm": 41.05,
+        "klaring_modul_i_kragen_mm": 0.4,
+        "bestatt": true
+      },
+      "par": [
+        {
+          "a": "01_fot",
+          "b": "03_chassis",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "01_fot",
+          "b": "04_mantel",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "01_fot",
+          "b": "11_oring",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "01_fot",
+          "b": "11b_snor",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "03_chassis",
+          "b": "04_mantel",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "03_chassis",
+          "b": "06_lysstav",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "03_chassis",
+          "b": "06d_kontakt",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "03_chassis",
+          "b": "07_lysrist",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "03_chassis",
+          "b": "12_brytarar",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "03_chassis",
+          "b": "13_jack",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "03_chassis",
+          "b": "14_kretskort",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "04_mantel",
+          "b": "06_lysstav",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "04_mantel",
+          "b": "06b_led_side",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "04_mantel",
+          "b": "06c_led_topp",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "04_mantel",
+          "b": "06d_kontakt",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "04_mantel",
+          "b": "07_lysrist",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "04_mantel",
+          "b": "10_glidering",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "04_mantel",
+          "b": "11b_snor",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "04_mantel",
+          "b": "12_brytarar",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "04_mantel",
+          "b": "13_jack",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "04_mantel",
+          "b": "14_kretskort",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "06_lysstav",
+          "b": "06b_led_side",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "06_lysstav",
+          "b": "06d_kontakt",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "06_lysstav",
+          "b": "07_lysrist",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "06_lysstav",
+          "b": "12_brytarar",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "06b_led_side",
+          "b": "07_lysrist",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "06c_led_topp",
+          "b": "07_lysrist",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "06d_kontakt",
+          "b": "07_lysrist",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "06d_kontakt",
+          "b": "12_brytarar",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "06d_kontakt",
+          "b": "13_jack",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "07_lysrist",
+          "b": "08_lok",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "07_lysrist",
+          "b": "10_glidering",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "07_lysrist",
+          "b": "12_brytarar",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "04_mantel",
+          "theta": 0.0,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "10_glidering",
+          "theta": 0.0,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "07_lysrist",
+          "theta": 0.0,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "08_lok",
+          "theta": 0.0,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "03_chassis",
+          "theta": 0.0,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "03_chassis",
+          "theta": 0.0,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "12_brytarar",
+          "theta": 0.0,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "04_mantel",
+          "theta": 0.0,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "07_lysrist",
+          "theta": 0.0,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05c_stoppskruar",
+          "b": "03_chassis",
+          "theta": 0.0,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05c_stoppskruar",
+          "b": "04_mantel",
+          "theta": 0.0,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "04_mantel",
+          "theta": 11.25,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "10_glidering",
+          "theta": 11.25,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "07_lysrist",
+          "theta": 11.25,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "08_lok",
+          "theta": 11.25,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "03_chassis",
+          "theta": 11.25,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "03_chassis",
+          "theta": 11.25,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "12_brytarar",
+          "theta": 11.25,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "04_mantel",
+          "theta": 11.25,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "07_lysrist",
+          "theta": 11.25,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05c_stoppskruar",
+          "b": "03_chassis",
+          "theta": 11.25,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05c_stoppskruar",
+          "b": "04_mantel",
+          "theta": 11.25,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "04_mantel",
+          "theta": 22.5,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "10_glidering",
+          "theta": 22.5,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "07_lysrist",
+          "theta": 22.5,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "08_lok",
+          "theta": 22.5,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "03_chassis",
+          "theta": 22.5,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "03_chassis",
+          "theta": 22.5,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "12_brytarar",
+          "theta": 22.5,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "04_mantel",
+          "theta": 22.5,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "07_lysrist",
+          "theta": 22.5,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05c_stoppskruar",
+          "b": "03_chassis",
+          "theta": 22.5,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05c_stoppskruar",
+          "b": "04_mantel",
+          "theta": 22.5,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "04_mantel",
+          "theta": 33.75,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "10_glidering",
+          "theta": 33.75,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "07_lysrist",
+          "theta": 33.75,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "08_lok",
+          "theta": 33.75,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "03_chassis",
+          "theta": 33.75,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "03_chassis",
+          "theta": 33.75,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "12_brytarar",
+          "theta": 33.75,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "04_mantel",
+          "theta": 33.75,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "07_lysrist",
+          "theta": 33.75,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05c_stoppskruar",
+          "b": "03_chassis",
+          "theta": 33.75,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05c_stoppskruar",
+          "b": "04_mantel",
+          "theta": 33.75,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "04_mantel",
+          "theta": 45.0,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "10_glidering",
+          "theta": 45.0,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "07_lysrist",
+          "theta": 45.0,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "08_lok",
+          "theta": 45.0,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "03_chassis",
+          "theta": 45.0,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "03_chassis",
+          "theta": 45.0,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "12_brytarar",
+          "theta": 45.0,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "04_mantel",
+          "theta": 45.0,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "07_lysrist",
+          "theta": 45.0,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05c_stoppskruar",
+          "b": "03_chassis",
+          "theta": 45.0,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05c_stoppskruar",
+          "b": "04_mantel",
+          "theta": 45.0,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "04_mantel",
+          "theta": 56.25,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "10_glidering",
+          "theta": 56.25,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "07_lysrist",
+          "theta": 56.25,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "08_lok",
+          "theta": 56.25,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "03_chassis",
+          "theta": 56.25,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "03_chassis",
+          "theta": 56.25,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "12_brytarar",
+          "theta": 56.25,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "04_mantel",
+          "theta": 56.25,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "07_lysrist",
+          "theta": 56.25,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05c_stoppskruar",
+          "b": "03_chassis",
+          "theta": 56.25,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05c_stoppskruar",
+          "b": "04_mantel",
+          "theta": 56.25,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "04_mantel",
+          "theta": 67.5,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "10_glidering",
+          "theta": 67.5,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "07_lysrist",
+          "theta": 67.5,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "08_lok",
+          "theta": 67.5,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "03_chassis",
+          "theta": 67.5,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "03_chassis",
+          "theta": 67.5,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "12_brytarar",
+          "theta": 67.5,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "04_mantel",
+          "theta": 67.5,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "07_lysrist",
+          "theta": 67.5,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05c_stoppskruar",
+          "b": "03_chassis",
+          "theta": 67.5,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05c_stoppskruar",
+          "b": "04_mantel",
+          "theta": 67.5,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "04_mantel",
+          "theta": 78.75,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "10_glidering",
+          "theta": 78.75,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "07_lysrist",
+          "theta": 78.75,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "08_lok",
+          "theta": 78.75,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "03_chassis",
+          "theta": 78.75,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "03_chassis",
+          "theta": 78.75,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "12_brytarar",
+          "theta": 78.75,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "04_mantel",
+          "theta": 78.75,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "07_lysrist",
+          "theta": 78.75,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05c_stoppskruar",
+          "b": "03_chassis",
+          "theta": 78.75,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05c_stoppskruar",
+          "b": "04_mantel",
+          "theta": 78.75,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "04_mantel",
+          "theta": 90.0,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "10_glidering",
+          "theta": 90.0,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "07_lysrist",
+          "theta": 90.0,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "08_lok",
+          "theta": 90.0,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "03_chassis",
+          "theta": 90.0,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "03_chassis",
+          "theta": 90.0,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "12_brytarar",
+          "theta": 90.0,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "04_mantel",
+          "theta": 90.0,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "07_lysrist",
+          "theta": 90.0,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05c_stoppskruar",
+          "b": "03_chassis",
+          "theta": 90.0,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05c_stoppskruar",
+          "b": "04_mantel",
+          "theta": 90.0,
+          "overlapp_mm3": 0.0
+        }
+      ],
+      "kollisjonar": [],
+      "stillingar": [
+        {
+          "theta": 0.0,
+          "opne_spalter": 6,
+          "SW1_lukka": true,
+          "SW2_lukka": true,
+          "SW3_lukka": true
+        },
+        {
+          "theta": 11.25,
+          "opne_spalter": 5,
+          "SW1_lukka": true,
+          "SW2_lukka": true,
+          "SW3_lukka": true
+        },
+        {
+          "theta": 22.5,
+          "opne_spalter": 4,
+          "SW1_lukka": true,
+          "SW2_lukka": true,
+          "SW3_lukka": true
+        },
+        {
+          "theta": 33.75,
+          "opne_spalter": 3,
+          "SW1_lukka": true,
+          "SW2_lukka": true,
+          "SW3_lukka": true
+        },
+        {
+          "theta": 45.0,
+          "opne_spalter": 2,
+          "SW1_lukka": true,
+          "SW2_lukka": true,
+          "SW3_lukka": true
+        },
+        {
+          "theta": 56.25,
+          "opne_spalter": 1,
+          "SW1_lukka": true,
+          "SW2_lukka": true,
+          "SW3_lukka": true
+        },
+        {
+          "theta": 67.5,
+          "opne_spalter": 0,
+          "SW1_lukka": true,
+          "SW2_lukka": false,
+          "SW3_lukka": true
+        },
+        {
+          "theta": 78.75,
+          "opne_spalter": 0,
+          "SW1_lukka": true,
+          "SW2_lukka": false,
+          "SW3_lukka": false
+        },
+        {
+          "theta": 90.0,
+          "opne_spalter": 0,
+          "SW1_lukka": false,
+          "SW2_lukka": false,
+          "SW3_lukka": false
+        }
+      ],
+      "minste_klaring_rorsle_mm": {
+        "hylse_ut_mot_glidering": 0.15,
+        "hylse_ut_mot_mantel": 1.15,
+        "hylsefot_ut_mot_mantel": 1.15,
+        "hylsefot_bor_mot_tapp": 0.2,
+        "toppdekk_mot_mantel": 0.15,
+        "randring_mot_hylse_inn": 0.4,
+        "lysrist_skjold_mot_hylse_inn": 8.55,
+        "mantel_i_fotspor_inn": 0.2,
+        "mantel_i_fotspor_ut": 0.25
+      }
+    },
+    "prototype": {
+      "params": {
+        "variant": "prototype",
+        "n_deling": 32,
+        "fot_d": 99.0,
+        "fot_h": 14.0,
+        "fot_loft": 1.0,
+        "fot_fas": 1.0,
+        "spor_djup": 6.0,
+        "spor_klaring_inn": 0.3,
+        "spor_klaring_ut": 0.35,
+        "fot_lomme_r": 30.0,
+        "fot_lomme_z": 4.0,
+        "kabel_d": 4.2,
+        "kabel_z": 6.2,
+        "oring_id": 85.0,
+        "oring_strekk_r": 1.25,
+        "oring_snor": 3.0,
+        "oring_spor_b": 3.1,
+        "oring_spor_djup": 2.0,
+        "skrue_r": 36.0,
+        "skrue_vinklar": [
+          0.0,
+          120.0,
+          240.0
+        ],
+        "baj_vinklar": [
+          60.0,
+          180.0,
+          290.0
+        ],
+        "baj_knast_b": 2.5,
+        "baj_knast_h": 2.5,
+        "baj_knast_ut": 1.25,
+        "baj_knast_z": 2.0,
+        "baj_vri": 14.0,
+        "baj_spel": 0.6,
+        "baj_nabb_h": 0.55,
+        "snor_vinklar": [
+          0.0,
+          120.0,
+          240.0
+        ],
+        "snor_d": 2.0,
+        "snor_l": 10.0,
+        "snor_spor_djup": 1.0,
+        "stolpe_pos": [
+          [
+            -26.0,
+            2.3
+          ],
+          [
+            -20.5,
+            -2.3
+          ],
+          [
+            -15.0,
+            2.3
+          ]
+        ],
+        "stolpe_topp": 13.0,
+        "kabel_ut_x": -10.5,
+        "mantel_d": 90.0,
+        "mantel_t": 2.0,
+        "mantel_synleg_h": 257.0,
+        "n_spalter": 6,
+        "spalte_b": 3.4,
+        "spalte_l": 167.0,
+        "spalte_topp": 12.0,
+        "glide_t": 1.0,
+        "glide_h": 6.0,
+        "glide_under_kant": 1.0,
+        "glide_klaring": 0.45,
+        "hylse_t": 1.6,
+        "krage_h": 27.0,
+        "port_margin": 3.9,
+        "port_under": 1.0,
+        "krone_b": 4.0,
+        "krone_topp": 6.0,
+        "krone_under": 0.0,
+        "krone_stasjonar": [
+          90.0,
+          180.0,
+          270.0
+        ],
+        "hylse_saum": 225.0,
+        "snepp_vinklar": [
+          45.0,
+          165.0,
+          285.0
+        ],
+        "toppdekk_z1": 76.0,
+        "fotring_h": 14.0,
+        "hylse_luft": 0.0,
+        "bor_r": 36.2,
+        "vandring": 90.0,
+        "stopp_vinklar": [
+          0.0,
+          120.0,
+          240.0
+        ],
+        "stopp_z": 81.0,
+        "stopp_hovud_d": 5.7,
+        "stopp_hovud_h": 1.65,
+        "stopp_l": 5.0,
+        "stopp_kjerne_d": 2.5,
+        "stopp_spor_h": 3.6,
+        "stopp_spor_botn": 34.1,
+        "klikk_z0": 84.4,
+        "klikk_djup": 1.15,
+        "sw": [
+          [
+            235.0,
+            87.0
+          ],
+          [
+            125.0,
+            65.0
+          ],
+          [
+            345.0,
+            76.0
+          ]
+        ],
+        "sw_namn": [
+          "SW1 D2F-01L3 gull (glød)",
+          "SW2 D2F-L3 sølv (sidelys)",
+          "SW3 D2F-01L3 gull (full glød)"
+        ],
+        "sw_r": 38.0,
+        "kam_r0": 36.0,
+        "kam_r1": 40.0,
+        "kam_djup": 1.8,
+        "kam_rampe": 6.2,
+        "sw_hol_z": 68.1,
+        "sw_just": 1.2,
+        "chassis_flens_t": 3.0,
+        "chassis_r": 42.5,
+        "soyle_vinklar": [
+          60.0,
+          180.0,
+          300.0
+        ],
+        "dekk_z": 40.0,
+        "dekk_t": 2.5,
+        "toppdekk_t": 6.0,
+        "mantel_styr_klaring": 0.3,
+        "lager_klaring": 0.3,
+        "tapp_ri": 33.0,
+        "tapp_topp": 89.5,
+        "tunge_vinklar": [
+          60.0,
+          172.5,
+          285.0
+        ],
+        "tunge_l": 12.0,
+        "tunge_t": 1.8,
+        "tunge_kul": 0.35,
+        "tunge_slisse": 1.2,
+        "tunge_ende_slisse": 1.6,
+        "knusribber_n": 6,
+        "innsats_hol_d": 4.0,
+        "innsats_l": 5.7,
+        "nokkel_r": 18.0,
+        "nokkel_d": 5.0,
+        "nokkel_z0": 57.0,
+        "sentrering_r": 29.85,
+        "stav_b": 15.0,
+        "stav_t": 2.0,
+        "stav_z0": 60.0,
+        "stav_z1": 253.0,
+        "stripe_b": 8.0,
+        "stripe_t": 1.6,
+        "stripe_z0": 92.0,
+        "stripe_z1": 250.0,
+        "mastfot_z0": 44.4,
+        "mastfot_z1": 68.0,
+        "mastfot_b": 8.0,
+        "mastfot_l": 17.0,
+        "mastfot_lomme_klaring": 0.3,
+        "mastfot_kanal": 1.2,
+        "trs_l": 14.0,
+        "trs_kropp_d": 6.0,
+        "trs_kropp_l": 14.0,
+        "leidning_b": 1.2,
+        "topp_n": 4,
+        "topp_l": 25.0,
+        "topp_r": 22.0,
+        "rist_r_inn": 10.0,
+        "rist_r_ut": 32.0,
+        "rist_helling": 55.0,
+        "rist_deling": 16.0,
+        "rist_t": 0.8,
+        "rist_vegg_t": 0.8,
+        "rist_vegg_vinkel": 45.0,
+        "rist_z0": 84.0,
+        "golv_t": 1.2,
+        "skjold_r": 31.5,
+        "skjold_t": 1.0,
+        "topp_berar_z": 255.0,
+        "skjort_z0": 255.0,
+        "skjort_t": 1.2,
+        "sete_t": 1.6,
+        "lok_t": 3.0,
+        "lok_under_krage": 18.0,
+        "lok_klaring_hylse": 0.4
+      },
+      "delar": {
+        "01_fot": {
+          "materiale": "aluminium EN AW-6082 T6, pulverlakk RAL 3005 / PLA Matte mørk raud",
+          "gyldig_brep": true,
+          "lekamar": 1,
+          "volum_cm3": 69.585,
+          "masse_g": 86.3,
+          "bbox_mm": [
+            99.0,
+            99.0,
+            14.0
+          ],
+          "z_mm": [
+            1.0,
+            15.0
+          ],
+          "tyngdepunkt_mm": [
+            0.1,
+            0.0,
+            7.24
+          ]
+        },
+        "03_chassis": {
+          "materiale": "PA12 SLS svart / PETG HF svart",
+          "gyldig_brep": true,
+          "lekamar": 1,
+          "volum_cm3": 68.817,
+          "masse_g": 87.4,
+          "bbox_mm": [
+            86.0,
+            85.4,
+            76.5
+          ],
+          "z_mm": [
+            13.0,
+            89.5
+          ],
+          "tyngdepunkt_mm": [
+            -0.16,
+            0.04,
+            53.5
+          ]
+        },
+        "04_mantel": {
+          "materiale": "aluminiumsrøyr EN AW-6060 T66 90x2, pulverlakk RAL 3005 / PLA Matte",
+          "gyldig_brep": true,
+          "lekamar": 1,
+          "volum_cm3": 138.296,
+          "masse_g": 171.5,
+          "bbox_mm": [
+            90.0,
+            90.0,
+            263.0
+          ],
+          "z_mm": [
+            9.0,
+            272.0
+          ],
+          "tyngdepunkt_mm": [
+            -2.03,
+            0.0,
+            139.05
+          ]
+        },
+        "05_hylse": {
+          "materiale": "messing CuZn37 0,8 valsa, børsta + klarlakk / PLA Silk+ gull",
+          "gyldig_brep": true,
+          "lekamar": 1,
+          "volum_cm3": 76.509,
+          "masse_g": 94.9,
+          "bbox_mm": [
+            83.1,
+            83.1,
+            223.0
+          ],
+          "z_mm": [
+            76.0,
+            299.0
+          ],
+          "tyngdepunkt_mm": [
+            -5.87,
+            0.0,
+            186.51
+          ]
+        },
+        "05b_hylsefot": {
+          "materiale": "POM-C sprøytestøypt / PLA (prenta saman med hylsa)",
+          "gyldig_brep": true,
+          "lekamar": 1,
+          "volum_cm3": 11.733,
+          "masse_g": 14.5,
+          "bbox_mm": [
+            79.8,
+            79.8,
+            14.0
+          ],
+          "z_mm": [
+            76.0,
+            90.0
+          ],
+          "tyngdepunkt_mm": [
+            0.21,
+            0.01,
+            83.14
+          ]
+        },
+        "05c_stoppskruar": {
+          "materiale": "3 x ISO 7380 M3x5 A2 svart",
+          "gyldig_brep": true,
+          "lekamar": 3,
+          "volum_cm3": 0.2,
+          "masse_g": 1.6,
+          "bbox_mm": [
+            64.34,
+            74.3,
+            5.7
+          ],
+          "z_mm": [
+            78.15,
+            83.85
+          ],
+          "tyngdepunkt_mm": [
+            0.0,
+            0.0,
+            81.0
+          ]
+        },
+        "06_lysstav": {
+          "materiale": "aluminium EN AW-6060 flat 15x2, bak svart eloksert",
+          "gyldig_brep": true,
+          "lekamar": 1,
+          "volum_cm3": 5.79,
+          "masse_g": 15.6,
+          "bbox_mm": [
+            2.0,
+            15.0,
+            193.0
+          ],
+          "z_mm": [
+            60.0,
+            253.0
+          ],
+          "tyngdepunkt_mm": [
+            0.0,
+            -0.0,
+            156.5
+          ]
+        },
+        "06b_led_side": {
+          "materiale": "COB LED 5 V 8 mm RA90 2700 K, 158 mm",
+          "gyldig_brep": true,
+          "lekamar": 1,
+          "volum_cm3": 2.022,
+          "masse_g": 3.6,
+          "bbox_mm": [
+            1.6,
+            8.0,
+            158.0
+          ],
+          "z_mm": [
+            92.0,
+            250.0
+          ],
+          "tyngdepunkt_mm": [
+            1.8,
+            0.0,
+            171.0
+          ]
+        },
+        "06c_led_topp": {
+          "materiale": "COB LED 5 V 8 mm RA90 2700 K, 4 x 25 mm",
+          "gyldig_brep": true,
+          "lekamar": 4,
+          "volum_cm3": 1.28,
+          "masse_g": 2.3,
+          "bbox_mm": [
+            54.45,
+            54.45,
+            1.6
+          ],
+          "z_mm": [
+            256.5,
+            258.1
+          ],
+          "tyngdepunkt_mm": [
+            0.0,
+            0.0,
+            257.3
+          ]
+        },
+        "06d_kontakt": {
+          "materiale": "mastfot POM + 3,5 mm TRS-plugg",
+          "gyldig_brep": true,
+          "lekamar": 1,
+          "volum_cm3": 2.889,
+          "masse_g": 4.6,
+          "bbox_mm": [
+            8.0,
+            17.0,
+            38.8
+          ],
+          "z_mm": [
+            29.2,
+            68.0
+          ],
+          "tyngdepunkt_mm": [
+            0.08,
+            0.0,
+            54.14
+          ]
+        },
+        "07_lysrist": {
+          "materiale": "PA12 SLS kvit / PETG HF kvit (ugjennomsiktig)",
+          "gyldig_brep": true,
+          "lekamar": 1,
+          "volum_cm3": 67.951,
+          "masse_g": 86.3,
+          "bbox_mm": [
+            79.1,
+            79.1,
+            224.4
+          ],
+          "z_mm": [
+            57.0,
+            281.4
+          ],
+          "tyngdepunkt_mm": [
+            0.94,
+            -0.0,
+            178.81
+          ]
+        },
+        "08_lok": {
+          "materiale": "PMMA opal 3 mm (PLEXIGLAS Satinice WH02)",
+          "gyldig_brep": true,
+          "lekamar": 1,
+          "volum_cm3": 13.753,
+          "masse_g": 16.4,
+          "bbox_mm": [
+            76.4,
+            76.4,
+            3.0
+          ],
+          "z_mm": [
+            278.0,
+            281.0
+          ],
+          "tyngdepunkt_mm": [
+            -0.0,
+            -0.0,
+            279.5
+          ]
+        },
+        "10_glidering": {
+          "materiale": "POM-C svart, delt ring / PETG HF svart",
+          "gyldig_brep": true,
+          "lekamar": 1,
+          "volum_cm3": 1.377,
+          "masse_g": 1.7,
+          "bbox_mm": [
+            85.8,
+            85.8,
+            6.0
+          ],
+          "z_mm": [
+            265.0,
+            271.0
+          ],
+          "tyngdepunkt_mm": [
+            -0.0,
+            0.0,
+            268.0
+          ]
+        },
+        "11_oring": {
+          "materiale": "O-ring silikon 85x3 60 ShA",
+          "gyldig_brep": true,
+          "lekamar": 1,
+          "volum_cm3": 1.987,
+          "masse_g": 2.3,
+          "bbox_mm": [
+            93.5,
+            93.5,
+            3.0
+          ],
+          "z_mm": [
+            0.0,
+            3.0
+          ],
+          "tyngdepunkt_mm": [
+            -0.0,
+            0.0,
+            1.5
+          ]
+        },
+        "11b_snor": {
+          "materiale": "3 x silikonsnor Ø2 x 10 (forspenning bajonett)",
+          "gyldig_brep": true,
+          "lekamar": 3,
+          "volum_cm3": 0.06,
+          "masse_g": 0.1,
+          "bbox_mm": [
+            71.77,
+            82.54,
+            1.0
+          ],
+          "z_mm": [
+            8.0,
+            9.0
+          ],
+          "tyngdepunkt_mm": [
+            -0.0,
+            -0.0,
+            8.5
+          ]
+        },
+        "12_brytarar": {
+          "materiale": "Omron 2 x D2F-01L3 + 1 x D2F-L3",
+          "gyldig_brep": true,
+          "lekamar": 3,
+          "volum_cm3": 1.406,
+          "masse_g": 2.2,
+          "bbox_mm": [
+            71.88,
+            74.35,
+            9.4
+          ],
+          "z_mm": [
+            66.6,
+            76.0
+          ],
+          "tyngdepunkt_mm": [
+            -2.59,
+            -3.07,
+            70.21
+          ]
+        },
+        "13_jack": {
+          "materiale": "3,5 mm TRS-kontakt, panel (M6)",
+          "gyldig_brep": true,
+          "lekamar": 1,
+          "volum_cm3": 1.417,
+          "masse_g": 2.8,
+          "bbox_mm": [
+            11.0,
+            11.0,
+            15.9
+          ],
+          "z_mm": [
+            28.5,
+            44.4
+          ],
+          "tyngdepunkt_mm": [
+            -0.0,
+            0.0,
+            35.1
+          ]
+        },
+        "14_kretskort": {
+          "materiale": "hullkort: R1, R3, PTC F1, JST PH",
+          "gyldig_brep": true,
+          "lekamar": 1,
+          "volum_cm3": 1.78,
+          "masse_g": 2.5,
+          "bbox_mm": [
+            24.0,
+            15.0,
+            7.5
+          ],
+          "z_mm": [
+            42.5,
+            50.0
+          ],
+          "tyngdepunkt_mm": [
+            -25.5,
+            -0.0,
+            45.84
+          ]
+        }
+      },
+      "sum": {
+        "masse_g": 596.6,
+        "tyngdepunkt_z_mm": 122.2,
+        "stotteradius_mm": 45.25,
+        "veltevinkel_grader": 20.3,
+        "total_hogd_mm": 299.0,
+        "fotavtrykk_cm2": 77.0
+      },
+      "prent": {
+        "01_fot": {
+          "bbox_mm": [
+            99.0,
+            99.0,
+            14.0
+          ],
+          "gyldig_brep": true,
+          "lekamar": 1,
+          "eitt_stykke": true,
+          "passar_P1S_256": true
+        },
+        "03_chassis": {
+          "bbox_mm": [
+            86.0,
+            85.4,
+            76.5
+          ],
+          "gyldig_brep": true,
+          "lekamar": 1,
+          "eitt_stykke": true,
+          "passar_P1S_256": true
+        },
+        "04a_mantel_nedre": {
+          "bbox_mm": [
+            90.0,
+            90.0,
+            77.0
+          ],
+          "gyldig_brep": true,
+          "lekamar": 1,
+          "eitt_stykke": true,
+          "passar_P1S_256": true
+        },
+        "04b_mantel_ovre": {
+          "bbox_mm": [
+            90.0,
+            90.0,
+            194.0
+          ],
+          "gyldig_brep": true,
+          "lekamar": 1,
+          "eitt_stykke": true,
+          "passar_P1S_256": true
+        },
+        "05_hylse_med_fot": {
+          "bbox_mm": [
+            83.1,
+            83.1,
+            223.0
+          ],
+          "gyldig_brep": true,
+          "lekamar": 1,
+          "eitt_stykke": true,
+          "passar_P1S_256": true
+        },
+        "06d_mastfot": {
+          "bbox_mm": [
+            8.0,
+            17.0,
+            23.6
+          ],
+          "gyldig_brep": true,
+          "lekamar": 1,
+          "eitt_stykke": true,
+          "passar_P1S_256": true
+        },
+        "07_lysrist": {
+          "bbox_mm": [
+            79.1,
+            79.1,
+            224.4
+          ],
+          "gyldig_brep": true,
+          "lekamar": 1,
+          "eitt_stykke": true,
+          "passar_P1S_256": true
+        },
+        "10_glidering": {
+          "bbox_mm": [
+            85.8,
+            85.8,
+            6.0
+          ],
+          "gyldig_brep": true,
+          "lekamar": 1,
+          "eitt_stykke": true,
+          "passar_P1S_256": true
+        }
+      },
+      "innforingsveg_lysmodul": {
+        "mastfot_gjennom_03_chassis_mm3": 0.0,
+        "mastfot_gjennom_05b_hylsefot_mm3": 0.0,
+        "mastfot_gjennom_05_hylse_mm3": 0.0,
+        "mastfot_gjennom_13_jack_mm3": 0.0,
+        "modul_storste_radius_mm": 39.55,
+        "kragen_bor_radius_mm": 39.95,
+        "klaring_modul_i_kragen_mm": 0.4,
+        "bestatt": true
+      },
+      "par": [
+        {
+          "a": "01_fot",
+          "b": "03_chassis",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "01_fot",
+          "b": "04_mantel",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "01_fot",
+          "b": "11_oring",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "01_fot",
+          "b": "11b_snor",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "03_chassis",
+          "b": "04_mantel",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "03_chassis",
+          "b": "06_lysstav",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "03_chassis",
+          "b": "06d_kontakt",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "03_chassis",
+          "b": "07_lysrist",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "03_chassis",
+          "b": "12_brytarar",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "03_chassis",
+          "b": "13_jack",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "03_chassis",
+          "b": "14_kretskort",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "04_mantel",
+          "b": "06_lysstav",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "04_mantel",
+          "b": "06b_led_side",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "04_mantel",
+          "b": "06c_led_topp",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "04_mantel",
+          "b": "06d_kontakt",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "04_mantel",
+          "b": "07_lysrist",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "04_mantel",
+          "b": "10_glidering",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "04_mantel",
+          "b": "11b_snor",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "04_mantel",
+          "b": "12_brytarar",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "04_mantel",
+          "b": "13_jack",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "04_mantel",
+          "b": "14_kretskort",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "06_lysstav",
+          "b": "06b_led_side",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "06_lysstav",
+          "b": "06d_kontakt",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "06_lysstav",
+          "b": "07_lysrist",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "06_lysstav",
+          "b": "12_brytarar",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "06b_led_side",
+          "b": "07_lysrist",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "06c_led_topp",
+          "b": "07_lysrist",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "06d_kontakt",
+          "b": "07_lysrist",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "06d_kontakt",
+          "b": "12_brytarar",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "06d_kontakt",
+          "b": "13_jack",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "07_lysrist",
+          "b": "08_lok",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "07_lysrist",
+          "b": "10_glidering",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "07_lysrist",
+          "b": "12_brytarar",
+          "theta": null,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "04_mantel",
+          "theta": 0.0,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "10_glidering",
+          "theta": 0.0,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "07_lysrist",
+          "theta": 0.0,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "08_lok",
+          "theta": 0.0,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "03_chassis",
+          "theta": 0.0,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "03_chassis",
+          "theta": 0.0,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "12_brytarar",
+          "theta": 0.0,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "04_mantel",
+          "theta": 0.0,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "07_lysrist",
+          "theta": 0.0,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05c_stoppskruar",
+          "b": "03_chassis",
+          "theta": 0.0,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05c_stoppskruar",
+          "b": "04_mantel",
+          "theta": 0.0,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "04_mantel",
+          "theta": 11.25,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "10_glidering",
+          "theta": 11.25,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "07_lysrist",
+          "theta": 11.25,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "08_lok",
+          "theta": 11.25,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "03_chassis",
+          "theta": 11.25,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "03_chassis",
+          "theta": 11.25,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "12_brytarar",
+          "theta": 11.25,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "04_mantel",
+          "theta": 11.25,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "07_lysrist",
+          "theta": 11.25,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05c_stoppskruar",
+          "b": "03_chassis",
+          "theta": 11.25,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05c_stoppskruar",
+          "b": "04_mantel",
+          "theta": 11.25,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "04_mantel",
+          "theta": 22.5,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "10_glidering",
+          "theta": 22.5,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "07_lysrist",
+          "theta": 22.5,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "08_lok",
+          "theta": 22.5,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "03_chassis",
+          "theta": 22.5,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "03_chassis",
+          "theta": 22.5,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "12_brytarar",
+          "theta": 22.5,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "04_mantel",
+          "theta": 22.5,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "07_lysrist",
+          "theta": 22.5,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05c_stoppskruar",
+          "b": "03_chassis",
+          "theta": 22.5,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05c_stoppskruar",
+          "b": "04_mantel",
+          "theta": 22.5,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "04_mantel",
+          "theta": 33.75,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "10_glidering",
+          "theta": 33.75,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "07_lysrist",
+          "theta": 33.75,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "08_lok",
+          "theta": 33.75,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "03_chassis",
+          "theta": 33.75,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "03_chassis",
+          "theta": 33.75,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "12_brytarar",
+          "theta": 33.75,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "04_mantel",
+          "theta": 33.75,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "07_lysrist",
+          "theta": 33.75,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05c_stoppskruar",
+          "b": "03_chassis",
+          "theta": 33.75,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05c_stoppskruar",
+          "b": "04_mantel",
+          "theta": 33.75,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "04_mantel",
+          "theta": 45.0,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "10_glidering",
+          "theta": 45.0,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "07_lysrist",
+          "theta": 45.0,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "08_lok",
+          "theta": 45.0,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "03_chassis",
+          "theta": 45.0,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "03_chassis",
+          "theta": 45.0,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "12_brytarar",
+          "theta": 45.0,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "04_mantel",
+          "theta": 45.0,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "07_lysrist",
+          "theta": 45.0,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05c_stoppskruar",
+          "b": "03_chassis",
+          "theta": 45.0,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05c_stoppskruar",
+          "b": "04_mantel",
+          "theta": 45.0,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "04_mantel",
+          "theta": 56.25,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "10_glidering",
+          "theta": 56.25,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "07_lysrist",
+          "theta": 56.25,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "08_lok",
+          "theta": 56.25,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "03_chassis",
+          "theta": 56.25,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "03_chassis",
+          "theta": 56.25,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "12_brytarar",
+          "theta": 56.25,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "04_mantel",
+          "theta": 56.25,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "07_lysrist",
+          "theta": 56.25,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05c_stoppskruar",
+          "b": "03_chassis",
+          "theta": 56.25,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05c_stoppskruar",
+          "b": "04_mantel",
+          "theta": 56.25,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "04_mantel",
+          "theta": 67.5,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "10_glidering",
+          "theta": 67.5,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "07_lysrist",
+          "theta": 67.5,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "08_lok",
+          "theta": 67.5,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "03_chassis",
+          "theta": 67.5,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "03_chassis",
+          "theta": 67.5,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "12_brytarar",
+          "theta": 67.5,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "04_mantel",
+          "theta": 67.5,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "07_lysrist",
+          "theta": 67.5,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05c_stoppskruar",
+          "b": "03_chassis",
+          "theta": 67.5,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05c_stoppskruar",
+          "b": "04_mantel",
+          "theta": 67.5,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "04_mantel",
+          "theta": 78.75,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "10_glidering",
+          "theta": 78.75,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "07_lysrist",
+          "theta": 78.75,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "08_lok",
+          "theta": 78.75,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "03_chassis",
+          "theta": 78.75,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "03_chassis",
+          "theta": 78.75,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "12_brytarar",
+          "theta": 78.75,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "04_mantel",
+          "theta": 78.75,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "07_lysrist",
+          "theta": 78.75,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05c_stoppskruar",
+          "b": "03_chassis",
+          "theta": 78.75,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05c_stoppskruar",
+          "b": "04_mantel",
+          "theta": 78.75,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "04_mantel",
+          "theta": 90.0,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "10_glidering",
+          "theta": 90.0,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "07_lysrist",
+          "theta": 90.0,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "08_lok",
+          "theta": 90.0,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05_hylse",
+          "b": "03_chassis",
+          "theta": 90.0,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "03_chassis",
+          "theta": 90.0,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "12_brytarar",
+          "theta": 90.0,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "04_mantel",
+          "theta": 90.0,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05b_hylsefot",
+          "b": "07_lysrist",
+          "theta": 90.0,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05c_stoppskruar",
+          "b": "03_chassis",
+          "theta": 90.0,
+          "overlapp_mm3": 0.0
+        },
+        {
+          "a": "05c_stoppskruar",
+          "b": "04_mantel",
+          "theta": 90.0,
+          "overlapp_mm3": 0.0
+        }
+      ],
+      "kollisjonar": [],
+      "stillingar": [
+        {
+          "theta": 0.0,
+          "opne_spalter": 6,
+          "SW1_lukka": true,
+          "SW2_lukka": true,
+          "SW3_lukka": true
+        },
+        {
+          "theta": 11.25,
+          "opne_spalter": 5,
+          "SW1_lukka": true,
+          "SW2_lukka": true,
+          "SW3_lukka": true
+        },
+        {
+          "theta": 22.5,
+          "opne_spalter": 4,
+          "SW1_lukka": true,
+          "SW2_lukka": true,
+          "SW3_lukka": true
+        },
+        {
+          "theta": 33.75,
+          "opne_spalter": 3,
+          "SW1_lukka": true,
+          "SW2_lukka": true,
+          "SW3_lukka": true
+        },
+        {
+          "theta": 45.0,
+          "opne_spalter": 2,
+          "SW1_lukka": true,
+          "SW2_lukka": true,
+          "SW3_lukka": true
+        },
+        {
+          "theta": 56.25,
+          "opne_spalter": 1,
+          "SW1_lukka": true,
+          "SW2_lukka": true,
+          "SW3_lukka": true
+        },
+        {
+          "theta": 67.5,
+          "opne_spalter": 0,
+          "SW1_lukka": true,
+          "SW2_lukka": false,
+          "SW3_lukka": true
+        },
+        {
+          "theta": 78.75,
+          "opne_spalter": 0,
+          "SW1_lukka": true,
+          "SW2_lukka": false,
+          "SW3_lukka": false
+        },
+        {
+          "theta": 90.0,
+          "opne_spalter": 0,
+          "SW1_lukka": false,
+          "SW2_lukka": false,
+          "SW3_lukka": false
+        }
+      ],
+      "minste_klaring_rorsle_mm": {
+        "hylse_ut_mot_glidering": 0.45,
+        "hylse_ut_mot_mantel": 1.45,
+        "hylsefot_ut_mot_mantel": 1.45,
+        "hylsefot_bor_mot_tapp": 0.3,
+        "toppdekk_mot_mantel": 0.3,
+        "randring_mot_hylse_inn": 0.4,
+        "lysrist_skjold_mot_hylse_inn": 7.45,
+        "mantel_i_fotspor_inn": 0.3,
+        "mantel_i_fotspor_ut": 0.35
+      }
+    }
+  }
+}

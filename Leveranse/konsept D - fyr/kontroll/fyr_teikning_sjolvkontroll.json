@@ -1,0 +1,1409 @@
+{
+ "stykkliste_tal": {
+  "01_fot": 1,
+  "03_chassis": 1,
+  "04_mantel": 1,
+  "05_hylse": 1,
+  "05b_hylsefot": 1,
+  "05c_stoppskruar": 3,
+  "06_lysstav": 1,
+  "06b_led_side": 1,
+  "06c_led_topp": 4,
+  "06d_kontakt": 1,
+  "07_lysrist": 1,
+  "08_lok": 1,
+  "10_glidering": 1,
+  "11_oring": 1,
+  "11b_snor": 3,
+  "12_brytarar": 3,
+  "13_jack": 1,
+  "14_kretskort": 1
+ },
+ "T00_stykkliste_botn_y": 128.8,
+ "T00_maal_mot_brep": [
+  {
+   "tekst": "⌀99",
+   "verdi_frå_FyrParams": 99.0,
+   "målt_på_papiret": 99.0,
+   "brep_kjelde": "01_fot bbox x",
+   "brep": 99.0,
+   "ok": true
+  },
+  {
+   "tekst": "⌀83,7",
+   "verdi_frå_FyrParams": 83.7,
+   "målt_på_papiret": 83.7,
+   "brep_kjelde": "05_hylse bbox y",
+   "brep": 83.7,
+   "ok": true
+  },
+  {
+   "tekst": "⌀90",
+   "verdi_frå_FyrParams": 90.0,
+   "målt_på_papiret": 90.0,
+   "brep_kjelde": "04_mantel bbox y",
+   "brep": 90.0,
+   "ok": true
+  },
+  {
+   "tekst": "299",
+   "verdi_frå_FyrParams": 299.0,
+   "målt_på_papiret": 299.0,
+   "brep_kjelde": "alle delar bbox z",
+   "brep": 299.0,
+   "ok": true
+  },
+  {
+   "tekst": "93",
+   "verdi_frå_FyrParams": 93.0,
+   "målt_på_papiret": 93.0,
+   "brep_kjelde": "04_mantel spalte z0 (linjeprobe)",
+   "brep": 93.0,
+   "ok": true
+  },
+  {
+   "tekst": "167",
+   "verdi_frå_FyrParams": 167.0,
+   "målt_på_papiret": 167.0,
+   "brep_kjelde": "04_mantel spaltelengd (linjeprobe)",
+   "brep": 167.0,
+   "ok": true
+  },
+  {
+   "tekst": "27",
+   "verdi_frå_FyrParams": 27.0,
+   "målt_på_papiret": 27.0,
+   "brep_kjelde": "05_hylse zmax - 04_mantel zmax",
+   "brep": 27.0,
+   "ok": true
+  },
+  {
+   "tekst": "14",
+   "verdi_frå_FyrParams": 14.0,
+   "målt_på_papiret": 14.0,
+   "brep_kjelde": "01_fot bbox z",
+   "brep": 14.0,
+   "ok": true
+  },
+  {
+   "tekst": "12",
+   "verdi_frå_FyrParams": 12.0,
+   "målt_på_papiret": 12.0,
+   "brep_kjelde": "04_mantel zmax - spalte z1",
+   "brep": 12.0,
+   "ok": true
+  }
+ ],
+ "maal_mot_geometri": {
+  "T00": {
+   "tal_maal": 9,
+   "avvik": []
+  },
+  "T01": {
+   "tal_maal": 17,
+   "avvik": []
+  },
+  "T03": {
+   "tal_maal": 10,
+   "avvik": []
+  },
+  "T04": {
+   "tal_maal": 17,
+   "avvik": []
+  },
+  "T05": {
+   "tal_maal": 8,
+   "avvik": []
+  },
+  "T05b": {
+   "tal_maal": 7,
+   "avvik": []
+  },
+  "T06": {
+   "tal_maal": 15,
+   "avvik": []
+  },
+  "T07": {
+   "tal_maal": 13,
+   "avvik": []
+  },
+  "T08": {
+   "tal_maal": 5,
+   "avvik": []
+  },
+  "E01": {
+   "tal_maal": 0,
+   "avvik": []
+  }
+ },
+ "visingar": {
+  "T00": {
+   "F": [
+    55.2,
+    62.5,
+    104.8,
+    212.0
+   ],
+   "S": [
+    140.3,
+    62.5,
+    189.7,
+    212.0
+   ]
+  },
+  "T01": {
+   "S": [
+    50.5,
+    43.0,
+    149.5,
+    57.0
+   ],
+   "T": [
+    50.5,
+    100.5,
+    149.5,
+    199.5
+   ],
+   "B": [
+    182.5,
+    100.5,
+    281.5,
+    199.5
+   ]
+  },
+  "T03": {
+   "S": [
+    129.0,
+    37.5,
+    215.0,
+    114.0
+   ],
+   "T": [
+    27.2,
+    149.0,
+    112.8,
+    235.0
+   ],
+   "SB": [
+    259.2,
+    37.5,
+    344.9,
+    114.0
+   ],
+   "F": [
+    27.2,
+    37.5,
+    112.8,
+    114.0
+   ]
+  },
+  "T04": {
+   "F": [
+    62.5,
+    36.5,
+    107.5,
+    168.0
+   ],
+   "U": [
+    128.0,
+    36.5,
+    269.4,
+    168.0
+   ],
+   "SB": [
+    303.0,
+    25.0,
+    393.0,
+    115.0
+   ]
+  },
+  "T05": {
+   "F": [
+    39.1,
+    48.7,
+    80.9,
+    160.0
+   ],
+   "U": [
+    100.0,
+    48.7,
+    230.2,
+    160.0
+   ]
+  },
+  "T05b": {
+   "S": [
+    49.0,
+    36.0,
+    131.0,
+    50.0
+   ],
+   "B": [
+    49.0,
+    107.0,
+    131.0,
+    189.0
+   ],
+   "SD": [
+    169.0,
+    107.0,
+    251.0,
+    189.0
+   ]
+  },
+  "T06": {
+   "06": [
+    42.5,
+    39.0,
+    81.0,
+    232.0
+   ],
+   "A-A": [
+    162.0,
+    33.6,
+    230.0,
+    128.0
+   ],
+   "B-B": [
+    280.0,
+    33.6,
+    312.0,
+    128.0
+   ],
+   "ovanfrå": [
+    162.0,
+    174.0,
+    230.0,
+    206.0
+   ],
+   "06d med E8": [
+    355.0,
+    80.8,
+    389.0,
+    158.4
+   ]
+  },
+  "T07": {
+   "F": [
+    25.3,
+    31.6,
+    106.6,
+    256.0
+   ],
+   "S": [
+    143.4,
+    31.6,
+    224.6,
+    256.0
+   ],
+   "B-B": [
+    229.5,
+    177.7,
+    286.5,
+    202.3
+   ],
+   "T": [
+    259.4,
+    17.3,
+    340.6,
+    98.6
+   ]
+  },
+  "T08": {
+   "T8": [
+    50.7,
+    40.7,
+    129.3,
+    119.3
+   ],
+   "F8": [
+    50.7,
+    147.0,
+    129.3,
+    150.0
+   ],
+   "TG": [
+    202.0,
+    37.0,
+    288.0,
+    123.0
+   ],
+   "SG": [
+    202.0,
+    144.0,
+    288.0,
+    150.0
+   ]
+  },
+  "E01": {}
+ },
+ "T01_lomme": {
+  "r": 30.0,
+  "golv_z": 4.0,
+  "golv_tjukn": 3.0,
+  "djupn": 11.0,
+  "fot_lomme_z_param": 4.0
+ },
+ "T01_kabelhol": {
+  "d": 4.2,
+  "z_senter_over_underkant": 5.2,
+  "fas_målt": 0.7904
+ },
+ "T01_snorlommer": {
+  "breidd": 2.2,
+  "djup": 1.0,
+  "bogelengd_r_midt": 12.0,
+  "r_midt": 44.0,
+  "opne_vinklar_5grad": [
+   0,
+   5,
+   115,
+   120,
+   125,
+   235,
+   240,
+   245,
+   355
+  ]
+ },
+ "T01_stolpar": [
+  {
+   "x": -26.0,
+   "y": 2.3,
+   "d": 3.0,
+   "z0": 4.0,
+   "z1": 13.0,
+   "topp_over_golv_cad": 9.0,
+   "topp_over_golv_serie_stift": 9.0
+  },
+  {
+   "x": -20.5,
+   "y": -2.3,
+   "d": 3.0,
+   "z0": 4.0,
+   "z1": 13.0,
+   "topp_over_golv_cad": 9.0,
+   "topp_over_golv_serie_stift": 9.0
+  },
+  {
+   "x": -15.0,
+   "y": 2.3,
+   "d": 3.0,
+   "z0": 4.0,
+   "z1": 13.0,
+   "topp_over_golv_cad": 9.0,
+   "topp_over_golv_serie_stift": 9.0
+  }
+ ],
+ "T01_oringspor": {
+  "r_inn_brep": 43.75,
+  "r_ut_brep": 46.85,
+  "djup_brep": 2.0,
+  "r_inn_param": 43.75,
+  "breidd_param": 3.1,
+  "ok": true
+ },
+ "T01_seriestift": {
+  "knast": {
+   "d": 2.5,
+   "L": 14.0,
+   "z_senter": 12.25,
+   "spiss_r": 44.25,
+   "innsenking_frå_lommeveggen": 0.25
+  },
+  "stolpe": {
+   "d": 3.0,
+   "L": 12.0,
+   "topp_z": 13.0,
+   "topp_over_golv": 9.0
+  }
+ },
+ "T03_stoppspor": {
+  "breidd": 3.6,
+  "sporbotn_r": 34.098
+ },
+ "T03_gjennomgang": {
+  "x": 8.6,
+  "y": 17.6,
+  "ok": true
+ },
+ "T03_sentrering": {
+  "r": [
+   28.45,
+   29.85
+  ],
+  "z_botn": 13.0,
+  "tapp_ved_180": false
+ },
+ "T03_brytarspor": [
+  {
+   "y_lokal": -6.85,
+   "høgd": 4.7,
+   "breidd": 2.3,
+   "z_senter": 68.1
+  },
+  {
+   "y_lokal": -0.35,
+   "høgd": 4.7,
+   "breidd": 2.3,
+   "z_senter": 68.1
+  },
+  {
+   "brakett_r": [
+    33.3,
+    35.05
+   ]
+  }
+ ],
+ "T03_knusribber": {
+  "r_ut_ved_0": 43.0,
+  "r_ut_ved_30": 42.85,
+  "z_ved_r": [
+   70.0,
+   75.133
+  ]
+ },
+ "T04_spalter": [
+  {
+   "asimut": -28.125,
+   "z0": 93.0,
+   "z1": 260.0,
+   "breidd_utbretta": 3.4023
+  },
+  {
+   "asimut": -16.875,
+   "z0": 93.0,
+   "z1": 260.0,
+   "breidd_utbretta": 3.4023
+  },
+  {
+   "asimut": -5.625,
+   "z0": 93.0,
+   "z1": 260.0,
+   "breidd_utbretta": 3.4023
+  },
+  {
+   "asimut": 5.625,
+   "z0": 93.0,
+   "z1": 260.0,
+   "breidd_utbretta": 3.4023
+  },
+  {
+   "asimut": 16.875,
+   "z0": 93.0,
+   "z1": 260.0,
+   "breidd_utbretta": 3.4023
+  },
+  {
+   "asimut": 28.125,
+   "z0": 93.0,
+   "z1": 260.0,
+   "breidd_utbretta": 3.4023
+  }
+ ],
+ "T04_nabb": {
+  "breidd": 1.2566,
+  "høgd": 0.55,
+  "til_høgre_kant": 3.5588,
+  "z_lag_over_underkant": 1.4
+ },
+ "T04_L_spor": [
+  {
+   "asimut_start": -86.166,
+   "breidd": 14.397,
+   "z_topp": 5.1
+  },
+  {
+   "asimut_start": 43.834,
+   "breidd": 14.397,
+   "z_topp": 5.1
+  },
+  {
+   "asimut_start": 163.834,
+   "breidd": 14.397,
+   "z_topp": 5.1
+  }
+ ],
+ "T05_utsparingar": [
+  [
+   "U1",
+   "skruehol",
+   "−120",
+   "10,85",
+   "6",
+   "1,7",
+   "7,7"
+  ],
+  [
+   "U2",
+   "krone",
+   "−118,125",
+   "12,21",
+   "4",
+   "195,7",
+   "216,7"
+  ],
+  [
+   "U3",
+   "krone",
+   "−106,875",
+   "20,35",
+   "4",
+   "195,7",
+   "216,7"
+  ],
+  [
+   "U4",
+   "krone",
+   "−95,625",
+   "28,49",
+   "4",
+   "195,7",
+   "216,7"
+  ],
+  [
+   "U5",
+   "krone",
+   "−84,375",
+   "36,62",
+   "4",
+   "195,7",
+   "216,7"
+  ],
+  [
+   "U6",
+   "krone",
+   "−73,125",
+   "44,76",
+   "4",
+   "195,7",
+   "216,7"
+  ],
+  [
+   "U7",
+   "krone",
+   "−61,875",
+   "52,9",
+   "4",
+   "195,7",
+   "216,7"
+  ],
+  [
+   "U8",
+   "skruehol",
+   "0",
+   "97,66",
+   "6",
+   "1,7",
+   "7,7"
+  ],
+  [
+   "U9",
+   "port",
+   "0",
+   "97,66",
+   "46,34",
+   "15,7",
+   "185,7"
+  ],
+  [
+   "U10",
+   "krone",
+   "61,875",
+   "142,43",
+   "4",
+   "195,7",
+   "216,7"
+  ],
+  [
+   "U11",
+   "krone",
+   "73,125",
+   "150,57",
+   "4",
+   "195,7",
+   "216,7"
+  ],
+  [
+   "U12",
+   "krone",
+   "84,375",
+   "158,7",
+   "4",
+   "195,7",
+   "216,7"
+  ],
+  [
+   "U13",
+   "krone",
+   "95,625",
+   "166,84",
+   "4",
+   "195,7",
+   "216,7"
+  ],
+  [
+   "U14",
+   "krone",
+   "106,875",
+   "174,98",
+   "4",
+   "195,7",
+   "216,7"
+  ],
+  [
+   "U15",
+   "krone",
+   "118,125",
+   "183,12",
+   "4",
+   "195,7",
+   "216,7"
+  ],
+  [
+   "U16",
+   "skruehol",
+   "120",
+   "184,48",
+   "6",
+   "1,7",
+   "7,7"
+  ],
+  [
+   "U17",
+   "krone",
+   "151,875",
+   "207,54",
+   "4",
+   "195,7",
+   "216,7"
+  ],
+  [
+   "U18",
+   "krone",
+   "163,125",
+   "215,68",
+   "4",
+   "195,7",
+   "216,7"
+  ],
+  [
+   "U19",
+   "krone",
+   "174,375",
+   "223,81",
+   "4",
+   "195,7",
+   "216,7"
+  ],
+  [
+   "U20",
+   "krone",
+   "−174,375",
+   "231,95",
+   "4",
+   "195,7",
+   "216,7"
+  ],
+  [
+   "U21",
+   "krone",
+   "−163,125",
+   "240,09",
+   "4",
+   "195,7",
+   "216,7"
+  ],
+  [
+   "U22",
+   "krone",
+   "−151,875",
+   "248,23",
+   "4",
+   "195,7",
+   "216,7"
+  ]
+ ],
+ "T05_stopphol": {
+  "breidd": 6.0038,
+  "høgd": 5.9974,
+  "rundt": true
+ },
+ "T05b_klikkspor": {
+  "tal_brep": 27,
+  "tal_param": 27,
+  "første_i_gruppe": [
+   57.4,
+   169.9,
+   282.4
+  ],
+  "største_avvik_senter_grader": 0.1,
+  "ok": true
+ },
+ "T05b_kamspor": [
+  {
+   "SW": 1,
+   "ope_på_halv_djupn": [
+    318.9,
+    332.1
+   ],
+   "venta_halv_djupn": [
+    318.9,
+    332.1
+   ]
+  },
+  {
+   "SW": 2,
+   "ope_på_halv_djupn": [
+    186.9,
+    222.1
+   ],
+   "venta_halv_djupn": [
+    186.9,
+    222.1
+   ]
+  },
+  {
+   "SW": 3,
+   "ope_på_halv_djupn": [
+    57.9,
+    82.1
+   ],
+   "venta_halv_djupn": [
+    57.9,
+    82.1
+   ]
+  }
+ ],
+ "T06_mastfot": {
+  "bbox": [
+   8.0,
+   17.0,
+   23.6
+  ],
+  "z": [
+   44.4,
+   68.0
+  ],
+  "fas": 0.5,
+  "lomme_d_serie": 6.1,
+  "lomme_d_prototype": 6.3,
+  "lomme_topp_z": 60.01,
+  "golv_z": 60.0,
+  "spor_djupn": 8.0,
+  "lomme_djupn_til_golvet": 15.6,
+  "spor_y": [
+   -7.55,
+   7.55
+  ],
+  "spor_x": [
+   -2.25,
+   1.05
+  ],
+  "spor_breidd_param": 2.1,
+  "kanal_param": 1.2,
+  "kanal_ned_i_lomma": true,
+  "golv_y": [
+   3.05,
+   7.55
+  ],
+  "plugg_under_foten": 15.2,
+  "plugg_skaft_d": 3.5,
+  "ok": true
+ },
+ "T06_lysstav": {
+  "bbox": [
+   2.0,
+   15.0,
+   193.0
+  ],
+  "z": [
+   60.0,
+   253.0
+  ],
+  "flater": 6,
+  "sylinderflater_(hol)": 0,
+  "ok": true
+ },
+ "T06_maal_mot_brep": [
+  {
+   "tekst": "193",
+   "verdi_frå_FyrParams": 193.0,
+   "målt_på_papiret": 193.0,
+   "brep_kjelde": "06 bbox z",
+   "brep": 193.0,
+   "ok": true
+  },
+  {
+   "tekst": "15",
+   "verdi_frå_FyrParams": 15.0,
+   "målt_på_papiret": 15.0,
+   "brep_kjelde": "06 bbox y",
+   "brep": 15.0,
+   "ok": true
+  },
+  {
+   "tekst": "2",
+   "verdi_frå_FyrParams": 2.0,
+   "målt_på_papiret": 2.0,
+   "brep_kjelde": "06 bbox x",
+   "brep": 2.0,
+   "ok": true
+  },
+  {
+   "tekst": "17",
+   "verdi_frå_FyrParams": 17.0,
+   "målt_på_papiret": 17.0,
+   "brep_kjelde": "06d bbox y",
+   "brep": 17.0,
+   "ok": true
+  },
+  {
+   "tekst": "15,1",
+   "verdi_frå_FyrParams": 15.1,
+   "målt_på_papiret": 15.1,
+   "brep_kjelde": "06d stavspor y (holrom langs y)",
+   "brep": 15.1,
+   "ok": true
+  },
+  {
+   "tekst": "23,6",
+   "verdi_frå_FyrParams": 23.6,
+   "målt_på_papiret": 23.6,
+   "brep_kjelde": "06d bbox z",
+   "brep": 23.6,
+   "ok": true
+  },
+  {
+   "tekst": "⌀6,1",
+   "verdi_frå_FyrParams": 6.1,
+   "målt_på_papiret": 6.1,
+   "brep_kjelde": "06d lomme (sylinderflate)",
+   "brep": 6.1,
+   "ok": true
+  },
+  {
+   "tekst": "15,6",
+   "verdi_frå_FyrParams": 15.6,
+   "målt_på_papiret": 15.6,
+   "brep_kjelde": "06d golv i sporet - zmin (linjeprobe)",
+   "brep": 15.6,
+   "ok": true
+  },
+  {
+   "tekst": "8",
+   "verdi_frå_FyrParams": 8.0,
+   "målt_på_papiret": 8.0,
+   "brep_kjelde": "06d zmax - golv i sporet",
+   "brep": 8.0,
+   "ok": true
+  },
+  {
+   "tekst": "8",
+   "verdi_frå_FyrParams": 8.0,
+   "målt_på_papiret": 8.0,
+   "brep_kjelde": "06d bbox x",
+   "brep": 8.0,
+   "ok": true
+  },
+  {
+   "tekst": "3,3",
+   "verdi_frå_FyrParams": 3.3,
+   "målt_på_papiret": 3.3,
+   "brep_kjelde": "06d spor + kanal x (holrom langs x)",
+   "brep": 3.3,
+   "ok": true
+  },
+  {
+   "tekst": "2,95",
+   "verdi_frå_FyrParams": 2.95,
+   "målt_på_papiret": 2.95,
+   "brep_kjelde": "06d xmax - sporvegg +X",
+   "brep": 2.95,
+   "ok": true
+  },
+  {
+   "tekst": "8",
+   "verdi_frå_FyrParams": 8.0,
+   "målt_på_papiret": 8.0,
+   "brep_kjelde": "06d bbox x",
+   "brep": 8.0,
+   "ok": true
+  },
+  {
+   "tekst": "15,2",
+   "verdi_frå_FyrParams": 15.2,
+   "målt_på_papiret": 15.2,
+   "brep_kjelde": "E8 bbox: z0 mastfot - zmin plugg",
+   "brep": 15.2,
+   "ok": true
+  },
+  {
+   "tekst": "⌀3,5",
+   "verdi_frå_FyrParams": 3.5,
+   "målt_på_papiret": 3.5,
+   "brep_kjelde": "E8 skaft (sylinderflate)",
+   "brep": 3.5,
+   "ok": true
+  }
+ ],
+ "T07_sete": {
+  "bor_skjort": 78.9,
+  "setring_inn": 75.6,
+  "setring_z": [
+   276.8,
+   278.0
+  ],
+  "lok_param": 78.6
+ },
+ "T07_lamell": {
+  "lekamar_på_r_midt": 11,
+  "lamellar_målt": 8,
+  "lamellar_param": 8,
+  "ok": true,
+  "deling_målt": 16.0,
+  "loddrett_tjukn_målt": 1.3948,
+  "rist_tv_param": 1.3948
+ },
+ "T07_stavspor": {
+  "spor_x": [
+   -1.2,
+   1.2
+  ],
+  "spor_y": [
+   -7.7,
+   7.7
+  ],
+  "limfuge_x": 0.2,
+  "limfuge_y": 0.2,
+  "topp_spor_z": 253.0,
+  "stav_zmax": 253.0,
+  "ok": true
+ },
+ "T07_leidningsgjennomgangar": {
+  "golv_z": [
+   84.0,
+   85.2
+  ],
+  "golv_målt_ved_x-3,4_y0": [
+   [
+    84.0,
+    85.2
+   ]
+  ],
+  "framfor_staven": {
+   "x": [
+    1.2,
+    2.8
+   ],
+   "y": [
+    -4.2,
+    4.2
+   ],
+   "breidd_x": 1.6,
+   "lengd_y": 8.4,
+   "open_gjennom_golvet": true,
+   "stripa_06b_gjennom_golvet": {
+    "sveip_skjer_rista_mm3": 0.0,
+    "sveip_med_0,2_klaring_skjer_rista_mm3": 0.0,
+    "krav": "stripa 1,6 x 8 + 0,2 klaring framfor og på sidene, z 83..250, skal ikkje skjere rista",
+    "ok": true
+   }
+  },
+  "bak_klypa": {
+   "x": [
+    -4.2,
+    -2.61
+   ],
+   "y": [
+    3.0,
+    7.5
+   ],
+   "breidd_x": 1.59,
+   "lengd_y": 4.5,
+   "open_gjennom_golvet": true
+  },
+  "leidning_b_param": 1.2,
+  "ok": true
+ },
+ "T07_nabbar": {
+  "nabbar_asimut_breidd": [
+   [
+    120.0,
+    6.0
+   ],
+   [
+    240.0,
+    6.0
+   ],
+   [
+    0.0,
+    6.0
+   ]
+  ],
+  "fingergrep_asimut_breidd": [
+   [
+    90.0,
+    12.0
+   ],
+   [
+    270.0,
+    12.0
+   ]
+  ]
+ },
+ "T08_lok_dxf": {
+  "serie_d": 78.6,
+  "prototype_d": 76.4,
+  "prototype_d_param": 76.4,
+  "ok": true
+ },
+ "E01_stillingar": [
+  {
+   "theta": 0.0,
+   "opne_spalter": 6,
+   "SW": [
+    true,
+    true,
+    true
+   ]
+  },
+  {
+   "theta": 11.25,
+   "opne_spalter": 5,
+   "SW": [
+    true,
+    true,
+    true
+   ]
+  },
+  {
+   "theta": 22.5,
+   "opne_spalter": 4,
+   "SW": [
+    true,
+    true,
+    true
+   ]
+  },
+  {
+   "theta": 33.75,
+   "opne_spalter": 3,
+   "SW": [
+    true,
+    true,
+    true
+   ]
+  },
+  {
+   "theta": 45.0,
+   "opne_spalter": 2,
+   "SW": [
+    true,
+    true,
+    true
+   ]
+  },
+  {
+   "theta": 56.25,
+   "opne_spalter": 1,
+   "SW": [
+    true,
+    true,
+    true
+   ]
+  },
+  {
+   "theta": 67.5,
+   "opne_spalter": 0,
+   "SW": [
+    true,
+    false,
+    true
+   ]
+  },
+  {
+   "theta": 78.75,
+   "opne_spalter": 0,
+   "SW": [
+    true,
+    false,
+    false
+   ]
+  },
+  {
+   "theta": 90.0,
+   "opne_spalter": 0,
+   "SW": [
+    false,
+    false,
+    false
+   ]
+  }
+ ],
+ "flatmonster": {
+  "r_noytral": 41.45,
+  "flatlengd_dxf": 260.438,
+  "flatlengd_pi_x_(OD_minus_t)": 260.438,
+  "hogd_dxf": 222.7,
+  "hogd_param": 222.7,
+  "skoyt_asimut": 225.0,
+  "utsparingar": [
+   {
+    "nr": "U1",
+    "x_senter_dxf": 10.8515,
+    "asimut_frå_dxf": -120.0001,
+    "asimut_3d_brep": -120.0,
+    "avvik_grader": -8e-05,
+    "breidd_dxf_grader": 8.2982,
+    "breidd_3d_grader": 8.301,
+    "ok": true
+   },
+   {
+    "nr": "U2",
+    "x_senter_dxf": 12.208,
+    "asimut_frå_dxf": -118.125,
+    "asimut_3d_brep": -118.125,
+    "avvik_grader": 1e-05,
+    "breidd_dxf_grader": 5.5313,
+    "breidd_3d_grader": 5.5313,
+    "ok": true
+   },
+   {
+    "nr": "U3",
+    "x_senter_dxf": 20.3467,
+    "asimut_frå_dxf": -106.875,
+    "asimut_3d_brep": -106.875,
+    "avvik_grader": 1e-05,
+    "breidd_dxf_grader": 5.5313,
+    "breidd_3d_grader": 5.5313,
+    "ok": true
+   },
+   {
+    "nr": "U4",
+    "x_senter_dxf": 28.4854,
+    "asimut_frå_dxf": -95.625,
+    "asimut_3d_brep": -95.625,
+    "avvik_grader": 1e-05,
+    "breidd_dxf_grader": 5.5313,
+    "breidd_3d_grader": 5.5313,
+    "ok": true
+   },
+   {
+    "nr": "U5",
+    "x_senter_dxf": 36.6241,
+    "asimut_frå_dxf": -84.375,
+    "asimut_3d_brep": -84.375,
+    "avvik_grader": 1e-05,
+    "breidd_dxf_grader": 5.5313,
+    "breidd_3d_grader": 5.5313,
+    "ok": true
+   },
+   {
+    "nr": "U6",
+    "x_senter_dxf": 44.7628,
+    "asimut_frå_dxf": -73.125,
+    "asimut_3d_brep": -73.125,
+    "avvik_grader": 1e-05,
+    "breidd_dxf_grader": 5.5313,
+    "breidd_3d_grader": 5.5313,
+    "ok": true
+   },
+   {
+    "nr": "U7",
+    "x_senter_dxf": 52.9015,
+    "asimut_frå_dxf": -61.875,
+    "asimut_3d_brep": -61.875,
+    "avvik_grader": 1e-05,
+    "breidd_dxf_grader": 5.5313,
+    "breidd_3d_grader": 5.5313,
+    "ok": true
+   },
+   {
+    "nr": "U8",
+    "x_senter_dxf": 97.6642,
+    "asimut_frå_dxf": -0.0001,
+    "asimut_3d_brep": 0.0,
+    "avvik_grader": -8e-05,
+    "breidd_dxf_grader": 8.2982,
+    "breidd_3d_grader": 8.301,
+    "ok": true
+   },
+   {
+    "nr": "U9",
+    "x_senter_dxf": 97.6643,
+    "asimut_frå_dxf": 0.0,
+    "asimut_3d_brep": -0.0,
+    "avvik_grader": 0.0,
+    "breidd_dxf_grader": 64.05,
+    "breidd_3d_grader": 64.05,
+    "ok": true
+   },
+   {
+    "nr": "U10",
+    "x_senter_dxf": 142.427,
+    "asimut_frå_dxf": 61.875,
+    "asimut_3d_brep": 61.875,
+    "avvik_grader": -1e-05,
+    "breidd_dxf_grader": 5.5313,
+    "breidd_3d_grader": 5.5313,
+    "ok": true
+   },
+   {
+    "nr": "U11",
+    "x_senter_dxf": 150.5657,
+    "asimut_frå_dxf": 73.125,
+    "asimut_3d_brep": 73.125,
+    "avvik_grader": -1e-05,
+    "breidd_dxf_grader": 5.5313,
+    "breidd_3d_grader": 5.5313,
+    "ok": true
+   },
+   {
+    "nr": "U12",
+    "x_senter_dxf": 158.7044,
+    "asimut_frå_dxf": 84.375,
+    "asimut_3d_brep": 84.375,
+    "avvik_grader": -1e-05,
+    "breidd_dxf_grader": 5.5313,
+    "breidd_3d_grader": 5.5313,
+    "ok": true
+   },
+   {
+    "nr": "U13",
+    "x_senter_dxf": 166.8431,
+    "asimut_frå_dxf": 95.625,
+    "asimut_3d_brep": 95.625,
+    "avvik_grader": -1e-05,
+    "breidd_dxf_grader": 5.5313,
+    "breidd_3d_grader": 5.5313,
+    "ok": true
+   },
+   {
+    "nr": "U14",
+    "x_senter_dxf": 174.9818,
+    "asimut_frå_dxf": 106.875,
+    "asimut_3d_brep": 106.875,
+    "avvik_grader": -1e-05,
+    "breidd_dxf_grader": 5.5313,
+    "breidd_3d_grader": 5.5313,
+    "ok": true
+   },
+   {
+    "nr": "U15",
+    "x_senter_dxf": 183.1205,
+    "asimut_frå_dxf": 118.125,
+    "asimut_3d_brep": 118.125,
+    "avvik_grader": -1e-05,
+    "breidd_dxf_grader": 5.5313,
+    "breidd_3d_grader": 5.5313,
+    "ok": true
+   },
+   {
+    "nr": "U16",
+    "x_senter_dxf": 184.4769,
+    "asimut_frå_dxf": 120.0,
+    "asimut_3d_brep": 120.0,
+    "avvik_grader": -2e-05,
+    "breidd_dxf_grader": 8.2987,
+    "breidd_3d_grader": 8.301,
+    "ok": true
+   },
+   {
+    "nr": "U17",
+    "x_senter_dxf": 207.5365,
+    "asimut_frå_dxf": 151.875,
+    "asimut_3d_brep": 151.875,
+    "avvik_grader": -1e-05,
+    "breidd_dxf_grader": 5.5313,
+    "breidd_3d_grader": 5.5313,
+    "ok": true
+   },
+   {
+    "nr": "U18",
+    "x_senter_dxf": 215.6752,
+    "asimut_frå_dxf": 163.125,
+    "asimut_3d_brep": 163.125,
+    "avvik_grader": -1e-05,
+    "breidd_dxf_grader": 5.5313,
+    "breidd_3d_grader": 5.5313,
+    "ok": true
+   },
+   {
+    "nr": "U19",
+    "x_senter_dxf": 223.8139,
+    "asimut_frå_dxf": 174.375,
+    "asimut_3d_brep": 174.375,
+    "avvik_grader": -1e-05,
+    "breidd_dxf_grader": 5.5313,
+    "breidd_3d_grader": 5.5313,
+    "ok": true
+   },
+   {
+    "nr": "U20",
+    "x_senter_dxf": 231.9526,
+    "asimut_frå_dxf": -174.375,
+    "asimut_3d_brep": -174.375,
+    "avvik_grader": -1e-05,
+    "breidd_dxf_grader": 5.5313,
+    "breidd_3d_grader": 5.5313,
+    "ok": true
+   },
+   {
+    "nr": "U21",
+    "x_senter_dxf": 240.0913,
+    "asimut_frå_dxf": -163.125,
+    "asimut_3d_brep": -163.125,
+    "avvik_grader": -1e-05,
+    "breidd_dxf_grader": 5.5313,
+    "breidd_3d_grader": 5.5313,
+    "ok": true
+   },
+   {
+    "nr": "U22",
+    "x_senter_dxf": 248.23,
+    "asimut_frå_dxf": -151.875,
+    "asimut_3d_brep": -151.875,
+    "avvik_grader": -1e-05,
+    "breidd_dxf_grader": 5.5313,
+    "breidd_3d_grader": 5.5313,
+    "ok": true
+   }
+  ],
+  "alle_ok": true
+ },
+ "passingar": {
+  "klaring_min_max": {
+   "05b bor / 03 tapp": [
+    0.4,
+    0.6
+   ],
+   "05 hylse ID / 05b fotring": [
+    0.1,
+    0.3
+   ],
+   "04 mantel ID / 03 toppdekk": [
+    0.2,
+    0.6
+   ],
+   "07 skjørt / 08 lok": [
+    0.3,
+    0.7
+   ],
+   "10 glidering montert ID / 05 hylse OD": [
+    0.1,
+    0.5
+   ],
+   "04 mantel ID / 10 glidering fri OD (presspassing)": [
+    -0.4,
+    -0.05
+   ]
+  },
+  "ok": true
+ },
+ "hoppa_over": [],
+ "snitt_logg": [
+  "snittplanet flytta −0,37 mm for éin lekam",
+  "snittplanet flytta −0,37 mm for éin lekam"
+ ]
+}

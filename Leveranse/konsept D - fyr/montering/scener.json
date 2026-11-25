@@ -1,0 +1,7455 @@
+{
+ "produkt": "FYR",
+ "revisjon": "v4",
+ "dato": "2026-11-25",
+ "variant": "serie",
+ "sider": {
+  "framside": 1,
+  "delar": 2,
+  "beslag": 3,
+  "oversikt": 4,
+  "s01-innsatsar": 5,
+  "s02-jack": 6,
+  "s03-brytarar": 7,
+  "s04-kort": 8,
+  "s05-kabel": 9,
+  "s06-skruar": 10,
+  "s07-oring": 11,
+  "s08-glidering": 12,
+  "s09-fotring": 13,
+  "s10-hylse": 14,
+  "s11-stoppskruar": 15,
+  "s12-juster": 16,
+  "s13-modul": 17,
+  "s14-prov": 18,
+  "s15-snor": 19,
+  "s16-mantel": 20,
+  "s17-lok": 21,
+  "sluttkontroll": 22,
+  "service-modul": 23,
+  "service-kabel": 24,
+  "feilsoking": 25,
+  "lysmodul": 26,
+  "prototype": 27
+ },
+ "koordinatar": "mm, z = 0 bordplata, lampeaksen = z, asimut 0 = +X = vindauget (framme), positiv mot klokka sett ovanfrå",
+ "kamera_standard": {
+  "retning_mot_betraktar": [
+   0.7170107198329955,
+   0.5311190517281448,
+   0.451451193968923
+  ],
+  "projeksjon": "parallell (HLRAlgo_Projector)"
+ },
+ "geometri_hash": "475b8ddbfe8f9a18",
+ "utdaterte_scener": [],
+ "strekkavlastning": {
+  "stolpar_P1_P2_P3": [
+   [
+    -26.0,
+    2.3
+   ],
+   [
+    -20.5,
+    -2.3
+   ],
+   [
+    -15.0,
+    2.3
+   ]
+  ],
+  "stolpe_d": 3.0,
+  "stolpe_topp_z": 13.0,
+  "hol_flens": [
+   -10.5,
+   0.0,
+   3.5
+  ],
+  "inn": "radielt hol bak (asimut 180), z = kabel_z",
+  "kabel_z": 6.2,
+  "lomme_r": 30.0,
+  "lomme_golv_z": 4.0,
+  "bane": "under P1, over P2, under P3 (S); kappa sluttar etter P3"
+ },
+ "brytarar": [
+  {
+   "namn": "SW1 D2F-01L3 gull (glød)",
+   "asimut": 235.0,
+   "terskel_theta": 87.0
+  },
+  {
+   "namn": "SW2 D2F-L3 sølv (sidelys)",
+   "asimut": 125.0,
+   "terskel_theta": 65.0
+  },
+  {
+   "namn": "SW3 D2F-01L3 gull (full glød)",
+   "asimut": 345.0,
+   "terskel_theta": 76.0
+  }
+ ],
+ "tilstandar": [
+  {
+   "theta": 0.0,
+   "SW1": true,
+   "SW2": true,
+   "SW3": true,
+   "opne_spalter": 6
+  },
+  {
+   "theta": 11.25,
+   "SW1": true,
+   "SW2": true,
+   "SW3": true,
+   "opne_spalter": 5
+  },
+  {
+   "theta": 22.5,
+   "SW1": true,
+   "SW2": true,
+   "SW3": true,
+   "opne_spalter": 4
+  },
+  {
+   "theta": 33.75,
+   "SW1": true,
+   "SW2": true,
+   "SW3": true,
+   "opne_spalter": 3
+  },
+  {
+   "theta": 45.0,
+   "SW1": true,
+   "SW2": true,
+   "SW3": true,
+   "opne_spalter": 2
+  },
+  {
+   "theta": 56.25,
+   "SW1": true,
+   "SW2": true,
+   "SW3": true,
+   "opne_spalter": 1
+  },
+  {
+   "theta": 67.5,
+   "SW1": true,
+   "SW2": false,
+   "SW3": true,
+   "opne_spalter": 0
+  },
+  {
+   "theta": 78.75,
+   "SW1": true,
+   "SW2": false,
+   "SW3": false,
+   "opne_spalter": 0
+  },
+  {
+   "theta": 90.0,
+   "SW1": false,
+   "SW2": false,
+   "SW3": false,
+   "opne_spalter": 0
+  }
+ ],
+ "steg": [
+  {
+   "side": 1,
+   "steg": null,
+   "tittel": "framside",
+   "scene": "framside",
+   "kamera": {
+    "retning_mot_betraktar": [
+     0.7170107198329955,
+     0.5311190517281448,
+     0.451451193968923
+    ],
+    "x_akse": null,
+    "snudd_180_om_x": false,
+    "skala_mm_per_mm": 0.6842
+   },
+   "delar": [
+    {
+     "id": "01",
+     "kjelde": "01",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "03",
+     "kjelde": "03",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "E#0",
+     "kjelde": "E",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "E#1",
+     "kjelde": "E",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "E#2",
+     "kjelde": "E",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "13",
+     "kjelde": "13",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#00s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#00m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#01s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#01m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#10s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#10m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#11s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#11m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#20s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#20m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#21s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#21m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "14",
+     "kjelde": "14",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "F",
+     "kjelde": "F",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "D",
+     "kjelde": "Dt",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "G#0",
+     "kjelde": "G",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "G#1",
+     "kjelde": "G",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "G#2",
+     "kjelde": "G",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "05b",
+     "kjelde": "05b",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "05",
+     "kjelde": "05",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "C#0",
+     "kjelde": "C",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "C#1",
+     "kjelde": "C",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "C#2",
+     "kjelde": "C",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "06",
+     "kjelde": "06",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "06b",
+     "kjelde": "06b",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "06c",
+     "kjelde": "06c",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "07",
+     "kjelde": "07",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "06d",
+     "kjelde": "06d",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "04",
+     "kjelde": "04",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "10",
+     "kjelde": "10",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "08",
+     "kjelde": "08",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    }
+   ],
+   "rorsle": [],
+   "merknad": ""
+  },
+  {
+   "side": 4,
+   "steg": null,
+   "tittel": "oversikt",
+   "scene": "oversikt",
+   "kamera": {
+    "retning_mot_betraktar": [
+     0.7170107198329955,
+     0.5311190517281448,
+     0.451451193968923
+    ],
+    "x_akse": null,
+    "snudd_180_om_x": false,
+    "skala_mm_per_mm": 0.4321
+   },
+   "delar": [
+    {
+     "id": "01",
+     "kjelde": "01",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "D",
+     "kjelde": "Dt",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      -24
+     ]
+    },
+    {
+     "id": "F",
+     "kjelde": "F",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "G#0",
+     "kjelde": "G",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      12
+     ]
+    },
+    {
+     "id": "G#1",
+     "kjelde": "G",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      12
+     ]
+    },
+    {
+     "id": "G#2",
+     "kjelde": "G",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      12
+     ]
+    },
+    {
+     "id": "03",
+     "kjelde": "03",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      40
+     ]
+    },
+    {
+     "id": "E#0",
+     "kjelde": "E",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      40
+     ]
+    },
+    {
+     "id": "E#1",
+     "kjelde": "E",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      40
+     ]
+    },
+    {
+     "id": "E#2",
+     "kjelde": "E",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      40
+     ]
+    },
+    {
+     "id": "13",
+     "kjelde": "13",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      40
+     ]
+    },
+    {
+     "id": "J#00s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      40.0
+     ]
+    },
+    {
+     "id": "J#00m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      40.0
+     ]
+    },
+    {
+     "id": "J#01s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      40.0
+     ]
+    },
+    {
+     "id": "J#01m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      40.0
+     ]
+    },
+    {
+     "id": "J#10s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      40.0
+     ]
+    },
+    {
+     "id": "J#10m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      40.0
+     ]
+    },
+    {
+     "id": "J#11s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      40.0
+     ]
+    },
+    {
+     "id": "J#11m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      40.0
+     ]
+    },
+    {
+     "id": "J#20s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      40.0
+     ]
+    },
+    {
+     "id": "J#20m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      40.0
+     ]
+    },
+    {
+     "id": "J#21s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      40.0
+     ]
+    },
+    {
+     "id": "J#21m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      40.0
+     ]
+    },
+    {
+     "id": "14",
+     "kjelde": "14",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      40
+     ]
+    },
+    {
+     "id": "05b",
+     "kjelde": "05b",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      80
+     ]
+    },
+    {
+     "id": "05",
+     "kjelde": "05",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      112
+     ]
+    },
+    {
+     "id": "C#0",
+     "kjelde": "C",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      26.0,
+      0.0,
+      112
+     ]
+    },
+    {
+     "id": "C#1",
+     "kjelde": "C",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      -13.0,
+      22.52,
+      112
+     ]
+    },
+    {
+     "id": "C#2",
+     "kjelde": "C",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      -13.0,
+      -22.52,
+      112
+     ]
+    },
+    {
+     "id": "06",
+     "kjelde": "06",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      -74.4,
+      100.44,
+      60
+     ]
+    },
+    {
+     "id": "06b",
+     "kjelde": "06b",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      -74.4,
+      100.44,
+      60
+     ]
+    },
+    {
+     "id": "06c",
+     "kjelde": "06c",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      -74.4,
+      100.44,
+      60
+     ]
+    },
+    {
+     "id": "07",
+     "kjelde": "07",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      -74.4,
+      100.44,
+      60
+     ]
+    },
+    {
+     "id": "06d",
+     "kjelde": "06d",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      -74.4,
+      100.44,
+      60
+     ]
+    },
+    {
+     "id": "08",
+     "kjelde": "08",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      -74.4,
+      100.44,
+      100
+     ]
+    },
+    {
+     "id": "04",
+     "kjelde": "04",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      70.24,
+      -94.82,
+      0
+     ]
+    },
+    {
+     "id": "10",
+     "kjelde": "10",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      70.24,
+      -94.82,
+      42
+     ]
+    }
+   ],
+   "rorsle": [],
+   "merknad": ""
+  },
+  {
+   "side": 5,
+   "steg": 1,
+   "tittel": "innpressmutrar B i chassisflensen nedanfrå",
+   "scene": "s01_innsatsar",
+   "kamera": {
+    "retning_mot_betraktar": [
+     0.7170107198329955,
+     0.5311190517281448,
+     0.451451193968923
+    ],
+    "x_akse": null,
+    "snudd_180_om_x": true,
+    "skala_mm_per_mm": 1.0938
+   },
+   "delar": [
+    {
+     "id": "03",
+     "kjelde": "03",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "B#0",
+     "kjelde": "B",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      -24.0
+     ]
+    },
+    {
+     "id": "B#1",
+     "kjelde": "B",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      -24.0
+     ]
+    },
+    {
+     "id": "B#2",
+     "kjelde": "B",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      -24.0
+     ]
+    },
+    {
+     "id": "L",
+     "kjelde": "lodd",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    }
+   ],
+   "rorsle": [
+    {
+     "type": "innføring",
+     "delar": [
+      "B#0",
+      "B#1",
+      "B#2"
+     ],
+     "vektor_modell": [
+      0,
+      0,
+      1
+     ],
+     "lengd_mm": 24.0
+    }
+   ],
+   "merknad": "Chassiset ligg opp ned. Loddebolten pressar mutrane ned i hola til dei er i flukt."
+  },
+  {
+   "side": 6,
+   "steg": 2,
+   "tittel": "TRS-kontakten 13 opp nedanfrå gjennom holet Ø6,2 i navet, M6-mutteren oppå, trekk til med 8 mm fastnøkkel frå sida",
+   "scene": "s02_jack",
+   "kamera": {
+    "retning_mot_betraktar": [
+     0.9293747510648968,
+     0.23171915057588893,
+     0.2873478855663454
+    ],
+    "x_akse": null,
+    "snudd_180_om_x": false,
+    "skala_mm_per_mm": 2.1237
+   },
+   "delar": [
+    {
+     "id": "03",
+     "kjelde": "03",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "13k",
+     "kjelde": "jack_kropp",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      -9.0
+     ]
+    },
+    {
+     "id": "13m",
+     "kjelde": "jack_mutter",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      7.0
+     ]
+    }
+   ],
+   "rorsle": [
+    {
+     "type": "innføring",
+     "delar": [
+      "13k"
+     ],
+     "vektor_modell": [
+      0,
+      0,
+      1
+     ],
+     "lengd_mm": 9.0
+    },
+    {
+     "type": "innføring+skru",
+     "delar": [
+      "13m"
+     ],
+     "vektor_modell": [
+      0,
+      0,
+      -1
+     ],
+     "lengd_mm": 7.0
+    }
+   ],
+   "merknad": "Snu-ikonet: chassiset låg opp ned i steg 1 og blir snudd rett veg att. Mutteren blir nådd mellom søylene framme, under toppdekket. Mastfoten kviler seinare på mutteren."
+  },
+  {
+   "side": 7,
+   "steg": 3,
+   "tittel": "tre mikrobrytarar E under toppdekket, kvar med 2 x J (M2 x 10 utanfrå, skive og mutter innanfor); SW1 og SW3 gull (D2F-01L3), SW2 sølv (D2F-L3)",
+   "scene": "s03_brytarar",
+   "kamera": {
+    "retning_mot_betraktar": [
+     0.7170107198329955,
+     0.5311190517281448,
+     0.451451193968923
+    ],
+    "x_akse": null,
+    "snudd_180_om_x": false,
+    "skala_mm_per_mm": 1.0938
+   },
+   "delar": [
+    {
+     "id": "03",
+     "kjelde": "03",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "13",
+     "kjelde": "13",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "E#0",
+     "kjelde": "E",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      -17.21,
+      -24.57,
+      -12.0
+     ]
+    },
+    {
+     "id": "E#1",
+     "kjelde": "E",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      -17.21,
+      24.57,
+      -12.0
+     ]
+    },
+    {
+     "id": "E#2",
+     "kjelde": "E",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      28.98,
+      -7.76,
+      -12.0
+     ]
+    }
+   ],
+   "rorsle": [
+    {
+     "type": "innføring",
+     "delar": [
+      "E#0",
+      "E#1",
+      "E#2"
+     ],
+     "bane_modell": [
+      "radielt inn",
+      "opp"
+     ],
+     "lengd_mm": [
+      30.0,
+      12.0
+     ]
+    },
+    {
+     "type": "innføring+skru",
+     "delar": [
+      "J"
+     ],
+     "vektor_modell": "radielt inn (skrue), radielt ut (mutter)",
+     "detalj": "d03_feste"
+    }
+   ],
+   "merknad": "Armane går opp gjennom slissene i toppdekket. Asimut (SW1, SW2, SW3): 235°, 125°, 345°. J blir berre skrudd lett til: braketten har loddrette spor (± 1,2 mm), brytarane blir justerte i steg 12."
+  },
+  {
+   "side": 8,
+   "steg": 4,
+   "tittel": "kortet 14 på armen bak på elektronikkdekket, lodd brytarane og jacken etter skjemaet",
+   "scene": "s04_kort",
+   "kamera": {
+    "retning_mot_betraktar": [
+     -0.7170107198329955,
+     -0.5311190517281448,
+     0.451451193968923
+    ],
+    "x_akse": null,
+    "snudd_180_om_x": false,
+    "skala_mm_per_mm": 1.0938
+   },
+   "delar": [
+    {
+     "id": "03",
+     "kjelde": "03",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "E#0",
+     "kjelde": "E",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "E#1",
+     "kjelde": "E",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "E#2",
+     "kjelde": "E",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "13",
+     "kjelde": "13",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#00s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#00m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#01s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#01m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#10s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#10m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#11s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#11m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#20s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#20m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#21s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#21m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "14",
+     "kjelde": "14",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      -30.0,
+      -62.0,
+      16.0
+     ]
+    }
+   ],
+   "rorsle": [
+    {
+     "type": "innføring",
+     "delar": [
+      "14"
+     ],
+     "vektor_modell": [
+      30.0,
+      62.0,
+      -16.0
+     ]
+    }
+   ],
+   "merknad": "Kamera sett bakfrå. Tre parallelle greiner frå +5 V etter F1: SW1-R1-TOPP, SW3-R3-TOPP, SW2-SIDE. Inga hovudbrytar."
+  },
+  {
+   "side": 9,
+   "steg": 5,
+   "tittel": "kabel F inn bak i foten, S rundt stolpane P1, P2, P3 i lomma, leiarane opp gjennom flensen til kortet; set chassiset ned",
+   "scene": "s05_kabel",
+   "kamera": {
+    "retning_mot_betraktar": [
+     -0.7170107198329955,
+     -0.5311190517281448,
+     0.451451193968923
+    ],
+    "x_akse": null,
+    "snudd_180_om_x": false,
+    "skala_mm_per_mm": 1.0938
+   },
+   "delar": [
+    {
+     "id": "01",
+     "kjelde": "01",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "03",
+     "kjelde": "03",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      46.0
+     ]
+    },
+    {
+     "id": "E#0",
+     "kjelde": "E",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      46.0
+     ]
+    },
+    {
+     "id": "E#1",
+     "kjelde": "E",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      46.0
+     ]
+    },
+    {
+     "id": "E#2",
+     "kjelde": "E",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      46.0
+     ]
+    },
+    {
+     "id": "13",
+     "kjelde": "13",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      46.0
+     ]
+    },
+    {
+     "id": "J#00s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      46.0
+     ]
+    },
+    {
+     "id": "J#00m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      46.0
+     ]
+    },
+    {
+     "id": "J#01s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      46.0
+     ]
+    },
+    {
+     "id": "J#01m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      46.0
+     ]
+    },
+    {
+     "id": "J#10s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      46.0
+     ]
+    },
+    {
+     "id": "J#10m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      46.0
+     ]
+    },
+    {
+     "id": "J#11s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      46.0
+     ]
+    },
+    {
+     "id": "J#11m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      46.0
+     ]
+    },
+    {
+     "id": "J#20s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      46.0
+     ]
+    },
+    {
+     "id": "J#20m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      46.0
+     ]
+    },
+    {
+     "id": "J#21s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      46.0
+     ]
+    },
+    {
+     "id": "J#21m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      46.0
+     ]
+    },
+    {
+     "id": "14",
+     "kjelde": "14",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      46.0
+     ]
+    },
+    {
+     "id": "F",
+     "kjelde": "F",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    }
+   ],
+   "rorsle": [
+    {
+     "type": "innføring",
+     "delar": [
+      "F"
+     ],
+     "vektor_modell": [
+      1,
+      0,
+      0
+     ]
+    },
+    {
+     "type": "innføring",
+     "delar": [
+      "F"
+     ],
+     "vektor_modell": [
+      0,
+      0,
+      1
+     ]
+    },
+    {
+     "type": "innføring",
+     "delar": [
+      "03"
+     ],
+     "vektor_modell": [
+      0,
+      0,
+      -1
+     ],
+     "lengd_mm": 46.0
+    }
+   ],
+   "merknad": "Kamera sett bakfrå. Kabelen går under P1, over P2 og under P3 (S, glipe 4,2), kappa sluttar etter P3, leiarane går opp gjennom holet Ø7 på (−10,5, 0) og rundt armen bak til JST-pluggen på kortet. Bogetappen under flensen (210..510°) sentrerer chassiset og står ikkje over kabelen."
+  },
+  {
+   "side": 10,
+   "steg": 6,
+   "tittel": "snu, skru foten til chassiset med 3 x A",
+   "scene": "s06_skruar",
+   "kamera": {
+    "retning_mot_betraktar": [
+     0.7170107198329955,
+     0.5311190517281448,
+     0.451451193968923
+    ],
+    "x_akse": null,
+    "snudd_180_om_x": true,
+    "skala_mm_per_mm": 1.0938
+   },
+   "delar": [
+    {
+     "id": "01",
+     "kjelde": "01",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "03",
+     "kjelde": "03",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "E#0",
+     "kjelde": "E",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "E#1",
+     "kjelde": "E",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "E#2",
+     "kjelde": "E",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "13",
+     "kjelde": "13",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#00s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#00m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#01s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#01m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#10s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#10m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#11s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#11m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#20s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#20m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#21s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#21m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "14",
+     "kjelde": "14",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "F",
+     "kjelde": "F",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "A#0",
+     "kjelde": "A",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      -26.0
+     ]
+    },
+    {
+     "id": "A#1",
+     "kjelde": "A",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      -26.0
+     ]
+    },
+    {
+     "id": "A#2",
+     "kjelde": "A",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      -26.0
+     ]
+    },
+    {
+     "id": "N",
+     "kjelde": "nokkel",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    }
+   ],
+   "rorsle": [
+    {
+     "type": "innføring+skru",
+     "delar": [
+      "A#0",
+      "A#1",
+      "A#2"
+     ],
+     "vektor_modell": [
+      0,
+      0,
+      1
+     ],
+     "lengd_mm": 26.0
+    }
+   ],
+   "merknad": ""
+  },
+  {
+   "side": 11,
+   "steg": 7,
+   "tittel": "O-ringen D i sporet under foten",
+   "scene": "s07_oring",
+   "kamera": {
+    "retning_mot_betraktar": [
+     0.7170107198329955,
+     0.5311190517281448,
+     0.451451193968923
+    ],
+    "x_akse": null,
+    "snudd_180_om_x": true,
+    "skala_mm_per_mm": 1.0938
+   },
+   "delar": [
+    {
+     "id": "01",
+     "kjelde": "01",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "03",
+     "kjelde": "03",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "E#0",
+     "kjelde": "E",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "E#1",
+     "kjelde": "E",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "E#2",
+     "kjelde": "E",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "13",
+     "kjelde": "13",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#00s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#00m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#01s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#01m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#10s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#10m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#11s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#11m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#20s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#20m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#21s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#21m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "14",
+     "kjelde": "14",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "F",
+     "kjelde": "F",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "A#0",
+     "kjelde": "A",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "A#1",
+     "kjelde": "A",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "A#2",
+     "kjelde": "A",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "D",
+     "kjelde": "Dt",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      -22
+     ]
+    }
+   ],
+   "rorsle": [
+    {
+     "type": "innføring",
+     "delar": [
+      "D"
+     ],
+     "vektor_modell": [
+      0,
+      0,
+      1
+     ],
+     "lengd_mm": 22
+    }
+   ],
+   "merknad": "Lampa ligg framleis opp ned frå steg 6, difor inkje snu-ikon."
+  },
+  {
+   "side": 12,
+   "steg": 8,
+   "tittel": "press gliderringen 10 inn øvst i mantelen",
+   "scene": "s08_glidering",
+   "kamera": {
+    "retning_mot_betraktar": [
+     0.7170107198329955,
+     0.5311190517281448,
+     0.451451193968923
+    ],
+    "x_akse": null,
+    "snudd_180_om_x": false,
+    "skala_mm_per_mm": 0.729
+   },
+   "delar": [
+    {
+     "id": "04",
+     "kjelde": "04",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "10",
+     "kjelde": "10",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      44.0
+     ]
+    }
+   ],
+   "rorsle": [
+    {
+     "type": "innføring",
+     "delar": [
+      "10"
+     ],
+     "vektor_modell": [
+      0,
+      0,
+      -1
+     ],
+     "lengd_mm": 44.0
+    }
+   ],
+   "merknad": "Prototypen: gliderringen blir limt med CA i toppen av mantelen (side 27)."
+  },
+  {
+   "side": 13,
+   "steg": 9,
+   "tittel": "fotringen 05b inn nedanfrå i hylserøyret 05, hola for C rett over kvarandre",
+   "scene": "s09_fotring",
+   "kamera": {
+    "retning_mot_betraktar": [
+     0.7170107198329955,
+     0.5311190517281448,
+     0.451451193968923
+    ],
+    "x_akse": null,
+    "snudd_180_om_x": false,
+    "skala_mm_per_mm": 0.8549
+   },
+   "delar": [
+    {
+     "id": "05",
+     "kjelde": "05",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "05b",
+     "kjelde": "05b",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      -34
+     ]
+    }
+   ],
+   "rorsle": [
+    {
+     "type": "innføring",
+     "delar": [
+      "05b"
+     ],
+     "vektor_modell": [
+      0,
+      0,
+      1
+     ],
+     "lengd_mm": 34
+    }
+   ],
+   "merknad": "Seriegeometri. I prototypen er 05 og 05b prenta i eitt, steget fell bort."
+  },
+  {
+   "side": 14,
+   "steg": 10,
+   "tittel": "hylsa (05 med 05b) ned på tappen, porten mot spaltene (framme, +X)",
+   "scene": "s10_hylse",
+   "kamera": {
+    "retning_mot_betraktar": [
+     0.7170107198329955,
+     0.5311190517281448,
+     0.451451193968923
+    ],
+    "x_akse": null,
+    "snudd_180_om_x": false,
+    "skala_mm_per_mm": 0.6173
+   },
+   "delar": [
+    {
+     "id": "01",
+     "kjelde": "01",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "03",
+     "kjelde": "03",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "E#0",
+     "kjelde": "E",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "E#1",
+     "kjelde": "E",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "E#2",
+     "kjelde": "E",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "13",
+     "kjelde": "13",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#00s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#00m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#01s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#01m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#10s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#10m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#11s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#11m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#20s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#20m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#21s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#21m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "14",
+     "kjelde": "14",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "F",
+     "kjelde": "F",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "D",
+     "kjelde": "Dt",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "05b",
+     "kjelde": "05b",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      70
+     ]
+    },
+    {
+     "id": "05",
+     "kjelde": "05",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      70
+     ]
+    }
+   ],
+   "rorsle": [
+    {
+     "type": "innføring",
+     "delar": [
+      "05",
+      "05b"
+     ],
+     "vektor_modell": [
+      0,
+      0,
+      -1
+     ],
+     "lengd_mm": 70
+    }
+   ],
+   "merknad": "Snu-ikonet: foten med chassiset låg opp ned i steg 6 og 7 og blir snudd rett veg att."
+  },
+  {
+   "side": 15,
+   "steg": 11,
+   "tittel": "3 x C (ISO 7380 M3×5) gjennom hylsa og fotringen, spissen i sporet i tappen",
+   "scene": "s11_stoppskruar",
+   "kamera": {
+    "retning_mot_betraktar": [
+     0.7170107198329955,
+     0.5311190517281448,
+     0.451451193968923
+    ],
+    "x_akse": null,
+    "snudd_180_om_x": false,
+    "skala_mm_per_mm": 0.6173
+   },
+   "delar": [
+    {
+     "id": "01",
+     "kjelde": "01",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "03",
+     "kjelde": "03",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "E#0",
+     "kjelde": "E",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "E#1",
+     "kjelde": "E",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "E#2",
+     "kjelde": "E",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "13",
+     "kjelde": "13",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#00s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#00m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#01s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#01m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#10s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#10m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#11s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#11m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#20s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#20m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#21s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#21m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "14",
+     "kjelde": "14",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "F",
+     "kjelde": "F",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "D",
+     "kjelde": "Dt",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "05b",
+     "kjelde": "05b",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "05",
+     "kjelde": "05",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "C#0",
+     "kjelde": "C",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      24.0,
+      0.0,
+      0
+     ]
+    },
+    {
+     "id": "C#1",
+     "kjelde": "C",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      -12.0,
+      20.78,
+      0
+     ]
+    },
+    {
+     "id": "C#2",
+     "kjelde": "C",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      -12.0,
+      -20.78,
+      0
+     ]
+    },
+    {
+     "id": "N",
+     "kjelde": "nokkel",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    }
+   ],
+   "rorsle": [
+    {
+     "type": "innføring+skru",
+     "delar": [
+      "C#0",
+      "C#1",
+      "C#2"
+     ],
+     "vektor_modell": "radielt inn",
+     "lengd_mm": 24.0
+    }
+   ],
+   "merknad": "Kragen står på 0° (klikk 1, porten framme) før skruane blir sette i: då står hola over enden av sporet. Gjengeformande M3: skruen skjer gjengene sjølv i kjerneholet Ø2,5 i hylsefoten. Skruane er endestopp (0° og 90°) og held hylsa nede."
+  },
+  {
+   "side": 16,
+   "steg": 12,
+   "tittel": "juster brytarane: kragen på 0°, kvar brytar opp til han lukkar (kontinuitet), 0,6 mm til, trekk til J",
+   "scene": "s12_juster",
+   "kamera": {
+    "retning_mot_betraktar": [
+     0.7170107198329955,
+     0.5311190517281448,
+     0.451451193968923
+    ],
+    "x_akse": null,
+    "snudd_180_om_x": false,
+    "skala_mm_per_mm": 0.6173
+   },
+   "delar": [
+    {
+     "id": "01",
+     "kjelde": "01",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "03",
+     "kjelde": "03",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "E#0",
+     "kjelde": "E",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "E#1",
+     "kjelde": "E",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "E#2",
+     "kjelde": "E",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "13",
+     "kjelde": "13",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#00s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#00m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#01s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#01m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#10s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#10m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#11s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#11m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#20s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#20m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#21s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#21m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "14",
+     "kjelde": "14",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "F",
+     "kjelde": "F",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "D",
+     "kjelde": "Dt",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "05b",
+     "kjelde": "05b",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "05",
+     "kjelde": "05",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "C#0",
+     "kjelde": "C",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "C#1",
+     "kjelde": "C",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "C#2",
+     "kjelde": "C",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "S",
+     "kjelde": "skrujarn",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    }
+   ],
+   "rorsle": [
+    {
+     "type": "justering",
+     "delar": [
+      "E#0",
+      "E#1",
+      "E#2"
+     ],
+     "vektor_modell": [
+      0,
+      0,
+      1
+     ],
+     "skildring": "opp til kontakt (pip), så 0,6 mm til: armen står på OP − 0,6 på flata og OP + 1,2 i utsparinga"
+    }
+   ],
+   "merknad": "Kragen på 0°: alle tre brytarane står på flata under fotringen. Spora i braketten gjev ± 1,2 mm, kamdjupna er 1,8 mm. Utan justeringa held ikkje tersklane i tilstandstabellen (steg 14)."
+  },
+  {
+   "side": 17,
+   "steg": 13,
+   "tittel": "lysmodulen (06 + 07 + 06d, ferdig samla) ned ovanfrå gjennom kragen, lamellane mot spaltene, trykk til pluggen sit",
+   "scene": "s13_modul",
+   "kamera": {
+    "retning_mot_betraktar": [
+     0.7170107198329955,
+     0.5311190517281448,
+     0.451451193968923
+    ],
+    "x_akse": null,
+    "snudd_180_om_x": false,
+    "skala_mm_per_mm": 0.5371
+   },
+   "delar": [
+    {
+     "id": "01",
+     "kjelde": "01",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "03",
+     "kjelde": "03",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "E#0",
+     "kjelde": "E",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "E#1",
+     "kjelde": "E",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "E#2",
+     "kjelde": "E",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "13",
+     "kjelde": "13",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#00s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#00m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#01s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#01m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#10s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#10m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#11s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#11m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#20s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#20m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#21s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#21m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "14",
+     "kjelde": "14",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "F",
+     "kjelde": "F",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "D",
+     "kjelde": "Dt",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "05b",
+     "kjelde": "05b",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "05",
+     "kjelde": "05",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "C#0",
+     "kjelde": "C",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "C#1",
+     "kjelde": "C",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "C#2",
+     "kjelde": "C",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "06",
+     "kjelde": "06",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      150.0
+     ]
+    },
+    {
+     "id": "06b",
+     "kjelde": "06b",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      150.0
+     ]
+    },
+    {
+     "id": "06c",
+     "kjelde": "06c",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      150.0
+     ]
+    },
+    {
+     "id": "07",
+     "kjelde": "07",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      150.0
+     ]
+    },
+    {
+     "id": "06d",
+     "kjelde": "06d",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      150.0
+     ]
+    }
+   ],
+   "rorsle": [
+    {
+     "type": "innføring",
+     "delar": [
+      "06",
+      "06b",
+      "06c",
+      "07",
+      "06d"
+     ],
+     "vektor_modell": [
+      0,
+      0,
+      -1
+     ],
+     "lengd_mm": 150.0
+    }
+   ],
+   "merknad": "Modulen kjem ferdig samla (førmontering: side 26). Mastfoten (8 × 17) går ned gjennom gjennomgangen 8,6 × 17,6 i toppdekket, nøkkeltappen i holet framme før pluggen når kontakten; mastfoten kviler på mutteren til 13 (z 44,4). Modulen må stå i sokkelen for funksjonsprøva. Mantelen går utanpå hylsa og rører ikkje modulen."
+  },
+  {
+   "side": 18,
+   "steg": 14,
+   "tittel": "open funksjonsprøve: kople til 5 V, drei hylsa gjennom dei ni klikka",
+   "scene": "s14_prov",
+   "kamera": {
+    "retning_mot_betraktar": [
+     0.7170107198329955,
+     0.5311190517281448,
+     0.451451193968923
+    ],
+    "x_akse": null,
+    "snudd_180_om_x": false,
+    "skala_mm_per_mm": 0.7429
+   },
+   "delar": [
+    {
+     "id": "01",
+     "kjelde": "01",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "03",
+     "kjelde": "03",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "E#0",
+     "kjelde": "E",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "E#1",
+     "kjelde": "E",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "E#2",
+     "kjelde": "E",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "13",
+     "kjelde": "13",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#00s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#00m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#01s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#01m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#10s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#10m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#11s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#11m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#20s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#20m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#21s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#21m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "14",
+     "kjelde": "14",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "F",
+     "kjelde": "F",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "D",
+     "kjelde": "Dt",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "05b",
+     "kjelde": "05b",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "05",
+     "kjelde": "05",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "C#0",
+     "kjelde": "C",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "C#1",
+     "kjelde": "C",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "C#2",
+     "kjelde": "C",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "06",
+     "kjelde": "06",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "06b",
+     "kjelde": "06b",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "06c",
+     "kjelde": "06c",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "07",
+     "kjelde": "07",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "06d",
+     "kjelde": "06d",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    }
+   ],
+   "rorsle": [
+    {
+     "type": "rotasjon",
+     "delar": [
+      "05",
+      "05b",
+      "C"
+     ],
+     "akse_modell": [
+      0,
+      0,
+      1
+     ],
+     "frå_grader": 0,
+     "til_grader": -90.0,
+     "skildring": "med klokka sett ovanfrå frå open (0) til av (90)"
+    }
+   ],
+   "merknad": "[{\"theta\": 0.0, \"SW1\": true, \"SW2\": true, \"SW3\": true, \"opne_spalter\": 6}, {\"theta\": 11.25, \"SW1\": true, \"SW2\": true, \"SW3\": true, \"opne_spalter\": 5}, {\"theta\": 22.5, \"SW1\": true, \"SW2\": true, \"SW3\": true, \"opne_spalter\": 4}, {\"theta\": 33.75, \"SW1\": true, \"SW2\": true, \"SW3\": true, \"opne_spalter\": 3}, {\"theta\": 45.0, \"SW1\": true, \"SW2\": true, \"SW3\": true, \"opne_spalter\": 2}, {\"theta\": 56.25, \"SW1\": true, \"SW2\": true, \"SW3\": true, \"opne_spalter\": 1}, {\"theta\": 67.5, \"SW1\": true, \"SW2\": false, \"SW3\": true, \"opne_spalter\": 0}, {\"theta\": 78.75, \"SW1\": true, \"SW2\": false, \"SW3\": false, \"opne_spalter\": 0}, {\"theta\": 90.0, \"SW1\": false, \"SW2\": false, \"SW3\": false, \"opne_spalter\": 0}]"
+  },
+  {
+   "side": 19,
+   "steg": 15,
+   "tittel": "tre bitar silikonsnor G (11b) i lommene i golvet av mantelsporet i foten",
+   "scene": "s15_snor",
+   "kamera": {
+    "retning_mot_betraktar": [
+     0.7170107198329955,
+     0.5311190517281448,
+     0.451451193968923
+    ],
+    "x_akse": null,
+    "snudd_180_om_x": false,
+    "skala_mm_per_mm": 0.5371
+   },
+   "delar": [
+    {
+     "id": "01",
+     "kjelde": "01",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "03",
+     "kjelde": "03",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "E#0",
+     "kjelde": "E",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "E#1",
+     "kjelde": "E",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "E#2",
+     "kjelde": "E",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "13",
+     "kjelde": "13",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#00s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#00m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#01s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#01m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#10s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#10m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#11s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#11m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#20s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#20m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#21s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#21m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "14",
+     "kjelde": "14",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "F",
+     "kjelde": "F",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "D",
+     "kjelde": "Dt",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "05b",
+     "kjelde": "05b",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "05",
+     "kjelde": "05",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "C#0",
+     "kjelde": "C",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "C#1",
+     "kjelde": "C",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "C#2",
+     "kjelde": "C",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "06",
+     "kjelde": "06",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "06b",
+     "kjelde": "06b",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "06c",
+     "kjelde": "06c",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "07",
+     "kjelde": "07",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "06d",
+     "kjelde": "06d",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "G#0",
+     "kjelde": "G",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      24.0
+     ]
+    },
+    {
+     "id": "G#1",
+     "kjelde": "G",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      24.0
+     ]
+    },
+    {
+     "id": "G#2",
+     "kjelde": "G",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      24.0
+     ]
+    }
+   ],
+   "rorsle": [
+    {
+     "type": "innføring",
+     "delar": [
+      "G#0",
+      "G#1",
+      "G#2"
+     ],
+     "vektor_modell": [
+      0,
+      0,
+      -1
+     ],
+     "lengd_mm": 24.0
+    }
+   ],
+   "merknad": "Lommene ligg på asimut 0, 120, 240°. Snora gjev forspenninga i bajonetten (steg 16)."
+  },
+  {
+   "side": 20,
+   "steg": 16,
+   "tittel": "mantelen ned over hylsa med L-spora over knastane, trykk ned mot snora og vri med klokka til ho låser",
+   "scene": "s16_mantel",
+   "kamera": {
+    "retning_mot_betraktar": [
+     0.7170107198329955,
+     0.5311190517281448,
+     0.451451193968923
+    ],
+    "x_akse": null,
+    "snudd_180_om_x": false,
+    "skala_mm_per_mm": 0.5371
+   },
+   "delar": [
+    {
+     "id": "01",
+     "kjelde": "01",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "03",
+     "kjelde": "03",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "E#0",
+     "kjelde": "E",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "E#1",
+     "kjelde": "E",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "E#2",
+     "kjelde": "E",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "13",
+     "kjelde": "13",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#00s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#00m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#01s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#01m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#10s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#10m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#11s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#11m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#20s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#20m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#21s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#21m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "14",
+     "kjelde": "14",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "F",
+     "kjelde": "F",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "D",
+     "kjelde": "Dt",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "G#0",
+     "kjelde": "G",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "G#1",
+     "kjelde": "G",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "G#2",
+     "kjelde": "G",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "05b",
+     "kjelde": "05b",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "05",
+     "kjelde": "05",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "C#0",
+     "kjelde": "C",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "C#1",
+     "kjelde": "C",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "C#2",
+     "kjelde": "C",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "06",
+     "kjelde": "06",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "06b",
+     "kjelde": "06b",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "06c",
+     "kjelde": "06c",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "07",
+     "kjelde": "07",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "06d",
+     "kjelde": "06d",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "04",
+     "kjelde": "04",
+     "ny_i_steget": true,
+     "rot_z_grader": 14.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      120.0
+     ]
+    },
+    {
+     "id": "10",
+     "kjelde": "10",
+     "ny_i_steget": true,
+     "rot_z_grader": 14.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      120.0
+     ]
+    }
+   ],
+   "rorsle": [
+    {
+     "type": "innføring",
+     "delar": [
+      "04",
+      "10"
+     ],
+     "vektor_modell": [
+      0,
+      0,
+      -1
+     ],
+     "lengd_mm": 120.0,
+     "start_rot_z_grader": 14.0
+    },
+    {
+     "type": "trykk",
+     "delar": [
+      "04",
+      "10"
+     ],
+     "vektor_modell": [
+      0,
+      0,
+      -1
+     ],
+     "skildring": "mot snorbitane G, forbi nabben 0,55 mm"
+    },
+    {
+     "type": "rotasjon",
+     "delar": [
+      "04",
+      "10"
+     ],
+     "akse_modell": [
+      0,
+      0,
+      1
+     ],
+     "frå_grader": 14.0,
+     "til_grader": 0.0,
+     "skildring": "med klokka sett ovanfrå (minkande asimut), slik L-sporet i modellen krev"
+    }
+   ],
+   "merknad": "L-sporet har inngangen på knastvinkel - baj_vri i mantelen si ramme: mantelen går ned berre når ho står på +14°. Demontering: trykk ned, vri 14° mot klokka, løft."
+  },
+  {
+   "side": 21,
+   "steg": 17,
+   "tittel": "opalskiva 08 ned i setet, ho smett under tre små nabbar (0°, 120°, 240°)",
+   "scene": "s17_lok",
+   "kamera": {
+    "retning_mot_betraktar": [
+     0.7170107198329955,
+     0.5311190517281448,
+     0.451451193968923
+    ],
+    "x_akse": null,
+    "snudd_180_om_x": false,
+    "skala_mm_per_mm": 0.5371
+   },
+   "delar": [
+    {
+     "id": "01",
+     "kjelde": "01",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "03",
+     "kjelde": "03",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "E#0",
+     "kjelde": "E",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "E#1",
+     "kjelde": "E",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "E#2",
+     "kjelde": "E",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "13",
+     "kjelde": "13",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#00s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#00m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#01s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#01m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#10s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#10m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#11s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#11m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#20s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#20m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#21s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#21m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "14",
+     "kjelde": "14",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "F",
+     "kjelde": "F",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "D",
+     "kjelde": "Dt",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "G#0",
+     "kjelde": "G",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "G#1",
+     "kjelde": "G",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "G#2",
+     "kjelde": "G",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "05b",
+     "kjelde": "05b",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "05",
+     "kjelde": "05",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "C#0",
+     "kjelde": "C",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "C#1",
+     "kjelde": "C",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "C#2",
+     "kjelde": "C",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "06",
+     "kjelde": "06",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "06b",
+     "kjelde": "06b",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "06c",
+     "kjelde": "06c",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "07",
+     "kjelde": "07",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "06d",
+     "kjelde": "06d",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "04",
+     "kjelde": "04",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "10",
+     "kjelde": "10",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "08",
+     "kjelde": "08",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      46
+     ]
+    }
+   ],
+   "rorsle": [
+    {
+     "type": "innføring",
+     "delar": [
+      "08"
+     ],
+     "vektor_modell": [
+      0,
+      0,
+      -1
+     ],
+     "lengd_mm": 46
+    }
+   ],
+   "merknad": "Fingergrepa på 90° og 270° er for å løfte loket ut igjen (S1)."
+  },
+  {
+   "side": 22,
+   "steg": null,
+   "tittel": "sluttkontroll",
+   "scene": "framside",
+   "kamera": {
+    "retning_mot_betraktar": [
+     0.7170107198329955,
+     0.5311190517281448,
+     0.451451193968923
+    ],
+    "x_akse": null,
+    "snudd_180_om_x": false,
+    "skala_mm_per_mm": 0.7429
+   },
+   "delar": [
+    {
+     "id": "01",
+     "kjelde": "01",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "03",
+     "kjelde": "03",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "E#0",
+     "kjelde": "E",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "E#1",
+     "kjelde": "E",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "E#2",
+     "kjelde": "E",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "13",
+     "kjelde": "13",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#00s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#00m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#01s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#01m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#10s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#10m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#11s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#11m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#20s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#20m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#21s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#21m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "14",
+     "kjelde": "14",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "F",
+     "kjelde": "F",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "D",
+     "kjelde": "Dt",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "G#0",
+     "kjelde": "G",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "G#1",
+     "kjelde": "G",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "G#2",
+     "kjelde": "G",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "05b",
+     "kjelde": "05b",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "05",
+     "kjelde": "05",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "C#0",
+     "kjelde": "C",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "C#1",
+     "kjelde": "C",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "C#2",
+     "kjelde": "C",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "06",
+     "kjelde": "06",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "06b",
+     "kjelde": "06b",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "06c",
+     "kjelde": "06c",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "07",
+     "kjelde": "07",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "06d",
+     "kjelde": "06d",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "04",
+     "kjelde": "04",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "10",
+     "kjelde": "10",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "08",
+     "kjelde": "08",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    }
+   ],
+   "rorsle": [],
+   "merknad": ""
+  },
+  {
+   "side": 23,
+   "steg": "S1",
+   "tittel": "service: vri til av (90°), lyft loket ut i fingergrepet, dra modulen rett opp",
+   "scene": "sv1_modul",
+   "kamera": {
+    "retning_mot_betraktar": [
+     0.7170107198329955,
+     0.5311190517281448,
+     0.451451193968923
+    ],
+    "x_akse": null,
+    "snudd_180_om_x": false,
+    "skala_mm_per_mm": 0.5089
+   },
+   "delar": [
+    {
+     "id": "01",
+     "kjelde": "01",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "03",
+     "kjelde": "03",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "E#0",
+     "kjelde": "E",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "E#1",
+     "kjelde": "E",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "E#2",
+     "kjelde": "E",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "13",
+     "kjelde": "13",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#00s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#00m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#01s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#01m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#10s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#10m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#11s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#11m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#20s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#20m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#21s",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "J#21m",
+     "kjelde": "J",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "14",
+     "kjelde": "14",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "F",
+     "kjelde": "F",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "D",
+     "kjelde": "Dt",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "G#0",
+     "kjelde": "G",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "G#1",
+     "kjelde": "G",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "G#2",
+     "kjelde": "G",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "05b",
+     "kjelde": "05b",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "05",
+     "kjelde": "05",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "C#0",
+     "kjelde": "C",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "C#1",
+     "kjelde": "C",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "C#2",
+     "kjelde": "C",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      0.0
+     ]
+    },
+    {
+     "id": "04",
+     "kjelde": "04",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "10",
+     "kjelde": "10",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "06",
+     "kjelde": "06",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      150
+     ]
+    },
+    {
+     "id": "06b",
+     "kjelde": "06b",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      150
+     ]
+    },
+    {
+     "id": "06c",
+     "kjelde": "06c",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      150
+     ]
+    },
+    {
+     "id": "07",
+     "kjelde": "07",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      150
+     ]
+    },
+    {
+     "id": "06d",
+     "kjelde": "06d",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      150
+     ]
+    }
+   ],
+   "rorsle": [
+    {
+     "type": "rotasjon",
+     "delar": [
+      "05",
+      "05b",
+      "C"
+     ],
+     "akse_modell": [
+      0,
+      0,
+      1
+     ],
+     "til_grader": -90.0,
+     "skildring": "til av (90°): alle tre brytarane opne, 0 W før pluggen i mastfoten blir kopla frå"
+    },
+    {
+     "type": "uttak",
+     "delar": [
+      "08"
+     ],
+     "vektor_modell": [
+      0,
+      0,
+      1
+     ]
+    },
+    {
+     "type": "uttak",
+     "delar": [
+      "06",
+      "06b",
+      "06c",
+      "07",
+      "06d"
+     ],
+     "vektor_modell": [
+      0,
+      0,
+      1
+     ]
+    }
+   ],
+   "merknad": "Lysmodulen er limt (2K-epoksy) og blir bytt som heil eining."
+  },
+  {
+   "side": 24,
+   "steg": "S2",
+   "tittel": "service: vri til av, lok og modul ut (S1), USB ut; mantelen av (trykk ned, vri mot klokka, løft), snu og skru ut 3 x A, lyft chassiset med hylsa, JST ut",
+   "scene": "sv2_lyft",
+   "kamera": {
+    "retning_mot_betraktar": [
+     0.7170107198329955,
+     0.5311190517281448,
+     0.451451193968923
+    ],
+    "x_akse": null,
+    "snudd_180_om_x": false,
+    "skala_mm_per_mm": 0
+   },
+   "delar": [
+    {
+     "id": "01",
+     "kjelde": "01",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "D",
+     "kjelde": "Dt",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "F",
+     "kjelde": "F",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "03",
+     "kjelde": "03",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      60.0
+     ]
+    },
+    {
+     "id": "E#0",
+     "kjelde": "E",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      60.0
+     ]
+    },
+    {
+     "id": "E#1",
+     "kjelde": "E",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      60.0
+     ]
+    },
+    {
+     "id": "E#2",
+     "kjelde": "E",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      60.0
+     ]
+    },
+    {
+     "id": "13",
+     "kjelde": "13",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      60.0
+     ]
+    },
+    {
+     "id": "J#00s",
+     "kjelde": "J",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      60.0
+     ]
+    },
+    {
+     "id": "J#00m",
+     "kjelde": "J",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      60.0
+     ]
+    },
+    {
+     "id": "J#01s",
+     "kjelde": "J",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      60.0
+     ]
+    },
+    {
+     "id": "J#01m",
+     "kjelde": "J",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      60.0
+     ]
+    },
+    {
+     "id": "J#10s",
+     "kjelde": "J",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      60.0
+     ]
+    },
+    {
+     "id": "J#10m",
+     "kjelde": "J",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      60.0
+     ]
+    },
+    {
+     "id": "J#11s",
+     "kjelde": "J",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      60.0
+     ]
+    },
+    {
+     "id": "J#11m",
+     "kjelde": "J",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      60.0
+     ]
+    },
+    {
+     "id": "J#20s",
+     "kjelde": "J",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      60.0
+     ]
+    },
+    {
+     "id": "J#20m",
+     "kjelde": "J",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      60.0
+     ]
+    },
+    {
+     "id": "J#21s",
+     "kjelde": "J",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      60.0
+     ]
+    },
+    {
+     "id": "J#21m",
+     "kjelde": "J",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      60.0
+     ]
+    },
+    {
+     "id": "14",
+     "kjelde": "14",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      60.0
+     ]
+    },
+    {
+     "id": "05b",
+     "kjelde": "05b",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      60.0
+     ]
+    },
+    {
+     "id": "05",
+     "kjelde": "05",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      60.0
+     ]
+    },
+    {
+     "id": "C#0",
+     "kjelde": "C",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      60.0
+     ]
+    },
+    {
+     "id": "C#1",
+     "kjelde": "C",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      60.0
+     ]
+    },
+    {
+     "id": "C#2",
+     "kjelde": "C",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      60.0
+     ]
+    }
+   ],
+   "rorsle": [
+    {
+     "type": "uttak",
+     "delar": [
+      "08",
+      "06",
+      "06b",
+      "06c",
+      "07",
+      "06d"
+     ],
+     "skildring": "som S1"
+    },
+    {
+     "type": "trykk",
+     "delar": [
+      "04"
+     ],
+     "vektor_modell": [
+      0,
+      0,
+      -1
+     ]
+    },
+    {
+     "type": "rotasjon",
+     "delar": [
+      "04"
+     ],
+     "frå_grader": 0,
+     "til_grader": 14.0,
+     "skildring": "mot klokka sett ovanfrå"
+    },
+    {
+     "type": "uttak",
+     "delar": [
+      "04"
+     ],
+     "vektor_modell": [
+      0,
+      0,
+      1
+     ]
+    },
+    {
+     "type": "uttak",
+     "delar": [
+      "A#0",
+      "A#1",
+      "A#2"
+     ],
+     "vektor_modell": [
+      0,
+      0,
+      -1
+     ]
+    },
+    {
+     "type": "uttak",
+     "delar": [
+      "03"
+     ],
+     "vektor_modell": [
+      0,
+      0,
+      1
+     ]
+    }
+   ],
+   "merknad": "Figur 1: mantelen er teikna løfta og vridd; pilene (ned, boge, opp) sit på mantelen."
+  },
+  {
+   "side": 26,
+   "steg": "M1",
+   "tittel": "sidestripa 06b på framsida av staven 06 (z 92..250), blå SIDE+ og svart GND (E12) lodda til 06b; raud TOPP+ og svart GND (E12) trekte opp nedanfrå gjennom gjennomgangen bak klypa, bakrommet og hola på r 17 (90° og 270°) med trekketråd; fire toppstriper 06c på bereringen i rista 07 med + ytst, og raud TOPP+, svart GND og bøylane mellom 06c lodda etterpå",
+   "scene": "m1_stripene",
+   "kamera": {
+    "retning_mot_betraktar": [
+     0.7170107198329955,
+     0.5311190517281448,
+     0.451451193968923
+    ],
+    "x_akse": null,
+    "snudd_180_om_x": false,
+    "skala_mm_per_mm": 0.2883
+   },
+   "delar": [
+    {
+     "id": "06",
+     "kjelde": "06",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "06b",
+     "kjelde": "06b",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      30.0,
+      0,
+      0
+     ]
+    },
+    {
+     "id": "07",
+     "kjelde": "07",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      -42.86,
+      57.86,
+      0.0
+     ]
+    },
+    {
+     "id": "06c",
+     "kjelde": "06c",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      -42.86,
+      57.86,
+      46.0
+     ]
+    },
+    {
+     "id": "L#1",
+     "kjelde": "mleiar",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "L#2",
+     "kjelde": "mleiar",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "L#0",
+     "kjelde": "mleiar",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "L#3",
+     "kjelde": "mleiar",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    }
+   ],
+   "rorsle": [
+    {
+     "type": "innføring",
+     "delar": [
+      "06b"
+     ],
+     "vektor_modell": [
+      -1,
+      0,
+      0
+     ],
+     "lengd_mm": 30.0
+    },
+    {
+     "type": "lodding",
+     "delar": [
+      "06b",
+      "L#1",
+      "L#2"
+     ]
+    },
+    {
+     "type": "gjennomføring",
+     "delar": [
+      "L#0",
+      "L#3"
+     ],
+     "retning": "nedanfrå og opp",
+     "gjennom": "gjennomgangen bak klypa i golvet, bakrommet og hola på r 17 i bereringen",
+     "hjelpemiddel": "trekketråd"
+    },
+    {
+     "type": "innføring",
+     "delar": [
+      "06c"
+     ],
+     "vektor_modell": [
+      0,
+      0,
+      -1
+     ],
+     "lengd_mm": 46.0
+    },
+    {
+     "type": "lodding",
+     "delar": [
+      "06c",
+      "L#0",
+      "L#3"
+     ],
+     "bøylar": {
+      "+": [
+       0.0,
+       90.0,
+       180.0
+      ],
+      "GND": [
+       0.0,
+       180.0,
+       270.0
+      ],
+      "TOPP+_ved": 90.0,
+      "GND_ved": 270.0
+     }
+    }
+   ],
+   "merknad": "Staven: flatstål 15 × 2, kappa 193, ingen hol (H7). Stripa 158 mm (E1). Den svarte leiaren (GND) er kappa i to bitar, éin frå kvar stripe. Dei fire 06c ligg i parallell: + ytst på alle fire, raud TOPP+ på +-bøylen ved 90°, svart GND på −-bøylen ved 270°; bøylar (AWG 28, ca. 15 mm) over skøytane: + ved 0°, 90° og 180°, − ved 0°, 180° og 270°."
+  },
+  {
+   "side": 26,
+   "steg": "M2",
+   "tittel": "rista 07 (med 06c) tørr ned over staven til ho kviler på toppen av staven; 06b og leiarane frå 06b gjennom gjennomgangen framfor staven, leiarane frå 06c (alt trekte gjennom i M1) under golvet bak klypa; deretter ein kil 2K-epoksy (H11) mellom undersida av golvet og staven, bak og på sidene",
+   "scene": "m2_rista",
+   "kamera": {
+    "retning_mot_betraktar": [
+     0.7170107198329955,
+     0.5311190517281448,
+     0.451451193968923
+    ],
+    "x_akse": null,
+    "snudd_180_om_x": false,
+    "skala_mm_per_mm": 0.2992
+   },
+   "delar": [
+    {
+     "id": "06",
+     "kjelde": "06",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "06b",
+     "kjelde": "06b",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "L#1",
+     "kjelde": "mleiar",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "L#2",
+     "kjelde": "mleiar",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "07",
+     "kjelde": "07",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      40.0
+     ]
+    },
+    {
+     "id": "06c",
+     "kjelde": "06c",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      40.0
+     ]
+    },
+    {
+     "id": "L#0",
+     "kjelde": "mleiar",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "L#3",
+     "kjelde": "mleiar",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    }
+   ],
+   "rorsle": [
+    {
+     "type": "innføring",
+     "delar": [
+      "07",
+      "06c",
+      "L#0",
+      "L#3"
+     ],
+     "vektor_modell": [
+      0,
+      0,
+      -1
+     ],
+     "lengd_mm": 40.0,
+     "merknad": "tørr: limfuga i golvet og klypa er 0,2 og ville skrapt av limet"
+    },
+    {
+     "type": "gjennomføring",
+     "delar": [
+      "06b",
+      "L#1",
+      "L#2"
+     ],
+     "gjennom": "gjennomgangen framfor staven i golvet",
+     "detalj": "dm2_golv"
+    },
+    {
+     "type": "gjennomføring",
+     "delar": [
+      "L#0",
+      "L#3"
+     ],
+     "gjennom": "gjennomgangen bak klypa i golvet",
+     "detalj": "dm2_golv"
+    },
+    {
+     "type": "lim",
+     "delar": [
+      "07",
+      "06"
+     ],
+     "lim": "2K-epoksy (H11)",
+     "kvar": "kil mellom undersida av golvet og staven, baksida og sidene; ikkje framfor staven"
+    }
+   ],
+   "merknad": "Gjennomgangane i golvet (z 84..85,2), målte på B-rep: framfor staven x 1,2..2,8, y −4,2..4,2; bak klypa x −4,2..−2,61, y 3..7,5. Rista kviler på toppen av staven (z 253); sporet i klypa hindrar vriing, kilen held rista når modulen blir løfta i skjørtet."
+  },
+  {
+   "side": 26,
+   "steg": "M3",
+   "tittel": "leiarane under golvet rundt staven til kanalen bak staven i mastfoten, gjennom lomma og ut nedst; lodda til pluggen: tupp = TOPP+ (raud), ring = SIDE+ (blå), hylse = GND (båe svarte)",
+   "scene": "m3_leiarar",
+   "kamera": {
+    "retning_mot_betraktar": [
+     -0.4267895997763199,
+     -0.8535791995526398,
+     0.2987527198434239
+    ],
+    "x_akse": null,
+    "snudd_180_om_x": false,
+    "skala_mm_per_mm": 0.9362
+   },
+   "delar": [
+    {
+     "id": "07",
+     "kjelde": "07",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      14.0
+     ]
+    },
+    {
+     "id": "06",
+     "kjelde": "06",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      14.0
+     ]
+    },
+    {
+     "id": "06b",
+     "kjelde": "06b",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      14.0
+     ]
+    },
+    {
+     "id": "MF",
+     "kjelde": "MF",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "TRS",
+     "kjelde": "TRS",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      -16.0
+     ]
+    },
+    {
+     "id": "L#0",
+     "kjelde": "mleiar",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "L#1",
+     "kjelde": "mleiar",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "L#2",
+     "kjelde": "mleiar",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "L#3",
+     "kjelde": "mleiar",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    }
+   ],
+   "rorsle": [
+    {
+     "type": "gjennomføring",
+     "delar": [
+      "L#0",
+      "L#1",
+      "L#2",
+      "L#3"
+     ],
+     "gjennom": "kanalen bak staven i mastfoten og lomma"
+    },
+    {
+     "type": "lodding",
+     "delar": [
+      "L#0",
+      "L#1",
+      "L#2",
+      "L#3",
+      "TRS"
+     ]
+    }
+   ],
+   "merknad": "Snitt gjennom mastfoten i planet y = 0. Kanalen er 1,2 mm brei bak staven (−X) og går ned i lomma. Rista er teikna skoren over golvet og utanfor r 13."
+  },
+  {
+   "side": 26,
+   "steg": "M4",
+   "tittel": "pluggkroppen limt i lomma nedanfrå (epoksy), modulen ned med staven limt i sporet til han kviler på golvet",
+   "scene": "m4_lim",
+   "kamera": {
+    "retning_mot_betraktar": [
+     -0.4267895997763199,
+     -0.8535791995526398,
+     0.2987527198434239
+    ],
+    "x_akse": null,
+    "snudd_180_om_x": false,
+    "skala_mm_per_mm": 0.9362
+   },
+   "delar": [
+    {
+     "id": "07",
+     "kjelde": "07",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      12.0
+     ]
+    },
+    {
+     "id": "06",
+     "kjelde": "06",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      12.0
+     ]
+    },
+    {
+     "id": "06b",
+     "kjelde": "06b",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      12.0
+     ]
+    },
+    {
+     "id": "MF",
+     "kjelde": "MF",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "TRS",
+     "kjelde": "TRS",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      -14.0
+     ]
+    },
+    {
+     "id": "L#0",
+     "kjelde": "mleiar",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "L#1",
+     "kjelde": "mleiar",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "L#2",
+     "kjelde": "mleiar",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "L#3",
+     "kjelde": "mleiar",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    }
+   ],
+   "rorsle": [
+    {
+     "type": "innføring+lim",
+     "delar": [
+      "TRS"
+     ],
+     "vektor_modell": [
+      0,
+      0,
+      1
+     ],
+     "lengd_mm": 14.0,
+     "lim": "2K-epoksy (H11)"
+    },
+    {
+     "type": "innføring+lim",
+     "delar": [
+      "06",
+      "06b",
+      "07"
+     ],
+     "vektor_modell": [
+      0,
+      0,
+      -1
+     ],
+     "lengd_mm": 12.0,
+     "lim": "2K-epoksy (H11)"
+    }
+   ],
+   "merknad": "Lomma Ø6,1 (prototype Ø6,3) frå underkanten (z 44,4) opp til z 60; stavsporet 2,1 × 15,1 frå z 60 til toppen. Staven kviler på golvet utanfor lomma (|y| > 3,05). Modulen er no éi limt eining."
+  },
+  {
+   "side": 27,
+   "steg": "P",
+   "tittel": "prototype: mantelen i to delar med limt falsskøyt (epoksy), gliderringen 10 limt med CA i toppen av mantelen, hylsa prenta i eitt",
+   "scene": "proto_mantel",
+   "kamera": {
+    "retning_mot_betraktar": [
+     0.7170107198329955,
+     0.5311190517281448,
+     0.451451193968923
+    ],
+    "x_akse": null,
+    "snudd_180_om_x": false,
+    "skala_mm_per_mm": 0.6539
+   },
+   "delar": [
+    {
+     "id": "04a",
+     "kjelde": "proto_mantel",
+     "ny_i_steget": false,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    {
+     "id": "04b",
+     "kjelde": "proto_mantel",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      40.0
+     ]
+    },
+    {
+     "id": "10",
+     "kjelde": "proto_glide",
+     "ny_i_steget": true,
+     "rot_z_grader": 0.0,
+     "eksplodert_forskyving_mm": [
+      0,
+      0,
+      74.0
+     ]
+    }
+   ],
+   "rorsle": [
+    {
+     "type": "innføring+lim",
+     "delar": [
+      "04b"
+     ],
+     "vektor_modell": [
+      0,
+      0,
+      -1
+     ],
+     "lengd_mm": 40.0,
+     "lim": "epoksy i falsen"
+    },
+    {
+     "type": "innføring+lim",
+     "delar": [
+      "10"
+     ],
+     "vektor_modell": [
+      0,
+      0,
+      -1
+     ],
+     "lengd_mm": 34.0,
+     "lim": "CA"
+    }
+   ],
+   "merknad": "Prototypen: gliderringen blir limt med CA i tillegg til falsen i mantelen. Lysmodulen: sjå side 26."
+  }
+ ]
+}

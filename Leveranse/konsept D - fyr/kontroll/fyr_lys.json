@@ -1,0 +1,515 @@
+{
+ "skildring": "FYR lysmotor, endeleg geometri (rist r 10..32, 55°, deling 16, kile ±45°, inga ribbe). Monte Carlo 250 000 strålar, seriemateriale (børsta messing, pulverlakk inni mantelen).",
+ "føresetnader": {
+  "stripe": "BTF DC5V FCOB 8 mm 320 LED/m RA90, 7 W/m (produsent), 158 mm",
+  "lysutbytte_lm_per_W": "100 (ANTAKING, ikkje publisert)",
+  "stripe_lm": 110.6,
+  "refleksjon_kvit_rist": 0.8,
+  "lok": "PLEXIGLAS Satinice WH02 3 mm, T 0,44 (datablad)"
+ },
+ "avskjering_direkte_maks_elevasjon_grader": -37.49,
+ "lm_ut_gjennom_spaltene": 3.3,
+ "lm_ut_ned": 2.76,
+ "lm_ut_opp": 0.53,
+ "verknadsgrad_sidelys": 0.0298,
+ "bord_lux": {
+  "arc_100": {
+   "mean": 27.9,
+   "peak": 43.4,
+   "min": 17.5,
+   "mod": 0.42,
+   "direct_mean": 5.8,
+   "mod_direct": 1.0
+  },
+  "arc_150": {
+   "mean": 91.3,
+   "peak": 127.8,
+   "min": 49.9,
+   "mod": 0.44,
+   "direct_mean": 46.8,
+   "mod_direct": 0.91
+  },
+  "arc_200": {
+   "mean": 46.7,
+   "peak": 69.2,
+   "min": 33.0,
+   "mod": 0.35,
+   "direct_mean": 19.9,
+   "mod_direct": 0.79
+  },
+  "arc_300": {
+   "mean": 6.5,
+   "peak": 10.4,
+   "min": 3.0,
+   "mod": 0.55,
+   "direct_mean": 0.6,
+   "mod_direct": 1.0
+  },
+  "arc_500": {
+   "mean": 1.0,
+   "peak": 1.6,
+   "min": 0.3,
+   "mod": 0.69,
+   "direct_mean": 0.0,
+   "mod_direct": 0.0
+  }
+ },
+ "felt_0_6x0_4_middel_lux": 9.6,
+ "felt_maks_lux_50mm": 88.2,
+ "luminans_sett_frå_augo_cd_m2": {
+  "H250_D400": {
+   "maks": 1211.0,
+   "p99": 755.0,
+   "middel": 168.0,
+   "stripe_sett": 0.0
+  },
+  "H250_D700": {
+   "maks": 1264.0,
+   "p99": 811.0,
+   "middel": 189.0,
+   "stripe_sett": 0.0
+  },
+  "H350_D400": {
+   "maks": 1211.0,
+   "p99": 636.0,
+   "middel": 150.0,
+   "stripe_sett": 0.0
+  },
+  "H350_D700": {
+   "maks": 1211.0,
+   "p99": 752.0,
+   "middel": 176.0,
+   "stripe_sett": 0.0
+  },
+  "H470_D400": {
+   "maks": 752.0,
+   "p99": 512.0,
+   "middel": 134.0,
+   "stripe_sett": 0.0
+  },
+  "H470_D700": {
+   "maks": 1211.0,
+   "p99": 656.0,
+   "middel": 164.0,
+   "stripe_sett": 0.0
+  },
+  "H600_D400": {
+   "maks": 701.0,
+   "p99": 487.0,
+   "middel": 124.0,
+   "stripe_sett": 0.0
+  },
+  "H600_D700": {
+   "maks": 1211.0,
+   "p99": 607.0,
+   "middel": 154.0,
+   "stripe_sett": 0.0
+  }
+ },
+ "luminans_maks_alle_augo_cd_m2": 1264.0,
+ "stripe_luminans_cd_m2": 27852.0,
+ "toppkammer_frå_lysanalysen": {
+  "merknad": "modell med lukka kvitt golv; FYR har ope loft mot toppkammeret, så loket får litt mindre lys og øvre del av spaltene litt meir",
+  "full": {
+   "lm_frå_loket": 14.4,
+   "lok_middel_cd_m2": 1010,
+   "lok_maks_cd_m2": 1240,
+   "straum_av_nominell": 0.37
+  },
+  "glød": {
+   "lm_frå_loket": 5.5,
+   "lok_middel_cd_m2": 390,
+   "lok_maks_cd_m2": 480,
+   "straum_av_nominell": 0.15
+  },
+  "jamnheit_senter_kant": 1.11
+ },
+ "krav": {
+  "F1_ingen_kjelde_synleg_ingen_flate_over_3000": "OPPFYLT (modell + strålekasting på CAD-netta)",
+  "F5_under_1500_cd_m2": "OPPFYLT for spaltene (maks 1264); loket ca 1010-1240 ved full glød",
+  "F3_350_lx_arbeidslys": "IKKJE OPPFYLT: middel 9.6 lx på 0,6 x 0,4 m. FYR er stemnings- og aksentlys (ca 18 lm)."
+ },
+ "kjelde": {
+  "sporar": "cad/lysmodell/kjor.py: fyrlys.py + run_side.py med cfg_serie.json (250 000 strålar, frø 11); toppkammeret frå topp.py; samla med samle.py",
+  "rå_resultat": {
+   "name": "FYR_final",
+   "cfg": {
+    "fill_to_side": true,
+    "beta": 55,
+    "pitch": 16,
+    "r_in": 10,
+    "r_out": 32,
+    "wall": 0.8,
+    "rib_az": [],
+    "side_J": [
+     2.6,
+     9.1
+    ],
+    "side_az": 45,
+    "strip_z0": 92,
+    "strip_z1": 250,
+    "mast": [
+     -1,
+     1,
+     -7.5,
+     7.5,
+     46,
+     253
+    ],
+    "r_si": 41.05,
+    "r_so": 41.85,
+    "flux": 110.6,
+    "mat": {
+     "sleeve_in": [
+      0.05,
+      0.55,
+      0,
+      4
+     ]
+    }
+   },
+   "nrays": 250000,
+   "nlam": 9,
+   "roof_tip": 213.0,
+   "flux_src": 110.6,
+   "esc_total": 3.296362387516563,
+   "esc_down": 2.7642026447698207,
+   "esc_up": 0.5321597427467427,
+   "esc_up_gt5": 0.45312306357440646,
+   "esc_direct": 0.7887991999999999,
+   "esc_direct_max_el": -37.49369643059532,
+   "esc_up_by_last": {
+    "lam_top": 0.472,
+    "lam_edge_out": 0.008,
+    "side": 0.046,
+    "box": 0.0,
+    "floor": 0.001,
+    "sleeve_in": 0.003,
+    "sleeve_out": 0.0,
+    "mantel": 0.0,
+    "roof_top": 0.001
+   },
+   "esc_up_by_nb": {
+    "1": 0.032,
+    "2": 0.096,
+    "3": 0.047,
+    "4": 0.087,
+    "5": 0.048,
+    "6": 0.065
+   },
+   "absorbed": {
+    "slotwall": 0.86,
+    "lam_top": 10.51,
+    "lam_bot": 30.85,
+    "lam_edge_in": 2.42,
+    "side": 12.79,
+    "floor": 10.95,
+    "sleeve_in": 3.03,
+    "sleeve_out": 0.1,
+    "mantel": 5.48,
+    "roof_bot": 5.81,
+    "box": 7.28,
+    "strip": 15.87,
+    "ceil": 0.1,
+    "maxb": 1.2
+   },
+   "el_hist": {
+    "-65": 0.12,
+    "-60": 0.33,
+    "-55": 0.46,
+    "-50": 0.46,
+    "-45": 0.34,
+    "-40": 0.22,
+    "-35": 0.15,
+    "-30": 0.13,
+    "-25": 0.12,
+    "-20": 0.11,
+    "-15": 0.09,
+    "-10": 0.09,
+    "-5": 0.09,
+    "0": 0.08,
+    "5": 0.07,
+    "10": 0.06,
+    "15": 0.06,
+    "20": 0.05
+   },
+   "arc_100": {
+    "mean": 27.9,
+    "peak": 43.4,
+    "min": 17.5,
+    "mod": 0.42,
+    "direct_mean": 5.8,
+    "mod_direct": 1.0
+   },
+   "arc_150": {
+    "mean": 91.3,
+    "peak": 127.8,
+    "min": 49.9,
+    "mod": 0.44,
+    "direct_mean": 46.8,
+    "mod_direct": 0.91
+   },
+   "arc_200": {
+    "mean": 46.7,
+    "peak": 69.2,
+    "min": 33.0,
+    "mod": 0.35,
+    "direct_mean": 19.9,
+    "mod_direct": 0.79
+   },
+   "arc_300": {
+    "mean": 6.5,
+    "peak": 10.4,
+    "min": 3.0,
+    "mod": 0.55,
+    "direct_mean": 0.6,
+    "mod_direct": 1.0
+   },
+   "arc_400": {
+    "mean": 2.1,
+    "peak": 3.1,
+    "min": 1.4,
+    "mod": 0.38,
+    "direct_mean": 0.0,
+    "mod_direct": 0.0
+   },
+   "arc_500": {
+    "mean": 1.0,
+    "peak": 1.6,
+    "min": 0.3,
+    "mod": 0.69,
+    "direct_mean": 0.0,
+    "mod_direct": 0.0
+   },
+   "arc_700": {
+    "mean": 0.3,
+    "peak": 1.1,
+    "min": 0.0,
+    "mod": 0.95,
+    "direct_mean": 0.0,
+    "mod_direct": 0.0
+   },
+   "field_lm": 2.29,
+   "field_mean_lux": 9.6,
+   "field_min_lux_50mm": 0.2,
+   "field_max_lux_50mm": 88.2,
+   "table_lm_r_lt_1m": 2.6,
+   "L_lamtop_max": 6911.0,
+   "L_lamtop_by_r": {
+    "10.2": 4534.0,
+    "11.2": 4142.0,
+    "12.2": 3424.0,
+    "13.2": 3017.0,
+    "14.2": 2578.0,
+    "15.2": 2356.0,
+    "16.2": 1983.0,
+    "17.2": 1739.0,
+    "18.2": 1510.0,
+    "19.2": 1355.0,
+    "20.2": 1143.0,
+    "21.2": 979.0,
+    "22.2": 801.0,
+    "23.2": 634.0,
+    "24.2": 575.0,
+    "25.2": 454.0,
+    "26.2": 340.0,
+    "27.2": 255.0,
+    "28.2": 220.0,
+    "29.2": 185.0,
+    "30.2": 138.0,
+    "31.2": 102.0,
+    "32.2": 0.0
+   },
+   "L_lambot_by_r": {
+    "10.2": 11791.0,
+    "12.2": 10244.0,
+    "14.2": 8748.0,
+    "16.2": 6839.0,
+    "18.2": 4890.0,
+    "20.2": 3237.0,
+    "22.2": 2461.0,
+    "24.2": 1736.0,
+    "26.2": 1286.0,
+    "28.2": 1008.0,
+    "30.2": 707.0,
+    "32.2": 0.0
+   },
+   "L_rooftop_max": 307.0,
+   "L_edge_out_avg": 61.0,
+   "L_sleeve_in_max": 82.0,
+   "L_mantel_in_max": 40.0,
+   "L_rib_max": 6063.0,
+   "L_strip": 27852.0,
+   "eyes": {
+    "H250_D400": {
+     "p999": 1211.0,
+     "mean": 168.0,
+     "p95": 549.0,
+     "p99": 755.0,
+     "max": 1211.0,
+     "frac_gt1500": 0.0,
+     "frac_gt3000": 0.0,
+     "strip_seen": 0.0,
+     "surf": {
+      "lam_top": 0.4,
+      "lam_edge_out": 0.05,
+      "side": 0.13,
+      "box": 0.01,
+      "ceil": 0.01,
+      "sleeve_in": 0.01,
+      "sleeve_out": 0.02,
+      "mantel": 0.02,
+      "slotwall": 0.22,
+      "escape": 0.01,
+      "roof_top": 0.12
+     }
+    },
+    "H250_D700": {
+     "p999": 1166.0,
+     "mean": 189.0,
+     "p95": 616.0,
+     "p99": 811.0,
+     "max": 1264.0,
+     "frac_gt1500": 0.0,
+     "frac_gt3000": 0.0,
+     "strip_seen": 0.0,
+     "surf": {
+      "lam_top": 0.41,
+      "lam_edge_out": 0.05,
+      "side": 0.12,
+      "box": 0.01,
+      "ceil": 0.01,
+      "sleeve_in": 0.0,
+      "sleeve_out": 0.01,
+      "mantel": 0.04,
+      "slotwall": 0.21,
+      "escape": 0.01,
+      "roof_top": 0.12
+     }
+    },
+    "H350_D400": {
+     "p999": 806.0,
+     "mean": 150.0,
+     "p95": 469.0,
+     "p99": 636.0,
+     "max": 1211.0,
+     "frac_gt1500": 0.0,
+     "frac_gt3000": 0.0,
+     "strip_seen": 0.0,
+     "surf": {
+      "lam_top": 0.42,
+      "lam_edge_out": 0.05,
+      "side": 0.15,
+      "floor": 0.0,
+      "ceil": 0.02,
+      "sleeve_out": 0.02,
+      "slotwall": 0.22,
+      "roof_top": 0.12
+     }
+    },
+    "H350_D700": {
+     "p999": 1211.0,
+     "mean": 176.0,
+     "p95": 531.0,
+     "p99": 752.0,
+     "max": 1211.0,
+     "frac_gt1500": 0.0,
+     "frac_gt3000": 0.0,
+     "strip_seen": 0.0,
+     "surf": {
+      "lam_top": 0.42,
+      "lam_edge_out": 0.05,
+      "side": 0.15,
+      "box": 0.0,
+      "ceil": 0.02,
+      "sleeve_out": 0.01,
+      "mantel": 0.0,
+      "slotwall": 0.21,
+      "escape": 0.0,
+      "roof_top": 0.13
+     }
+    },
+    "H470_D400": {
+     "p999": 636.0,
+     "mean": 134.0,
+     "p95": 439.0,
+     "p99": 512.0,
+     "max": 752.0,
+     "frac_gt1500": 0.0,
+     "frac_gt3000": 0.0,
+     "strip_seen": 0.0,
+     "surf": {
+      "lam_top": 0.43,
+      "lam_edge_out": 0.05,
+      "side": 0.13,
+      "floor": 0.01,
+      "ceil": 0.01,
+      "sleeve_out": 0.02,
+      "slotwall": 0.22,
+      "roof_top": 0.12
+     }
+    },
+    "H470_D700": {
+     "p999": 1211.0,
+     "mean": 164.0,
+     "p95": 505.0,
+     "p99": 656.0,
+     "max": 1211.0,
+     "frac_gt1500": 0.0,
+     "frac_gt3000": 0.0,
+     "strip_seen": 0.0,
+     "surf": {
+      "lam_top": 0.44,
+      "lam_edge_out": 0.05,
+      "side": 0.15,
+      "ceil": 0.02,
+      "sleeve_out": 0.01,
+      "slotwall": 0.21,
+      "roof_top": 0.12
+     }
+    },
+    "H600_D400": {
+     "p999": 636.0,
+     "mean": 124.0,
+     "p95": 426.0,
+     "p99": 487.0,
+     "max": 701.0,
+     "frac_gt1500": 0.0,
+     "frac_gt3000": 0.0,
+     "strip_seen": 0.0,
+     "surf": {
+      "lam_top": 0.44,
+      "lam_edge_out": 0.05,
+      "side": 0.09,
+      "floor": 0.05,
+      "ceil": 0.0,
+      "sleeve_out": 0.02,
+      "slotwall": 0.23,
+      "roof_top": 0.12
+     }
+    },
+    "H600_D700": {
+     "p999": 752.0,
+     "mean": 154.0,
+     "p95": 481.0,
+     "p99": 607.0,
+     "max": 1211.0,
+     "frac_gt1500": 0.0,
+     "frac_gt3000": 0.0,
+     "strip_seen": 0.0,
+     "surf": {
+      "lam_top": 0.45,
+      "lam_edge_out": 0.05,
+      "side": 0.13,
+      "floor": 0.0,
+      "ceil": 0.01,
+      "sleeve_out": 0.01,
+      "slotwall": 0.21,
+      "roof_top": 0.13
+     }
+    }
+   },
+   "time_s": 73.7
+  }
+ }
+}

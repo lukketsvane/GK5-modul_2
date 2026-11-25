@@ -1,0 +1,228 @@
+{
+ "skildring": "FYR lyskontroll på CAD-nett (BVH, første treff, heile lampa svart)",
+ "theta": 0.0,
+ "avskjering_rekna_2D_grader": 37.389715452150966,
+ "1_avskjering": {
+  "n": 1000000,
+  "slapp_ut": 6028,
+  "maks_elevasjon_slapp_ut": -36.85426835650868,
+  "hist": {
+   "-45": 820,
+   "-65": 320,
+   "-55": 1920,
+   "-50": 1415,
+   "-60": 1454,
+   "-40": 99
+  },
+  "slapp_ut_del": 0.006028,
+  "krav": "ingen stråle ut over -34°",
+  "bestatt": true
+ },
+ "2_toppemitter": {
+  "n": 250000,
+  "forbi_loket": 0,
+  "treff_lok": 110566,
+  "krav": "ingen stråle ut utan å gå gjennom loket",
+  "bestatt": true
+ },
+ "3_augo": {
+  "posisjonar": [
+   {
+    "h": 250.0,
+    "d": 400.0,
+    "asimut": -30.0,
+    "strålar": 20000,
+    "inn_i_lampa": 1897,
+    "led_treff": 0
+   },
+   {
+    "h": 250.0,
+    "d": 400.0,
+    "asimut": 0.0,
+    "strålar": 20000,
+    "inn_i_lampa": 2885,
+    "led_treff": 0
+   },
+   {
+    "h": 250.0,
+    "d": 400.0,
+    "asimut": 30.0,
+    "strålar": 20000,
+    "inn_i_lampa": 1877,
+    "led_treff": 0
+   },
+   {
+    "h": 250.0,
+    "d": 700.0,
+    "asimut": -30.0,
+    "strålar": 20000,
+    "inn_i_lampa": 1883,
+    "led_treff": 0
+   },
+   {
+    "h": 250.0,
+    "d": 700.0,
+    "asimut": 0.0,
+    "strålar": 20000,
+    "inn_i_lampa": 2888,
+    "led_treff": 0
+   },
+   {
+    "h": 250.0,
+    "d": 700.0,
+    "asimut": 30.0,
+    "strålar": 20000,
+    "inn_i_lampa": 1863,
+    "led_treff": 0
+   },
+   {
+    "h": 350.0,
+    "d": 400.0,
+    "asimut": -30.0,
+    "strålar": 20000,
+    "inn_i_lampa": 2118,
+    "led_treff": 0
+   },
+   {
+    "h": 350.0,
+    "d": 400.0,
+    "asimut": 0.0,
+    "strålar": 20000,
+    "inn_i_lampa": 2922,
+    "led_treff": 0
+   },
+   {
+    "h": 350.0,
+    "d": 400.0,
+    "asimut": 30.0,
+    "strålar": 20000,
+    "inn_i_lampa": 2076,
+    "led_treff": 0
+   },
+   {
+    "h": 350.0,
+    "d": 700.0,
+    "asimut": -30.0,
+    "strålar": 20000,
+    "inn_i_lampa": 2055,
+    "led_treff": 0
+   },
+   {
+    "h": 350.0,
+    "d": 700.0,
+    "asimut": 0.0,
+    "strålar": 20000,
+    "inn_i_lampa": 2947,
+    "led_treff": 0
+   },
+   {
+    "h": 350.0,
+    "d": 700.0,
+    "asimut": 30.0,
+    "strålar": 20000,
+    "inn_i_lampa": 2062,
+    "led_treff": 0
+   },
+   {
+    "h": 470.0,
+    "d": 400.0,
+    "asimut": -30.0,
+    "strålar": 20000,
+    "inn_i_lampa": 3315,
+    "led_treff": 0
+   },
+   {
+    "h": 470.0,
+    "d": 400.0,
+    "asimut": 0.0,
+    "strålar": 20000,
+    "inn_i_lampa": 4126,
+    "led_treff": 0
+   },
+   {
+    "h": 470.0,
+    "d": 400.0,
+    "asimut": 30.0,
+    "strålar": 20000,
+    "inn_i_lampa": 3301,
+    "led_treff": 0
+   },
+   {
+    "h": 470.0,
+    "d": 700.0,
+    "asimut": -30.0,
+    "strålar": 20000,
+    "inn_i_lampa": 2339,
+    "led_treff": 0
+   },
+   {
+    "h": 470.0,
+    "d": 700.0,
+    "asimut": 0.0,
+    "strålar": 20000,
+    "inn_i_lampa": 3154,
+    "led_treff": 0
+   },
+   {
+    "h": 470.0,
+    "d": 700.0,
+    "asimut": 30.0,
+    "strålar": 20000,
+    "inn_i_lampa": 2314,
+    "led_treff": 0
+   },
+   {
+    "h": 600.0,
+    "d": 400.0,
+    "asimut": -30.0,
+    "strålar": 20000,
+    "inn_i_lampa": 3901,
+    "led_treff": 0
+   },
+   {
+    "h": 600.0,
+    "d": 400.0,
+    "asimut": 0.0,
+    "strålar": 20000,
+    "inn_i_lampa": 4765,
+    "led_treff": 0
+   },
+   {
+    "h": 600.0,
+    "d": 400.0,
+    "asimut": 30.0,
+    "strålar": 20000,
+    "inn_i_lampa": 3956,
+    "led_treff": 0
+   },
+   {
+    "h": 600.0,
+    "d": 700.0,
+    "asimut": -30.0,
+    "strålar": 20000,
+    "inn_i_lampa": 3244,
+    "led_treff": 0
+   },
+   {
+    "h": 600.0,
+    "d": 700.0,
+    "asimut": 0.0,
+    "strålar": 20000,
+    "inn_i_lampa": 4165,
+    "led_treff": 0
+   },
+   {
+    "h": 600.0,
+    "d": 700.0,
+    "asimut": 30.0,
+    "strålar": 20000,
+    "inn_i_lampa": 3312,
+    "led_treff": 0
+   }
+  ],
+  "led_treff_totalt": 0,
+  "krav": "ingen siktline frå sitjande augo treffer ein LED",
+  "bestatt": true
+ },
+ "alle_bestatt": true
+}

@@ -1,0 +1,5 @@
+topp_map_*.npy
+res_*.json
+maps_*.npz
+table_*.npz
+log_*.txt

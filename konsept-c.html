@@ -1,0 +1,918 @@
+<!doctype html>
+<html lang="nn">
+<head>
+<meta charset="utf-8">
+<title>Vippe</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#ffffff">
+<style>
+/* Layout: éin skjerm, ingenting rullar. Scena fyller alt; ei rad tynne strekar nedst er scrubben. Reint svart. */
+:root {
+  --bg: #ffffff;
+  --tick: 0, 0, 0;
+  --hot: 0, 0, 0;
+  color-scheme: light;
+}
+html, body {
+  height: 100%; margin: 0; background: var(--bg); overflow: hidden;
+  overscroll-behavior: none; touch-action: none;
+  -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: 100%;
+}
+#scene { position: fixed; inset: 0; width: 100%; height: 100%; display: block; background: var(--bg); cursor: grab; touch-action: none; }
+#scene:active { cursor: grabbing; }
+#scrub {
+  position: fixed; left: 0; right: 0; bottom: 0; height: 72px;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  padding-left: env(safe-area-inset-left, 0px); padding-right: env(safe-area-inset-right, 0px);
+  touch-action: none; cursor: ew-resize; outline: none;
+}
+#ticks { display: block; width: 100%; height: 72px; }
+#scrub { z-index: 2; }
+#ground {
+  position: fixed; left: 0; bottom: 0; z-index: 3; margin: 0; padding: 0; border: 0; border-radius: 0;
+  width: calc(68px + env(safe-area-inset-left, 0px)); height: calc(68px + env(safe-area-inset-bottom, 0px));
+  background: transparent; opacity: 0; cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+}
+#ground:focus-visible { opacity: 1; outline: 1px solid rgba(255, 255, 255, 0.35); outline-offset: -6px; }
+#scrub:focus-visible #ticks { filter: drop-shadow(0 0 4px rgba(var(--hot), 0.5)); }
+.nogl { position: fixed; inset: 0; display: grid; place-items: center; color: rgba(var(--tick), 0.5); font: 15px/1.4 system-ui, sans-serif; padding: 24px; text-align: center; }
+</style>
+<meta name="description" content="Vippe: interaktiv 3D-modell av lampa. GK5 modul 2, AHO.">
+</head>
+<body>
+<canvas id="scene" role="img" aria-label="3D-modell av lampa Vippe. Dra for å snu."></canvas>
+<button id="ground" type="button" aria-label="Underlag: Eik. Trykk for å byte."></button>
+<div id="scrub" role="slider" tabindex="0" aria-label="Stilling, frå oppreist arm til lågt over bordet" aria-valuemin="0" aria-valuemax="100" aria-valuenow="56"><canvas id="ticks" aria-hidden="true"></canvas></div>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/objects/Reflector.js"></script>
+<script>
+(function () {
+  "use strict";
+  // where the page starts (double tap or double click returns to this view)
+  var START = { s: 0.56, yaw: 2.6, pitch: 0.12, zoom: (window.innerWidth > window.innerHeight ? 0.85 : 1), ground: "none", white: true, sun: { az: 2.9, el: 0.45 } };
+  var canvas = document.getElementById("scene");
+  var scrub = document.getElementById("scrub");
+  var ticks = document.getElementById("ticks");
+  var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // no page zoom or scroll (iOS ignores user-scalable for pinch, so block the gestures)
+  ["gesturestart", "gesturechange", "gestureend"].forEach(function (t) { document.addEventListener(t, function (e) { e.preventDefault(); }, { passive: false }); });
+  document.addEventListener("touchmove", function (e) { e.preventDefault(); }, { passive: false });
+  document.addEventListener("dblclick", function (e) { e.preventDefault(); }, { passive: false });
+  document.addEventListener("wheel", function (e) { if (e.ctrlKey) e.preventDefault(); }, { passive: false });
+
+
+  // ---------- timeline (lengths in cm, angles in degrees) ----------
+  // Vippe: the arm tips about the pin at the top of the folded stand, and the pin rides in the slot.
+  // Upright it is a dim column that lights the room; tipped down to level it is a work light over the table;
+  // then the joint slides down the slot until the arm hangs a hand's breadth over the wood, dimmed and warm.
+  var S = START.s, sGoal = START.s;
+  var hm = /^#s(\d(?:\.\d+)?)(?:,z(\d+(?:\.\d+)?))?(?:,y(-?\d+(?:\.\d+)?))?(?:,p(\d+(?:\.\d+)?))?$/.exec(location.hash);
+  if (hm) S = sGoal = Math.min(1, parseFloat(hm[1]));
+  function seg(s, a, b) { var t = Math.min(1, Math.max(0, (s - a) / (b - a))); return t * t * (3 - 2 * t); }
+  function pose(s) {
+    var tilt = 90 * (1 - seg(s, 0.1, 0.5));
+    var slide = seg(s, 0.62, 0.97);              // 0 = pin at the top of the slot, 1 = at its foot
+    var level = 0.4 * seg(s, 0.015, 0.1) + 0.6 * seg(s, 0.12, 0.5) - 0.8 * slide;   // exactly 0 in the "Av" band
+    var cool = seg(s, 0.1, 0.5) * (1 - 0.5 * slide);   // dim to warm: about 2000 K upright and low, 3000 K at full
+    return { tilt: tilt, slide: slide, level: level, cool: cool };
+  }
+  function phaseText(s) {
+    if (s < 0.015) return "Av, armen står oppreist";
+    if (s <= 0.1) return "Stemning, armen står oppreist og lyser ut i rommet";
+    if (s < 0.5) return "Armen vippar ned om tappen";
+    if (s < 0.62) return "Arbeid, lys ned på bordet";
+    if (s < 0.97) return "Leddet glir ned langs spora";
+    return "Lågt, lyset stryk langs bordet";
+  }
+
+  // ---------- scrub: a row of hairlines; the ones near the position rise and warm up ----------
+  var tctx = ticks.getContext("2d"), tW = 0, tH = 72, tPR = 1, ML = 80, MR = 28;
+  function sizeTicks() {
+    tPR = Math.min(window.devicePixelRatio || 1, 3);
+    tW = ticks.clientWidth;
+    ticks.width = Math.round(tW * tPR); ticks.height = Math.round(tH * tPR);
+    drawTicks();
+  }
+  function drawTicks() {
+    if (!tW) return;
+    tctx.setTransform(tPR, 0, 0, tPR, 0, 0);
+    tctx.clearRect(0, 0, tW, tH);
+    var span = tW - ML - MR, step = tW < 500 ? 49 : 63, n = Math.max(4, Math.round(span / step)), px = ML + S * span, gap = span / n;
+    for (var i = 0; i <= n; i++) {
+      var x = ML + span * i / n, d = (x - px) / (gap * 0.9), k = Math.exp(-d * d);
+      var h = 5 + 9 * k, a = 0.28 + 0.6 * k;                       // stubs that only just reach into the view
+      var w = k > 0.6 ? 1.5 : 1;
+      tctx.fillStyle = "rgba(" + getTick() + "," + a.toFixed(3) + ")";
+      tctx.fillRect(Math.round(x * tPR) / tPR - w / 2, tH - h, w, h);
+    }
+  }
+  var cssVars = getComputedStyle(document.documentElement);
+  function getTick() { return (cssVars.getPropertyValue("--tick") || "236, 232, 225").trim(); }
+  function getHot() { return (cssVars.getPropertyValue("--hot") || "242, 196, 122").trim(); }
+  function sFromX(clientX) {
+    var r = ticks.getBoundingClientRect();
+    return Math.min(1, Math.max(0, (clientX - r.left - ML) / (r.width - ML - MR)));
+  }
+  var scrubbing = false;
+  scrub.addEventListener("pointerdown", function (ev) {
+    scrubbing = true; try { scrub.setPointerCapture(ev.pointerId); } catch (e) {} sGoal = sFromX(ev.clientX); kick();
+  });
+  scrub.addEventListener("pointermove", function (ev) { if (!scrubbing) return; sGoal = sFromX(ev.clientX); kick(); });
+  function endScrub() { scrubbing = false; kick(); }
+  scrub.addEventListener("pointerup", endScrub);
+  scrub.addEventListener("pointercancel", endScrub);
+  scrub.addEventListener("keydown", function (ev) {
+    var d = { ArrowRight: 0.025, ArrowUp: 0.025, ArrowLeft: -0.025, ArrowDown: -0.025, PageUp: 0.1, PageDown: -0.1 }[ev.key];
+    if (ev.key === "Home") { sGoal = 0; } else if (ev.key === "End") { sGoal = 1; } else if (!d) return; else sGoal = Math.min(1, Math.max(0, sGoal + d));
+    ev.preventDefault(); kick();
+  });
+  function updateAria() {
+    scrub.setAttribute("aria-valuenow", String(Math.round(S * 100)));
+    scrub.setAttribute("aria-valuetext", phaseText(S));
+  }
+
+  var renderer = null;
+  try { renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, powerPreference: "high-performance" }); }
+  catch (err) {
+    var msg = document.createElement("div"); msg.className = "nogl";
+    msg.textContent = "3D-modellen kan ikkje visast i denne nettlesaren.";
+    document.body.appendChild(msg);
+  }
+  var running = false, needsUpdate = true;
+  function kick() { if (!running) { running = true; requestAnimationFrame(frame); } }   // keep drawing: camera, light, settling
+  function kickPose() { needsUpdate = true; kick(); }   // the lamp or the ground changed: pose, shadows and reflections again
+  if (!renderer) {
+    // still let the scrub move without 3D
+    var frame = function () { S += (sGoal - S) * 0.3; if (Math.abs(sGoal - S) < 0.0005) S = sGoal; drawTicks(); updateAria(); if (S !== sGoal) requestAnimationFrame(frame); else running = false; };
+    window.addEventListener("resize", sizeTicks); sizeTicks(); updateAria();
+    return;
+  }
+
+  // ---------- renderer ----------
+  var isPhone = Math.min(screen.width, screen.height) < 600;
+  var maxPR = 2;
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, maxPR));
+  renderer.physicallyCorrectLights = true;
+  renderer.outputEncoding = THREE.sRGBEncoding;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.15;
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  renderer.shadowMap.autoUpdate = false;
+
+  var scene = new THREE.Scene();
+  scene.background = new THREE.Color(0x000000);
+  scene.fog = new THREE.Fog(0x000000, 200, 460);
+  var camera = new THREE.PerspectiveCamera(28, 1, 1, 3000);
+
+  // ---------- procedural textures ----------
+  var seed = 11;
+  function rnd() { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; }
+  function makeCanvas(w, h, draw) { var c = document.createElement("canvas"); c.width = w; c.height = h; draw(c.getContext("2d"), w, h); return c; }
+  function tex(c, srgb, rep) {
+    var t = new THREE.CanvasTexture(c);
+    if (srgb) t.encoding = THREE.sRGBEncoding;
+    t.anisotropy = Math.min(8, renderer.capabilities.getMaxAnisotropy());
+    if (rep) { t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(rep[0], rep[1]); }
+    return t;
+  }
+
+  // ---------- woods: growth rings from value noise, plank seams, pores, rays. Colour + grey height map in one pass ----------
+  var OW = isPhone ? 1536 : 2048, OH = OW / 2;
+  var WOODS = [
+    { name: "Eik", early: [164, 116, 72], late: [94, 62, 34], ring: 26, lateAt: 0.62, wave: 0.18, planks: 5, pores: 2.2, pore: "rgba(40,22,10,0.30)", poreH: "rgba(20,20,20,0.6)", rays: 140, ray: "rgba(205,160,110,0.22)", edge: 0x3e2614, coat: 0.22, seed: 11 },
+    { name: "Valnøtt", early: [108, 72, 50], late: [66, 43, 30], ring: 19, lateAt: 0.58, wave: 0.3, planks: 4, pores: 1.3, pore: "rgba(22,13,9,0.34)", poreH: "rgba(30,30,30,0.5)", rays: 0, edge: 0x24170f, coat: 0.4, seed: 23 },
+    { name: "Ask", early: [218, 199, 166], late: [170, 141, 100], ring: 21, lateAt: 0.56, wave: 0.14, planks: 5, pores: 2.8, pore: "rgba(112,86,54,0.32)", poreH: "rgba(40,40,40,0.55)", rays: 0, edge: 0xa08866, coat: 0.16, seed: 37 },
+    { name: "Røykt eik", early: [104, 78, 56], late: [46, 32, 22], ring: 26, lateAt: 0.6, wave: 0.18, planks: 5, pores: 2.2, pore: "rgba(14,9,5,0.36)", poreH: "rgba(20,20,20,0.6)", rays: 140, ray: "rgba(150,116,82,0.2)", edge: 0x21160f, coat: 0.28, seed: 53 }
+  ];
+  function buildWood(W) {
+    if (W.map) return W;
+    seed = W.seed;
+    var G = 64, grid = new Float32Array(G * G);
+    for (var i = 0; i < grid.length; i++) grid[i] = rnd();
+    function vn(x, y) {
+      var xi = Math.floor(x), yi = Math.floor(y), xf = x - xi, yf = y - yi;
+      var u = xf * xf * (3 - 2 * xf), v = yf * yf * (3 - 2 * yf);
+      var x0 = ((xi % G) + G) % G, y0 = ((yi % G) + G) % G, x1 = (x0 + 1) % G, y1 = (y0 + 1) % G;
+      var a = grid[y0 * G + x0], b = grid[y0 * G + x1], c = grid[y1 * G + x0], d = grid[y1 * G + x1];
+      return a + (b - a) * u + (c - a) * v + (a - b - c + d) * u * v;
+    }
+    var cC = document.createElement("canvas"), cH = document.createElement("canvas");
+    cC.width = cH.width = OW; cC.height = cH.height = OH;
+    var gc = cC.getContext("2d"), gh = cH.getContext("2d");
+    var ic = gc.createImageData(OW, OH), ih = gh.createImageData(OW, OH), dc = ic.data, dh = ih.data;
+    var P = W.planks, plankTone = [], plankShift = [], e = W.early, l = W.late, span = 1 - W.lateAt;
+    for (var p = 0; p < P; p++) { plankTone.push(0.9 + rnd() * 0.18); plankShift.push(rnd() * 40); }
+    for (var y = 0; y < OH; y++) {
+      var vy = y / OH, pl = Math.min(P - 1, Math.floor(vy * P)), local = vy * P - pl;
+      for (var x = 0; x < OW; x++) {
+        var ux = x / OW;
+        var n = vn(ux * 5 + plankShift[pl], local * 1.6) * 0.6 + vn(ux * 13, local * 4) * 0.3 + vn(ux * 40, local * 9) * 0.1;
+        var heart = 0.5 + Math.sin(ux * 5.5 + plankShift[pl]) * W.wave + (n - 0.5) * 0.35;
+        var r = Math.abs(local - heart) * W.ring + n * 2.2 + Math.pow(Math.abs(ux - 0.5) * 2, 2) * 1.5;
+        var f = r - Math.floor(r);
+        var late = f < W.lateAt ? 0 : Math.min(1, (f - W.lateAt) / (span * 0.8));
+        late = late * late * (3 - 2 * late);
+        var fine = vn(ux * 900, local * 60 + pl * 7), streak = vn(ux * 60, local * 220);
+        var tone = plankTone[pl] * (0.9 + 0.16 * fine + 0.08 * streak);
+        var seam = local < 0.004 || local > 0.996 ? 0.45 : 1;
+        var o = (y * OW + x) * 4;
+        dc[o] = (e[0] - (e[0] - l[0]) * late) * tone * seam;
+        dc[o + 1] = (e[1] - (e[1] - l[1]) * late) * tone * seam;
+        dc[o + 2] = (e[2] - (e[2] - l[2]) * late) * tone * seam;
+        dc[o + 3] = 255;
+        var hgt = (150 - 70 * late + 30 * (fine - 0.5)) * seam;
+        dh[o] = dh[o + 1] = dh[o + 2] = hgt; dh[o + 3] = 255;
+      }
+    }
+    gc.putImageData(ic, 0, 0); gh.putImageData(ih, 0, 0);
+    for (var k = 0; k < OW * W.pores; k++) {
+      var px = rnd() * OW, py = rnd() * OH, len = 3 + rnd() * 12;
+      gc.fillStyle = W.pore; gc.fillRect(px, py, len, 0.8);
+      gh.fillStyle = W.poreH; gh.fillRect(px, py, len, 0.8);
+    }
+    for (var m = 0; m < W.rays; m++) {
+      var rx = rnd() * OW, ry = rnd() * OH, rl = 6 + rnd() * 26;
+      gc.fillStyle = W.ray; gc.fillRect(rx, ry, rl, 1.4);
+    }
+    W.map = tex(cC, true); W.bump = tex(cH, false);
+    return W;
+  }
+  buildWood(WOODS[0]);
+
+  // bead-blasted, anodised aluminium: a fine grain for roughness and a whisper of bump
+  var grain = tex(makeCanvas(256, 256, function (g, w, h) {
+    var id = g.createImageData(w, h), d = id.data;
+    for (var i = 0; i < d.length; i += 4) { var v = 128 + (rnd() - 0.5) * 84; d[i] = d[i + 1] = d[i + 2] = v; d[i + 3] = 255; }
+    g.putImageData(id, 0, 0);
+  }), false, [0.25, 0.25]);
+  // the turned pin cap: concentric tool marks
+  var turned = tex(makeCanvas(256, 256, function (g, w, h) {
+    for (var r = w / 2; r > 0; r -= 1) { var v = Math.floor(150 + (rnd() - 0.5) * 60); g.fillStyle = "rgb(" + v + "," + v + "," + v + ")"; g.beginPath(); g.arc(w / 2, h / 2, r, 0, Math.PI * 2); g.fill(); }
+  }), false);
+  // the opal strip is brightest along its middle and falls off towards the edges
+  var stripGlow = tex(makeCanvas(64, 64, function (g, w, h) {
+    var gr = g.createLinearGradient(0, 0, 0, h);
+    gr.addColorStop(0, "#7d7366"); gr.addColorStop(0.22, "#eae2d6"); gr.addColorStop(0.5, "#ffffff"); gr.addColorStop(0.78, "#eae2d6"); gr.addColorStop(1, "#7d7366");
+    g.fillStyle = gr; g.fillRect(0, 0, w, h);
+  }), true);
+  var aoTex = tex(makeCanvas(256, 256, function (g, w, h) {
+    var gr = g.createRadialGradient(w / 2, h / 2, w * 0.16, w / 2, h / 2, w * 0.5);
+    gr.addColorStop(0, "rgba(0,0,0,0.92)"); gr.addColorStop(1, "rgba(0,0,0,0)");
+    g.fillStyle = gr; g.fillRect(0, 0, w, h);
+  }), false);
+  var haloTex = tex(makeCanvas(256, 256, function (g, w, h) {
+    var gr = g.createRadialGradient(w / 2, h / 2, 0, w / 2, h / 2, w / 2);
+    gr.addColorStop(0, "rgba(255,220,170,0.8)"); gr.addColorStop(0.14, "rgba(255,190,124,0.28)");
+    gr.addColorStop(0.5, "rgba(255,160,90,0.05)"); gr.addColorStop(1, "rgba(255,150,80,0)");
+    g.fillStyle = gr; g.fillRect(0, 0, w, h);
+  }), true);
+
+  // ---------- materials ----------
+  // sage anodised aluminium, bead blasted: satin, part metallic, the dye colouring both diffuse and sheen
+  var SAGE = new THREE.Color(0xb2b894).convertSRGBToLinear();
+  var M = {
+    anod: new THREE.MeshStandardMaterial({ color: SAGE, metalness: 0.28, roughness: 1.0, roughnessMap: grain, bumpMap: grain, bumpScale: 0.004, envMapIntensity: 1.5 }),
+    // the turned cap: satin like the body and a touch lighter, so it reads as a raised button, not a socket
+    pin: new THREE.MeshStandardMaterial({ color: SAGE.clone().multiplyScalar(1.12), metalness: 0.3, roughness: 1.0, roughnessMap: turned, envMapIntensity: 1.5 }),
+    washer: new THREE.MeshStandardMaterial({ color: 0x1a1a18, roughness: 0.55, envMapIntensity: 0.5 }),
+    cord: new THREE.MeshStandardMaterial({ color: 0x2a2521, roughness: 0.85, envMapIntensity: 0.3 }),
+    opal: new THREE.MeshStandardMaterial({ color: 0xefe9df, roughness: 0.3, emissive: 0xffc58a, emissiveMap: stripGlow, emissiveIntensity: 0, envMapIntensity: 0.3 }),
+    // lacquered wood: one even sheen from the lacquer; the grain stays dark (as a roughness map the latewood turned glossy)
+    // (its lacquer is a separate layer, woodLacquer, drawn in the layer-2 pass)
+    wood: new THREE.MeshStandardMaterial({ map: WOODS[0].map, bumpMap: WOODS[0].bump, bumpScale: 0.05, roughness: 0.68, metalness: 0, envMapIntensity: 0 }),
+    woodEdge: new THREE.MeshStandardMaterial({ color: 0x3e2614, roughness: 0.72, envMapIntensity: 0 })
+  };
+  // parts that overlap a neighbour face-to-face (fold, link, end caps) give way in the depth test, so nothing flickers
+  M.anodIn = M.anod.clone(); M.anodIn.polygonOffset = true; M.anodIn.polygonOffsetFactor = 1; M.anodIn.polygonOffsetUnits = 2;
+  // what each wood gives back as bounce: tint (linear, red = 1) and strength relative to oak
+  [[1, 0.46, 0.17, 1], [1, 0.45, 0.21, 0.41], [1, 0.78, 0.48, 2.1], [1, 0.53, 0.28, 0.35]].forEach(function (b, i) {
+    WOODS[i].bounce = [1, 0.5 + 0.5 * b[1], 0.5 + 0.5 * b[2]]; WOODS[i].bk = b[3];
+  });
+  var gTint = new THREE.Color(1, 0.73, 0.585), gK = 1;
+
+  // ---------- geometry helpers ----------
+  function rrPath(P, w, h, r, cx, cy) {
+    var x = cx - w / 2, y = cy - h / 2;
+    P.moveTo(x + r, y); P.lineTo(x + w - r, y); P.quadraticCurveTo(x + w, y, x + w, y + r);
+    P.lineTo(x + w, y + h - r); P.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+    P.lineTo(x + r, y + h); P.quadraticCurveTo(x, y + h, x, y + h - r);
+    P.lineTo(x, y + r); P.quadraticCurveTo(x, y, x + r, y);
+    return P;
+  }
+  // average the flat side-wall normals that meet within a crease angle, so rounded corners and bevels reflect smoothly
+  function smoothSides(g, creaseDeg) {
+    var grp = g.groups && g.groups[1]; if (!grp) return g;
+    var pos = g.attributes.position.array, nrm = g.attributes.normal.array, src = nrm.slice();
+    var cosC = Math.cos(creaseDeg * Math.PI / 180), map = {}, i, j, key;
+    for (i = grp.start; i < grp.start + grp.count; i++) {
+      key = Math.round(pos[3 * i] * 1000) + "," + Math.round(pos[3 * i + 1] * 1000) + "," + Math.round(pos[3 * i + 2] * 1000);
+      (map[key] || (map[key] = [])).push(i);
+    }
+    for (key in map) {
+      var ids = map[key];
+      for (i = 0; i < ids.length; i++) {
+        var a = ids[i], ax = src[3 * a], ay = src[3 * a + 1], az = src[3 * a + 2], sx = 0, sy = 0, sz = 0;
+        for (j = 0; j < ids.length; j++) {
+          var c = ids[j], cx = src[3 * c], cy2 = src[3 * c + 1], cz = src[3 * c + 2];
+          if (ax * cx + ay * cy2 + az * cz >= cosC) { sx += cx; sy += cy2; sz += cz; }
+        }
+        var l = Math.hypot(sx, sy, sz) || 1;
+        nrm[3 * a] = sx / l; nrm[3 * a + 1] = sy / l; nrm[3 * a + 2] = sz / l;
+      }
+    }
+    g.attributes.normal.needsUpdate = true;
+    return g;
+  }
+  function barX(w, h, r, cy, x0, len, bevel, holeInset) {
+    var sh = rrPath(new THREE.Shape(), w, h, r, 0, cy);
+    if (holeInset) sh.holes.push(rrPath(new THREE.Path(), w - 2 * holeInset, h - 2 * holeInset, Math.max(0.05, r - holeInset), 0, cy));
+    var b = bevel || 0;
+    var g = new THREE.ExtrudeGeometry(sh, { depth: len - 2 * b, bevelEnabled: b > 0, bevelThickness: b, bevelSize: b * 0.8, bevelOffset: -b * 0.8, bevelSegments: 3, curveSegments: 10 });
+    g.translate(0, 0, b); g.rotateY(Math.PI / 2); g.translate(x0, 0, 0);
+    return smoothSides(g, 42);
+  }
+  function plateY(len, wz, r, x0, y0, t, bevel) {
+    var sh = rrPath(new THREE.Shape(), len, wz, r, x0 + len / 2, 0);
+    var b = bevel || 0;
+    var g = new THREE.ExtrudeGeometry(sh, { depth: t - 2 * b, bevelEnabled: b > 0, bevelThickness: b, bevelSize: b * 0.8, bevelOffset: -b * 0.8, bevelSegments: 3, curveSegments: 12 });
+    g.translate(0, 0, b); g.rotateX(-Math.PI / 2); g.translate(0, y0, 0);
+    return smoothSides(g, 42);
+  }
+  function mesh(geo, mat, parent, cast, receive) {
+    var m = new THREE.Mesh(geo, mat); m.castShadow = cast !== false; m.receiveShadow = receive !== false; parent.add(m); return m;
+  }
+  function cyl(r, len, mat, parent) { var m = mesh(new THREE.CylinderGeometry(r, r, len, 24), mat, parent); m.rotation.x = Math.PI / 2; return m; }
+  function envLayer(o) { o.layers.enable(1); return o; }   // seen by the reflection probe
+
+  // ---------- room: oak sideboard in a black void. No ambient or fill light: only the lamp lights the scene. ----------
+  var top = new THREE.Mesh(new THREE.BoxGeometry(220, 4, 120), [M.woodEdge, M.woodEdge, M.wood, M.woodEdge, M.woodEdge, M.woodEdge]);
+  top.position.set(0, -2, 0); top.receiveShadow = true; top.castShadow = true; scene.add(envLayer(top));
+
+  // a sun-like key light. It starts straight below the oak, so the top blocks it and nothing visible is lit.
+  // Three fingers (or shift-drag / right-drag on a computer) swing it round and up over the lamp.
+  var sun = envLayer(new THREE.DirectionalLight(0xfff1e2, 2.5));
+  var sunAngle = START.sun ? { az: START.sun.az, el: START.sun.el } : { az: -0.75, el: -Math.PI / 2 + 0.02 };
+  sun.castShadow = true; sun.shadow.mapSize.set(isPhone ? 1024 : 2048, isPhone ? 1024 : 2048);
+  sun.shadow.camera.left = -85; sun.shadow.camera.right = 85; sun.shadow.camera.top = 85; sun.shadow.camera.bottom = -85;
+  sun.shadow.camera.near = 1; sun.shadow.camera.far = 700; sun.shadow.bias = -0.0004; sun.shadow.normalBias = 0.04;
+  sun.shadow.autoUpdate = false;
+  scene.add(sun); scene.add(sun.target);
+  function placeSun() {
+    var ce = Math.cos(sunAngle.el), c = { x: lamp.position.x + 21 };
+    sun.target.position.set(c.x, 0, 0);
+    sun.position.set(c.x + 320 * ce * Math.sin(sunAngle.az), 320 * Math.sin(sunAngle.el), 320 * ce * Math.cos(sunAngle.az));
+    sun.target.updateMatrixWorld(); sun.updateMatrixWorld();
+    sun.intensity = 2.5 * THREE.MathUtils.smoothstep(sunAngle.el, -0.12, -0.01);
+    sun.shadow.needsUpdate = sun.intensity > 0;
+  }
+
+  // ---------- lamp: Vippe (x forward along the arm, y up, z out of the stand's plane; the pin at x = 0, y = PIN_Y) ----------
+  var RAD = Math.PI / 180, PIN_Y = 36, T = 0.3;
+  var base = new THREE.Group(); base.position.set(-18, 0, -6); scene.add(base);
+  var lamp = new THREE.Group(); lamp.position.copy(base.position); scene.add(lamp);
+
+  // shape in the (x, z) plan, extruded up from y0
+  function slab(sh, y0, t, b) {
+    var g = new THREE.ExtrudeGeometry(sh, { depth: t - 2 * b, bevelEnabled: b > 0, bevelThickness: b, bevelSize: b, bevelOffset: -b, bevelSegments: 2, curveSegments: 14 });
+    g.translate(0, 0, b); g.rotateX(Math.PI / 2); g.translate(0, y0 + t, 0);
+    return smoothSides(g, 40);
+  }
+  // shape in the (x, y) side view, extruded from z0 to z1
+  function sideZ(sh, z0, z1, b, segs) {
+    var g = new THREE.ExtrudeGeometry(sh, { depth: z1 - z0 - 2 * b, bevelEnabled: b > 0, bevelThickness: b, bevelSize: b, bevelOffset: -b, bevelSegments: 3, curveSegments: segs || 24 });
+    g.translate(0, 0, z0 + b);
+    return smoothSides(g, 40);
+  }
+  // shape in the (z, y) cross section, swept along x from x0 to x1
+  function alongX(sh, x0, x1, b) {
+    var g = new THREE.ExtrudeGeometry(sh, { depth: x1 - x0 - 2 * b, bevelEnabled: b > 0, bevelThickness: b, bevelSize: b, bevelOffset: -b, bevelSegments: 2, curveSegments: 10 });
+    g.translate(0, 0, b); g.rotateY(-Math.PI / 2); g.translate(x1, 0, 0);
+    return smoothSides(g, 40);
+  }
+  // a slot that narrows from r1 to r2, rounded at both ends
+  function slotPath(P, x1, y1, r1, x2, y2, r2) {
+    var L = Math.hypot(x2 - x1, y2 - y1), ux = (x2 - x1) / L, uy = (y2 - y1) / L, ang = Math.atan2(uy, ux);
+    P.moveTo(x1 + uy * r1, y1 - ux * r1);
+    P.lineTo(x2 + uy * r2, y2 - ux * r2);
+    P.absarc(x2, y2, r2, ang - Math.PI / 2, ang + Math.PI / 2, false);
+    P.lineTo(x1 - uy * r1, y1 + ux * r1);
+    P.absarc(x1, y1, r1, ang + Math.PI / 2, ang + 1.5 * Math.PI, false);
+    return P;
+  }
+
+  // the stand: one sheet, 3 mm. A tall triangle, its apex rounded round the pin, a long slot leaving a strut
+  // along the back edge, and the bottom edge bent forward into a foot.
+  var APX = -0.05, APR = 1.5, A1 = 0.75 * RAD, A2 = 160.4 * RAD;    // apex arc, tangent to both edges
+  var standShape = new THREE.Shape();
+  standShape.moveTo(-14.2, 0.75);
+  standShape.lineTo(1.95, 0.75);
+  standShape.lineTo(APX + APR * Math.cos(A1), PIN_Y + APR * Math.sin(A1));
+  standShape.absarc(APX, PIN_Y, APR, A1, A2, false);
+  standShape.lineTo(-14.2, 0.75);
+  // the slot is the joint's track: it starts round the pin at the apex and opens away from the back edge,
+  // leaving a slender strut that widens towards the foot, as in the photo
+  var SLOT_TOP = new THREE.Vector2(0, PIN_Y), SLOT_BOT = new THREE.Vector2(-9.9, 5.0);
+  standShape.holes.push(slotPath(new THREE.Path(), SLOT_TOP.x, SLOT_TOP.y, 0.6, SLOT_BOT.x, SLOT_BOT.y, 0.55));
+  mesh(sideZ(standShape, -T / 2, T / 2, 0.05, 40), M.anod, lamp);
+
+  // the fold at the bottom: inner radius 3 mm, outer 6 mm, then the foot itself
+  var bend = new THREE.Shape();
+  bend.moveTo(-T / 2, 1.0); bend.lineTo(-T / 2, 0.6);
+  bend.absarc(0.45, 0.6, 0.6, Math.PI, 1.5 * Math.PI, false);
+  bend.lineTo(1.0, 0); bend.lineTo(1.0, T); bend.lineTo(0.45, T);
+  bend.absarc(0.45, 0.6, 0.3, 1.5 * Math.PI, Math.PI, true);
+  bend.lineTo(T / 2, 1.0); bend.lineTo(-T / 2, 1.0);
+  mesh(alongX(bend, -14.0, 1.95, 0.03), M.anodIn, lamp);
+  var footShape = new THREE.Shape(), FR = 0.6;
+  footShape.moveTo(-14.0, 0.4); footShape.lineTo(1.95, 0.4); footShape.lineTo(1.95, 2.55 - FR);
+  footShape.quadraticCurveTo(1.95, 2.55, 1.95 - FR, 2.55); footShape.lineTo(-14.0 + FR, 2.55);
+  footShape.quadraticCurveTo(-14.0, 2.55, -14.0, 2.55 - FR); footShape.lineTo(-14.0, 0.4);
+  mesh(slab(footShape, 0, T, 0.05), M.anod, lamp);
+
+  // the carriage: the pin rides in the slot, clamped by a dark washer on each face of the sheet, a turned cap in
+  // front of the arm and a turned knob behind that locks it. The arm turns on the pin; all of it slides together.
+  var carriage = new THREE.Group(); carriage.position.set(SLOT_TOP.x, SLOT_TOP.y, 0); lamp.add(carriage);
+  var pinShaft = cyl(0.42, 3.6, M.pin, carriage); pinShaft.position.set(0, 0, 1.35);
+  var pinCap = cyl(0.78, 0.26, M.pin, carriage); pinCap.position.set(0, 0, 3.1 + 0.13);
+  var washer = cyl(1.05, 0.14, M.washer, carriage); washer.position.set(0, 0, 0.225);
+  var washerBack = cyl(1.05, 0.14, M.washer, carriage); washerBack.position.set(0, 0, -0.225);
+  var knob = cyl(0.8, 0.36, M.pin, carriage); knob.position.set(0, 0, -0.48);
+
+  // the arm: an open-top gutter with rolled rims; the near end narrows into a flat link round the pin
+  var arm = new THREE.Group(); carriage.add(arm);
+  var AZ0 = 0.3, AZ1 = 3.1, AY0 = -1.45, AY1 = 0.45, AW = 0.16, AX0 = 5.2, AX1 = 55, RB = 0.42, RIM = AY1 - AW / 2;
+  var gut = new THREE.Shape();
+  gut.moveTo(AZ0, RIM);
+  gut.lineTo(AZ0, AY0 + RB); gut.quadraticCurveTo(AZ0, AY0, AZ0 + RB, AY0);
+  gut.lineTo(AZ1 - RB, AY0); gut.quadraticCurveTo(AZ1, AY0, AZ1, AY0 + RB);
+  gut.lineTo(AZ1, RIM);
+  gut.absarc(AZ1 - AW / 2, RIM, AW / 2, 0, Math.PI, false);
+  gut.lineTo(AZ1 - AW, AY0 + RB);
+  gut.quadraticCurveTo(AZ1 - AW, AY0 + AW, AZ1 - RB, AY0 + AW);
+  gut.lineTo(AZ0 + RB, AY0 + AW); gut.quadraticCurveTo(AZ0 + AW, AY0 + AW, AZ0 + AW, AY0 + RB);
+  gut.lineTo(AZ0 + AW, RIM);
+  gut.absarc(AZ0 + AW / 2, RIM, AW / 2, 0, Math.PI, false);
+  mesh(alongX(gut, AX0, AX1, 0), M.anod, arm);
+
+  // closed ends: a wall at the link end, a rounded, slightly raked nose at the far end
+  var wall = rrPath(new THREE.Shape(), AZ1 - AZ0, AY1 - AY0, 0.34, (AZ0 + AZ1) / 2, (AY0 + AY1) / 2);
+  mesh(alongX(wall, AX0, AX0 + 0.24, 0.05), M.anodIn, arm);
+  var nose = new THREE.Shape();
+  nose.moveTo(AX1 - 0.4, AY0); nose.lineTo(AX1 + 0.25, AY0);
+  nose.quadraticCurveTo(AX1 + 0.85, AY0, AX1 + 0.9, AY0 + 0.55);
+  nose.lineTo(AX1 + 1.02, AY1 - 0.5);
+  nose.quadraticCurveTo(AX1 + 1.08, AY1, AX1 + 0.58, AY1);
+  nose.lineTo(AX1 - 0.4, AY1); nose.lineTo(AX1 - 0.4, AY0);
+  mesh(sideZ(nose, AZ0, AZ1, 0.13, 16), M.anodIn, arm);
+
+  // the link: as wide as the gutter and flush with its walls. A tight peak 2.5 cm above the pin, its back edge
+  // carrying on the strut's back edge (at level), and a straight 33 degree shoulder down to the rim.
+  var LX = AX0 + 1.4;
+  var link = new THREE.Shape();
+  link.moveTo(LX, AY1); link.lineTo(3.0, AY1);
+  link.lineTo(-0.03, 2.41);
+  link.absarc(-0.35, 1.9, 0.6, 58 * RAD, 160 * RAD, false);
+  link.lineTo(-2.22, -1.55);
+  link.quadraticCurveTo(-1.5, -1.95, 0.4, -1.75);
+  link.lineTo(AX0, AY0); link.lineTo(AX0, AY0 + RB); link.lineTo(LX, AY0 + RB); link.lineTo(LX, AY1);
+  link.holes.push(new THREE.Path().absarc(0, 0, 0.44, 0, Math.PI * 2, true));
+  mesh(sideZ(link, AZ0, AZ1, 0.1, 40), M.anodIn, arm);
+  var endFill = mesh(new THREE.BoxGeometry(LX + 0.01 - AX0, AY1 - 0.01 - (AY0 + AW), AZ1 - AZ0 - 2 * AW), M.anod, arm);
+  endFill.position.set((AX0 + LX + 0.01) / 2, (AY0 + AW + AY1 - 0.01) / 2, (AZ0 + AZ1) / 2);
+
+  // the diffuser: opal acrylic under the gutter, its edges glowing too
+  var DX0 = 13.5, DX1 = 54.2;
+  var diffuser = new THREE.Mesh(new THREE.BoxGeometry(DX1 - DX0, 0.4, 2.16), M.opal);
+  diffuser.position.set((DX0 + DX1) / 2, AY0 - 0.17, (AZ0 + AZ1) / 2); diffuser.receiveShadow = true; arm.add(diffuser);
+
+  // the strip's light: three wide spots along it stand in for one long source (the middle one casts the shadows)
+  var strip = [];
+  [20.5, 34, 47.5].forEach(function (x, i) {
+    var L = envLayer(new THREE.SpotLight(0xffc48a, 0, 0, 1.48, 1, 2));
+    L.position.set(x, AY0 - 0.6, (AZ0 + AZ1) / 2); arm.add(L);
+    var tg = new THREE.Object3D(); tg.position.set(x, AY0 - 40, (AZ0 + AZ1) / 2); arm.add(tg); L.target = tg;
+    if (i === 1) {
+      L.castShadow = true; L.shadow.mapSize.set(isPhone ? 1024 : 2048, isPhone ? 1024 : 2048);
+      L.shadow.bias = -0.0002; L.shadow.normalBias = 0.03; L.shadow.camera.near = 2; L.shadow.camera.far = 240;
+      L.shadow.focus = 0.78;   // keep the shadow frustum usable; the far rim of the cone is too dim to need shadows
+    }
+    strip.push(L);
+  });
+  // what the lit ground gives back, tinted by it. Zero with the lamp off, on the mirror nearly so, and without
+  // a ground there is nothing to give back. The pool is broad, so it returns from both sides of the stand's plane.
+  var bounces = [envLayer(new THREE.PointLight(0xff9450, 0, 0, 2)), envLayer(new THREE.PointLight(0xff9450, 0, 0, 2))];
+  bounces.forEach(function (b) { scene.add(b); });
+
+  // for the dark mirror's lacquer only (layer 2, drawn in a pass of its own): nine small sources along the strip,
+  // so its glossy streak is continuous instead of three glints
+  var sheenSpots = [];
+  for (var si = 0; si < 9; si++) {
+    var SL = new THREE.SpotLight(0xffc48a, 0, 0, 1.48, 1, 2), sx = DX0 + 1.2 + si * (DX1 - DX0 - 2.4) / 8;
+    SL.position.set(sx, AY0 - 0.6, (AZ0 + AZ1) / 2); SL.layers.set(2); arm.add(SL);
+    var st = new THREE.Object3D(); st.position.set(sx, AY0 - 40, (AZ0 + AZ1) / 2); arm.add(st); SL.target = st;
+    sheenSpots.push(SL);
+  }
+  sun.layers.enable(2);
+
+  // a soft glare along the strip, only when you look at its face: one band that turns about the strip's own axis
+  // to face the camera (five round sprites read as five blobs)
+  var glareTex = tex(makeCanvas(256, 64, function (g, w, h) {
+    var id = g.createImageData(w, h), d = id.data;
+    for (var y = 0; y < h; y++) for (var x = 0; x < w; x++) {
+      var u = x / (w - 1), v = (y / (h - 1) - 0.5) * 2, e = Math.min(1, Math.min(u, 1 - u) / 0.12);
+      var a = Math.exp(-v * v * 9) * 0.75 + Math.exp(-v * v * 1.6) * 0.12;
+      a *= e * e * (3 - 2 * e);
+      var o = (y * w + x) * 4; d[o] = 255; d[o + 1] = 200; d[o + 2] = 140; d[o + 3] = Math.round(255 * a);
+    }
+    g.putImageData(id, 0, 0);
+  }), true);
+  var glare = new THREE.Mesh(new THREE.PlaneGeometry(DX1 - DX0 + 7, 7),
+    new THREE.MeshBasicMaterial({ map: glareTex, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, depthTest: false, opacity: 0, fog: false, side: THREE.DoubleSide }));
+  glare.position.set((DX0 + DX1) / 2, AY0 - 0.6, (AZ0 + AZ1) / 2); glare.renderOrder = 2; arm.add(glare);
+  var _lc = new THREE.Vector3();
+
+  // fabric cord: out of the hollow pin through the knob at the back, down the back of the strut, away over the oak,
+  // over its back edge and tucked under the top, where no view from above can see its end. Two tubes that meet at the
+  // foot: the run over the table never moves; the run from the pin is rebuilt when the joint slides.
+  var SubCurve = class extends THREE.Curve {
+    constructor(base, t0, t1) { super(); this.base = base; this.t0 = t0; this.t1 = t1; }
+    getPoint(t, target) { return this.base.getPoint(this.t0 + (this.t1 - this.t0) * t, target); }
+  };
+  function v3(p) { return new THREE.Vector3(p[0], p[1], p[2]); }
+  var FOOT_RUN = [[-12.19, 3.7, -0.4], [-13.0, 1.4, -0.45], [-13.5, 0.36, -0.9], [-14.0, 0.24, -1.9]];   // shared by both tubes
+  var tablePts = FOOT_RUN.concat([[-15.6, 0.24, -5.6], [-19.5, 0.24, -15], [-24.5, 0.24, -28.5], [-28.3, 0.24, -42],
+    [-29.9, 0.24, -52.6], [-30.12, 0.25, -53.7], [-30.22, 0.17, -54.2], [-30.3, -0.25, -54.3], [-30.33, -1.4, -54.3], [-30.35, -3.6, -54.3], [-30.35, -4.25, -54.25], [-30.3, -4.3, -53.6], [-30.2, -4.28, -48], [-30.0, -4.28, -42]]);
+  var tableCurve = new THREE.CatmullRomCurve3(tablePts.map(v3), false, "centripetal");
+  var cordMesh = envLayer(mesh(new THREE.TubeGeometry(new SubCurve(tableCurve, 2 / (tablePts.length - 1), 1), 320, 0.22, 12, false), M.cord, base));
+  function strutX(y) { return -12.19 + 0.3445 * (y - 3.7); }          // the middle of the strut at height y
+  var cordFlex = envLayer(mesh(new THREE.BufferGeometry(), M.cord, base)), cordAt = -1;
+  function routeCord(px, py) {
+    var pts = [[px, py, -0.5], [px, py - 0.08, -0.85]];
+    if (py - 1.6 > 5.2) pts.push([strutX(py - 1.6), py - 1.6, -0.42]);
+    [32.7, 25, 17.7, 10.4].forEach(function (y) { if (y < py - 3.2) pts.push([strutX(y), y, -0.4]); });
+    pts = pts.concat(FOOT_RUN);
+    var c = new THREE.CatmullRomCurve3(pts.map(v3), false, "centripetal");
+    cordFlex.geometry.dispose();
+    cordFlex.geometry = new THREE.TubeGeometry(new SubCurve(c, 0, (pts.length - 2) / (pts.length - 1)), Math.max(40, Math.round(py * 4)), 0.22, 12, false);
+  }
+
+  // contact shadows (ambient occlusion where the foot meets the oak)
+  function aoRect(w, d, blur, x, z, op) {
+    var m = 4 * blur, cw = w + 2 * m, cd = d + 2 * m, px = 256 / Math.max(cw, cd);
+    var c = makeCanvas(Math.round(cw * px), Math.round(cd * px), function (g, W, H) {
+      g.shadowColor = "rgba(0,0,0,1)"; g.shadowBlur = blur * px * 2; g.shadowOffsetX = W * 2;
+      g.fillStyle = "#000"; g.fillRect(m * px - W * 2, m * px, w * px, d * px);
+    });
+    var mat = new THREE.MeshBasicMaterial({ map: tex(c, false), transparent: true, depthWrite: false, opacity: op, color: 0x000000 });
+    var mm = new THREE.Mesh(new THREE.PlaneGeometry(cw, cd), mat);
+    mm.rotation.x = -Math.PI / 2; mm.position.set(x, 0.022, z); mm.renderOrder = 1; base.add(envLayer(mm)); return mm;
+  }
+  var aoFoot = aoRect(16.1, 2.75, 0.45, -6.05, 1.2, 0.8);
+  var aoSoft = aoRect(16.6, 3.4, 2.2, -6.05, 1.2, 0.32);
+
+  // ---------- ground: four woods, a dark mirror, nothing; the corner button cycles ----------
+  var mirror = null, mirrorSheen = null;
+  var woodLacquer = new THREE.Mesh(new THREE.PlaneGeometry(220, 120), new THREE.MeshPhysicalMaterial({ color: 0x000000, roughness: 1, metalness: 0, reflectivity: 0,
+    clearcoat: WOODS[0].coat, clearcoatRoughness: 0.55, transparent: true, depthWrite: false,
+    blending: THREE.CustomBlending, blendEquation: THREE.AddEquation, blendSrc: THREE.OneMinusDstColorFactor, blendDst: THREE.OneFactor }));
+  var COAT_ONLY = 'reflectedLight.directSpecular += ( 1.0 - clearcoatDHR ) * irradiance * BRDF_Specular_GGX( directLight, geometry.viewDir, geometry.normal, material.specularColor, material.specularRoughness);';
+  function coatOnly(shader) {
+    shader.fragmentShader = shader.fragmentShader.replace('#include <lights_physical_pars_fragment>', THREE.ShaderChunk.lights_physical_pars_fragment.replace(COAT_ONLY, ''));
+  }
+  woodLacquer.material.onBeforeCompile = coatOnly;
+  woodLacquer.rotation.x = -Math.PI / 2; woodLacquer.position.y = 0.02; woodLacquer.receiveShadow = true; woodLacquer.layers.set(2); scene.add(woodLacquer);
+  function mirrorSize() { var pr = renderer.getPixelRatio(), k = Math.min(pr, Math.max(1, pr * 0.6)); return [Math.round(window.innerWidth * k), Math.round(window.innerHeight * k)]; }
+  function makeMirror() {
+    if (mirror || !THREE.Reflector) return;
+    var sz = mirrorSize();
+    // polished black: a real planar reflection, darkened, plus an additive clear-coat layer for the lamp's highlights
+    mirror = new THREE.Reflector(new THREE.PlaneGeometry(220, 120), { color: 0x3c3a38, textureWidth: sz[0], textureHeight: sz[1], clipBias: 0.003 });
+    mirror.rotation.x = -Math.PI / 2; mirror.position.y = 0.01; scene.add(mirror);
+    mirrorSheen = new THREE.Mesh(new THREE.PlaneGeometry(220, 120), new THREE.MeshPhysicalMaterial({ color: 0x000000, roughness: 0.55, metalness: 0, clearcoat: 1, clearcoatRoughness: 0.42, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false }));
+    mirrorSheen.material.onBeforeCompile = coatOnly;
+    mirrorSheen.rotation.x = -Math.PI / 2; mirrorSheen.position.y = 0.02; mirrorSheen.receiveShadow = true; mirrorSheen.layers.set(2); scene.add(mirrorSheen);
+  }
+  var GROUNDS = WOODS.map(function (w) { return { kind: "wood", w: w, name: w.name }; }).concat([{ kind: "mirror", name: "Mørk spegl" }, { kind: "none", name: "Ingen" }]);
+  var groundIdx = 0, groundBtn = document.getElementById("ground");
+  function setGround(i) {
+    groundIdx = (i + GROUNDS.length) % GROUNDS.length;
+    var g = GROUNDS[groundIdx], solid = g.kind !== "none";
+    top.visible = solid; cordMesh.visible = cordFlex.visible = solid; aoFoot.visible = aoSoft.visible = solid;
+    gK = g.kind === "wood" ? g.w.bk : g.kind === "mirror" ? 0.05 : 0;
+    if (g.kind === "wood") gTint.fromArray(g.w.bounce); else gTint.setRGB(1, 1, 1);
+    top.material[2] = g.kind === "mirror" ? M.woodEdge : M.wood;
+    if (g.kind === "wood") {
+      buildWood(g.w);
+      M.wood.map = g.w.map; M.wood.bumpMap = g.w.bump; woodLacquer.material.clearcoat = g.w.coat; M.wood.needsUpdate = true;
+      M.woodEdge.color.setHex(g.w.edge); M.woodEdge.roughness = 0.72;
+    } else if (g.kind === "mirror") {
+      makeMirror();
+      M.woodEdge.color.setHex(0x050505); M.woodEdge.roughness = 0.22;
+    }
+    if (mirror) mirror.visible = mirrorSheen.visible = g.kind === "mirror";
+    woodLacquer.visible = g.kind === "wood";
+    groundBtn.setAttribute("aria-label", "Underlag: " + g.name + ". Trykk for å byte.");
+    renderer.shadowMap.needsUpdate = true; probeDirty = true; camMoved = true; kickPose();
+  }
+  groundBtn.addEventListener("click", function () { setGround(groundIdx + 1); });
+
+  // ---------- reflections: a probe that sees the lit oak (not the lamp), so metal and lacquer reflect the lamp's own light ----------
+  var probeSize = isPhone ? 64 : 128;
+  var probeOpts = { format: THREE.RGBAFormat, generateMipmaps: true, minFilter: THREE.LinearMipmapLinearFilter, encoding: THREE.sRGBEncoding };
+  var probeRTs = [new THREE.WebGLCubeRenderTarget(probeSize, probeOpts), new THREE.WebGLCubeRenderTarget(probeSize, probeOpts)], probeIdx = 1;
+  var probe = new THREE.CubeCamera(1, 600, probeRTs[0]);
+  probe.children.forEach(function (c) { c.layers.set(1); });
+  scene.add(probe);
+  scene.environment = probeRTs[1].texture;
+  var probeDirty = true;
+
+  // ---------- apply pose ----------
+  var DEG = Math.PI / 180;
+  var _b = new THREE.Box3(), curMood = 0, _hn = new THREE.Vector3(), _hp = new THREE.Vector3(), _hc = new THREE.Vector3();
+  var bbox = new THREE.Box3(), frameCenter = new THREE.Vector3(), frameSize = new THREE.Vector3(), tmp = new THREE.Vector3(), tmp2 = new THREE.Vector3();
+  var goal = { target: new THREE.Vector3(3, 12, 0), dist: 140 };
+  var WARM = new THREE.Color(0xff9448), NEUTRAL = new THREE.Color(0xffc995), _col = new THREE.Color();
+  var GLOW_WARM = new THREE.Color(0xffa860), GLOW_NEUTRAL = new THREE.Color(0xffdcb2), _dir = new THREE.Vector3();
+  // how far down the slot the joint goes: to where the strip still hangs about 11 cm over the wood, so the light
+  // stays one even band (any lower and the three sources would show as three pools)
+  var SLIDE_END = 0.74, _cp = new THREE.Vector3();
+  function applyPose(p) {
+    var k = SLIDE_END * p.slide;
+    carriage.position.set(SLOT_TOP.x + (SLOT_BOT.x - SLOT_TOP.x) * k, SLOT_TOP.y + (SLOT_BOT.y - SLOT_TOP.y) * k, 0);
+    if (Math.abs(k - cordAt) > 0.0015) { routeCord(carriage.position.x, carriage.position.y); cordAt = k; }
+    arm.rotation.z = p.tilt * DEG;
+    var lv = p.level;
+    _col.copy(WARM).lerp(NEUTRAL, p.cool);
+    strip.forEach(function (L) { L.intensity = 5600 * lv; L.color.copy(_col); });
+    M.opal.emissive.copy(GLOW_WARM).lerp(GLOW_NEUTRAL, p.cool);
+    M.opal.emissiveIntensity = 7 * lv;
+    glare.scale.set(1, 0.7 + 0.5 * lv, 1);
+    curMood = lv;
+
+    lamp.updateMatrixWorld(true);
+    // bounce: warm light thrown back from where the middle of the strip lands on the oak
+    strip[1].getWorldPosition(tmp); strip[1].target.getWorldPosition(tmp2);
+    _dir.subVectors(tmp2, tmp).normalize();
+    var down = Math.max(0, -_dir.y), reach = _dir.y < -0.05 ? Math.min(90, tmp.y / -_dir.y) : 90;
+    bounces.forEach(function (b, i) {
+      b.position.set(tmp.x + _dir.x * reach - 4, -4, tmp.z + _dir.z * reach + (i ? -24 : 24));
+      b.intensity = gK * lv * (700 + 1700 * down) * 1.29;    // 1.29 = 1 / luminance of the oak tint, so oak sets the level
+      b.color.copy(_col).multiply(gTint);
+    });
+    sheenSpots.forEach(function (L) { L.intensity = 5600 * 3 / sheenSpots.length * lv; L.color.copy(_col); });
+    if (mirrorSheen) mirrorSheen.material.clearcoatRoughness = 0.42 + 0.2 * p.slide;
+
+    // frame the lamp only (the glare plane excluded)
+    _cp.copy(carriage.position); carriage.position.set(SLOT_TOP.x, SLOT_TOP.y, 0); lamp.updateMatrixWorld(true);
+    bbox.makeEmpty();
+    lamp.traverse(function (o) { if (o.isMesh && o !== glare) { if (!o.geometry.boundingBox) o.geometry.computeBoundingBox(); _b.copy(o.geometry.boundingBox).applyMatrix4(o.matrixWorld); bbox.union(_b); } });
+    carriage.position.copy(_cp); lamp.updateMatrixWorld(true);
+    bbox.getCenter(frameCenter); bbox.getSize(frameSize);
+    var fov = camera.fov * DEG;
+    var tall = camera.aspect < 0.8;   // portrait phone: the width decides, so trim the margins
+    var fitH = Math.max(frameSize.y, 16) * 1.25 + 10, fitW = Math.max(frameSize.x, frameSize.z) * (tall ? 1.1 : 1.35) + (tall ? 4 : 14);
+    var fitDist = Math.max(fitH / (2 * Math.tan(fov / 2)), fitW / (2 * Math.tan(fov / 2) * camera.aspect));
+    goal.target.set(frameCenter.x, Math.max(8, frameCenter.y), 0);
+    goal.dist = Math.max(tall ? 110 : 140, fitDist + (tall ? 12 : 50));
+    probe.position.set(frameCenter.x, Math.max(6, frameCenter.y), 0);
+    placeSun();
+    renderer.shadowMap.needsUpdate = true;
+    probeDirty = true;
+  }
+
+  // ---------- camera: auto framing + smoothed orbit with inertia ----------
+  // one finger turns, two fingers pinch (zoom), twist (turn) and pan, three fingers steer the light,
+  // double tap goes back to the start view. Mouse: drag turns, wheel or trackpad pinch zooms,
+  // shift or right drag steers the light, alt or middle drag pans, double click resets.
+  var HOME = { yaw: START.yaw, pitch: START.pitch, zoom: START.zoom || 1 };
+  var cam = { yaw: HOME.yaw, pitch: HOME.pitch, zoom: HOME.zoom, panX: 0, panY: 0 };   // what the camera shows (smoothed)
+  var want = { yaw: HOME.yaw, pitch: HOME.pitch, zoom: HOME.zoom, panX: 0, panY: 0 };  // where the gestures point
+  var vel = { yaw: 0, pitch: 0 };                                               // fling after release, rad per ms
+  // a shared link can carry the view too: #s0.78,z0.5,y0.3,p0.1 (zoom, yaw, pitch)
+  if (hm && hm[2]) cam.zoom = want.zoom = Math.max(0.4, Math.min(2.4, parseFloat(hm[2])));
+  if (hm && hm[3]) cam.yaw = want.yaw = parseFloat(hm[3]);
+  if (hm && hm[4]) cam.pitch = want.pitch = Math.max(0.03, Math.min(1.25, parseFloat(hm[4])));
+  var target = new THREE.Vector3(3, 12, 0), baseDist = 140, framed = false;
+  var PITCH_MIN = 0.03, PITCH_MAX = 1.25, ZOOM_MIN = 0.4, ZOOM_MAX = 2.4, PAN_MAX = 60;
+  var vRight = new THREE.Vector3(), vUp = new THREE.Vector3();
+  function clampWant() {
+    want.pitch = Math.max(PITCH_MIN, Math.min(PITCH_MAX, want.pitch));
+    want.zoom = Math.max(ZOOM_MIN, Math.min(ZOOM_MAX, want.zoom));
+    want.panX = Math.max(-PAN_MAX, Math.min(PAN_MAX, want.panX));
+    want.panY = Math.max(-PAN_MAX, Math.min(PAN_MAX, want.panY));
+  }
+  function worldPerPx() { return baseDist * cam.zoom * 2 * Math.tan(camera.fov * Math.PI / 360) / Math.max(1, window.innerHeight); }
+  function placeCamera(dt) {
+    if (touches.size === 0 && (vel.yaw || vel.pitch)) {
+      want.yaw += vel.yaw * dt; want.pitch += vel.pitch * dt;
+      var decay = Math.exp(-dt / (mouseDriven ? 180 : 340)); vel.yaw *= decay; vel.pitch *= decay;
+      if (Math.abs(vel.yaw) < 2e-6 && Math.abs(vel.pitch) < 2e-6) vel.yaw = vel.pitch = 0;
+      if (want.pitch <= PITCH_MIN || want.pitch >= PITCH_MAX) vel.pitch = 0;
+      clampWant();
+    }
+    // gesture smoothing: a mouse wants the view under the pointer (26 ms), a finger a softer follow (60 ms);
+    // zoom keeps a little more glide so wheel notches become one smooth move
+    var a = framed && !reduceMotion ? 1 - Math.exp(-dt / (mouseDriven ? 26 : 60)) : 1;
+    var az = framed && !reduceMotion ? 1 - Math.exp(-dt / (mouseDriven ? 70 : 60)) : 1;
+    var af = framed && !reduceMotion ? 1 - Math.exp(-dt / 170) : 1;  // auto framing follows a little slower
+    framed = true;
+    cam.yaw += (want.yaw - cam.yaw) * a; cam.pitch += (want.pitch - cam.pitch) * a;
+    cam.zoom *= Math.pow(want.zoom / cam.zoom, az);
+    cam.panX += (want.panX - cam.panX) * a; cam.panY += (want.panY - cam.panY) * a;
+    target.lerp(goal.target, af); baseDist += (goal.dist - baseDist) * af;
+    var d = baseDist * cam.zoom, cp = Math.cos(cam.pitch);
+    camera.position.set(target.x + d * Math.sin(cam.yaw) * cp, target.y + d * Math.sin(cam.pitch), target.z + d * Math.cos(cam.yaw) * cp);
+    camera.lookAt(target);
+    vRight.set(1, 0, 0).applyQuaternion(camera.quaternion); vUp.set(0, 1, 0).applyQuaternion(camera.quaternion);
+    camera.position.addScaledVector(vRight, cam.panX).addScaledVector(vUp, cam.panY);
+    scene.fog.near = d + 40; scene.fog.far = d + 320;
+    return Math.abs(want.yaw - cam.yaw) > 1e-4 || Math.abs(want.pitch - cam.pitch) > 1e-4 || Math.abs(want.zoom / cam.zoom - 1) > 1e-4 ||
+      Math.abs(want.panX - cam.panX) > 0.01 || Math.abs(want.panY - cam.panY) > 0.01 || vel.yaw !== 0 || vel.pitch !== 0 ||
+      target.distanceTo(goal.target) > 0.05 || Math.abs(goal.dist - baseDist) > 0.05;
+  }
+  function resetView() { want.yaw = HOME.yaw; want.pitch = HOME.pitch; want.zoom = HOME.zoom; want.panX = want.panY = 0; vel.yaw = vel.pitch = 0; kick(); }
+
+  // ---------- gestures ----------
+  var mouseDriven = false;
+  var touches = new Map(), mode = null, mouseMode = null, lastC = null, ref = null, samples = [];
+  var tapStart = null, lastTapAt = -1, maxTouches = 0;
+  function pts() { return Array.from(touches.values()); }
+  function centroid() { var x = 0, y = 0; touches.forEach(function (p) { x += p.x; y += p.y; }); return { x: x / touches.size, y: y / touches.size }; }
+  function two() { var v = pts(); return { d: Math.hypot(v[1].x - v[0].x, v[1].y - v[0].y) || 1, a: Math.atan2(v[1].y - v[0].y, v[1].x - v[0].x), c: centroid() }; }
+  function rebase() {   // whenever the number of fingers changes, start each measure afresh so nothing jumps
+    lastC = touches.size ? centroid() : null;
+    ref = touches.size === 2 ? two() : null;
+    mode = mouseMode || (touches.size >= 3 ? "light" : touches.size === 2 ? "two" : touches.size === 1 ? "orbit" : null);
+    samples = [];
+  }
+  canvas.addEventListener("contextmenu", function (ev) { ev.preventDefault(); });
+  canvas.addEventListener("pointerdown", function (ev) {
+    try { canvas.setPointerCapture(ev.pointerId); } catch (e) {}
+    touches.set(ev.pointerId, { x: ev.clientX, y: ev.clientY });
+    maxTouches = Math.max(maxTouches, touches.size);
+    mouseDriven = ev.pointerType === "mouse";
+    if (touches.size === 1) {
+      vel.yaw = vel.pitch = 0;
+      tapStart = { t: ev.timeStamp, x: ev.clientX, y: ev.clientY, moved: 0 };
+      mouseMode = ev.pointerType === "mouse"
+        ? (ev.shiftKey || ev.button === 2 ? "light" : (ev.altKey || ev.button === 1 ? "pan" : null)) : null;
+    }
+    rebase(); kick();
+  });
+  canvas.addEventListener("pointermove", function (ev) {
+    if (!touches.has(ev.pointerId)) return;
+    var prev = touches.get(ev.pointerId);
+    touches.set(ev.pointerId, { x: ev.clientX, y: ev.clientY });
+    if (tapStart) tapStart.moved += Math.hypot(ev.clientX - prev.x, ev.clientY - prev.y);
+    var c = centroid(), dx = c.x - lastC.x, dy = c.y - lastC.y; lastC = c;
+    if (mode === "orbit") {
+      var dyaw = -dx * 0.0062, dpitch = dy * 0.0052;
+      want.yaw += dyaw; want.pitch += dpitch; clampWant();
+      samples.push({ t: ev.timeStamp, yaw: dyaw, pitch: dpitch });
+      while (samples.length && ev.timeStamp - samples[0].t > 90) samples.shift();
+    } else if (mode === "two") {
+      var s = two(), k = worldPerPx();
+      want.zoom *= ref.d / s.d;                                   // pinch
+      var da = s.a - ref.a; if (da > Math.PI) da -= 2 * Math.PI; if (da < -Math.PI) da += 2 * Math.PI;
+      want.yaw += da;                                             // twist turns the lamp with the fingers
+      want.panX -= (s.c.x - ref.c.x) * k; want.panY += (s.c.y - ref.c.y) * k;   // pan follows the fingers
+      ref = s; clampWant();
+    } else if (mode === "pan") {
+      var kp = worldPerPx(); want.panX -= dx * kp; want.panY += dy * kp; clampWant();
+    } else if (mode === "light") {
+      sunAngle.az -= dx * 0.009;
+      sunAngle.el = Math.max(-Math.PI / 2 + 0.02, Math.min(Math.PI / 2 - 0.05, sunAngle.el - dy * 0.0105));
+      placeSun(); renderer.shadowMap.needsUpdate = true; probeDirty = true; camMoved = true;
+    }
+    kick();
+  });
+  function endDrag(ev) {
+    if (!touches.has(ev.pointerId)) return;
+    var wasOrbit = mode === "orbit";
+    touches.delete(ev.pointerId);
+    if (touches.size === 0) {
+      // fling: keep turning with the speed of the last ~90 ms, unless the finger rested before lifting
+      if (wasOrbit && samples.length > 1 && ev.timeStamp - samples[samples.length - 1].t < 50) {
+        var span = Math.max(16, samples[samples.length - 1].t - samples[0].t), sy = 0, sp = 0;
+        samples.forEach(function (q) { sy += q.yaw; sp += q.pitch; });
+        vel.yaw = Math.max(-0.006, Math.min(0.006, sy / span)); vel.pitch = Math.max(-0.004, Math.min(0.004, sp / span));
+        // a mouse only flings on a real flick, so a normal drag stops where you let go
+        if (mouseDriven && (ev.timeStamp - samples[samples.length - 1].t > 30 || Math.hypot(vel.yaw, vel.pitch) < 0.0016)) vel.yaw = vel.pitch = 0;
+      }
+      // double tap (or click) puts the camera back
+      if (tapStart && maxTouches === 1 && tapStart.moved < 10 && ev.timeStamp - tapStart.t < 260) {
+        if (lastTapAt > 0 && ev.timeStamp - lastTapAt < 330) { resetView(); lastTapAt = -1; } else lastTapAt = ev.timeStamp;
+      }
+      tapStart = null; maxTouches = 0; mouseMode = null;
+    }
+    rebase(); kick();
+  }
+  canvas.addEventListener("pointerup", endDrag);
+  canvas.addEventListener("pointercancel", endDrag);
+  canvas.addEventListener("lostpointercapture", endDrag);
+  canvas.addEventListener("wheel", function (ev) {
+    ev.preventDefault();
+    mouseDriven = true;
+    // lines or pages become pixels; one wheel notch is about 9 %, a trackpad pinch (ctrl + wheel) follows the fingers
+    var dy = ev.deltaY * (ev.deltaMode === 1 ? 16 : ev.deltaMode === 2 ? 400 : 1);
+    dy = Math.max(-150, Math.min(150, dy));
+    want.zoom *= Math.exp(dy * (ev.ctrlKey ? 0.01 : 0.0009)); clampWant(); kick();
+  }, { passive: false });
+
+  function resize() {
+    var w = window.innerWidth, h = window.innerHeight;
+    curPR = 0; applyPR(basePR());
+    renderer.setSize(w, h, false);
+    camera.aspect = w / h; camera.fov = camera.aspect < 0.8 ? 40 : 28; camera.updateProjectionMatrix();
+    sizeTicks();
+    if (mirror) { var ms = mirrorSize(); mirror.getRenderTarget().setSize(ms[0], ms[1]); }
+    needsUpdate = true; kick();
+  }
+  var paperWhite = false, themeMeta = document.querySelector('meta[name="theme-color"]');
+  function setPaper(white) {
+    paperWhite = white;
+    var hex = white ? 0xffffff : 0x000000, css = white ? "#ffffff" : "#000000", ink = white ? "0, 0, 0" : "255, 255, 255";
+    scene.background.setHex(hex); scene.fog.color.setHex(hex);
+    var st = document.documentElement.style;
+    st.setProperty("--bg", css); st.setProperty("--tick", ink); st.setProperty("--hot", ink); st.colorScheme = white ? "light" : "dark";
+    if (themeMeta) themeMeta.setAttribute("content", css);
+    drawTicks(); camMoved = true; kick();
+  }
+  document.addEventListener("keydown", function (ev) {
+    if ((ev.key === "b" || ev.key === "B") && !ev.metaKey && !ev.ctrlKey && !ev.altKey && !ev.repeat) { ev.preventDefault(); setPaper(!paperWhite); }
+  });
+  window.addEventListener("resize", resize);
+  if (window.visualViewport) window.visualViewport.addEventListener("resize", resize);
+  canvas.addEventListener("webglcontextrestored", function () { needsUpdate = true; kick(); });
+
+  // ---------- loop (renders only while something changes) ----------
+  var camMoved = false, lastNow = 0;
+  var PIX_BUDGET = 3.6e6, motionScale = 1, emaDt = 16, lastAdapt = 0, curPR = 0;
+  function basePR() { return Math.max(1, Math.min(window.devicePixelRatio || 1, maxPR, Math.sqrt(PIX_BUDGET / Math.max(1, window.innerWidth * window.innerHeight)))); }
+  function applyPR(pr) {
+    pr = Math.round(pr * 20) / 20; if (Math.abs(pr - curPR) < 0.01) return false;
+    curPR = pr; renderer.setPixelRatio(pr); renderer.setSize(window.innerWidth, window.innerHeight, false); return true;
+  }
+  function frame(now) {
+    var dt = lastNow ? Math.min(50, now - lastNow) : 16; lastNow = now;
+    var active = false;
+    if (Math.abs(sGoal - S) > 0.0004) { S += (sGoal - S) * (reduceMotion ? 1 : 0.22); active = true; } else if (S !== sGoal) { S = sGoal; active = true; }
+    if (active) { needsUpdate = true; drawTicks(); updateAria(); }
+    var moving = false;
+    if (needsUpdate) { applyPose(pose(S)); needsUpdate = false; moving = true; }
+    var camBusy = placeCamera(dt);
+    var inMotion = active || scrubbing || camBusy || touches.size > 0;
+    if (inMotion && dt < 50) {
+      emaDt += (dt - emaDt) * 0.2;
+      if (now - lastAdapt > 350) {
+        if (emaDt > 21 && motionScale > 0.55) { motionScale = Math.max(0.55, motionScale * 0.85); lastAdapt = now; }
+        else if (emaDt < 13 && motionScale < 1) { motionScale = Math.min(1, motionScale * 1.12); lastAdapt = now; }
+      }
+    }
+    if (applyPR(basePR() * (inMotion ? motionScale : 1))) camMoved = true;   // a resized canvas is blank until drawn
+    var idle = !active && !scrubbing && touches.size === 0;
+    if (moving || camBusy || camMoved || (probeDirty && idle)) {
+      // refresh reflections only once everything has settled (keeps each frame light while scrubbing or steering)
+      if (probeDirty && idle) {
+        // Shadow maps must be drawn from the real camera: the probe only sees layer 1 (no lamp),
+        // so if it consumed a pending shadow update the lamp's shadows vanished until the next one.
+        if (renderer.shadowMap.needsUpdate) renderer.render(scene, camera);
+        probeIdx ^= 1; probe.renderTarget = probeRTs[probeIdx];
+        var bgp = scene.background; scene.background = null;   // the probe always sees a black room
+        probe.update(renderer, scene);
+        scene.background = bgp;
+        scene.environment = probeRTs[probeIdx].texture; probeDirty = false;
+      }
+      _hn.set(0, -1, 0).transformDirection(arm.matrixWorld);
+      _hp.set((DX0 + DX1) / 2, AY0 - 0.6, (AZ0 + AZ1) / 2).applyMatrix4(arm.matrixWorld);
+      var facing = Math.max(0, _hn.dot(_hc.subVectors(camera.position, _hp).normalize()));
+      _lc.copy(camera.position); arm.worldToLocal(_lc);
+      glare.rotation.x = Math.atan2(-(_lc.y - glare.position.y), _lc.z - glare.position.z);
+      glare.material.opacity = 0.45 * curMood * Math.min(1, facing * 2.2);
+      renderer.render(scene, camera);
+      if ((mirrorSheen && mirrorSheen.visible) || woodLacquer.visible) {   // the ground's lacquer, over the finished frame, depth kept
+        var bg = scene.background; scene.background = null;   // a Color background would force a clear
+        camera.layers.set(2); renderer.autoClear = false;
+        renderer.render(scene, camera);
+        renderer.autoClear = true; camera.layers.set(0); scene.background = bg;
+      }
+      camMoved = false;
+    }
+    if (active || camBusy || touches.size > 0 || (probeDirty && idle)) requestAnimationFrame(frame);
+    else { running = false; lastNow = 0; }
+  }
+  if (START.ground !== "wood") setGround(GROUNDS.map(function (g) { return g.kind; }).indexOf(START.ground));
+  if (START.white) setPaper(true);
+  resize();
+  drawTicks(); updateAria();
+  kick();
+})();
+</script>
+</body>
+</html>

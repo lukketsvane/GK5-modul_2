@@ -559,7 +559,9 @@ html, body {
     want.panY = Math.max(-PAN_MAX, Math.min(PAN_MAX, want.panY));
   }
   function worldPerPx() { return baseDist * cam.zoom * 2 * Math.tan(camera.fov * Math.PI / 360) / Math.max(1, window.innerHeight); }
+  var _camP = new THREE.Vector3(), _camQ = new THREE.Quaternion();
   function placeCamera(dt) {
+    _camP.copy(camera.position); _camQ.copy(camera.quaternion);
     if (touches.size === 0 && (vel.yaw || vel.pitch)) {
       want.yaw += vel.yaw * dt; want.pitch += vel.pitch * dt;
       var decay = Math.exp(-dt / (mouseDriven ? 180 : 340)); vel.yaw *= decay; vel.pitch *= decay;
@@ -587,7 +589,8 @@ html, body {
     vRight.set(1, 0, 0).applyQuaternion(camera.quaternion); vUp.set(0, 1, 0).applyQuaternion(camera.quaternion);
     camera.position.addScaledVector(vRight, cam.panX).addScaledVector(vUp, cam.panY);
     scene.fog.near = d + 40; scene.fog.far = d + 320;
-    return Math.abs(ty - cam.yaw) > 1e-4 || Math.abs(tp - cam.pitch) > 1e-4 || Math.abs(want.zoom / cam.zoom - 1) > 1e-4 ||
+    var movedNow = camera.position.distanceToSquared(_camP) > 1e-12 || 1 - Math.abs(camera.quaternion.dot(_camQ)) > 1e-12;
+    return movedNow || Math.abs(ty - cam.yaw) > 1e-4 || Math.abs(tp - cam.pitch) > 1e-4 || Math.abs(want.zoom / cam.zoom - 1) > 1e-4 ||
       Math.abs(want.panX - cam.panX) > 0.01 || Math.abs(want.panY - cam.panY) > 0.01 || vel.yaw !== 0 || vel.pitch !== 0 ||
       target.distanceTo(goal.target) > 0.05 || Math.abs(goal.dist - baseDist) > 0.05;
   }

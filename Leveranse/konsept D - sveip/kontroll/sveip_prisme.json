@@ -1,0 +1,446 @@
+{
+ "R_0.50": {
+  "metode": "Prismearket frå skjermen under nedre diffusor: jamnar det ut arbeidslyset?",
+  "n_d": 1.57,
+  "R_resirkulering": 0.5,
+  "lm_opal": 400.0,
+  "hogd_m": 0.1725,
+  "foresetnader": [
+   "90°-prisme, ideell (H1 i arket.md, 55 %)",
+   "550 nm",
+   "direkte lys, ingen romlys og ingen skugge frå lampa",
+   "felt-lux skalert til lysmotoren (309 lx for berre opal)"
+  ],
+  "variantar": {
+   "V0 berre opal": {
+    "T_ut_av_arket": 1.0,
+    "rekneskap": {
+     "inn": 1.0,
+     "ut": 1.0,
+     "tapt": 0.0,
+     "resirkulert": 0.0
+    },
+    "del_innanfor_20gr": 0.117,
+    "felt_direkte": {
+     "snitt": 302.9,
+     "min": 9.2,
+     "maks": 2601.0,
+     "U": 0.045,
+     "lm_paa_feltet": 72.7
+    },
+    "felt_skalert_lx": 309.0,
+    "lm_for_350lx": 453.0
+   },
+   "V1 prisme opp, riller langs y (spreier mot feltet og bort)": {
+    "T_ut_av_arket": 0.642,
+    "rekneskap": {
+     "inn": 1.0,
+     "ut": 0.642,
+     "tapt": 0.358,
+     "resirkulert": 0.358
+    },
+    "del_innanfor_20gr": 0.065,
+    "felt_direkte": {
+     "snitt": 306.6,
+     "min": 8.8,
+     "maks": 2295.5,
+     "U": 0.042,
+     "lm_paa_feltet": 73.6
+    },
+    "felt_skalert_lx": 312.8,
+    "lm_for_350lx": 448.0
+   },
+   "V2 prisme opp, riller langs x (spreier framover og bakover)": {
+    "T_ut_av_arket": 0.643,
+    "rekneskap": {
+     "inn": 1.0,
+     "ut": 0.643,
+     "tapt": 0.357,
+     "resirkulert": 0.357
+    },
+    "del_innanfor_20gr": 0.065,
+    "felt_direkte": {
+     "snitt": 124.0,
+     "min": 0.0,
+     "maks": 1494.4,
+     "U": 0.0,
+     "lm_paa_feltet": 29.8
+    },
+    "felt_skalert_lx": 126.5,
+    "lm_for_350lx": 1107.0
+   },
+   "V3 to ark i kryss, prisme opp": {
+    "T_ut_av_arket": 0.356,
+    "rekneskap": {
+     "inn": 1.0,
+     "ut": 0.356,
+     "tapt": 0.644,
+     "resirkulert": 0.644
+    },
+    "del_innanfor_20gr": 0.003,
+    "felt_direkte": {
+     "snitt": 104.6,
+     "min": 0.0,
+     "maks": 1130.8,
+     "U": 0.0,
+     "lm_paa_feltet": 25.1
+    },
+    "felt_skalert_lx": 106.7,
+    "lm_for_350lx": 1312.0
+   },
+   "V4 prisme ned (som i skjermen), riller langs y": {
+    "T_ut_av_arket": 0.642,
+    "rekneskap": {
+     "inn": 1.0,
+     "ut": 0.642,
+     "tapt": 0.358,
+     "resirkulert": 0.358
+    },
+    "del_innanfor_20gr": 0.234,
+    "felt_direkte": {
+     "snitt": 128.1,
+     "min": 9.5,
+     "maks": 2681.1,
+     "U": 0.107,
+     "lm_paa_feltet": 30.7
+    },
+    "felt_skalert_lx": 130.7,
+    "lm_for_350lx": 1071.0
+   }
+  }
+ },
+ "R_0.70": {
+  "metode": "Prismearket frå skjermen under nedre diffusor: jamnar det ut arbeidslyset?",
+  "n_d": 1.57,
+  "R_resirkulering": 0.7,
+  "lm_opal": 400.0,
+  "hogd_m": 0.1725,
+  "foresetnader": [
+   "90°-prisme, ideell (H1 i arket.md, 55 %)",
+   "550 nm",
+   "direkte lys, ingen romlys og ingen skugge frå lampa",
+   "felt-lux skalert til lysmotoren (309 lx for berre opal)"
+  ],
+  "variantar": {
+   "V0 berre opal": {
+    "T_ut_av_arket": 1.0,
+    "rekneskap": {
+     "inn": 1.0,
+     "ut": 1.0,
+     "tapt": 0.0,
+     "resirkulert": 0.0
+    },
+    "del_innanfor_20gr": 0.117,
+    "felt_direkte": {
+     "snitt": 302.9,
+     "min": 9.2,
+     "maks": 2601.0,
+     "U": 0.045,
+     "lm_paa_feltet": 72.7
+    },
+    "felt_skalert_lx": 309.0,
+    "lm_for_350lx": 453.0
+   },
+   "V1 prisme opp, riller langs y (spreier mot feltet og bort)": {
+    "T_ut_av_arket": 0.749,
+    "rekneskap": {
+     "inn": 1.0,
+     "ut": 0.749,
+     "tapt": 0.251,
+     "resirkulert": 0.585
+    },
+    "del_innanfor_20gr": 0.065,
+    "felt_direkte": {
+     "snitt": 357.3,
+     "min": 10.2,
+     "maks": 2694.8,
+     "U": 0.042,
+     "lm_paa_feltet": 85.7
+    },
+    "felt_skalert_lx": 364.5,
+    "lm_for_350lx": 384.0
+   },
+   "V2 prisme opp, riller langs x (spreier framover og bakover)": {
+    "T_ut_av_arket": 0.75,
+    "rekneskap": {
+     "inn": 1.0,
+     "ut": 0.75,
+     "tapt": 0.25,
+     "resirkulert": 0.584
+    },
+    "del_innanfor_20gr": 0.064,
+    "felt_direkte": {
+     "snitt": 144.4,
+     "min": 0.0,
+     "maks": 1711.5,
+     "U": 0.0,
+     "lm_paa_feltet": 34.6
+    },
+    "felt_skalert_lx": 147.3,
+    "lm_for_350lx": 950.0
+   },
+   "V3 to ark i kryss, prisme opp": {
+    "T_ut_av_arket": 0.479,
+    "rekneskap": {
+     "inn": 1.0,
+     "ut": 0.479,
+     "tapt": 0.52,
+     "resirkulert": 1.214
+    },
+    "del_innanfor_20gr": 0.003,
+    "felt_direkte": {
+     "snitt": 142.2,
+     "min": 0.0,
+     "maks": 1548.5,
+     "U": 0.0,
+     "lm_paa_feltet": 34.1
+    },
+    "felt_skalert_lx": 145.1,
+    "lm_for_350lx": 965.0
+   },
+   "V4 prisme ned (som i skjermen), riller langs y": {
+    "T_ut_av_arket": 0.749,
+    "rekneskap": {
+     "inn": 1.0,
+     "ut": 0.749,
+     "tapt": 0.251,
+     "resirkulert": 0.586
+    },
+    "del_innanfor_20gr": 0.233,
+    "felt_direkte": {
+     "snitt": 150.0,
+     "min": 10.1,
+     "maks": 3146.5,
+     "U": 0.108,
+     "lm_paa_feltet": 36.0
+    },
+    "felt_skalert_lx": 153.0,
+    "lm_for_350lx": 915.0
+   },
+   "V5 sagtann 20/70 +, prisme opp, riller langs y": {
+    "T_ut_av_arket": 0.898,
+    "rekneskap": {
+     "inn": 1.0,
+     "ut": 0.898,
+     "tapt": 0.102,
+     "resirkulert": 0.239
+    },
+    "del_innanfor_20gr": 0.149,
+    "felt_direkte": {
+     "snitt": 196.4,
+     "min": 4.8,
+     "maks": 2442.0,
+     "U": 0.037,
+     "lm_paa_feltet": 47.1
+    },
+    "felt_skalert_lx": 200.4,
+    "lm_for_350lx": 699.0
+   },
+   "V5 sagtann 20/70 -, prisme opp, riller langs y": {
+    "T_ut_av_arket": 0.897,
+    "rekneskap": {
+     "inn": 1.0,
+     "ut": 0.897,
+     "tapt": 0.103,
+     "resirkulert": 0.239
+    },
+    "del_innanfor_20gr": 0.149,
+    "felt_direkte": {
+     "snitt": 317.5,
+     "min": 6.8,
+     "maks": 2883.0,
+     "U": 0.032,
+     "lm_paa_feltet": 76.2
+    },
+    "felt_skalert_lx": 323.9,
+    "lm_for_350lx": 432.0
+   },
+   "V5 sagtann 30/60 +, prisme opp, riller langs y": {
+    "T_ut_av_arket": 0.862,
+    "rekneskap": {
+     "inn": 1.0,
+     "ut": 0.862,
+     "tapt": 0.138,
+     "resirkulert": 0.323
+    },
+    "del_innanfor_20gr": 0.144,
+    "felt_direkte": {
+     "snitt": 209.7,
+     "min": 8.1,
+     "maks": 1150.8,
+     "U": 0.059,
+     "lm_paa_feltet": 50.3
+    },
+    "felt_skalert_lx": 213.9,
+    "lm_for_350lx": 655.0
+   },
+   "V5 sagtann 30/60 -, prisme opp, riller langs y": {
+    "T_ut_av_arket": 0.862,
+    "rekneskap": {
+     "inn": 1.0,
+     "ut": 0.862,
+     "tapt": 0.138,
+     "resirkulert": 0.322
+    },
+    "del_innanfor_20gr": 0.144,
+    "felt_direkte": {
+     "snitt": 355.3,
+     "min": 7.6,
+     "maks": 3173.3,
+     "U": 0.033,
+     "lm_paa_feltet": 85.3
+    },
+    "felt_skalert_lx": 362.5,
+    "lm_for_350lx": 386.0
+   },
+   "V5 sagtann 40/50 +, prisme opp, riller langs y": {
+    "T_ut_av_arket": 0.784,
+    "rekneskap": {
+     "inn": 1.0,
+     "ut": 0.784,
+     "tapt": 0.216,
+     "resirkulert": 0.504
+    },
+    "del_innanfor_20gr": 0.073,
+    "felt_direkte": {
+     "snitt": 293.4,
+     "min": 9.8,
+     "maks": 2256.5,
+     "U": 0.049,
+     "lm_paa_feltet": 70.4
+    },
+    "felt_skalert_lx": 299.3,
+    "lm_for_350lx": 468.0
+   },
+   "V5 sagtann 40/50 -, prisme opp, riller langs y": {
+    "T_ut_av_arket": 0.784,
+    "rekneskap": {
+     "inn": 1.0,
+     "ut": 0.784,
+     "tapt": 0.216,
+     "resirkulert": 0.504
+    },
+    "del_innanfor_20gr": 0.072,
+    "felt_direkte": {
+     "snitt": 389.6,
+     "min": 9.6,
+     "maks": 3070.3,
+     "U": 0.037,
+     "lm_paa_feltet": 93.5
+    },
+    "felt_skalert_lx": 397.4,
+    "lm_for_350lx": 352.0
+   }
+  }
+ },
+ "R_0.85": {
+  "metode": "Prismearket frå skjermen under nedre diffusor: jamnar det ut arbeidslyset?",
+  "n_d": 1.57,
+  "R_resirkulering": 0.85,
+  "lm_opal": 400.0,
+  "hogd_m": 0.1725,
+  "foresetnader": [
+   "90°-prisme, ideell (H1 i arket.md, 55 %)",
+   "550 nm",
+   "direkte lys, ingen romlys og ingen skugge frå lampa",
+   "felt-lux skalert til lysmotoren (309 lx for berre opal)"
+  ],
+  "variantar": {
+   "V0 berre opal": {
+    "T_ut_av_arket": 1.0,
+    "rekneskap": {
+     "inn": 1.0,
+     "ut": 1.0,
+     "tapt": 0.0,
+     "resirkulert": 0.0
+    },
+    "del_innanfor_20gr": 0.117,
+    "felt_direkte": {
+     "snitt": 302.9,
+     "min": 9.2,
+     "maks": 2601.0,
+     "U": 0.045,
+     "lm_paa_feltet": 72.7
+    },
+    "felt_skalert_lx": 309.0,
+    "lm_for_350lx": 453.0
+   },
+   "V1 prisme opp, riller langs y (spreier mot feltet og bort)": {
+    "T_ut_av_arket": 0.856,
+    "rekneskap": {
+     "inn": 1.0,
+     "ut": 0.856,
+     "tapt": 0.144,
+     "resirkulert": 0.813
+    },
+    "del_innanfor_20gr": 0.065,
+    "felt_direkte": {
+     "snitt": 407.9,
+     "min": 11.7,
+     "maks": 3101.4,
+     "U": 0.043,
+     "lm_paa_feltet": 97.9
+    },
+    "felt_skalert_lx": 416.1,
+    "lm_for_350lx": 336.0
+   },
+   "V2 prisme opp, riller langs x (spreier framover og bakover)": {
+    "T_ut_av_arket": 0.857,
+    "rekneskap": {
+     "inn": 1.0,
+     "ut": 0.857,
+     "tapt": 0.143,
+     "resirkulert": 0.811
+    },
+    "del_innanfor_20gr": 0.065,
+    "felt_direkte": {
+     "snitt": 165.3,
+     "min": 0.0,
+     "maks": 1974.3,
+     "U": 0.0,
+     "lm_paa_feltet": 39.7
+    },
+    "felt_skalert_lx": 168.6,
+    "lm_for_350lx": 830.0
+   },
+   "V3 to ark i kryss, prisme opp": {
+    "T_ut_av_arket": 0.645,
+    "rekneskap": {
+     "inn": 1.0,
+     "ut": 0.645,
+     "tapt": 0.351,
+     "resirkulert": 1.985
+    },
+    "del_innanfor_20gr": 0.003,
+    "felt_direkte": {
+     "snitt": 190.4,
+     "min": 0.0,
+     "maks": 2079.1,
+     "U": 0.0,
+     "lm_paa_feltet": 45.7
+    },
+    "felt_skalert_lx": 194.2,
+    "lm_for_350lx": 721.0
+   },
+   "V4 prisme ned (som i skjermen), riller langs y": {
+    "T_ut_av_arket": 0.856,
+    "rekneskap": {
+     "inn": 1.0,
+     "ut": 0.856,
+     "tapt": 0.144,
+     "resirkulert": 0.815
+    },
+    "del_innanfor_20gr": 0.233,
+    "felt_direkte": {
+     "snitt": 170.9,
+     "min": 12.6,
+     "maks": 3588.1,
+     "U": 0.106,
+     "lm_paa_feltet": 41.0
+    },
+    "felt_skalert_lx": 174.3,
+    "lm_for_350lx": 803.0
+   }
+  }
+ }
+}

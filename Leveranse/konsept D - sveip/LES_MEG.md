@@ -51,7 +51,22 @@ Rendra med same kamera som skissa (`render/sveip_samanlikn.png`) fell proporsjon
 | Bak skjermen / ansikt | 34 / 34 lx | F6, F10: **ikkje oppfylt** |
 | Øvre diffusor ved 200 lm / nedre ved 400 lm | 2400 / 12 100 cd/m² i snitt | F5: **ikkje oppfylt** når ein ser flata |
 
-Lyset kjem ut 17 cm over bordet og blir ein pol (1249 lx snitt under opninga). Vegar vidare som ikkje er valde: prismearket frå skjermen under nedre diffusor (må prøvast med lykt), større skala, eller å kalle Sveip sidelys og stemningslys.
+Lyset kjem ut 17 cm over bordet og blir ein pol (1249 lx snitt under opninga). Midten av polen ligg ved x = 0,39 m, utanfor den høgre kanten av feltet (0,30).
+
+### Prismearket frå skjermen under nedre diffusor (`cad/sveip_prisme.py`)
+
+Strålesporing med `konsept/film/film.py` (90°-prisme, n 1,57 etter domen i `konsept/vindauge/film/arket.md`). Opalen er lambertsk, og lys som arket kastar attende, går tilbake til opalen og det kvite kammeret og kjem ut att (resirkulering R). Lux er rekna direkte og skalert mot lysmotoren. Berre opal gav 303 lx direkte, mot 309 lx i lysmotoren.
+
+| Variant, 400 lm frå opalen | R 0,5 | **R 0,7 (truleg)** | R 0,85 | U |
+|---|---|---|---|---|
+| Berre opal | 309 lx | 309 lx | 309 lx | 0,04 |
+| Prismearket, prismesida opp mot opalen, riller langs y | 313 | **364** | 416 | 0,04 |
+| Same, riller langs x | 126 | 147 | 169 | 0,00 |
+| To ark i kryss | 107 | 145 | 194 | 0,00 |
+| Prismesida ned, slik arket låg i skjermen | 131 | 153 | 174 | 0,11 |
+| Sagtann 40/50 (eige ark), rett veg | | 397 | | 0,04 |
+
+Dom: arket med prismesida opp og rillene på tvers av utkraginga flyttar den eine loben inn på feltet og løftar snittet med om lag 18 % (sagtann om lag 29 %). Med R 0,7 når snittet 350 lx (F3 sitt lux-tal), men jamnheita blir ikkje betre: U er 0,04 mot 0,6. Den andre loben går til spille utanfor feltet. Andre retningar gjer det verre. Eit ark kan ikkje jamne ut eit felt på 0,6 × 0,4 m når kjelda sit 17 cm over bordet ved sida av det. Det krev ei kjelde høgare og over feltet, altså ein annan lampetype. Arket er gratis (brukaren har fleire), 0,16 mm tjukt og passar på leppa i ramma under diffusoren. Det er ikkje med i CAD-en enno. Prøv først med lykteprøva P1 i `arket.md` og ein lux-app på telefonen. Tala ligg i `kontroll/sveip_prisme.json`, kartet i `render/sveip_prisme.png`.
 
 ## Krav (grunnlag/04-kravspesifikasjon.md)
 

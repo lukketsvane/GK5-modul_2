@@ -45,7 +45,7 @@ html, body {
 <body>
 <canvas id="scene" role="img" aria-label="3D-modell av lampa Vippe. Dra for å snu."></canvas>
 <button id="ground" type="button" aria-label="Underlag: Eik. Trykk for å byte."></button>
-<div id="scrub" role="slider" tabindex="0" aria-label="Stilling, frå oppreist arm til lågt over bordet" aria-valuemin="0" aria-valuemax="100" aria-valuenow="56"><canvas id="ticks" aria-hidden="true"></canvas></div>
+<div id="scrub" role="slider" tabindex="0" aria-label="Stilling, frå samanfalda til lågt over bordet" aria-valuemin="0" aria-valuemax="100" aria-valuenow="56"><canvas id="ticks" aria-hidden="true"></canvas></div>
 
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/objects/Reflector.js"></script>
@@ -68,22 +68,29 @@ html, body {
 
   // ---------- timeline (lengths in cm, angles in degrees) ----------
   // Vippe: the arm tips about the pin at the top of the folded stand, and the pin rides in the slot.
+  // Folded away, the joint sits at the foot of the slot and the arm lies along the strut (the arm is longer than
+  // the stand, so it cannot fold down from the top). Unfolding, the joint rides up the slot as the arm rises.
   // Upright it is a dim column that lights the room; tipped down to level it is a work light over the table;
   // then the joint slides down the slot until the arm hangs a hand's breadth over the wood, dimmed and warm.
   var S = START.s, sGoal = START.s;
   var hm = /^#s(\d(?:\.\d+)?)(?:,z(\d+(?:\.\d+)?))?(?:,y(-?\d+(?:\.\d+)?))?(?:,p(\d+(?:\.\d+)?))?$/.exec(location.hash);
   if (hm) S = sGoal = Math.min(1, parseFloat(hm[1]));
   function seg(s, a, b) { var t = Math.min(1, Math.max(0, (s - a) / (b - a))); return t * t * (3 - 2 * t); }
+  // the slot's own angle (about 72 degrees): folded, the arm lies along it
+  function foldTilt() { return Math.atan2(SLOT_TOP.y - SLOT_BOT.y, SLOT_TOP.x - SLOT_BOT.x) * 180 / Math.PI; }
   function pose(s) {
-    var tilt = 90 * (1 - seg(s, 0.1, 0.5));
+    var fold = 1 - seg(s, 0.03, 0.13);           // 1 = folded: the joint at the foot of the slot, the arm along the strut
+    var up = 90 - (90 - foldTilt()) * fold;      // the arm rises from the strut's angle to upright as it unfolds
+    var tilt = up * (1 - seg(s, 0.2, 0.5));
     var slide = seg(s, 0.62, 0.97);              // 0 = pin at the top of the slot, 1 = at its foot
-    var level = 0.4 * seg(s, 0.015, 0.1) + 0.6 * seg(s, 0.12, 0.5) - 0.8 * slide;   // exactly 0 in the "Av" band
-    var cool = seg(s, 0.1, 0.5) * (1 - 0.5 * slide);   // dim to warm: about 2000 K upright and low, 3000 K at full
-    return { tilt: tilt, slide: slide, level: level, cool: cool };
+    var level = 0.4 * seg(s, 0.13, 0.2) + 0.6 * seg(s, 0.2, 0.5) - 0.8 * slide;   // exactly 0 while folded and unfolding
+    var cool = seg(s, 0.2, 0.5) * (1 - 0.5 * slide);   // dim to warm: about 2000 K upright and low, 3000 K at full
+    return { fold: fold, tilt: tilt, slide: slide, level: level, cool: cool };
   }
   function phaseText(s) {
-    if (s < 0.015) return "Av, armen står oppreist";
-    if (s <= 0.1) return "Stemning, armen står oppreist og lyser ut i rommet";
+    if (s < 0.03) return "Av, armen ligg samanfalda langs stativet";
+    if (s < 0.13) return "Leddet glir opp spora og armen reiser seg";
+    if (s <= 0.2) return "Stemning, armen står oppreist og lyser ut i rommet";
     if (s < 0.5) return "Armen vippar ned om tappen";
     if (s < 0.62) return "Arbeid, lys ned på bordet";
     if (s < 0.97) return "Leddet glir ned langs spora";
@@ -642,8 +649,10 @@ html, body {
   // how far down the slot the joint goes: to where the strip still hangs about 11 cm over the wood, so the light
   // stays one even band (any lower and the three sources would show as three pools)
   var SLIDE_END = 0.74, _cp = new THREE.Vector3();
+  // folded, the joint goes all the way to the foot of the slot
+  var FOLD_END = 1;
   function applyPose(p) {
-    var k = SLIDE_END * p.slide;
+    var k = SLIDE_END * p.slide + FOLD_END * p.fold;   // never both at once: folding ends at 0.13, sliding starts at 0.62
     carriage.position.set(SLOT_TOP.x + (SLOT_BOT.x - SLOT_TOP.x) * k, SLOT_TOP.y + (SLOT_BOT.y - SLOT_TOP.y) * k, 0);
     if (Math.abs(k - cordAt) > 0.0015) { routeCord(carriage.position.x, carriage.position.y); cordAt = k; }
     arm.rotation.z = p.tilt * DEG;
@@ -669,7 +678,8 @@ html, body {
     if (mirrorSheen) mirrorSheen.material.clearcoatRoughness = 0.42 + 0.2 * p.slide;
 
     // frame the lamp only (the glare plane excluded)
-    _cp.copy(carriage.position); carriage.position.set(SLOT_TOP.x, SLOT_TOP.y, 0); lamp.updateMatrixWorld(true);
+    _cp.copy(carriage.position); var kf = FOLD_END * p.fold;
+    carriage.position.set(SLOT_TOP.x + (SLOT_BOT.x - SLOT_TOP.x) * kf, SLOT_TOP.y + (SLOT_BOT.y - SLOT_TOP.y) * kf, 0); lamp.updateMatrixWorld(true);
     bbox.makeEmpty();
     lamp.traverse(function (o) { if (o.isMesh && o !== glare) { if (!o.geometry.boundingBox) o.geometry.computeBoundingBox(); _b.copy(o.geometry.boundingBox).applyMatrix4(o.matrixWorld); bbox.union(_b); } });
     carriage.position.copy(_cp); lamp.updateMatrixWorld(true);

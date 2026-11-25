@@ -14,12 +14,15 @@ Les   ../V0-basis/render/geometri.json og STL-ane (lag dei med sveip_produksjon.
 Skriv bilete/<variant>.png  (eller bilete/<variant>_prove.png)
 
 Ein variant er ei fil <namn>.py i denne mappa med:
-  def felt(G): return dict(h=..., tone=..., rough=..., mat={...})
+  def felt(G): return dict(h=..., tone=..., rough=..., mat={...}, knapp_nivaa=...)
     h      høgd i mm ut frå plata, same form som G.S. Nullnivået for huda er H0 (0,3 mm).
     tone   (valfri) lysleik, om lag 0,8 til 1,1
     rough  (valfri) ruheit 0 til 1
     mat    (valfri) dict: farge (r, g, b) sRGB, metal 0..1, rough, sky (skydekt variasjon 0..1),
-           vev (synleg vev i duk, 0..1), floyel (sheen for duk, 0..1)
+           strok (slipestrok langs s, 0..1), vev (vev i duk, 0..1), floyel (sheen for duk, 0..1)
+    knapp_nivaa (valfri) nivået huda har rundt messingknappen (standard H0)
+
+Faste reglar for familien: naglar r 0,9 og h 0,28 mm, 4,5 mm frå saum og kant (A).
 """
 from __future__ import annotations
 
@@ -40,18 +43,23 @@ S_, D_, R_ = 300.0, 105.0, 52.5
 Z_SKJERM, X_STAMME, R_INN = 167.5, 178.0, 12.0
 X_HAKK, Z_HAKK, R_HAKK = 45.5, 61.0, 7.0
 PKT_X, PKT_Z = 165.0, 70.0
+R_KNAPP = 6.3                   # messingknappen, Ø 12,6
 BUE = math.pi * R_ / 2          # kvartboge i nasen: 82,47
 FLAT = S_ - 2 * R_              # flat side: 195
 P_ = 2 * FLAT + 2 * math.pi * R_  # omkrins: 719,87
 H0 = 0.3                        # nullnivå for huda over CAD-flata
+A = 4.5                         # naglerekkja står 4,5 mm frå saum og kant
+NAGLE_R, NAGLE_H = 0.9, 0.28
 S_FRAMME = (BUE, BUE + FLAT)                      # s-området til den flate framsida
 S_VENSTRE = (BUE + FLAT, BUE + FLAT + math.pi * R_)  # venstre halvsylinder
 S_BAK = (BUE + FLAT + math.pi * R_, P_ - BUE)     # flat bakside
 S_KNAPP_F = BUE + (S_ - R_ - PKT_X)               # knappen framme: s = 164,97
-S_KNAPP_B = S_BAK[0] + (PKT_X - R_)               # knappen bak
+S_KNAPP_B = P_ - S_KNAPP_F                        # knappen bak
 S_STAMME_F = BUE + (S_ - R_ - X_STAMME)           # høgre kant av stamma, framme: s = 151,97
-S_STAMME_B = S_BAK[0] + (X_STAMME - R_)           # same, bak
-S_NASE_BAK = P_ - BUE                             # der baksida går over i nasen
+S_STAMME_B = P_ - S_STAMME_F                      # same, bak
+S_HAKK_F = S_VENSTRE[0] + R_ * math.asin((R_ - X_HAKK) / R_)   # der hakkanten skjer venstre boge, framme
+S_HAKK_B = P_ - S_HAKK_F
+S_TOPPUNKT = P_ / 2                               # toppunktet på venstre boge (x = 0)
 
 
 def plan(s):
@@ -90,6 +98,11 @@ def kuppel(d, r, h):
     return h * np.sqrt(np.clip(1 - (d / r) ** 2, 0.0, 1.0))
 
 
+def spegl(s):
+    """Same punkt på baksida (spegla om nasen)."""
+    return (P_ - s) % P_
+
+
 class Gitter:
     """Utbretta hud. Alle felt har form (ns, nz + 1): akse 0 er s (lukka, går rundt), akse 1 er z."""
 
@@ -108,15 +121,7 @@ class Gitter:
         self.flate = np.repeat(fl[:, None], self.nz + 1, axis=1)
         self.krum = (self.flate != 1) & (self.flate != 3)          # sant på dei krumme partia
         self.fast = self._fast(self.X, self.Z)                     # sant der det er plate
-        # avstand (mm) frå kvart punkt til næraste kant av plata (toppkant, underkant, utskjeringar)
-        pad = int(60 / steg)
-        m = np.concatenate([self.fast[-pad:], self.fast, self.fast[:pad]], axis=0)
-        m = np.pad(m, ((0, 0), (1, 1)), constant_values=False)
-        self.kant = (ndimage.distance_transform_edt(m) * steg)[pad:-pad, 1:-1]
-        # kva veg næraste kant går: sant der kanten er vassrett (gradienten peikar i z)
-        gs = np.abs(np.roll(self.kant, -1, 0) - np.roll(self.kant, 1, 0))
-        gz = np.abs(np.gradient(self.kant, axis=1)) * 2
-        self.kant_vassrett = gz >= gs
+        self.kant = self.avstand_til(self.fast)                    # mm til næraste frie kant
         self.d_knapp = np.minimum(np.hypot(self.avst_s(S_KNAPP_F), self.Z - PKT_Z),
                                   np.hypot(self.avst_s(S_KNAPP_B), self.Z - PKT_Z))
 
@@ -132,53 +137,74 @@ class Gitter:
         hk &= ~hh
         return ~(ut | hk)
 
-    # ------------------------------------------------------------ avstandar og mønster
+    # ------------------------------------------------------------ avstandar
     def avst_s(self, s0):
         """Avstand langs s til s0, rekna rundt (mm)."""
         return np.abs(((self.S - s0 + P_ / 2) % P_) - P_ / 2)
 
-    def saum_s(self, *s0):
-        """Avstand til næraste loddrette saum i lista."""
-        return np.minimum.reduce([self.avst_s(v) for v in s0])
+    def avstand_til(self, maske, rekkjevidd=90.0):
+        """Avstand (mm) frå kvart punkt i maska til næraste punkt utanfor, rekna rundt i s.
+        Utanfor z-området tel som utanfor maska."""
+        pad = int(rekkjevidd / self.steg)
+        m = np.concatenate([maske[-pad:], maske, maske[:pad]], axis=0)
+        m = np.pad(m, ((0, 0), (1, 1)), constant_values=False)
+        d = ndimage.distance_transform_edt(m) * self.steg - 0.5 * self.steg
+        return np.maximum(d[pad:-pad, 1:-1], 0.0)
 
-    def saum_z(self, *z0):
-        """Avstand til næraste vassrette saum i lista."""
-        return np.minimum.reduce([np.abs(self.Z - v) for v in z0])
+    def sla_opp(self, felt, s, z):
+        """Verdien av eit felt i vilkårlege punkt (s, z): næraste rutenettpunkt."""
+        i = np.rint(np.asarray(s) / self.ds).astype(int) % self.ns
+        j = np.clip(np.rint(np.asarray(z) / self.dz).astype(int), 0, self.nz)
+        return felt[i, j]
 
-    def naglar_z(self, z0, deling=12.0, r=1.1, h=0.45, fase=0.0, s_fra=None, s_til=None):
-        """Ei vassrett naglerekkje i høgda z0, jamn deling rundt heile forma (delinga blir retta
-        så ho går opp i omkrinsen). s_fra/s_til avgrensar rekkja til eit s-område."""
-        n = max(1, round(P_ / deling))
-        d = P_ / n
-        u = ((self.S - fase + d / 2) % d) - d / 2
-        ut = kuppel(np.hypot(u, self.Z - z0), r, h)
+    def mellom_s(self, s_fra, s_til):
+        """Sant for s frå s_fra til s_til i aukande retning (går rundt om s_til < s_fra)."""
+        return ((self.S - s_fra) % P_) <= ((s_til - s_fra) % P_)
+
+    # ------------------------------------------------------------ saumar og panel
+    def linje_z(self, z0, s_fra=None, s_til=None):
+        """Vassrett saumline i høgda z0 (éi rad), valfritt berre frå s_fra til s_til."""
+        m = np.zeros(self.S.shape, dtype=bool)
+        m[:, int(round(z0 / self.dz))] = True
         if s_fra is not None:
-            ut = ut * ((self.S >= s_fra) & (self.S <= s_til))
-        return ut
+            m &= self.mellom_s(s_fra, s_til)
+        return m
 
-    def naglar_s(self, s0, deling=12.0, r=1.1, h=0.45, fase=0.0, z_fra=0.0, z_til=S_):
-        """Ei loddrett naglerekkje ved s0, frå z_fra til z_til."""
-        n = max(1, round((z_til - z_fra) / deling))
-        d = (z_til - z_fra) / n
-        v = ((self.Z - z_fra - fase + d / 2) % d) - d / 2
-        ut = kuppel(np.hypot(self.avst_s(s0), v), r, h)
-        return ut * ((self.Z >= z_fra) & (self.Z <= z_til))
+    def linje_s(self, s0, z_fra=0.0, z_til=S_):
+        """Loddrett saumline ved s0 (éi kolonne) frå z_fra til z_til."""
+        m = np.zeros(self.S.shape, dtype=bool)
+        m[int(round((s0 % P_) / self.ds)) % self.ns, :] = True
+        return m & (self.Z >= z_fra - 1e-9) & (self.Z <= z_til + 1e-9)
 
-    def naglar_langs_kant(self, a=5.0, deling=12.0, r=1.1, h=0.45):
-        """Naglar i avstanden a innanfor alle kantane på plata (toppkant, underkant, utskjeringar)."""
-        ns_ = max(1, round(P_ / deling))
-        dsd = P_ / ns_
-        u = np.where(self.kant_vassrett, ((self.S + dsd / 2) % dsd) - dsd / 2,
-                     ((self.Z + deling / 2) % deling) - deling / 2)
-        return kuppel(np.hypot(u, self.kant - a), r, h)
+    def linje(self, p0, p1):
+        """Saumline mellom to punkt (s, z), rett line i den utbretta plata (ikkje over s = 0)."""
+        (s0, z0), (s1, z1) = p0, p1
+        L2 = (s1 - s0) ** 2 + (z1 - z0) ** 2
+        t = np.clip(((self.S - s0) * (s1 - s0) + (self.Z - z0) * (z1 - z0)) / L2, 0, 1)
+        return np.hypot(self.S - (s0 + t * (s1 - s0)), self.Z - (z0 + t * (z1 - z0))) < 0.71 * self.steg
 
-    def panel_id(self, s_saumar, z_saumar):
-        """Heiltal per panel i eit rutenett av saumar (s rundt, z opp)."""
-        ss = np.sort(np.asarray(s_saumar, dtype=float) % P_)
-        zs = np.sort(np.asarray(z_saumar, dtype=float))
-        i = np.searchsorted(ss, self.S, side="right") % max(1, len(ss))
-        j = np.searchsorted(zs, self.Z, side="right")
-        return i * (len(zs) + 1) + j
+    def paneler(self, saum):
+        """Nummer per panel: samanhengande plate mellom saumliner og frie kantar. Saumpunkta
+        får nummeret til næraste panel. Returnerer (nummer, tal på panel)."""
+        fri = self.fast & ~saum
+        lab, n = ndimage.label(fri)
+        far = list(range(n + 1))
+
+        def rot(a):
+            while far[a] != a:
+                far[a] = far[far[a]]
+                a = far[a]
+            return a
+        for a, b in set(zip(lab[-1, :].tolist(), lab[0, :].tolist())):   # skøyt rundt s
+            if a and b and rot(a) != rot(b):
+                far[rot(a)] = rot(b)
+        rotar = np.array([rot(a) for a in range(n + 1)])
+        _, tett = np.unique(rotar, return_inverse=True)
+        lab = tett[lab]
+        null = tett[0]
+        idx = ndimage.distance_transform_edt(lab == null, return_distances=False, return_indices=True)
+        lab = lab[tuple(idx)]
+        return lab, int(lab.max()) + 1
 
     def tone_per_panel(self, ids, spreiing=0.06, fro=1):
         """Ein tilfeldig lysleik per panel-id, 1 +- spreiing."""
@@ -186,6 +212,109 @@ class Gitter:
         tab = 1 + spreiing * rng.uniform(-1, 1, int(ids.max()) + 1)
         return tab[ids]
 
+    # ------------------------------------------------------------ naglar
+    def kontur_punkt(self, maske, a=A, deling=10.5, tvang=(), vinkel=38.0):
+        """Naglepunkt i avstanden a innanfor randa på maska. Kvar lukka kontur blir delt i
+        hjørna (og i tvangspunkta), og kvart stykke får jamn deling nærast `deling`.
+        Hjørnenaglen er felles for dei to rekkjene som møtest. Returnerer (n, 2) med (s, z)."""
+        import contourpy
+        d = self.avstand_til(maske)
+        d3 = np.concatenate([d, d, d], axis=0)
+        s3 = np.arange(3 * self.ns) * self.ds
+        liner = contourpy.contour_generator(x=s3, y=self.z, z=d3.T).lines(a)
+        steg = 0.25
+        ut = []
+        for ln in liner:
+            if len(ln) < 8:
+                continue
+            lukka = np.allclose(ln[0], ln[-1], atol=1e-6)
+            if lukka:
+                if not (P_ <= ln[:, 0].mean() < 2 * P_):
+                    continue
+                pts, skift = ln[:-1], 0.0
+            else:   # går rundt heile forma: skjer ut éin periode
+                i0 = int(np.argmax(ln[:, 0] >= P_)) if ln[0, 0] < ln[-1, 0] else int(np.argmax(ln[:, 0] <= 2 * P_))
+                mål = ln[i0] + (P_ if ln[0, 0] < ln[-1, 0] else -P_) * np.array([1.0, 0.0])
+                kand = np.where(np.hypot(*(ln[i0 + 10:] - mål).T) < 0.6)[0]
+                if not len(kand):
+                    continue
+                i1 = i0 + 10 + int(kand[0])
+                pts, skift = ln[i0:i1], float(mål[0] - ln[i0, 0])
+            # jamn omsampling langs boglengda
+            lukk = np.vstack([pts, pts[:1] + [skift, 0.0]])
+            L = np.concatenate([[0.0], np.cumsum(np.hypot(*np.diff(lukk, axis=0).T))])
+            M = max(8, int(round(L[-1] / steg)))
+            t = np.arange(M) * L[-1] / M
+            q = np.stack([np.interp(t, L, lukk[:, 0]), np.interp(t, L, lukk[:, 1])], axis=1)
+            ext = np.vstack([q - [skift, 0.0], q, q + [skift, 0.0]])
+            w = max(2, int(round(1.5 / (L[-1] / M))))
+            i = np.arange(M) + M
+            t1 = ext[i] - ext[i - w]
+            t2 = ext[i + w] - ext[i]
+            sving = np.degrees(np.abs(np.arctan2(t1[:, 0] * t2[:, 1] - t1[:, 1] * t2[:, 0],
+                                                 (t1 * t2).sum(1))))
+            brot = set()
+            kandidat = np.where(sving > vinkel)[0]
+            for k in kandidat:   # lokalt maksimum innanfor +-3 mm
+                nab = (np.arange(k - 2 * w, k + 2 * w + 1)) % M
+                if sving[k] >= sving[nab].max() - 1e-9 and not any(((k - b) % M) < 2 * w or ((b - k) % M) < 2 * w
+                                                                    for b in brot):
+                    brot.add(int(k))
+            for ts, tz in tvang:
+                dd = np.hypot(((q[:, 0] - (ts % P_) - P_ + P_ / 2) % P_) - P_ / 2, q[:, 1] - tz)
+                if dd.min() < 3.0:
+                    brot.add(int(dd.argmin()))
+            brot = sorted(brot)
+            if not brot:
+                n = max(1, int(round(L[-1] / deling)))
+                idx = (np.arange(n) * M / n).astype(int)
+            else:
+                idx = []
+                for b0, b1 in zip(brot, brot[1:] + [brot[0] + M]):
+                    lengd = (b1 - b0) * L[-1] / M
+                    n = max(1, int(round(lengd / deling)))
+                    idx.extend(int(round(b0 + k * (b1 - b0) / n)) % M for k in range(n))
+                idx = np.array(sorted(set(idx)))
+            ut.append(q[idx])
+        if not ut:
+            return np.zeros((0, 2))
+        pkt = np.vstack(ut)
+        pkt[:, 0] %= P_
+        return pkt
+
+    def stempel(self, pkt, r=NAGLE_R, h=NAGLE_H, form="kuppel"):
+        """Høgdefelt med éin nagle (kulekalott) i kvart punkt. form='grop' gjev ei mjuk skål."""
+        ut = np.zeros_like(self.S)
+        w = int(math.ceil(r / self.steg)) + 1
+        for s0, z0 in pkt:
+            i0 = int(round(s0 / self.ds))
+            j0 = int(round(z0 / self.dz))
+            ii = np.arange(i0 - w, i0 + w + 1) % self.ns
+            jj = np.arange(max(0, j0 - w), min(self.nz, j0 + w) + 1)
+            dss = ((self.s[ii] - s0 + P_ / 2) % P_) - P_ / 2
+            d = np.hypot(dss[:, None], (self.z[jj] - z0)[None, :])
+            blk = kuppel(d, r, h) if form == "kuppel" else h * np.clip(1 - (d / r) ** 2, 0, 1) ** 2
+            ut[np.ix_(ii, jj)] = np.maximum(ut[np.ix_(ii, jj)], blk)
+        return ut
+
+    def utan_knapp(self, pkt, radius=11.5):
+        """Fjern punkt nærare knappen enn radius."""
+        d = np.minimum(np.hypot(((pkt[:, 0] - S_KNAPP_F + P_ / 2) % P_) - P_ / 2, pkt[:, 1] - PKT_Z),
+                       np.hypot(((pkt[:, 0] - S_KNAPP_B + P_ / 2) % P_) - P_ / 2, pkt[:, 1] - PKT_Z))
+        return pkt[d >= radius]
+
+    def naglar_z(self, z0, deling=12.0, r=NAGLE_R, h=NAGLE_H, fase=0.0, s_fra=None, s_til=None):
+        """Ei vassrett naglerekkje i høgda z0, jamn deling rundt heile forma (delinga blir retta
+        så ho går opp i omkrinsen). s_fra/s_til avgrensar rekkja til eit s-område."""
+        n = max(1, round(P_ / deling))
+        d = P_ / n
+        u = ((self.S - fase + d / 2) % d) - d / 2
+        ut = kuppel(np.hypot(u, self.Z - z0), r, h)
+        if s_fra is not None:
+            ut = ut * self.mellom_s(s_fra, s_til)
+        return ut
+
+    # ------------------------------------------------------------ støy
     def stoy(self, skala=30.0, fro=1):
         """Mjuk støy med storleik om lag `skala` mm, verdiar om lag -1 til 1, saumlaus rundt s."""
         rng = np.random.default_rng(fro)
@@ -196,19 +325,25 @@ class Gitter:
         a = a[:self.ns, :self.nz + 1]
         return a / (np.abs(a).max() + 1e-9)
 
+    def strok(self, lengd=120.0, breidd=1.0, fro=2):
+        """Lange strok langs s (valse- og sliperetninga), standardavvik om lag 1/3."""
+        rng = np.random.default_rng(fro)
+        a = rng.standard_normal(self.S.shape)
+        a = ndimage.gaussian_filter(a, (lengd / self.steg, breidd / self.steg), mode=("wrap", "nearest"))
+        return a / (3 * a.std() + 1e-9)
+
 
 # ---------------------------------------------------------------- nett
 
 
 def lag_nett(G, h):
-    """Punkt, firkantar og uv for huda. Returnerer (verts, quads, uv_per_vert, er_kantstripe)."""
+    """Punkt, firkantar og uv for huda, med kantstriper ned til CAD-flata langs alle frie kantar."""
     ns, nz = G.ns, G.nz
     h = np.where(G.fast, h, 0.0)
     px = G.x1[:, None] + G.nx1[:, None] * h
     py = G.y1[:, None] + G.ny1[:, None] * h
     pz = G.Z
-    # firkant (i, j) dekkjer s_i..s_i+1, z_j..z_j+1; fast om alle fire hjørna er plate og ikkje i knappeholet
-    hol = G.d_knapp < 6.6
+    hol = G.d_knapp < R_KNAPP + 0.25
     ok = G.fast & ~hol
     i1 = (np.arange(ns) + 1) % ns
     q = ok[:, :-1] & ok[i1][:, :-1] & ok[:, 1:] & ok[i1][:, 1:]
@@ -218,27 +353,24 @@ def lag_nett(G, h):
     c = idx[i1][:, 1:][q]
     d = idx[:, 1:][q]
     quads = np.stack([a, d, c, b], axis=1)        # normalen peikar ut
-    # kantstriper: mellom huda og CAD-flata (h = 0) langs alle frie kantar, så ein ikkje ser inn bak huda
     kanter = []
     qq = np.pad(q, ((0, 0), (1, 1)), constant_values=False)
-    # vassrette kantar: firkanten over/under manglar
-    opp = q & ~qq[:, 2:]          # fri kant på toppen av firkanten (z_j+1)
-    ned = q & ~qq[:, :-2]         # fri kant i botnen (z_j)
+    opp = q & ~qq[:, 2:]
+    ned = q & ~qq[:, :-2]
     kanter.append((idx[:, 1:][opp], idx[i1][:, 1:][opp]))
     kanter.append((idx[i1][:, :-1][ned], idx[:, :-1][ned]))
-    # loddrette kantar: naboen i s manglar
-    hog = q & ~np.roll(q, -1, axis=0)   # fri kant ved s_i+1
-    ven = q & ~np.roll(q, 1, axis=0)    # fri kant ved s_i
+    hog = q & ~np.roll(q, -1, axis=0)
+    ven = q & ~np.roll(q, 1, axis=0)
     kanter.append((idx[i1][:, 1:][hog], idx[i1][:, :-1][hog]))
     kanter.append((idx[:, :-1][ven], idx[:, 1:][ven]))
     ka = np.concatenate([k[0] for k in kanter])
     kb = np.concatenate([k[1] for k in kanter])
     V = np.stack([px.ravel(), py.ravel(), pz.ravel()], axis=1)
+    nxf = np.repeat(G.nx1[:, None], nz + 1, axis=1).ravel()
+    nyf = np.repeat(G.ny1[:, None], nz + 1, axis=1).ravel()
     bx = np.repeat(G.x1[:, None], nz + 1, axis=1).ravel()
     by = np.repeat(G.y1[:, None], nz + 1, axis=1).ravel()
     inn = 0.05                                    # stripa går 0,05 mm inn i CAD-flata
-    nxf = np.repeat(G.nx1[:, None], nz + 1, axis=1).ravel()
-    nyf = np.repeat(G.ny1[:, None], nz + 1, axis=1).ravel()
     B = np.stack([bx - inn * nxf, by - inn * nyf, pz.ravel()], axis=1)
     brukt = np.unique(np.concatenate([quads.ravel(), ka, kb]))
     kart = -np.ones(V.shape[0], dtype=np.int64)
@@ -254,6 +386,22 @@ def lag_nett(G, h):
     return verts, quads2, striper, uvv, brukt, kb_ids
 
 
+def knapp_nett(nivaa, side):
+    """Dreia messingknapp: Ø 12,6, 0,45 mm fas og svak kuppel. side = -1 framme, +1 bak."""
+    prof = [(0.0, 1.05), (2.5, 1.02), (4.5, 0.93), (R_KNAPP - 0.45, 0.80), (R_KNAPP, 0.35), (R_KNAPP, -1.0)]
+    n = 72
+    v, f = [], []
+    for r, t in prof:
+        for k in range(n):
+            a = 2 * math.pi * k / n
+            v.append((PKT_X + r * math.cos(a), side * (R_ + nivaa + t), PKT_Z + r * math.sin(a)))
+    for i in range(len(prof) - 1):
+        for k in range(n):
+            k1 = (k + 1) % n
+            f.append((i * n + k, i * n + k1, (i + 1) * n + k1, (i + 1) * n + k))
+    return np.array(v), np.array(f)
+
+
 # ---------------------------------------------------------------- Blender
 
 
@@ -267,13 +415,14 @@ def render(namn, prove=False, ut=None):
     h = np.asarray(res["h"], dtype=np.float64)
     assert h.shape == G.S.shape, f"h har form {h.shape}, skal vere {G.S.shape}"
     assert np.isfinite(h).all(), "h har NaN eller inf"
-    # kring knappen er huda flat på nullnivået
-    k = glatt(G.d_knapp, 7.0, 10.0)
-    h = H0 + (h - H0) * k
+    # rundt knappen er huda flat: ei grunn forsenking med 1 mm luft rundt messingen
+    nivaa = float(res.get("knapp_nivaa", H0))
+    k = glatt(G.d_knapp, R_KNAPP + 1.0, R_KNAPP + 2.2)
+    h = (nivaa - 0.12) + (h - (nivaa - 0.12)) * k
     h = np.clip(h, 0.03, 8.0)
     tone = np.asarray(res.get("tone", np.ones_like(h)), dtype=np.float64) * np.ones_like(h)
     rough = res.get("rough")
-    m = dict(farge=(0.83, 0.83, 0.84), metal=1.0, rough=0.42, sky=0.35, vev=0.0, floyel=0.0)
+    m = dict(farge=(0.80, 0.785, 0.76), metal=1.0, rough=0.40, sky=0.2, strok=0.5, vev=0.0, floyel=0.0)
     m.update(res.get("mat", {}))
     rough = (np.full_like(h, m["rough"]) if rough is None else np.asarray(rough, dtype=np.float64) * np.ones_like(h))
     verts, quads, striper, uv, brukt, kb_ids = lag_nett(G, h)
@@ -304,36 +453,42 @@ def render(namn, prove=False, ut=None):
     def lin(c):
         return tuple(((v + 0.055) / 1.055) ** 2.4 if v > 0.04045 else v / 12.92 for v in c)
 
-    def enkel(nm, farge, rough_=0.5, metal=0.0):
+    def enkel(nm, farge, rough_=0.5, metal=0.0, aniso=0.0):
         mt = bpy.data.materials.new(nm)
         mt.use_nodes = True
         bs = mt.node_tree.nodes.get("Principled BSDF")
         bs.inputs["Base Color"].default_value = (*lin(farge), 1.0)
         bs.inputs["Roughness"].default_value = rough_
         bs.inputs["Metallic"].default_value = metal
+        if aniso:
+            bs.inputs["Anisotropic"].default_value = aniso
         return mt
 
+    def nett_objekt(nm, v, f, glatt_=True):
+        me = bpy.data.meshes.new(nm)
+        nf = f.shape[0]
+        me.vertices.add(v.shape[0])
+        me.vertices.foreach_set("co", (v / 1000.0).astype(np.float32).ravel())
+        me.loops.add(nf * 4)
+        me.loops.foreach_set("vertex_index", f.astype(np.int32).ravel())
+        me.polygons.add(nf)
+        me.polygons.foreach_set("loop_start", np.arange(0, nf * 4, 4, dtype=np.int32))
+        me.polygons.foreach_set("loop_total", np.full(nf, 4, dtype=np.int32))
+        me.polygons.foreach_set("use_smooth", np.full(nf, glatt_, dtype=bool))
+        me.update(calc_edges=True)
+        ob = bpy.data.objects.new(nm, me)
+        sc.collection.objects.link(ob)
+        return ob, me
+
     # ---- huda
-    me = bpy.data.meshes.new("hud")
     alle = np.concatenate([quads, striper]).astype(np.int32)
-    nf = alle.shape[0]
-    me.vertices.add(verts.shape[0])
-    me.vertices.foreach_set("co", (verts / 1000.0).astype(np.float32).ravel())
-    me.loops.add(nf * 4)
-    me.loops.foreach_set("vertex_index", alle.ravel())
-    me.polygons.add(nf)
-    me.polygons.foreach_set("loop_start", np.arange(0, nf * 4, 4, dtype=np.int32))
-    me.polygons.foreach_set("loop_total", np.full(nf, 4, dtype=np.int32))
-    me.polygons.foreach_set("use_smooth", np.ones(nf, dtype=bool))
-    me.update(calc_edges=True)
+    ob, me = nett_objekt("hud", verts, alle)
     uvl = me.uv_layers.new(name="UVMap")
     uvl.data.foreach_set("uv", uv[alle.ravel()].astype(np.float32).ravel())
     at = me.attributes.new("tone", "FLOAT", "POINT")
     at.data.foreach_set("value", tone_v.astype(np.float32))
     ar = me.attributes.new("ruheit", "FLOAT", "POINT")
     ar.data.foreach_set("value", rough_v.astype(np.float32))
-    ob = bpy.data.objects.new("hud", me)
-    sc.collection.objects.link(ob)
 
     mt = bpy.data.materials.new("hud")
     mt.use_nodes = True
@@ -350,75 +505,104 @@ def render(namn, prove=False, ut=None):
     a_r = nt.nodes.new("ShaderNodeAttribute")
     a_r.attribute_name = "ruheit"
     uvn = nt.nodes.new("ShaderNodeUVMap")
-    # skydekt variasjon, som handpussa aluminium eller ujamn dope
-    sky = nt.nodes.new("ShaderNodeTexNoise")
-    sky.inputs["Scale"].default_value = 22.0
-    sky.inputs["Detail"].default_value = 6.0
-    sky.inputs["Roughness"].default_value = 0.6
-    nt.links.new(uvn.outputs["UV"], sky.inputs["Vector"])
-    kart = nt.nodes.new("ShaderNodeMapRange")
-    kart.inputs["From Min"].default_value = 0.3
-    kart.inputs["From Max"].default_value = 0.7
-    kart.inputs["To Min"].default_value = 1.0 - 0.16 * m["sky"]
-    kart.inputs["To Max"].default_value = 1.0 + 0.10 * m["sky"]
-    nt.links.new(sky.outputs["Fac"], kart.inputs["Value"])
-    gange = nt.nodes.new("ShaderNodeMath")
-    gange.operation = "MULTIPLY"
-    nt.links.new(a_t.outputs["Fac"], gange.inputs[0])
-    nt.links.new(kart.outputs["Result"], gange.inputs[1])
+
+    def stoy_node(skala_xy, detalj=4.0):
+        kart_ = nt.nodes.new("ShaderNodeMapping")
+        kart_.inputs["Scale"].default_value = (skala_xy[0], skala_xy[1], 1.0)
+        nt.links.new(uvn.outputs["UV"], kart_.inputs["Vector"])
+        st = nt.nodes.new("ShaderNodeTexNoise")
+        st.inputs["Scale"].default_value = 1.0
+        st.inputs["Detail"].default_value = detalj
+        st.inputs["Roughness"].default_value = 0.6
+        nt.links.new(kart_.outputs["Vector"], st.inputs["Vector"])
+        return st
+
+    def omfang(node, lo, hi):
+        k_ = nt.nodes.new("ShaderNodeMapRange")
+        k_.inputs["From Min"].default_value = 0.3
+        k_.inputs["From Max"].default_value = 0.7
+        k_.inputs["To Min"].default_value = lo
+        k_.inputs["To Max"].default_value = hi
+        nt.links.new(node.outputs["Fac"], k_.inputs["Value"])
+        return k_
+
+    def rekn(op, x, y):
+        n_ = nt.nodes.new("ShaderNodeMath")
+        n_.operation = op
+        for inn_, v in zip(n_.inputs, (x, y)):
+            if isinstance(v, (int, float)):
+                inn_.default_value = v
+            else:
+                nt.links.new(v, inn_)
+        return n_.outputs["Value"]
+
+    sky = stoy_node((16.0, 16.0), 5.0)                 # mjuke felt, om lag 60 mm
+    strok = stoy_node((9.0, 900.0), 3.0)               # slipestrok langs s: lange og 1 mm smale
+    korn = stoy_node((2600.0, 2600.0), 2.0)            # fint korn, under 0,5 mm
+    lys = rekn("MULTIPLY", a_t.outputs["Fac"], omfang(sky, 1 - 0.10 * m["sky"], 1 + 0.07 * m["sky"]).outputs["Result"])
+    lys = rekn("MULTIPLY", lys, omfang(strok, 1 - 0.05 * m["strok"], 1 + 0.05 * m["strok"]).outputs["Result"])
+    lys = rekn("MULTIPLY", lys, omfang(korn, 0.985, 1.015).outputs["Result"])
     farge = nt.nodes.new("ShaderNodeMixRGB")
     farge.blend_type = "MULTIPLY"
     farge.inputs["Fac"].default_value = 1.0
     farge.inputs["Color1"].default_value = (*lin(m["farge"]), 1.0)
-    nt.links.new(gange.outputs["Value"], farge.inputs["Color2"])
+    nt.links.new(lys, farge.inputs["Color2"])
     nt.links.new(farge.outputs["Color"], bs.inputs["Base Color"])
-    rk = nt.nodes.new("ShaderNodeMapRange")
-    rk.inputs["From Min"].default_value = 0.3
-    rk.inputs["From Max"].default_value = 0.7
-    rk.inputs["To Min"].default_value = -0.07 * m["sky"]
-    rk.inputs["To Max"].default_value = 0.07 * m["sky"]
-    nt.links.new(sky.outputs["Fac"], rk.inputs["Value"])
-    rsum = nt.nodes.new("ShaderNodeMath")
-    rsum.operation = "ADD"
-    rsum.use_clamp = True
-    nt.links.new(a_r.outputs["Fac"], rsum.inputs[0])
-    nt.links.new(rk.outputs["Result"], rsum.inputs[1])
-    nt.links.new(rsum.outputs["Value"], bs.inputs["Roughness"])
-    if m["vev"] > 0:   # lerretsvev: to bølgjemønster i kryss, 0,7 mm trådavstand, som bump
+    ru = rekn("ADD", a_r.outputs["Fac"], omfang(sky, -0.05 * m["sky"], 0.05 * m["sky"]).outputs["Result"])
+    ru = rekn("ADD", ru, omfang(strok, -0.07 * m["strok"], 0.07 * m["strok"]).outputs["Result"])
+    ru = rekn("ADD", ru, omfang(korn, -0.02, 0.02).outputs["Result"])
+    kl = nt.nodes.new("ShaderNodeClamp")
+    nt.links.new(ru, kl.inputs["Value"])
+    nt.links.new(kl.outputs["Result"], bs.inputs["Roughness"])
+    if m["vev"] > 0:   # lerretsvev som svak bump: 0,35 mm trådavstand, viser seg først i nærbilete
         bump = nt.nodes.new("ShaderNodeBump")
-        bump.inputs["Strength"].default_value = 0.35 * m["vev"]
-        bump.inputs["Distance"].default_value = 0.0002
+        bump.inputs["Strength"].default_value = 0.3 * m["vev"]
+        bump.inputs["Distance"].default_value = 0.00012
         w = []
         for retn in ("X", "Y"):
             wv = nt.nodes.new("ShaderNodeTexWave")
             wv.wave_type = "BANDS"
             wv.bands_direction = retn
-            wv.inputs["Scale"].default_value = 0.31416 / 0.0007   # éin tråd per 0,7 mm (uv i meter)
+            wv.inputs["Scale"].default_value = 0.31416 / 0.00035
             wv.inputs["Distortion"].default_value = 0.6
             wv.inputs["Detail"].default_value = 1.0
             nt.links.new(uvn.outputs["UV"], wv.inputs["Vector"])
             w.append(wv)
-        mx = nt.nodes.new("ShaderNodeMath")
-        mx.operation = "MAXIMUM"
-        nt.links.new(w[0].outputs["Fac"], mx.inputs[0])
-        nt.links.new(w[1].outputs["Fac"], mx.inputs[1])
-        nt.links.new(mx.outputs["Value"], bump.inputs["Height"])
+        nt.links.new(rekn("MAXIMUM", w[0].outputs["Fac"], w[1].outputs["Fac"]), bump.inputs["Height"])
         nt.links.new(bump.outputs["Normal"], bs.inputs["Normal"])
     me.materials.append(mt)
 
+    # ---- messingknappen (dreia, med fas), framme og bak
+    messing = enkel("messing", (0.83, 0.67, 0.36), 0.26, 1.0, aniso=0.5)
+    for side in (-1, 1):
+        kv, kf = knapp_nett(nivaa, side)
+        ko, kme = nett_objekt("knapp", kv, kf)
+        kme.materials.append(messing)
+
     # ---- resten av lampa frå CAD
     geo = json.loads((BASIS / "render" / "geometri.json").read_text(encoding="utf-8"))
+    # innsida av plata: lys i skjermen, mørk i stamma, så ein ikkje ser lyse flater gjennom hakket
+    inn = enkel("inn", (0.80, 0.78, 0.745), 0.62, 0.0)
+    nti = inn.node_tree
+    geo_n = nti.nodes.new("ShaderNodeNewGeometry")
+    sep = nti.nodes.new("ShaderNodeSeparateXYZ")
+    nti.links.new(geo_n.outputs["Position"], sep.inputs["Vector"])
+    steg_n = nti.nodes.new("ShaderNodeMapRange")
+    steg_n.inputs["From Min"].default_value = (Z_SKJERM - 2.0) / 1000.0
+    steg_n.inputs["From Max"].default_value = (Z_SKJERM + 2.0) / 1000.0
+    nti.links.new(sep.outputs["Z"], steg_n.inputs["Value"])
+    bl = nti.nodes.new("ShaderNodeMixRGB")
+    bl.inputs["Color1"].default_value = (*lin((0.07, 0.07, 0.07)), 1.0)
+    bl.inputs["Color2"].default_value = (*lin((0.80, 0.78, 0.745)), 1.0)
+    nti.links.new(steg_n.outputs["Result"], bl.inputs["Fac"])
+    nti.links.new(bl.outputs["Color"], nti.nodes.get("Principled BSDF").inputs["Base Color"])
     mats = {
-        "D01": enkel("inn", (0.86, 0.86, 0.85), 0.6, 0.0),
-        "D02": enkel("chassis", (0.30, 0.30, 0.30), 0.6, 0.6),
-        "D10": enkel("luke", (0.30, 0.30, 0.30), 0.6, 0.6),
-        "D12F": enkel("messing", (0.86, 0.68, 0.38), 0.3, 1.0),
-        "D12B": enkel("messing2", (0.86, 0.68, 0.38), 0.3, 1.0),
-        "D13F": enkel("svart", (0.05, 0.05, 0.05), 0.5),
-        "D13B": enkel("svart2", (0.05, 0.05, 0.05), 0.5),
+        "D01": inn,
+        "D02": enkel("chassis", (0.10, 0.10, 0.10), 0.7, 0.0),
+        "D10": enkel("luke", (0.10, 0.10, 0.10), 0.7, 0.0),
         "K08": enkel("fot", (0.10, 0.10, 0.10), 0.5),
         "E01": enkel("leidning", (0.035, 0.035, 0.035), 0.75),
-        "D08": enkel("opal", (0.93, 0.93, 0.92), 0.5),
+        "D08": enkel("opal", (0.90, 0.89, 0.87), 0.5),
     }
     for d in geo["delar"]:
         if d["id"] not in mats:
@@ -432,8 +616,6 @@ def render(namn, prove=False, ut=None):
         except Exception:
             pass
         o.data.materials.append(mats[d["id"]])
-        if d["id"] in ("D12F", "D12B"):   # knappen står litt lenger ut, sidan huda ligg utanpå plata
-            o.location.y += (-1 if d["id"] == "D12F" else 1) * (H0 / 1000.0)
 
     # ---- kamera og lys (fast for alle variantar)
     M = Vector((0.150, 0.0, 0.146))
@@ -445,7 +627,7 @@ def render(namn, prove=False, ut=None):
     co.rotation_euler = (M - co.location).to_track_quat("-Z", "Y").to_euler()
     sc.camera = co
 
-    def flate(nm, pos, storleik, energi, farge=(1, 1, 1), form=None):
+    def flate(nm, pos, storleik, energi, farge=(1, 1, 1), form=None, maal=None):
         l = bpy.data.lights.new(nm, "AREA")
         if form:
             l.shape = "RECTANGLE"
@@ -457,13 +639,16 @@ def render(namn, prove=False, ut=None):
         o = bpy.data.objects.new(nm, l)
         sc.collection.objects.link(o)
         o.location = Vector(pos)
-        o.rotation_euler = (M - o.location).to_track_quat("-Z", "Y").to_euler()
+        o.rotation_euler = ((Vector(maal) if maal else M) - o.location).to_track_quat("-Z", "Y").to_euler()
 
-    flate("nokkel", (-1.25, -1.35, 1.15), 1.5, 95)                       # stor, mjuk, oppe til venstre
-    flate("stripe", (-1.9, -0.25, 0.35), 0, 26, form=(0.35, 1.6))         # streiflys frå venstre: løftar relieff
-    flate("front", (0.55, -2.4, 0.55), 2.2, 22)                          # brei flate framfor: noko å spegle
-    flate("kant", (1.25, 0.75, 0.95), 0, 34, (0.88, 0.93, 1.0), form=(0.4, 1.4))  # kjølig kantlys bak til høgre
-    flate("topp", (0.15, -0.2, 1.7), 1.2, 12)
+    flate("nokkel", (-1.30, -1.30, 1.05), 1.9, 88)                          # stor, mjuk, oppe til venstre
+    flate("stripe", (-1.9, -0.25, 0.30), 0, 30, form=(0.35, 1.6))            # streiflys frå venstre: løftar relieff
+    flate("front", (-0.15, -2.5, -0.15), 0, 15, form=(1.6, 1.2))             # låg flate framfor: framsida har noko å spegle
+    flate("nase", (1.75, 0.10, -0.10), 0, 30, form=(0.45, 1.5))              # loddrett stripe til høgre: høglys på nasen
+    flate("kant", (1.25, 0.95, 0.95), 0, 26, (0.90, 0.94, 1.0), form=(0.4, 1.4))  # kjølig kantlys bak til høgre
+    flate("topp", (0.15, -0.2, 1.7), 1.2, 10)
+    # svakt varmt lys nede i skjermen: innsida får eit fall, og tingen les som lampe
+    flate("inni", (0.150, 0.0, 0.222), 0, 0.22, (1.0, 0.80, 0.58), form=(0.24, 0.07), maal=(0.150, 0.0, 0.5))
     w = bpy.data.worlds.new("verd")
     sc.world = w
     w.use_nodes = True

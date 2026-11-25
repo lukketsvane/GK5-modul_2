@@ -1,45 +1,26 @@
 # -*- coding: utf-8 -*-
-"""V3 Felt: dei same nagla panela som V1, med ei mikrooverflate styrt av eit felt.
+"""V3 Felt: dei same nagla platene som V1, med ei mikrooverflate styrt av eit felt.
 
-Feltet er avstanden til messingknappen. Eit sekskantnett av små gropar er pressa i plata.
-Gropene er størst kring knappen (Ø 4,6 mm) og krympar jamt til dei er borte 190 mm unna.
-Kvar grop får storleik etter feltverdien i sitt eige sentrum, så alle er runde.
+Feltet er avstanden til messingknappen. Eit sekskantnett av pressa gropar er registrert på
+knappen: knappen står i ein node, og tangentlinene og underkanten av skjermen fell på heile
+delingar. Gropene er størst ved knappen (Ø 5,2) og minkar lineært til Ø 2,6 der feltet
+sluttar, 97,5 mm unna, i underkanten av skjermen. Berre heile gropar: ei grop som ikkje får
+plass innanfor margen til saum og kant, er utelaten.
 """
 import math
 
 import numpy as np
 
-from sveip_hud import (BUE, FLAT, H0, P_, PKT_Z, R_, S_BAK, S_KNAPP_B, S_KNAPP_F, S_STAMME_B, S_STAMME_F,
-                       S_VENSTRE, Z_HAKK, Z_SKJERM, glatt)
+from panel import panel
+from sveip_hud import A, H0, NAGLE_R, P_, PKT_Z, S_KNAPP_B, S_KNAPP_F, Z_SKJERM
 
-# same saumar og naglar som V1 Plate (kopiert hit, så varianten står åleine)
-Z_SAUM = [Z_HAKK, Z_SKJERM]
-S_SAUM = [0.0, BUE, S_STAMME_F, BUE + 132.5, BUE + FLAT, S_VENSTRE[0] + math.pi * R_ / 2,
-          S_BAK[0], S_BAK[0] + 62.5, S_STAMME_B, S_BAK[1]]
-A, NAGLEDELING = 4.5, 12.0
-
-
-def panel(G):
-    d_s, d_z = G.saum_s(*S_SAUM), G.saum_z(*Z_SAUM)
-    d = np.minimum(d_s, d_z)
-    h = H0 + 0.12 * glatt(d_s, 4.0, 22.0) * glatt(d_z, 4.0, 22.0)
-    h = h - (H0 - 0.06) * glatt(d, 0.45, 0.12)
-    n = G.naglar_langs_kant(A, NAGLEDELING)
-    for z0 in Z_SAUM:
-        for t in (-A, A):
-            n = np.maximum(n, G.naglar_z(z0 + t, NAGLEDELING))
-    for s0 in S_SAUM:
-        for t in (-A, A):
-            n = np.maximum(n, G.naglar_s((s0 + t) % P_, NAGLEDELING, fase=NAGLEDELING / 2))
-    ids = G.panel_id(S_SAUM, Z_SAUM)
-    tone = G.tone_per_panel(ids, 0.10, fro=3) * (1 + 0.04 * G.stoy(45, 5)) * (1 + 0.025 * G.stoy(9, 6))
-    rough = 0.40 + 0.05 * (G.tone_per_panel(ids, 1.0, fro=8) - 1)
-    return h + n, tone, rough, d
-
-DELING = 6.0
-NIVAA = 0.62       # nullnivået er løfta, så gropene kan gå 0,45 mm ned
-R_MAKS, DJUPN = 2.3, 0.45
-REKKJEVIDD = (12.0, 190.0)
+PS = P_ / 96                       # 7,4986 mm: knappen står i node 22 framme og 74 bak
+QZ = PS * math.sqrt(3)
+Z0 = PKT_Z - 5 * QZ                # ei rad går gjennom knappen
+NIVAA = 0.73                       # nullnivået er løfta, så gropene kan gå 0,55 mm ned
+R_MIN, R_MAKS, DJUPN = 1.3, 2.6, 0.55
+REKKJEVIDD = (8.0, Z_SKJERM - PKT_Z)
+MARG = A + NAGLE_R + 1.7           # frå gropkant til saum eller kant: 7,1 mm
 
 
 def avst_knapp(s, z):
@@ -48,19 +29,20 @@ def avst_knapp(s, z):
 
 
 def felt(G):
-    h, tone, rough, ds = panel(G)
-    h = h + (NIVAA - H0)
-    ps = P_ / round(P_ / DELING)          # delinga går opp i omkrinsen
-    qz = ps * math.sqrt(3)
+    p = panel(G)
+    h = p["h"] + (NIVAA - H0)
     grop = np.zeros_like(h)
     for fs, fz in ((0.0, 0.0), (0.5, 0.5)):   # to rektangelnett som saman er eit sekskantnett
-        cs = (np.floor(G.S / ps - fs + 0.5) + fs) * ps
-        cz = (np.floor(G.Z / qz - fz + 0.5) + fz) * qz
-        f = 1 - glatt(avst_knapp(cs, cz), *REKKJEVIDD)      # feltet i sentrum av gropa: 1 ved knappen
-        r = R_MAKS * f
+        cs = (np.floor(G.S / PS - fs + 0.5) + fs) * PS
+        cz = (np.floor((G.Z - Z0) / QZ - fz + 0.5) + fz) * QZ + Z0
+        dk = avst_knapp(cs, cz)
+        f = 1 - np.clip((dk - REKKJEVIDD[0]) / (REKKJEVIDD[1] - REKKJEVIDD[0]), 0, 1)
+        r = R_MIN + (R_MAKS - R_MIN) * f
+        djup = DJUPN * f ** 0.8
+        heil = (djup >= 0.05) & (dk >= 12.0) & (G.sla_opp(p["d_plate"], cs, cz) >= MARG + r)
         d = np.hypot(G.S - cs, G.Z - cz)
-        g = DJUPN * f * np.clip(1 - (d / np.maximum(r, 1e-6)) ** 2, 0, 1)
-        grop = np.maximum(grop, np.where(r > 0.35, g, 0.0))
-    # reine marger: ingen gropar inntil saumar, naglar og frie kantar
-    grop = grop * glatt(ds, 7.0, 10.5) * glatt(G.kant, 7.0, 10.5)
-    return dict(h=h - grop, tone=tone, rough=rough, mat=dict(sky=0.3))
+        g = djup * np.clip(1 - (d / r) ** 2, 0, 1) ** 1.5       # mjuk rand, som ein pressradius
+        grop = np.maximum(grop, np.where(heil, g, 0.0))
+    tone = p["tone"] * (1 + 0.04 * grop / DJUPN)                # botnen er blankpressa
+    rough = p["rough"] - 0.10 * grop / DJUPN
+    return dict(h=h - grop, tone=tone, rough=rough, knapp_nivaa=NIVAA, mat=dict(sky=0.2, strok=0.5))

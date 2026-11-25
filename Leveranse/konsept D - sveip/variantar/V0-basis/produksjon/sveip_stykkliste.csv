@@ -1,0 +1,55 @@
+id;namn;tal;materiale / delenummer;type;masse_per_stk_g;masse_samla_g;mål_per_stk_mm;step
+D01;Kropp;1;EN AW-5754 H22 1,2 mm, pulverlakk;lag;504.99;505.0;300.0 x 105.0 x 300.0;cad/step/sveip_d01_kropp.step
+D02;Chassis;1;EN AW-5754 H22 1,5 mm, pulverlakk;lag;166.07;166.1;172.3 x 97.6 x 184.8;cad/step/sveip_d02_chassis.step
+D03;Lysbrett;1;EN AW-5754 H22 1,5 mm, blank;lag;103.32;103.3;291.7 x 96.7 x 1.6;cad/step/sveip_d03_lysbrett.step
+D04;LED-kort opp;1;FR-4 1,0 mm, 2 lag, termiske via;lag;15.88;15.9;240.0 x 36.0 x 1.0;cad/step/sveip_d04_led_kort_opp.step
+D04L;LED opp 2700K x16;16;3030 LED;kjop;0.01;0.2;3.0 x 3.0 x 0.7;cad/step/sveip_d04l_led_opp_2700k_x16.step
+D05;LED-kort ned;1;MCPCB alu 1,6 mm;lag;26.9;26.9;101.5 x 76.1 x 1.7;cad/step/sveip_d05_led_kort_ned.step
+D05L;LED ned 3000K x24;24;3030 LED;kjop;0.01;0.3;3.0 x 3.0 x 0.7;cad/step/sveip_d05l_led_ned_3000k_x24.step
+D06;Ramme;1;PC kvit (PETG i prototypen);lag;25.98;26.0;120.3 x 98.7 x 17.6;cad/step/sveip_d06_ramme.step
+D07;Diffusor ned;1;PMMA opal 2 mm;lag;24.17;24.2;116.9 x 95.3 x 2.1;cad/step/sveip_d07_diffusor_ned.step
+D07P;Prismeark;1;"prismefilm 90° (BEF-type) 0,16 mm, prismesida opp, riller langs y; prototype: arket frå skjermen";lag;2.11;2.1;116.9 x 95.3 x 0.2;cad/step/sveip_d07p_prismeark.step
+D08;Diffusor opp;1;PMMA opal 1,5 mm;lag;47.23;47.2;292.7 x 97.7 x 1.6;cad/step/sveip_d08_diffusor_opp.step
+D09;Hovudkort;1;FR-4 1,6 mm;lag;17.29;17.3;98.0 x 60.0 x 1.6;cad/step/sveip_d09_hovudkort.step
+D09K;Komponentar hovudkort;1;div.;kjop;2.23;2.2;84.5 x 42.0 x 6.0;cad/step/sveip_d09k_komponentar_hovudkort.step
+D10;Luke;1;EN AW-5754 H22 1,5 mm, pulverlakk;lag;15.18;15.2;106.0 x 36.0 x 1.5;cad/step/sveip_d10_luke.step
+D11;USB-kort;1;FR-4 1,6 mm;lag;1.75;1.8;18.0 x 34.0 x 1.6;cad/step/sveip_d11_usb_kort.step
+D11K;USB-C hunn;1;stål/LCP;kjop;0.41;0.4;4.0 x 10.0 x 4.5;cad/step/sveip_d11k_usb_c_hunn.step
+D11J;JST PH USB-kort;1;PA;kjop;0.29;0.3;4.5 x 9.9 x 6.0;cad/step/sveip_d11j_jst_ph_usb_kort.step
+D12F;Berøringspunkt framme;1;CuZn37 (blyfri), dreia knapp, klarlakk;lag;1.08;1.1;12.8 x 3.1 x 12.8;cad/step/sveip_d12f_beroringspunkt_framme.step
+D12B;Berøringspunkt bak;1;CuZn37 (blyfri), dreia knapp, klarlakk;lag;1.08;1.1;12.8 x 3.1 x 12.8;cad/step/sveip_d12b_beroringspunkt_bak.step
+D13F;Hylse framme;1;POM, sneppehakar (usynleg under kragen);lag;0.35;0.3;13.0 x 2.7 x 13.0;cad/step/sveip_d13f_hylse_framme.step
+D13B;Hylse bak;1;POM, sneppehakar (usynleg under kragen);lag;0.35;0.3;13.0 x 2.7 x 13.0;cad/step/sveip_d13b_hylse_bak.step
+K01;Celle 21700;1;Samsung INR21700-50E (utan vern, vern på D09);kjop;69.55;69.6;70.8 x 21.3 x 21.3;cad/step/sveip_k01_celle_21700.step
+K02;Batterihaldar;1;Keystone 1121 (21700, polarisert);kjop;21.5;21.5;82.2 x 23.1 x 21.6;cad/step/sveip_k02_batterihaldar.step
+K03;Avstand hovudkort M3x25;4;alu sekskant F-F 5,5 NV;kjop;1.29;5.2;6.4 x 5.5 x 25.0;cad/step/sveip_k03_avstand_hovudkort_m3x25.step
+K05;Nylonavstand M3x28 + 2 nylonskruar M3x6;6;PA 6.6 kvit;kjop;0.9;5.4;6.0 x 6.0 x 35.0;cad/step/sveip_k05_nylonavstand_m3x28_+_2_nylonskruar_m3x6.step
+K06;Avstand USB SO-M3-3;2;PEM SO-M3-3;kjop;0.5;1.0;5.2 x 5.2 x 4.5;cad/step/sveip_k06_avstand_usb_so_m3_3.step
+K07;PEM-mutrar i chassiset CLS-M3-2;10;PEM CLS-M3-2;kjop;0.29;2.9;6.3 x 6.3 x 1.5;cad/step/sveip_k07_pem_mutrar_i_chassiset_cls_m3_2.step
+K08;Føter;4;TPE 60 ShA lys grå, sneppar over skruehovudet;kjop;0.32;1.3;12.0 x 12.0 x 3.0;cad/step/sveip_k08_foter.step
+K09;Skruar kropp ISO 7380 M3x6;4;A2;kjop;0.6;2.4;5.7 x 5.7 x 7.7;cad/step/sveip_k09_skruar_kropp_iso_7380_m3x6.step
+K10;Skruar modul ISO 7380 M3x5;4;A2;kjop;0.56;2.2;5.7 x 5.7 x 6.7;cad/step/sveip_k10_skruar_modul_iso_7380_m3x5.step
+K11;Skruar opp-kort M3x4;6;A2;kjop;0.42;2.5;5.5 x 5.5 x 5.3;cad/step/sveip_k11_skruar_opp_kort_m3x4.step
+K12;Skruar ramme M3x6 ovanfrå;4;A2;kjop;0.52;2.1;5.5 x 5.5 x 7.3;cad/step/sveip_k12_skruar_ramme_m3x6_ovanfraa.step
+K23;Gjengeinnsats M3 x 5;4;messing, varmepressa;kjop;0.29;1.1;4.0 x 4.0 x 5.0;cad/step/sveip_k23_gjengeinnsats_m3_x_5.step
+K22;Glideputer;4;POM kvit, snepp;kjop;0.37;1.5;10.0 x 8.5 x 6.0;cad/step/sveip_k22_glideputer.step
+K13;Skruar hovudkort M3x5;8;A2;kjop;0.56;4.1;5.7 x 5.7 x 6.7;cad/step/sveip_k13_skruar_hovudkort_m3x5.step
+K14;Myntskruar luke M3x6;2;A2, fanga, hovud Ø8 x 2, spor 1,2 x 1,0;kjop;1.07;2.1;8.0 x 8.0 x 8.0;cad/step/sveip_k14_myntskruar_luke_m3x6.step
+K15;Skruar USB-kort M3x3;2;A2;kjop;0.38;0.8;5.5 x 5.5 x 4.3;cad/step/sveip_k15_skruar_usb_kort_m3x3.step
+D14;Berøringskort;1;FR-4 1,6 mm;lag;5.06;5.1;1.6 x 72.0 x 24.0;cad/step/sveip_d14_beroringskort.step
+K19;Avstand berøringskort SO-M3-3;2;PEM SO-M3-3 + M3x5;kjop;0.5;1.6;4.5 x 5.2 x 5.2;cad/step/sveip_k19_avstand_beroringskort_so_m3_3.step
+K20;Fjørkontaktar;2;CuSn6 forgylt, 0,8 mm forspenning, 2 mm slag;kjop;0.21;0.4;6.9 x 11.8 x 4.0;cad/step/sveip_k20_fjorkontaktar.step
+K21;PEM-mutrar i lysbrettet CLS-M3-2;6;PEM CLS-M3-2;kjop;0.29;1.7;6.4 x 6.4 x 1.5;cad/step/sveip_k21_pem_mutrar_i_lysbrettet_cls_m3_2.step
+K18;JST PH opp-kort;2;PA;kjop;0.29;0.5;4.5 x 9.9 x 6.0;cad/step/sveip_k18_jst_ph_opp_kort.step
+E01;USB-C-leidning og plugg;1;TPE/tekstil;ekstern;3.37;3.4;135.3 x 27.0 x 78.2;cad/step/sveip_e01_usb_c_leidning_og_plugg.step
+W1;Kabelsett USB-kort til hovudkort;1;4-leiar 28 AWG, JST PH 4-pol (PHR-4 + SPH-002T), 120 mm;kjop;2;2;-;-
+W2;Kabelsett hovudkort til lysmodul;1;4-leiar 26 AWG, JST PH 4-pol, 230 mm;kjop;3;3;-;-
+W3;Kabelsett berøringskort;1;3-leiar 28 AWG (S1, S2, GND), JST PH 3-pol, 150 mm;kjop;2;2;-;-
+W4;Kabelsett nedkort til opp-kort;1;2-leiar 26 AWG, JST PH 2-pol, 60 mm;kjop;1;1;-;-
+W5;Jordleidning chassis;1;kabelsko M3 + 50 mm 24 AWG til GND på D09, tannskive under éin K09;kjop;1;1;-;-
+T1;Termopute nedkort;1;silikon 0,25 mm, 3 W/mK, D-form som D05;kjop;1;1;-;-
+T2;Termopute opp-kort;1;silikon 0,25 mm, 3 W/mK, 240 x 36;kjop;1;1;-;-
+T3;Trekkband celle;1;polyimid 10 x 90 mm under cella;kjop;0.5;0.5;-;-
+T4;Isolerfilm under hovudkortet;1;polyimid 0,1 mm, 75 x 25 over cella;kjop;0.3;0.3;-;-
+S1;Skruar berøringskort M3 x 5;2;A2, ISO 7380;kjop;0.4;0.8;-;-
+L1;Typeskilt;1;lasermerkt på luka: klasse III, 5 V 1,5 A, Li-ion 21700 3,6 V, + mot hakket, CE, WEEE, batterisymbol;lag;0;0;-;-

@@ -1,0 +1,8 @@
+# Tunge, avleidde filer: blir laga på nytt med `python sveip_produksjon.py --rask` i cad/
+*/cad/step/
+*/cad/*.step
+*/cad/*.glb
+*/produksjon/stl/
+*/print/
+__pycache__/
+*_prove.png

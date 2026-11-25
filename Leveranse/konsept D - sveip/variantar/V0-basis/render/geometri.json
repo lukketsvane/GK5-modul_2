@@ -1,0 +1,521 @@
+{
+ "delar": [
+  {
+   "id": "D01",
+   "namn": "Kropp",
+   "stl": "produksjon/stl/sveip_d01_kropp.stl",
+   "farge": [
+    0.8,
+    0.8,
+    0.79
+   ],
+   "type": "lag",
+   "modul": false
+  },
+  {
+   "id": "D02",
+   "namn": "Chassis",
+   "stl": "produksjon/stl/sveip_d02_chassis.stl",
+   "farge": [
+    0.8,
+    0.8,
+    0.79
+   ],
+   "type": "lag",
+   "modul": true
+  },
+  {
+   "id": "D03",
+   "namn": "Lysbrett",
+   "stl": "produksjon/stl/sveip_d03_lysbrett.stl",
+   "farge": [
+    0.75,
+    0.76,
+    0.78
+   ],
+   "type": "lag",
+   "modul": true
+  },
+  {
+   "id": "D04",
+   "namn": "LED-kort opp",
+   "stl": "produksjon/stl/sveip_d04_led_kort_opp.stl",
+   "farge": [
+    0.1,
+    0.3,
+    0.15
+   ],
+   "type": "lag",
+   "modul": true
+  },
+  {
+   "id": "D04L",
+   "namn": "LED opp 2700K x16",
+   "stl": "produksjon/stl/sveip_d04l_led_opp_2700k_x16.stl",
+   "farge": [
+    0.95,
+    0.85,
+    0.45
+   ],
+   "type": "kjop",
+   "modul": true
+  },
+  {
+   "id": "D05",
+   "namn": "LED-kort ned",
+   "stl": "produksjon/stl/sveip_d05_led_kort_ned.stl",
+   "farge": [
+    0.1,
+    0.3,
+    0.15
+   ],
+   "type": "lag",
+   "modul": true
+  },
+  {
+   "id": "D05L",
+   "namn": "LED ned 3000K x24",
+   "stl": "produksjon/stl/sveip_d05l_led_ned_3000k_x24.stl",
+   "farge": [
+    0.95,
+    0.85,
+    0.45
+   ],
+   "type": "kjop",
+   "modul": true
+  },
+  {
+   "id": "D06",
+   "namn": "Ramme",
+   "stl": "produksjon/stl/sveip_d06_ramme.stl",
+   "farge": [
+    0.95,
+    0.95,
+    0.94
+   ],
+   "type": "lag",
+   "modul": true
+  },
+  {
+   "id": "D07",
+   "namn": "Diffusor ned",
+   "stl": "produksjon/stl/sveip_d07_diffusor_ned.stl",
+   "farge": [
+    0.97,
+    0.97,
+    0.96
+   ],
+   "type": "lag",
+   "modul": true
+  },
+  {
+   "id": "D07P",
+   "namn": "Prismeark",
+   "stl": "produksjon/stl/sveip_d07p_prismeark.stl",
+   "farge": [
+    0.97,
+    0.97,
+    0.96
+   ],
+   "type": "lag",
+   "modul": true
+  },
+  {
+   "id": "D08",
+   "namn": "Diffusor opp",
+   "stl": "produksjon/stl/sveip_d08_diffusor_opp.stl",
+   "farge": [
+    0.97,
+    0.97,
+    0.96
+   ],
+   "type": "lag",
+   "modul": true
+  },
+  {
+   "id": "D09",
+   "namn": "Hovudkort",
+   "stl": "produksjon/stl/sveip_d09_hovudkort.stl",
+   "farge": [
+    0.1,
+    0.3,
+    0.15
+   ],
+   "type": "lag",
+   "modul": true
+  },
+  {
+   "id": "D09K",
+   "namn": "Komponentar hovudkort",
+   "stl": "produksjon/stl/sveip_d09k_komponentar_hovudkort.stl",
+   "farge": [
+    0.08,
+    0.08,
+    0.08
+   ],
+   "type": "kjop",
+   "modul": true
+  },
+  {
+   "id": "D10",
+   "namn": "Luke",
+   "stl": "produksjon/stl/sveip_d10_luke.stl",
+   "farge": [
+    0.8,
+    0.8,
+    0.79
+   ],
+   "type": "lag",
+   "modul": false
+  },
+  {
+   "id": "D11",
+   "namn": "USB-kort",
+   "stl": "produksjon/stl/sveip_d11_usb_kort.stl",
+   "farge": [
+    0.1,
+    0.3,
+    0.15
+   ],
+   "type": "lag",
+   "modul": true
+  },
+  {
+   "id": "D11K",
+   "namn": "USB-C hunn",
+   "stl": "produksjon/stl/sveip_d11k_usb_c_hunn.stl",
+   "farge": [
+    0.62,
+    0.63,
+    0.65
+   ],
+   "type": "kjop",
+   "modul": true
+  },
+  {
+   "id": "D11J",
+   "namn": "JST PH USB-kort",
+   "stl": "produksjon/stl/sveip_d11j_jst_ph_usb_kort.stl",
+   "farge": [
+    0.95,
+    0.95,
+    0.94
+   ],
+   "type": "kjop",
+   "modul": true
+  },
+  {
+   "id": "D12F",
+   "namn": "Berøringspunkt framme",
+   "stl": "produksjon/stl/sveip_d12f_beroringspunkt_framme.stl",
+   "farge": [
+    0.78,
+    0.62,
+    0.32
+   ],
+   "type": "lag",
+   "modul": false
+  },
+  {
+   "id": "D12B",
+   "namn": "Berøringspunkt bak",
+   "stl": "produksjon/stl/sveip_d12b_beroringspunkt_bak.stl",
+   "farge": [
+    0.78,
+    0.62,
+    0.32
+   ],
+   "type": "lag",
+   "modul": false
+  },
+  {
+   "id": "D13F",
+   "namn": "Hylse framme",
+   "stl": "produksjon/stl/sveip_d13f_hylse_framme.stl",
+   "farge": [
+    0.08,
+    0.08,
+    0.08
+   ],
+   "type": "lag",
+   "modul": false
+  },
+  {
+   "id": "D13B",
+   "namn": "Hylse bak",
+   "stl": "produksjon/stl/sveip_d13b_hylse_bak.stl",
+   "farge": [
+    0.08,
+    0.08,
+    0.08
+   ],
+   "type": "lag",
+   "modul": false
+  },
+  {
+   "id": "K01",
+   "namn": "Celle 21700",
+   "stl": "produksjon/stl/sveip_k01_celle_21700.stl",
+   "farge": [
+    0.2,
+    0.35,
+    0.65
+   ],
+   "type": "kjop",
+   "modul": true
+  },
+  {
+   "id": "K02",
+   "namn": "Batterihaldar",
+   "stl": "produksjon/stl/sveip_k02_batterihaldar.stl",
+   "farge": [
+    0.08,
+    0.08,
+    0.08
+   ],
+   "type": "kjop",
+   "modul": true
+  },
+  {
+   "id": "K03",
+   "namn": "Avstand hovudkort M3x25",
+   "stl": "produksjon/stl/sveip_k03_avstand_hovudkort_m3x25.stl",
+   "farge": [
+    0.75,
+    0.76,
+    0.78
+   ],
+   "type": "kjop",
+   "modul": true
+  },
+  {
+   "id": "K05",
+   "namn": "Nylonavstand M3x28 + 2 nylonskruar M3x6",
+   "stl": "produksjon/stl/sveip_k05_nylonavstand_m3x28_+_2_nylonskruar_m3x6.stl",
+   "farge": [
+    0.95,
+    0.95,
+    0.94
+   ],
+   "type": "kjop",
+   "modul": true
+  },
+  {
+   "id": "K06",
+   "namn": "Avstand USB SO-M3-3",
+   "stl": "produksjon/stl/sveip_k06_avstand_usb_so_m3_3.stl",
+   "farge": [
+    0.62,
+    0.63,
+    0.65
+   ],
+   "type": "kjop",
+   "modul": true
+  },
+  {
+   "id": "K07",
+   "namn": "PEM-mutrar i chassiset CLS-M3-2",
+   "stl": "produksjon/stl/sveip_k07_pem_mutrar_i_chassiset_cls_m3_2.stl",
+   "farge": [
+    0.62,
+    0.63,
+    0.65
+   ],
+   "type": "kjop",
+   "modul": true
+  },
+  {
+   "id": "K08",
+   "namn": "Føter",
+   "stl": "produksjon/stl/sveip_k08_foter.stl",
+   "farge": [
+    0.8,
+    0.8,
+    0.79
+   ],
+   "type": "kjop",
+   "modul": false
+  },
+  {
+   "id": "K09",
+   "namn": "Skruar kropp ISO 7380 M3x6",
+   "stl": "produksjon/stl/sveip_k09_skruar_kropp_iso_7380_m3x6.stl",
+   "farge": [
+    0.62,
+    0.63,
+    0.65
+   ],
+   "type": "kjop",
+   "modul": false
+  },
+  {
+   "id": "K10",
+   "namn": "Skruar modul ISO 7380 M3x5",
+   "stl": "produksjon/stl/sveip_k10_skruar_modul_iso_7380_m3x5.stl",
+   "farge": [
+    0.62,
+    0.63,
+    0.65
+   ],
+   "type": "kjop",
+   "modul": true
+  },
+  {
+   "id": "K11",
+   "namn": "Skruar opp-kort M3x4",
+   "stl": "produksjon/stl/sveip_k11_skruar_opp_kort_m3x4.stl",
+   "farge": [
+    0.62,
+    0.63,
+    0.65
+   ],
+   "type": "kjop",
+   "modul": true
+  },
+  {
+   "id": "K12",
+   "namn": "Skruar ramme M3x6 ovanfrå",
+   "stl": "produksjon/stl/sveip_k12_skruar_ramme_m3x6_ovanfraa.stl",
+   "farge": [
+    0.62,
+    0.63,
+    0.65
+   ],
+   "type": "kjop",
+   "modul": true
+  },
+  {
+   "id": "K23",
+   "namn": "Gjengeinnsats M3 x 5",
+   "stl": "produksjon/stl/sveip_k23_gjengeinnsats_m3_x_5.stl",
+   "farge": [
+    0.78,
+    0.62,
+    0.32
+   ],
+   "type": "kjop",
+   "modul": true
+  },
+  {
+   "id": "K22",
+   "namn": "Glideputer",
+   "stl": "produksjon/stl/sveip_k22_glideputer.stl",
+   "farge": [
+    0.95,
+    0.95,
+    0.94
+   ],
+   "type": "kjop",
+   "modul": true
+  },
+  {
+   "id": "K13",
+   "namn": "Skruar hovudkort M3x5",
+   "stl": "produksjon/stl/sveip_k13_skruar_hovudkort_m3x5.stl",
+   "farge": [
+    0.62,
+    0.63,
+    0.65
+   ],
+   "type": "kjop",
+   "modul": true
+  },
+  {
+   "id": "K14",
+   "namn": "Myntskruar luke M3x6",
+   "stl": "produksjon/stl/sveip_k14_myntskruar_luke_m3x6.stl",
+   "farge": [
+    0.62,
+    0.63,
+    0.65
+   ],
+   "type": "kjop",
+   "modul": false
+  },
+  {
+   "id": "K15",
+   "namn": "Skruar USB-kort M3x3",
+   "stl": "produksjon/stl/sveip_k15_skruar_usb_kort_m3x3.stl",
+   "farge": [
+    0.62,
+    0.63,
+    0.65
+   ],
+   "type": "kjop",
+   "modul": true
+  },
+  {
+   "id": "D14",
+   "namn": "Berøringskort",
+   "stl": "produksjon/stl/sveip_d14_beroringskort.stl",
+   "farge": [
+    0.1,
+    0.3,
+    0.15
+   ],
+   "type": "lag",
+   "modul": true
+  },
+  {
+   "id": "K19",
+   "namn": "Avstand berøringskort SO-M3-3",
+   "stl": "produksjon/stl/sveip_k19_avstand_beroringskort_so_m3_3.stl",
+   "farge": [
+    0.62,
+    0.63,
+    0.65
+   ],
+   "type": "kjop",
+   "modul": true
+  },
+  {
+   "id": "K20",
+   "namn": "Fjørkontaktar",
+   "stl": "produksjon/stl/sveip_k20_fjorkontaktar.stl",
+   "farge": [
+    0.78,
+    0.62,
+    0.32
+   ],
+   "type": "kjop",
+   "modul": true
+  },
+  {
+   "id": "K21",
+   "namn": "PEM-mutrar i lysbrettet CLS-M3-2",
+   "stl": "produksjon/stl/sveip_k21_pem_mutrar_i_lysbrettet_cls_m3_2.stl",
+   "farge": [
+    0.62,
+    0.63,
+    0.65
+   ],
+   "type": "kjop",
+   "modul": true
+  },
+  {
+   "id": "K18",
+   "namn": "JST PH opp-kort",
+   "stl": "produksjon/stl/sveip_k18_jst_ph_opp_kort.stl",
+   "farge": [
+    0.95,
+    0.95,
+    0.94
+   ],
+   "type": "kjop",
+   "modul": true
+  },
+  {
+   "id": "E01",
+   "namn": "USB-C-leidning og plugg",
+   "stl": "produksjon/stl/sveip_e01_usb_c_leidning_og_plugg.stl",
+   "farge": [
+    0.08,
+    0.08,
+    0.08
+   ],
+   "type": "ekstern",
+   "modul": false
+  }
+ ],
+ "fot_h": 3.0
+}

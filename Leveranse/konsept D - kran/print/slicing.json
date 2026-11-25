@@ -1,0 +1,81 @@
+{
+ "KRAN_P1S_plate0_leddprove_PETG": {
+  "ok": true,
+  "prosess": "0.16mm Optimal @BBL X1C",
+  "filament": "Bambu PETG HF @BBL P1S 0.4 nozzle",
+  "val": {
+   "wall_loops": "3",
+   "sparse_infill_density": "100%",
+   "sparse_infill_pattern": "zig-zag",
+   "brim_type": "no_brim"
+  },
+  "tid_min": 41.2,
+  "gram": 25.0,
+  "atvaring": "",
+  "overheng": {
+   "P01": {
+    "areal_mm2": 0.0,
+    "lagaste_z_mm": null
+   },
+   "P02": {
+    "areal_mm2": 0.0,
+    "lagaste_z_mm": null
+   },
+   "P03": {
+    "areal_mm2": 0.0,
+    "lagaste_z_mm": null
+   },
+   "P04": {
+    "areal_mm2": 0.0,
+    "lagaste_z_mm": null
+   },
+   "P05": {
+    "areal_mm2": 0.0,
+    "lagaste_z_mm": null
+   },
+   "P06": {
+    "areal_mm2": 0.0,
+    "lagaste_z_mm": null
+   }
+  }
+ },
+ "KRAN_P1S_plate1_smaadelar_PETG": {
+  "ok": true,
+  "prosess": "0.16mm Optimal @BBL X1C",
+  "filament": "Bambu PETG HF @BBL P1S 0.4 nozzle",
+  "val": {
+   "wall_loops": "4",
+   "sparse_infill_density": "20%",
+   "brim_type": "no_brim"
+  },
+  "tid_min": 128.0,
+  "gram": 31.0,
+  "atvaring": "",
+  "overheng": {
+   "D10 Endeplugg": {
+    "areal_mm2": 0.0,
+    "lagaste_z_mm": null
+   },
+   "D11 Lomme": {
+    "areal_mm2": 45.8,
+    "lagaste_z_mm": 9.83
+   },
+   "D09 Endelokk": {
+    "areal_mm2": 100.6,
+    "lagaste_z_mm": 0.26
+   },
+   "D14 Lok på lomma": {
+    "areal_mm2": 0.0,
+    "lagaste_z_mm": null
+   },
+   "D08 Hette": {
+    "areal_mm2": 21.2,
+    "lagaste_z_mm": 0.25
+   },
+   "D07 Knott": {
+    "areal_mm2": 0.0,
+    "lagaste_z_mm": null
+   }
+  }
+ }
+}

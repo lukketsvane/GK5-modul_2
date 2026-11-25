@@ -1,0 +1,991 @@
+{
+ "dato": "2026-11-25 03:53",
+ "delar": {
+  "D01": {
+   "namn": "Framlag",
+   "gyldig": true,
+   "volum_mm3": 54292.7,
+   "masse_g": 426.2,
+   "roterer": false,
+   "boks_mm": [
+    1.55,
+    -24.25,
+    1.0,
+    179.81,
+    -0.75,
+    354.3
+   ]
+  },
+  "D02": {
+   "namn": "Midtlag",
+   "gyldig": true,
+   "volum_mm3": 45907.2,
+   "masse_g": 360.4,
+   "roterer": false,
+   "boks_mm": [
+    1.55,
+    -0.75,
+    4.0,
+    179.81,
+    0.75,
+    354.3
+   ]
+  },
+  "D03": {
+   "namn": "Baklag",
+   "gyldig": true,
+   "volum_mm3": 55190.2,
+   "masse_g": 433.2,
+   "roterer": false,
+   "boks_mm": [
+    1.55,
+    0.75,
+    1.0,
+    179.81,
+    28.25,
+    354.3
+   ]
+  },
+  "D04": {
+   "namn": "Arm med øyre",
+   "gyldig": true,
+   "volum_mm3": 42370.8,
+   "masse_g": 114.4,
+   "roterer": true,
+   "boks_mm": [
+    129.7,
+    -7.25,
+    305.7,
+    627.5,
+    36.75,
+    354.3
+   ]
+  },
+  "D05": {
+   "namn": "Forsterkingsplate",
+   "gyldig": true,
+   "volum_mm3": 6455.6,
+   "masse_g": 17.4,
+   "roterer": true,
+   "boks_mm": [
+    129.7,
+    -6.25,
+    305.7,
+    206.7,
+    -3.25,
+    354.3
+   ]
+  },
+  "D06": {
+   "namn": "Låseskive",
+   "gyldig": true,
+   "volum_mm3": 236.6,
+   "masse_g": 1.9,
+   "roterer": true,
+   "boks_mm": [
+    144.0,
+    3.25,
+    320.0,
+    164.0,
+    4.25,
+    340.0
+   ]
+  },
+  "D07": {
+   "namn": "Knott",
+   "gyldig": true,
+   "volum_mm3": 694.1,
+   "masse_g": 0.7,
+   "roterer": true,
+   "boks_mm": [
+    145.5,
+    -13.75,
+    321.5,
+    162.5,
+    -7.75,
+    338.5
+   ]
+  },
+  "D08": {
+   "namn": "Hette",
+   "gyldig": true,
+   "volum_mm3": 2383.3,
+   "masse_g": 2.1,
+   "roterer": true,
+   "boks_mm": [
+    142.0,
+    3.75,
+    318.0,
+    166.0,
+    13.75,
+    342.0
+   ]
+  },
+  "D09": {
+   "namn": "Endelokk",
+   "gyldig": true,
+   "volum_mm3": 9364.7,
+   "masse_g": 7.1,
+   "roterer": true,
+   "boks_mm": [
+    619.5,
+    -7.25,
+    316.7,
+    631.5,
+    36.75,
+    337.1
+   ]
+  },
+  "D10": {
+   "namn": "Endeplugg",
+   "gyldig": true,
+   "volum_mm3": 8662.8,
+   "masse_g": 11.0,
+   "roterer": true,
+   "boks_mm": [
+    180.7,
+    -2.85,
+    316.8,
+    273.8,
+    35.6,
+    335.95
+   ]
+  },
+  "D11": {
+   "namn": "Lomme",
+   "gyldig": true,
+   "volum_mm3": 6899.2,
+   "masse_g": 8.8,
+   "roterer": false,
+   "boks_mm": [
+    94.0,
+    2.25,
+    2.5,
+    154.0,
+    22.25,
+    26.5
+   ]
+  },
+  "D12": {
+   "namn": "Spreiar",
+   "gyldig": true,
+   "volum_mm3": 21756.4,
+   "masse_g": 26.1,
+   "roterer": true,
+   "boks_mm": [
+    274.0,
+    -6.0,
+    317.7,
+    623.5,
+    35.5,
+    319.2
+   ]
+  },
+  "D14": {
+   "namn": "Lok på lomma",
+   "gyldig": true,
+   "volum_mm3": 2478.4,
+   "masse_g": 3.1,
+   "roterer": false,
+   "boks_mm": [
+    94.0,
+    2.25,
+    24.0,
+    154.0,
+    22.25,
+    28.1
+   ]
+  },
+  "E01": {
+   "namn": "COB-stripe",
+   "gyldig": true,
+   "volum_mm3": 4384.0,
+   "masse_g": 6.0,
+   "roterer": true,
+   "boks_mm": [
+    276.0,
+    10.75,
+    334.25,
+    618.5,
+    18.75,
+    335.85
+   ]
+  },
+  "E02": {
+   "namn": "Kontrollar",
+   "gyldig": true,
+   "volum_mm3": 1286.2,
+   "masse_g": 3.0,
+   "roterer": false,
+   "boks_mm": [
+    97.0,
+    16.65,
+    4.2,
+    118.0,
+    20.15,
+    21.7
+   ]
+  },
+  "E03": {
+   "namn": "MOSFET-kort",
+   "gyldig": true,
+   "volum_mm3": 600.0,
+   "masse_g": 1.0,
+   "roterer": false,
+   "boks_mm": [
+    120.0,
+    4.45,
+    4.2,
+    126.0,
+    14.45,
+    14.2
+   ]
+  },
+  "E04": {
+   "namn": "USB-C-kort",
+   "gyldig": true,
+   "volum_mm3": 994.5,
+   "masse_g": 2.0,
+   "roterer": false,
+   "boks_mm": [
+    127.5,
+    15.45,
+    4.2,
+    140.5,
+    20.55,
+    19.2
+   ]
+  },
+  "M01": {
+   "namn": "Aksel",
+   "gyldig": true,
+   "volum_mm3": 813.7,
+   "masse_g": 6.9,
+   "roterer": true,
+   "boks_mm": [
+    149.0,
+    -11.0,
+    325.0,
+    159.0,
+    11.96,
+    334.0
+   ]
+  },
+  "M02-1": {
+   "namn": "Mutter",
+   "gyldig": true,
+   "volum_mm3": 201.6,
+   "masse_g": 1.6,
+   "roterer": true,
+   "boks_mm": [
+    147.5,
+    -10.25,
+    322.49,
+    160.5,
+    -7.25,
+    337.51
+   ]
+  },
+  "M02-2": {
+   "namn": "Mutter",
+   "gyldig": true,
+   "volum_mm3": 201.6,
+   "masse_g": 1.6,
+   "roterer": true,
+   "boks_mm": [
+    147.5,
+    8.21,
+    322.49,
+    160.5,
+    11.21,
+    337.51
+   ]
+  },
+  "M03-1": {
+   "namn": "PA6-skive",
+   "gyldig": true,
+   "volum_mm3": 227.6,
+   "masse_g": 0.3,
+   "roterer": false,
+   "boks_mm": [
+    144.0,
+    -3.25,
+    320.0,
+    164.0,
+    -2.25,
+    340.0
+   ]
+  },
+  "M03-2": {
+   "namn": "PA6-skive",
+   "gyldig": true,
+   "volum_mm3": 227.6,
+   "masse_g": 0.3,
+   "roterer": false,
+   "boks_mm": [
+    144.0,
+    2.25,
+    320.0,
+    164.0,
+    3.25,
+    340.0
+   ]
+  },
+  "M04-1": {
+   "namn": "Tallerkenfjør",
+   "gyldig": true,
+   "volum_mm3": 230.1,
+   "masse_g": 1.8,
+   "roterer": true,
+   "boks_mm": [
+    144.0,
+    4.25,
+    320.0,
+    164.0,
+    5.24,
+    340.0
+   ]
+  },
+  "M04-2": {
+   "namn": "Tallerkenfjør",
+   "gyldig": true,
+   "volum_mm3": 230.1,
+   "masse_g": 1.8,
+   "roterer": true,
+   "boks_mm": [
+    144.0,
+    5.24,
+    320.0,
+    164.0,
+    6.23,
+    340.0
+   ]
+  },
+  "M04-3": {
+   "namn": "Tallerkenfjør",
+   "gyldig": true,
+   "volum_mm3": 230.1,
+   "masse_g": 1.8,
+   "roterer": true,
+   "boks_mm": [
+    144.0,
+    6.23,
+    320.0,
+    164.0,
+    7.22,
+    340.0
+   ]
+  },
+  "M04-4": {
+   "namn": "Tallerkenfjør",
+   "gyldig": true,
+   "volum_mm3": 230.1,
+   "masse_g": 1.8,
+   "roterer": true,
+   "boks_mm": [
+    144.0,
+    7.22,
+    320.0,
+    164.0,
+    8.21,
+    340.0
+   ]
+  },
+  "M05": {
+   "namn": "Stoppinne",
+   "gyldig": true,
+   "volum_mm3": 35.3,
+   "masse_g": 0.3,
+   "roterer": true,
+   "boks_mm": [
+    147.91,
+    -6.25,
+    339.59,
+    150.91,
+    -1.25,
+    342.59
+   ]
+  },
+  "D13-1": {
+   "namn": "Filt",
+   "gyldig": true,
+   "volum_mm3": 3084.5,
+   "masse_g": 0.9,
+   "roterer": false,
+   "boks_mm": [
+    2.55,
+    -23.25,
+    0.0,
+    178.81,
+    -5.75,
+    1.0
+   ]
+  },
+  "D13-2": {
+   "namn": "Filt",
+   "gyldig": true,
+   "volum_mm3": 3789.5,
+   "masse_g": 1.1,
+   "roterer": false,
+   "boks_mm": [
+    2.55,
+    5.75,
+    0.0,
+    178.81,
+    27.25,
+    1.0
+   ]
+  }
+ },
+ "kollisjonar": [],
+ "rorsle": {
+  "omraade_grad": [
+   -30.0,
+   75.0
+  ],
+  "steg_grad": 1.0,
+  "storste_overlapp_mm3": 0.0,
+  "ved_vinkel": null,
+  "treff_innanfor": {},
+  "forste_treff_under": {
+   "vinkel": -33,
+   "delar": [
+    "M05/D01"
+   ]
+  },
+  "forste_treff_over": {
+   "vinkel": 78,
+   "delar": [
+    "M05/D01"
+   ]
+  },
+  "metode": "diskret, armen vridd om leddaksen"
+ },
+ "velting": {
+  "arm_-30": {
+   "masse_g": 1444.7,
+   "tyngdepunkt_mm": [
+    143.4,
+    1.9,
+    133.5
+   ],
+   "vinkel_grad": {
+    "mot_armen": 14.8,
+    "frå_armen": 46.5,
+    "framover": 10.7,
+    "bakover": 10.7
+   }
+  },
+  "arm_+0": {
+   "masse_g": 1444.7,
+   "tyngdepunkt_mm": [
+    147.3,
+    1.9,
+    147.7
+   ],
+   "vinkel_grad": {
+    "mot_armen": 12.0,
+    "frå_armen": 44.4,
+    "framover": 9.7,
+    "bakover": 9.7
+   }
+  },
+  "arm_+75": {
+   "masse_g": 1444.7,
+   "tyngdepunkt_mm": [
+    126.5,
+    1.9,
+    175.4
+   ],
+   "vinkel_grad": {
+    "mot_armen": 16.6,
+    "frå_armen": 35.2,
+    "framover": 8.2,
+    "bakover": 8.2
+   }
+  },
+  "minste_grad": 8.2,
+  "krav_EN60598_grad": 6.0,
+  "stottekant_mm": {
+   "x": [
+    2.55,
+    178.81
+   ],
+   "y": [
+    -23.25,
+    27.25
+   ]
+  }
+ },
+ "ledd": {
+  "arm_masse_g": 204.4,
+  "arm_tyngdepunkt_frå_aksen_mm": 201.2,
+  "moment_frå_armen_Nm": 0.403,
+  "friksjonsmoment_mål_Nm": 0.683,
+  "vektprove_g": [
+   40,
+   80
+  ],
+  "mu_PA6_stål": 0.25,
+  "r_eff_mm": 7.87,
+  "fjorkraft_N": 173.6,
+  "samantrykk_per_fjor_mm": 0.218,
+  "samantrykk_mot_h0": 0.34,
+  "mutter_etter_anlegg_grad": 314.0,
+  "handkraft_tupp_ned_N": 0.59,
+  "handkraft_tupp_opp_N": 2.28,
+  "kraft_ned_på_tuppen_som_vippar_lampa_N": 0.98,
+  "kraft_opp_på_tuppen_som_vippar_lampa_N": 3.26,
+  "merknad": "Vektprøva avgjer: armen vassrett skal halde 40 g i tuppen og gli med 80 g. Juster bakmutteren."
+ },
+ "elektro": {
+  "led_lengd_mm": 342.5,
+  "led_effekt_W": 2.74,
+  "straum_A": 0.55,
+  "spenningsfall_V": 0.175
+ },
+ "parametrar": {
+  "RASK": false,
+  "FOT_L": 180.0,
+  "LEDD_X": 154.0,
+  "LEDD_Z": 330.0,
+  "HYP_DXDZ": 0.38769471760508223,
+  "HOG_DXDZ": -0.04829436565733998,
+  "SPALTE_1": [
+   48.3,
+   50.3
+  ],
+  "SPALTE_2": [
+   141.9,
+   313.0
+  ],
+  "SPALTE_B": 13.8,
+  "ARM_TOPP": 337.1,
+  "ARM_BOTN": 316.7,
+  "ARM_TUPP": 631.3,
+  "ARM_D": 43.85,
+  "ARM_X0": 180.7,
+  "LED_X0": 274.0,
+  "KNOTT_D": 15.0,
+  "LAG_T": 1.5,
+  "PLATE_T": 4.5,
+  "FILT_T": 1.0,
+  "BOY_RI": 1.5,
+  "FLENS_L": 22.0,
+  "FLENS_LB": 26.0,
+  "MIDT_Z0": 4.0,
+  "KANAL_B": 3.4,
+  "KANAL_INN": 7.0,
+  "KAMMER_R": 8.5,
+  "LAGER_R": 5.1,
+  "VINDAUGE": [
+   104.0,
+   124.0,
+   6.0,
+   16.0
+  ],
+  "BOGE_R": 12.0,
+  "BOGE_B": 3.4,
+  "BOGE_FRA": 81.5,
+  "BOGE_TIL": 188.5,
+  "STOPP_VINKEL": 112.5,
+  "ARM_MIN": -30.0,
+  "ARM_MAX": 75.0,
+  "ARM_T": 1.0,
+  "ARM_DJUP": 44.0,
+  "LEPPE": 5.0,
+  "ARM_X1": 627.5,
+  "DOBLAR_T": 3.0,
+  "TUNGE_L": 26.0,
+  "SPREIAR_T": 1.5,
+  "PA6_T": 1.0,
+  "PA6_R": 10.0,
+  "PA6_RI": 5.25,
+  "D_FLAT": 9.0,
+  "AKSEL_R": 5.0,
+  "AKSEL_BOR": 3.5,
+  "MUTTER_NV": 13.0,
+  "MUTTER_T": 3.0,
+  "TALLERK_RY": 10.0,
+  "TALLERK_RI": 5.1,
+  "TALLERK_T": 0.5,
+  "TALLERK_H": 0.99,
+  "TALLERK_N": 4,
+  "KNOTT_R": 8.5,
+  "KNOTT_H": 6.0,
+  "HETTE_R": 12.0,
+  "HETTE_H": 12.0,
+  "HOVUD_R": 24.29852317322899,
+  "Y_PL0": -2.25,
+  "Y_PL1": 2.25,
+  "Y_FRAM": [
+   -2.25,
+   -0.75
+  ],
+  "Y_MIDT": [
+   -0.75,
+   0.75
+  ],
+  "Y_BAK": [
+   0.75,
+   2.25
+  ],
+  "Y_PA6F": [
+   -3.25,
+   -2.25
+  ],
+  "Y_DOBLAR": [
+   -6.25,
+   -3.25
+  ],
+  "Y_ARMF": [
+   -7.25,
+   -6.25
+  ],
+  "Y_MUTF": [
+   -10.25,
+   -7.25
+  ],
+  "Y_KNOTT": [
+   -13.75,
+   -7.75
+  ],
+  "Y_PA6B": [
+   2.25,
+   3.25
+  ],
+  "Y_LAAS": [
+   3.25,
+   4.25
+  ],
+  "Y_TALL": [
+   4.25,
+   8.21
+  ],
+  "Y_MUTB": [
+   8.21,
+   11.21
+  ],
+  "Y_HETTE": [
+   3.75,
+   15.75
+  ],
+  "Y_AKSEL": [
+   -11.0,
+   11.96
+  ],
+  "ARM_Y0": -7.25,
+  "ARM_Y1": 36.75,
+  "BOY_ZC": 4.0,
+  "FLENS_X0": 1.550778870420329,
+  "FLENS_X1": 179.80682253737064,
+  "LOMME_W": 1.6,
+  "LAKK": [
+   0.73,
+   0.71,
+   0.53
+  ],
+  "METALL": [
+   0.62,
+   0.62,
+   0.64
+  ],
+  "KVIT": [
+   0.93,
+   0.92,
+   0.88
+  ],
+  "OPAL": [
+   0.98,
+   0.97,
+   0.93
+  ],
+  "SVART": [
+   0.1,
+   0.1,
+   0.11
+  ],
+  "KORT": [
+   0.08,
+   0.33,
+   0.16
+  ],
+  "FILT": [
+   0.22,
+   0.22,
+   0.23
+  ],
+  "K_STAL": 0.44,
+  "K_AL": 0.4
+ },
+ "stl_tett": {
+  "D01": {
+   "tett": true,
+   "toleranse_mm": 0.01,
+   "trekantar": 3336,
+   "tetta_opne_kantar": 0
+  },
+  "D02": {
+   "tett": true,
+   "toleranse_mm": 0.01,
+   "trekantar": 2168,
+   "tetta_opne_kantar": 0
+  },
+  "D03": {
+   "tett": true,
+   "toleranse_mm": 0.01,
+   "trekantar": 2344,
+   "tetta_opne_kantar": 0
+  },
+  "D04": {
+   "tett": true,
+   "toleranse_mm": 0.01,
+   "trekantar": 928,
+   "tetta_opne_kantar": 0
+  },
+  "D05": {
+   "tett": true,
+   "toleranse_mm": 0.01,
+   "trekantar": 1500,
+   "tetta_opne_kantar": 0
+  },
+  "D06": {
+   "tett": true,
+   "toleranse_mm": 0.01,
+   "trekantar": 1140,
+   "tetta_opne_kantar": 0
+  },
+  "D07": {
+   "tett": true,
+   "toleranse_mm": 0.01,
+   "trekantar": 13924,
+   "tetta_opne_kantar": 0
+  },
+  "D08": {
+   "tett": true,
+   "toleranse_mm": 0.01,
+   "trekantar": 14556,
+   "tetta_opne_kantar": 0
+  },
+  "D09": {
+   "tett": true,
+   "toleranse_mm": 0.01,
+   "trekantar": 396,
+   "tetta_opne_kantar": 0
+  },
+  "D10": {
+   "tett": true,
+   "toleranse_mm": 0.01,
+   "trekantar": 44,
+   "tetta_opne_kantar": 0
+  },
+  "D11": {
+   "tett": true,
+   "toleranse_mm": 0.01,
+   "trekantar": 696,
+   "tetta_opne_kantar": 0
+  },
+  "D12": {
+   "tett": true,
+   "toleranse_mm": 0.01,
+   "trekantar": 12,
+   "tetta_opne_kantar": 0
+  },
+  "D14": {
+   "tett": true,
+   "toleranse_mm": 0.01,
+   "trekantar": 44,
+   "tetta_opne_kantar": 0
+  },
+  "E01": {
+   "tett": true,
+   "toleranse_mm": 0.01,
+   "trekantar": 12,
+   "tetta_opne_kantar": 0
+  },
+  "E02": {
+   "tett": true,
+   "toleranse_mm": 0.01,
+   "trekantar": 12,
+   "tetta_opne_kantar": 0
+  },
+  "E03": {
+   "tett": true,
+   "toleranse_mm": 0.01,
+   "trekantar": 12,
+   "tetta_opne_kantar": 0
+  },
+  "E04": {
+   "tett": true,
+   "toleranse_mm": 0.01,
+   "trekantar": 12,
+   "tetta_opne_kantar": 0
+  },
+  "M01": {
+   "tett": true,
+   "toleranse_mm": 0.01,
+   "trekantar": 1368,
+   "tetta_opne_kantar": 0
+  },
+  "M02-1": {
+   "tett": true,
+   "toleranse_mm": 0.01,
+   "trekantar": 656,
+   "tetta_opne_kantar": 0
+  },
+  "M03-1": {
+   "tett": true,
+   "toleranse_mm": 0.01,
+   "trekantar": 1264,
+   "tetta_opne_kantar": 0
+  },
+  "M04-1": {
+   "tett": true,
+   "toleranse_mm": 0.01,
+   "trekantar": 1264,
+   "tetta_opne_kantar": 0
+  },
+  "M05": {
+   "tett": true,
+   "toleranse_mm": 0.01,
+   "trekantar": 628,
+   "tetta_opne_kantar": 0
+  },
+  "D13-1": {
+   "tett": true,
+   "toleranse_mm": 0.01,
+   "trekantar": 12,
+   "tetta_opne_kantar": 0
+  }
+ },
+ "laser": {
+  "D01": {
+   "fil": "D01_flat_S235_1_5mm_1til1.dxf",
+   "areal_mm2": 36170.2,
+   "boks_mm": [
+    1.55,
+    -19.89,
+    179.81,
+    354.3
+   ],
+   "bøyar": 1,
+   "materiale": "S235",
+   "t_mm": 1.5
+  },
+  "D03": {
+   "fil": "D03_flat_S235_1_5mm_1til1.dxf",
+   "areal_mm2": 36768.4,
+   "boks_mm": [
+    1.55,
+    -23.89,
+    179.81,
+    354.3
+   ],
+   "bøyar": 1,
+   "materiale": "S235",
+   "t_mm": 1.5
+  },
+  "D02": {
+   "fil": "D02_flat_S235_1_5mm_1til1.dxf",
+   "areal_mm2": 30605.2,
+   "boks_mm": [
+    1.55,
+    4.0,
+    179.81,
+    354.3
+   ],
+   "bøyar": 0,
+   "materiale": "S235",
+   "t_mm": 1.5
+  },
+  "D04": {
+   "fil": "D04_flat_Al_1_0mm_1til1.dxf",
+   "areal_mm2": 40932.4,
+   "boks_mm": [
+    129.71,
+    305.71,
+    627.5,
+    401.1
+   ],
+   "bøyar": 4,
+   "materiale": "Al 5754-H22",
+   "t_mm": 1.0
+  },
+  "D05": {
+   "fil": "D05_flat_Al_3_0mm_1til1.dxf",
+   "areal_mm2": 2151.9,
+   "boks_mm": [
+    129.71,
+    305.71,
+    206.7,
+    354.3
+   ],
+   "bøyar": 0,
+   "materiale": "Al 5754",
+   "t_mm": 3.0
+  },
+  "D06": {
+   "fil": "D06_flat_Rustfritt_1_0mm_1til1.dxf",
+   "areal_mm2": 236.5,
+   "boks_mm": [
+    144.0,
+    320.0,
+    164.0,
+    340.0
+   ],
+   "bøyar": 0,
+   "materiale": "Rustfritt 1.4301",
+   "t_mm": 1.0
+  }
+ },
+ "print": {
+  "D10": {
+   "storleik_mm": [
+    19.2,
+    38.5,
+    93.1
+   ],
+   "passar_P1S": true
+  },
+  "D11": {
+   "storleik_mm": [
+    60.0,
+    20.0,
+    24.0
+   ],
+   "passar_P1S": true
+  },
+  "D09": {
+   "storleik_mm": [
+    20.4,
+    44.0,
+    12.0
+   ],
+   "passar_P1S": true
+  },
+  "D14": {
+   "storleik_mm": [
+    60.0,
+    20.0,
+    4.1
+   ],
+   "passar_P1S": true
+  },
+  "D08": {
+   "storleik_mm": [
+    24.0,
+    24.0,
+    10.0
+   ],
+   "passar_P1S": true
+  },
+  "D07": {
+   "storleik_mm": [
+    17.0,
+    17.0,
+    6.0
+   ],
+   "passar_P1S": true
+  }
+ }
+}

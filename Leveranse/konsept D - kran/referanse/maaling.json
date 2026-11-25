@@ -1,0 +1,66 @@
+{
+ "f": 5480.66,
+ "phi": 0.47,
+ "cy": 615.12,
+ "uA": -288.2,
+ "ZA": 2004.03,
+ "H": 245.41,
+ "Bx": 179.83,
+ "Px": 153.92,
+ "Xv": 133.65,
+ "Zv": 344.73,
+ "Xh": 164.71,
+ "Zh": 313.08,
+ "S1x": 48.32,
+ "S1z": 50.26,
+ "S2x": 141.94,
+ "S2z": 313.04,
+ "Sb": 6.9,
+ "zt": 337.13,
+ "zb": 316.68,
+ "Xt": 631.31,
+ "D": 43.85,
+ "phi_grad": 26.65,
+ "rms_px": 2.49,
+ "arm_rekkjevidd_mm": 477.4,
+ "arm_hogd_mm": 20.5,
+ "folsemd_brennvidd": {
+  "2500": {
+   "rms_px": 6.52,
+   "phi_grad": 26.1,
+   "arm_mm": 430.4,
+   "fot_mm": 188.1,
+   "arm_djupn_mm": 60.0
+  },
+  "3500": {
+   "rms_px": 3.22,
+   "phi_grad": 25.0,
+   "arm_mm": 452.1,
+   "fot_mm": 181.1,
+   "arm_djupn_mm": 60.0
+  },
+  "5000": {
+   "rms_px": 2.5,
+   "phi_grad": 25.9,
+   "arm_mm": 471.8,
+   "fot_mm": 179.3,
+   "arm_djupn_mm": 47.7
+  },
+  "7000": {
+   "rms_px": 2.58,
+   "phi_grad": 28.2,
+   "arm_mm": 491.3,
+   "fot_mm": 180.8,
+   "arm_djupn_mm": 37.6
+  },
+  "9000": {
+   "rms_px": 2.82,
+   "phi_grad": 29.2,
+   "arm_mm": 503.4,
+   "fot_mm": 181.3,
+   "arm_djupn_mm": 34.3
+  }
+ },
+ "Yf": -7.25,
+ "merknad": "Flatene ligg der CAD-en har dei: framsida av stativet Y -2,25, knotten -13,75, armen og øyret -7,25. Ei fri tilpassing gjev same rms (2,49 px) for alle Y på armen, så fotoet avgjer ikkje Y; øyret gjer det. Vatrett kamera (loddrette liner er loddrette i fotoet), stativplanet dreidd phi om loddaksen. Skala: leddaksen 330 mm over bordet (vald). Punkta er målte i originalbiletet, som ligg berre lokalt."
+}

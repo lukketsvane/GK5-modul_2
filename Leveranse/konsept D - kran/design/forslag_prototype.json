@@ -1,0 +1,98 @@
+{
+  "namn": "Kran, prototype (linse: PROTOTYPE NO)",
+  "skala": {
+    "ledd_hogd_mm": 330,
+    "arm_lengd_mm": 480,
+    "fot_lengd_mm": 195,
+    "fot_djupn_mm": 115,
+    "grunngjeving": "Eg held den førebelse skalaen (ledd 330, arm 480), fordi ingen printa del blir lengre enn 256 mm. Armen er eit kjøpt aluminiumsprofil (1 m, kappa til 435), og stativet er éi laserskoren stålplate (176 x 348 mm). Dei lange delane er altså kjøpte eller skorne, og P1S treng berre ta dei små delane. Foten er det største printet: 195 x 115 mm får plass med god margin på plata (256 x 256). Han er lengre enn dei 150 mm som er anslått frå biletet, fordi han gir 17 grader mot armen. Biletet gir 0,356 mm/px loddrett: 926 px frå bordet til leddet er 330 mm. Vassrett er målet delt på cos 30 grader = 0,866, fordi stativplanet er dreidd 30 grader mot kameraet. Då blir botnkanten på plata 176 mm og armen 470-540 mm. Alle mål står som parametrar, så eit avvik på +-15 % etter kameratilpassinga krev berre ny køyring. Med armen 15 % lengre stig momentet i leddet frå 0,233 til 0,308 Nm (moment ~ L^2). Det ligg innanfor justeringa på 0,2-0,8 Nm, og vippevinkelen mot armen fell berre frå 17,3 til 15,3 grader."
+  },
+  "delar": [
+    {"id": "K01", "namn": "Stativplate med spalte, leddhol Ø 10,5, bogespor r 13 x 3,4 mm (115-195 grader) og 2 kjernehol Ø 3,3 for M4-gjenger", "materiale": "Stål S235 4 mm, sprøytelakka RAL 6021 satin (salviegrøn)", "prosess": "laserskjering frå DXF, gjenge M4 for hand, avgrade, avfeitte, lakke", "mal_mm": "176 x 348 x 4 (botnkant x -140..36, topp R 22 om leddet, spalte 8,5 brei og 287 lang)", "masse_g": 1073},
+    {"id": "K02", "namn": "Armhovud: skive Ø 44 mot plata, sekskantlomme for M10x1-mutter, kabelrom framme, sokkel 25 mm for profilet, innpressmutter M3 for stoppinnen", "materiale": "PLA Matte (PETG om varmeprøva krev det), lakka RAL 6021", "prosess": "print, 0,16 mm, 6 vegger, 40 % gyroid, skiva ned mot plata utan støtte", "mal_mm": "82 x 44 x 22", "masse_g": 35},
+    {"id": "K03", "namn": "Frontknott, pynt (dreidd/rifla front som i biletet), presst i hovudet", "materiale": "PLA Matte", "prosess": "print, framsida ned", "mal_mm": "Ø 18 x 6", "masse_g": 3},
+    {"id": "K04", "namn": "Endelokk med avrunda ende, limt på profilet", "materiale": "PLA Matte, lakka", "prosess": "print", "mal_mm": "21 x 19 x 12", "masse_g": 4},
+    {"id": "K05", "namn": "Fot: 6 mm plate med spalte 4,3 x 4 for stativet, ribbe 16 høg bak plata med 2 hol Ø 4,5, elektronikkhus bak til høgre (USB-C bak, akselen på potensiometeret ut mot +x), lok", "materiale": "PLA Matte", "prosess": "print, 0,20 mm, 4 vegger, 15 % gyroid", "mal_mm": "195 x 115 x 8 (huset 40 x 34 x 34)", "masse_g": 95},
+    {"id": "K06", "namn": "Friksjonsskive bak plata", "materiale": "PETG", "prosess": "print", "mal_mm": "Ø 24 x 3, hol Ø 10,5", "masse_g": 2},
+    {"id": "K07", "namn": "Bakre justerknott med sekskantlomme for M10x1-låsemutteren, fjørhylse og kabelhol", "materiale": "PLA Matte", "prosess": "print, rifla kant", "mal_mm": "Ø 26 x 14", "masse_g": 7},
+    {"id": "K08", "namn": "Dimmarknott på akselen til potensiometeret", "materiale": "PLA Matte", "prosess": "print", "mal_mm": "Ø 16 x 12", "masse_g": 3},
+    {"id": "E01", "namn": "LED-aluminiumsprofil U, type 1715 (ytre ca. 17 x 15 mm, innvendig 12 mm), med opal PC-deksel og endelokk, 1 m, opninga ned", "materiale": "aluminium 6063 + opal PC", "prosess": "kjøp (AliExpress «LED aluminium profile 1715 U opal», ca. 70 kr), kapp med baufil", "mal_mm": "435 x 17 x 15", "masse_g": 79},
+    {"id": "E02", "namn": "COB-LED-stripe 5 V, 2700 K, CRI >= 90, 8 mm, ca. 320 LED/m, ca. 9 W/m", "materiale": "fleksibelt kort med lim", "prosess": "kjøp (AliExpress «5V COB LED strip 2700K 8mm», ca. 60 kr/m), kapp ved kappmerket, lim i profilet", "mal_mm": "345 x 8 x 2 (x 120..465 frå leddaksen)", "masse_g": 4},
+    {"id": "E03", "namn": "USB-C-hokontakt, 2 pinnar, 5,1 kOhm på CC1 og CC2 kvar for seg (same som Lut E04)", "materiale": "modul", "prosess": "kjøp (AliExpress/Kjell, ca. 10 kr)", "mal_mm": "ca. 12 x 10 x 4", "masse_g": 2},
+    {"id": "E04", "namn": "PWM-dimmarkort, verkar frå 4,5 V, PWM >= 3 kHz, >= 1 A (same som Lut E03)", "materiale": "modul", "prosess": "kjøp (AliExpress, ca. 25 kr)", "mal_mm": "ca. 30 x 20 x 10", "masse_g": 8},
+    {"id": "E05", "namn": "Potensiometer med brytar WH148 B10K, 16 mm, M7 x 0,75-hals, riflet aksel Ø 6 (same som Lut E02), lodda på E04", "materiale": "komponent", "prosess": "kjøp (Kjell/AliExpress, ca. 15 kr)", "mal_mm": "Ø 16 x 17 + aksel 15", "masse_g": 10},
+    {"id": "E06", "namn": "Leidning 2 x 0,25 mm2 silikon, raud/svart", "materiale": "kopar/silikon", "prosess": "kjøp, kappa til slutt", "mal_mm": "900 lang", "masse_g": 6},
+    {"id": "M01", "namn": "Gjengerør M10 x 1 (lampenippel), hol ca. Ø 7, med éin vanleg M10x1-mutter (i hovudet)", "materiale": "messing eller forsinka stål", "prosess": "kjøp (Clas Ohlson/Biltema lampedelar, ca. 35 kr), kapp til 50 mm og avgrad innvendig", "mal_mm": "M10x1 x 50", "masse_g": 12},
+    {"id": "M02", "namn": "Låsemutter M10 x 1, DIN 985 (nylon), i K07", "materiale": "stål", "prosess": "kjøp (AliExpress, ca. 15 kr; naudløysing: to vanlege M10x1-mutrar kontra)", "mal_mm": "NV 17 x 8", "masse_g": 6},
+    {"id": "M03", "namn": "Trykkfjør, tråd 2,5, ytre Ø 18, fri lengd 25, 4 aktive vindingar, ca. 26 N/mm", "materiale": "fjørstål", "prosess": "kjøp (AliExpress-sett eller Biltema fjørsortiment, ca. 20 kr)", "mal_mm": "Ø 18 x 25", "masse_g": 9},
+    {"id": "M04", "namn": "2 skiver M10 DIN 125", "materiale": "stål", "prosess": "kjøp (Biltema)", "mal_mm": "Ø 20 x 2, hol 10,5", "masse_g": 6},
+    {"id": "M05", "namn": "Stoppinne: M3 x 10 sylinderskrue i innpressmutter M3 x 5,7 i K02, stikk 3,5 mm inn i bogesporet", "materiale": "stål", "prosess": "kjøp", "mal_mm": "M3 x 10", "masse_g": 1.5},
+    {"id": "M06", "namn": "2 innpressmutrar M3 + 2 M3 x 6 for profilet i sokkelen, og 2-komponent epoksy", "materiale": "messing/stål/epoksy", "prosess": "kjøp", "mal_mm": "M3", "masse_g": 3},
+    {"id": "M07", "namn": "2 x M4 x 12 sylinderskrue frå baksida gjennom ribba inn i gjengene i K01", "materiale": "stål", "prosess": "kjøp", "mal_mm": "M4 x 12", "masse_g": 4},
+    {"id": "M08", "namn": "4 sjølvklebande gummiføter", "materiale": "gummi", "prosess": "kjøp (Clas Ohlson)", "mal_mm": "Ø 10 x 2", "masse_g": 2},
+    {"id": "M09", "namn": "3 sjølvklebande kabelklips og krympestrømpe Ø 3", "materiale": "plast", "prosess": "kjøp (Kjell/Clas Ohlson)", "mal_mm": "ca. 10 x 10", "masse_g": 2}
+  ],
+  "ledd": {
+    "oppbygging": "Leddaksen er eit hol gjengerør M10x1 x 50 (M01). Røyret er skrudd og limt i ein mutter som sit i ei sekskantlomme i armhovudet (K02), så røyret dreier med armen. Det går fritt gjennom Ø 10,5 i stålplata. Framme ligg armhovudet med ei skive Ø 44 rett mot den lakka framsida av plata (friksjonsflate 1). Bak plata kjem friksjonsskiva Ø 24 i PETG (K06), skive M10, trykkfjøra (M03), skive M10 og til slutt låsemutteren M10x1 (M02) i den rifla bakre knotten (K07). Mellom fjørenden og skiva er friksjonsflate 2. Alt bak plata dreier med røyret, så låsemutteren blir ikkje skrudd laus når armen rører seg. Kraftene stillar ein med den bakre knotten: ein omgang er 1 mm, altså 26 N. Ein stoppinne M3 i baksida av hovudet går i eit bogespor i plata (r 13 mm) og avgrensar rørsla. Framknotten (K03) er pynt og dekkjer kabelrommet. Leidninga går gjennom røyret.",
+    "naudsynt_moment_Nm": 0.233,
+    "friksjonsmoment_Nm": 0.47,
+    "rekning": "Momentet frå armen, vassrett, om leddaksen (g = 9,81): profil og deksel 79,2 g ved x 252,5; COB 4,1 g ved x 292,5; leidning 2 g ved x 80; endelokk 4 g ved x 475; armhovud 35 g ved x 14; knott og mutter 6 g ved x 0. Sum m*x = 23 751 g*mm, så M_g = 23 751 x 9,81e-6 = 0,233 Nm. Armen veg 130 g, med tyngdepunktet 182 mm frå aksen. Med skala 0,85-1,15 blir det 0,168-0,308 Nm. Målet er tryggleiksfaktor 2: T = 0,466, avrunda 0,47 Nm. Kvar friksjonsflate gir T = mu x F x r_eff, med r_eff = 2/3 x (R^3 - r^3)/(R^2 - r^2). Flate 1 er PLA mot lakka stål, mu = 0,25 (nedre anslag). Ringen Ø 44/Ø 10,5 gir r_eff = 2/3 x (10 648 - 145)/(484 - 27,6) = 15,34 mm. Flate 2 er stål mot stål, fjørende mot skiva, mu = 0,15 og r = 7,75 mm (middelradius til fjøra), der den svakaste flata i bakre stabel sklir. T = F x (0,25 x 0,01534 + 0,15 x 0,00775) = F x 0,00500 m. F = 0,466/0,00500 = 93 N. Fjøra (M03) har d = 2,5, D_m = 15,5 og n = 4: k = G d^4/(8 D^3 n) = 79 000 x 39,1/(8 x 3724 x 4) = 25,9 N/mm. Ho må altså trykkjast saman 3,6 mm av om lag 10 mm før ho står kompakt. Skjerspenninga er tau = K_w x 8FD/(pi d^3) = 1,24 x 8 x 93 x 15,5/(pi x 15,6) = 293 MPa, godt under om lag 850 MPa for fjørtråd. Flatetrykket på PLA er 93/(pi/4 x (44^2 - 10,5^2)) = 0,065 MPa, så kryp er ikkje noko problem. Justering i praksis: stram den bakre knotten til armen held seg vassrett med 50 g teipa på tuppen. 0,05 x 9,81 x 0,48 = 0,235 Nm ekstra gir 0,47 Nm totalt. Ein omgang på knotten endrar T med 26 x 0,005 = 0,13 Nm. Handkrafta på tuppen for å flytte armen er om lag 0,47/0,48 = 1,0 N.",
+    "rorsleomraade_grad": "-20 til +60 (0 = vassrett arm), avgrensa av stoppinnen i bogesporet. Ved -20 grader står tuppen 330 - 480 x sin 20 = 166 mm over bordet."
+  },
+  "kabelveg": "COB-stripa (E02) ligg i taket av profilet, og leidningane (E06) er lodda på ved x = 120. Paret går i profilet til sokkelen og inn i kabelrommet framme i armhovudet. Der svingar det 90 grader inn i den framre enden av gjengerøyret (M01, hol ca. Ø 7, avgrada, krympestrømpe der leidninga går inn). Paret går gjennom røyret, ut bak gjennom holet i den bakre knotten (K07) og vidare som ei fri sløyfe på om lag 60 mm. Sløyfa tek opp dreiinga på 80 grader. Så går paret ned langs baksida av stativplata, 10 mm innanfor høgre kanten (x = 25), med 3 sjølvklebande klips (M09). Nedst går det inn i elektronikkhuset i foten gjennom eit hol i taket. Der går det USB-C (E03), så brytaren på E05, så PWM-kortet (E04) og til slutt LED-en. Frå framsida syner ingen leidning. Bakfrå syner paret langs kanten, og USB-kabelen går ut bak frå huset.",
+  "elektro": {
+    "straum": "5 V frå USB-C-ladar, minst 5 V 1,5 A (Rp for 1,5 A eller 3 A). Modulen har 5,1 kOhm på CC1 og CC2 kvar for seg, utan PD-forhandling. Største straum er om lag 0,62 A. Ein USB-port på PC-en kan gje berre 0,5 A, og då vil lyset ikkje nå full styrke. Det er ingen nettspenning i lampa.",
+    "led": "COB-stripe 5 V, 2700 K, CRI >= 90, 8 mm, 345 mm lang, frå x = 120 til x = 465 frå leddaksen (i biletet startar lyslista om lag 127 mm ut). Ho er limt i taket av aluprofilet, som er kjøleflata, og har det opale PC-dekslet under seg.",
+    "effekt_W": 3.1,
+    "dimming": "PWM-kort (E04), minst 3 kHz så det ikkje flimrar på kamera, med WH148 B10K med brytar (E05). Ytterst i rotasjonen slår brytaren av, og lampa blir dimma frå om lag 5 til 100 %. Knotten (K08) sit på høgre sida av huset bak stativplata. Det er same par som i Lut, så passprøva derifrå gjeld òg her. Reserve: Arduino Nano eller micro:bit med logisk MOSFET og PWM på 3,9 kHz.",
+    "varme": "Om lag 3 W (9 W/m x 0,345 m) går til eit aluprofil med 64 mm omkrins og 435 mm lengd, A = 0,0278 m^2. Med h = 8 W/m^2K blir dT = 3/(8 x 0,0278) = 13 K, altså om lag 38 grader C i eit rom på 25 grader. LED-en startar 60 mm utanfor sokkelen, så PLA-hovudet held seg under 40 grader. Ikkje prøvd ennå: køyr 60 min på full styrke og mål profilet (<= 45 grader C) og sokkelen (<= 40 grader C). Om det blir for varmt, kan stripa kappast kortare eller hovudet printast i PETG."
+  },
+  "stabilitet": {
+    "total_masse_g": 1370,
+    "tyngdepunkt_mm": "x -9,2 / y +1,1 / z 148,2. Origo er i leddaksen loddrett ned på bordet. x går langs armen (+ mot tuppen), y er vinkelrett på stativplata (+ framover, sida armen sit på), z er opp frå bordet.",
+    "vippevinklar_grad": {"mot_armen": 17.3, "fra_armen": 41.9, "framover": 22.3, "bakover": 14.4},
+    "rekning": "Massane (g) med tyngdepunkt (x, y, z): stålplata (K01) har eit areal på 34 181 mm2 etter spalte, hol og spor. Det gir 34 181 x 4 x 7,85e-3 = 1073 g ved (-29,7; 0; 135,6). Armen veg 130,3 g ved (182; ca. 16; 328). Leddstabelen bak plata (røyr, skiver, fjør, mutter, knott) veg 39 g ved (0; ca. -20; 330). Foten (K05) veg 95 g ved (-50; 8; 7). Elektronikken med knotten veg 22 g ved (20; -25; 18). Leidninga på stativet veg 4 g ved (25; -4; 170), og føter og skruar veg 6 g. Sum M = 1370 g. X = Sum m*x/M = -9,2, Y = +1,1 og Z = 148,2. Gummiføtene står 8 mm inn frå hjørna på foten (x -150..45, y -45..70), altså ved x = -142 og +37 og y = -37 og +62. Vippevinkelen er arctan(avstand frå tyngdepunktet til vippekanten / Z). Mot armen: arctan((37 + 9,2)/148,2) = 17,3 grader. Frå armen: arctan((142 - 9,2)/148,2) = 41,9 grader. Framover: arctan((62 - 1,1)/148,2) = 22,3 grader. Bakover: arctan((37 + 1,1)/148,2) = 14,4 grader. Alle fire er over 6 grader (EN 60598-1), mot armen med faktor 2,9. Med armen på +60 grader flyttar tyngdepunktet seg til x -17,9 / z 163,3, og vinkelen mot armen blir 18,6 grader. På -20 grader blir han 18,4 grader. Med armen 15 % lengre blir han 15,3 grader. Kontrollrekning: eit stativ i 6 mm PLA i staden for stål gir 436 g totalt med tyngdepunktet ved x +34,5. Det er berre 0,8 grader mot armen, så stålplata er naudsynt som ballast. Med 3 mm stål blir han 15,3 grader (1101 g). Skriptet ligg i design/rekning_prototype.py."
+  },
+  "avvik_fra_biletet": [
+    "Armen er eit kjøpt U-profil på 17 x 15 mm med opalt deksel. I biletet er armen om lag 21 mm høg, har ein grunn kanal i framsida og ei lyslist under som er skild frå armen.",
+    "Foten er ei printa PLA-plate på 195 x 115 x 6 mm (8 mm med gummiføter) og ikkje ein bretta flens i plata. Han er lengre langs armen (195 mm mot om lag 150) for å gje 17 grader mot armen, og syner som ei låg stripe.",
+    "Stativet står i ei spalte i foten og er skrudd med to M4 til ei ribbe på baksida. Det er ikkje bretta i éitt stykke med foten.",
+    "Leddet: armhovudet er ei sylinderskive Ø 44 x 22 med sokkel, ikkje den flate, skrå ørebiten i biletet. Framknotten er Ø 18 (om lag Ø 15 i biletet).",
+    "Bak stativplata sit ein justerknott Ø 26 x 14 med fjør og mutter. Han syner ikkje framanfrå, men stikk ut på baksida.",
+    "Dimmarknotten sit på elektronikkhuset bak stativet nede til høgre. Biletet har ingen synleg brytar.",
+    "Leidninga går langs baksida av stativet i klips og syner bakfrå. USB-C sit bak på foten.",
+    "Armen kan berre dreiast frå -20 til +60 grader (stoppinne i bogespor).",
+    "Fargen er sprøytelakk RAL 6021 satin på stål og printdelar, ikkje pulverlakk. Nyansen og glansen vil avvike frå biletet, og profilet blir lakka over den anodiserte flata.",
+    "Toppen av stativet er avrunda med R 22 om leddet. Toppen og leddet sit 330 mm over bordet, mot om lag 350 mm i biletet."
+  ],
+  "monteringsrekkjefolgje": [
+    "1. Bestill stålplata (K01) frå DXF først, fordi ho har lengst leveringstid. Ho er 4 mm S235, med Ø 10,5, bogespor, spalte og 2 x Ø 3,3 for M4.",
+    "2. Print ei passprøve: sekskantlomma for M10x1-mutteren og Ø 10,5, sokkelen for profilet (25 mm), spalta 4,3 i foten med eit stålstykke på 4 mm og innpressmutteren M3. Rett måla før du printar dei fulle delane.",
+    "3. Print K02-K08: hovudet med skiva ned, foten med botnen ned, knottane med framsida ned.",
+    "4. Gjeng M4 i plata, avgrad alle kantar, avfeitt og lakk plata og printdelane med RAL 6021. Profilet kan lakkast etter kapping.",
+    "5. Pres inn innpressmutrane: M3 for stoppinnen bak i K02 og 2 x M3 i sokkelen.",
+    "6. Kapp profilet til 435 mm og stripa til 345 mm. Lodd paret (900 mm) på stripa, lim ho inn frå x = 120 og klikk på dekslet.",
+    "7. Træ paret inn i sokkelen, gjennom kabelrommet og ut gjennom M10x1-mutteren i lomma. Skru gjengerøyret (kappa til 50 mm, avgrada og med krympestrømpe) inn i mutteren med 2K-epoksy. Paret skal gå gjennom røyret før du skrur.",
+    "8. Lim profilet i sokkelen med epoksy og skru inn 2 x M3 x 6. Lim på endelokket (K04). La epoksyen herde i 24 t.",
+    "9. Set stativplata i spalta i foten og skru inn 2 x M4 x 12 frå baksida gjennom ribba.",
+    "10. Set armhovudet mot framsida av plata med røyret gjennom Ø 10,5 og stoppinnen (M3 x 10, skrudd inn til 3,5 mm stikk) i bogesporet.",
+    "11. Bak: træ paret gjennom K06, skive, fjør, skive og K07 med låsemutteren i lomma. Skru K07 inn til fjøra så vidt tek.",
+    "12. Legg paret med ei 60 mm sløyfe og før det ned langs baksida i 3 klips, inn gjennom taket på huset.",
+    "13. Lodd USB-C (E03) til brytaren på E05/E04 og vidare til LED-en. Prøv lyset og dimminga med lokket av huset. Mål straumen (<= 0,8 A).",
+    "14. Stram K07 til armen held seg vassrett med 50 g teipa på tuppen. Ta av loddet og prøv frå -20 til +60 grader.",
+    "15. Lokk på huset, dimmarknotten (K08) på akselen, frontknotten (K03) i hovudet og gummiføtene (M08) under."
+  ],
+  "risiko": [
+    "Friksjonstala er anslag: mu = 0,25 for PLA mot lakk og 0,15 for stål mot stål. Justeringa dekkjer om lag 0,2-0,8 Nm, men lakken der hovudet ligg mot plata blir sliten og kan endre mu. Masker eventuelt bort ein ring Ø 46 og lakk han med klarlakk.",
+    "Fjørdata (2,5 x 18 x 25, ca. 26 N/mm) er nominelle i sortimentet. Mål fjøra under 2 kg og rett talet på omgangar.",
+    "Ein M10x1-låsemutter (DIN 985) finst sjeldan i norske butikkar. Bestill han tidleg, og bruk to vanlege mutrar kontra som naudløysing.",
+    "Gjengerøyret er ein lampedel med skarpe gjengar inne og ute. Leidninga må få krympestrømpe der ho går inn, og den tynne veggen kan sprekke i lomma om ein strammar for hardt.",
+    "Effekten til 5 V-COB-stripa (W/m) varierer mellom seljarar. Mål straumen før lokket kjem på, og kapp kortare om han er over 0,8 A.",
+    "Med ei USB-kjelde på 0,5 A (PC-port) blir lyset svakare eller kortet kan slå seg av. Bruk ein ladar på minst 1,5 A.",
+    "Laserskjeringa er den største kostnaden og har leveringstid. Ver merksam på at M4-kjerneholet Ø 3,3 må gjengast for hand, og at Ø 10,5 og sporet må vere grade-frie så ikkje lakken flassar.",
+    "Varmen er ikkje prøvd: 3 W i profilet er rekna til om lag 38 grader C. PLA-sokkelen kan bli mjuk om stripa blir lagd for nær.",
+    "Vippevinklane føreset at gummiføtene sit i hjørna og at stålplata er 4 mm. Med 3 mm stål fell vinkelen mot armen til 15,3 grader, med PLA-stativ til 0,8 grader (fell over).",
+    "Ingen CAD, STEP eller STL er laga ennå. Dette er eit forslag med overslagsrekning, og ingen kollisjons- eller monteringskontroll er køyrd."
+  ],
+  "kostnad_nok": 880
+}

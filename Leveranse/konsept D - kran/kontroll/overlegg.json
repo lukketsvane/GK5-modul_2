@@ -1,0 +1,8 @@
+{
+ "iou": 0.8085,
+ "foto_pikslar": 292251,
+ "cad_pikslar": 325697,
+ "berre_foto": 15989,
+ "berre_cad": 49435,
+ "metode": "IoU mellom maska av lampa i fotoet og CAD-nettet projisert med kameraet frå referanse/kamera.py"
+}

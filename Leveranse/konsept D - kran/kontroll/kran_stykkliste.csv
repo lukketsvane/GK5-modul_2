@@ -1,0 +1,30 @@
+﻿ID;Namn;Tal;Materiale / spesifikasjon;Masse g;Kjelde
+D01;Framlag;1;S235 1,5 mm, laserskoren, éin bøy 90° fram (Ri 1,5), lakka;426.2;laser og bøy
+D02;Midtlag;1;S235 1,5 mm, laserskoren, leidningskanal og vridekammer;360.4;laser
+D03;Baklag;1;S235 1,5 mm, laserskoren, éin bøy 90° bak (Ri 1,5), vindauge, lakka;433.2;laser og bøy
+D04;Arm med øyre;1;Al 5754-H22 1,0 mm, laserskoren, fire bøyar 90° (Ri 1,0), lakka;114.4;laser og bøy
+D05;Forsterkingsplate;1;Al 5754 3,0 mm, laserskoren, limt bak øyret med epoksy;17.4;laser
+D06;Låseskive;1;Rustfritt 1,0 mm, laserskoren, D-hol;1.9;laser
+D07;Knott;1;PETG, print, berøringsflate (koparfolie Ø 11 inni), lakka;0.7;print
+D08;Hette;1;PETG, print, limt på bakmutteren, lakka;2.1;print
+D09;Endelokk;1;PETG, print, limt i tuppen, lakka;7.1;print
+D10;Endeplugg;1;PETG, print, skyvd inn i armen frå rota og limt, lakka;11.0;print
+D11;Lomme;1;PETG, print, limt på bakflensen;8.8;print
+D12;Spreiar;1;Opal PC 1,5 mm, skoren etter DXF-mal;26.1;skjer
+D14;Lok på lomma;1;PETG, print, klikkar på;3.1;print
+E01;COB-stripe;1;"5 V, 8 mm, 2700 K, CRI >= 90, om lag 8 W/m, sjølvklebande; kappa til 340 mm på kappemerket";6.0;kjøp
+E02;Kontrollar;1;Seeed XIAO SAMD21 (QTouch), forsynt på 5 V-pinnen;3.0;kjøp
+E03;MOSFET-kort;1;AO3400A (logisk nivå) på SOT-23-adapter, 100 Ω i gate, 100 kΩ frå gate til GND;1.0;kjøp
+E04;USB-C-kort;1;6-pinnars utbrytar med CC1 og CC2 ute, 5,1 kΩ frå kvar CC til GND;2.0;kjøp
+M01;Aksel;1;Holt gjengerøyr M10 x 1 i messing (lampedel), kappa til 23 mm, fila flat til 9,0, to tverrspor;6.9;kjøp
+M02;Mutter;2;Tynn lampemutter M10 x 1, 3 mm, NV 13, framme;3.2;kjøp
+M03;PA6-skive;2;Nylonskive 10,5 x 20 x 1, framfor plata;0.5;kjøp
+M04;Tallerkenfjør;4;DIN 2093 C 20 x 10,2 x 0,5, fire i serie ()();7.2;kjøp
+M05;Stoppinne;1;ISO 2338 Ø 3 m6 x 5, pressa i forsterkingsplata;0.3;kjøp
+D13;Filt;2;Sjølvklebande møbelfilt 1 mm, skoren etter mal;1.9;kjøp
+E05;Leidningar;4;PTFE-isolert, mangetråda, 750 mm kvar: AWG28 raud (LED +) og blå (LED -), AWG30 kvit (berøring) og svart (jord);4.0;kjøp
+M06;Epoksy;1;2-komponent, 25 ml: laminering av stativet, forsterkingsplata, lomma, endedelane;12.0;kjøp
+M07;Koparteip og -folie;1;koparteip med leiande lim (jord på stativet), koparfolie Ø 11 (knotten);1.0;kjøp
+M08;Lakk;1;primer og silkematt sprøytelakk, startpunkt RAL 6021, prøvd mot fotoet;0.0;kjøp
+M09;Forbruk;1;gjengelås middels (Loctite 243), krympestrømpe, loddetinn, sparkel;0.0;kjøp
+R01;Reserve for dimminga;1;potensiometer WH148 B10K med brytar og PWM-kort (som Lut E02/E03), i lomma;0.0;kjøp om berøringa ikkje blir stabil

@@ -1,0 +1,466 @@
+{
+ "D01": {
+  "namn": "Framlag",
+  "farge": [
+   0.73,
+   0.71,
+   0.53
+  ],
+  "kjopt": false,
+  "arm": false,
+  "fil": "D01_framlag",
+  "senter": [
+   112.818,
+   -2.766,
+   115.742
+  ]
+ },
+ "D02": {
+  "namn": "Midtlag",
+  "farge": [
+   0.73,
+   0.71,
+   0.53
+  ],
+  "kjopt": false,
+  "arm": false,
+  "fil": "D02_midtlag",
+  "senter": [
+   113.806,
+   0.0,
+   130.161
+  ]
+ },
+ "D03": {
+  "namn": "Baklag",
+  "farge": [
+   0.73,
+   0.71,
+   0.53
+  ],
+  "kjopt": false,
+  "arm": false,
+  "fil": "D03_baklag",
+  "senter": [
+   112.462,
+   3.224,
+   114.615
+  ]
+ },
+ "D04": {
+  "namn": "Arm med øyre",
+  "farge": [
+   0.73,
+   0.71,
+   0.53
+  ],
+  "kjopt": false,
+  "arm": true,
+  "fil": "D04_arm_med_oyre",
+  "senter": [
+   393.5,
+   13.836,
+   330.466
+  ]
+ },
+ "D05": {
+  "namn": "Forsterkingsplate",
+  "farge": [
+   0.62,
+   0.62,
+   0.64
+  ],
+  "kjopt": false,
+  "arm": true,
+  "fil": "D05_forsterkingsplate",
+  "senter": [
+   161.797,
+   -4.75,
+   328.566
+  ]
+ },
+ "D06": {
+  "namn": "Låseskive",
+  "farge": [
+   0.62,
+   0.62,
+   0.64
+  ],
+  "kjopt": false,
+  "arm": true,
+  "fil": "D06_laaseskive",
+  "senter": [
+   154.0,
+   3.75,
+   330.079
+  ]
+ },
+ "D07": {
+  "namn": "Knott",
+  "farge": [
+   0.73,
+   0.71,
+   0.53
+  ],
+  "kjopt": false,
+  "arm": true,
+  "fil": "D07_knott",
+  "senter": [
+   154.0,
+   -11.381,
+   330.0
+  ]
+ },
+ "D08": {
+  "namn": "Hette",
+  "farge": [
+   0.73,
+   0.71,
+   0.53
+  ],
+  "kjopt": false,
+  "arm": true,
+  "fil": "D08_hette",
+  "senter": [
+   154.0,
+   10.158,
+   330.0
+  ]
+ },
+ "D09": {
+  "namn": "Endelokk",
+  "farge": [
+   0.73,
+   0.71,
+   0.53
+  ],
+  "kjopt": false,
+  "arm": true,
+  "fil": "D09_endelokk",
+  "senter": [
+   625.751,
+   14.75,
+   326.967
+  ]
+ },
+ "D10": {
+  "namn": "Endeplugg",
+  "farge": [
+   0.73,
+   0.71,
+   0.53
+  ],
+  "kjopt": false,
+  "arm": true,
+  "fil": "D10_endeplugg",
+  "senter": [
+   223.131,
+   15.816,
+   322.697
+  ]
+ },
+ "D11": {
+  "namn": "Lomme",
+  "farge": [
+   0.1,
+   0.1,
+   0.11
+  ],
+  "kjopt": false,
+  "arm": false,
+  "fil": "D11_lomme",
+  "senter": [
+   124.388,
+   12.813,
+   12.461
+  ]
+ },
+ "D12": {
+  "namn": "Spreiar",
+  "farge": [
+   0.98,
+   0.97,
+   0.93
+  ],
+  "kjopt": false,
+  "arm": true,
+  "fil": "D12_spreiar",
+  "senter": [
+   448.75,
+   14.75,
+   318.45
+  ]
+ },
+ "D14": {
+  "namn": "Lok på lomma",
+  "farge": [
+   0.1,
+   0.1,
+   0.11
+  ],
+  "kjopt": false,
+  "arm": false,
+  "fil": "D14_lok_paa_lomma",
+  "senter": [
+   124.0,
+   12.25,
+   26.838
+  ]
+ },
+ "E01": {
+  "namn": "COB-stripe",
+  "farge": [
+   0.95,
+   0.85,
+   0.55
+  ],
+  "kjopt": true,
+  "arm": true,
+  "fil": "E01_cob-stripe",
+  "senter": [
+   447.25,
+   14.75,
+   335.05
+  ]
+ },
+ "E02": {
+  "namn": "Kontrollar",
+  "farge": [
+   0.1,
+   0.1,
+   0.11
+  ],
+  "kjopt": true,
+  "arm": false,
+  "fil": "E02_kontrollar",
+  "senter": [
+   107.5,
+   18.4,
+   12.95
+  ]
+ },
+ "E03": {
+  "namn": "MOSFET-kort",
+  "farge": [
+   0.08,
+   0.33,
+   0.16
+  ],
+  "kjopt": true,
+  "arm": false,
+  "fil": "E03_mosfet-kort",
+  "senter": [
+   123.0,
+   9.45,
+   9.2
+  ]
+ },
+ "E04": {
+  "namn": "USB-C-kort",
+  "farge": [
+   0.1,
+   0.1,
+   0.11
+  ],
+  "kjopt": true,
+  "arm": false,
+  "fil": "E04_usb-c-kort",
+  "senter": [
+   134.0,
+   18.0,
+   11.7
+  ]
+ },
+ "M01": {
+  "namn": "Aksel",
+  "farge": [
+   0.62,
+   0.62,
+   0.64
+  ],
+  "kjopt": true,
+  "arm": true,
+  "fil": "M01_aksel",
+  "senter": [
+   153.953,
+   0.523,
+   329.525
+  ]
+ },
+ "M02-1": {
+  "namn": "Mutter",
+  "farge": [
+   0.62,
+   0.62,
+   0.64
+  ],
+  "kjopt": true,
+  "arm": true,
+  "fil": "M02-1_mutter",
+  "senter": [
+   154.0,
+   -8.75,
+   330.0
+  ]
+ },
+ "M02-2": {
+  "namn": "Mutter",
+  "farge": [
+   0.62,
+   0.62,
+   0.64
+  ],
+  "kjopt": true,
+  "arm": true,
+  "fil": "M02-2_mutter",
+  "senter": [
+   154.0,
+   9.71,
+   330.0
+  ]
+ },
+ "M03-1": {
+  "namn": "PA6-skive",
+  "farge": [
+   0.93,
+   0.92,
+   0.88
+  ],
+  "kjopt": true,
+  "arm": false,
+  "fil": "M03-1_pa6-skive",
+  "senter": [
+   154.0,
+   -2.75,
+   330.0
+  ]
+ },
+ "M03-2": {
+  "namn": "PA6-skive",
+  "farge": [
+   0.93,
+   0.92,
+   0.88
+  ],
+  "kjopt": true,
+  "arm": false,
+  "fil": "M03-2_pa6-skive",
+  "senter": [
+   154.0,
+   2.75,
+   330.0
+  ]
+ },
+ "M04-1": {
+  "namn": "Tallerkenfjør",
+  "farge": [
+   0.62,
+   0.62,
+   0.64
+  ],
+  "kjopt": true,
+  "arm": true,
+  "fil": "M04-1_tallerkenfjor",
+  "senter": [
+   154.0,
+   4.745,
+   330.0
+  ]
+ },
+ "M04-2": {
+  "namn": "Tallerkenfjør",
+  "farge": [
+   0.62,
+   0.62,
+   0.64
+  ],
+  "kjopt": true,
+  "arm": true,
+  "fil": "M04-2_tallerkenfjor",
+  "senter": [
+   154.0,
+   5.735,
+   330.0
+  ]
+ },
+ "M04-3": {
+  "namn": "Tallerkenfjør",
+  "farge": [
+   0.62,
+   0.62,
+   0.64
+  ],
+  "kjopt": true,
+  "arm": true,
+  "fil": "M04-3_tallerkenfjor",
+  "senter": [
+   154.0,
+   6.725,
+   330.0
+  ]
+ },
+ "M04-4": {
+  "namn": "Tallerkenfjør",
+  "farge": [
+   0.62,
+   0.62,
+   0.64
+  ],
+  "kjopt": true,
+  "arm": true,
+  "fil": "M04-4_tallerkenfjor",
+  "senter": [
+   154.0,
+   7.715,
+   330.0
+  ]
+ },
+ "M05": {
+  "namn": "Stoppinne",
+  "farge": [
+   0.62,
+   0.62,
+   0.64
+  ],
+  "kjopt": true,
+  "arm": true,
+  "fil": "M05_stoppinne",
+  "senter": [
+   149.408,
+   -3.75,
+   341.087
+  ]
+ },
+ "D13-1": {
+  "namn": "Filt",
+  "farge": [
+   0.22,
+   0.22,
+   0.23
+  ],
+  "kjopt": true,
+  "arm": false,
+  "fil": "D13-1_filt",
+  "senter": [
+   90.679,
+   -14.5,
+   0.5
+  ]
+ },
+ "D13-2": {
+  "namn": "Filt",
+  "farge": [
+   0.22,
+   0.22,
+   0.23
+  ],
+  "kjopt": true,
+  "arm": false,
+  "fil": "D13-2_filt",
+  "senter": [
+   90.679,
+   16.5,
+   0.5
+  ]
+ }
+}

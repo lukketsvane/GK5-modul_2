@@ -1,0 +1,39 @@
+{
+ "KRAN_P1S_plate0_leddprove_PETG": {
+  "segment": 30419,
+  "lag": 19,
+  "hogd_mm": 2.92,
+  "stotte_segment": 0,
+  "utypa_segment": 0,
+  "typar": {
+   "Internal solid infill": 17808,
+   "Inner wall": 3484,
+   "Sparse infill": 3211,
+   "Bottom surface": 2413,
+   "Top surface": 1707,
+   "Outer wall": 1346,
+   "Gap infill": 448,
+   "Custom": 2
+  }
+ },
+ "KRAN_P1S_plate1_smaadelar_PETG": {
+  "segment": 65208,
+  "lag": 583,
+  "hogd_mm": 93.16,
+  "stotte_segment": 0,
+  "utypa_segment": 0,
+  "typar": {
+   "Outer wall": 26545,
+   "Inner wall": 18464,
+   "Internal solid infill": 8476,
+   "Sparse infill": 6880,
+   "Top surface": 1756,
+   "Floating vertical shell": 1201,
+   "Bottom surface": 795,
+   "Bridge": 724,
+   "Gap infill": 345,
+   "Overhang wall": 20,
+   "Custom": 2
+  }
+ }
+}

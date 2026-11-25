@@ -16,6 +16,7 @@ Visingar:
   lys       begge lysa på i mørke
   topp      ovanfrå og ned i den opne toppen
   naer      nærbilete av nasen: toppkant, saum, underkant av skjermen
+  plate     éin lampe i matt sølv på heilt svart (#000), utan golv: grunnlag for overflatestudiar
 Materialnamn: kropp, kropp_inn, alu, alu_borsta, messing, svart, kvit, pcb, staal, opal, opal_ned, led, celle, hud
 """
 import json
@@ -115,6 +116,7 @@ def bibliotek(lys_paa):
         "kropp_inn": mat("kropp_inn", lin((0.93, 0.93, 0.92)), rough=0.7),
         "alu": mat("alu", lin((0.78, 0.79, 0.80)), rough=0.35, metal=1.0),
         "alu_borsta": mat("alu_borsta", lin((0.80, 0.81, 0.82)), rough=0.42, metal=1.0, aniso=0.6),
+        "solv": mat("solv", lin((0.86, 0.86, 0.87)), rough=0.5, metal=1.0),
         "messing": mat("messing", lin((0.86, 0.68, 0.38)), rough=0.28, metal=1.0),
         "svart": mat("svart", lin((0.05, 0.05, 0.05)), rough=0.5),
         "kvit": mat("kvit", lin((0.93, 0.93, 0.92)), rough=0.5),
@@ -139,7 +141,7 @@ STANDARD = {"D01": "kropp", "D02": "kropp", "D10": "kropp", "D03": "alu", "D04":
 LAMPE = None
 
 
-def importer(geo, lys_paa=False, med_leidning=True):
+def importer(geo, lys_paa=False, med_leidning=True, overstyr=None):
     global LAMPE
     LAMPE = bpy.data.collections.new("lampe")
     bpy.context.scene.collection.children.link(LAMPE)
@@ -148,6 +150,8 @@ def importer(geo, lys_paa=False, med_leidning=True):
     f = ROT / "render" / "materialar.json"
     if f.exists():
         val.update(json.loads(f.read_text(encoding="utf-8")))
+    if overstyr:
+        val.update(overstyr)
     for d in geo["delar"]:
         if d["id"] == "E01" and not med_leidning:
             continue
@@ -240,13 +244,13 @@ def lys_svart(s, z_bord):
     golv(s, (0.02, 0.02, 0.02), rough=0.35, z=z_bord)
 
 
-def graa_bakgrunn(ut):
+def graa_bakgrunn(ut, bg=BG):
     img = bpy.data.images.load(str(ut))
     px = list(img.pixels)
     for i in range(0, len(px), 4):
         a = px[i + 3]
         for c in range(3):
-            px[i + c] = px[i + c] * a + BG * (1 - a)
+            px[i + c] = px[i + c] * a + bg * (1 - a)
         px[i + 3] = 1.0
     img.pixels = px
     img.filepath_raw = str(ut)
@@ -260,6 +264,7 @@ def render(vising):
     z_bord = -geo.get("fot_h", 3.0) / 1000.0
     M = (0.150, 0.0, 0.147)   # midten av lampa
     px = (1200, 1200)
+    svart_bg = False
     if vising == "front":
         importer(geo)
         lys_studio(s, z_bord)
@@ -304,6 +309,18 @@ def render(vising):
         areal(s, "topp", (0.5, -0.2, 1.3), (0.26, 0, 0.23), 1.2, 4)
         areal(s, "fyll", (1.5, -1.0, 0.4), (0.26, 0, 0.23), 1.8, 1.5)
         px = (1400, 1050)
+    elif vising == "plate":
+        # éin lampe på heilt svart (#000), ingen golv: grunnlag for overflatestudiar
+        importer(geo, overstyr={"D01": "solv", "D02": "solv", "D10": "solv", "K08": "svart"})
+        s.view_settings.view_transform = "Standard"
+        s.render.film_transparent = True
+        verd(s, (0, 0, 0), 0.0)
+        kamera(s, (-0.27, -1.90, 0.64), (0.150, 0.0, 0.142), 150)
+        areal(s, "nokkel", (-1.1, -1.5, 1.5), M, 1.6, 55)
+        areal(s, "fyll", (1.5, -1.4, 0.5), M, 2.0, 9)
+        areal(s, "kant", (0.9, 1.0, 1.1), M, 1.0, 30)
+        px = (1536, 1536)
+        svart_bg = True
     else:
         sys.exit("ukjend vising: " + vising)
     s.cycles.samples = PROVER
@@ -314,7 +331,7 @@ def render(vising):
     s.render.image_settings.file_format = "PNG"
     bpy.ops.render.render(write_still=True)
     if s.render.film_transparent:
-        graa_bakgrunn(ut)
+        graa_bakgrunn(ut, 0.0 if svart_bg else BG)
     print("SKREIV", ut)
 
 

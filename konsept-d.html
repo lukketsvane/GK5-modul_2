@@ -43,7 +43,7 @@ html, body {
 <meta name="description" content="Sluse × Uttrekk: interaktiv 3D-modell av lampa. GK5 modul 2, AHO.">
 </head>
 <body>
-<canvas id="scene" role="img" aria-label="3D-modell av lampa Sluse × Uttrekk. Dra for å snu."></canvas>
+<canvas id="scene" role="img" aria-label="3D-modell av lampa Sluse × Uttrekk. Dra for å snu. Hald inne Shift for å låse visinga rett mot næraste side."></canvas>
 <button id="ground" type="button" aria-label="Underlag: Eik. Trykk for å byte."></button>
 <div id="scrub" role="slider" tabindex="0" aria-label="Stilling, frå låg til høg" aria-valuemin="0" aria-valuemax="100" aria-valuenow="25"><canvas id="ticks" aria-hidden="true"></canvas></div>
 
@@ -340,7 +340,7 @@ html, body {
   top.position.set(0, -2, 0); top.receiveShadow = true; top.castShadow = true; scene.add(envLayer(top));
 
   // a sun-like key light. It starts straight below the oak, so the top blocks it and nothing visible is lit.
-  // Three fingers (or shift-drag / right-drag on a computer) swing it round and up over the lamp.
+  // Three fingers (or right-drag on a computer) swing it round and up over the lamp.
   var sun = envLayer(new THREE.DirectionalLight(0xfff1e2, 2.5));
   var sunAngle = { az: -0.75, el: -Math.PI / 2 + 0.02 };
   sun.castShadow = true; sun.shadow.mapSize.set(isPhone ? 1024 : 2048, isPhone ? 1024 : 2048);
@@ -531,16 +531,29 @@ html, body {
   // ---------- camera: auto framing + smoothed orbit with inertia ----------
   // one finger turns, two fingers pinch (zoom), twist (turn) and pan, three fingers steer the light,
   // double tap goes back to the start view. Mouse: drag turns, wheel or trackpad pinch zooms,
-  // shift or right drag steers the light, alt or middle drag pans, double click resets.
+  // right drag steers the light, alt or middle drag pans, double click resets. Holding shift while turning snaps
+  // the view to the nearest face: front, right, back or left at eye level, or straight from above.
   var HOME = { yaw: 0.62, pitch: 0.2 };
   var cam = { yaw: HOME.yaw, pitch: HOME.pitch, zoom: 1, panX: 0, panY: 0 };   // what the camera shows (smoothed)
   var want = { yaw: HOME.yaw, pitch: HOME.pitch, zoom: 1, panX: 0, panY: 0 };  // where the gestures point
   var vel = { yaw: 0, pitch: 0 };                                               // fling after release, rad per ms
   var target = new THREE.Vector3(3, 12, 0), baseDist = 140, framed = false;
-  var PITCH_MIN = 0.03, PITCH_MAX = 1.25, ZOOM_MIN = 0.4, ZOOM_MAX = 2.4, PAN_MAX = 60;
+  var PITCH_MIN = 0, PITCH_MAX = 1.25, ZOOM_MIN = 0.4, ZOOM_MAX = 2.4, PAN_MAX = 60;
+  var QUARTER = Math.PI / 2, PITCH_TOP = Math.PI / 2 - 0.002, pitchCap = PITCH_MAX, snapOn = false, snapEase = false;
+  // the face nearest the free turn: a quarter turn each (front, right, back, left), level or straight from above
+  function snapView() { return { yaw: Math.round(want.yaw / QUARTER) * QUARTER, pitch: want.pitch > Math.PI / 4 ? PITCH_TOP : 0 }; }
+  function setSnap(on) {
+    if (on === snapOn) return;
+    snapOn = on;
+    if (!on) {   // keep the face it snapped to: turning freely carries on from there
+      var v = snapView(); want.yaw = v.yaw; want.pitch = v.pitch; pitchCap = Math.max(PITCH_MAX, v.pitch);
+    }
+    snapEase = true; vel.yaw = vel.pitch = 0; kick();
+  }
   var vRight = new THREE.Vector3(), vUp = new THREE.Vector3();
   function clampWant() {
-    want.pitch = Math.max(PITCH_MIN, Math.min(PITCH_MAX, want.pitch));
+    want.pitch = Math.max(PITCH_MIN, Math.min(pitchCap, want.pitch));
+    pitchCap = Math.max(PITCH_MAX, Math.min(pitchCap, want.pitch));
     want.zoom = Math.max(ZOOM_MIN, Math.min(ZOOM_MAX, want.zoom));
     want.panX = Math.max(-PAN_MAX, Math.min(PAN_MAX, want.panX));
     want.panY = Math.max(-PAN_MAX, Math.min(PAN_MAX, want.panY));
@@ -560,7 +573,11 @@ html, body {
     var az = framed && !reduceMotion ? 1 - Math.exp(-dt / (mouseDriven ? 70 : 60)) : 1;
     var af = framed && !reduceMotion ? 1 - Math.exp(-dt / 170) : 1;  // auto framing follows a little slower
     framed = true;
-    cam.yaw += (want.yaw - cam.yaw) * a; cam.pitch += (want.pitch - cam.pitch) * a;
+    var ty = want.yaw, tp = want.pitch, ar = a;
+    if (snapOn) { var sv = snapView(); ty = sv.yaw; tp = sv.pitch; }
+    if (snapOn || snapEase) ar = a === 1 ? 1 : 1 - Math.exp(-dt / 90);   // a snap glides a little, so the turn reads
+    cam.yaw += (ty - cam.yaw) * ar; cam.pitch += (tp - cam.pitch) * ar;
+    if (snapEase && !snapOn && Math.abs(ty - cam.yaw) < 1e-3 && Math.abs(tp - cam.pitch) < 1e-3) snapEase = false;
     cam.zoom *= Math.pow(want.zoom / cam.zoom, az);
     cam.panX += (want.panX - cam.panX) * a; cam.panY += (want.panY - cam.panY) * a;
     target.lerp(goal.target, af); baseDist += (goal.dist - baseDist) * af;
@@ -570,7 +587,7 @@ html, body {
     vRight.set(1, 0, 0).applyQuaternion(camera.quaternion); vUp.set(0, 1, 0).applyQuaternion(camera.quaternion);
     camera.position.addScaledVector(vRight, cam.panX).addScaledVector(vUp, cam.panY);
     scene.fog.near = d + 40; scene.fog.far = d + 320;
-    return Math.abs(want.yaw - cam.yaw) > 1e-4 || Math.abs(want.pitch - cam.pitch) > 1e-4 || Math.abs(want.zoom / cam.zoom - 1) > 1e-4 ||
+    return Math.abs(ty - cam.yaw) > 1e-4 || Math.abs(tp - cam.pitch) > 1e-4 || Math.abs(want.zoom / cam.zoom - 1) > 1e-4 ||
       Math.abs(want.panX - cam.panX) > 0.01 || Math.abs(want.panY - cam.panY) > 0.01 || vel.yaw !== 0 || vel.pitch !== 0 ||
       target.distanceTo(goal.target) > 0.05 || Math.abs(goal.dist - baseDist) > 0.05;
   }
@@ -588,6 +605,7 @@ html, body {
     ref = touches.size === 2 ? two() : null;
     mode = mouseMode || (touches.size >= 3 ? "light" : touches.size === 2 ? "two" : touches.size === 1 ? "orbit" : null);
     samples = [];
+    if (mode !== "orbit") setSnap(false);   // letting go (or a second finger) keeps the face it snapped to
   }
   canvas.addEventListener("contextmenu", function (ev) { ev.preventDefault(); });
   canvas.addEventListener("pointerdown", function (ev) {
@@ -599,9 +617,11 @@ html, body {
       vel.yaw = vel.pitch = 0;
       tapStart = { t: ev.timeStamp, x: ev.clientX, y: ev.clientY, moved: 0 };
       mouseMode = ev.pointerType === "mouse"
-        ? (ev.shiftKey || ev.button === 2 ? "light" : (ev.altKey || ev.button === 1 ? "pan" : null)) : null;
+        ? (ev.button === 2 ? "light" : (ev.altKey || ev.button === 1 ? "pan" : null)) : null;
     }
-    rebase(); kick();
+    rebase();
+    if (mode === "orbit") setSnap(!!ev.shiftKey);   // shift on the press snaps at once
+    kick();
   });
   canvas.addEventListener("pointermove", function (ev) {
     if (!touches.has(ev.pointerId)) return;
@@ -612,6 +632,7 @@ html, body {
     if (mode === "orbit") {
       var dyaw = -dx * 0.0062, dpitch = dy * 0.0052;
       want.yaw += dyaw; want.pitch += dpitch; clampWant();
+      setSnap(!!ev.shiftKey);
       samples.push({ t: ev.timeStamp, yaw: dyaw, pitch: dpitch });
       while (samples.length && ev.timeStamp - samples[0].t > 90) samples.shift();
     } else if (mode === "two") {
@@ -685,6 +706,10 @@ html, body {
   document.addEventListener("keydown", function (ev) {
     if ((ev.key === "b" || ev.key === "B") && !ev.metaKey && !ev.ctrlKey && !ev.altKey && !ev.repeat) { ev.preventDefault(); setPaper(!paperWhite); }
   });
+  // shift pressed or let go in the middle of a turn, without moving the mouse
+  document.addEventListener("keydown", function (ev) { if (ev.key === "Shift" && mode === "orbit") setSnap(true); });
+  document.addEventListener("keyup", function (ev) { if (ev.key === "Shift") setSnap(false); });
+  window.addEventListener("blur", function () { setSnap(false); });
   window.addEventListener("resize", resize);
   if (window.visualViewport) window.visualViewport.addEventListener("resize", resize);
   canvas.addEventListener("webglcontextrestored", function () { needsUpdate = true; kick(); });

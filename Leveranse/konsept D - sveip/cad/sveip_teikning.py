@@ -260,7 +260,8 @@ def ark_snitt(pdf):
     merk = [("D01", 2, 250, f"D01 kropp {k(P0.t)} mm"), ("D08", 150, _L.Z_DIFF_OPP + 0.7, "D08 diffusor opp, PMMA opal 1,5"),
             ("D04", 100, _L.Z_OPP_KORT + 0.5, "D04 LED opp 2700 K, 16 stk"), ("D03", 60, _L.Z_BRETT + 0.7, "D03 lysbrett 1,5 mm"),
             ("D05", 230, _L.Z_NED_KORT + 0.8, "D05 LED ned 3000 K, 24 stk"), ("D06", 290, 175, "D06 ramme, innsatsar M3"),
-            ("D07", 240, _L.Z_DIFF_NED + 1, "D07 diffusor ned, PMMA opal 2"), ("D02", 175, 110, "D02 chassis 1,5 mm, rygg med sideflensar"),
+            ("D07", 240, _L.Z_DIFF_NED + 1, "D07 diffusor ned, PMMA opal 2"),
+            ("D07P", 215, _L.Z_PRISME + 0.08, "D07P prismeark, prismesida opp"), ("D02", 175, 110, "D02 chassis 1,5 mm, rygg med sideflensar"),
             ("D09", 120, _I.Z_HK + 0.8, "D09 hovudkort"), ("K01", 120, _I.CELLE_Z, "K01 celle 21700"),
             ("D10", 120, 0.4, "D10 luke, 2 myntskruar"), ("D11", 23, _I.Z_USB + 0.8, "D11 USB-C, munning i taket"),
             ("D14", 170.7, P0.pkt_z + 8, "D14 berøringskort med fjør")]
@@ -282,7 +283,7 @@ def ark_sprengt(pdf):
         if i in ("D01", "E01"):
             continue
         dz = 0.0
-        if i in ("D03", "D04", "D04L", "D05", "D05L", "D06", "D07", "D08", "K05", "K11", "K12", "K18", "K21", "K10",
+        if i in ("D03", "D04", "D04L", "D05", "D05L", "D06", "D07", "D07P", "D08", "K05", "K11", "K12", "K18", "K21", "K10",
                  "K22", "K23"):
             dz = 330.0
         elif i in ("D10", "K14"):
@@ -293,7 +294,7 @@ def ark_sprengt(pdf):
             dz = 210.0
         if i in ("D08", "K05"):
             dz += 60.0
-        if i in ("D07", "D06", "K12"):
+        if i in ("D07", "D07P", "D06", "K12"):
             dz -= 20.0
         dy = {"D12F": -60.0, "D13F": -45.0, "D12B": 60.0, "D13B": 45.0}.get(i, 0.0)
         if i in ("D12F", "D13F", "D12B", "D13B"):

@@ -8,6 +8,7 @@ D05;LED-kort ned;1;MCPCB alu 1,6 mm;lag;26.9;26.9;101.5 x 76.1 x 1.7;cad/step/sv
 D05L;LED ned 3000K x24;24;3030 LED;kjop;0.01;0.3;3.0 x 3.0 x 0.7;cad/step/sveip_d05l_led_ned_3000k_x24.step
 D06;Ramme;1;PC kvit (PETG i prototypen);lag;25.98;26.0;120.3 x 98.7 x 17.6;cad/step/sveip_d06_ramme.step
 D07;Diffusor ned;1;PMMA opal 2 mm;lag;24.17;24.2;116.9 x 95.3 x 2.1;cad/step/sveip_d07_diffusor_ned.step
+D07P;Prismeark;1;"prismefilm 90° (BEF-type) 0,16 mm, prismesida opp, riller langs y; prototype: arket frå skjermen";lag;2.11;2.1;116.9 x 95.3 x 0.2;cad/step/sveip_d07p_prismeark.step
 D08;Diffusor opp;1;PMMA opal 1,5 mm;lag;47.23;47.2;292.7 x 97.7 x 1.6;cad/step/sveip_d08_diffusor_opp.step
 D09;Hovudkort;1;FR-4 1,6 mm;lag;17.29;17.3;98.0 x 60.0 x 1.6;cad/step/sveip_d09_hovudkort.step
 D09K;Komponentar hovudkort;1;div.;kjop;2.23;2.2;84.5 x 42.0 x 6.0;cad/step/sveip_d09k_komponentar_hovudkort.step

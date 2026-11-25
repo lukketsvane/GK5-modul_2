@@ -8,8 +8,8 @@ All innmat er éin modul som blir senka ned gjennom den opne toppen og skrudd fa
 
 | | |
 |---|---|
-| Digital mekanisk kontroll | **bestått**: 0 kollisjonar i 861 par; klaringar og kontaktar som kravd; innsetjing av innmaten (steg på 0,5 mm dei siste 10 mm), batteriskifte og plugg prøvde diskret; hola i flatmønsteret kontrollerte mot 3D |
-| Masse og velt | 1158 g (F8: høgst 1200 g). Veltar ved 12,7° mot utkraginga, rekna med effektiv fotkant (EN 60598-2-4 krev 6°). Eit trykk på knappen vippar lampa først ved 7,0 N; ho glir før (5,7 N ved μ 0,5) |
+| Digital mekanisk kontroll | **bestått**: 0 kollisjonar i 903 par; klaringar og kontaktar som kravd; innsetjing av innmaten (steg på 0,5 mm dei siste 10 mm), batteriskifte og plugg prøvde diskret; hola i flatmønsteret kontrollerte mot 3D |
+| Masse og velt | 1160 g (F8: høgst 1200 g). Veltar ved 12,6° mot utkraginga, rekna med effektiv fotkant (EN 60598-2-4 krev 6°). Eit trykk på knappen vippar lampa først ved 7,0 N; ho glir før (5,7 N ved μ 0,5) |
 | Varme (overslag) | lysbrett 36 °C, LED-loddepunkt 39 °C, kropp 26 °C ved 25 °C rom |
 | Slicar | 5 plater slica i Bambu Studio CLI for P1S, ingen utanfor plata. Verktøybanene er **ikkje** sette over i GUI |
 | Fysisk prototype | **ikkje laga** |
@@ -24,7 +24,8 @@ Fem uavhengige granskarar gjekk gjennom rev. A (68 funn, 11 kritiske). Dette er 
 - **Saumen** ligg i nasen på skjermen (x = 300) med påløps- og avløpsflikar. Lampa er dermed lik framme og bak.
 - **Toleransar:** klaring til kroppen 2 til 3 mm, fire glideputer i POM som styrer innmaten, D = 105 ±0,3 kalibrert i sveisefikstur (merknad på teikninga). Ryggen i chassiset har fått sideflensar (U-profil).
 - **Berøringspunktet:** messingknapp CuZn37 (blyfri, klarlakk) med krage Ø12,8 × 0,4 som stopp, pressa i ei POM-hylse med sneppehakar i eit Ø12,3-hol. Fjøra ligg mot baksida av skaftet med 0,8 mm forspenning og når ikkje kroppen når knappen er ute. Knappen er flytt ned på foten (z 70), så eit trykk ikkje vippar lampa.
-- **Lysmodulen:** ramma blir skrudd ovanfrå i gjengeinnsatsar, så diffusoren og nedkortet kan leggjast i først. Øvre diffusor står 28 mm over LED-ane på nylonavstand (ingen sneppar i PMMA).
+- **Lysmodulen:** ramma blir skrudd ovanfrå i gjengeinnsatsar, så prismearket, diffusoren og nedkortet kan leggjast i først. Øvre diffusor står 28 mm over LED-ane på nylonavstand (ingen sneppar i PMMA).
+- **Prismearket (D07P, lagt inn etter gjennomgangen):** 90°-prismefilm på 0,16 mm på leppa i ramma, med opalen oppå. Prismesida vender opp mot opalen, og rillene går langs y, på tvers av utkraginga. Eit hakk på 3 × 3 mm framme ved lysveggen syner at arket ligg rett veg. I prototypen er det arket frå skjermen.
 - **Cella** er no 21700 i polarisert haldar, 1,5 mm frå kortet, med trekkband og 30 mm opning. Luka har myntskruar med 2 mm hovud.
 - **Kontrollen** reknar velt med effektiv fotkant og trykk på knappen. Han har eit termisk nettverk med leiing gjennom chassiset og éi felles effektkjede for lumen, watt og driftstid. Han kontrollerer òg hol i flatmønsteret mot 3D.
 - **Elektro:** cellevern, sikring, vern mot feil polaritet, fastvarereglar for USB-C, LED-strengar, demping, ESD og jording, to berøringskanalar og regelverk står i `elektro/SPESIFIKASJON.md`.
@@ -44,7 +45,8 @@ Rendra med same kamera som skissa (`render/sveip_samanlikn.png`) fell proporsjon
 
 | | Tal | Krav |
 |---|---|---|
-| Arbeidsfeltet 0,6 × 0,4 m, 400 lm ned, utkraginga inn over feltet | **309 lx i snitt, U = 0,07** | F3: 350 lx, jamt. **Ikkje oppfylt** |
+| Arbeidsfeltet 0,6 × 0,4 m, 400 lm frå opalen, med prismearket, utkraginga inn over feltet | **364 lx i snitt, U = 0,04** (rekna, R 0,7) | F3: 350 lx, jamt. Snittet held, **jamnheita ikkje** |
+| Same utan prismearket | 309 lx, U = 0,07 (lysmotoren) | |
 | Same, utkraginga vendt bort | 32 lx | |
 | Kjelda frå augehøgd 47 og 60 cm, 45 cm unna | skjult (ein ser 38 og 67 mm ned, diffusoren ligg 84 mm under kanten) | F1 |
 | Kjelda når ein lenar seg over eller står | synleg | F1 held berre sitjande |
@@ -66,7 +68,7 @@ Strålesporing med `konsept/film/film.py` (90°-prisme, n 1,57 etter domen i `ko
 | Prismesida ned, slik arket låg i skjermen | 131 | 153 | 174 | 0,11 |
 | Sagtann 40/50 (eige ark), rett veg | | 397 | | 0,04 |
 
-Dom: arket med prismesida opp og rillene på tvers av utkraginga flyttar den eine loben inn på feltet og løftar snittet med om lag 18 % (sagtann om lag 29 %). Med R 0,7 når snittet 350 lx (F3 sitt lux-tal), men jamnheita blir ikkje betre: U er 0,04 mot 0,6. Den andre loben går til spille utanfor feltet. Andre retningar gjer det verre. Eit ark kan ikkje jamne ut eit felt på 0,6 × 0,4 m når kjelda sit 17 cm over bordet ved sida av det. Det krev ei kjelde høgare og over feltet, altså ein annan lampetype. Arket er gratis (brukaren har fleire), 0,16 mm tjukt og passar på leppa i ramma under diffusoren. Det er ikkje med i CAD-en enno. Prøv først med lykteprøva P1 i `arket.md` og ein lux-app på telefonen. Tala ligg i `kontroll/sveip_prisme.json`, kartet i `render/sveip_prisme.png`.
+Dom: arket med prismesida opp og rillene på tvers av utkraginga flyttar den eine loben inn på feltet og løftar snittet med om lag 18 % (sagtann om lag 29 %). Det er lagt inn i CAD-en som D07P. Med R 0,7 når snittet 350 lx (F3 sitt lux-tal), men jamnheita blir ikkje betre: U er 0,04 mot 0,6. Den andre loben går til spille utanfor feltet. Andre retningar gjer det verre. Eit ark kan ikkje jamne ut eit felt på 0,6 × 0,4 m når kjelda sit 17 cm over bordet ved sida av det. Det krev ei kjelde høgare og over feltet, altså ein annan lampetype. Med arket kjem om lag 300 lm ut av lampa (75 % av 400), men meir av det landar på feltet. Arket er gratis i prototypen (brukaren har fleire), 0,16 mm tjukt og ligg på leppa i ramma under diffusoren. Talet hentar resirkuleringa R 0,7 frå eit overslag: prøv med lykteprøva P1 i `arket.md` og ein lux-app på telefonen. Tala ligg i `kontroll/sveip_prisme.json`, kartet i `render/sveip_prisme.png`.
 
 ## Krav (grunnlag/04-kravspesifikasjon.md)
 
@@ -75,12 +77,12 @@ Dom: arket med prismesida opp og rillene på tvers av utkraginga flyttar den ein
 | E2 Northern | 6 av 7 på skalaen i 07 del 6: kjerne 5 (R1 éi form, R2 konstant tverrsnitt, R3 kjelda bak opal, R4 éin lakkfarge, R5 messing på foten), palett 1, proporsjon 0 (ny silhuettype). Endra med vilje: ny funksjon (to lys i eitt sveip), ny silhuett (valsa plate som kragar ut), ny handling (hald fingeren på) |
 | F1 / F3 / F5 / F6 / F10 | sjå lys |
 | F2 éi handling | ved konstruksjon, ikkje prøvd |
-| F8 ≤ 1,2 kg | 1158 g (rekna med lakk, leidningar og tillegg) |
+| F8 ≤ 1,2 kg | 1160 g (rekna med lakk, leidningar og tillegg) |
 | F9 ≤ 200 cm² | stamma 175 cm²; heile lampa sett ovanfrå 291 cm² |
-| T2 veltar ikkje | 12,7° (rekna) |
+| T2 veltar ikkje | 12,6° (rekna) |
 | T3 / B3 på leidning | fullt arbeidslys med USB-C-kjelde på 1,5 A og C-til-C-leidning; med standardstraum om lag 40 % |
 | T5 / T7 batteri | arbeid 2,9 t, stemning 200 lm 4,2 t (aldra celle 3,4 t: T7 fell då) |
-| T6 ≤ 10 hovuddelar | 9 mekaniske deltypar + 5 kretskort = 14: **ikkje oppfylt** |
+| T6 ≤ 10 hovuddelar | 10 mekaniske deltypar (med prismearket) + 5 kretskort = 15: **ikkje oppfylt** |
 | T8 | kroppen 26 °C (overslag); 5 V inn, høgst om lag 30 V internt (SELV) |
 | B1, B2, B7 | celle ut under 1 min med mynt; lysmodul om lag 5 min med éin 2 mm unbrako (ikkje teke tid på); ingenting limt |
 | M1, M3 pris | **ikkje rekna** |
@@ -116,7 +118,7 @@ blender.exe -b -P sveip_render.py -- svart
 ## Opne punkt
 
 1. **Opphavet til skissebiletet er ikkje avklara.** Biletet liknar eit produktfoto. Køyr eit omvendt biletsøk før forma blir vist offentleg eller til Northern. Biletet ligg berre lokalt.
-2. Arbeidslyset (F3, F5, F6, F10).
+2. Jamnheita i arbeidslyset (F3), og F5, F6, F10.
 3. Kretskorta etter `elektro/SPESIFIKASJON.md`.
 4. Prøvestykke: berøringa med messingknapp i POM-hylse i 1,2 mm lakkert aluminium, sneppehakane, og laser-buttsveis i 1,2 mm 5754 i streiflys.
 5. Leverandør: valsing av R51,3 med flensane bøygde, kalibreringsfikstur, tilbod (M3).

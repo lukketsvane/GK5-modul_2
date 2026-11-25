@@ -29,7 +29,9 @@ T_DIFF = 2.0                         # nedre diffusor
 T_DIFF_OPP = 1.5                     # øvre diffusor
 PEM_H = (3.175, 1.5)                 # CLS-M3-2: hovud Ø6,35 x 1,5
 Z_RAMME0 = 168.5                     # ramma sin underkant (1 mm over skjermkanten)
-Z_DIFF_NED = Z_RAMME0 + 1.0          # 169.5..171.5
+T_PRISME = 0.16                      # prismeark (BEF-type), 0,16 mm
+Z_PRISME = Z_RAMME0 + 1.0            # 169,5: prismearket ligg på leppa i ramma
+Z_DIFF_NED = Z_PRISME + T_PRISME     # 169,66..171,66: opalen ligg oppå arket
 
 # ------------------------------------------------------------ posisjonar
 XC = P0.S - P0.R                     # senter i høgre boge (247.5)
@@ -155,6 +157,16 @@ def ramme():
 
 
 # ------------------------------------------------------------ D07/D08 diffusorar
+def prismeark():
+    """Prismeark 90° (BEF-type) under opalen: prismesida opp mot opalen, rillene langs y
+    (på tvers av utkraginga). Lyset blir delt i to lober i x; den eine går inn over arbeidsfeltet.
+    Hakk 3 x 3 i framre venstre hjørne: ligg arket rett veg, sit hakket framme ved lysveggen."""
+    r = R_RAMME_Y - T_RAMME - 0.5
+    x0 = X_RAMME + T_RAMME + 0.5
+    a = d_form(x0, r, Z_PRISME, T_PRISME)
+    return a.cut(boks(x0 - 1, x0 + 3.0, -r - 1, -r + 3.0, Z_PRISME - 1, Z_PRISME + 1))
+
+
 def diffusor_ned():
     r = R_RAMME_Y - T_RAMME - 0.5
     return d_form(X_RAMME + T_RAMME + 0.5, r, Z_DIFF_NED, T_DIFF)

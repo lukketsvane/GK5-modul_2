@@ -61,7 +61,7 @@ ASCII = str.maketrans({"æ": "ae", "ø": "o", "å": "aa", "Æ": "AE", "Ø": "O",
                        "×": "x", ",": "_", "/": "_", "(": "", ")": "", "-": "_"})
 
 # delar som høyrer til innmatsmodulen (blir senka ned gjennom toppen)
-MODUL = {"D02", "D03", "D04", "D04L", "D05", "D05L", "D06", "D07", "D08", "D09", "D09K", "D11",
+MODUL = {"D02", "D03", "D04", "D04L", "D05", "D05L", "D06", "D07", "D07P", "D08", "D09", "D09K", "D11",
          "D11K", "D11J", "D14", "K01", "K02", "K03", "K05", "K06", "K07", "K10", "K11", "K12",
          "K13", "K15", "K18", "K19", "K20", "K21", "K22", "K23"}
 PAA_KROPPEN = {"D01"}                    # punkta (D12/D13) og føtene (K08) kjem etter modulen
@@ -191,7 +191,7 @@ def main(rask=False):
     del former["D01*"]
     kont = []
     for a, b, maks in [("K20", "D12F", 0.01), ("K20", "D12B", 0.01), ("D02", "D01", 0.01),
-                       ("K08", "D01", 0.01), ("D05", "D03", 0.01), ("D07", "D06", 0.01),
+                       ("K08", "D01", 0.01), ("D05", "D03", 0.01), ("D07P", "D06", 0.01), ("D07", "D07P", 0.01),
                        ("D03", "D02", 0.01), ("D09", "K03", 0.01), ("D10", "D02", 0.01),
                        ("D12F", "D01", 0.01), ("D13F", "D01", 0.15)]:
         d_ = avstand(former[a], former[b])
@@ -291,6 +291,9 @@ def main(rask=False):
     flat["D10_luke"] = F.enkel_dxf(DXF / "sveip_D10_luke.dxf", I.luke(), "SVEIP D10 LUKE 5754 H22 t=1,5")
     flat["D07_diffusor_ned"] = F.enkel_dxf(DXF / "sveip_D07_diffusor_ned.dxf", L.diffusor_ned(),
                                            "SVEIP D07 DIFFUSOR NED PMMA opal 2,0")
+    flat["D07P_prismeark"] = F.enkel_dxf(DXF / "sveip_D07P_prismeark.dxf", L.prismeark(),
+                                         "SVEIP D07P PRISMEARK 90 gr 0,16 mm: PRISMESIDA OPP, RILLER LANGS Y (pa tvers av "
+                                         "utkraginga), hakket framme ved lysveggen")
     flat["D08_diffusor_opp"] = F.enkel_dxf(DXF / "sveip_D08_diffusor_opp.dxf", L.diffusor_opp(),
                                            "SVEIP D08 DIFFUSOR OPP PMMA opal 1,5")
     # samsvar mellom flatmønster og 3D: areal x t mot volum
@@ -317,7 +320,19 @@ def main(rask=False):
     led_opp = 200 / (E["T_diff_opp"] * E["romning_opp"]) / (E["lmW_2700"] * E["varme_tap"])
     skinne_ned, skinne_opp = led_ned / E["boost"], led_opp / E["boost"]
     wh = E["celle_Wh"] * E["brukbar"]
+    prisme = {}
+    pj = ROT / "kontroll" / "sveip_prisme.json"
+    if pj.exists():
+        try:
+            v1 = json.loads(pj.read_text(encoding="utf-8"))["R_0.70"]["variantar"][
+                "V1 prisme opp, riller langs y (spreier mot feltet og bort)"]
+            prisme = dict(T_netto=v1["T_ut_av_arket"], lm_ut_av_lampa=round(400 * v1["T_ut_av_arket"]),
+                          felt_lx=v1["felt_skalert_lx"], U=v1["felt_direkte"]["U"],
+                          kjelde="kontroll/sveip_prisme.json, R 0,70, variant V1")
+        except Exception:
+            prisme = {}
     rap["effekt"] = dict(
+        prismeark=prisme,
         foresetnader=E,
         kjelde="lm/W frå Tridonic LLE 24x140 CRI90 (160/155 lm/W ved 100 mA), nedjustert; "
                "transmisjon PMMA opal 50-70 % (må målast); romning opp er eit overslag",

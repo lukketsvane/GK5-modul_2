@@ -168,6 +168,24 @@
    "stl": "produksjon/stl/sveip_d07_diffusor_ned.stl"
   },
   {
+   "id": "D07P",
+   "namn": "Prismeark",
+   "materiale": "prismefilm 90° (BEF-type) 0,16 mm, prismesida opp, riller langs y; prototype: arket frå skjermen",
+   "type": "lag",
+   "tal": 1,
+   "gyldig": true,
+   "step_attlest": true,
+   "volum_cm3": 1.624,
+   "masse_g": 2.1,
+   "maal_mm": [
+    116.93,
+    95.27,
+    0.23
+   ],
+   "step": "cad/step/sveip_d07p_prismeark.step",
+   "stl": "produksjon/stl/sveip_d07p_prismeark.stl"
+  },
+  {
    "id": "D08",
    "namn": "Diffusor opp",
    "materiale": "PMMA opal 1,5 mm",
@@ -763,7 +781,7 @@
   }
  ],
  "kollisjon": {
-  "testa_par": 861,
+  "testa_par": 903,
   "grense_mm3": 0.05,
   "kollisjonar": [],
   "bestatt": true
@@ -906,7 +924,7 @@
    {
     "a": "D07",
     "b": "D05L",
-    "min_mm": 12.25,
+    "min_mm": 12.09,
     "krav_mm": 10.0,
     "ok": true
    },
@@ -965,8 +983,15 @@
     "ok": true
    },
    {
-    "a": "D07",
+    "a": "D07P",
     "b": "D06",
+    "avstand_mm": 0.0,
+    "maks_mm": 0.01,
+    "ok": true
+   },
+   {
+    "a": "D07",
+    "b": "D07P",
     "avstand_mm": 0.0,
     "maks_mm": 0.01,
     "ok": true
@@ -1010,7 +1035,7 @@
   "bestatt": true
  },
  "masse": {
-  "total_g": 1158.2,
+  "total_g": 1160.3,
   "lakk_g": 43.2,
   "tillegg": [
    {
@@ -1028,35 +1053,35 @@
   ],
   "krav_F8_g": 1200,
   "F8_bestatt": true,
-  "margin_g": 41.8
+  "margin_g": 39.7
  },
  "stabilitet": {
   "tyngdepunkt_mm": [
-   136.5,
+   136.7,
    -0.0,
    139.3
   ],
   "over_bordet_mm": 142.3,
   "innanfor_stotteflata": true,
-  "min_avstand_kant_mm": 32.0,
+  "min_avstand_kant_mm": 31.8,
   "veltevinkel_grad": {
-   "mot_utkraginga_+x": 12.7,
-   "mot_hakket_-x": 20.4,
+   "mot_utkraginga_+x": 12.6,
+   "mot_hakket_-x": 20.5,
    "framover_-y": 17.5,
-   "bakover_+y": 17.6
+   "bakover_+y": 17.5
   },
-  "min_veltevinkel_grad": 12.7,
+  "min_veltevinkel_grad": 12.6,
   "krav_EN60598_2_4_innearmatur_grad": 6.0,
   "eige_krav_grad": 12.0,
   "bestatt_EN": true,
   "bestatt_eige": true,
-  "kraft_N_vaagrett_i_toppen_mot_utkraginga": 1.2,
+  "kraft_N_vaagrett_i_toppen_mot_utkraginga": 1.19,
   "kraft_N_vaagrett_i_toppen_framover": 1.69,
   "fotkant": "effektiv kant 2,5 mm frå fotsenteret (TPE Ø12)",
   "trykk_paa_punktet": {
    "hogd_mm": 73.0,
-   "kraft_N_for_vipp_bakover": 7.01,
-   "friksjon_N_mu05": 5.68,
+   "kraft_N_for_vipp_bakover": 7.02,
+   "friksjon_N_mu05": 5.69,
    "merknad": "berøringa er kapasitiv; eit trykk under vippekrafta flyttar ikkje lampa"
   }
  },
@@ -1240,6 +1265,14 @@
    "konturar": 1,
    "sirklar": 0
   },
+  "D07P_prismeark": {
+   "maal_mm": [
+    116.9,
+    95.2
+   ],
+   "konturar": 1,
+   "sirklar": 0
+  },
   "D08_diffusor_opp": {
    "maal_mm": [
     292.6,
@@ -1250,6 +1283,13 @@
   }
  },
  "effekt": {
+  "prismeark": {
+   "T_netto": 0.749,
+   "lm_ut_av_lampa": 300,
+   "felt_lx": 364.5,
+   "U": 0.042,
+   "kjelde": "kontroll/sveip_prisme.json, R 0,70, variant V1"
+  },
   "foresetnader": {
    "lmW_3000": 150.0,
    "lmW_2700": 140.0,
@@ -1342,5 +1382,5 @@
   "fysisk_prototype": "ikkje laga",
   "rorsle": "diskret prøvd (innsetjing 0,5 mm dei siste 10 mm, elles 5 mm; batteri og plugg 5 mm), ikkje kontinuerleg"
  },
- "tid_s": 52.7
+ "tid_s": 74.6
 }

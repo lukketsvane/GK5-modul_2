@@ -101,7 +101,7 @@ def importer(geo, lys_paa=False, flytt_modul=0.0):
     celle = mat("celle", lin((0.20, 0.35, 0.65)), rough=0.4)
     m_for = {"D01": kropp, "D02": kropp, "D10": kropp, "D03": alu, "D04": pcb, "D05": pcb,
              "D09": pcb, "D11": pcb, "D14": pcb, "D04L": led, "D05L": led, "D06": kvit,
-             "D07": opal_ned, "D08": opal, "D12F": messing, "D12B": messing, "D13F": svart,
+             "D07": opal_ned, "D07P": opal_ned, "D08": opal, "D12F": messing, "D12B": messing, "D13F": svart,
              "D13B": svart, "K01": celle, "K02": svart, "K08": kropp, "E01": svart,
              "D09K": svart, "D11J": kvit, "K18": kvit, "K05": kvit, "K20": messing}
     for d in geo["delar"]:

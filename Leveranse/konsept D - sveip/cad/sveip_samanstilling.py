@@ -33,6 +33,8 @@ DELAR = [
     ("D05L", "LED ned 3000K x24", lambda: L.ned_led(), "3030 LED", 1.80, LED_GUL, "kjop", 24),
     ("D06", "Ramme", lambda: L.ramme(), "PC kvit (PETG i prototypen)", 1.20, KVIT, "lag", 1),
     ("D07", "Diffusor ned", lambda: L.diffusor_ned(), "PMMA opal 2 mm", 1.19, OPAL, "lag", 1),
+    ("D07P", "Prismeark", lambda: L.prismeark(), "prismefilm 90° (BEF-type) 0,16 mm, prismesida opp, riller langs y; "
+     "prototype: arket frå skjermen", 1.30, OPAL, "lag", 1),
     ("D08", "Diffusor opp", lambda: L.diffusor_opp(), "PMMA opal 1,5 mm", 1.19, OPAL, "lag", 1),
     ("D09", "Hovudkort", lambda: I.hovudkort(), "FR-4 1,6 mm", 1.85, GROEN, "lag", 1),
     ("D09K", "Komponentar hovudkort", lambda: I.hk_komponentar(), "div.", 2.0, SVART, "kjop", 1),

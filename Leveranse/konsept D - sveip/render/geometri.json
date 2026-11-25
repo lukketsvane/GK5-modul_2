@@ -109,6 +109,18 @@
    "modul": true
   },
   {
+   "id": "D07P",
+   "namn": "Prismeark",
+   "stl": "produksjon/stl/sveip_d07p_prismeark.stl",
+   "farge": [
+    0.97,
+    0.97,
+    0.96
+   ],
+   "type": "lag",
+   "modul": true
+  },
+  {
    "id": "D08",
    "namn": "Diffusor opp",
    "stl": "produksjon/stl/sveip_d08_diffusor_opp.stl",

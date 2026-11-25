@@ -1,0 +1,745 @@
+<!doctype html>
+<html lang="nn">
+<head>
+<meta charset="utf-8">
+<title>Sluse × Uttrekk</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#000000">
+<style>
+/* Layout: éin skjerm, ingenting rullar. Scena fyller alt; ei rad tynne strekar nedst er scrubben. Reint svart. */
+:root {
+  --bg: #000000;
+  --tick: 255, 255, 255;
+  --hot: 255, 255, 255;
+  color-scheme: dark;
+}
+html, body {
+  height: 100%; margin: 0; background: var(--bg); overflow: hidden;
+  overscroll-behavior: none; touch-action: none;
+  -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: 100%;
+}
+#scene { position: fixed; inset: 0; width: 100%; height: 100%; display: block; background: var(--bg); cursor: grab; touch-action: none; }
+#scene:active { cursor: grabbing; }
+#scrub {
+  position: fixed; left: 0; right: 0; bottom: 0; height: 72px;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  padding-left: env(safe-area-inset-left, 0px); padding-right: env(safe-area-inset-right, 0px);
+  touch-action: none; cursor: ew-resize; outline: none;
+}
+#ticks { display: block; width: 100%; height: 72px; }
+#scrub { z-index: 2; }
+#ground {
+  position: fixed; left: 0; bottom: 0; z-index: 3; margin: 0; padding: 0; border: 0; border-radius: 0;
+  width: calc(68px + env(safe-area-inset-left, 0px)); height: calc(68px + env(safe-area-inset-bottom, 0px));
+  background: transparent; opacity: 0; cursor: pointer; touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+}
+#ground:focus-visible { opacity: 1; outline: 1px solid rgba(255, 255, 255, 0.35); outline-offset: -6px; }
+#scrub:focus-visible #ticks { filter: drop-shadow(0 0 4px rgba(var(--hot), 0.5)); }
+.nogl { position: fixed; inset: 0; display: grid; place-items: center; color: rgba(var(--tick), 0.5); font: 15px/1.4 system-ui, sans-serif; padding: 24px; text-align: center; }
+</style>
+<meta name="description" content="Sluse × Uttrekk: interaktiv 3D-modell av lampa. GK5 modul 2, AHO.">
+</head>
+<body>
+<canvas id="scene" role="img" aria-label="3D-modell av lampa Sluse × Uttrekk. Dra for å snu."></canvas>
+<button id="ground" type="button" aria-label="Underlag: Eik. Trykk for å byte."></button>
+<div id="scrub" role="slider" tabindex="0" aria-label="Stilling, frå låg til høg" aria-valuemin="0" aria-valuemax="100" aria-valuenow="25"><canvas id="ticks" aria-hidden="true"></canvas></div>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/objects/Reflector.js"></script>
+<script>
+(function () {
+  "use strict";
+  var canvas = document.getElementById("scene");
+  var scrub = document.getElementById("scrub");
+  var ticks = document.getElementById("ticks");
+  var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // no page zoom or scroll (iOS ignores user-scalable for pinch, so block the gestures)
+  ["gesturestart", "gesturechange", "gestureend"].forEach(function (t) { document.addEventListener(t, function (e) { e.preventDefault(); }, { passive: false }); });
+  document.addEventListener("touchmove", function (e) { e.preventDefault(); }, { passive: false });
+  document.addEventListener("dblclick", function (e) { e.preventDefault(); }, { passive: false });
+  document.addEventListener("wheel", function (e) { if (e.ctrlKey) e.preventDefault(); }, { passive: false });
+
+
+  // ---------- timeline (lengths in cm, angles in degrees) ----------
+  var S = 0.25, sGoal = 0.25;
+  var hm = /^#s(\d(?:\.\d+)?)$/.exec(location.hash); if (hm) S = sGoal = Math.min(1, parseFloat(hm[1]));
+  var E_MOOD = 5, E_FULL = 34.8;
+  function seg(s, a, b) { var t = Math.min(1, Math.max(0, (s - a) / (b - a))); return t * t * (3 - 2 * t); }
+  function pose(s) {
+    var e = seg(s, 0, 0.2) * E_MOOD + seg(s, 0.55, 0.78) * (E_FULL - E_MOOD);
+    var theta = seg(s, 0.3, 0.55) * 90;
+    var phiN = seg(s, 0.78, 1);
+    var mood = Math.min(1, e / E_MOOD) * (1 - phiN);
+    var task = seg(s, 0.84, 1);
+    return { e: e, theta: theta, phi: phiN * 90, mood: mood, task: task };
+  }
+  function phaseText(s) {
+    if (s < 0.015) return "Av";
+    if (s <= 0.3) return "Stemning, enden av skuffen gløder";
+    if (s < 0.55) return "Boksen tippar opp om hengslet";
+    if (s < 0.78) return "Skuffen glir ut av søyla";
+    if (s < 0.995) return "Armen svingar fram over bordet";
+    return "Arbeid, lys ned på bordet";
+  }
+
+  // ---------- scrub: a row of hairlines; the ones near the position rise and warm up ----------
+  var tctx = ticks.getContext("2d"), tW = 0, tH = 72, tPR = 1, ML = 80, MR = 28;
+  function sizeTicks() {
+    tPR = Math.min(window.devicePixelRatio || 1, 3);
+    tW = ticks.clientWidth;
+    ticks.width = Math.round(tW * tPR); ticks.height = Math.round(tH * tPR);
+    drawTicks();
+  }
+  function drawTicks() {
+    if (!tW) return;
+    tctx.setTransform(tPR, 0, 0, tPR, 0, 0);
+    tctx.clearRect(0, 0, tW, tH);
+    var span = tW - ML - MR, step = tW < 500 ? 49 : 63, n = Math.max(4, Math.round(span / step)), px = ML + S * span, gap = span / n;
+    for (var i = 0; i <= n; i++) {
+      var x = ML + span * i / n, d = (x - px) / (gap * 0.9), k = Math.exp(-d * d);
+      var h = 5 + 9 * k, a = 0.28 + 0.6 * k;                       // stubs that only just reach into the view
+      var w = k > 0.6 ? 1.5 : 1;
+      tctx.fillStyle = "rgba(" + getTick() + "," + a.toFixed(3) + ")";
+      tctx.fillRect(Math.round(x * tPR) / tPR - w / 2, tH - h, w, h);
+    }
+  }
+  var cssVars = getComputedStyle(document.documentElement);
+  function getTick() { return (cssVars.getPropertyValue("--tick") || "236, 232, 225").trim(); }
+  function getHot() { return (cssVars.getPropertyValue("--hot") || "242, 196, 122").trim(); }
+  function sFromX(clientX) {
+    var r = ticks.getBoundingClientRect();
+    return Math.min(1, Math.max(0, (clientX - r.left - ML) / (r.width - ML - MR)));
+  }
+  var scrubbing = false;
+  scrub.addEventListener("pointerdown", function (ev) {
+    scrubbing = true; try { scrub.setPointerCapture(ev.pointerId); } catch (e) {} sGoal = sFromX(ev.clientX); kick();
+  });
+  scrub.addEventListener("pointermove", function (ev) { if (!scrubbing) return; sGoal = sFromX(ev.clientX); kick(); });
+  function endScrub() { scrubbing = false; kick(); }
+  scrub.addEventListener("pointerup", endScrub);
+  scrub.addEventListener("pointercancel", endScrub);
+  scrub.addEventListener("keydown", function (ev) {
+    var d = { ArrowRight: 0.025, ArrowUp: 0.025, ArrowLeft: -0.025, ArrowDown: -0.025, PageUp: 0.1, PageDown: -0.1 }[ev.key];
+    if (ev.key === "Home") { sGoal = 0; } else if (ev.key === "End") { sGoal = 1; } else if (!d) return; else sGoal = Math.min(1, Math.max(0, sGoal + d));
+    ev.preventDefault(); kick();
+  });
+  function updateAria() {
+    scrub.setAttribute("aria-valuenow", String(Math.round(S * 100)));
+    scrub.setAttribute("aria-valuetext", phaseText(S));
+  }
+
+  var renderer = null;
+  try { renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, powerPreference: "high-performance" }); }
+  catch (err) {
+    var msg = document.createElement("div"); msg.className = "nogl";
+    msg.textContent = "3D-modellen kan ikkje visast i denne nettlesaren.";
+    document.body.appendChild(msg);
+  }
+  var running = false, needsUpdate = true;
+  function kick() { if (!running) { running = true; requestAnimationFrame(frame); } }   // keep drawing: camera, light, settling
+  function kickPose() { needsUpdate = true; kick(); }   // the lamp or the ground changed: pose, shadows and reflections again
+  if (!renderer) {
+    // still let the scrub move without 3D
+    var frame = function () { S += (sGoal - S) * 0.3; if (Math.abs(sGoal - S) < 0.0005) S = sGoal; drawTicks(); updateAria(); if (S !== sGoal) requestAnimationFrame(frame); else running = false; };
+    window.addEventListener("resize", sizeTicks); sizeTicks(); updateAria();
+    return;
+  }
+
+  // ---------- renderer ----------
+  var isPhone = Math.min(screen.width, screen.height) < 600;
+  var maxPR = 2;
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, maxPR));
+  renderer.physicallyCorrectLights = true;
+  renderer.outputEncoding = THREE.sRGBEncoding;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.15;
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  renderer.shadowMap.autoUpdate = false;
+
+  var scene = new THREE.Scene();
+  scene.background = new THREE.Color(0x000000);
+  scene.fog = new THREE.Fog(0x000000, 200, 460);
+  var camera = new THREE.PerspectiveCamera(28, 1, 1, 3000);
+
+  // ---------- procedural textures ----------
+  var seed = 11;
+  function rnd() { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; }
+  function makeCanvas(w, h, draw) { var c = document.createElement("canvas"); c.width = w; c.height = h; draw(c.getContext("2d"), w, h); return c; }
+  function tex(c, srgb, rep) {
+    var t = new THREE.CanvasTexture(c);
+    if (srgb) t.encoding = THREE.sRGBEncoding;
+    t.anisotropy = Math.min(8, renderer.capabilities.getMaxAnisotropy());
+    if (rep) { t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(rep[0], rep[1]); }
+    return t;
+  }
+
+  // ---------- woods: growth rings from value noise, plank seams, pores, rays. Colour + grey height map in one pass ----------
+  var OW = isPhone ? 1536 : 2048, OH = OW / 2;
+  var WOODS = [
+    { name: "Eik", early: [164, 116, 72], late: [94, 62, 34], ring: 26, lateAt: 0.62, wave: 0.18, planks: 5, pores: 2.2, pore: "rgba(40,22,10,0.30)", poreH: "rgba(20,20,20,0.6)", rays: 140, ray: "rgba(205,160,110,0.22)", edge: 0x3e2614, coat: 0.22, seed: 11 },
+    { name: "Valnøtt", early: [108, 72, 50], late: [66, 43, 30], ring: 19, lateAt: 0.58, wave: 0.3, planks: 4, pores: 1.3, pore: "rgba(22,13,9,0.34)", poreH: "rgba(30,30,30,0.5)", rays: 0, edge: 0x24170f, coat: 0.4, seed: 23 },
+    { name: "Ask", early: [218, 199, 166], late: [170, 141, 100], ring: 21, lateAt: 0.56, wave: 0.14, planks: 5, pores: 2.8, pore: "rgba(112,86,54,0.32)", poreH: "rgba(40,40,40,0.55)", rays: 0, edge: 0xa08866, coat: 0.16, seed: 37 },
+    { name: "Røykt eik", early: [104, 78, 56], late: [46, 32, 22], ring: 26, lateAt: 0.6, wave: 0.18, planks: 5, pores: 2.2, pore: "rgba(14,9,5,0.36)", poreH: "rgba(20,20,20,0.6)", rays: 140, ray: "rgba(150,116,82,0.2)", edge: 0x21160f, coat: 0.28, seed: 53 }
+  ];
+  function buildWood(W) {
+    if (W.map) return W;
+    seed = W.seed;
+    var G = 64, grid = new Float32Array(G * G);
+    for (var i = 0; i < grid.length; i++) grid[i] = rnd();
+    function vn(x, y) {
+      var xi = Math.floor(x), yi = Math.floor(y), xf = x - xi, yf = y - yi;
+      var u = xf * xf * (3 - 2 * xf), v = yf * yf * (3 - 2 * yf);
+      var x0 = ((xi % G) + G) % G, y0 = ((yi % G) + G) % G, x1 = (x0 + 1) % G, y1 = (y0 + 1) % G;
+      var a = grid[y0 * G + x0], b = grid[y0 * G + x1], c = grid[y1 * G + x0], d = grid[y1 * G + x1];
+      return a + (b - a) * u + (c - a) * v + (a - b - c + d) * u * v;
+    }
+    var cC = document.createElement("canvas"), cH = document.createElement("canvas");
+    cC.width = cH.width = OW; cC.height = cH.height = OH;
+    var gc = cC.getContext("2d"), gh = cH.getContext("2d");
+    var ic = gc.createImageData(OW, OH), ih = gh.createImageData(OW, OH), dc = ic.data, dh = ih.data;
+    var P = W.planks, plankTone = [], plankShift = [], e = W.early, l = W.late, span = 1 - W.lateAt;
+    for (var p = 0; p < P; p++) { plankTone.push(0.9 + rnd() * 0.18); plankShift.push(rnd() * 40); }
+    for (var y = 0; y < OH; y++) {
+      var vy = y / OH, pl = Math.min(P - 1, Math.floor(vy * P)), local = vy * P - pl;
+      for (var x = 0; x < OW; x++) {
+        var ux = x / OW;
+        var n = vn(ux * 5 + plankShift[pl], local * 1.6) * 0.6 + vn(ux * 13, local * 4) * 0.3 + vn(ux * 40, local * 9) * 0.1;
+        var heart = 0.5 + Math.sin(ux * 5.5 + plankShift[pl]) * W.wave + (n - 0.5) * 0.35;
+        var r = Math.abs(local - heart) * W.ring + n * 2.2 + Math.pow(Math.abs(ux - 0.5) * 2, 2) * 1.5;
+        var f = r - Math.floor(r);
+        var late = f < W.lateAt ? 0 : Math.min(1, (f - W.lateAt) / (span * 0.8));
+        late = late * late * (3 - 2 * late);
+        var fine = vn(ux * 900, local * 60 + pl * 7), streak = vn(ux * 60, local * 220);
+        var tone = plankTone[pl] * (0.9 + 0.16 * fine + 0.08 * streak);
+        var seam = local < 0.004 || local > 0.996 ? 0.45 : 1;
+        var o = (y * OW + x) * 4;
+        dc[o] = (e[0] - (e[0] - l[0]) * late) * tone * seam;
+        dc[o + 1] = (e[1] - (e[1] - l[1]) * late) * tone * seam;
+        dc[o + 2] = (e[2] - (e[2] - l[2]) * late) * tone * seam;
+        dc[o + 3] = 255;
+        var hgt = (150 - 70 * late + 30 * (fine - 0.5)) * seam;
+        dh[o] = dh[o + 1] = dh[o + 2] = hgt; dh[o + 3] = 255;
+      }
+    }
+    gc.putImageData(ic, 0, 0); gh.putImageData(ih, 0, 0);
+    for (var k = 0; k < OW * W.pores; k++) {
+      var px = rnd() * OW, py = rnd() * OH, len = 3 + rnd() * 12;
+      gc.fillStyle = W.pore; gc.fillRect(px, py, len, 0.8);
+      gh.fillStyle = W.poreH; gh.fillRect(px, py, len, 0.8);
+    }
+    for (var m = 0; m < W.rays; m++) {
+      var rx = rnd() * OW, ry = rnd() * OH, rl = 6 + rnd() * 26;
+      gc.fillStyle = W.ray; gc.fillRect(rx, ry, rl, 1.4);
+    }
+    W.map = tex(cC, true); W.bump = tex(cH, false);
+    return W;
+  }
+  buildWood(WOODS[0]);
+
+  var peel = tex(makeCanvas(256, 256, function (g, w, h) {
+    g.fillStyle = "#808080"; g.fillRect(0, 0, w, h);
+    for (var i = 0; i < 2200; i++) { var r = 2 + rnd() * 6, v = Math.floor(100 + rnd() * 56); g.fillStyle = "rgba(" + v + "," + v + "," + v + ",0.18)"; g.beginPath(); g.arc(rnd() * w, rnd() * h, r, 0, Math.PI * 2); g.fill(); }
+  }), false, [0.18, 0.18]);
+  var brushed = tex(makeCanvas(512, 64, function (g, w, h) {
+    for (var x = 0; x < w; x++) { var v = Math.floor(118 + (rnd() - 0.5) * 70); g.fillStyle = "rgb(" + v + "," + v + "," + v + ")"; g.fillRect(x, 0, 1, h); }
+  }), false, [0.35, 0.02]);
+  var opalGlow = tex(makeCanvas(256, 256, function (g, w, h) {
+    var gr = g.createRadialGradient(w / 2, h / 2, 0, w / 2, h / 2, w * 0.62);
+    gr.addColorStop(0, "#ffffff"); gr.addColorStop(0.55, "#d6cdbf"); gr.addColorStop(1, "#7d7468");
+    g.fillStyle = gr; g.fillRect(0, 0, w, h);
+  }), true);
+  var aoTex = tex(makeCanvas(256, 256, function (g, w, h) {
+    var gr = g.createRadialGradient(w / 2, h / 2, w * 0.16, w / 2, h / 2, w * 0.5);
+    gr.addColorStop(0, "rgba(0,0,0,0.92)"); gr.addColorStop(1, "rgba(0,0,0,0)");
+    g.fillStyle = gr; g.fillRect(0, 0, w, h);
+  }), false);
+  var haloTex = tex(makeCanvas(256, 256, function (g, w, h) {
+    var gr = g.createRadialGradient(w / 2, h / 2, 0, w / 2, h / 2, w / 2);
+    gr.addColorStop(0, "rgba(255,210,150,0.85)"); gr.addColorStop(0.16, "rgba(255,176,104,0.32)");
+    gr.addColorStop(0.5, "rgba(255,146,76,0.07)"); gr.addColorStop(1, "rgba(255,140,70,0)");
+    g.fillStyle = gr; g.fillRect(0, 0, w, h);
+  }), true);
+
+  // ---------- materials ----------
+  var M = {
+    lacquer: new THREE.MeshPhysicalMaterial({ color: 0x5a1216, roughness: 0.38, metalness: 0, clearcoat: 1, clearcoatRoughness: 0.08, envMapIntensity: 1.6 }),
+    plinth: new THREE.MeshPhysicalMaterial({ color: 0x4a0f13, roughness: 0.46, metalness: 0, clearcoat: 0.8, clearcoatRoughness: 0.14, envMapIntensity: 1.4 }),
+    alu: new THREE.MeshStandardMaterial({ color: 0xd9d7d1, metalness: 0.92, roughness: 0.74, roughnessMap: brushed, envMapIntensity: 1.6 }),
+    rail: new THREE.MeshStandardMaterial({ color: 0xb4b3ae, metalness: 1, roughness: 0.22, envMapIntensity: 1.4 }),
+    steel: new THREE.MeshStandardMaterial({ color: 0x9c9a95, metalness: 1, roughness: 0.18, envMapIntensity: 1.5 }),
+    rubber: new THREE.MeshStandardMaterial({ color: 0x0e0d0c, roughness: 0.92, envMapIntensity: 0.4 }),
+    cord: new THREE.MeshStandardMaterial({ color: 0x2a2521, roughness: 0.85, envMapIntensity: 0.3 }),
+    opalEnd: new THREE.MeshStandardMaterial({ color: 0xefe9df, roughness: 0.35, emissive: 0xffb06a, emissiveMap: opalGlow, emissiveIntensity: 0, envMapIntensity: 0.3 }),
+    opalRim: new THREE.MeshStandardMaterial({ color: 0xd8d2c8, roughness: 0.4, emissive: 0xffa860, emissiveIntensity: 0, envMapIntensity: 0.3 }),
+    opalBottom: new THREE.MeshStandardMaterial({ color: 0xefe9df, roughness: 0.35, emissive: 0xffcf98, emissiveMap: opalGlow, emissiveIntensity: 0, envMapIntensity: 0.3 }),
+    wood: new THREE.MeshPhysicalMaterial({ map: WOODS[0].map, bumpMap: WOODS[0].bump, bumpScale: 0.05, roughnessMap: WOODS[0].bump, roughness: 1.0, metalness: 0, clearcoat: 0.22, clearcoatRoughness: 0.3, envMapIntensity: 0 }),
+    woodEdge: new THREE.MeshStandardMaterial({ color: 0x3e2614, roughness: 0.72, envMapIntensity: 0 })
+  };
+
+  // ---------- geometry helpers ----------
+  function rrPath(P, w, h, r, cx, cy) {
+    var x = cx - w / 2, y = cy - h / 2;
+    P.moveTo(x + r, y); P.lineTo(x + w - r, y); P.quadraticCurveTo(x + w, y, x + w, y + r);
+    P.lineTo(x + w, y + h - r); P.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+    P.lineTo(x + r, y + h); P.quadraticCurveTo(x, y + h, x, y + h - r);
+    P.lineTo(x, y + r); P.quadraticCurveTo(x, y, x + r, y);
+    return P;
+  }
+  // average the flat side-wall normals that meet within a crease angle, so rounded corners and bevels reflect smoothly
+  function smoothSides(g, creaseDeg) {
+    var grp = g.groups && g.groups[1]; if (!grp) return g;
+    var pos = g.attributes.position.array, nrm = g.attributes.normal.array, src = nrm.slice();
+    var cosC = Math.cos(creaseDeg * Math.PI / 180), map = {}, i, j, key;
+    for (i = grp.start; i < grp.start + grp.count; i++) {
+      key = Math.round(pos[3 * i] * 1000) + "," + Math.round(pos[3 * i + 1] * 1000) + "," + Math.round(pos[3 * i + 2] * 1000);
+      (map[key] || (map[key] = [])).push(i);
+    }
+    for (key in map) {
+      var ids = map[key];
+      for (i = 0; i < ids.length; i++) {
+        var a = ids[i], ax = src[3 * a], ay = src[3 * a + 1], az = src[3 * a + 2], sx = 0, sy = 0, sz = 0;
+        for (j = 0; j < ids.length; j++) {
+          var c = ids[j], cx = src[3 * c], cy2 = src[3 * c + 1], cz = src[3 * c + 2];
+          if (ax * cx + ay * cy2 + az * cz >= cosC) { sx += cx; sy += cy2; sz += cz; }
+        }
+        var l = Math.hypot(sx, sy, sz) || 1;
+        nrm[3 * a] = sx / l; nrm[3 * a + 1] = sy / l; nrm[3 * a + 2] = sz / l;
+      }
+    }
+    g.attributes.normal.needsUpdate = true;
+    return g;
+  }
+  function barX(w, h, r, cy, x0, len, bevel, holeInset) {
+    var sh = rrPath(new THREE.Shape(), w, h, r, 0, cy);
+    if (holeInset) sh.holes.push(rrPath(new THREE.Path(), w - 2 * holeInset, h - 2 * holeInset, Math.max(0.05, r - holeInset), 0, cy));
+    var b = bevel || 0;
+    var g = new THREE.ExtrudeGeometry(sh, { depth: len - 2 * b, bevelEnabled: b > 0, bevelThickness: b, bevelSize: b * 0.8, bevelOffset: -b * 0.8, bevelSegments: 3, curveSegments: 10 });
+    g.translate(0, 0, b); g.rotateY(Math.PI / 2); g.translate(x0, 0, 0);
+    return smoothSides(g, 42);
+  }
+  function plateY(len, wz, r, x0, y0, t, bevel) {
+    var sh = rrPath(new THREE.Shape(), len, wz, r, x0 + len / 2, 0);
+    var b = bevel || 0;
+    var g = new THREE.ExtrudeGeometry(sh, { depth: t - 2 * b, bevelEnabled: b > 0, bevelThickness: b, bevelSize: b * 0.8, bevelOffset: -b * 0.8, bevelSegments: 3, curveSegments: 12 });
+    g.translate(0, 0, b); g.rotateX(-Math.PI / 2); g.translate(0, y0, 0);
+    return smoothSides(g, 42);
+  }
+  function mesh(geo, mat, parent, cast, receive) {
+    var m = new THREE.Mesh(geo, mat); m.castShadow = cast !== false; m.receiveShadow = receive !== false; parent.add(m); return m;
+  }
+  function cyl(r, len, mat, parent) { var m = mesh(new THREE.CylinderGeometry(r, r, len, 24), mat, parent); m.rotation.x = Math.PI / 2; return m; }
+  function envLayer(o) { o.layers.enable(1); return o; }   // seen by the reflection probe
+
+  // ---------- room: oak sideboard in a black void. No ambient or fill light: only the lamp lights the scene. ----------
+  var top = new THREE.Mesh(new THREE.BoxGeometry(220, 4, 120), [M.woodEdge, M.woodEdge, M.wood, M.woodEdge, M.woodEdge, M.woodEdge]);
+  top.position.set(0, -2, 0); top.receiveShadow = true; top.castShadow = true; scene.add(envLayer(top));
+
+  // a sun-like key light. It starts straight below the oak, so the top blocks it and nothing visible is lit.
+  // Three fingers (or shift-drag / right-drag on a computer) swing it round and up over the lamp.
+  var sun = envLayer(new THREE.DirectionalLight(0xfff1e2, 2.5));
+  var sunAngle = { az: -0.75, el: -Math.PI / 2 + 0.02 };
+  sun.castShadow = true; sun.shadow.mapSize.set(isPhone ? 1024 : 2048, isPhone ? 1024 : 2048);
+  sun.shadow.camera.left = -85; sun.shadow.camera.right = 85; sun.shadow.camera.top = 85; sun.shadow.camera.bottom = -85;
+  sun.shadow.camera.near = 1; sun.shadow.camera.far = 700; sun.shadow.bias = -0.0004; sun.shadow.normalBias = 0.04;
+  scene.add(sun); scene.add(sun.target);
+  function placeSun() {
+    var ce = Math.cos(sunAngle.el), c = goal.target;
+    sun.target.position.set(c.x, 0, 0);
+    sun.position.set(c.x + 320 * ce * Math.sin(sunAngle.az), 320 * Math.sin(sunAngle.el), 320 * ce * Math.cos(sunAngle.az));
+    sun.target.updateMatrixWorld(); sun.updateMatrixWorld();
+  }
+
+  // ---------- lamp (x forward, y up, z depth; hinge at x=0 on top of the 8 mm plinth) ----------
+  var base = new THREE.Group(); base.position.set(-14, 0, 0); scene.add(base);
+  var lamp = new THREE.Group(); lamp.position.set(-14, 0, 0); scene.add(lamp);
+
+  mesh(plateY(37, 8, 1.1, 0, 0, 0.8, 0.12), M.plinth, lamp);
+  for (var k = 0; k < 5; k++) { var kn = cyl(0.5, 1.48, M.steel, lamp); kn.position.set(0, 0.8, -3.8 + 1.5 * k + 0.75); }
+  cyl(0.22, 7.9, M.steel, lamp).position.set(0, 0.8, 0);
+
+  var sleeve = new THREE.Group(); sleeve.position.set(0, 0.8, 0); lamp.add(sleeve);
+  mesh(barX(9, 9, 1.0, 4.5, 0, 40, 0.1, 0.26), M.lacquer, sleeve);
+  mesh(barX(8.6, 8.6, 0.8, 4.5, 0, 0.3, 0), M.lacquer, sleeve);
+  mesh(barX(7.4, 7.4, 0.9, 4.5, -0.8, 0.8, 0.12), M.rubber, sleeve);
+  mesh(barX(0.3, 1.0, 0.1, 4.5, 0.5, 39, 0), M.rail, sleeve, false).position.z = 4.02;
+  mesh(barX(0.3, 1.0, 0.1, 4.5, 0.5, 39, 0), M.rail, sleeve, false).position.z = -4.02;
+  var railL = mesh(barX(0.16, 0.8, 0.06, 4.5, 0, 30, 0), M.alu, sleeve, false); railL.position.z = 3.9;
+  var railR = mesh(barX(0.16, 0.8, 0.06, 4.5, 0, 30, 0), M.alu, sleeve, false); railR.position.z = -3.9;
+
+  mesh(barX(8.3, 1.1, 0.3, 8.15, 39.2, 0.8, 0), M.lacquer, sleeve);   // upper lip
+  mesh(barX(8.3, 1.1, 0.3, 0.85, 39.2, 0.8, 0), M.lacquer, sleeve);   // lower lip
+  var carriage = new THREE.Group(); sleeve.add(carriage);
+  mesh(barX(7.4, 4.6, 0.5, 4.5, -4, 4, 0.06), M.rail, carriage);
+  mesh(barX(0.14, 2.4, 0.06, 2.7, -3.2, 3.8, 0), M.rail, carriage).position.z = 4.02;
+  mesh(barX(0.14, 2.4, 0.06, 2.7, -3.2, 3.8, 0), M.rail, carriage).position.z = -4.02;
+
+  var swivel = new THREE.Group(); swivel.position.set(0, 2, 0); carriage.add(swivel);
+  cyl(0.42, 0.35, M.steel, swivel).position.set(0, 0, 3.95);
+  cyl(0.42, 0.35, M.steel, swivel).position.set(0, 0, -3.95);
+  mesh(barX(7.6, 5, 0.6, 2.5, 0, 34, 0.12), M.alu, swivel);
+  mesh(barX(6.9, 4.3, 0.45, 2.5, 33.96, 0.22, 0.05), M.opalRim, swivel, false);
+  var opalFace = new THREE.Mesh(new THREE.PlaneGeometry(6.6, 4.0), M.opalEnd);
+  opalFace.rotation.y = Math.PI / 2; opalFace.position.set(34.19, 2.5, 0); swivel.add(opalFace);
+  var opalBottom = new THREE.Mesh(new THREE.PlaneGeometry(28, 6.2), M.opalBottom);
+  opalBottom.rotation.x = Math.PI / 2; opalBottom.position.set(17, -0.02, 0); swivel.add(opalBottom);
+
+  // the lamp's own light: point at the opal end, spot under the arm, plus a weak warm bounce off the oak
+  // the opal end emits forward only (a wide spot, not a point that would leak back over the box)
+  var moodLight = envLayer(new THREE.SpotLight(0xffa760, 0, 0, 1.45, 1, 2));
+  moodLight.position.set(34.4, 2.5, 0); swivel.add(moodLight);
+  var moodTarget = new THREE.Object3D(); moodTarget.position.set(60, 2.5, 0); swivel.add(moodTarget);
+  moodLight.target = moodTarget;
+  moodLight.castShadow = true; moodLight.shadow.mapSize.set(1024, 1024); moodLight.shadow.bias = -0.0003; moodLight.shadow.normalBias = 0.03; moodLight.shadow.camera.near = 2; moodLight.shadow.camera.far = 200;
+  var taskLight = envLayer(new THREE.SpotLight(0xffc68c, 0, 0, 0.82, 1, 2));
+  taskLight.position.set(17, -0.6, 0); swivel.add(taskLight);
+  var taskTarget = new THREE.Object3D(); taskTarget.position.set(17, -40, 0); swivel.add(taskTarget);
+  taskLight.target = taskTarget;
+  taskLight.castShadow = true; taskLight.shadow.mapSize.set(isPhone ? 1024 : 2048, isPhone ? 1024 : 2048);
+  taskLight.shadow.bias = -0.0002; taskLight.shadow.normalBias = 0.03; taskLight.shadow.camera.near = 10; taskLight.shadow.camera.far = 200;
+  var bounce = envLayer(new THREE.PointLight(0xff9450, 0, 0, 2));
+  scene.add(bounce);
+  // the room giving back part of the lamp's own output (walls and ceiling); zero when the lamp is off
+  var roomBounce = envLayer(new THREE.HemisphereLight(0xffb27a, 0x000000, 0));
+  scene.add(roomBounce);
+
+  // glow halos
+  function halo(parent, x, y, z) {
+    var sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: haloTex, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, opacity: 0, fog: false }));
+    sp.position.set(x, y, z); parent.add(sp); return sp;
+  }
+  var haloEnd = halo(swivel, 34.6, 2.5, 0);
+  haloEnd.material.depthTest = false;
+
+  // fabric cord
+  var cordPts = [[9, 0.4, -4.05], [9, 0.32, -5.2], [7.5, 0.28, -9], [2, 0.24, -16], [-10, 0.24, -24], [-30, 0.24, -33], [-52, 0.24, -44], [-68, 0.24, -54], [-75, 0.24, -58.9], [-76.2, 0.13, -60.2], [-76.6, -1.2, -60.32], [-77, -8, -60.32], [-77.4, -70, -60.32]];
+  var cordCurve = new THREE.CatmullRomCurve3(cordPts.map(function (p) { return new THREE.Vector3(p[0], p[1], p[2]); }), false, "centripetal");
+  var cordMesh = envLayer(mesh(new THREE.TubeGeometry(cordCurve, 320, 0.24, 12, false), M.cord, base));
+  var gland = envLayer(cyl(0.42, 0.5, M.rubber, base)); gland.position.set(9, 0.4, -4.1);
+
+  // contact shadows (ambient occlusion where parts meet the oak)
+  function aoPlane(w, d) {
+    var m = new THREE.Mesh(new THREE.PlaneGeometry(w, d), new THREE.MeshBasicMaterial({ map: aoTex, transparent: true, depthWrite: false, opacity: 0.6, color: 0x000000 }));
+    m.rotation.x = -Math.PI / 2; m.renderOrder = 1; base.add(envLayer(m)); return m;
+  }
+  function aoRect(w, d, blur, x, z, op) {
+    var m = 4 * blur, cw = w + 2 * m, cd = d + 2 * m, px = 256 / Math.max(cw, cd);
+    var c = makeCanvas(Math.round(cw * px), Math.round(cd * px), function (g, W, H) {
+      g.shadowColor = "rgba(0,0,0,1)"; g.shadowBlur = blur * px * 2; g.shadowOffsetX = W * 2;
+      g.fillStyle = "#000"; g.fillRect(m * px - W * 2, m * px, w * px, d * px);
+    });
+    var mat = new THREE.MeshBasicMaterial({ map: tex(c, false), transparent: true, depthWrite: false, opacity: op, color: 0x000000 });
+    var mm = new THREE.Mesh(new THREE.PlaneGeometry(cw, cd), mat);
+    mm.rotation.x = -Math.PI / 2; mm.position.set(x, 0.022, z); mm.renderOrder = 1; base.add(envLayer(mm)); return mm;
+  }
+  var aoPlinth = aoRect(37, 8, 0.9, 18.5, 0, 0.7);
+  var aoHeel = aoRect(9.2, 9.2, 1.0, -4.5, 0, 0.85);
+
+  // ---------- ground: four woods, a dark mirror, nothing; the corner button cycles ----------
+  var mirror = null, mirrorSheen = null;
+  function mirrorSize() { var pr = renderer.getPixelRatio(); return [Math.round(window.innerWidth * pr * 0.6), Math.round(window.innerHeight * pr * 0.6)]; }
+  function makeMirror() {
+    if (mirror || !THREE.Reflector) return;
+    var sz = mirrorSize();
+    // polished black: a real planar reflection, darkened, plus an additive clear-coat layer for the lamp's highlights
+    mirror = new THREE.Reflector(new THREE.PlaneGeometry(220, 120), { color: 0x3c3a38, textureWidth: sz[0], textureHeight: sz[1], clipBias: 0.003 });
+    mirror.rotation.x = -Math.PI / 2; mirror.position.y = 0.01; scene.add(mirror);
+    mirrorSheen = new THREE.Mesh(new THREE.PlaneGeometry(220, 120), new THREE.MeshPhysicalMaterial({ color: 0x000000, roughness: 0.16, metalness: 0, clearcoat: 1, clearcoatRoughness: 0.05, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false }));
+    mirrorSheen.rotation.x = -Math.PI / 2; mirrorSheen.position.y = 0.02; mirrorSheen.receiveShadow = true; scene.add(mirrorSheen);
+  }
+  var GROUNDS = WOODS.map(function (w) { return { kind: "wood", w: w, name: w.name }; }).concat([{ kind: "mirror", name: "Mørk spegl" }, { kind: "none", name: "Ingen" }]);
+  var groundIdx = 0, groundBtn = document.getElementById("ground");
+  function setGround(i) {
+    groundIdx = (i + GROUNDS.length) % GROUNDS.length;
+    var g = GROUNDS[groundIdx], solid = g.kind !== "none";
+    top.visible = solid; cordMesh.visible = gland.visible = solid; aoPlinth.visible = aoHeel.visible = solid;
+    if (g.kind === "wood") {
+      buildWood(g.w);
+      M.wood.map = g.w.map; M.wood.bumpMap = g.w.bump; M.wood.roughnessMap = g.w.bump; M.wood.clearcoat = g.w.coat; M.wood.needsUpdate = true;
+      M.woodEdge.color.setHex(g.w.edge); M.woodEdge.roughness = 0.72;
+    } else if (g.kind === "mirror") {
+      makeMirror();
+      M.woodEdge.color.setHex(0x050505); M.woodEdge.roughness = 0.22;
+    }
+    if (mirror) mirror.visible = mirrorSheen.visible = g.kind === "mirror";
+    groundBtn.setAttribute("aria-label", "Underlag: " + g.name + ". Trykk for å byte.");
+    renderer.shadowMap.needsUpdate = true; probeDirty = true; camMoved = true; kickPose();
+  }
+  groundBtn.addEventListener("click", function () { setGround(groundIdx + 1); });
+
+  // ---------- reflections: a probe that sees the lit oak (not the lamp), so metal and lacquer reflect the lamp's own light ----------
+  var probeSize = isPhone ? 64 : 128;
+  var probeOpts = { format: THREE.RGBAFormat, generateMipmaps: true, minFilter: THREE.LinearMipmapLinearFilter, encoding: THREE.sRGBEncoding };
+  var probeRTs = [new THREE.WebGLCubeRenderTarget(probeSize, probeOpts), new THREE.WebGLCubeRenderTarget(probeSize, probeOpts)], probeIdx = 1;
+  var probe = new THREE.CubeCamera(1, 600, probeRTs[0]);
+  probe.children.forEach(function (c) { c.layers.set(1); });
+  scene.add(probe);
+  scene.environment = probeRTs[1].texture;
+  var probeDirty = true;
+
+  // ---------- apply pose ----------
+  var DEG = Math.PI / 180;
+  var _b = new THREE.Box3(), curMood = 0, _hn = new THREE.Vector3(), _hp = new THREE.Vector3(), _hc = new THREE.Vector3();
+  var bbox = new THREE.Box3(), frameCenter = new THREE.Vector3(), frameSize = new THREE.Vector3(), tmp = new THREE.Vector3(), tmp2 = new THREE.Vector3();
+  var goal = { target: new THREE.Vector3(3, 12, 0), dist: 140 };
+  function applyPose(p) {
+    sleeve.rotation.z = p.theta * DEG;
+    carriage.position.set(5.5 + p.e, 0, 0);
+    var r = 0.5 + 0.27 * p.e;
+    railL.position.x = r; railR.position.x = r;
+    swivel.rotation.z = -p.phi * DEG;
+
+    M.opalEnd.emissiveIntensity = 0.01 + 1.8 * p.mood;
+    M.opalRim.emissiveIntensity = 0.25 * p.mood;
+    M.opalBottom.emissiveIntensity = 6 * p.task;
+    moodLight.intensity = 1300 * p.mood;
+    taskLight.intensity = 17000 * p.task;
+    haloEnd.scale.setScalar(10 + 8 * p.mood); curMood = p.mood;
+    aoHeel.material.opacity = 0.85 * Math.pow(p.theta / 90, 6);
+
+    lamp.updateMatrixWorld(true);
+    // bounce: warm light thrown back up from the lit patch of oak
+    var src = p.task >= p.mood ? taskTarget : moodLight;
+    src.getWorldPosition(tmp);
+    if (p.task >= p.mood) { taskLight.getWorldPosition(tmp2); tmp.set(tmp2.x, -4, tmp2.z); }
+    else { tmp.set(tmp.x + 6, -4, tmp.z); }   // below the oak: lights only what faces down, like a bounce
+    bounce.position.copy(tmp);
+    bounce.intensity = 60 * p.mood + 420 * p.task;
+    moodTarget.getWorldPosition(tmp2); moodLight.getWorldPosition(tmp);
+    var up = Math.max(0, (tmp2.y - tmp.y) / tmp2.distanceTo(tmp));          // how much the opal end faces the ceiling
+    roomBounce.intensity = 0.05 * p.mood + 0.09 * p.task + 0.22 * p.mood * up;
+
+    // frame the lamp only (sprites excluded)
+    bbox.makeEmpty();
+    lamp.traverse(function (o) { if (o.isMesh) { if (!o.geometry.boundingBox) o.geometry.computeBoundingBox(); _b.copy(o.geometry.boundingBox).applyMatrix4(o.matrixWorld); bbox.union(_b); } });
+    bbox.getCenter(frameCenter); bbox.getSize(frameSize);
+    var fov = camera.fov * DEG;
+    var fitH = Math.max(frameSize.y, 16) * 1.25 + 10, fitW = Math.max(frameSize.x, frameSize.z) * 1.35 + 14;
+    var fitDist = Math.max(fitH / (2 * Math.tan(fov / 2)), fitW / (2 * Math.tan(fov / 2) * camera.aspect));
+    goal.target.set(frameCenter.x, Math.max(8, frameCenter.y), 0);
+    goal.dist = Math.max(140, fitDist + 50);
+    probe.position.set(frameCenter.x, Math.max(6, frameCenter.y), 0);
+    placeSun();
+    renderer.shadowMap.needsUpdate = true;
+    probeDirty = true;
+  }
+
+  // ---------- camera: auto framing + smoothed orbit with inertia ----------
+  // one finger turns, two fingers pinch (zoom), twist (turn) and pan, three fingers steer the light,
+  // double tap goes back to the start view. Mouse: drag turns, wheel or trackpad pinch zooms,
+  // shift or right drag steers the light, alt or middle drag pans, double click resets.
+  var HOME = { yaw: 0.62, pitch: 0.2 };
+  var cam = { yaw: HOME.yaw, pitch: HOME.pitch, zoom: 1, panX: 0, panY: 0 };   // what the camera shows (smoothed)
+  var want = { yaw: HOME.yaw, pitch: HOME.pitch, zoom: 1, panX: 0, panY: 0 };  // where the gestures point
+  var vel = { yaw: 0, pitch: 0 };                                               // fling after release, rad per ms
+  var target = new THREE.Vector3(3, 12, 0), baseDist = 140, framed = false;
+  var PITCH_MIN = 0.03, PITCH_MAX = 1.25, ZOOM_MIN = 0.4, ZOOM_MAX = 2.4, PAN_MAX = 60;
+  var vRight = new THREE.Vector3(), vUp = new THREE.Vector3();
+  function clampWant() {
+    want.pitch = Math.max(PITCH_MIN, Math.min(PITCH_MAX, want.pitch));
+    want.zoom = Math.max(ZOOM_MIN, Math.min(ZOOM_MAX, want.zoom));
+    want.panX = Math.max(-PAN_MAX, Math.min(PAN_MAX, want.panX));
+    want.panY = Math.max(-PAN_MAX, Math.min(PAN_MAX, want.panY));
+  }
+  function worldPerPx() { return baseDist * cam.zoom * 2 * Math.tan(camera.fov * Math.PI / 360) / Math.max(1, window.innerHeight); }
+  function placeCamera(dt) {
+    if (touches.size === 0 && (vel.yaw || vel.pitch)) {
+      want.yaw += vel.yaw * dt; want.pitch += vel.pitch * dt;
+      var decay = Math.exp(-dt / (mouseDriven ? 180 : 340)); vel.yaw *= decay; vel.pitch *= decay;
+      if (Math.abs(vel.yaw) < 2e-6 && Math.abs(vel.pitch) < 2e-6) vel.yaw = vel.pitch = 0;
+      if (want.pitch <= PITCH_MIN || want.pitch >= PITCH_MAX) vel.pitch = 0;
+      clampWant();
+    }
+    // gesture smoothing: a mouse wants the view under the pointer (26 ms), a finger a softer follow (60 ms);
+    // zoom keeps a little more glide so wheel notches become one smooth move
+    var a = framed && !reduceMotion ? 1 - Math.exp(-dt / (mouseDriven ? 26 : 60)) : 1;
+    var az = framed && !reduceMotion ? 1 - Math.exp(-dt / (mouseDriven ? 70 : 60)) : 1;
+    var af = framed && !reduceMotion ? 1 - Math.exp(-dt / 170) : 1;  // auto framing follows a little slower
+    framed = true;
+    cam.yaw += (want.yaw - cam.yaw) * a; cam.pitch += (want.pitch - cam.pitch) * a;
+    cam.zoom *= Math.pow(want.zoom / cam.zoom, az);
+    cam.panX += (want.panX - cam.panX) * a; cam.panY += (want.panY - cam.panY) * a;
+    target.lerp(goal.target, af); baseDist += (goal.dist - baseDist) * af;
+    var d = baseDist * cam.zoom, cp = Math.cos(cam.pitch);
+    camera.position.set(target.x + d * Math.sin(cam.yaw) * cp, target.y + d * Math.sin(cam.pitch), target.z + d * Math.cos(cam.yaw) * cp);
+    camera.lookAt(target);
+    vRight.set(1, 0, 0).applyQuaternion(camera.quaternion); vUp.set(0, 1, 0).applyQuaternion(camera.quaternion);
+    camera.position.addScaledVector(vRight, cam.panX).addScaledVector(vUp, cam.panY);
+    scene.fog.near = d + 40; scene.fog.far = d + 320;
+    return Math.abs(want.yaw - cam.yaw) > 1e-4 || Math.abs(want.pitch - cam.pitch) > 1e-4 || Math.abs(want.zoom / cam.zoom - 1) > 1e-4 ||
+      Math.abs(want.panX - cam.panX) > 0.01 || Math.abs(want.panY - cam.panY) > 0.01 || vel.yaw !== 0 || vel.pitch !== 0 ||
+      target.distanceTo(goal.target) > 0.05 || Math.abs(goal.dist - baseDist) > 0.05;
+  }
+  function resetView() { want.yaw = HOME.yaw; want.pitch = HOME.pitch; want.zoom = 1; want.panX = want.panY = 0; vel.yaw = vel.pitch = 0; kick(); }
+
+  // ---------- gestures ----------
+  var mouseDriven = false;
+  var touches = new Map(), mode = null, mouseMode = null, lastC = null, ref = null, samples = [];
+  var tapStart = null, lastTapAt = -1, maxTouches = 0;
+  function pts() { return Array.from(touches.values()); }
+  function centroid() { var x = 0, y = 0; touches.forEach(function (p) { x += p.x; y += p.y; }); return { x: x / touches.size, y: y / touches.size }; }
+  function two() { var v = pts(); return { d: Math.hypot(v[1].x - v[0].x, v[1].y - v[0].y) || 1, a: Math.atan2(v[1].y - v[0].y, v[1].x - v[0].x), c: centroid() }; }
+  function rebase() {   // whenever the number of fingers changes, start each measure afresh so nothing jumps
+    lastC = touches.size ? centroid() : null;
+    ref = touches.size === 2 ? two() : null;
+    mode = mouseMode || (touches.size >= 3 ? "light" : touches.size === 2 ? "two" : touches.size === 1 ? "orbit" : null);
+    samples = [];
+  }
+  canvas.addEventListener("contextmenu", function (ev) { ev.preventDefault(); });
+  canvas.addEventListener("pointerdown", function (ev) {
+    try { canvas.setPointerCapture(ev.pointerId); } catch (e) {}
+    touches.set(ev.pointerId, { x: ev.clientX, y: ev.clientY });
+    maxTouches = Math.max(maxTouches, touches.size);
+    mouseDriven = ev.pointerType === "mouse";
+    if (touches.size === 1) {
+      vel.yaw = vel.pitch = 0;
+      tapStart = { t: ev.timeStamp, x: ev.clientX, y: ev.clientY, moved: 0 };
+      mouseMode = ev.pointerType === "mouse"
+        ? (ev.shiftKey || ev.button === 2 ? "light" : (ev.altKey || ev.button === 1 ? "pan" : null)) : null;
+    }
+    rebase(); kick();
+  });
+  canvas.addEventListener("pointermove", function (ev) {
+    if (!touches.has(ev.pointerId)) return;
+    var prev = touches.get(ev.pointerId);
+    touches.set(ev.pointerId, { x: ev.clientX, y: ev.clientY });
+    if (tapStart) tapStart.moved += Math.hypot(ev.clientX - prev.x, ev.clientY - prev.y);
+    var c = centroid(), dx = c.x - lastC.x, dy = c.y - lastC.y; lastC = c;
+    if (mode === "orbit") {
+      var dyaw = -dx * 0.0062, dpitch = dy * 0.0052;
+      want.yaw += dyaw; want.pitch += dpitch; clampWant();
+      samples.push({ t: ev.timeStamp, yaw: dyaw, pitch: dpitch });
+      while (samples.length && ev.timeStamp - samples[0].t > 90) samples.shift();
+    } else if (mode === "two") {
+      var s = two(), k = worldPerPx();
+      want.zoom *= ref.d / s.d;                                   // pinch
+      var da = s.a - ref.a; if (da > Math.PI) da -= 2 * Math.PI; if (da < -Math.PI) da += 2 * Math.PI;
+      want.yaw += da;                                             // twist turns the lamp with the fingers
+      want.panX -= (s.c.x - ref.c.x) * k; want.panY += (s.c.y - ref.c.y) * k;   // pan follows the fingers
+      ref = s; clampWant();
+    } else if (mode === "pan") {
+      var kp = worldPerPx(); want.panX -= dx * kp; want.panY += dy * kp; clampWant();
+    } else if (mode === "light") {
+      sunAngle.az -= dx * 0.009;
+      sunAngle.el = Math.max(-Math.PI / 2 + 0.02, Math.min(Math.PI / 2 - 0.05, sunAngle.el - dy * 0.0105));
+      placeSun(); renderer.shadowMap.needsUpdate = true; probeDirty = true; camMoved = true;
+    }
+    kick();
+  });
+  function endDrag(ev) {
+    if (!touches.has(ev.pointerId)) return;
+    var wasOrbit = mode === "orbit";
+    touches.delete(ev.pointerId);
+    if (touches.size === 0) {
+      // fling: keep turning with the speed of the last ~90 ms, unless the finger rested before lifting
+      if (wasOrbit && samples.length > 1 && ev.timeStamp - samples[samples.length - 1].t < 50) {
+        var span = Math.max(16, samples[samples.length - 1].t - samples[0].t), sy = 0, sp = 0;
+        samples.forEach(function (q) { sy += q.yaw; sp += q.pitch; });
+        vel.yaw = Math.max(-0.006, Math.min(0.006, sy / span)); vel.pitch = Math.max(-0.004, Math.min(0.004, sp / span));
+        // a mouse only flings on a real flick, so a normal drag stops where you let go
+        if (mouseDriven && (ev.timeStamp - samples[samples.length - 1].t > 30 || Math.hypot(vel.yaw, vel.pitch) < 0.0016)) vel.yaw = vel.pitch = 0;
+      }
+      // double tap (or click) puts the camera back
+      if (tapStart && maxTouches === 1 && tapStart.moved < 10 && ev.timeStamp - tapStart.t < 260) {
+        if (lastTapAt > 0 && ev.timeStamp - lastTapAt < 330) { resetView(); lastTapAt = -1; } else lastTapAt = ev.timeStamp;
+      }
+      tapStart = null; maxTouches = 0; mouseMode = null;
+    }
+    rebase(); kick();
+  }
+  canvas.addEventListener("pointerup", endDrag);
+  canvas.addEventListener("pointercancel", endDrag);
+  canvas.addEventListener("lostpointercapture", endDrag);
+  canvas.addEventListener("wheel", function (ev) {
+    ev.preventDefault();
+    mouseDriven = true;
+    // lines or pages become pixels; one wheel notch is about 9 %, a trackpad pinch (ctrl + wheel) follows the fingers
+    var dy = ev.deltaY * (ev.deltaMode === 1 ? 16 : ev.deltaMode === 2 ? 400 : 1);
+    dy = Math.max(-150, Math.min(150, dy));
+    want.zoom *= Math.exp(dy * (ev.ctrlKey ? 0.01 : 0.0009)); clampWant(); kick();
+  }, { passive: false });
+
+  function resize() {
+    var w = window.innerWidth, h = window.innerHeight;
+    curPR = 0; applyPR(basePR());
+    renderer.setSize(w, h, false);
+    camera.aspect = w / h; camera.fov = camera.aspect < 0.8 ? 40 : 28; camera.updateProjectionMatrix();
+    sizeTicks();
+    if (mirror) { var ms = mirrorSize(); mirror.getRenderTarget().setSize(ms[0], ms[1]); }
+    needsUpdate = true; kick();
+  }
+  var paperWhite = false, themeMeta = document.querySelector('meta[name="theme-color"]');
+  function setPaper(white) {
+    paperWhite = white;
+    var hex = white ? 0xffffff : 0x000000, css = white ? "#ffffff" : "#000000", ink = white ? "0, 0, 0" : "255, 255, 255";
+    scene.background.setHex(hex); scene.fog.color.setHex(hex);
+    var st = document.documentElement.style;
+    st.setProperty("--bg", css); st.setProperty("--tick", ink); st.setProperty("--hot", ink); st.colorScheme = white ? "light" : "dark";
+    if (themeMeta) themeMeta.setAttribute("content", css);
+    drawTicks(); camMoved = true; kick();
+  }
+  document.addEventListener("keydown", function (ev) {
+    if ((ev.key === "b" || ev.key === "B") && !ev.metaKey && !ev.ctrlKey && !ev.altKey && !ev.repeat) { ev.preventDefault(); setPaper(!paperWhite); }
+  });
+  window.addEventListener("resize", resize);
+  if (window.visualViewport) window.visualViewport.addEventListener("resize", resize);
+  canvas.addEventListener("webglcontextrestored", function () { needsUpdate = true; kick(); });
+
+  // ---------- loop (renders only while something changes) ----------
+  var camMoved = false, lastNow = 0;
+  var PIX_BUDGET = 3.6e6, motionScale = 1, emaDt = 16, lastAdapt = 0, curPR = 0;
+  function basePR() { return Math.max(1, Math.min(window.devicePixelRatio || 1, maxPR, Math.sqrt(PIX_BUDGET / Math.max(1, window.innerWidth * window.innerHeight)))); }
+  function applyPR(pr) {
+    pr = Math.round(pr * 20) / 20; if (Math.abs(pr - curPR) < 0.01) return false;
+    curPR = pr; renderer.setPixelRatio(pr); renderer.setSize(window.innerWidth, window.innerHeight, false); return true;
+  }
+  function frame(now) {
+    var dt = lastNow ? Math.min(50, now - lastNow) : 16; lastNow = now;
+    var active = false;
+    if (Math.abs(sGoal - S) > 0.0004) { S += (sGoal - S) * (reduceMotion ? 1 : 0.22); active = true; } else if (S !== sGoal) { S = sGoal; active = true; }
+    if (active) { needsUpdate = true; drawTicks(); updateAria(); }
+    var moving = false;
+    if (needsUpdate) { applyPose(pose(S)); needsUpdate = false; moving = true; }
+    var camBusy = placeCamera(dt);
+    var inMotion = active || scrubbing || camBusy || touches.size > 0;
+    if (inMotion && dt < 50) {
+      emaDt += (dt - emaDt) * 0.2;
+      if (now - lastAdapt > 350) {
+        if (emaDt > 21 && motionScale > 0.55) { motionScale = Math.max(0.55, motionScale * 0.85); lastAdapt = now; }
+        else if (emaDt < 13 && motionScale < 1) { motionScale = Math.min(1, motionScale * 1.12); lastAdapt = now; }
+      }
+    }
+    if (applyPR(basePR() * (inMotion ? motionScale : 1))) camMoved = true;   // a resized canvas is blank until drawn
+    var idle = !active && !scrubbing && touches.size === 0;
+    if (moving || camBusy || camMoved || (probeDirty && idle)) {
+      // refresh reflections only once everything has settled (keeps each frame light while scrubbing or steering)
+      if (probeDirty && idle) {
+        // Shadow maps must be drawn from the real camera: the probe only sees layer 1 (no lamp),
+        // so if it consumed a pending shadow update the lamp's shadows vanished until the next one.
+        if (renderer.shadowMap.needsUpdate) renderer.render(scene, camera);
+        probeIdx ^= 1; probe.renderTarget = probeRTs[probeIdx];
+        var bgp = scene.background; scene.background = null;   // the probe always sees a black room
+        probe.update(renderer, scene);
+        scene.background = bgp;
+        scene.environment = probeRTs[probeIdx].texture; probeDirty = false;
+      }
+      _hn.set(1, 0, 0).transformDirection(swivel.matrixWorld); haloEnd.getWorldPosition(_hp);
+      var facing = Math.max(0, _hn.dot(_hc.subVectors(camera.position, _hp).normalize()));
+      haloEnd.material.opacity = 0.7 * curMood * Math.min(1, facing * 2.2);
+      renderer.render(scene, camera);
+      camMoved = false;
+    }
+    if (active || camBusy || touches.size > 0 || (probeDirty && idle)) requestAnimationFrame(frame);
+    else { running = false; lastNow = 0; }
+  }
+  resize();
+  drawTicks(); updateAria();
+  kick();
+})();
+</script>
+</body>
+</html>

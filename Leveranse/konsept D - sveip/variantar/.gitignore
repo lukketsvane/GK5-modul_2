@@ -6,3 +6,6 @@
 */print/
 __pycache__/
 *_prove.png
+
+# reaksjon-diffusjon-mønster, blir rekna på nytt ved behov
+*/cache/

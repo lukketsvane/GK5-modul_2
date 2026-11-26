@@ -13,6 +13,7 @@ import numpy as np
 from matplotlib.patches import Circle, FancyBboxPatch, Polygon, Rectangle
 from shapely.geometry import LineString, box
 
+from d15_lysrist import BLOKK_V, FOT_V, T_FOT
 from mini_passform import AVST, D, K, MB, R, S, T, X_ST, YK, Z_SK, avstand, delar, vegg
 
 HER = Path(__file__).resolve().parent
@@ -109,7 +110,7 @@ for i, (tekst, farge, storleik) in enumerate([
         (f"rev. B i skala {tal(K, 2)}, plate {tal(T)} mm", GRAA, 7.5),
         ("", GRAA, 5),
         ("micro:bit V2, rotert 90°", LYS, 8.5),
-        (f"51,6 høg i ei stamme på {tal(Z_SK)}", GRAA, 7.5),
+        (f"42,0 brei i ei stamme på {tal(X_ST)}", GRAA, 7.5),
         ("USB mot den opne enden av stamma", GRAA, 7.5),
         ("touch-logoen bak messingpunktet", GRAA, 7.5),
         ("", GRAA, 5),
@@ -118,7 +119,8 @@ for i, (tekst, farge, storleik) in enumerate([
         (f"knapp A og B til veggen   {tal(avstand(delar['knapp A'], vegg), 2)}", GRAA, 7.5),
         (f"lysrista til veggen   {tal(avstand(delar['lysrist D15'], vegg))}", GRAA, 7.5),
         (f"kortet til enden av stamma   {tal(X_ST - kb.xmax)}", GRAA, 7.5),
-        (f"over og under kortet i stamma   {tal(kb.zmin, 2)}", GRAA, 7.5),
+        (f"kortet over underkanten   {tal(kb.zmin)}", GRAA, 7.5),
+        (f"kortet opp bak skjermsaumen   {tal(kb.zmax - Z_SK)}", GRAA, 7.5),
         (f"fri djupn bak kortet   {tal(D / 2 - T - (YK + 1.6 + 5.5), 0)}", GRAA, 7.5)]):
     fig.text(0.665, y, tekst, color=farge, fontsize=storleik, ha="left", va="top")
     y -= 0.012 + storleik * 0.0026
@@ -140,8 +142,10 @@ for kol in range(5):
     s.add_patch(Rectangle((x - 1.0, YV), 2.0, T, fc="#ff9a8c" if n else "#6b6966", ec="none"))     # proppane
     s.add_patch(Rectangle((x - 1.2, YK - 4.8), 2.4, 4.8, fc="#5a1410" if n else "black", ec="none", zorder=3))
     s.add_patch(Rectangle((x - 0.8, YK - 0.4), 1.6, 0.4, fc=RAUD if n else "#7a2a22", ec="none", zorder=4))
-s.add_patch(Rectangle((MX - 10.5, YK - 4.8), 20.8, 4.8, fc="#1c1c1c", ec=GRAA, lw=0.5, zorder=2))  # lysrista
-s.add_patch(Rectangle((MX - 17.89, YK - 3.0), 9.5, 3.0, fc="#1c1c1c", ec=GRAA, lw=0.5, zorder=2))  # foten
+s.add_patch(Rectangle((MX + BLOKK_V[0], YK - 4.8), BLOKK_V[1] - BLOKK_V[0], 4.8, fc="#1c1c1c", ec=GRAA, lw=0.5,
+                      zorder=2))                                                                   # lysrista
+s.add_patch(Rectangle((MX + FOT_V[0], YK - T_FOT), FOT_V[1] - FOT_V[0], T_FOT, fc="#1c1c1c", ec=GRAA, lw=0.5,
+                      zorder=2))                                                                   # foten
 s.add_patch(Rectangle((KORT[0], YK), 42.0, 1.6, fc="#3d4a3f", ec="none", zorder=2))               # kretskortet
 s.add_patch(Rectangle((MX - 2.25, YK + 1.6), 8.0, 3.0, fc="#4c4a47", ec="none"))                  # høgtalaren
 s.add_patch(Rectangle((MX + 17.14, YK + 1.6), 6.26, 2.4, fc="#a9a7a2", ec="none"))                # USB
@@ -159,17 +163,18 @@ maal(s, (0, YM), (KORT[0], YM), tal(KORT[0]), forskyv=(0, 0.3))
 maal(s, (KORT[2], YM), (X_ST, YM), tal(X_ST - KORT[2]), forskyv=(0, 0.3))
 for x in (0, KORT[0], KORT[2], X_ST):
     s.plot([x, x], [YM - 0.7, -R - 0.6 if x in (0, X_ST) else YK - 0.3], color=GRAA, lw=0.4)
-peik(s, (MX - 15, YK - 2.9), (-7, YT), "lysrist D15, 3,0 ved ringane")
+peik(s, (MX - 15, YK - T_FOT + 0.1), (-7, YT), f"lysrist D15, {tal(T_FOT)} ved ringane")
 peik(s, (MX + 2, YV + 0.5), (MX + 1, YT), "klar, matta propp", ha="right")
 peik(s, (xm, YV - 0.5), (xm + 4, YT), "messingpunkt Ø 6 i isolerande hylse, fjørpinne mot logoen")
-peik(s, (KORT[0] + 0.8, YK + 0.9), (KORT[0] + 1.5, R - 3.8), f"kretskort, {til_nasen} frå krumminga i nasen")
+peik(s, (KORT[0] + 0.6, YK + 0.9), (-8, R + 1.0), f"kretskort, {til_nasen} frå krumminga i nasen")
 peik(s, (MX + 20.5, YK + 2.8), (X_ST + 5, R - 14.5), "micro-USB ut gjennom endeplata")
 peik(s, (MX + 3, YK + 3.2), (X_ST + 5, R - 9.0), "høgtalar 3,0 (JST 5,5 over snittet)")
 s.text(X_ST + 5, R - 3.5, "skjermen over snittet (stipla)", color=GRAA, fontsize=6.5, ha="left", va="center")
 s.text(-8, R + 3.5, "SNITT B–B, SETT OVANFRÅ (FORSTØRRA)", color=GRAA, fontsize=6.5, ha="left", va="top")
 s.text(S + 7.5, YT, "framsida", color=GRAA, fontsize=6.0, ha="right", va="center")
 
-fig.text(0.035, 0.968, "Sveip mini · bygd rundt ein micro:bit V2", color=LYS, fontsize=11, ha="left", va="center")
+fig.text(0.035, 0.968, "Sveip mini · den minste lampa som rommar ein micro:bit V2", color=LYS, fontsize=11,
+         ha="left", va="center")
 fig.text(0.965, 0.968, "mål i mm", color=GRAA, fontsize=6.5, ha="right", va="center")
 fig.savefig(HER / "plassering.png", facecolor="black")
 print("SKREIV", HER / "plassering.png")

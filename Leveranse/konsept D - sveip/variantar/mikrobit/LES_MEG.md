@@ -1,14 +1,15 @@
-# Sveip mini · lampa bygd rundt ein micro:bit V2
+# Sveip mini · den minste lampa som rommar ein micro:bit V2
 
-Sveip mini er rev. B i skala 0,36: **108 × 108 × 37,8 mm**. Stamma er 64,1 mm brei og 60,3 mm høg, og kortet (51,6 × 42,0 mm) står rotert 90° bak framveggen, midt i stamma. Det einaste som syner av kortet, er LED-matrisa på 5 × 5 gjennom 25 hol. Til høgre for matrisa står eit messingpunkt, der kortet har touch-logoen sin. Dei to deler eitt forsenka felt på 32 × 23 mm.
+Sveip mini er rev. B i skala 0,28: **84 × 84 × 29,4 mm**. Stamma er 49,8 mm brei og 46,9 mm høg. Kortet (51,6 × 42,0 mm) står rotert 90° bak framveggen og fyller breidda på stamma. Det einaste som syner av kortet, er LED-matrisa på 5 × 5 gjennom 25 hol. Til høgre for matrisa står eit messingpunkt, der kortet har touch-logoen sin. Dei to deler eitt forsenka felt på 32 × 23 mm.
 
 Varianten er V12 i `../overflate` (`v12_mini.py`). Rev. B er ikkje endra, og dei store variantane V9 til V11 har ikkje micro:bit.
 
-## Kvifor 0,36 og rotert
+## Kvifor 0,28 og rotert
 
-- Rotert 90° med klokka er kortet 42 mm breitt og 51,6 mm høgt. Den minste lampa som rommar det slik, er 96 mm (skala 0,32): då er kortet 51,6 mm i ei stamme på 53,6 mm.
-- Mini er gjort litt større, 108 mm. Då ligg heile feltet på den flate framveggen, og kortet har 4,35 mm over og under seg i stamma.
-- Ståande kort krev skala 0,41 til 0,44 (122 til 130 mm): kortet er breiare enn den flate framveggen, og knapp A og lysrista treff krumminga i nasen.
+- Rotert 90° med klokka er kortet 42 mm breitt. Det får plass i stamma med 0,6 mm til krumminga i nasen og 3,0 mm til enden av stamma.
+- Mindre går ikkje: ved 82,5 mm (skala 0,275) treff kortet veggen i nasen.
+- Kortet er 51,6 mm høgt, og stamma er 46,9 mm. Kortet går difor 7,7 mm opp bak skjermsaumen, på innsida av veggen. Det syner ikkje utanpå.
+- Ståande kort krev skala 0,41 til 0,44 (122 til 130 mm).
 - USB-en peikar ut mot den opne enden av stamma, så kortet kan programmerast utan å opne lampa.
 - Logoen hamnar til høgre for matrisa, på same line som messingknappen i rev. B.
 
@@ -34,12 +35,13 @@ Knapp A og B stikk 4,55 mm fram frå kortet, så LED-ane står om lag 5 mm bak p
 
 | Mål | mm |
 |---|---|
-| Kretskortet til krumminga i nasen | 3,4 |
+| Kretskortet til krumminga i nasen | 0,6 |
 | Knapp A og B til veggen | 0,55 |
 | Lysrista til veggen | 0,3 |
-| Kretskortet til enden av stamma | 10,0 |
-| Over og under kretskortet i stamma | 4,35 |
-| Fri djupn bak kortet | 24 |
+| Kretskortet til enden av stamma | 3,0 |
+| Kretskortet over underkanten | 3,0 |
+| Kretskortet opp bak skjermsaumen | 7,7 |
+| Fri djupn bak kortet | 15 |
 
 Måla på kortet er frå den offisielle monteringsteikninga for V2 (Avnet, DWG 1.48, rev. 1, på tech.microbit.org).
 
@@ -50,7 +52,7 @@ Måla på kortet er frå den offisielle monteringsteikninga for V2 (Avnet, DWG 1
 | Ring 0 | arbeidslyset (ned), PWM | 10 kΩ til GND, så lyset er av medan kortet startar |
 | Ring 1 | stemningslyset (opp), PWM | 10 kΩ til GND |
 | Logoen | messingpunktet, via ein fjørpinne | messingen står i ei isolerande hylse |
-| JST | 2 × AAA bak kortet | 3 V rett inn. Aldri ei litiumcelle direkte |
+| JST | 2 × AAA bak kortet | 3 V rett inn. Aldri ei litiumcelle direkte. Haldaren (14 mm) har 15 mm djupn å stå i, og stikk opp i skjermen |
 
 Skruane gjennom ringane skal vere M3 i nylon. Ein utgang på kortet toler under 1 mA, så han styrer ein transistor eller ein drivar, aldri lysdiodane direkte.
 
@@ -67,10 +69,10 @@ Logikken er køyrd mot ein stubb av `microbit`-modulen i åtte tilfelle. Ho er i
 
 ## Står att
 
-1. **Storleiken.** Ei lampe på 108 mm gjev ikkje arbeidslys på eit skrivebord. Utkraginga er 44 mm, og kroppen kan kvitte seg med om lag 2 W. Mini er ei stemningslampe eller ein modell, ikkje ei erstatning for rev. B.
+1. **Storleiken.** Ei lampe på 84 mm gjev ikkje arbeidslys på eit skrivebord. Utkraginga er 34 mm, og kroppen kan kvitte seg med 1 til 2 W. Mini er ei stemningslampe eller ein modell, ikkje ei erstatning for rev. B.
 2. **Berøringa.** Fjørpinne frå messing til logoen gjennom ein jorda aluminiumsvegg er ikkje prøvd. Etter kjeldekoden kalibrerer kortet éin gong ved oppstart. Messingen treng seriemotstand og vern mot statisk utlading.
 3. **Lyset.** Lyskjeldene, drivaren og kjølinga er ikkje teikna. Flimmer må målast: kortaste PWM-periode er 256 µs (3,9 kHz).
-4. **Innmaten.** Chassis, endeplate med opning for USB, batterihaldar og ballast i foten er ikkje teikna. Lampa veg truleg under 150 g og treng ballast.
+4. **Innmaten.** Chassis, endeplate med opning for USB, batterihaldar og ballast i foten er ikkje teikna. Marginane er små: 0,6 mm i nasen krev at plata blir valsa nøyaktig. Lampa veg truleg under 150 g og treng ballast.
 5. **Toleransen** på LED-plasseringa er ikkje oppgjeven. Bor eit prøvestykke først.
 
 ## Filer

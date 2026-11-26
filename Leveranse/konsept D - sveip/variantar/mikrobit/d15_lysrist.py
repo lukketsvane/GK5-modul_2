@@ -3,7 +3,7 @@
 
 Ei svart blokk med 25 kanalar, éin per LED, så kvar LED lyser opp berre sin eigen propp i veggen.
 Blokka er 4,8 mm tjukk: knapp A og B (4,55 mm) går klar av veggen, og rista står 0,3 mm frå han.
-Foten over ringane er 3,0 mm, for der krummar nasen på lampa inn mot kortet. Rista blir skrudd
+Foten over ringane er 2,0 mm, for der krummar nasen på lampa inn mot kortet. Rista blir skrudd
 til kortet med M3 i nylon gjennom ringane (senka hovud framme, mutter bak). Mot logoen er blokka
 kort, så hylsa til messingpunktet får plass. Måla er relative til midtre LED, slik kortet ser ut
 framanfrå med kantkontakten ned, og er frå monteringsteikninga for V2.
@@ -15,10 +15,10 @@ import cadquery as cq
 
 P = 4.0                      # LED-delinga
 T = 4.8                      # tjukn på blokka, frå kretskortet og fram
-T_FOT = 3.0                  # tjukn på foten
+T_FOT = 2.0                  # tjukn på foten
 KANAL = 2.4                  # kanal rundt kvar LED (0603: 0,8 x 1,6)
 BLOKK_U = (-11.5, 11.5)      # blokka rundt matrisa, går klar av knapp A og B (innerkant ±16,9)
-BLOKK_V = (-10.5, 10.3)      # kort mot logoen (v = 14), der hylsa til messingpunktet står
+BLOKK_V = (-10.1, 10.3)      # kort mot logoen (v = 14) for hylsa til messingpunktet, og mot nasen
 RINGAR = (-21.59, -11.43, 0.0, 11.43, 21.59)
 RING_V = -13.14
 FOT_U, FOT_V = (-25.8, 25.8), (-17.89, -8.39)
@@ -32,10 +32,10 @@ def lysrist():
     led = [((k - 2) * P, (2 - r) * P) for k in range(5) for r in range(5)]
     kanalar = cq.Workplane("XY").pushPoints(led).circle(KANAL / 2).extrude(T)
     d = d.cut(kanalar)
-    # M3 med senka hovud frå framsida av foten (flata mot veggen): hol Ø 3,4 og senking til Ø 6,0
+    # M3 med senka hovud frå framsida av foten (flata mot veggen): hol Ø 3,4 og senking til Ø 5,4
     for u in RINGAR:
         d = d.cut(cq.Workplane("XY").center(u, RING_V).circle(1.7).extrude(T_FOT))
-        d = d.cut(cq.Workplane("XY").add(cq.Solid.makeCone(1.7, 3.0, 1.3, cq.Vector(u, RING_V, T_FOT - 1.3))))
+        d = d.cut(cq.Workplane("XY").add(cq.Solid.makeCone(1.7, 2.7, 1.0, cq.Vector(u, RING_V, T_FOT - 1.0))))
     return d
 
 

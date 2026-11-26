@@ -12,6 +12,7 @@ Delar (PLA, 0,4 mm dyse)
 Plater
   A  lampefarge, PLA Matte: M1 og M4, begge opp ned. Ingen støtte.
   B  svart PLA Matte: M2 ståande og M3 med kortsida ned. Ingen støtte.
+  Alle fire delane ligg òg saman på éi plate i Sveip_mini_alle_delar.3mf.
 Køyr frå mikrobit/:
   python mini_print.py           byggjer delane, kontrollerer passform og print, og skriv print/
   python mini_print.py --slice   slicar òg plate A og B med Bambu Studio (som sveip_print.py i rev. B)
@@ -269,13 +270,22 @@ def overheng(v, t, plate=0.3):
     return ut
 
 
-def skriv_3mf(sti, objekt, tittel):
-    """Enkel 3MF (kjernespesifikasjonen) med eitt objekt per del, plassert på plata."""
+FARGAR = {"lampefarge": "#C9C7C1FF", "svart": "#1E1E1EFF"}
+
+
+def skriv_3mf(sti, objekt, tittel, fargar=None):
+    """Enkel 3MF (kjernespesifikasjonen) med eitt objekt per del, plassert på plata. fargar er
+    ei liste med fargenamn (sjå FARGAR), éin per del, som visingsfarge."""
     res, bygg = [], []
+    if fargar:
+        namn_ = list(FARGAR)
+        res.append('<basematerials id="900">' + "".join(
+            f'<base name="{n}" displaycolor="{FARGAR[n]}"/>' for n in namn_) + "</basematerials>")
     for i, (namn, (v, t)) in enumerate(objekt, start=1):
         vs = "".join(f'<vertex x="{x:.4f}" y="{y:.4f}" z="{z:.4f}"/>' for x, y, z in v)
         ts = "".join(f'<triangle v1="{a}" v2="{b}" v3="{c}"/>' for a, b, c in t)
-        res.append(f'<object id="{i}" name="{namn}" type="model"><mesh><vertices>{vs}</vertices>'
+        farge = f' pid="900" pindex="{list(FARGAR).index(fargar[i - 1])}"' if fargar else ""
+        res.append(f'<object id="{i}" name="{namn}" type="model"{farge}><mesh><vertices>{vs}</vertices>'
                    f'<triangles>{ts}</triangles></mesh></object>')
         bygg.append(f'<item objectid="{i}"/>')
     modell = ('<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -304,6 +314,14 @@ PLATER = {
     "B": dict(namn="Sveip_mini_B_innmat_PLA_svart", filament="Bambu PLA Matte @BBL P1S 0.4 nozzle",
               farge="svart", vegg=1.2, brim=3),
 }
+
+
+def alle_paa_ei_plate(m1, m2, m3_lokal, m4):
+    """Alle fire delane på éi plate (256 x 256), med farge: M3 svart, resten i lampefarge."""
+    return [("M1_kropp", til_plata(opp_ned(m1), 128.0, 80.0), "lampefarge"),
+            ("M4_lysplate", til_plata(opp_ned(m4), 128.0, 140.0), "lampefarge"),
+            ("M2_chassis", til_plata(m2, 75.0, 195.0), "lampefarge"),
+            ("M3_lysrist_D15", til_plata(m3_lokal, 175.0, 195.0), "svart")]
 
 
 def plater(m1, m2, m3_lokal, m4):
@@ -347,6 +365,21 @@ def main(slice_=False):
         skriv_3mf(UT / f"{info['namn']}.3mf", objekt, info["namn"])
         rapport["plater"].append(dict(plate=info["namn"], filament=info["filament"], farge=info["farge"],
                                       brim_mm=info["brim"], stotte=False, delar=deler))
+    # alle delane i éi fil, på éi plate
+    alle = alle_paa_ei_plate(m1, m2, L15.lysrist(), m4)
+    boksar = []
+    for namn, f, _ in alle:
+        bb = f.val().BoundingBox()
+        assert 0 <= bb.xmin and bb.xmax <= 256 and 0 <= bb.ymin and bb.ymax <= 256 and bb.zmax <= 250, namn
+        assert not (bb.xmin < 18 and bb.ymin < 28), f"{namn} ligg i sperresona framme til venstre"
+        boksar.append((namn, bb))
+    for i, (na, a) in enumerate(boksar):           # minst 8 mm mellom delane, så brim og dyse går klar
+        for nb, b in boksar[i + 1:]:
+            gap = max(b.xmin - a.xmax, a.xmin - b.xmax, b.ymin - a.ymax, a.ymin - b.ymax)
+            assert gap >= 8.0, f"{na} og {nb} står for tett ({gap:.1f} mm)"
+    skriv_3mf(UT / "Sveip_mini_alle_delar.3mf", [(n, nett(f)) for n, f, _ in alle], "Sveip mini, alle delar",
+              fargar=[fa for _, _, fa in alle])
+    rapport["alle_delar"] = dict(fil="Sveip_mini_alle_delar.3mf", delar={n: fa for n, _, fa in alle})
     if slice_:
         sys.path.insert(0, str(HER.parent.parent / "cad"))
         import sveip_print as SP          # Bambu Studio CLI, same oppsett som rev. B

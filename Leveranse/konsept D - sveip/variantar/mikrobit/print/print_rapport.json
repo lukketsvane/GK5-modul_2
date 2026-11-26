@@ -818,5 +818,14 @@
     }
    ]
   }
- ]
+ ],
+ "alle_delar": {
+  "fil": "Sveip_mini_alle_delar.3mf",
+  "delar": {
+   "M1_kropp": "lampefarge",
+   "M4_lysplate": "lampefarge",
+   "M2_chassis": "lampefarge",
+   "M3_lysrist_D15": "svart"
+  }
+ }
 }

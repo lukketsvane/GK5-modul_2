@@ -78,7 +78,14 @@ Logikken er køyrd mot ein stubb av `microbit`-modulen i åtte tilfelle. Ho er i
 | M2 chassis | B | svart | 47 × 27 × 60 | 8 g |
 | M3 lysrist D15 | B | svart | 52 × 35 × 5 | 3 g |
 
-Opne `print/Sveip_mini_A_kropp_PLA.3mf` og `print/Sveip_mini_B_innmat_PLA_svart.3mf` i Bambu Studio. Vel P1S med 0,4 mm dyse, PLA Matte og 0,20 mm lag. Bruk ingen støtte, og brim på 5 mm på plate A og 3 mm på plate B. Slice og print. Du kan òg køyre `python mini_print.py --slice` på maskina med Bambu Studio. Då blir platene slica same veg som rev. B.
+**Alle delane i éi fil:** opne `print/Sveip_mini_alle_delar.3mf` i Bambu Studio. Alle fire delane ligg ferdig plasserte på éi plate (sjå `print/Sveip_mini_alle_delar.png`).
+
+1. Vel P1S med 0,4 mm dyse, PLA Matte og 0,20 mm lag.
+2. Set lysrista (M3) til svart filament, og resten til lampefargen. Høgreklikk på delen og vel filament.
+3. Bruk ingen støtte, og 5 mm brim.
+4. Slice og print.
+
+Med svart og lampefarge på same plate skiftar AMS farge i dei første 5 mm, om lag 25 gonger. Vil du sleppe det, printar du to plater i staden: `print/Sveip_mini_A_kropp_PLA.3mf` (lampefarge, 5 mm brim) og `print/Sveip_mini_B_innmat_PLA_svart.3mf` (svart, 3 mm brim). Chassiset kan vere i kva farge som helst, for det syner ikkje. Du kan òg køyre `python mini_print.py --slice` på maskina med Bambu Studio. Då blir A og B slica same veg som rev. B.
 
 - M1 blir printa opp ned, med toppkanten mot plata. Botnen under utkraginga blir då ei bru på 27 mm.
 - Veggen er 1,2 mm (i aluminium 1,0). Det forsenka feltet er 0,3 mm djupt, så det syner i print.
@@ -138,6 +145,7 @@ Lampa har ingen lyskjelder enno. Matrisa viser sveipet, og utgangane P0 og P1 er
 | `mini_passform.py` | kontroll av at kortet får plass |
 | `d15_lysrist.py`, `.step`, `.stl` | lysrista, kontrollert mot LED-ane, knappane og ringane |
 | `sveip_mikrobit.py` | fastvara |
-| `mini_print.py`, `print/` | printdelane: STL, 3MF per plate og kontrollrapport |
+| `mini_print.py`, `print/` | printdelane: STL, 3MF med alle delar og per plate, og kontrollrapport |
+| `mini_plate.py`, `print/Sveip_mini_alle_delar.png` | plata med alle delane, sett ovanfrå |
 | `mini_sprengt.png`, `mini_sprengt.py` | sprengbilete av printdelane |
 | `../overflate/bilete/v12_mini.png`, `v12_mini_naer.png` | rendringane |

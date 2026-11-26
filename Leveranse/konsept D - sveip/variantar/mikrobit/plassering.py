@@ -13,7 +13,7 @@ import numpy as np
 from matplotlib.patches import Circle, FancyBboxPatch, Polygon, Rectangle
 from shapely.geometry import LineString, box
 
-from mini_passform import AVST, D, K, MB, R, S, T, X_ST, YK, Z_SK
+from mini_passform import AVST, D, K, MB, R, S, T, X_ST, YK, Z_SK, avstand, delar, vegg
 
 HER = Path(__file__).resolve().parent
 R_INN = 12.0 * K
@@ -57,7 +57,7 @@ def tal(x, d=1):
 
 
 # ------------------------------------------------------------------ heile lampa framanfrå
-a = akse([0.035, 0.435, 0.60, 0.50], (-17, 111), (-10, 103))
+a = akse([0.035, 0.435, 0.60, 0.50], (-17, S + 15), (-10, S + 7))
 v = np.radians(np.linspace(180, 90, 16))
 hjorne = np.c_[X_ST + R_INN + R_INN * np.cos(v), Z_SK - R_INN + R_INN * np.sin(v)]
 omriss = np.vstack([[0, 0], [X_ST, 0], hjorne, [S, Z_SK], [S, S], [0, S]])
@@ -76,10 +76,10 @@ for rad in range(5):
         a.add_patch(Circle((MX + (kol - 2) * 4.0, MZ + (2 - rad) * 4.0), 1.0, fc=LED[int(BILETE[rad][kol])], ec="none"))
 a.add_patch(Circle((MX + LOGO, MZ), R_MESSING + 2.2, fill=False, ec=GRAA, lw=0.5))
 a.add_patch(Circle((MX + LOGO, MZ), R_MESSING, fc=MESSING, ec="none"))
-for xa, xb in ((-8, FELT[0] - 1), (FELT[2] + 1, 70)):
+for xa, xb in ((-8, FELT[0] - 1), (FELT[2] + 1, X_ST + 13)):
     a.plot([xa, xb], [MZ, MZ], color=GRAA, lw=0.5, ls=(0, (8, 2, 1.5, 2)))           # snittet B-B
 a.text(-8, MZ + 1.0, "B", color=LYS, fontsize=8, ha="left", va="bottom")
-a.text(70, MZ + 1.0, "B", color=LYS, fontsize=8, ha="right", va="bottom")
+a.text(X_ST + 13, MZ + 1.0, "B", color=LYS, fontsize=8, ha="right", va="bottom")
 a.annotate("", (X_ST + 9, MZ - 6), (KORT[2] + 1.2, MZ - 6), arrowprops=dict(arrowstyle="->", color=GRAA, lw=0.6))
 a.text(X_ST + 10, MZ - 6, "USB", color=LYS, fontsize=6.5, ha="left", va="center")
 maal(a, (0, -6.5), (S, -6.5), tal(S, 0), va="top", forskyv=(0, -0.8))
@@ -94,13 +94,15 @@ for x in (0, S):
 a.plot([X_ST, X_ST], [-3.5, -1], color=GRAA, lw=0.4)
 a.plot([-6, -1], [Z_SK, Z_SK], color=GRAA, lw=0.4); a.plot([-6, -1], [0, 0], color=GRAA, lw=0.4)
 a.plot([S + 1, S + 7], [0, 0], color=GRAA, lw=0.4); a.plot([S + 1, S + 7], [S, S], color=GRAA, lw=0.4)
-peik(a, (FELT[0] + 6, FELT[3]), (4, 76), "forsenka felt 32 × 23\nmed 25 hol Ø 2,0 og messingpunkt Ø 6")
-peik(a, (KORT[0] + 3, KORT[3] - 1.5), (4, 64), "micro:bit V2 bak veggen (stipla)")
+peik(a, (FELT[0] + 6, FELT[3]), (4, Z_SK + 24), "forsenka felt 32 × 23\nmed 25 hol Ø 2,0 og messingpunkt Ø 6")
+peik(a, (KORT[0] + 3, KORT[3] - 1.5), (4, Z_SK + 12), "micro:bit V2 bak veggen (stipla)")
 a.plot([0, 10], [-9.5, -9.5], color=LYS, lw=1.2)
 a.text(11.5, -9.5, "10 mm", color=GRAA, fontsize=6.0, ha="left", va="center")
-a.text(-17, 102.5, "HEILE LAMPA FRAMANFRÅ", color=GRAA, fontsize=6.5, ha="left", va="top")
+a.text(-17, S + 6.5, "HEILE LAMPA FRAMANFRÅ", color=GRAA, fontsize=6.5, ha="left", va="top")
 
 # ------------------------------------------------------------------ tala
+kb = delar["kretskort"].val().BoundingBox()
+til_nasen = tal(avstand(delar["kretskort"], vegg))
 y = 0.885
 for i, (tekst, farge, storleik) in enumerate([
         (f"{tal(S, 0)} × {tal(S, 0)} × {tal(D)} mm", LYS, 13),
@@ -112,17 +114,17 @@ for i, (tekst, farge, storleik) in enumerate([
         ("touch-logoen bak messingpunktet", GRAA, 7.5),
         ("", GRAA, 5),
         ("Kontrollert i CAD (mm)", LYS, 8.5),
-        ("kortet til krumminga i nasen   2,3", GRAA, 7.5),
-        ("knapp A og B til veggen   0,55", GRAA, 7.5),
-        ("lysrista til veggen   0,3", GRAA, 7.5),
-        ("kortet til enden av stamma   6,5", GRAA, 7.5),
-        ("kortet over skjermsaumen   1,0", GRAA, 7.5),
-        ("fri djupn bak kortet   19", GRAA, 7.5)]):
+        (f"kortet til krumminga i nasen   {til_nasen}", GRAA, 7.5),
+        (f"knapp A og B til veggen   {tal(avstand(delar['knapp A'], vegg), 2)}", GRAA, 7.5),
+        (f"lysrista til veggen   {tal(avstand(delar['lysrist D15'], vegg))}", GRAA, 7.5),
+        (f"kortet til enden av stamma   {tal(X_ST - kb.xmax)}", GRAA, 7.5),
+        (f"over og under kortet i stamma   {tal(kb.zmin, 2)}", GRAA, 7.5),
+        (f"fri djupn bak kortet   {tal(D / 2 - T - (YK + 1.6 + 5.5), 0)}", GRAA, 7.5)]):
     fig.text(0.665, y, tekst, color=farge, fontsize=storleik, ha="left", va="top")
     y -= 0.012 + storleik * 0.0026
 
 # ------------------------------------------------------------------ snitt B-B, sett ovanfrå
-s = akse([0.035, 0.03, 0.93, 0.375], (-8, 104), (-24.5, 20.5))
+s = akse([0.035, 0.03, 0.93, 0.375], (-8, S + 8), (-R - 7.7, R + 3.7))
 ytre = LineString([(R, 0), (S - R, 0)]).buffer(R, resolution=64)
 indre = LineString([(R, 0), (S - R, 0)]).buffer(R - T, resolution=64)
 vegg = ytre.difference(indre).intersection(box(-1, -R - 1, X_ST, R + 1))
@@ -150,23 +152,24 @@ s.add_patch(Rectangle((xm - 3.0, YV - 0.5), 6.0, 0.5, fc=MESSING, ec="none", zor
 s.add_patch(Rectangle((xm - 0.5, YV + T + 2.6), 1.0, YK - (YV + T + 2.6), fc=MESSING, ec="none", zorder=4))  # fjørpinnen
 s.add_patch(Rectangle((14.0, YK + 6.0), 25.0, 14.0, fill=False, ec=GRAA, lw=0.6, ls=STIPLA))      # 2 x AAA
 s.text(26.5, YK + 13.0, "2 × AAA\n(framlegg)", color=GRAA, fontsize=6.0, ha="center", va="center")
-maal(s, (53.0, YI), (53.0, YK), tal(AVST), forskyv=(-0.8, 0), ha="right", va="center")
+maal(s, (X_ST - 4.0, YI), (X_ST - 4.0, YK), tal(AVST), forskyv=(-0.8, 0), ha="right", va="center")
 maal(s, (S + 4, -R), (S + 4, R), tal(D), forskyv=(-1.0, 0), ha="right", va="center")
-maal(s, (0, -19.8), (KORT[0], -19.8), tal(KORT[0]), forskyv=(0, 0.3))
-maal(s, (KORT[2], -19.8), (X_ST, -19.8), tal(X_ST - KORT[2]), forskyv=(0, 0.3))
+YM, YT = -R - 3.0, -R - 6.4                 # høgda på mållinene og på tekstrada under snittet
+maal(s, (0, YM), (KORT[0], YM), tal(KORT[0]), forskyv=(0, 0.3))
+maal(s, (KORT[2], YM), (X_ST, YM), tal(X_ST - KORT[2]), forskyv=(0, 0.3))
 for x in (0, KORT[0], KORT[2], X_ST):
-    s.plot([x, x], [-20.5, -R - 0.6 if x in (0, X_ST) else YK - 0.3], color=GRAA, lw=0.4)
-peik(s, (MX - 15, YK - 2.9), (-7, -23.2), "lysrist D15, 3,0 ved ringane")
-peik(s, (MX + 2, YV + 0.5), (MX + 1, -23.2), "klar, matta propp", ha="right")
-peik(s, (xm, YV - 0.5), (xm + 4, -23.2), "messingpunkt Ø 6 i isolerande hylse, fjørpinne mot logoen")
-peik(s, (KORT[0] + 0.8, YK + 0.9), (10.5, 13.0), "kretskort, 2,3 frå krumminga i nasen")
-peik(s, (MX + 20.5, YK + 2.8), (62, 3.0), "micro-USB ut gjennom endeplata")
-peik(s, (MX + 3, YK + 3.2), (62, 8.5), "høgtalar 3,0 (JST 5,5 over snittet)")
-s.text(62, 14.5, "skjermen over snittet (stipla)", color=GRAA, fontsize=6.5, ha="left", va="center")
-s.text(-8, 20.3, "SNITT B–B, SETT OVANFRÅ (FORSTØRRA)", color=GRAA, fontsize=6.5, ha="left", va="top")
-s.text(103.5, -23.2, "framsida", color=GRAA, fontsize=6.0, ha="right", va="center")
+    s.plot([x, x], [YM - 0.7, -R - 0.6 if x in (0, X_ST) else YK - 0.3], color=GRAA, lw=0.4)
+peik(s, (MX - 15, YK - 2.9), (-7, YT), "lysrist D15, 3,0 ved ringane")
+peik(s, (MX + 2, YV + 0.5), (MX + 1, YT), "klar, matta propp", ha="right")
+peik(s, (xm, YV - 0.5), (xm + 4, YT), "messingpunkt Ø 6 i isolerande hylse, fjørpinne mot logoen")
+peik(s, (KORT[0] + 0.8, YK + 0.9), (KORT[0] + 1.5, R - 3.8), f"kretskort, {til_nasen} frå krumminga i nasen")
+peik(s, (MX + 20.5, YK + 2.8), (X_ST + 5, R - 14.5), "micro-USB ut gjennom endeplata")
+peik(s, (MX + 3, YK + 3.2), (X_ST + 5, R - 9.0), "høgtalar 3,0 (JST 5,5 over snittet)")
+s.text(X_ST + 5, R - 3.5, "skjermen over snittet (stipla)", color=GRAA, fontsize=6.5, ha="left", va="center")
+s.text(-8, R + 3.5, "SNITT B–B, SETT OVANFRÅ (FORSTØRRA)", color=GRAA, fontsize=6.5, ha="left", va="top")
+s.text(S + 7.5, YT, "framsida", color=GRAA, fontsize=6.0, ha="right", va="center")
 
-fig.text(0.035, 0.968, "Sveip mini · micro:bit V2 fyller stamma", color=LYS, fontsize=11, ha="left", va="center")
+fig.text(0.035, 0.968, "Sveip mini · bygd rundt ein micro:bit V2", color=LYS, fontsize=11, ha="left", va="center")
 fig.text(0.965, 0.968, "mål i mm", color=GRAA, fontsize=6.5, ha="right", va="center")
 fig.savefig(HER / "plassering.png", facecolor="black")
 print("SKREIV", HER / "plassering.png")

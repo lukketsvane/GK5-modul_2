@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """mini_passform.py: kontrollerer at micro:bit V2 får plass i stamma på Sveip mini.
 
-Mini er rev. B i skala K = 0,32 (96 x 96 x 33,6 mm), med 1,0 mm plate. Kortet står rotert 90°
+Mini er rev. B i skala K = 0,36 (108 x 108 x 37,8 mm), med 1,0 mm plate. Kortet står rotert 90°
 med klokka bak framveggen på stamma: overkanten med USB peikar mot den opne enden av stamma,
-kantkontakten mot nasen. Skriptet byggjer veggen og delane på kortet som lekamar og måler den
-minste avstanden mellom dei.
+kantkontakten mot nasen. Midtre LED står midt på stamma, både i breidda og i høgda. Skriptet
+byggjer veggen og delane på kortet som lekamar og måler den minste avstanden mellom dei.
   python mini_passform.py
 """
 import math
@@ -14,12 +14,12 @@ from OCP.BRepExtrema import BRepExtrema_DistShapeShape
 
 from d15_lysrist import lysrist
 
-K = 0.32
-S, D, R = 300 * K, 105 * K, 52.5 * K          # 96 x 33,6, naseradius 16,8
-X_ST, Z_SK = 178 * K, 167.5 * K               # stamma: 56,96 brei, 53,6 høg
+K = 0.36
+S, D, R = 300 * K, 105 * K, 52.5 * K          # 108 x 37,8, naseradius 18,9
+X_ST, Z_SK = 178 * K, 167.5 * K               # stamma: 64,1 brei, 60,3 høg
 T = 1.0                                       # plata (ikkje skalert)
-BOTN = 3.0                                    # golv og luft under kortet
-MB = (28.5, BOTN + 25.8)                      # midtre LED: midt på stamma, kortet står på golvet
+MB = (X_ST / 2, Z_SK / 2)                     # midtre LED: midt på stamma (32,04; 30,15)
+BOTN = 3.0                                    # minste høgd under kortet (golv og luft)
 AVST = 5.1                                    # frå innsida av framveggen til framsida av kretskortet
 YK = -D / 2 + T + AVST                        # framsida av kretskortet (y)
 
@@ -72,7 +72,7 @@ if __name__ == "__main__":
         print(f"  {namn:11s} x {bb.xmin:5.1f}..{bb.xmax:5.1f}  z {bb.zmin:5.1f}..{bb.zmax:5.1f}  til veggen {a:5.2f} mm")
     kort = delar["kretskort"].val().BoundingBox()
     print(f"  kretskortet: {kort.xmin:.2f} frå nasespissen, {X_ST - kort.xmax:.2f} til enden av stamma, "
-          f"{kort.zmin:.2f} over underkanten, {kort.zmax - Z_SK:+.2f} mot skjermsaumen")
+          f"{kort.zmin:.2f} over underkanten, {Z_SK - kort.zmax:.2f} under skjermsaumen")
     usb = delar["USB"].val().BoundingBox()
     print(f"  USB-kontakten sluttar {X_ST - usb.xmax:.2f} mm innanfor enden av stamma")
     bak = D / 2 - T - (YK + 1.6 + 5.5)

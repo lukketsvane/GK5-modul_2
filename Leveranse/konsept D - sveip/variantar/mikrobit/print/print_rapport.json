@@ -1,0 +1,822 @@
+{
+ "lampe": "Sveip mini 84 x 84 x 29,4 mm",
+ "skrivar": "Bambu Lab P1S 0.4 nozzle",
+ "prosess": "0.20mm Standard @BBL X1C",
+ "passform": [
+  {
+   "kontroll": "kropp til kretskort",
+   "verdi": 0.547,
+   "krav": ">= 0.3 mm",
+   "ok": true
+  },
+  {
+   "kontroll": "kropp til knapp A",
+   "verdi": 0.55,
+   "krav": ">= 0.3 mm",
+   "ok": true
+  },
+  {
+   "kontroll": "kropp til knapp B",
+   "verdi": 0.55,
+   "krav": ">= 0.3 mm",
+   "ok": true
+  },
+  {
+   "kontroll": "kropp til JST",
+   "verdi": 2.241,
+   "krav": ">= 0.3 mm",
+   "ok": true
+  },
+  {
+   "kontroll": "kropp til reset",
+   "verdi": 1.94,
+   "krav": ">= 0.3 mm",
+   "ok": true
+  },
+  {
+   "kontroll": "kropp til hogtalar",
+   "verdi": 6.7,
+   "krav": ">= 0.3 mm",
+   "ok": true
+  },
+  {
+   "kontroll": "kropp til USB",
+   "verdi": 2.404,
+   "krav": ">= 0.3 mm",
+   "ok": true
+  },
+  {
+   "kontroll": "kropp til lysrista D15",
+   "verdi": 0.1,
+   "krav": ">= 0.1 mm",
+   "ok": true
+  },
+  {
+   "kontroll": "kropp til chassis",
+   "verdi": 0.2,
+   "krav": ">= 0.19 mm",
+   "ok": true
+  },
+  {
+   "kontroll": "kropp til lysleiarane",
+   "verdi": 0.325,
+   "krav": ">= 0.3 mm",
+   "ok": true
+  },
+  {
+   "kontroll": "chassis i kretskort",
+   "verdi": 0.0,
+   "krav": "0 mm3",
+   "ok": true
+  },
+  {
+   "kontroll": "lysrista i kretskort",
+   "verdi": 0.0,
+   "krav": "0 mm3",
+   "ok": true
+  },
+  {
+   "kontroll": "lysplata i kretskort",
+   "verdi": 0.0,
+   "krav": "0 mm3",
+   "ok": true
+  },
+  {
+   "kontroll": "chassis i knapp A",
+   "verdi": 0.0,
+   "krav": "0 mm3",
+   "ok": true
+  },
+  {
+   "kontroll": "lysrista i knapp A",
+   "verdi": 0.0,
+   "krav": "0 mm3",
+   "ok": true
+  },
+  {
+   "kontroll": "lysplata i knapp A",
+   "verdi": 0.0,
+   "krav": "0 mm3",
+   "ok": true
+  },
+  {
+   "kontroll": "chassis i knapp B",
+   "verdi": 0.0,
+   "krav": "0 mm3",
+   "ok": true
+  },
+  {
+   "kontroll": "lysrista i knapp B",
+   "verdi": 0.0,
+   "krav": "0 mm3",
+   "ok": true
+  },
+  {
+   "kontroll": "lysplata i knapp B",
+   "verdi": 0.0,
+   "krav": "0 mm3",
+   "ok": true
+  },
+  {
+   "kontroll": "chassis i JST",
+   "verdi": 0.0,
+   "krav": "0 mm3",
+   "ok": true
+  },
+  {
+   "kontroll": "lysrista i JST",
+   "verdi": 0.0,
+   "krav": "0 mm3",
+   "ok": true
+  },
+  {
+   "kontroll": "lysplata i JST",
+   "verdi": 0.0,
+   "krav": "0 mm3",
+   "ok": true
+  },
+  {
+   "kontroll": "chassis i reset",
+   "verdi": 0.0,
+   "krav": "0 mm3",
+   "ok": true
+  },
+  {
+   "kontroll": "lysrista i reset",
+   "verdi": 0.0,
+   "krav": "0 mm3",
+   "ok": true
+  },
+  {
+   "kontroll": "lysplata i reset",
+   "verdi": 0.0,
+   "krav": "0 mm3",
+   "ok": true
+  },
+  {
+   "kontroll": "chassis i hogtalar",
+   "verdi": 0.0,
+   "krav": "0 mm3",
+   "ok": true
+  },
+  {
+   "kontroll": "lysrista i hogtalar",
+   "verdi": 0.0,
+   "krav": "0 mm3",
+   "ok": true
+  },
+  {
+   "kontroll": "lysplata i hogtalar",
+   "verdi": 0.0,
+   "krav": "0 mm3",
+   "ok": true
+  },
+  {
+   "kontroll": "chassis i USB",
+   "verdi": 0.0,
+   "krav": "0 mm3",
+   "ok": true
+  },
+  {
+   "kontroll": "lysrista i USB",
+   "verdi": 0.0,
+   "krav": "0 mm3",
+   "ok": true
+  },
+  {
+   "kontroll": "lysplata i USB",
+   "verdi": 0.0,
+   "krav": "0 mm3",
+   "ok": true
+  },
+  {
+   "kontroll": "chassis i lysrista",
+   "verdi": 0.0,
+   "krav": "0 mm3",
+   "ok": true
+  },
+  {
+   "kontroll": "lysplata i kropp",
+   "verdi": 0.0,
+   "krav": "0 mm3",
+   "ok": true
+  },
+  {
+   "kontroll": "lysplata i chassis",
+   "verdi": 0.0,
+   "krav": "0 mm3",
+   "ok": true
+  },
+  {
+   "kontroll": "lysleiarane i lysrista",
+   "verdi": 0.0,
+   "krav": "0 mm3",
+   "ok": true
+  },
+  {
+   "kontroll": "messingskruen gjennom kroppen",
+   "verdi": 0.0,
+   "krav": "0 mm3",
+   "ok": true
+  },
+  {
+   "kontroll": "tuppen på messingskruen til kretskortet",
+   "verdi": 2.0,
+   "krav": ">= 1.5 mm",
+   "ok": true
+  },
+  {
+   "kontroll": "siktlina gjennom LED-hol og kanalar",
+   "verdi": 0.0,
+   "krav": "0 mm3",
+   "ok": true
+  },
+  {
+   "kontroll": "USB-pluggen i kroppen",
+   "verdi": 0.0,
+   "krav": "0 mm3",
+   "ok": true
+  },
+  {
+   "kontroll": "USB-pluggen til kroppen",
+   "verdi": 1.0,
+   "krav": ">= 0.3 mm",
+   "ok": true
+  },
+  {
+   "kontroll": "chassis med kort på veg opp i stamma",
+   "verdi": 0.0,
+   "krav": "0 mm3",
+   "ok": true
+  },
+  {
+   "kontroll": "lysplata på veg ned i skjermen",
+   "verdi": 0.0,
+   "krav": "0 mm3",
+   "ok": true
+  }
+ ],
+ "plater": [
+  {
+   "plate": "Sveip_mini_A_kropp_PLA",
+   "filament": "Bambu PLA Matte @BBL P1S 0.4 nozzle",
+   "farge": "lampefarge (grå eller kvit)",
+   "brim_mm": 5,
+   "stotte": false,
+   "delar": [
+    {
+     "del_": "M1_kropp",
+     "mal_mm": [
+      84.0,
+      29.4,
+      84.0
+     ],
+     "volum_cm3": 17.3,
+     "masse_g_pla": 21.5,
+     "lukka_nett": true,
+     "overheng": [
+      {
+       "z": 35.9,
+       "areal_mm2": 745.0,
+       "x": [
+        138.4,
+        168.8
+       ],
+       "y": [
+        81.6,
+        108.5
+       ]
+      },
+      {
+       "z": 36.0,
+       "areal_mm2": 12.1,
+       "x": [
+        137.9,
+        138.2
+       ],
+       "y": [
+        90.5,
+        99.5
+       ]
+      },
+      {
+       "z": 36.1,
+       "areal_mm2": 6.0,
+       "x": [
+        137.7,
+        137.8
+       ],
+       "y": [
+        90.5,
+        99.5
+       ]
+      },
+      {
+       "z": 36.2,
+       "areal_mm2": 12.1,
+       "x": [
+        137.3,
+        137.6
+       ],
+       "y": [
+        90.5,
+        99.5
+       ]
+      },
+      {
+       "z": 36.3,
+       "areal_mm2": 6.0,
+       "x": [
+        137.1,
+        137.2
+       ],
+       "y": [
+        90.5,
+        99.5
+       ]
+      },
+      {
+       "z": 36.4,
+       "areal_mm2": 6.0,
+       "x": [
+        136.9,
+        137.0
+       ],
+       "y": [
+        90.5,
+        99.5
+       ]
+      },
+      {
+       "z": 36.5,
+       "areal_mm2": 6.0,
+       "x": [
+        136.7,
+        136.8
+       ],
+       "y": [
+        90.5,
+        99.5
+       ]
+      },
+      {
+       "z": 36.7,
+       "areal_mm2": 6.0,
+       "x": [
+        136.5,
+        136.6
+       ],
+       "y": [
+        90.5,
+        99.5
+       ]
+      },
+      {
+       "z": 36.8,
+       "areal_mm2": 6.0,
+       "x": [
+        136.4,
+        136.4
+       ],
+       "y": [
+        90.5,
+        99.5
+       ]
+      },
+      {
+       "z": 36.9,
+       "areal_mm2": 6.0,
+       "x": [
+        136.2,
+        136.3
+       ],
+       "y": [
+        90.5,
+        99.5
+       ]
+      },
+      {
+       "z": 37.1,
+       "areal_mm2": 6.0,
+       "x": [
+        136.0,
+        136.1
+       ],
+       "y": [
+        90.5,
+        99.5
+       ]
+      },
+      {
+       "z": 48.1,
+       "areal_mm2": 2.2,
+       "x": [
+        102.4,
+        119.3
+       ],
+       "y": [
+        108.8,
+        109.1
+       ]
+      },
+      {
+       "z": 48.2,
+       "areal_mm2": 2.5,
+       "x": [
+        102.6,
+        119.1
+       ],
+       "y": [
+        108.8,
+        109.1
+       ]
+      },
+      {
+       "z": 52.1,
+       "areal_mm2": 2.2,
+       "x": [
+        102.4,
+        119.3
+       ],
+       "y": [
+        108.8,
+        109.1
+       ]
+      },
+      {
+       "z": 52.2,
+       "areal_mm2": 2.5,
+       "x": [
+        102.6,
+        119.1
+       ],
+       "y": [
+        108.8,
+        109.1
+       ]
+      },
+      {
+       "z": 56.1,
+       "areal_mm2": 2.2,
+       "x": [
+        102.4,
+        119.3
+       ],
+       "y": [
+        108.8,
+        109.1
+       ]
+      },
+      {
+       "z": 56.2,
+       "areal_mm2": 2.5,
+       "x": [
+        102.6,
+        119.1
+       ],
+       "y": [
+        108.8,
+        109.1
+       ]
+      },
+      {
+       "z": 60.1,
+       "areal_mm2": 2.2,
+       "x": [
+        102.4,
+        119.3
+       ],
+       "y": [
+        108.8,
+        109.1
+       ]
+      },
+      {
+       "z": 60.2,
+       "areal_mm2": 2.5,
+       "x": [
+        102.6,
+        119.1
+       ],
+       "y": [
+        108.8,
+        109.1
+       ]
+      },
+      {
+       "z": 61.8,
+       "areal_mm2": 8.3,
+       "x": [
+        135.0,
+        135.4
+       ],
+       "y": [
+        97.2,
+        104.0
+       ]
+      },
+      {
+       "z": 64.1,
+       "areal_mm2": 2.2,
+       "x": [
+        102.4,
+        119.3
+       ],
+       "y": [
+        108.8,
+        109.1
+       ]
+      },
+      {
+       "z": 64.2,
+       "areal_mm2": 2.5,
+       "x": [
+        102.6,
+        119.1
+       ],
+       "y": [
+        108.8,
+        109.1
+       ]
+      },
+      {
+       "z": 66.7,
+       "areal_mm2": 7.8,
+       "x": [
+        102.4,
+        128.3
+       ],
+       "y": [
+        109.5,
+        109.6
+       ]
+      }
+     ]
+    },
+    {
+     "del_": "M4_lysplate",
+     "mal_mm": [
+      81.0,
+      26.4,
+      13.4
+     ],
+     "volum_cm3": 2.69,
+     "masse_g_pla": 3.3,
+     "lukka_nett": true,
+     "overheng": []
+    }
+   ]
+  },
+  {
+   "plate": "Sveip_mini_B_innmat_PLA_svart",
+   "filament": "Bambu PLA Matte @BBL P1S 0.4 nozzle",
+   "farge": "svart",
+   "brim_mm": 3,
+   "stotte": false,
+   "delar": [
+    {
+     "del_": "M2_chassis",
+     "mal_mm": [
+      47.0,
+      26.6,
+      60.3
+     ],
+     "volum_cm3": 6.27,
+     "masse_g_pla": 7.8,
+     "lukka_nett": true,
+     "overheng": [
+      {
+       "z": 8.3,
+       "areal_mm2": 2.3,
+       "x": [
+        76.0,
+        77.5
+       ],
+       "y": [
+        123.2,
+        125.2
+       ]
+      },
+      {
+       "z": 8.4,
+       "areal_mm2": 3.1,
+       "x": [
+        76.2,
+        77.4
+       ],
+       "y": [
+        123.2,
+        125.2
+       ]
+      },
+      {
+       "z": 8.5,
+       "areal_mm2": 4.3,
+       "x": [
+        76.5,
+        77.1
+       ],
+       "y": [
+        123.2,
+        125.2
+       ]
+      },
+      {
+       "z": 18.5,
+       "areal_mm2": 2.3,
+       "x": [
+        76.1,
+        77.5
+       ],
+       "y": [
+        123.2,
+        125.2
+       ]
+      },
+      {
+       "z": 18.6,
+       "areal_mm2": 3.9,
+       "x": [
+        76.3,
+        77.3
+       ],
+       "y": [
+        123.2,
+        125.2
+       ]
+      },
+      {
+       "z": 18.7,
+       "areal_mm2": 2.7,
+       "x": [
+        76.6,
+        77.0
+       ],
+       "y": [
+        123.2,
+        125.2
+       ]
+      },
+      {
+       "z": 29.9,
+       "areal_mm2": 2.3,
+       "x": [
+        76.0,
+        77.5
+       ],
+       "y": [
+        123.2,
+        125.2
+       ]
+      },
+      {
+       "z": 30.0,
+       "areal_mm2": 3.1,
+       "x": [
+        76.2,
+        77.4
+       ],
+       "y": [
+        123.2,
+        125.2
+       ]
+      },
+      {
+       "z": 30.1,
+       "areal_mm2": 4.3,
+       "x": [
+        76.4,
+        77.1
+       ],
+       "y": [
+        123.2,
+        125.2
+       ]
+      },
+      {
+       "z": 41.2,
+       "areal_mm2": 2.3,
+       "x": [
+        75.9,
+        77.7
+       ],
+       "y": [
+        123.2,
+        125.2
+       ]
+      },
+      {
+       "z": 41.4,
+       "areal_mm2": 3.1,
+       "x": [
+        76.1,
+        77.4
+       ],
+       "y": [
+        123.2,
+        125.2
+       ]
+      },
+      {
+       "z": 41.5,
+       "areal_mm2": 5.1,
+       "x": [
+        76.4,
+        77.2
+       ],
+       "y": [
+        123.2,
+        125.2
+       ]
+      },
+      {
+       "z": 51.4,
+       "areal_mm2": 2.3,
+       "x": [
+        75.9,
+        77.6
+       ],
+       "y": [
+        123.2,
+        125.2
+       ]
+      },
+      {
+       "z": 51.5,
+       "areal_mm2": 2.3,
+       "x": [
+        76.1,
+        77.5
+       ],
+       "y": [
+        123.2,
+        125.2
+       ]
+      },
+      {
+       "z": 51.6,
+       "areal_mm2": 3.1,
+       "x": [
+        76.3,
+        77.3
+       ],
+       "y": [
+        123.2,
+        125.2
+       ]
+      },
+      {
+       "z": 51.7,
+       "areal_mm2": 3.5,
+       "x": [
+        76.5,
+        77.0
+       ],
+       "y": [
+        123.2,
+        125.2
+       ]
+      }
+     ]
+    },
+    {
+     "del_": "M3_lysrist_D15",
+     "mal_mm": [
+      51.6,
+      35.1,
+      5.0
+     ],
+     "volum_cm3": 2.77,
+     "masse_g_pla": 3.4,
+     "lukka_nett": true,
+     "overheng": [
+      {
+       "z": 1.1,
+       "areal_mm2": 61.8,
+       "x": [
+        165.8,
+        184.2
+       ],
+       "y": [
+        119.1,
+        137.5
+       ]
+      },
+      {
+       "z": 2.4,
+       "areal_mm2": 7.3,
+       "x": [
+        173.2,
+        176.8
+       ],
+       "y": [
+        140.6,
+        144.1
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

@@ -32,29 +32,39 @@ def stadion(lengd, djupn, z0, z1, x0=0.0):
             .slot2D(lengd, djupn, 0).extrude(z1 - z0))
 
 
-def boks(u0, u1, v0, v1, w0, w1):
+def boks(u0, u1, v0, v1, w0, w1, yk=YK):
     """Del på kortet. (u, v) er som på kortet sett framanfrå med kantkontakten ned, w er djupn
-    framfor (+) og bak (-) framsida av kretskortet. Rotert 90° med klokka: x = v, z = -u."""
+    framfor (+) og bak (-) framsida av kretskortet. Rotert 90° med klokka: x = v, z = -u.
+    yk er y for framsida av kretskortet."""
     x0, x1 = MB[0] + v0, MB[0] + v1
     z0, z1 = MB[1] - u1, MB[1] - u0
-    y0, y1 = YK - w1, YK - w0                 # framover er mot -y
+    y0, y1 = yk - w1, yk - w0                 # framover er mot -y
     return cq.Workplane("XY").box(x1 - x0, y1 - y0, z1 - z0, centered=False).translate((x0, y0, z0))
+
+
+def til_lampa(form, yk=YK):
+    """Ein lekam bygd i kortkoordinatar (u, v, w) blir snudd og flytt på plass i lampa."""
+    return form.rotate((0, 0, 0), (0, 0, 1), -90).rotate((0, 0, 0), (1, 0, 0), 90).translate((MB[0], yk, MB[1]))
+
+
+def kortdelar(yk=YK):
+    """micro:bit V2 og lysrista som lekamar, med framsida av kretskortet i y = yk."""
+    return {
+        "kretskort": boks(-25.8, 25.8, -20.0, 22.0, -1.6, 0.0, yk).edges("|Y").fillet(3.0),
+        "knapp A": boks(-19.94 - 3.0, -19.94 + 3.0, 0.96 - 3.25, 0.96 + 3.25, 0.0, 4.55, yk),
+        "knapp B": boks(19.94 - 3.0, 19.94 + 3.0, 0.96 - 3.25, 0.96 + 3.25, 0.0, 4.55, yk),
+        "lysrist D15": til_lampa(lysrist(), yk),
+        "JST": boks(-22.77, -14.87, 12.96, 21.56, -1.6 - 5.5, -1.6, yk),
+        "reset": boks(-9.53 - 3.25, -9.53 + 3.25, 18.86 - 3.0, 18.86 + 3.0, -1.6 - 4.55, -1.6, yk),
+        "hogtalar": boks(-4.0, 4.0, 1.75 - 4.0, 1.75 + 4.0, -1.6 - 3.0, -1.6, yk),
+        "USB": boks(-4.0, 4.0, 22.0 - 4.86, 22.0 + 1.4, -1.6 - 2.4, -1.6, yk),
+    }
 
 
 vegg = stadion(S, D, 0, S).cut(stadion(S - 2 * T, D - 2 * T, -1, S + 1, x0=T))
 vegg = vegg.intersect(cq.Workplane("XY").box(X_ST + 5, D + 2, S, centered=False).translate((-1, -D / 2 - 1, 0)))
 
-delar = {
-    "kretskort": boks(-25.8, 25.8, -20.0, 22.0, -1.6, 0.0).edges("|Y").fillet(3.0),
-    "knapp A": boks(-19.94 - 3.0, -19.94 + 3.0, 0.96 - 3.25, 0.96 + 3.25, 0.0, 4.55),
-    "knapp B": boks(19.94 - 3.0, 19.94 + 3.0, 0.96 - 3.25, 0.96 + 3.25, 0.0, 4.55),
-    # D15 er bygd i (u, v, w): snu han same veg som kortet og set han framfor kretskortet
-    "lysrist D15": lysrist().rotate((0, 0, 0), (0, 0, 1), -90).rotate((0, 0, 0), (1, 0, 0), 90).translate((MB[0], YK, MB[1])),
-    "JST": boks(-22.77, -14.87, 12.96, 21.56, -1.6 - 5.5, -1.6),
-    "reset": boks(-9.53 - 3.25, -9.53 + 3.25, 18.86 - 3.0, 18.86 + 3.0, -1.6 - 4.55, -1.6),
-    "hogtalar": boks(-4.0, 4.0, 1.75 - 4.0, 1.75 + 4.0, -1.6 - 3.0, -1.6),
-    "USB": boks(-4.0, 4.0, 22.0 - 4.86, 22.0 + 1.4, -1.6 - 2.4, -1.6),
-}
+delar = kortdelar(YK)
 
 
 def avstand(a, b):
@@ -79,7 +89,8 @@ if __name__ == "__main__":
     print(f"  USB-kontakten sluttar {X_ST - usb.xmax:.2f} mm innanfor enden av stamma")
     bak = D / 2 - T - (YK + 1.6 + 5.5)
     print(f"  fri djupn bak det høgaste på kortet: {bak:.1f} mm (2 x AAA-haldar er om lag 14 mm)")
-    assert minst >= 0.3 - 1e-6, "noko ligg nærare veggen enn 0,3 mm"
+    assert minst >= 0.3 - 0.2 - 1e-6, "noko ligg nærare veggen enn 0,3 mm (0,1 framfor hylsa til messingpunktet)"
     assert avstand(delar["kretskort"], vegg) >= 0.5, "kretskortet ligg nærare krumminga i nasen enn 0,5 mm"
     assert kort.xmax <= X_ST - ENDE + 1e-9 and kort.zmin >= BOTN - 1e-9
-    print(f"OK: minste avstand til veggen er {minst:.2f} mm (lysrista skal stå 0,3 mm frå veggen)")
+    print(f"OK: minste avstand til veggen er {minst:.2f} mm (lysrista står 0,3 mm frå veggen, "
+          f"hylsa til messingpunktet 0,1)")

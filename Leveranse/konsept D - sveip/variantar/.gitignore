@@ -4,6 +4,7 @@
 */cad/*.glb
 */produksjon/stl/
 */print/
+!mikrobit/print/
 __pycache__/
 *_prove.png
 

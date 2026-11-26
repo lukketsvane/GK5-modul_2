@@ -36,12 +36,13 @@ def fase(d, p0, p1, rekkjevidd, maks=900.0):
     return np.interp(d, tab, np.concatenate([[0.0], np.cumsum(0.1 / avst[:-1])]))
 
 
-def avslutt(G, monster, hogd=0.34, sky=0.2, strok=0.25):
-    """Same kant, knappeland, naglar, tone og ruheit som V4 Straum."""
+def avslutt(G, monster, hogd=0.34, sky=0.2, strok=0.25, naglar=True):
+    """Same kant, knappeland, naglar, tone og ruheit som V4 Straum. naglar=False gjev berre lista."""
     list_ = glatt(G.kant, 6.5, 9.5) * glatt(G.d_knapp, 11.5, 14.5)
     h = H0 + hogd * monster ** 1.5 * list_
-    pkt = G.utan_knapp(G.kontur_punkt(G.fast, A, 15.0), 10.0)
-    h = h + G.stempel(pkt)
+    if naglar:
+        pkt = G.utan_knapp(G.kontur_punkt(G.fast, A, 15.0), 10.0)
+        h = h + G.stempel(pkt)
     tone = 0.95 + 0.045 * G.stoy(90, 7)
     rough = 0.38 * (1 - list_) + (0.44 - 0.14 * monster) * list_     # blankslitne toppar, matte dalar
     return dict(h=h, tone=tone, rough=rough, mat=dict(sky=sky, strok=strok))

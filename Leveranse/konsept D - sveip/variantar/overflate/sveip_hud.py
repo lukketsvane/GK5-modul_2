@@ -21,8 +21,12 @@ Ein variant er ei fil <namn>.py i denne mappa med:
     mat    (valfri) dict: farge (r, g, b) sRGB, metal 0..1, rough, sky (skydekt variasjon 0..1),
            strok (slipestrok langs s, 0..1), vev (vev i duk, 0..1), floyel (sheen for duk, 0..1)
     knapp_nivaa (valfri) nivået huda har rundt messingknappen (standard H0)
-    mikrobit (valfri) 5 x 5 lysstyrkar 0 til 9, øvste rad først: då får stamma eit glatt land med
-           25 hol der LED-matrisa på ein micro:bit V2 syner (--naer gjev nærbilete av betjeninga)
+    mikrobit (valfri) 5 x 5 lysstyrkar 0 til 9, øvste rad først: då får stamma eit forsenka felt
+           med 25 hol der LED-matrisa på ein micro:bit V2 syner (--naer gjev nærbilete av betjeninga)
+
+Nedskalert variant (V12 Mini): varianten kallar oppsett(skala, mikrobit, knapp, ...) før han
+importerer mønstermodulane. Modellen held måla til rev. B, så biletet viser same form, medan
+micro:bit, hol og messingpunkt blir større i høve til lampa.
 
 Faste reglar for familien: naglar r 0,9 og h 0,28 mm, 4,5 mm frå saum og kant (A).
 """
@@ -73,9 +77,43 @@ MB_HOL_R = 1.0                                    # hol Ø 2,0 i plata, med lysl
 # Same grep som rundt messingknappen: ei grunn forsenking, og mønsteret viker med same luft.
 # Avstandane er målte frå firkanten gjennom dei ytste LED-sentera (holkanten ligg på 1,0).
 MB_FELT, MB_FELT_DJUPN = 3.5, 0.12                # forsenka felt 23 x 23 mm, hjørneradius 3,5
+MB_FELT_UT = (0.0, 0.0)                           # feltet kan gå lenger mot høgre og opp, så det rommar messingpunktet
 RAMPE = 0.15                                      # mønsteret stig høgst 0,15 mm per mm ut frå betjeninga,
 MB_RAMPE_FRA = 5.5                                # frå 2 mm utanfor feltet (og 2 mm utanfor knappefeltet)
 MB_LYS = 3.2                                      # utstråling midt i ein propp ved lysstyrke 9
+
+# Nedskalerte variantar. Modellen held alltid måla til rev. B (300 mm). SKALA er storleiken på
+# den verkelege lampa i høve til det, og alt som har fast storleik i røynda (micro:bit, hol,
+# messingpunkt) blir rekna om til modelleiningar med mm().
+SKALA = 1.0
+HAKK = True                                       # hakket for pluggen nede i nasen
+KNAPP_BAK = True                                  # messingknapp òg på baksida
+UTAN = ()                                         # CAD-delar som ikkje skal med i biletet
+
+
+def mm(x):
+    """Verkelege mm til modelleiningar."""
+    return x / SKALA
+
+
+def oppsett(skala, mikrobit, knapp, knapp_bak=True, hakk=True, utan=(), felt_ut=(0.0, 0.0)):
+    """Set opp ein nedskalert variant. mikrobit = (x, z) for midtre LED og knapp = (x, z, radius),
+    alt i verkelege mm på den nedskalerte lampa. felt_ut = kor mange mm det forsenka feltet går
+    lenger mot høgre og opp enn matrisa. Skal kallast før Gitter blir laga og før mønstermodulane
+    (straum, luftskip) blir importerte, sidan dei les måla ved import."""
+    global SKALA, HAKK, KNAPP_BAK, UTAN, H0, PKT_X, PKT_Z, R_KNAPP, S_KNAPP_F, S_KNAPP_B
+    global MB_X, MB_Z, MB_S, MB_PX, MB_PZ, MB_HOL_R, MB_FELT, MB_FELT_DJUPN, MB_RAMPE_FRA, MB_FELT_UT
+    f = SKALA / skala                             # frå gamle til nye modelleiningar
+    SKALA, HAKK, KNAPP_BAK, UTAN = skala, hakk, knapp_bak, tuple(utan)
+    H0 *= f
+    MB_PX, MB_PZ, MB_HOL_R = MB_PX * f, MB_PZ * f, MB_HOL_R * f
+    MB_FELT, MB_FELT_DJUPN, MB_RAMPE_FRA = MB_FELT * f, MB_FELT_DJUPN * f, MB_RAMPE_FRA * f
+    MB_FELT_UT = (mm(felt_ut[0]), mm(felt_ut[1]))
+    MB_X, MB_Z = mm(mikrobit[0]), mm(mikrobit[1])
+    MB_S = BUE + (S_ - R_ - MB_X)
+    PKT_X, PKT_Z, R_KNAPP = mm(knapp[0]), mm(knapp[1]), mm(knapp[2])
+    S_KNAPP_F = BUE + (S_ - R_ - PKT_X)
+    S_KNAPP_B = P_ - S_KNAPP_F
 
 
 def plan(s):
@@ -138,8 +176,9 @@ class Gitter:
         self.krum = (self.flate != 1) & (self.flate != 3)          # sant på dei krumme partia
         self.fast = self._fast(self.X, self.Z)                     # sant der det er plate
         self.kant = self.avstand_til(self.fast)                    # mm til næraste frie kant
-        self.d_knapp = np.minimum(np.hypot(self.avst_s(S_KNAPP_F), self.Z - PKT_Z),
-                                  np.hypot(self.avst_s(S_KNAPP_B), self.Z - PKT_Z))
+        self.d_knapp = np.hypot(self.avst_s(S_KNAPP_F), self.Z - PKT_Z)
+        if KNAPP_BAK:
+            self.d_knapp = np.minimum(self.d_knapp, np.hypot(self.avst_s(S_KNAPP_B), self.Z - PKT_Z))
 
     @staticmethod
     def _fast(X, Z):
@@ -147,7 +186,7 @@ class Gitter:
         hj = (X < X_STAMME + R_INN) & (Z > Z_SKJERM - R_INN) & \
              (np.hypot(X - (X_STAMME + R_INN), Z - (Z_SKJERM - R_INN)) > R_INN)
         ut &= ~hj
-        hk = (X < X_HAKK) & (Z < Z_HAKK)
+        hk = (X < X_HAKK) & (Z < Z_HAKK) & HAKK
         hh = (X > X_HAKK - R_HAKK) & (Z > Z_HAKK - R_HAKK) & \
              (np.hypot(X - (X_HAKK - R_HAKK), Z - (Z_HAKK - R_HAKK)) > R_HAKK)
         hk &= ~hh
@@ -363,7 +402,7 @@ def lag_nett(G, h, sirklar=()):
     randa blir flytte inn på sirkelen, så holet blir rundt og ikkje hakkete."""
     ns, nz = G.ns, G.nz
     h = np.where(G.fast, h, 0.0)
-    hol = G.d_knapp < R_KNAPP + 0.25
+    hol = G.d_knapp < R_KNAPP + mm(0.25)
     dS = np.zeros(G.S.shape)
     dZ = np.zeros(G.S.shape)
     for s0, z0, r in sirklar:
@@ -430,7 +469,9 @@ def lag_nett(G, h, sirklar=()):
 
 def knapp_nett(nivaa, side):
     """Dreia messingknapp: Ø 12,6, 0,45 mm fas og svak kuppel. side = -1 framme, +1 bak."""
-    prof = [(0.0, 1.05), (2.5, 1.02), (4.5, 0.93), (R_KNAPP - 0.45, 0.80), (R_KNAPP, 0.35), (R_KNAPP, -1.0)]
+    f = R_KNAPP / 6.3                             # same profil for alle storleikar
+    prof = [(0.0, 1.05 * f), (2.5 * f, 1.02 * f), (4.5 * f, 0.93 * f), (R_KNAPP - 0.45 * f, 0.80 * f),
+            (R_KNAPP, 0.35 * f), (R_KNAPP, -1.0)]
     n = 72
     v, f = [], []
     for r, t in prof:
@@ -459,8 +500,8 @@ def render(namn, prove=False, ut=None, naer=False):
     assert np.isfinite(h).all(), "h har NaN eller inf"
     # rundt knappen er huda flat: ei grunn forsenking med 1 mm luft rundt messingen
     nivaa = float(res.get("knapp_nivaa", H0))
-    k = glatt(G.d_knapp, R_KNAPP + 1.0, R_KNAPP + 2.2)
-    h = (nivaa - 0.12) + (h - (nivaa - 0.12)) * k
+    k = glatt(G.d_knapp, R_KNAPP + mm(1.0), R_KNAPP + mm(2.2))
+    h = (nivaa - mm(0.12)) + (h - (nivaa - mm(0.12))) * k
     # micro:bit: mønsteret viker for matrisa, som står i eit grunt, forsenka felt med 25 hol
     mb = res.get("mikrobit")
     hol_mb = []
@@ -469,9 +510,11 @@ def render(namn, prove=False, ut=None, naer=False):
         assert mb.shape == (5, 5), "mikrobit skal vere 5 x 5 lysstyrkar (0 til 9), øvste rad først"
         ds_ = ((G.S - MB_S + P_ / 2) % P_) - P_ / 2
         dz_ = G.Z - MB_Z
-        q = np.hypot(np.clip(np.abs(ds_) - 2 * MB_PX, 0, None), np.clip(np.abs(dz_) - 2 * MB_PZ, 0, None))
+        sidelengs = np.maximum(-ds_ - 2 * MB_PX - MB_FELT_UT[0], ds_ - 2 * MB_PX)      # mot høgre er minkande s
+        loddrett = np.maximum(dz_ - 2 * MB_PZ - MB_FELT_UT[1], -dz_ - 2 * MB_PZ)
+        q = np.hypot(np.clip(sidelengs, 0, None), np.clip(loddrett, 0, None))
         h = mjukmin(h, nivaa + RAMPE * np.clip(q - MB_RAMPE_FRA, 0, None))
-        h = h - MB_FELT_DJUPN * (1 - glatt(q, MB_FELT - 0.6, MB_FELT))
+        h = h - MB_FELT_DJUPN * (1 - glatt(q, MB_FELT - mm(0.6), MB_FELT))
         hol_mb = [(MB_S - (kol - 2) * MB_PX, MB_Z + (2 - rad) * MB_PZ, MB_HOL_R)
                   for kol in range(5) for rad in range(5)]
     h = np.clip(h, 0.03, 8.0)
@@ -484,8 +527,9 @@ def render(namn, prove=False, ut=None, naer=False):
     # lina på dragaren skal ikkje gå tvers gjennom knappen eller matrisa
     soner = []
     if mb is not None:
-        soner = [(G.d_knapp, R_KNAPP + 2.2, 14.5, G.S < P_ / 2), (G.d_knapp, R_KNAPP + 2.2, 14.5, G.S >= P_ / 2),
-                 (q, MB_FELT, MB_RAMPE_FRA + 3.0, True)]
+        rk0, rk1 = R_KNAPP + mm(2.2), R_KNAPP + mm(8.2)
+        soner = [(G.d_knapp, rk0, rk1, G.S < P_ / 2), (G.d_knapp, rk0, rk1, G.S >= P_ / 2),
+                 (q, MB_FELT, MB_RAMPE_FRA + mm(3.0), True)]
     for d_, r0, r1, side in soner:
         inne = (d_ < r1) & side & G.fast
         w = glatt(d_, r0, r1)
@@ -640,7 +684,7 @@ def render(namn, prove=False, ut=None, naer=False):
 
     # ---- messingknappen (dreia, med fas), framme og bak
     messing = enkel("messing", (0.83, 0.67, 0.36), 0.26, 1.0, aniso=0.5)
-    for side in (-1, 1):
+    for side in ((-1, 1) if KNAPP_BAK else (-1,)):
         kv, kf = knapp_nett(nivaa, side)
         ko, kme = nett_objekt("knapp", kv, kf)
         kme.materials.append(messing)
@@ -648,14 +692,14 @@ def render(namn, prove=False, ut=None, naer=False):
     # ---- micro:bit: 25 lysleiarar i flukt med plata, raude der LED-en lyser
     if mb is not None:
         mb_mat = {}
-        r_led = (MB_HOL_R + 0.03) / 1000.0
+        r_led = (MB_HOL_R + mm(0.03)) / 1000.0
         for kol in range(5):
             for rad in range(5):
                 nivaa_led = int(round(mb[rad, kol]))
                 if nivaa_led not in mb_mat:
-                    mm = enkel(f"led{nivaa_led}", (0.05, 0.02, 0.02), 0.9)      # matta propp, mørk når han er av
+                    lm = enkel(f"led{nivaa_led}", (0.05, 0.02, 0.02), 0.9)      # matta propp, mørk når han er av
                     if nivaa_led > 0:                                           # lyser sterkast i midten
-                        nt = mm.node_tree
+                        nt = lm.node_tree
                         bsl = nt.nodes.get("Principled BSDF")
                         bsl.inputs["Emission Color"].default_value = (1.0, 0.005, 0.01, 1.0)
                         kjerne = MB_LYS * (nivaa_led / 9.0) ** 1.6
@@ -670,8 +714,8 @@ def render(namn, prove=False, ut=None, naer=False):
                         nt.links.new(flat.outputs["Vector"], lengd.inputs[0])
                         nt.links.new(lengd.outputs["Value"], kart.inputs["Value"])
                         nt.links.new(kart.outputs["Result"], bsl.inputs["Emission Strength"])
-                    mb_mat[nivaa_led] = mm
-                y_led = -(R_ + nivaa - MB_FELT_DJUPN - 0.10) + 0.3
+                    mb_mat[nivaa_led] = lm
+                y_led = -(R_ + nivaa - MB_FELT_DJUPN - mm(0.10)) + 0.3
                 bpy.ops.mesh.primitive_cylinder_add(
                     vertices=32, radius=r_led, depth=0.0006,
                     location=((MB_X + (kol - 2) * MB_PX) / 1000.0, y_led / 1000.0,
@@ -705,7 +749,7 @@ def render(namn, prove=False, ut=None, naer=False):
         "D08": enkel("opal", (0.90, 0.89, 0.87), 0.5),
     }
     for d in geo["delar"]:
-        if d["id"] not in mats:
+        if d["id"] not in mats or d["id"] in UTAN:
             continue
         bpy.ops.wm.stl_import(filepath=str(BASIS / d["stl"]), global_scale=0.001)
         o = bpy.context.selected_objects[0]
@@ -725,10 +769,10 @@ def render(namn, prove=False, ut=None, naer=False):
     sc.collection.objects.link(co)
     co.location = Vector((-0.27, -1.90, 0.64))
     co.rotation_euler = (M - co.location).to_track_quat("-Z", "Y").to_euler()
-    if naer:   # nærbilete av betjeningsrekkja: matrisa og messingknappen
-        cam.lens = 200
+    if naer:   # nærbilete av betjeninga: matrisa og messingknappen
+        cam.lens = 200 * SKALA ** 0.45              # vidare utsnitt når betjeninga er stor i høve til lampa
         co.location = Vector((0.035, -0.86, 0.33))
-        sikt = Vector(((MB_X + PKT_X) / 2000.0, -R_ / 1000.0, (PKT_Z + 4.0) / 1000.0))
+        sikt = Vector(((MB_X + PKT_X) / 2000.0, -R_ / 1000.0, ((MB_Z + PKT_Z) / 2 + 4.0) / 1000.0))
         co.rotation_euler = (sikt - co.location).to_track_quat("-Z", "Y").to_euler()
     sc.camera = co
 
@@ -782,4 +826,5 @@ if __name__ == "__main__":
     if not arg:
         sys.exit("bruk: python sveip_hud.py <variant> [--prove]")
     sys.path.insert(0, str(HER))
-    render(arg[0], prove="--prove" in sys.argv, naer="--naer" in sys.argv)
+    import sveip_hud                    # same modul som variantane importerer, så oppsett() gjeld
+    sveip_hud.render(arg[0], prove="--prove" in sys.argv, naer="--naer" in sys.argv)

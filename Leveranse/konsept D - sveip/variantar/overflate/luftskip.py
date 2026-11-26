@@ -43,10 +43,11 @@ def d_kapsel(G):
     return np.hypot(G.avst_s(0.0), G.Z - ZC)
 
 
-def ferdig(G, profil, line, nummer, ekstra_tone=None, hogd=0.5):
-    """Profil og line på huda, banevis tone, matt dopa sølv. Lista langs kantane utan naglar."""
+def ferdig(G, profil, line, nummer, ekstra_tone=None, hogd=0.5, mikrobit=False):
+    """Profil og line på huda, banevis tone, matt dopa sølv. Lista langs kantane utan naglar.
+    mikrobit=True gjev LED-matrisa i stamma, og mønsteret stig då i ei rampe ut frå betjeninga."""
     monster = np.clip(0.88 * profil + 0.12 * line, 0, 1)
-    res = avslutt(G, monster, hogd=hogd, naglar=False, rampe=True)
+    res = avslutt(G, monster, hogd=hogd, naglar=False, rampe=mikrobit)
     rng = np.random.default_rng(17)
     tab = rng.uniform(-1, 1, 4096)
     veksel = np.where(nummer % 2 == 0, 1.0, -1.0)
@@ -56,5 +57,6 @@ def ferdig(G, profil, line, nummer, ekstra_tone=None, hogd=0.5):
     res["tone"] = tone
     res["rough"] = res["rough"] + 0.06 - 0.05 * line
     res["mat"] = dict(farge=(0.74, 0.735, 0.72), sky=0.45, strok=0.08, metal=0.9, rough=0.44)
-    res["mikrobit"] = ikon()
+    if mikrobit:
+        res["mikrobit"] = ikon()
     return res

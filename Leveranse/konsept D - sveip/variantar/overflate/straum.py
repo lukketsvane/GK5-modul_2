@@ -9,7 +9,7 @@
 """
 import numpy as np
 
-from sveip_hud import A, H0, P_, R_INN, R_KNAPP, RAMPE, S_STAMME_F, S_TOPPUNKT, Z_SKJERM, glatt, mjukmin
+from sveip_hud import A, H0, P_, R_INN, R_KNAPP, RAMPE, S_STAMME_F, S_TOPPUNKT, Z_SKJERM, glatt, mjukmin, mm
 
 RHO = 75.0                 # største radius i bogane rundt hjørnet (mm)
 
@@ -41,9 +41,9 @@ def avslutt(G, monster, hogd=0.34, sky=0.2, strok=0.25, naglar=True, rampe=False
     rampe=True: rundt knappen tonar ikkje mønsteret ut, det stig i ei slak rampe frå 2 mm utanfor
     knappefeltet, så kvar ribbe endar i ein spiss mot knappen."""
     kant = glatt(G.kant, 6.5, 9.5)
-    list_ = kant * glatt(G.d_knapp, 11.5, 14.5)
+    list_ = kant * glatt(G.d_knapp, R_KNAPP + mm(5.2), R_KNAPP + mm(8.2))     # 11,5 til 14,5 i rev. B
     if rampe:
-        h = H0 + mjukmin(hogd * monster ** 1.5 * kant, RAMPE * np.clip(G.d_knapp - (R_KNAPP + 4.2), 0, None))
+        h = H0 + mjukmin(hogd * monster ** 1.5 * kant, RAMPE * np.clip(G.d_knapp - (R_KNAPP + mm(4.2)), 0, None))
     else:
         h = H0 + hogd * monster ** 1.5 * list_
     if naglar:

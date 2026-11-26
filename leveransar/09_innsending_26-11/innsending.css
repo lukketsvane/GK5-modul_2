@@ -1,0 +1,50 @@
+/* Tillegg til ../01_fase1_v2/felles.css for den samla innsendinga 26.11.
+   Same side (1127 x 797 px), same skrift. Fleire sider i éi HTML-fil: éi .side per ark. */
+
+/* Consolas finst ikkje på Linux. Der blir JetBrains Mono brukt. */
+:root { --mono: Consolas, "JetBrains Mono", "Cascadia Mono", "Courier New", monospace; }
+
+.side { break-after: page; }
+.side:last-child { break-after: auto; }
+
+/* Lesetekst i spalter */
+.les p { font-size: 13.5px; line-height: 1.36; }
+.les p.etikett { font: 400 10px/1.25 var(--mono); }
+.les em.namn { font-style: normal; color: var(--blekk); }
+.les table { font-size: 12.5px; margin-bottom: 8px; }
+.les td.bed { color: var(--blekk); white-space: nowrap; padding-right: 14px; }
+.ordtal { font: 400 9.5px/1.4 var(--mono) !important; color: var(--graa); letter-spacing: 0.02em; margin-top: 8px; }
+
+/* Kjeldeliste i to spalter */
+.kjelder { columns: 2; column-gap: 18px; font: 400 10.5px/1.3 var(--serif); }
+.kjelder .kgr { font: 400 9.5px/1.2 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--blekk); margin: 8px 0 3px; break-after: avoid; }
+.kjelder .kgr:first-child { margin-top: 0; }
+.kjelder .k { margin: 0 0 3px; padding-left: 22px; text-indent: -22px; break-inside: avoid; }
+.kjelder .kn { display: inline-block; width: 22px; text-indent: 0; font: 400 9px/1 var(--mono); color: var(--graa); }
+.kjelder .url { color: var(--graa); }
+
+/* Oversikta */
+.oversikt td, .oversikt th { padding-top: 6px; padding-bottom: 6px; }
+.oversikt td.krav { color: var(--blekk); }
+.oversikt td.manglar { color: var(--graa); font-style: italic; }
+.oversikt td.frist, .oversikt td.sider { font-family: var(--mono); font-size: 11px; white-space: nowrap; }
+
+/* Regeltesten: sju ruter */
+.ruter { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); column-gap: 10px; }
+.rute { border-top: 1px solid #5C5C5C; padding-top: 6px; }
+.rute .dom { font: 400 26px/1 var(--serif); color: var(--blekk); }
+.rute.broten .dom { color: #6A6A6A; }
+.rute .regel { font: 400 9.5px/1.25 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--graa); margin: 5px 0 3px; }
+.rute p { font-size: 12px; line-height: 1.28; margin: 0; }
+
+/* Verdiord */
+.verdiord { font: 400 22px/1 var(--serif); color: var(--blekk); letter-spacing: 0.02em; margin: 0 0 4px; }
+
+/* Variantstripe */
+.variantar { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); column-gap: 8px; }
+
+/* Prosesslogg */
+.logg td { font-size: 12.5px; padding-top: 4px; padding-bottom: 4px; }
+.logg td.dato { font-family: var(--mono); font-size: 11px; color: var(--blekk); white-space: nowrap; }
+.logg td.merk { text-align: right; font: 400 9.5px/1.3 var(--mono); color: var(--graa); }
+.logg td.tom { color: var(--graa); font-style: italic; }

@@ -21,6 +21,8 @@ Ein variant er ei fil <namn>.py i denne mappa med:
     mat    (valfri) dict: farge (r, g, b) sRGB, metal 0..1, rough, sky (skydekt variasjon 0..1),
            strok (slipestrok langs s, 0..1), vev (vev i duk, 0..1), floyel (sheen for duk, 0..1)
     knapp_nivaa (valfri) nivået huda har rundt messingknappen (standard H0)
+    mikrobit (valfri) 5 x 5 lysstyrkar 0 til 9, øvste rad først: då får stamma eit glatt land med
+           25 hol der LED-matrisa på ein micro:bit V2 syner (--naer gjev nærbilete av betjeninga)
 
 Faste reglar for familien: naglar r 0,9 og h 0,28 mm, 4,5 mm frå saum og kant (A).
 """
@@ -60,6 +62,20 @@ S_STAMME_B = P_ - S_STAMME_F                      # same, bak
 S_HAKK_F = S_VENSTRE[0] + R_ * math.asin((R_ - X_HAKK) / R_)   # der hakkanten skjer venstre boge, framme
 S_HAKK_B = P_ - S_HAKK_F
 S_TOPPUNKT = P_ / 2                               # toppunktet på venstre boge (x = 0)
+
+# micro:bit V2 bak framveggen på stamma: berre LED-matrisa på 5 x 5 syner, gjennom 25 hol.
+# Matrisa står i same høgd som messingknappen og midt på stamma, flytta 2,5 mm til den fjerde
+# dragaren i sveipfeltet (x = 117,77), slik knappen står på den første.
+MB_X, MB_Z = 117.77, PKT_Z                        # sentrum av matrisa (midtre LED)
+MB_S = BUE + (S_ - R_ - MB_X)
+MB_PX, MB_PZ = 4.0, 4.0                           # avstand mellom LED-ane, vassrett og loddrett
+MB_HOL_R = 1.0                                    # hol Ø 2,0 i plata, med lysleiar bak
+# Same grep som rundt messingknappen: ei grunn forsenking, og mønsteret viker med same luft.
+# Avstandane er målte frå firkanten gjennom dei ytste LED-sentera (holkanten ligg på 1,0).
+MB_FELT, MB_FELT_DJUPN = 3.5, 0.12                # forsenka felt 23 x 23 mm, hjørneradius 3,5
+RAMPE = 0.15                                      # mønsteret stig høgst 0,15 mm per mm ut frå betjeninga,
+MB_RAMPE_FRA = 5.5                                # frå 2 mm utanfor feltet (og 2 mm utanfor knappefeltet)
+MB_LYS = 3.2                                      # utstråling midt i ein propp ved lysstyrke 9
 
 
 def plan(s):
@@ -336,14 +352,40 @@ class Gitter:
 # ---------------------------------------------------------------- nett
 
 
-def lag_nett(G, h):
-    """Punkt, firkantar og uv for huda, med kantstriper ned til CAD-flata langs alle frie kantar."""
+def mjukmin(a, b, e=0.04):
+    """Den minste av a og b, med ein mjuk overgang på om lag e mm i staden for ein knekk."""
+    return 0.5 * (a + b - np.sqrt((a - b) ** 2 + e * e))
+
+
+def lag_nett(G, h, sirklar=()):
+    """Punkt, firkantar og uv for huda, med kantstriper ned til CAD-flata langs alle frie kantar.
+    sirklar = [(s0, z0, r), ...] gjev runde hol: rutene innanfor blir tekne ut, og punkta på
+    randa blir flytte inn på sirkelen, så holet blir rundt og ikkje hakkete."""
     ns, nz = G.ns, G.nz
     h = np.where(G.fast, h, 0.0)
-    px = G.x1[:, None] + G.nx1[:, None] * h
-    py = G.y1[:, None] + G.ny1[:, None] * h
-    pz = G.Z
     hol = G.d_knapp < R_KNAPP + 0.25
+    dS = np.zeros(G.S.shape)
+    dZ = np.zeros(G.S.shape)
+    for s0, z0, r in sirklar:
+        w = int(r / G.steg) + 3
+        i0, j0 = int(round(s0 / G.ds)), int(round(z0 / G.dz))
+        ii = np.arange(i0 - w, i0 + w + 1) % ns
+        jj = np.arange(j0 - w, j0 + w + 1)
+        us = (((G.s[ii] - s0 + P_ / 2) % P_) - P_ / 2)[:, None] * np.ones((1, jj.size))
+        uz = np.ones((ii.size, 1)) * (G.z[jj] - z0)[None, :]
+        d = np.hypot(us, uz)
+        inne = d < r
+        rand = ndimage.binary_dilation(inne, np.ones((3, 3), bool)) & ~inne
+        f = np.where(rand, r / np.maximum(d, 1e-9) - 1.0, 0.0)
+        ix = np.ix_(ii, jj)
+        hol[ix] |= inne
+        dS[ix] += us * f
+        dZ[ix] += uz * f
+    tx = (np.roll(G.x1, -1) - np.roll(G.x1, 1)) / (2 * G.ds)      # tangenten langs s
+    ty = (np.roll(G.y1, -1) - np.roll(G.y1, 1)) / (2 * G.ds)
+    px = G.x1[:, None] + G.nx1[:, None] * h + tx[:, None] * dS
+    py = G.y1[:, None] + G.ny1[:, None] * h + ty[:, None] * dS
+    pz = G.Z + dZ
     ok = G.fast & ~hol
     i1 = (np.arange(ns) + 1) % ns
     q = ok[:, :-1] & ok[i1][:, :-1] & ok[:, 1:] & ok[i1][:, 1:]
@@ -368,8 +410,8 @@ def lag_nett(G, h):
     V = np.stack([px.ravel(), py.ravel(), pz.ravel()], axis=1)
     nxf = np.repeat(G.nx1[:, None], nz + 1, axis=1).ravel()
     nyf = np.repeat(G.ny1[:, None], nz + 1, axis=1).ravel()
-    bx = np.repeat(G.x1[:, None], nz + 1, axis=1).ravel()
-    by = np.repeat(G.y1[:, None], nz + 1, axis=1).ravel()
+    bx = (G.x1[:, None] + tx[:, None] * dS).ravel()
+    by = (G.y1[:, None] + ty[:, None] * dS).ravel()
     inn = 0.05                                    # stripa går 0,05 mm inn i CAD-flata
     B = np.stack([bx - inn * nxf, by - inn * nyf, pz.ravel()], axis=1)
     brukt = np.unique(np.concatenate([quads.ravel(), ka, kb]))
@@ -381,7 +423,7 @@ def lag_nett(G, h):
     verts = np.concatenate([V[brukt], B[kb_ids]])
     quads2 = kart[quads]
     striper = np.stack([kart[ka], kart[kb], kart_b[kb], kart_b[ka]], axis=1)
-    uv = np.stack([G.S.ravel(), G.Z.ravel()], axis=1) / 1000.0
+    uv = np.stack([(G.S + dS).ravel(), pz.ravel()], axis=1) / 1000.0
     uvv = np.concatenate([uv[brukt], uv[kb_ids]])
     return verts, quads2, striper, uvv, brukt, kb_ids
 
@@ -405,7 +447,7 @@ def knapp_nett(nivaa, side):
 # ---------------------------------------------------------------- Blender
 
 
-def render(namn, prove=False, ut=None):
+def render(namn, prove=False, ut=None, naer=False):
     import bpy
     from mathutils import Vector
 
@@ -419,13 +461,37 @@ def render(namn, prove=False, ut=None):
     nivaa = float(res.get("knapp_nivaa", H0))
     k = glatt(G.d_knapp, R_KNAPP + 1.0, R_KNAPP + 2.2)
     h = (nivaa - 0.12) + (h - (nivaa - 0.12)) * k
+    # micro:bit: mønsteret viker for matrisa, som står i eit grunt, forsenka felt med 25 hol
+    mb = res.get("mikrobit")
+    hol_mb = []
+    if mb is not None:
+        mb = np.asarray(mb, dtype=float)
+        assert mb.shape == (5, 5), "mikrobit skal vere 5 x 5 lysstyrkar (0 til 9), øvste rad først"
+        ds_ = ((G.S - MB_S + P_ / 2) % P_) - P_ / 2
+        dz_ = G.Z - MB_Z
+        q = np.hypot(np.clip(np.abs(ds_) - 2 * MB_PX, 0, None), np.clip(np.abs(dz_) - 2 * MB_PZ, 0, None))
+        h = mjukmin(h, nivaa + RAMPE * np.clip(q - MB_RAMPE_FRA, 0, None))
+        h = h - MB_FELT_DJUPN * (1 - glatt(q, MB_FELT - 0.6, MB_FELT))
+        hol_mb = [(MB_S - (kol - 2) * MB_PX, MB_Z + (2 - rad) * MB_PZ, MB_HOL_R)
+                  for kol in range(5) for rad in range(5)]
     h = np.clip(h, 0.03, 8.0)
     tone = np.asarray(res.get("tone", np.ones_like(h)), dtype=np.float64) * np.ones_like(h)
     rough = res.get("rough")
     m = dict(farge=(0.80, 0.785, 0.76), metal=1.0, rough=0.40, sky=0.2, strok=0.5, vev=0.0, floyel=0.0)
     m.update(res.get("mat", {}))
     rough = (np.full_like(h, m["rough"]) if rough is None else np.asarray(rough, dtype=np.float64) * np.ones_like(h))
-    verts, quads, striper, uv, brukt, kb_ids = lag_nett(G, h)
+    # med matrise er tone og ruheit jamne rundt betjeninga: skiftet mellom to banar og den blanke
+    # lina på dragaren skal ikkje gå tvers gjennom knappen eller matrisa
+    soner = []
+    if mb is not None:
+        soner = [(G.d_knapp, R_KNAPP + 2.2, 14.5, G.S < P_ / 2), (G.d_knapp, R_KNAPP + 2.2, 14.5, G.S >= P_ / 2),
+                 (q, MB_FELT, MB_RAMPE_FRA + 3.0, True)]
+    for d_, r0, r1, side in soner:
+        inne = (d_ < r1) & side & G.fast
+        w = glatt(d_, r0, r1)
+        tone = np.where(inne, tone[inne].mean() + (tone - tone[inne].mean()) * w, tone)
+        rough = np.where(inne, rough[inne].mean() + (rough - rough[inne].mean()) * w, rough)
+    verts, quads, striper, uv, brukt, kb_ids = lag_nett(G, h, hol_mb)
     tone_v = np.concatenate([tone.ravel()[brukt], tone.ravel()[kb_ids]])
     rough_v = np.concatenate([rough.ravel()[brukt], rough.ravel()[kb_ids]])
     print(f"nett: {verts.shape[0]} punkt, {quads.shape[0]} + {striper.shape[0]} flater, "
@@ -579,6 +645,40 @@ def render(namn, prove=False, ut=None):
         ko, kme = nett_objekt("knapp", kv, kf)
         kme.materials.append(messing)
 
+    # ---- micro:bit: 25 lysleiarar i flukt med plata, raude der LED-en lyser
+    if mb is not None:
+        mb_mat = {}
+        r_led = (MB_HOL_R + 0.03) / 1000.0
+        for kol in range(5):
+            for rad in range(5):
+                nivaa_led = int(round(mb[rad, kol]))
+                if nivaa_led not in mb_mat:
+                    mm = enkel(f"led{nivaa_led}", (0.05, 0.02, 0.02), 0.9)      # matta propp, mørk når han er av
+                    if nivaa_led > 0:                                           # lyser sterkast i midten
+                        nt = mm.node_tree
+                        bsl = nt.nodes.get("Principled BSDF")
+                        bsl.inputs["Emission Color"].default_value = (1.0, 0.005, 0.01, 1.0)
+                        kjerne = MB_LYS * (nivaa_led / 9.0) ** 1.6
+                        tc = nt.nodes.new("ShaderNodeTexCoord")
+                        flat = nt.nodes.new("ShaderNodeVectorMath"); flat.operation = "MULTIPLY"
+                        flat.inputs[1].default_value = (1.0, 1.0, 0.0)
+                        lengd = nt.nodes.new("ShaderNodeVectorMath"); lengd.operation = "LENGTH"
+                        kart = nt.nodes.new("ShaderNodeMapRange"); kart.interpolation_type = "SMOOTHSTEP"
+                        for inn, verdi in (("From Min", 0.0), ("From Max", r_led), ("To Min", kjerne), ("To Max", 0.3 * kjerne)):
+                            kart.inputs[inn].default_value = verdi
+                        nt.links.new(tc.outputs["Object"], flat.inputs[0])
+                        nt.links.new(flat.outputs["Vector"], lengd.inputs[0])
+                        nt.links.new(lengd.outputs["Value"], kart.inputs["Value"])
+                        nt.links.new(kart.outputs["Result"], bsl.inputs["Emission Strength"])
+                    mb_mat[nivaa_led] = mm
+                y_led = -(R_ + nivaa - MB_FELT_DJUPN - 0.10) + 0.3
+                bpy.ops.mesh.primitive_cylinder_add(
+                    vertices=32, radius=r_led, depth=0.0006,
+                    location=((MB_X + (kol - 2) * MB_PX) / 1000.0, y_led / 1000.0,
+                              (MB_Z + (2 - rad) * MB_PZ) / 1000.0),
+                    rotation=(math.pi / 2, 0.0, 0.0))
+                bpy.context.active_object.data.materials.append(mb_mat[nivaa_led])
+
     # ---- resten av lampa frå CAD
     geo = json.loads((BASIS / "render" / "geometri.json").read_text(encoding="utf-8"))
     # innsida av plata: lys i skjermen, mørk i stamma, så ein ikkje ser lyse flater gjennom hakket
@@ -625,6 +725,11 @@ def render(namn, prove=False, ut=None):
     sc.collection.objects.link(co)
     co.location = Vector((-0.27, -1.90, 0.64))
     co.rotation_euler = (M - co.location).to_track_quat("-Z", "Y").to_euler()
+    if naer:   # nærbilete av betjeningsrekkja: matrisa og messingknappen
+        cam.lens = 200
+        co.location = Vector((0.035, -0.86, 0.33))
+        sikt = Vector(((MB_X + PKT_X) / 2000.0, -R_ / 1000.0, (PKT_Z + 4.0) / 1000.0))
+        co.rotation_euler = (sikt - co.location).to_track_quat("-Z", "Y").to_euler()
     sc.camera = co
 
     def flate(nm, pos, storleik, energi, farge=(1, 1, 1), form=None, maal=None):
@@ -657,7 +762,7 @@ def render(namn, prove=False, ut=None):
 
     utmappe = HER / "bilete"
     utmappe.mkdir(exist_ok=True)
-    fil = Path(ut) if ut else utmappe / f"{namn}{'_prove' if prove else ''}.png"
+    fil = Path(ut) if ut else utmappe / f"{namn}{'_naer' if naer else ''}{'_prove' if prove else ''}.png"
     sc.render.filepath = str(fil)
     sc.render.image_settings.file_format = "PNG"
     sc.render.image_settings.color_mode = "RGBA"
@@ -677,4 +782,4 @@ if __name__ == "__main__":
     if not arg:
         sys.exit("bruk: python sveip_hud.py <variant> [--prove]")
     sys.path.insert(0, str(HER))
-    render(arg[0], prove="--prove" in sys.argv)
+    render(arg[0], prove="--prove" in sys.argv, naer="--naer" in sys.argv)

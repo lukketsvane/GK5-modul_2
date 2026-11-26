@@ -5,21 +5,16 @@ Delar (PLA, 0,4 mm dyse)
   M1 kropp      L-forma skal med 1,2 mm vegg. Stamma og skjermen er opne oppe og nede som i rev. B,
                 men endeplata på stamma (med hol for USB) og botnen under utkraginga er med. Framme
                 er eit forsenka felt med 25 hol for LED-ane og hol for messingskruen.
-  M2 chassis    golv i stamma og ein stolpe bak kortet. Lysrista, kortet og stolpen blir skrudde
-                saman med fem M3 x 8 senkskruar gjennom ringane på kortet.
+  M2 chassis    golv i stamma og ein stolpe bak kantkontakten på kortet. Ein kant og ei hylle på
+                stolpen held kortet på plass, og lysrista, kortet og stolpen blir skrudde saman med
+                fem M3 x 8 senkskruar gjennom ringane. Fire ribber på golvet klemmer i stamma.
   M3 lysrist    D15 (sjå d15_lysrist.py), svart.
   M4 lysplate   kvit plate inni skjermen, på same høgd som D08 i rev. B. Kviler på stolpen og to bein.
-Plater
-  A  lampefarge, PLA Matte: M1 og M4, begge opp ned. Ingen støtte.
-  B  svart PLA Matte: M2 ståande og M3 med kortsida ned. Ingen støtte.
-  Alle fire delane ligg òg saman på éi plate i Sveip_mini_alle_delar.3mf.
-Køyr frå mikrobit/:
-  python mini_print.py           byggjer delane, kontrollerer passform og print, og skriv print/
-  python mini_print.py --slice   slicar òg plate A og B med Bambu Studio (som sveip_print.py i rev. B)
+Alle fire ligg ferdig plasserte på éi plate i print/Sveip_mini_alle_delar.3mf, med farge per del.
+Køyr frå mikrobit/:  python mini_print.py
 """
 import json
 import math
-import sys
 import zipfile
 from pathlib import Path
 
@@ -29,6 +24,7 @@ from OCP.BRepExtrema import BRepExtrema_DistShapeShape
 
 import d15_lysrist as L15
 from mini_passform import AVST, D, K, MB, S, X_ST, Z_SK, kortdelar, stadion, til_lampa
+from mini_passform import boks as kortboks
 
 HER = Path(__file__).resolve().parent
 UT = HER / "print"
@@ -37,7 +33,7 @@ T = 1.2                     # vegg i print (aluminium: 1,0)
 R_INN = 12.0 * K            # hjørnet mellom stamma og skjermen: 3,36
 FELT_DJUPN = 0.3            # forsenka felt (0,12 i aluminium, 0,3 så det syner i print)
 HOL_LED = 2.0
-HOL_SKRUE = 3.2             # M3-messingskruen
+HOL_SKRUE = 3.4             # M3-messingskruen (liggjande hol blir trykte for små)
 USB_HOL = (13.0, 9.0)       # hol i endeplata for det støypte hovudet på micro-USB-pluggen: høgd (z), breidd (y)
 KL = 0.2                    # klaring mellom chassis og kropp
 GOLV = 2.0
@@ -46,8 +42,11 @@ T_PLATE = 1.2
 YK = -D / 2 + T + AVST      # framsida av kretskortet: -8,4
 MX, MZ = MB
 LOGO = (MX + L15.LOGO[1], MZ - L15.LOGO[0])
-STOLPE_X = (MX - 19.5, MX - 8.0)     # bak kantkontakten, der baksida av kortet er fri
+STOLPE_X = (MX - 20.6, MX - 9.5)     # bak kantkontakten, der baksida av kortet er fri (v under -9)
 STOLPE_Y = (YK + 1.6, YK + 1.6 + 6.0)
+KANT = 0.1                           # klaring frå kanten på stolpen til kortkanten mot nasen
+STYREHOL = 2.8                       # M3 sjølvgjengande, liggjande hol
+RIBBE = (0.45, 0.35)                 # klemmeribber på golvet: radius og kor langt dei stikk ut
 SKRUE = dict(hovud=(5.6, 2.4), lengd=4.0)   # M3 x 4 messing, linsehovud (DIN 7985)
 LED_TOPP = 0.4                       # LED-en er 0,4 høg etter databladet
 
@@ -95,26 +94,42 @@ def kropp():
     yu, zu = YK + 1.6 + 1.2, MZ - 0.13
     hol = boks(-(T + 2) / 2, (T + 2) / 2, -USB_HOL[1] / 2, USB_HOL[1] / 2, -USB_HOL[0] / 2, USB_HOL[0] / 2)
     k = k.cut(hol.edges("|X").fillet(1.5).translate((X_ST - T / 2, yu, zu)))
-    return k
+    # fas 1 x 45° nedst på innsida av endeplata, så USB-kontakten glir lett forbi når chassiset går inn
+    xi = X_ST - T
+    fas = (cq.Workplane("XZ").polyline([(xi - 0.01, -0.01), (xi + 1.0, -0.01), (xi - 0.01, 1.0)]).close()
+           .extrude(D / 2 - T - 0.01, both=True))
+    return k.cut(fas)
 
 
-def chassis():
+def chassis(ribber=True):
     golv = stadion(S - 2 * (T + KL), D - 2 * (T + KL), 0, GOLV, x0=T + KL)
     golv = golv.intersect(boks(-1, X_ST - T - KL, -D, D, -1, GOLV + 1))
     (sx0, sx1), (sy0, sy1) = STOLPE_X, STOLPE_Y
     c = golv.union(boks(sx0, sx1, sy0, sy1, GOLV - 0.5, Z_PLATE))
+    # kant mot kortkanten ved nasen (x) og hylle under kortet (z): kortet ligg fast mot stolpen,
+    # sjølv om skruane har 0,5 mm spel i ringane
+    xk = MX - 20.0 - KANT
+    c = c.union(boks(sx0, xk, YK + 0.8, sy0 + 0.1, GOLV - 0.5, Z_PLATE))
+    c = c.union(boks(MX - 19.5, sx1, YK, sy0 + 0.1, GOLV - 0.5, MZ - 25.8))
     avstivar = (cq.Workplane("YZ", origin=(sx0 + 3.0, 0, 0))
                 .polyline([(sy1 - 0.5, GOLV - 0.5), (sy1 + 5.0, GOLV - 0.5), (sy1 - 0.5, GOLV + 5.0)]).close()
                 .extrude(sx1 - sx0 - 6.0))
     c = c.union(avstivar)
     # styrehol for M3 (sjølvgjengande) i stolpen, der ringane på kortet er
     ringar = [(MX + L15.RING_V, MZ - u) for u in L15.RINGAR]
-    return c.cut(cq.Workplane("XZ", origin=(0, sy1 + 0.5, 0)).pushPoints(ringar).circle(1.3).extrude(sy1 - sy0 + 1.0))
+    c = c.cut(cq.Workplane("XZ", origin=(0, sy1 + 0.5, 0)).pushPoints(ringar).circle(STYREHOL / 2)
+              .extrude(sy1 - sy0 + 1.0))
+    if ribber:   # fire ribber som klemmer mot den flate fram- og bakveggen i stamma
+        yr = D / 2 - T - KL + RIBBE[1] - RIBBE[0]
+        for x in (24.0, 40.0):
+            for sy in (-1, 1):
+                c = c.union(cq.Workplane("XY").center(x, sy * yr).circle(RIBBE[0]).extrude(GOLV))
+    return c
 
 
 def lysplate():
     p = stadion(S - 2 * (T + 0.3), D - 2 * (T + 0.3), Z_PLATE, Z_PLATE + T_PLATE, x0=T + 0.3)
-    bein = (cq.Workplane("XY", origin=(0, 0, Z_SK + T)).pushPoints([(66.0, 7.0), (66.0, -7.0)])
+    bein = (cq.Workplane("XY", origin=(0, 0, Z_SK + T)).pushPoints([(66.0, 10.5), (66.0, -10.5)])
             .circle(2.0).extrude(Z_PLATE - (Z_SK + T) + 0.1))
     return p.union(bein)
 
@@ -163,6 +178,8 @@ def snitt(a, b):
 
 
 def kontroll_passform(m1, m2, m4):
+    """m2 er chassiset med ribber. Klaringa mot kroppen blir målt utan ribbene; dei skal klemme."""
+    m2_utan = chassis(ribber=False)
     kort = kortdelar(YK)
     m3 = kort["lysrist D15"]
     elektronikk = {k: v for k, v in kort.items() if k != "lysrist D15"}
@@ -186,7 +203,17 @@ def kontroll_passform(m1, m2, m4):
     for n, d in elektronikk.items():
         krav(f"kropp til {n}", avstand(m1, d), 0.3)
     krav("kropp til lysrista D15", avstand(m1, m3), 0.1)
-    krav("kropp til chassis", avstand(m1, m2), KL - 0.01)
+    krav("kropp til chassis (utan ribbene)", avstand(m1, m2_utan), KL - 0.01)
+    ribbe_vol = snitt(m2, m1)
+    funn.append(dict(kontroll="klemmeribbene i stamma (pressfit, 0,15 mm per ribbe)", verdi=round(ribbe_vol, 3),
+                     krav="> 0 mm3", ok=ribbe_vol > 0))
+    ok &= ribbe_vol > 0
+    # baksida av kortet har komponentar frå v = -9 og oppover (sideriss i monteringsteikninga)
+    sone = kortboks(-25.8, 25.8, -9.0, 22.0, -1.6 - 1.2, -1.6, YK)
+    ingen("stolpen i sona med komponentar bak på kortet", snitt(m2, sone))
+    kant = boks(STOLPE_X[0], MX - 20.0 - KANT, YK + 0.8, STOLPE_Y[0] + 0.1, GOLV, Z_PLATE)
+    krav("kanten på stolpen til kortkanten mot nasen", avstand(kant, elektronikk["kretskort"]), KANT - 0.01)
+    ingen("kanten på stolpen i kroppen", snitt(kant, m1))
     krav("kropp til lysleiarane", avstand(m1, leiar), 0.3)
     for n, d in elektronikk.items():
         ingen(f"chassis i {n}", snitt(m2, d))
@@ -270,7 +297,7 @@ def overheng(v, t, plate=0.3):
     return ut
 
 
-FARGAR = {"lampefarge": "#C9C7C1FF", "svart": "#1E1E1EFF"}
+FARGAR = {"lampefarge": "#C9C7C1FF", "kvit": "#F1EFEAFF", "svart": "#1E1E1EFF"}
 
 
 def skriv_3mf(sti, objekt, tittel, fargar=None):
@@ -308,32 +335,15 @@ def skriv_3mf(sti, objekt, tittel, fargar=None):
         z.writestr("3D/3dmodel.model", modell)
 
 
-PLATER = {
-    "A": dict(namn="Sveip_mini_A_kropp_PLA", filament="Bambu PLA Matte @BBL P1S 0.4 nozzle",
-              farge="lampefarge (grå eller kvit)", vegg=1.2, brim=5),
-    "B": dict(namn="Sveip_mini_B_innmat_PLA_svart", filament="Bambu PLA Matte @BBL P1S 0.4 nozzle",
-              farge="svart", vegg=1.2, brim=3),
-}
-
-
 def alle_paa_ei_plate(m1, m2, m3_lokal, m4):
-    """Alle fire delane på éi plate (256 x 256), med farge: M3 svart, resten i lampefarge."""
+    """Alle fire delane på éi plate (256 x 256) i printstilling, med farge per del."""
     return [("M1_kropp", til_plata(opp_ned(m1), 128.0, 80.0), "lampefarge"),
-            ("M4_lysplate", til_plata(opp_ned(m4), 128.0, 140.0), "lampefarge"),
+            ("M4_lysplate", til_plata(opp_ned(m4), 128.0, 140.0), "kvit"),
             ("M2_chassis", til_plata(m2, 75.0, 195.0), "lampefarge"),
             ("M3_lysrist_D15", til_plata(m3_lokal, 175.0, 195.0), "svart")]
 
 
-def plater(m1, m2, m3_lokal, m4):
-    return {
-        "A": [("M1_kropp", til_plata(opp_ned(m1), 128.0, 95.0)),
-              ("M4_lysplate", til_plata(opp_ned(m4), 128.0, 170.0))],
-        "B": [("M2_chassis", til_plata(m2, 90.0, 128.0)),
-              ("M3_lysrist_D15", til_plata(m3_lokal, 175.0, 128.0))],
-    }
-
-
-def main(slice_=False):
+def main():
     UT.mkdir(exist_ok=True)
     m1, m2, m4 = kropp(), chassis(), lysplate()
     ok, funn = kontroll_passform(m1, m2, m4)
@@ -341,59 +351,35 @@ def main(slice_=False):
         print(f"  {'OK ' if f['ok'] else 'FEIL'} {f['kontroll']}: {f['verdi']} (krav {f['krav']})")
     assert ok, "passforma held ikkje"
     rapport = dict(lampe="Sveip mini 84 x 84 x 29,4 mm", skrivar="Bambu Lab P1S 0.4 nozzle",
-                   prosess="0.20mm Standard @BBL X1C", passform=funn, plater=[])
-    for p, delar in plater(m1, m2, L15.lysrist(), m4).items():
-        info = PLATER[p]
-        objekt, deler = [], []
-        for namn, f in delar:
-            bb = f.val().BoundingBox()
-            assert 0 <= bb.xmin and bb.xmax <= 256 and 0 <= bb.ymin and bb.ymax <= 256 and bb.zmax <= 250, namn
-            v, t = nett(f)
-            lukka, vol = kontroll_nett(v, t)
-            assert lukka, f"{namn}: nettet er ikkje lukka"
-            assert abs(vol - f.val().Volume()) < 0.01 * f.val().Volume(), f"{namn}: volumet stemmer ikkje"
-            cq.exporters.export(f, str(UT / f"Sveip_mini_{namn}.stl"), tolerance=0.02, angularTolerance=0.1)
-            objekt.append((namn, (v, t)))
-            oh = overheng(v, t)
-            deler.append(dict(del_=namn, mal_mm=[round(bb.xlen, 1), round(bb.ylen, 1), round(bb.zlen, 1)],
-                              volum_cm3=round(vol / 1000, 2), masse_g_pla=round(vol / 1000 * 1.24, 1),
-                              lukka_nett=lukka, overheng=oh))
-            print(f"  {namn}: {bb.xlen:.1f} x {bb.ylen:.1f} x {bb.zlen:.1f} mm, {vol / 1000:.2f} cm3, "
-                  f"om lag {vol / 1000 * 1.24:.0f} g PLA (massivt), lukka nett, {len(oh)} overhengsone(r)")
-            for o in oh:
-                print(f"      overheng i z {o['z']}: {o['areal_mm2']} mm2, x {o['x']}, y {o['y']}")
-        skriv_3mf(UT / f"{info['namn']}.3mf", objekt, info["namn"])
-        rapport["plater"].append(dict(plate=info["namn"], filament=info["filament"], farge=info["farge"],
-                                      brim_mm=info["brim"], stotte=False, delar=deler))
-    # alle delane i éi fil, på éi plate
+                   prosess="0.20mm Standard @BBL X1C", filament="Bambu PLA Matte",
+                   fil="Sveip_mini_alle_delar.3mf", passform=funn, delar=[])
     alle = alle_paa_ei_plate(m1, m2, L15.lysrist(), m4)
-    boksar = []
-    for namn, f, _ in alle:
+    boksar, objekt = [], []
+    for namn, f, farge in alle:
         bb = f.val().BoundingBox()
         assert 0 <= bb.xmin and bb.xmax <= 256 and 0 <= bb.ymin and bb.ymax <= 256 and bb.zmax <= 250, namn
         assert not (bb.xmin < 18 and bb.ymin < 28), f"{namn} ligg i sperresona framme til venstre"
         boksar.append((namn, bb))
+        v, t = nett(f)
+        lukka, vol = kontroll_nett(v, t)
+        assert lukka, f"{namn}: nettet er ikkje lukka"
+        assert abs(vol - f.val().Volume()) < 0.01 * f.val().Volume(), f"{namn}: volumet stemmer ikkje"
+        cq.exporters.export(f, str(UT / f"Sveip_mini_{namn}.stl"), tolerance=0.02, angularTolerance=0.1)
+        objekt.append((namn, (v, t)))
+        oh = overheng(v, t)
+        rapport["delar"].append(dict(del_=namn, farge=farge, mal_mm=[round(bb.xlen, 1), round(bb.ylen, 1), round(bb.zlen, 1)],
+                                     volum_cm3=round(vol / 1000, 2), masse_g_pla=round(vol / 1000 * 1.24, 1),
+                                     lukka_nett=lukka, overheng=oh))
+        print(f"  {namn} ({farge}): {bb.xlen:.1f} x {bb.ylen:.1f} x {bb.zlen:.1f} mm, {vol / 1000:.2f} cm3, "
+              f"om lag {vol / 1000 * 1.24:.0f} g PLA, lukka nett, {len(oh)} overhengsone(r)")
     for i, (na, a) in enumerate(boksar):           # minst 8 mm mellom delane, så brim og dyse går klar
         for nb, b in boksar[i + 1:]:
             gap = max(b.xmin - a.xmax, a.xmin - b.xmax, b.ymin - a.ymax, a.ymin - b.ymax)
             assert gap >= 8.0, f"{na} og {nb} står for tett ({gap:.1f} mm)"
-    skriv_3mf(UT / "Sveip_mini_alle_delar.3mf", [(n, nett(f)) for n, f, _ in alle], "Sveip mini, alle delar",
-              fargar=[fa for _, _, fa in alle])
-    rapport["alle_delar"] = dict(fil="Sveip_mini_alle_delar.3mf", delar={n: fa for n, _, fa in alle})
-    if slice_:
-        sys.path.insert(0, str(HER.parent.parent / "cad"))
-        import sveip_print as SP          # Bambu Studio CLI, same oppsett som rev. B
-        SP.PRINT = UT
-        for p, delar in plater(m1, m2, L15.lysrist(), m4).items():
-            info = PLATER[p]
-            r = SP.slice_plate(info["namn"], [(f"Sveip_mini_{n}", f.val()) for n, f in delar],
-                               dict(filament=info["filament"], vegg=info["vegg"], ams=info["farge"],
-                                    brim=info["brim"], stotte=False))
-            print(json.dumps(r, ensure_ascii=False))
-            rapport.setdefault("slicing", []).append(r)
+    skriv_3mf(UT / "Sveip_mini_alle_delar.3mf", objekt, "Sveip mini, alle delar", fargar=[fa for _, _, fa in alle])
     (UT / "print_rapport.json").write_text(json.dumps(rapport, ensure_ascii=False, indent=1), encoding="utf-8")
     print("SKREIV", UT)
 
 
 if __name__ == "__main__":
-    main(slice_="--slice" in sys.argv)
+    main()

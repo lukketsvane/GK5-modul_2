@@ -16,7 +16,7 @@ from matplotlib.patches import Rectangle
 HER = Path(__file__).resolve().parent
 FIL = HER / "print" / "Sveip_mini_alle_delar.3mf"
 LYS, GRAA = "#e6e3dc", "#8d8b86"
-VIS = {"lampefarge": "#c9c7c1", "svart": "#3a3a3a"}
+VIS = {"lampefarge": "#c9c7c1", "kvit": "#f1efea", "svart": "#3a3a3a"}
 
 
 def les(fil):

@@ -71,43 +71,50 @@ Logikken er køyrd mot ein stubb av `microbit`-modulen i åtte tilfelle. Ho er i
 
 `mini_print.py` byggjer fire printdelar, kontrollerer passforma mot micro:bit-en og skriv `print/`. Sjå `mini_sprengt.png`.
 
-| Del | Plate | Farge | Mål (mm) | PLA |
-|---|---|---|---|---|
-| M1 kropp | A | lampefarge | 84 × 29,4 × 84 | om lag 21 g |
-| M4 lysplate | A | same | 81 × 26 × 13 | 3 g |
-| M2 chassis | B | svart | 47 × 27 × 60 | 8 g |
-| M3 lysrist D15 | B | svart | 52 × 35 × 5 | 3 g |
+| Del | Farge | Mål (mm) | PLA |
+|---|---|---|---|
+| M1 kropp | lampefarge | 84 × 29,4 × 84 | om lag 21 g |
+| M2 chassis | kva som helst (syner ikkje) | 47 × 27 × 60 | 8 g |
+| M3 lysrist D15 | svart | 52 × 35 × 5 | 3 g |
+| M4 lysplate | kvit | 81 × 26 × 13 | 3 g |
 
-**Alle delane i éi fil:** opne `print/Sveip_mini_alle_delar.3mf` i Bambu Studio. Alle fire delane ligg ferdig plasserte på éi plate (sjå `print/Sveip_mini_alle_delar.png`).
+**Alle delane er i éi fil:** `print/Sveip_mini_alle_delar.3mf`. Dei ligg ferdig plasserte på éi plate (sjå `print/Sveip_mini_alle_delar.png`). Kvar del har ein farge i fila: lampefarge, kvit eller svart.
 
-1. Vel P1S med 0,4 mm dyse, PLA Matte og 0,20 mm lag.
-2. Set lysrista (M3) til svart filament, og resten til lampefargen. Høgreklikk på delen og vel filament.
-3. Bruk ingen støtte, og 5 mm brim.
-4. Slice og print.
+1. Opne fila i Bambu Studio. Seier han at fila ikkje er frå Bambu Lab, vel du å laste geometrien.
+2. Vel P1S med 0,4 mm dyse, PLA Matte og 0,20 mm lag.
+3. Gje kvar del filament: M3 svart, M4 kvit, M1 og M2 lampefargen. Høgreklikk delen og vel filament.
+4. Ingen støtte. Elefantfotkompensasjon 0,15 mm.
+5. Brim berre på M1: 5 mm, berre ytre, med 0,1 mm avstand. Legg det til under innstillingane for objektet. Dei andre delane skal ikkje ha brim. Chassiset har berre 0,2 mm klaring i stamma, og ein brimrest kan sperre.
+6. Slice og print. Skrap brimen pent av toppkanten på M1, for han syner.
 
-Med svart og lampefarge på same plate skiftar AMS farge i dei første 5 mm, om lag 25 gonger. Vil du sleppe det, printar du to plater i staden: `print/Sveip_mini_A_kropp_PLA.3mf` (lampefarge, 5 mm brim) og `print/Sveip_mini_B_innmat_PLA_svart.3mf` (svart, 3 mm brim). Chassiset kan vere i kva farge som helst, for det syner ikkje. Du kan òg køyre `python mini_print.py --slice` på maskina med Bambu Studio. Då blir A og B slica same veg som rev. B.
+M1 blir printa opp ned, med toppkanten mot plata. Botnen under utkraginga blir då ei bru på 27 mm. Undersida held seg fin, men på innsida kan brua henge ned 0,5 til 1 mm.
 
-- M1 blir printa opp ned, med toppkanten mot plata. Botnen under utkraginga blir då ei bru på 27 mm.
+AMS byter farge i dei første 5 mm, der M3 er svart. Er lampa kvit, kan M1, M2 og M4 dele same filament. Med grå lampe og kvit lysplate byter AMS farge i dei første 13 mm.
+
 - Veggen er 1,2 mm (i aluminium 1,0). Det forsenka feltet er 0,3 mm djupt, så det syner i print.
 - Endeplata på stamma og botnen under utkraginga er ein del av kroppen. Stamma er open nede, og der går chassiset inn.
+- Hol som ligg ned i printen, blir trykte for små. Holet for messingskruen er difor 3,4 mm, og styreholet for M3 i stolpen 2,8 mm.
 
 ### Det du treng i tillegg
 
 - 5 × M3 × 8 senkskrue. Stål går fint, sidan kroppen er av plast.
 - 1 × M3 × 4 messingskrue med linsehovud (DIN 7985). Dette er berøringspunktet.
-- 1 fjør, Ø 3 til 3,5 mm og om lag 3 mm lang, til dømes klipt frå ei kulepennfjør
+- 1 fjør, Ø 3,0 mm og om lag 3 mm lang, med indre Ø under 2,5 mm. Då kviler ho på tuppen av skruen og glir ikkje utanpå. Ei kulepennfjør klipt til passar.
 - om lag 15 cm naturfarga eller transparent 1,75 mm filament til lysleiarane
+- CA-lim (superlim)
 - micro-USB-kabel
 
 ### Montering
 
-1. Legg fjøra i lomma bak hylsa på lysrista.
-2. Legg lysrista på framsida av micro:bit-en, med hylsa over logoen og lommene over LED-ane. Set stolpen på chassiset mot baksida, og skru saman med dei fem senkskruane gjennom ringane.
-3. Skuv filament inn i kvar kanal til det stoppar mot LED-en, og klipp i flukt med framsida av rista.
-4. Skuv chassiset med kortet opp i stamma nedanfrå, med USB-kontakten mot endeplata.
-5. Skru messingskruen inn gjennom holet i feltet til han tek i hylsa. Ikkje stram hardt. Skruen held chassiset på plass.
-6. Legg lysplata ned i skjermen ovanfrå.
-7. Kople USB gjennom holet i endeplata, og send fastvara til kortet.
+1. Legg micro:bit-en med framsida opp. Set fjøra ståande midt på logoen.
+2. Senk lysrista ned over kortet, med hylsa over fjøra og lommene over LED-ane.
+3. Snu det heile og legg kortet mot stolpen på chassiset. Skuv kortet inn mot kanten på stolpen ved kantkontakten, og ned på hylla under kortet.
+4. Skru saman med dei fem senkskruane gjennom lysrista, ringane og inn i stolpen.
+5. Skuv filament inn i kvar kanal til det stoppar mot LED-en. Lim med ein drope CA-lim, og klipp i flukt med framsida av rista eller inntil 0,2 mm under. Ein leiar som stikk fram, sperrar når chassiset skal inn.
+6. Skuv chassiset med kortet opp i stamma nedanfrå, med USB-kontakten mot endeplata. Dei fire ribbene på golvet klemmer.
+7. Skru messingskruen inn gjennom holet i feltet til han tek i hylsa. Ikkje stram hardt. Mål gjerne med multimeter at det er kontakt mellom messingen og logoen.
+8. Legg lysplata ned i skjermen ovanfrå.
+9. Kople USB gjennom holet i endeplata, og send fastvara til kortet.
 
 Lampa har ingen lyskjelder enno. Matrisa viser sveipet, og utgangane P0 og P1 er klare for ein LED-drivar.
 
@@ -120,14 +127,20 @@ Lampa har ingen lyskjelder enno. Matrisa viser sveipet, og utgangane P0 og P1 er
 | Kroppen til kretskortet (krumminga i nasen) | 0,55 |
 | Kroppen til knapp A og B | 0,55 |
 | Kroppen til lysrista (0,1 framfor hylsa, som skruen trekkjer inntil) | 0,3 |
-| Kroppen til chassiset | 0,2 |
+| Kroppen til chassiset, utanom dei fire klemmeribbene | 0,2 |
+| Kanten på stolpen til kortkanten | 0,1 |
 | Tuppen på messingskruen til kretskortet (plass til fjøra) | 2,0 |
 | USB-pluggen til kanten av holet | 1,0 |
 
 - Ingen av dei printa delane går inn i kortet eller komponentane på det.
+- Stolpen ligg berre bak kantkontakten, under sona der baksida av kortet har komponentar.
 - Kvart LED-hol står på same akse som kanalen sin.
 - Chassiset med kortet kjem opp i stamma utan å ta borti noko, og lysplata kjem ned i skjermen.
-- Alle fire nett er lukka, manifolde og rett orienterte. 3MF-filene er kontrollerte med lib3mf.
+- Delane ligg på plata, utanfor sperresona og minst 8 mm frå kvarandre.
+- Alle fire nett er lukka, manifolde og rett orienterte, og 3MF-fila er kontrollert med lib3mf.
+- Ein uavhengig gjennomgang av montering og print fann ingen kritiske feil. Dei viktige funna er retta: fjøra, lommene over LED-ane, kanalane, festet for kortet og chassiset, og fargen på lysplata.
+
+Ikkje prøvd: kor mykje hola krympar i verkelegheita, og om Bambu Studio les fargane i fila. Print gjerne lysrista først. Ho er lita, og du ser då om filamentet går i kanalane.
 
 ## Står att
 
@@ -145,7 +158,7 @@ Lampa har ingen lyskjelder enno. Matrisa viser sveipet, og utgangane P0 og P1 er
 | `mini_passform.py` | kontroll av at kortet får plass |
 | `d15_lysrist.py`, `.step`, `.stl` | lysrista, kontrollert mot LED-ane, knappane og ringane |
 | `sveip_mikrobit.py` | fastvara |
-| `mini_print.py`, `print/` | printdelane: STL, 3MF med alle delar og per plate, og kontrollrapport |
+| `mini_print.py`, `print/` | printdelane: STL per del, 3MF med alle delane og kontrollrapport |
 | `mini_plate.py`, `print/Sveip_mini_alle_delar.png` | plata med alle delane, sett ovanfrå |
 | `mini_sprengt.png`, `mini_sprengt.py` | sprengbilete av printdelane |
 | `../overflate/bilete/v12_mini.png`, `v12_mini_naer.png` | rendringane |

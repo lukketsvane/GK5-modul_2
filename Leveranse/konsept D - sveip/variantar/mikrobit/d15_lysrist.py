@@ -2,12 +2,13 @@
 """d15_lysrist.py: lysrista D15 for Sveip mini, som sit mellom micro:bit V2 og framveggen.
 
 Ei svart blokk med 25 kanalar, éin per LED, så kvar LED lyser opp berre sin eigen propp i veggen.
-I kvar kanal står ein lysleiar av 1,75 mm naturfarga filament, frå LED-en til framsida av rista.
-Nedst har kanalen ei lomme over LED-en. Blokka er 4,8 mm tjukk: knapp A og B (4,55 mm) går klar
+I kvar kanal står ein lysleiar av 1,75 mm naturfarga filament, frå LED-en til framsida av rista,
+festa med ein drope CA-lim. Nedst har kanalen ei lomme over LED-en, med 45° fas opp mot kanalen. Blokka er 4,8 mm tjukk: knapp A og B (4,55 mm) går klar
 av veggen, og rista står 0,3 mm frå han. Foten over ringane er 2,0 mm, for der krummar nasen på
 lampa inn mot kortet. Rista blir skrudd gjennom ringane på kortet og inn i stolpen på chassiset
 med fem M3 x 8 senkskruar. Over touch-logoen står ei hylse: messingskruen frå utsida skrur seg
-inn i ho, og ei lita fjør i lomma under leier berøringa vidare til logoen. Måla er relative til
+inn i ho, og ei lita fjør (Ø 3,0, indre Ø under 2,5) i lomma under kviler på tuppen av skruen og
+leier berøringa vidare til logoen. Måla er relative til
 midtre LED, slik kortet ser ut framanfrå med kantkontakten ned, og er frå monteringsteikninga
 for V2.
   python d15_lysrist.py        skriv d15_lysrist.step og d15_lysrist.stl
@@ -19,13 +20,13 @@ import cadquery as cq
 P = 4.0                      # LED-delinga
 T = 4.8                      # tjukn på blokka, frå kretskortet og fram
 T_FOT = 2.0                  # tjukn på foten
-KANAL = 1.9                  # kanal for lysleiaren (1,75 mm filament)
-LOMME = (2.6, 1.1)           # lomme over LED-en: diameter og djupn (0603 ståande, opp til 1,0 høg)
+KANAL = 2.1                  # kanal for lysleiaren (1,75 mm filament; små hol blir trykte for små)
+LOMME = (3.2, 1.2)           # lomme over LED-en: diameter og djupn (0603 ståande, opp til 1,0 høg)
 LOGO = (0.0, 14.0)           # touch-logoen (u, v)
 HYLSE = 6.5                  # ytre diameter på hylsa over logoen
 STOPP = 0.2                  # ringen framme på hylsa går 0,2 nærare veggen enn rista
 GJENGE = (2.6, 2.4)          # hol for M3-messingskruen (sjølvgjengande) og kvar det byrjar (w)
-FJOR = 4.0                   # lomme for fjøra, frå kortet opp til GJENGE[1]
+FJOR = 3.4                   # lomme for fjøra (Ø 3,0), frå kortet opp til GJENGE[1]
 BLOKK_U = (-11.5, 11.5)      # blokka rundt matrisa, går klar av knapp A og B (innerkant ±16,9)
 BLOKK_V = (-10.1, 10.3)      # kort mot logoen (v = 14) for hylsa til messingpunktet, og mot nasen
 RINGAR = (-21.59, -11.43, 0.0, 11.43, 21.59)
@@ -47,6 +48,9 @@ def lysrist():
     d = d.union(cq.Workplane("XY").center(lu, lv).circle(HYLSE / 2).extrude(T + STOPP))
     d = d.cut(cq.Workplane("XY").pushPoints(LED).circle(KANAL / 2).extrude(T))
     d = d.cut(cq.Workplane("XY").pushPoints(LED).circle(LOMME[0] / 2).extrude(LOMME[1]))
+    fas = (LOMME[0] - KANAL) / 2                 # 45° fas frå lomma opp i kanalen, så taket ikkje heng
+    for u, v in LED:
+        d = d.cut(cq.Workplane("XY").add(cq.Solid.makeCone(LOMME[0] / 2, KANAL / 2, fas, cq.Vector(u, v, LOMME[1]))))
     d = d.cut(cq.Workplane("XY").center(lu, lv).circle(GJENGE[0] / 2).extrude(T + STOPP))
     d = d.cut(cq.Workplane("XY").center(lu, lv).circle(FJOR / 2).extrude(GJENGE[1]))
     # M3 med senka hovud frå framsida av foten (flata mot veggen): hol Ø 3,4 og senking til Ø 5,4

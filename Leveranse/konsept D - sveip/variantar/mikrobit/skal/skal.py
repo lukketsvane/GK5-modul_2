@@ -15,7 +15,7 @@ Korleis skalet blir bygt (manifold3d):
     kjerne = kropp − det ytste laget, 0,55 mm             (innsida og endeplatene står att)
     skal = kjerne ∪ (ny ytterhud frå −0,6 til h, skoren som M1 under skjermen)
     skal = skal − feltet, dei 25 LED-hola og holet for messingskruen (same mål som i mini_print)
-h blir klipt til [−0,5, +1,5]. Veggen er då minst 0,7 mm. h blir tona ned til 0 inn mot feltet.
+h blir klipt til [−0,5, +2,0]. Veggen er då minst 0,7 mm. h blir tona ned til 0 inn mot feltet.
 
 Køyr frå skal/:
     python3 skal.py <namn> [--rask]     bygg, kontroller, skriv print/<namn>.3mf og rapport
@@ -53,7 +53,7 @@ T = MP.T                                   # veggen, 1,2
 R_INN = MP.R_INN                           # hjørnet under skjermen, 3,36
 INN = 0.6                                  # den nye ytterhuda går så langt inn i veggen
 LAG = 0.55                                 # så mykje av den glatte veggen blir teke bort
-H_MIN, H_MAX = -0.5, 1.5
+H_MIN, H_MAX = -0.5, 2.0
 MX, MZ = MP.MX, MP.MZ
 LOGO = MP.LOGO                             # messingskruen (x, z)
 FELT = (MX - 11.5, MZ - 11.5, LOGO[0] + 6.5, MZ + 11.5)   # x0, z0, x1, z1, hjørne r 3,5

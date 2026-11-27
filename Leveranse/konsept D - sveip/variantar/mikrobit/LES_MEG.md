@@ -54,7 +54,7 @@ Måla på kortet er frå den offisielle monteringsteikninga for V2 (Avnet, DWG 1
 | Logoen | messingpunktet, via ein fjørpinne | messingen står i ei isolerande hylse |
 | JST | 2 × AAA bak kortet | 3 V rett inn. Aldri ei litiumcelle direkte. Haldaren (14 mm) har 15 mm djupn å stå i, og stikk opp i skjermen |
 
-Skruane gjennom ringane skal vere M3 i nylon. Ein utgang på kortet toler under 1 mA, så han styrer ein transistor eller ein drivar, aldri lysdiodane direkte.
+Skruane gjennom ringane er dei fem M3-senkskruane (A). Kvar skrue rører berre sin eigen ring, og rista og stolpen er av plast, så stål går fint. Nylon formar ikkje gjenger i PLA. Ein utgang på kortet toler under 1 mA, så han styrer ein transistor eller ein drivar, aldri lysdiodane direkte.
 
 ## Fastvare
 
@@ -136,17 +136,21 @@ AMS byter farge i dei første 5 mm, der M3 er svart. Er lampa kvit, kan M1, M2 o
 
 ### Montering
 
-Monteringsrettleiing i IKEA-stil: `rettleiing/ut/rettleiing.pdf` (sjå `rettleiing/README.md`). Kort fortalt:
+Monteringsrettleiing i IKEA-stil: `rettleiing/ut/rettleiing.pdf` (M02, sjå `rettleiing/README.md`). Kort fortalt:
 
-1. Legg micro:bit-en med framsida opp. Set fjøra ståande midt på logoen.
-2. Senk lysrista ned over kortet, med hylsa over fjøra og lommene over LED-ane.
-3. Snu det heile og legg kortet mot stolpen på chassiset. Skuv kortet inn mot kanten på stolpen ved kantkontakten, og ned på hylla under kortet.
+Før monteringa (porten): skuv eit stykke filament inn i ein kanal i lysrista. Det skal gli. Skru ein av senkskruane inn i hylsa over logoen, så han formar gjengene, og skru han ut att. Står han att, sperrar hovudet når chassiset skal inn. Skuv chassiset opp i den tomme stamma. Det skal gli inn med lett klem. Ta det ut att.
+
+1. Legg lysrista med lommene opp. Slepp fjøra ned i lomma over hylsa.
+2. Legg micro:bit-en med framsida ned over rista, med lommene over LED-ane og logoen over fjøra.
+3. Hald kortet og rista saman, og legg kortet mot stolpen på chassiset. Skuv kortet inn mot kanten på stolpen ved kantkontakten, og ned på hylla under kortet.
 4. Skru saman med dei fem senkskruane gjennom lysrista, ringane og inn i stolpen.
-5. Skuv filament inn i kvar kanal til det stoppar mot LED-en. Lim med ein drope CA-lim, og klipp i flukt med framsida av rista eller inntil 0,2 mm under. Ein leiar som stikk fram, sperrar når chassiset skal inn.
-6. Skuv chassiset med kortet opp i stamma nedanfrå, med USB-kontakten mot endeplata. Dei fire ribbene på golvet klemmer.
-7. Skru messingskruen inn gjennom holet i feltet til han tek i hylsa. Ikkje stram hardt. Mål gjerne med multimeter at det er kontakt mellom messingen og logoen.
+5. Legg chassiset på ryggen, så rista vender opp. Skuv filament inn i kvar kanal til det stoppar mot LED-en. Lim med ein drope CA-lim, og klipp i flukt med framsida av rista eller inntil 0,2 mm under. Ingenting, heller ikkje lim, må stå over framsida, for då sperrar det når chassiset skal inn.
+6. Skuv chassiset med kortet opp i stamma nedanfrå, med USB-kontakten mot endeplata, til golvet er i flukt med underkanten av stamma. Ingenting stoppar det, berre dei fire ribbene på golvet klemmer.
+7. Skru messingskruen (M3 × 4) inn gjennom holet i feltet til han tek i hylsa. Ikkje stram hardt, for gjengene i plasten er berre 2,6 mm lange. Mål gjerne med multimeter at det er kontakt mellom messingen og logoen.
 8. Legg lysplata ned i skjermen ovanfrå.
-9. Kople USB gjennom holet i endeplata, og send fastvara til kortet.
+9. Kople USB gjennom holet i endeplata, og send fastvara til kortet. Ikkje rør messingen når kabelen går i, for kortet kalibrerer berøringa når det startar.
+
+Kontroll: eit kort trykk på messingen slår lampa av og på. Held du, sveiper matrisa.
 
 Lampa har ingen lyskjelder enno. Matrisa viser sveipet, og utgangane P0 og P1 er klare for ein LED-drivar.
 

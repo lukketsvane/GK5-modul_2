@@ -1,0 +1,72 @@
+{
+ "fil": "Sveip_mini_skal_alle_variantar.3mf",
+ "delar": [
+  {
+   "namn": "gore",
+   "trekantar": 347452,
+   "volum_mm3": 19965.0,
+   "masse_g_pla": 24.8,
+   "storleik_mm": [
+    85.9,
+    31.3,
+    84.0
+   ],
+   "senter": [
+    79.9,
+    107.1
+   ],
+   "overheng_mm2": 916.0
+  },
+  {
+   "namn": "pute",
+   "trekantar": 254798,
+   "volum_mm3": 20520.0,
+   "masse_g_pla": 25.4,
+   "storleik_mm": [
+    86.2,
+    30.6,
+    84.0
+   ],
+   "senter": [
+    176.6,
+    107.1
+   ],
+   "overheng_mm2": 874.0
+  },
+  {
+   "namn": "luftskip",
+   "trekantar": 231498,
+   "volum_mm3": 19549.0,
+   "masse_g_pla": 24.2,
+   "storleik_mm": [
+    87.1,
+    31.8,
+    84.0
+   ],
+   "senter": [
+    79.9,
+    148.7
+   ],
+   "overheng_mm2": 874.0
+  },
+  {
+   "namn": "fasett",
+   "trekantar": 49154,
+   "volum_mm3": 19080.0,
+   "masse_g_pla": 23.7,
+   "storleik_mm": [
+    84.8,
+    30.1,
+    84.0
+   ],
+   "senter": [
+    176.6,
+    148.7
+   ],
+   "overheng_mm2": 875.0
+  }
+ ],
+ "minste_avstand_mm": 10.0,
+ "masse_g_pla": 98.1,
+ "storleik_fil_mb": 8.5
+}

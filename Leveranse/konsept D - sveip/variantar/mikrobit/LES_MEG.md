@@ -54,18 +54,56 @@ Måla på kortet er frå den offisielle monteringsteikninga for V2 (Avnet, DWG 1
 | Logoen | messingpunktet, via ein fjørpinne | messingen står i ei isolerande hylse |
 | JST | 2 × AAA bak kortet | 3 V rett inn. Aldri ei litiumcelle direkte. Haldaren (14 mm) har 15 mm djupn å stå i, og stikk opp i skjermen |
 
-Skruane gjennom ringane skal vere M3 i nylon. Ein utgang på kortet toler under 1 mA, så han styrer ein transistor eller ein drivar, aldri lysdiodane direkte.
+Skruane gjennom ringane er dei fem M3-senkskruane (A). Kvar skrue rører berre sin eigen ring, og rista og stolpen er av plast, så stål går fint. Nylon formar ikkje gjenger i PLA. Ein utgang på kortet toler under 1 mA, så han styrer ein transistor eller ein drivar, aldri lysdiodane direkte.
 
 ## Fastvare
 
-`sveip_mikrobit.py` er MicroPython for V2. Opne python.microbit.org, lim inn fila og send ho til kortet.
+`sveip_mikrobit.py` er MicroPython for micro:bit V2. To måtar å få ho på kortet:
 
-- Kort trykk: av og på.
-- Hald: lyset sveiper mellom arbeid og stemning på 8 s (F2 krev under 10 s). Neste hald går andre vegen.
-- Berøring tel ikkje medan lampa blir lyfta (akselerometeret).
-- Biletet blir snudd 90° i programmet, sidan kortet står rotert.
+- Dra `sveip_mikrobit.hex` over på MICROBIT-disken. Fila er MicroPython 2.1.2 med programmet som `main.py`.
+- Eller opne python.microbit.org, lim inn programmet (eller opne hex-fila der) og send det til kortet.
 
-Logikken er køyrd mot ein stubb av `microbit`-modulen i åtte tilfelle. Ho er ikkje køyrd på eit kort.
+Programmet krev V2. V1 har ikkje touch-logoen.
+
+| Handling | Kva lampa gjer |
+|---|---|
+| Kort trykk på messingen (under 0,4 s) | av eller på, med ei toning på 0,3 s. Lampa svarar 0,12 s etter at fingeren er av |
+| Hald | lyset sveiper mellom arbeid og stemning på 8 s (F2 krev under 10 s). Neste hald går andre vegen |
+| Hald når lampa er av | ingenting. Ein grip om lampa for å flytte henne skal ikkje tenne henne. Trykk for å slå på |
+| Lampa blir vippa meir enn om lag 23° medan fingeren ligg på | lyset går attende til der det var då fingeren kom, og glir dit på 0,3 s |
+| Ein finger ligg på messingen når straumen kjem | blir sett bort frå til han er borte |
+| Hald over 15 s | blir sett bort frå, med blandinga der ho står |
+| Straumen kjem | lampa slår seg på med blandinga frå førre sveip |
+
+- **Matrisa er lampa sett framanfrå.** Dei to øvste radene er skjermen og følgjer stemningslyset. Dei tre nedste radene til venstre er stamma og følgjer arbeidslyset. Dei seks i hjørnet under skjermen er alltid mørke. Biletet blir snudd 90° i programmet, sidan kortet står rotert.
+- **Lyset blir flytta, ikkje dempa.** Arbeid er cos² og stemning sin² av blandinga, så summen er alltid den same, som i rev. B (`../../elektro/SPESIFIKASJON.md`, del 3). Midt i sveipet er begge på 50 %, og endane går mjukt. P0 og P1 gjev det same som PWM på 3,9 kHz.
+- **Matrisa viser same lysmengd som utgangane.** Nivåa 1 til 9 på kortet doblar lysstyrken for kvart steg (1, 2, 4 … 255 av 255), så programmet vel det nivået som ligg nærast i den skalaen.
+- **Blandinga blir lagra** i `sveip.txt` på kortet etter eit sveip som har flytta henne meir enn 2 %. Trykk og små rørsler skriv ingenting, så flashminnet blir ikkje slite. Er flashen full, verkar lampa likevel.
+- **Berøringa blir filtrert i programmet.** MicroPython 2.1.2 gjev rå målingar av touch-logoen, éi kvar 2. ms, og filteret i CODAL blir ikkje brukt. Programmet krev difor tre runder (60 ms) på rad med kontakt før ei berøring tel, og 120 ms utan kontakt før ho er over. Ein støyspiss, eit utfall midt i eit hald og sprett ved slepp gjer då ingenting.
+- **Dødt hald:** eit kort hald nær ein ende snur ikkje retninga. Innanfor 15 % frå ein ende går neste hald vekk frå enden.
+- **Vipping:** programmet følgjer tyngdevektoren, jamna ut over 0,2 s. Endrar han seg meir enn 0,4 g medan fingeren ligg på, blir berøringa forkasta og lyset går attende. Det fangar vipping over om lag 23° og fall. Det fangar **ikkje** at lampa blir skoten bortover bordet, vridd eller lyft rett opp. Storleiken på akselerasjonen skil ikkje eit trykk frå eit skuv på ei lampe på 50 g. Ein vern mot skuv må kome frå ein annan kanal, slik rev. B har to berøringspunkt.
+- **Terskelen for berøring er fast.** I MicroPython 2.1.2 (CODAL v0.2.43) får logoen ein fast terskel på 3500 tikk, om lag 219 µs ladetid. Kortet kalibrerer ikkje, og det finst ikkje noko kall for å lese råverdien eller kalibrere på nytt. Ekstra kapasitans frå fjør, messingskrue og vegg løftar grunnlinja, og ingenting rettar for det. Ligg grunnlinja over terskelen, er berøringa alltid sann. Då held lampa seg som ho var, og programmet verkar ikkje. Prøv difor på kortet med messingen montert, både på USB og på batteri, at lampa ikkje reagerer utan finger.
+- **Feil:** eit uventa unntak startar kortet om, så lampa ikkje står på for alltid. Ctrl-C frå USB slår av lyset.
+- **PWM-perioden** er 256 µs (3,9 kHz), og `PWM_US` øvst i programmet er den einaste staden han står. Han ligg der øyret er mest følsamt, så spoler og keramiske kondensatorar i ein drivar kan syngje. V2-kjelda har ingen nedre grense, og 40 µs (25 kHz) gjev 640 steg, men det er ikkje dokumentert og må prøvast på eit kort. Vel perioden saman med drivaren. Ein drivar som treng minst 5 µs på-tid, mistar alle verdiar under om lag 20 av 1023, og då er summen av kanalane ikkje lenger den same i endane av sveipet.
+- **Tida** blir rekna med `ticks_diff`. `running_time()` går over til negative tal etter 12,4 døgn, og då ville sveipet ha stoppa.
+
+### Fastvara er kontrollert slik
+
+| Kontroll | Resultat |
+|---|---|
+| `sveip_mikrobit_test.py`: 27 scenario mot eit simulert kort. Trykk, hald, retning, dødt hald ved ein ende, støyspiss, utfall og sprett i berøringa, finger på ved oppstart, fast kontakt, hald over 15 s, vipping med glidning, feil og Ctrl-C, full flash, ticks som går rundt, treg runde og matrisa mot utgangane. Dei nye scenarioa feilar på den førre versjonen av programmet | 27 av 27 |
+| Typekontroll med dei offisielle stubbane til python.microbit.org (pyright) | 0 feil |
+| Kompilert med `mpy-cross` 1.18 (MicroPython 2.1.2 byggjer på 1.18) | ok |
+| Køyrt i MicroPython 1.29 (WebAssembly) med simulerte pinnar: fullt sveip, lagring og omstart | ok |
+| Kvar funksjon programmet brukar, finst i MicroPython 2.1.2-fila som python.microbit.org legg på kortet | ok |
+| Matrisa mot CAD-en: testen set LED-ane gjennom `til_lampa` i `mini_passform.py` (CadQuery) og samanliknar med eigen rotasjon, ikkje med programmet | ok |
+| `sveip_mikrobit.hex` lese attende: `main.py` er lik `sveip_mikrobit.py` | ok |
+
+Simulatoren gjev råe målingar av berøringa, slik MicroPython 2.1.2 gjer. Den ekte kapasitansen er ikkje modellert.
+
+Ikkje prøvd på eit kort: kva grunnlinja og terskelen er med fjør og messingskrue, om berøringa er sikker nok, om grensa for vipping passar til ei lampe på 50 g, og korleis toning og sveip ser ut gjennom lysleiarane.
+
+`lag_hex.cjs` byggjer hex-fila på nytt etter ei endring (sjå toppen av fila).
 
 ## Print (Bambu Lab P1S)
 
@@ -106,15 +144,21 @@ AMS byter farge i dei første 5 mm, der M3 er svart. Er lampa kvit, kan M1, M2 o
 
 ### Montering
 
-1. Legg micro:bit-en med framsida opp. Set fjøra ståande midt på logoen.
-2. Senk lysrista ned over kortet, med hylsa over fjøra og lommene over LED-ane.
-3. Snu det heile og legg kortet mot stolpen på chassiset. Skuv kortet inn mot kanten på stolpen ved kantkontakten, og ned på hylla under kortet.
+Monteringsrettleiing i IKEA-stil: `rettleiing/ut/rettleiing.pdf` (M02, sjå `rettleiing/README.md`). Kort fortalt:
+
+Før monteringa (porten): skuv eit stykke filament inn i ein kanal i lysrista. Det skal gli. Skru ein av senkskruane inn i hylsa over logoen, så han formar gjengene, og skru han ut att. Står han att, sperrar hovudet når chassiset skal inn. Skuv chassiset opp i den tomme stamma. Det skal gli inn med lett klem. Ta det ut att.
+
+1. Legg lysrista med lommene opp. Slepp fjøra ned i lomma over hylsa.
+2. Legg micro:bit-en med framsida ned over rista, med lommene over LED-ane og logoen over fjøra.
+3. Hald kortet og rista saman, og legg kortet mot stolpen på chassiset. Skuv kortet inn mot kanten på stolpen ved kantkontakten, og ned på hylla under kortet.
 4. Skru saman med dei fem senkskruane gjennom lysrista, ringane og inn i stolpen.
-5. Skuv filament inn i kvar kanal til det stoppar mot LED-en. Lim med ein drope CA-lim, og klipp i flukt med framsida av rista eller inntil 0,2 mm under. Ein leiar som stikk fram, sperrar når chassiset skal inn.
-6. Skuv chassiset med kortet opp i stamma nedanfrå, med USB-kontakten mot endeplata. Dei fire ribbene på golvet klemmer.
-7. Skru messingskruen inn gjennom holet i feltet til han tek i hylsa. Ikkje stram hardt. Mål gjerne med multimeter at det er kontakt mellom messingen og logoen.
+5. Legg chassiset på ryggen, så rista vender opp. Skuv filament inn i kvar kanal til det stoppar mot LED-en. Lim med ein drope CA-lim, og klipp i flukt med framsida av rista eller inntil 0,2 mm under. Ingenting, heller ikkje lim, må stå over framsida, for då sperrar det når chassiset skal inn.
+6. Skuv chassiset med kortet opp i stamma nedanfrå, med USB-kontakten mot endeplata, til golvet er i flukt med underkanten av stamma. Ingenting stoppar det, berre dei fire ribbene på golvet klemmer.
+7. Skru messingskruen (M3 × 4) inn gjennom holet i feltet til han tek i hylsa. Ikkje stram hardt, for gjengene i plasten er berre 2,6 mm lange. Mål gjerne med multimeter at det er kontakt mellom messingen og logoen.
 8. Legg lysplata ned i skjermen ovanfrå.
 9. Kople USB gjennom holet i endeplata, og send fastvara til kortet.
+
+Kontroll: eit kort trykk på messingen slår lampa av og på. Held du, sveiper matrisa.
 
 Lampa har ingen lyskjelder enno. Matrisa viser sveipet, og utgangane P0 og P1 er klare for ein LED-drivar.
 
@@ -145,8 +189,9 @@ Ikkje prøvd: kor mykje hola krympar i verkelegheita, og om Bambu Studio les far
 ## Står att
 
 1. **Storleiken.** Ei lampe på 84 mm gjev ikkje arbeidslys på eit skrivebord. Utkraginga er 34 mm, og kroppen kan kvitte seg med 1 til 2 W. Mini er ei stemningslampe eller ein modell, ikkje ei erstatning for rev. B.
-2. **Berøringa.** Fjørpinne frå messing til logoen gjennom ein jorda aluminiumsvegg er ikkje prøvd. Etter kjeldekoden kalibrerer kortet éin gong ved oppstart. Messingen treng seriemotstand og vern mot statisk utlading.
-3. **Lyset.** Lyskjeldene, drivaren og kjølinga er ikkje teikna. Flimmer må målast: kortaste PWM-periode er 256 µs (3,9 kHz).
+2. **Berøringa.** Fjørpinne frå messing til logoen gjennom ein jorda aluminiumsvegg er ikkje prøvd. Terskelen er fast (3500 tikk) og kortet kalibrerer ikkje, så grunnlinja med fjør og messingskrue må målast. Messingen treng seriemotstand og vern mot statisk utlading.
+3. **Lyset.** Lyskjeldene, drivaren og kjølinga er ikkje teikna. Flimmer må målast. PWM-perioden er 256 µs (3,9 kHz) og kan setjast kortare, sjå Fastvare.
+6. **Leidningar til ringane.** Foten på lysrista dekkjer alle fem ringane framme, og stolpen dekkjer dei bak, så det finst ingen veg for P0, P1 og GND når lampa er montert. Skruane fører ikkje signalet: dei har 0,5 mm spel i ringen, og kontakten er tilfeldig. Kortet står 0,55 mm frå nasen, så det er ikkje plass til kantkontakt eller klemmer. Det må teiknast ein veg, til dømes eit spor i stolpen bak ring 0, ring 1 og GND for lodda leidningar. Skriv òg kvar dei to motstandane på 10 kΩ skal sitje. Lampa har ingen lyskjelder enno, så det er ikkje kravd før drivaren er vald.
 4. **Innmaten.** I aluminium er chassis, endeplate, batterihaldar og ballast i foten ikkje teikna. Marginane er små: 0,6 mm i nasen krev at plata blir valsa nøyaktig. Printversjonen har chassis og endeplate, men ikkje batteri eller ballast.
 5. **Toleransen** på LED-plasseringa er ikkje oppgjeven. Bor eit prøvestykke først.
 
@@ -157,8 +202,10 @@ Ikkje prøvd: kor mykje hola krympar i verkelegheita, og om Bambu Studio les far
 | `plassering.png`, `plassering.py` | heile lampa framanfrå og snitt gjennom matrisa og messingpunktet |
 | `mini_passform.py` | kontroll av at kortet får plass |
 | `d15_lysrist.py`, `.step`, `.stl` | lysrista, kontrollert mot LED-ane, knappane og ringane |
-| `sveip_mikrobit.py` | fastvara |
+| `sveip_mikrobit.py`, `sveip_mikrobit.hex` | fastvara, og ho ferdig til å dra over på kortet |
+| `sveip_mikrobit_test.py`, `lag_hex.cjs` | testane for fastvara, og byggjaren for hex-fila |
 | `mini_print.py`, `print/` | printdelane: STL per del, 3MF med alle delane og kontrollrapport |
 | `mini_plate.py`, `print/Sveip_mini_alle_delar.png` | plata med alle delane, sett ovanfrå |
+| `rettleiing/` | monteringsrettleiinga: PDF, sider, spesifikasjon og kjelde |
 | `mini_sprengt.png`, `mini_sprengt.py` | sprengbilete av printdelane |
 | `../overflate/bilete/v12_mini.png`, `v12_mini_naer.png` | rendringane |

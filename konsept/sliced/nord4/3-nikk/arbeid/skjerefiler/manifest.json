@@ -1,0 +1,435 @@
+{
+ "namn": "nikkarbeid",
+ "mappe": "/tmp/claude-0/-home-user-slicer-iverfinne-no/0351339b-1ff7-580f-bca7-9071db1d2f3c/scratchpad/lampe/nord4/kula/nikk-arbeid/ut/produksjon",
+ "ok": true,
+ "tal": {
+  "plan": 16,
+  "delar": 16,
+  "unike": 12,
+  "ledd": 52,
+  "avviste": 0,
+  "lause": 0,
+  "ark": 3,
+  "utnytting": 0.36154014528665773,
+  "kuttMm": 18297.47835081098,
+  "gravMm": 700.2119003356435,
+  "tidS": 914.873917540549,
+  "masseKg": 0.43229789020100007,
+  "ytre": [
+   198.51321662437397,
+   201.43074972082493,
+   195.58110183574112
+  ],
+  "sporMm": 2.15,
+  "godsMm": 16.77451906531769
+ },
+ "harde": [],
+ "mjuke": [],
+ "ark": [
+  {
+   "nr": 1,
+   "delar": [
+    "2",
+    "7",
+    "22",
+    "27",
+    "3",
+    "6",
+    "1"
+   ],
+   "utnytting": 0.38750231400119906,
+   "avHeileArket": 0.36166882640111914,
+   "gravMm": 241.66570556898068,
+   "umerkte": [],
+   "iHol": [],
+   "dxf": "ark-1.dxf",
+   "svg": "ark-1.svg",
+   "png": "ark-1.png"
+  },
+  {
+   "nr": 2,
+   "delar": [
+    "23",
+    "26",
+    "4",
+    "5",
+    "24",
+    "25",
+    "8",
+    "28"
+   ],
+   "utnytting": 0.41202204496719125,
+   "avHeileArket": 0.35845917912145636,
+   "gravMm": 406.5798373398318,
+   "umerkte": [],
+   "iHol": [],
+   "dxf": "ark-2.dxf",
+   "svg": "ark-2.svg",
+   "png": "ark-2.png"
+  },
+  {
+   "nr": 3,
+   "delar": [
+    "21"
+   ],
+   "utnytting": 0.12653804118676307,
+   "avHeileArket": 0.03669603194416129,
+   "gravMm": 51.966357426831024,
+   "umerkte": [],
+   "iHol": [],
+   "dxf": "ark-3.dxf",
+   "svg": "ark-3.svg",
+   "png": "ark-3.png"
+  }
+ ],
+ "delar": [
+  {
+   "adr": "1",
+   "id": "D01",
+   "w": 108.27665943573534,
+   "h": 108.41543977631304,
+   "area": 8761.904431636096,
+   "cutLen": 734.3217729243053,
+   "joints": 4,
+   "ark": 1,
+   "plan": 1
+  },
+  {
+   "adr": "2",
+   "id": "D02",
+   "w": 159.83886860004247,
+   "h": 159.71157405460093,
+   "area": 13579.145171050932,
+   "cutLen": 1228.3896810498188,
+   "joints": 6,
+   "ark": 1,
+   "plan": 2
+  },
+  {
+   "adr": "3",
+   "id": "D03",
+   "w": 186.49130943055647,
+   "h": 183.88934987613194,
+   "area": 11860.50487924833,
+   "cutLen": 1331.6429726631009,
+   "joints": 8,
+   "ark": 1,
+   "plan": 3
+  },
+  {
+   "adr": "4",
+   "id": "D04",
+   "w": 198.3611628482214,
+   "h": 194.2849500931014,
+   "area": 11188.517316023474,
+   "cutLen": 1295.6940831169895,
+   "joints": 8,
+   "ark": 2,
+   "plan": 4
+  },
+  {
+   "adr": "5",
+   "id": "D04",
+   "w": 198.3611166225933,
+   "h": 194.28491836545768,
+   "area": 11188.531288547641,
+   "cutLen": 1295.6924685960446,
+   "joints": 8,
+   "ark": 2,
+   "plan": 5
+  },
+  {
+   "adr": "6",
+   "id": "D03",
+   "w": 186.4911401788708,
+   "h": 183.88922641661057,
+   "area": 11860.511698735869,
+   "cutLen": 1331.6342387679153,
+   "joints": 8,
+   "ark": 1,
+   "plan": 6
+  },
+  {
+   "adr": "7",
+   "id": "D02",
+   "w": 159.8385513926307,
+   "h": 159.71106907777835,
+   "area": 13579.179807338827,
+   "cutLen": 1228.3853173765103,
+   "joints": 6,
+   "ark": 1,
+   "plan": 7
+  },
+  {
+   "adr": "8",
+   "id": "D01",
+   "w": 108.27599883843415,
+   "h": 108.4144022888866,
+   "area": 8761.768750824856,
+   "cutLen": 734.3138972866345,
+   "joints": 4,
+   "ark": 2,
+   "plan": 8
+  },
+  {
+   "adr": "21",
+   "id": "D05",
+   "w": 108.28276076299518,
+   "h": 108.31870932865995,
+   "area": 8807.04766659871,
+   "cutLen": 709.6802039609805,
+   "joints": 4,
+   "ark": 3,
+   "plan": 21
+  },
+  {
+   "adr": "22",
+   "id": "D06",
+   "w": 159.7537640745639,
+   "h": 141.96848062478975,
+   "area": 13581.039840592288,
+   "cutLen": 1228.252422080433,
+   "joints": 6,
+   "ark": 1,
+   "plan": 22
+  },
+  {
+   "adr": "23",
+   "id": "D07",
+   "w": 186.40177275098776,
+   "h": 155.24733148004003,
+   "area": 11853.153103367267,
+   "cutLen": 1331.5586104474612,
+   "joints": 8,
+   "ark": 2,
+   "plan": 23
+  },
+  {
+   "adr": "24",
+   "id": "D08",
+   "w": 198.5005222239958,
+   "h": 160.78840598598455,
+   "area": 11184.850246458085,
+   "cutLen": 1288.9217496682006,
+   "joints": 8,
+   "ark": 2,
+   "plan": 24
+  },
+  {
+   "adr": "25",
+   "id": "D09",
+   "w": 198.50273649922644,
+   "h": 160.7898870442714,
+   "area": 11184.09606716479,
+   "cutLen": 1288.9417439346198,
+   "joints": 8,
+   "ark": 2,
+   "plan": 25
+  },
+  {
+   "adr": "26",
+   "id": "D10",
+   "w": 186.40746327642452,
+   "h": 155.25106248599863,
+   "area": 11852.763309185124,
+   "cutLen": 1331.6363281586664,
+   "joints": 8,
+   "ark": 2,
+   "plan": 26
+  },
+  {
+   "adr": "27",
+   "id": "D11",
+   "w": 159.8065747086413,
+   "h": 141.96458544767077,
+   "area": 13578.232507666256,
+   "cutLen": 1228.4343855435482,
+   "joints": 6,
+   "ark": 1,
+   "plan": 27
+  },
+  {
+   "adr": "28",
+   "id": "D12",
+   "w": 108.35069664156397,
+   "h": 108.37847466818342,
+   "area": 8816.522907578283,
+   "cutLen": 709.9784752357489,
+   "joints": 4,
+   "ark": 2,
+   "plan": 28
+  }
+ ],
+ "filer": [
+  {
+   "namn": "ark-1.dxf",
+   "byte": 52077,
+   "detalj": 220,
+   "kva": "kuttfil, R12 ASCII, mm, lag KUTT og GRAVER, snittet teke"
+  },
+  {
+   "namn": "ark-1.svg",
+   "byte": 14486,
+   "detalj": 220,
+   "kva": "kuttfil 1:1, svart graver, blaa kutt, snittet teke"
+  },
+  {
+   "namn": "ark-1.png",
+   "byte": 240728,
+   "detalj": 220,
+   "kva": "bilete av arket, ikkje til maskina"
+  },
+  {
+   "namn": "ark-2.dxf",
+   "byte": 64209,
+   "detalj": 220,
+   "kva": "kuttfil, R12 ASCII, mm, lag KUTT og GRAVER, snittet teke"
+  },
+  {
+   "namn": "ark-2.svg",
+   "byte": 17860,
+   "detalj": 220,
+   "kva": "kuttfil 1:1, svart graver, blaa kutt, snittet teke"
+  },
+  {
+   "namn": "ark-2.png",
+   "byte": 232534,
+   "detalj": 220,
+   "kva": "bilete av arket, ikkje til maskina"
+  },
+  {
+   "namn": "ark-3.dxf",
+   "byte": 5532,
+   "detalj": 220,
+   "kva": "kuttfil, R12 ASCII, mm, lag KUTT og GRAVER, snittet teke"
+  },
+  {
+   "namn": "ark-3.svg",
+   "byte": 1606,
+   "detalj": 220,
+   "kva": "kuttfil 1:1, svart graver, blaa kutt, snittet teke"
+  },
+  {
+   "namn": "ark-3.png",
+   "byte": 29464,
+   "detalj": 220,
+   "kva": "bilete av arket, ikkje til maskina"
+  },
+  {
+   "namn": "profilar.svg",
+   "byte": 34350,
+   "detalj": 220,
+   "kva": "alle profilane side om side, 1:1"
+  },
+  {
+   "namn": "samla.glb",
+   "byte": 455448,
+   "detalj": 1200,
+   "kva": "montert, meter, Y opp, ein node per del"
+  },
+  {
+   "namn": "flat.glb",
+   "byte": 271532,
+   "detalj": 220,
+   "kva": "delane flatt som paa arka, ei gruppe per ark"
+  },
+  {
+   "namn": "deler.3mf",
+   "byte": 785401,
+   "detalj": 1200,
+   "kva": "flate delar, eitt objekt per del, mm, Z opp"
+  },
+  {
+   "namn": "samla.stl",
+   "byte": 623884,
+   "detalj": 1200,
+   "kva": "montert, ei trekantsuppe, mm, Z opp"
+  },
+  {
+   "namn": "samla.usdz",
+   "byte": 1136281,
+   "detalj": 1200,
+   "kva": "montert, AR Quick Look"
+  },
+  {
+   "namn": "passprove.svg",
+   "byte": 10691,
+   "detalj": null,
+   "kva": "passprove: sju spor, 0,05 mm breiare kvar gong"
+  },
+  {
+   "namn": "alt.zip",
+   "byte": 575507,
+   "detalj": 220,
+   "kva": "ALT-pakka slik appen lastar ho ned"
+  },
+  {
+   "namn": "montering.txt",
+   "byte": 1153,
+   "detalj": 220,
+   "kva": "rekkjefylgja, del for del, med retning"
+  },
+  {
+   "namn": "deler.csv",
+   "byte": 667,
+   "detalj": 220,
+   "kva": "kuttlista, semikolon, desimalkomma"
+  },
+  {
+   "namn": "reglar.txt",
+   "byte": 770,
+   "detalj": 220,
+   "kva": "kvar regel, og dei harde brota med kvifor"
+  },
+  {
+   "namn": "nikkarbeid.zip",
+   "byte": 1614172,
+   "detalj": null,
+   "kva": "prosjektfila (LAGRE)"
+  },
+  {
+   "namn": "delar.json",
+   "byte": 83220,
+   "detalj": 220,
+   "kva": "per del: omriss, hol, tjukn, matrise; og rekkjefylgja"
+  }
+ ],
+ "fin": {
+  "celler": 1200,
+  "delar": 16,
+  "ledd": 104,
+  "ark": 2,
+  "kuttMm": 18373.017087074557,
+  "likt": false,
+  "filer": [
+   "ark-1.dxf",
+   "ark-1.svg",
+   "ark-2.dxf",
+   "ark-2.svg",
+   "delar.json"
+  ],
+  "paaArk": [
+   [
+    "2",
+    "7",
+    "27",
+    "22",
+    "3",
+    "6",
+    "1"
+   ],
+   [
+    "23",
+    "26",
+    "4",
+    "5",
+    "24",
+    "25",
+    "8",
+    "28",
+    "21"
+   ]
+  ],
+  "sameArk": false
+ }
+}

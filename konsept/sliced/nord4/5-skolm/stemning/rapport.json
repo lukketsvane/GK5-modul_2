@@ -1,0 +1,1655 @@
+{
+ "namn": "skolmstemning",
+ "id": "skolmstemning",
+ "mappe": "/tmp/claude-0/-home-user-slicer-iverfinne-no/0351339b-1ff7-580f-bca7-9071db1d2f3c/scratchpad/lampe/nord4/zeppelin/skolm-stemning",
+ "ok": true,
+ "rask": false,
+ "nett": {
+  "tris": 28344,
+  "hjorne": 14174,
+  "flate": 348629.4892839617,
+  "opne": 0,
+  "mangfaldige": 0,
+  "vrengde": 0,
+  "utarta": 0,
+  "skal": [
+   3042256.0194113343
+  ],
+  "volum": 3042256.0194113343,
+  "min": [
+   -290,
+   -79.98795318603516,
+   0
+  ],
+  "max": [
+   290,
+   79.98795318603516,
+   159.9759063720703
+  ],
+  "lukka": true,
+  "samstemt": true,
+  "utover": true,
+  "ok": true,
+  "motorVolum": 3042256.0363254505
+ },
+ "pose": {
+  "kjelde": "skolmstemning",
+  "scene": "",
+  "storleik": 580,
+  "rotX": 0,
+  "rotY": 0,
+  "rotZ": 0,
+  "glatt": 0,
+  "trekant": 40,
+  "forenkl": 0,
+  "hol": 0,
+  "tjukn": 3,
+  "lause": 1,
+  "merk": 0,
+  "snapp": 3,
+  "klaring": 0.15,
+  "ledd": 0.5,
+  "kilar": 0,
+  "snitt": 0.2,
+  "snittveg": 0,
+  "fart": 20,
+  "arkB": 600,
+  "arkH": 400,
+  "material": "akryl",
+  "plan": "1@0.5,0.5883,0.4115/0,-0.7071,0.7071/-o:-0.4793,0,0.0072,0.0072,0/-o:0.4793,0,0.0072,0.0072,0;2@0.5,0.4115,0.5883/0,-0.7071,0.7071/-o:-0.4793,0,0.0072,0.0072,0/-o:0.4793,0,0.0072,0.0072,0;10@0.0655,0.4999,0.4999/1,0,0;11@0.0897,0.4999,0.4999/1,0,0;12@0.1138,0.4999,0.4999/1,0,0;13@0.1379,0.4999,0.4999/1,0,0;14@0.1621,0.4999,0.4999/1,0,0;15@0.1862,0.4999,0.4999/1,0,0;16@0.2103,0.4999,0.4999/1,0,0;17@0.2345,0.4999,0.4999/1,0,0;18@0.2586,0.4999,0.4999/1,0,0;19@0.2828,0.4999,0.4999/1,0,0;20@0.3069,0.4999,0.4999/1,0,0;21@0.331,0.4999,0.4999/1,0,0;22@0.3552,0.4999,0.4999/1,0,0;23@0.3793,0.4999,0.4999/1,0,0;24@0.4034,0.4999,0.4999/1,0,0;25@0.4276,0.4999,0.4999/1,0,0;26@0.4517,0.4999,0.4999/1,0,0;27@0.4759,0.4999,0.4999/1,0,0;28@0.5,0.4999,0.4999/1,0,0;29@0.5241,0.4999,0.4999/1,0,0;30@0.5483,0.4999,0.4999/1,0,0;31@0.5724,0.4999,0.4999/1,0,0;32@0.5966,0.4999,0.4999/1,0,0;33@0.6207,0.4999,0.4999/1,0,0;34@0.6448,0.4999,0.4999/1,0,0;35@0.669,0.4999,0.4999/1,0,0;36@0.6931,0.4999,0.4999/1,0,0;37@0.7172,0.4999,0.4999/1,0,0;38@0.7414,0.4999,0.4999/1,0,0;39@0.7655,0.4999,0.4999/1,0,0;40@0.7897,0.4999,0.4999/1,0,0;41@0.8138,0.4999,0.4999/1,0,0;42@0.8379,0.4999,0.4999/1,0,0;43@0.8621,0.4999,0.4999/1,0,0;44@0.8862,0.4999,0.4999/1,0,0;45@0.9103,0.4999,0.4999/1,0,0;46@0.9345,0.4999,0.4999/1,0,0",
+  "fest": "",
+  "deling": ""
+ },
+ "plan": "1@0.5,0.5883,0.4115/0,-0.7071,0.7071/-o:-0.4793,0,0.0072,0.0072,0/-o:0.4793,0,0.0072,0.0072,0;2@0.5,0.4115,0.5883/0,-0.7071,0.7071/-o:-0.4793,0,0.0072,0.0072,0/-o:0.4793,0,0.0072,0.0072,0;10@0.0655,0.4999,0.4999/1,0,0;11@0.0897,0.4999,0.4999/1,0,0;12@0.1138,0.4999,0.4999/1,0,0;13@0.1379,0.4999,0.4999/1,0,0;14@0.1621,0.4999,0.4999/1,0,0;15@0.1862,0.4999,0.4999/1,0,0;16@0.2103,0.4999,0.4999/1,0,0;17@0.2345,0.4999,0.4999/1,0,0;18@0.2586,0.4999,0.4999/1,0,0;19@0.2828,0.4999,0.4999/1,0,0;20@0.3069,0.4999,0.4999/1,0,0;21@0.331,0.4999,0.4999/1,0,0;22@0.3552,0.4999,0.4999/1,0,0;23@0.3793,0.4999,0.4999/1,0,0;24@0.4034,0.4999,0.4999/1,0,0;25@0.4276,0.4999,0.4999/1,0,0;26@0.4517,0.4999,0.4999/1,0,0;27@0.4759,0.4999,0.4999/1,0,0;28@0.5,0.4999,0.4999/1,0,0;29@0.5241,0.4999,0.4999/1,0,0;30@0.5483,0.4999,0.4999/1,0,0;31@0.5724,0.4999,0.4999/1,0,0;32@0.5966,0.4999,0.4999/1,0,0;33@0.6207,0.4999,0.4999/1,0,0;34@0.6448,0.4999,0.4999/1,0,0;35@0.669,0.4999,0.4999/1,0,0;36@0.6931,0.4999,0.4999/1,0,0;37@0.7172,0.4999,0.4999/1,0,0;38@0.7414,0.4999,0.4999/1,0,0;39@0.7655,0.4999,0.4999/1,0,0;40@0.7897,0.4999,0.4999/1,0,0;41@0.8138,0.4999,0.4999/1,0,0;42@0.8379,0.4999,0.4999/1,0,0;43@0.8621,0.4999,0.4999/1,0,0;44@0.8862,0.4999,0.4999/1,0,0;45@0.9103,0.4999,0.4999/1,0,0;46@0.9345,0.4999,0.4999/1,0,0",
+ "tal": {
+  "plan": 39,
+  "delar": 39,
+  "unike": 20,
+  "ledd": 74,
+  "tappar": 0,
+  "avviste": 0,
+  "lause": 0,
+  "ark": 4,
+  "utnytting": 0.2849656979148923,
+  "kuttMm": 28518.583498218588,
+  "tidS": 1425.9291749109293,
+  "masseKg": 0.8114204471451977,
+  "ytre": [
+   571.1932289709821,
+   159.82085067625803,
+   159.78864794434605
+  ],
+  "sporMm": 3.15,
+  "godsMm": 9.610821650854295
+ },
+ "reglar": [
+  {
+   "id": "grip",
+   "label": "plana grip",
+   "hard": true,
+   "ok": true,
+   "value": "74 ledd",
+   "why": "Utan eit einaste kryssledd er dette ikkje eit objekt, men ein bunke laust liggjande plater. Vanlegaste grunnen er at plana ikkje kryssar kvarandre der kroppen har gods, eller at det står for få av dei til at nokon møtest. Er nokre avviste, kryssa dei — men det stod for lite gods ved sida av sporet til at noko heldt. Rutenettet på lina set kolonner og rader med to fingrar."
+  },
+  {
+   "id": "delar",
+   "label": "delar å skjere",
+   "hard": true,
+   "ok": true,
+   "value": "39 stk",
+   "why": "Ingen plan råka nettet. Anten står plana utanfor kroppen, eller so er nettet so tynt at kvar profil fell under minstearealet — eller du har ikkje låst noko enno. Rutenettet på lina set kolonner og rader med to fingrar."
+  },
+  {
+   "id": "orden",
+   "label": "kan monterast",
+   "hard": true,
+   "ok": true,
+   "value": "éin veg inn for kvar",
+   "why": "Ein del vert skuva inn langs spora sine, og eit spor går langs lina der dei to plana kryssar. Delen her har ledd mot to delar som alt ligg, langs liner som ikkje er parallelle, og han kan berre gå éin veg. Verdien seier kva for to han står mellom. Byt rekkjefylgja, so han kjem inn før den eine av dei; vinkle planet om, so dei to linene vert parallelle; eller flytt han ut av vegen til den eine. Med to familiar ribber som kryssar kvarandre vert det alltid éin som kjem sist, og han er bunden av båe — ei plate på tvers av eit rutenett går ikkje i hop med spor åleine."
+  },
+  {
+   "id": "klem",
+   "label": "ingen står i kvarandre",
+   "hard": true,
+   "ok": true,
+   "value": "ingen klemmer",
+   "why": "To plan kryssar der begge har gods, men møtet fekk ikkje spor: det stod for lite gods ved sida av sporet til at noko heldt. Godset står difor att i båe, og dei to delane skal vera same staden — det går ikkje i hop, same rekkjefylgje du tek. Eit grovare rutenett er det som hjelper oftast; tynnare plate gjev færre, tjukkare gjev fleire."
+  },
+  {
+   "id": "lause",
+   "label": "utan ledd · kasta",
+   "hard": false,
+   "ok": true,
+   "value": "ingen",
+   "why": "Eit stykke som ikkje kryssar eit einaste anna plan heng ikkje i noko: det står i kuttlista, kostar plass på plata, og ligg laust i eska. Eit plan til gjennom stykket gjev det eit ledd; `lause` på «kast» tek lause øyer ut av fila."
+  },
+  {
+   "id": "gods",
+   "label": "gods i leddet",
+   "hard": true,
+   "ok": true,
+   "value": "9,6 mm",
+   "why": "Sporet et halve overlappet, og det som er att må bera resten av delen. Under 3,0 mm knekk finéren i sporbotnen når du pressar delane saman. Flytt leddelinga, eller set planet der nettet er tjukkare."
+  },
+  {
+   "id": "plate",
+   "label": "delane får plass",
+   "hard": true,
+   "ok": true,
+   "value": "4 ark",
+   "why": "Ein del er større enn plata. Anten mindre objekt, fleire plan (kvar del vert mindre), eller ei større plate enn 600 × 400 mm."
+  },
+  {
+   "id": "klaring",
+   "label": "klaring",
+   "hard": false,
+   "ok": true,
+   "value": "0,15 mm",
+   "why": "Sporet er tjukna pluss klaringa, so talet gjeld den MÅLTE plata: 3 mm MDF måler jamt 2,8–2,9, og set du 3 er sporet 0,2 for vidt før klaringa er talt med. Mål plata med skyvelær og set tjukna til det. Under 0,05 mm får du ikkje delane i hop utan hammar, og finér som vert slegen i hop flisar seg. Over 0,35 mm sit dei ikkje fast. Passprøva skjer heile stigen og let deg kjenne etter."
+  },
+  {
+   "id": "snitt",
+   "label": "snittbreidd",
+   "hard": false,
+   "ok": true,
+   "value": "0,20 mm i fila",
+   "why": "Stråla har breidd, og kutten et henne ut av delen. Er snittbreidda null, kompenserer korkje fila eller maskina for henne: kvart spor kjem ut ei snittbreidd for vidt. Passprøva måler henne og klaringa i eitt."
+  },
+  {
+   "id": "snittspor",
+   "label": "snittet mot sporet",
+   "hard": true,
+   "ok": true,
+   "value": "0,20 mm mot 3,15 mm",
+   "why": "Snittbreidda vert kompensert ved å skuve omrisset utover, og sporet vert teikna like mykje smalare. Er snittet like breitt som sporet, er det teikna sporet borte, og konturen brettar seg over seg sjølv."
+  },
+  {
+   "id": "opning",
+   "label": "opning mellom plan",
+   "hard": false,
+   "ok": true,
+   "value": "11,0 mm",
+   "why": "To nesten parallelle plan står so tett at fingrane ikkje kjem imellom dei når du monterer. Flytt det eine, eller ta det bort."
+  },
+  {
+   "id": "lukka",
+   "label": "lukka nett",
+   "hard": false,
+   "ok": true,
+   "value": "lukka",
+   "why": "Snittinga les nettet med strålar og tel kva veg kvar trekant vender. Eit nett med hòl i har ingen innside å telje, og då kan ein profil kome ut som eit stykke der han skulle vore to."
+  },
+  {
+   "id": "nett",
+   "label": "nettoppløysing",
+   "hard": false,
+   "ok": true,
+   "value": "28344 av 28344",
+   "why": "Trekanttaket står på det lågaste hakket sitt, og nettet hadde meir å gje. Plana vert lesne av nett desse trekantane, so profilen er so grov som dei er. Skru opp taket."
+  },
+  {
+   "id": "utnytting",
+   "label": "utnytting",
+   "hard": false,
+   "ok": false,
+   "value": "28 %",
+   "why": "Meir enn to tredelar av plata går i søppelbøtta. Prøv ei anna plate, eller færre og større delar. Pakkinga fylgjer omrisset og reknar hòla som ledig plass, so det som står att er luft ho ikkje fann nokon del til."
+  },
+  {
+   "id": "bog",
+   "label": "bøyeradius",
+   "hard": false,
+   "ok": true,
+   "value": "ingen bøygde plan",
+   "why": "Under 690,0 mm vert plata RILLA: rader med snitt på tvers av bøyen, 2,4 mm mellom kvar, som tek vekk godset som elles vart strekt. Rundt kvart spor står ei stiv øy — godset som ber eit ledd skal ikkje vera perforert. Prisen er kuttlengd og mindre gods. Om brua held er ikkje rekna her: skjer ein prøvestrimmel."
+  },
+  {
+   "id": "bogledd",
+   "label": "ledd på bøygde plan",
+   "hard": false,
+   "ok": true,
+   "value": "ingen",
+   "why": "Ei bøygd ribbe får spor på to måtar: eit flatt plan LANGS sylinderaksen hennar møter henne i ei rett line, og eit flatt plan VINKELRETT på aksen — eit golv — møter henne i ein sirkelboge med sylinderradien. Desse ribbene fann ingen av delane: eit plan som SKRÅR mot aksen møter flata i ei kurve som korkje er det eine eller det andre, og den finnaren er ikkje skriven. Dei kjem ut som lause plater du må feste sjølv. Rett ut bøyen, legg eit plan langs aksen, eller eit golv på tvers av han."
+  },
+  {
+   "id": "bogkurve",
+   "label": "møte på bøygde plan",
+   "hard": false,
+   "ok": true,
+   "value": "ingen bøygde",
+   "why": "Eit flatt plan som SKRÅR mot sylinderaksen til eit bøygt plan møter det i eit kjeglesnitt, og den finnaren er ikkje skriven. Møta er talde her og vart ikkje ledd: dei to delane kjem ut utan spor for kvarandre. Legg planet LANGS aksen, eller VINKELRETT på han — då er møtet ei line eller ein sirkelboge, og båe ber spor — eller rett ut bøyen."
+  }
+ ],
+ "harde": [],
+ "mjuke": [
+  "utnytting"
+ ],
+ "krav": [
+  {
+   "namn": "nettet er lukka og vender ut",
+   "ok": true,
+   "verdi": "28344 trekantar · 0 opne · 0 mangfaldige · 0 vrengde · 1 skal"
+  },
+  {
+   "namn": "nettet held trekantbudsjettet",
+   "ok": true,
+   "verdi": "28344 av 40000: over det vert nettet forenkla"
+  },
+  {
+   "namn": "kroppen står sentrert på z = 0",
+   "ok": true,
+   "verdi": "ja"
+  },
+  {
+   "namn": "1:1",
+   "ok": true,
+   "verdi": "storleik 580 mot lengste side 580.00 · glatt 0 forenkl 0 hol 0"
+  },
+  {
+   "namn": "motoren les same volum som nettet",
+   "ok": true,
+   "verdi": "3042 cm3 mot 3042 cm3"
+  },
+  {
+   "namn": "alle plan kom med",
+   "ok": true,
+   "verdi": "39 skrivne · 39 lesne · 39 i motoren"
+  },
+  {
+   "namn": "appen opnar posen uendra",
+   "ok": true,
+   "verdi": "ja"
+  },
+  {
+   "namn": "ingen lause eller kasta stykke",
+   "ok": true,
+   "verdi": "0 lause"
+  },
+  {
+   "namn": "alle delar ligg på eit ark",
+   "ok": true,
+   "verdi": "ja"
+  },
+  {
+   "namn": "kvart plan gjev minst éin del",
+   "ok": true,
+   "verdi": "ja"
+  },
+  {
+   "namn": "ingen spalte held fram gjennom gods forbi munnen",
+   "ok": true,
+   "verdi": "ja"
+  },
+  {
+   "namn": "mål med stativ",
+   "ok": true,
+   "verdi": "lengd 640 · høgd 330 · akse 250 over bordet · kropp ø160 · fot ø158 = 196 cm2 · 37 spant, steg 14 · "
+  },
+  {
+   "namn": "vogga går fri under kroppen",
+   "ok": true,
+   "verdi": "12.2 mm til del 26, kravet er 6 mm"
+  },
+  {
+   "namn": "lysstaven går fri av spanta",
+   "ok": true,
+   "verdi": "22.0 mm til del 2, kravet er 9 mm"
+  },
+  {
+   "namn": "armane går fri av kjølen",
+   "ok": true,
+   "verdi": "20.6 mm til del 1, kravet er 5 mm"
+  },
+  {
+   "namn": "stifthol i kjøl 1",
+   "ok": true,
+   "verdi": "[[\"3.39\",\"-278,14,66\",false],[\"3.39\",\"278,14,66\",false]]"
+  },
+  {
+   "namn": "stifthol i kjøl 2",
+   "ok": true,
+   "verdi": "[[\"3.39\",\"-278,-14,94\",false],[\"3.39\",\"278,-14,94\",false]]"
+  },
+  {
+   "namn": "fine kuttfiler (1200 celler) gjev same delar, ledd og ark",
+   "ok": true,
+   "verdi": "39 delar · 4 ark · 28.74 m"
+  }
+ ],
+ "ark": [
+  {
+   "nr": 1,
+   "delar": [
+    "2",
+    "1",
+    "25",
+    "31",
+    "28",
+    "26",
+    "27",
+    "24",
+    "12",
+    "10",
+    "46"
+   ],
+   "utnytting": 0.2991379027903728,
+   "avHeileArket": 0.2991379027903728,
+   "gravMm": 441.55267035504966,
+   "umerkte": [],
+   "iHol": []
+  },
+  {
+   "nr": 2,
+   "delar": [
+    "29",
+    "30",
+    "32",
+    "23",
+    "33",
+    "22",
+    "34",
+    "21",
+    "35",
+    "20",
+    "17"
+   ],
+   "utnytting": 0.2888423207883021,
+   "avHeileArket": 0.28787951305234105,
+   "gravMm": 535.6542050707177,
+   "umerkte": [],
+   "iHol": []
+  },
+  {
+   "nr": 3,
+   "delar": [
+    "36",
+    "19",
+    "37",
+    "18",
+    "38",
+    "39",
+    "16",
+    "40",
+    "15",
+    "41",
+    "14",
+    "42"
+   ],
+   "utnytting": 0.27685015611697333,
+   "avHeileArket": 0.27500448840952685,
+   "gravMm": 563.5077972486389,
+   "umerkte": [],
+   "iHol": []
+  },
+  {
+   "nr": 4,
+   "delar": [
+    "13",
+    "43",
+    "44",
+    "11",
+    "45"
+   ],
+   "utnytting": 0.2550422954547546,
+   "avHeileArket": 0.08501409848491819,
+   "gravMm": 191.3132402157856,
+   "umerkte": [],
+   "iHol": []
+  }
+ ],
+ "delar": [
+  {
+   "adr": "1",
+   "id": "D01",
+   "w": 571.1987068979107,
+   "h": 97.16174183291233,
+   "area": 11196.58453365598,
+   "cutLen": 2074.9546312825,
+   "joints": 37,
+   "ark": 1,
+   "plan": 1
+  },
+  {
+   "adr": "2",
+   "id": "D01",
+   "w": 571.1986457899643,
+   "h": 97.16198772236942,
+   "area": 11198.368714858716,
+   "cutLen": 2074.9538655200067,
+   "joints": 37,
+   "ark": 1,
+   "plan": 2
+  },
+  {
+   "adr": "10",
+   "id": "D02",
+   "w": 97.06600544536029,
+   "h": 97.09122887076538,
+   "area": 3196.768922840486,
+   "cutLen": 446.8019666337532,
+   "joints": 2,
+   "ark": 1,
+   "plan": 10
+  },
+  {
+   "adr": "11",
+   "id": "D03",
+   "w": 108.98339234323421,
+   "h": 109.01563428376946,
+   "area": 3671.109695615925,
+   "cutLen": 498.6982200215691,
+   "joints": 2,
+   "ark": 4,
+   "plan": 11
+  },
+  {
+   "adr": "12",
+   "id": "D04",
+   "w": 118.29301857750986,
+   "h": 118.35747976757398,
+   "area": 4097.373659104368,
+   "cutLen": 541.5853768489893,
+   "joints": 2,
+   "ark": 1,
+   "plan": 12
+  },
+  {
+   "adr": "13",
+   "id": "D05",
+   "w": 126.03783189385116,
+   "h": 125.91230057917234,
+   "area": 4481.906496271958,
+   "cutLen": 577.6874056562943,
+   "joints": 2,
+   "ark": 4,
+   "plan": 13
+  },
+  {
+   "adr": "14",
+   "id": "D06",
+   "w": 132.24412337777207,
+   "h": 132.25867262322672,
+   "area": 4825.29935154782,
+   "cutLen": 606.8570416332869,
+   "joints": 2,
+   "ark": 3,
+   "plan": 14
+  },
+  {
+   "adr": "15",
+   "id": "D07",
+   "w": 137.6070661690522,
+   "h": 137.57861984555834,
+   "area": 5123.376920953123,
+   "cutLen": 632.7641931941095,
+   "joints": 2,
+   "ark": 3,
+   "plan": 15
+  },
+  {
+   "adr": "16",
+   "id": "D08",
+   "w": 142.12294769449943,
+   "h": 142.17356721928996,
+   "area": 5387.73006558537,
+   "cutLen": 653.084688565889,
+   "joints": 2,
+   "ark": 3,
+   "plan": 16
+  },
+  {
+   "adr": "17",
+   "id": "D09",
+   "w": 146.15075625604607,
+   "h": 146.11857467329952,
+   "area": 5615.378183614229,
+   "cutLen": 670.8646495733927,
+   "joints": 2,
+   "ark": 2,
+   "plan": 17
+  },
+  {
+   "adr": "18",
+   "id": "D10",
+   "w": 149.08177079910064,
+   "h": 149.12199040626484,
+   "area": 5813.432228329486,
+   "cutLen": 685.707525321088,
+   "joints": 2,
+   "ark": 3,
+   "plan": 18
+  },
+  {
+   "adr": "19",
+   "id": "D11",
+   "w": 151.92176421872955,
+   "h": 151.87532164283505,
+   "area": 5984.023738147506,
+   "cutLen": 698.3597157329224,
+   "joints": 2,
+   "ark": 3,
+   "plan": 19
+  },
+  {
+   "adr": "20",
+   "id": "D12",
+   "w": 154.0157663182734,
+   "h": 153.78522887061519,
+   "area": 6118.004281519171,
+   "cutLen": 707.3262283906896,
+   "joints": 2,
+   "ark": 2,
+   "plan": 20
+  },
+  {
+   "adr": "21",
+   "id": "D13",
+   "w": 155.83901924981967,
+   "h": 155.72129566295578,
+   "area": 6237.417155790542,
+   "cutLen": 716.4160257936998,
+   "joints": 2,
+   "ark": 2,
+   "plan": 21
+  },
+  {
+   "adr": "22",
+   "id": "D14",
+   "w": 157.20575326487796,
+   "h": 157.08925093757796,
+   "area": 6328.817936275975,
+   "cutLen": 722.4129939090394,
+   "joints": 2,
+   "ark": 2,
+   "plan": 22
+  },
+  {
+   "adr": "23",
+   "id": "D15",
+   "w": 158.1373539677815,
+   "h": 157.99849364741348,
+   "area": 6389.3812914448135,
+   "cutLen": 726.2327855350719,
+   "joints": 2,
+   "ark": 2,
+   "plan": 23
+  },
+  {
+   "adr": "24",
+   "id": "D16",
+   "w": 158.75015836221377,
+   "h": 158.6352737772749,
+   "area": 6441.017294842474,
+   "cutLen": 730.0121846535375,
+   "joints": 2,
+   "ark": 1,
+   "plan": 24
+  },
+  {
+   "adr": "25",
+   "id": "D17",
+   "w": 159.2817427769304,
+   "h": 159.28173591905815,
+   "area": 6475.1718066319745,
+   "cutLen": 733.1757514015089,
+   "joints": 2,
+   "ark": 1,
+   "plan": 25
+  },
+  {
+   "adr": "26",
+   "id": "D18",
+   "w": 159.60546832625096,
+   "h": 159.63765506634155,
+   "area": 6496.972904160434,
+   "cutLen": 734.1439383586935,
+   "joints": 2,
+   "ark": 1,
+   "plan": 26
+  },
+  {
+   "adr": "27",
+   "id": "D19",
+   "w": 159.78015452526455,
+   "h": 159.7479541120864,
+   "area": 6508.4833564231585,
+   "cutLen": 734.7623110807644,
+   "joints": 2,
+   "ark": 1,
+   "plan": 27
+  },
+  {
+   "adr": "28",
+   "id": "D20",
+   "w": 159.82085067625803,
+   "h": 159.78864794434605,
+   "area": 6510.4241064023845,
+   "cutLen": 734.8968096762236,
+   "joints": 2,
+   "ark": 1,
+   "plan": 28
+  },
+  {
+   "adr": "29",
+   "id": "D19",
+   "w": 159.78015312199184,
+   "h": 159.7479514978144,
+   "area": 6508.483249719331,
+   "cutLen": 734.7623048611833,
+   "joints": 2,
+   "ark": 2,
+   "plan": 29
+  },
+  {
+   "adr": "30",
+   "id": "D18",
+   "w": 159.60546577056732,
+   "h": 159.63764536312303,
+   "area": 6496.972560735452,
+   "cutLen": 734.1439208858973,
+   "joints": 2,
+   "ark": 2,
+   "plan": 30
+  },
+  {
+   "adr": "31",
+   "id": "D17",
+   "w": 159.28173484250414,
+   "h": 159.28172689296073,
+   "area": 6475.171376228427,
+   "cutLen": 733.1756974746763,
+   "joints": 2,
+   "ark": 1,
+   "plan": 31
+  },
+  {
+   "adr": "32",
+   "id": "D16",
+   "w": 158.75015020146316,
+   "h": 158.63525904000738,
+   "area": 6441.016634654583,
+   "cutLen": 730.0121144071444,
+   "joints": 2,
+   "ark": 2,
+   "plan": 32
+  },
+  {
+   "adr": "33",
+   "id": "D15",
+   "w": 158.13733961943615,
+   "h": 157.99847786546397,
+   "area": 6389.379984999348,
+   "cutLen": 726.2327281504317,
+   "joints": 2,
+   "ark": 2,
+   "plan": 33
+  },
+  {
+   "adr": "34",
+   "id": "D14",
+   "w": 157.20573450002632,
+   "h": 157.08922500388633,
+   "area": 6328.816450853898,
+   "cutLen": 722.4128798976014,
+   "joints": 2,
+   "ark": 2,
+   "plan": 34
+  },
+  {
+   "adr": "35",
+   "id": "D13",
+   "w": 155.8389975787477,
+   "h": 155.72125875710026,
+   "area": 6237.415402954506,
+   "cutLen": 716.4158593722806,
+   "joints": 2,
+   "ark": 2,
+   "plan": 35
+  },
+  {
+   "adr": "36",
+   "id": "D12",
+   "w": 154.01573828667154,
+   "h": 153.78517895202452,
+   "area": 6118.00227310515,
+   "cutLen": 707.3260307267083,
+   "joints": 2,
+   "ark": 3,
+   "plan": 36
+  },
+  {
+   "adr": "37",
+   "id": "D11",
+   "w": 151.9217285174813,
+   "h": 151.87526465890286,
+   "area": 5984.020627717446,
+   "cutLen": 698.3594400271213,
+   "joints": 2,
+   "ark": 3,
+   "plan": 37
+  },
+  {
+   "adr": "38",
+   "id": "D10",
+   "w": 149.0817097041305,
+   "h": 149.1218997097172,
+   "area": 5813.428220271057,
+   "cutLen": 685.7070855689722,
+   "joints": 2,
+   "ark": 3,
+   "plan": 38
+  },
+  {
+   "adr": "39",
+   "id": "D09",
+   "w": 146.15070317818902,
+   "h": 146.11848727856713,
+   "area": 5615.373233600997,
+   "cutLen": 670.8643651961944,
+   "joints": 2,
+   "ark": 3,
+   "plan": 39
+  },
+  {
+   "adr": "40",
+   "id": "D08",
+   "w": 142.12288695999894,
+   "h": 142.1734871048513,
+   "area": 5387.725461990653,
+   "cutLen": 653.0843485427685,
+   "joints": 2,
+   "ark": 3,
+   "plan": 40
+  },
+  {
+   "adr": "41",
+   "id": "D07",
+   "w": 137.60699464537714,
+   "h": 137.578502946989,
+   "area": 5123.371664907837,
+   "cutLen": 632.7636153607476,
+   "joints": 2,
+   "ark": 3,
+   "plan": 41
+  },
+  {
+   "adr": "42",
+   "id": "D06",
+   "w": 132.2440368947586,
+   "h": 132.2585411914663,
+   "area": 4825.2934321300045,
+   "cutLen": 606.8566599215451,
+   "joints": 2,
+   "ark": 3,
+   "plan": 42
+  },
+  {
+   "adr": "43",
+   "id": "D05",
+   "w": 126.03775358088221,
+   "h": 125.91217050665178,
+   "area": 4481.899435725766,
+   "cutLen": 577.6868557622921,
+   "joints": 2,
+   "ark": 4,
+   "plan": 43
+  },
+  {
+   "adr": "44",
+   "id": "D04",
+   "w": 118.29289202112335,
+   "h": 118.35728095944161,
+   "area": 4097.366420155372,
+   "cutLen": 541.5846461162222,
+   "joints": 2,
+   "ark": 4,
+   "plan": 44
+  },
+  {
+   "adr": "45",
+   "id": "D03",
+   "w": 108.98323530071733,
+   "h": 109.0153814380744,
+   "area": 3671.101588611347,
+   "cutLen": 498.6972234750175,
+   "joints": 2,
+   "ark": 4,
+   "plan": 45
+  },
+  {
+   "adr": "46",
+   "id": "D02",
+   "w": 97.06600544536029,
+   "h": 97.09106669907939,
+   "area": 3196.759994541046,
+   "cutLen": 446.7994136887564,
+   "joints": 2,
+   "ark": 1,
+   "plan": 46
+  }
+ ],
+ "orden": [
+  {
+   "nr": 1,
+   "plan": 1,
+   "delar": [
+    "1"
+   ],
+   "steg": 1,
+   "veg": "ligg",
+   "retning": null,
+   "mot": [],
+   "fast": false
+  },
+  {
+   "nr": 2,
+   "plan": 2,
+   "delar": [
+    "2"
+   ],
+   "steg": 1,
+   "veg": "ligg",
+   "retning": null,
+   "mot": [],
+   "fast": false
+  },
+  {
+   "nr": 3,
+   "plan": 10,
+   "delar": [
+    "10"
+   ],
+   "steg": 2,
+   "veg": "ned",
+   "retning": [
+    0,
+    -0.7071067811865474,
+    -0.7071067811865474
+   ],
+   "mot": [
+    1,
+    2
+   ],
+   "fast": false
+  },
+  {
+   "nr": 4,
+   "plan": 11,
+   "delar": [
+    "11"
+   ],
+   "steg": 2,
+   "veg": "ned",
+   "retning": [
+    0,
+    -0.7071067811865474,
+    -0.7071067811865474
+   ],
+   "mot": [
+    2,
+    1
+   ],
+   "fast": false
+  },
+  {
+   "nr": 5,
+   "plan": 12,
+   "delar": [
+    "12"
+   ],
+   "steg": 2,
+   "veg": "ned",
+   "retning": [
+    0,
+    -0.7071067811865474,
+    -0.7071067811865474
+   ],
+   "mot": [
+    1,
+    2
+   ],
+   "fast": false
+  },
+  {
+   "nr": 6,
+   "plan": 13,
+   "delar": [
+    "13"
+   ],
+   "steg": 2,
+   "veg": "ned",
+   "retning": [
+    0,
+    -0.7071067811865474,
+    -0.7071067811865474
+   ],
+   "mot": [
+    2,
+    1
+   ],
+   "fast": false
+  },
+  {
+   "nr": 7,
+   "plan": 14,
+   "delar": [
+    "14"
+   ],
+   "steg": 2,
+   "veg": "ned",
+   "retning": [
+    0,
+    -0.7071067811865474,
+    -0.7071067811865474
+   ],
+   "mot": [
+    2,
+    1
+   ],
+   "fast": false
+  },
+  {
+   "nr": 8,
+   "plan": 15,
+   "delar": [
+    "15"
+   ],
+   "steg": 2,
+   "veg": "ned",
+   "retning": [
+    0,
+    -0.7071067811865474,
+    -0.7071067811865474
+   ],
+   "mot": [
+    2,
+    1
+   ],
+   "fast": false
+  },
+  {
+   "nr": 9,
+   "plan": 16,
+   "delar": [
+    "16"
+   ],
+   "steg": 2,
+   "veg": "ned",
+   "retning": [
+    0,
+    -0.7071067811865474,
+    -0.7071067811865474
+   ],
+   "mot": [
+    2,
+    1
+   ],
+   "fast": false
+  },
+  {
+   "nr": 10,
+   "plan": 17,
+   "delar": [
+    "17"
+   ],
+   "steg": 2,
+   "veg": "ned",
+   "retning": [
+    0,
+    -0.7071067811865474,
+    -0.7071067811865474
+   ],
+   "mot": [
+    1,
+    2
+   ],
+   "fast": false
+  },
+  {
+   "nr": 11,
+   "plan": 18,
+   "delar": [
+    "18"
+   ],
+   "steg": 2,
+   "veg": "ned",
+   "retning": [
+    0,
+    -0.7071067811865474,
+    -0.7071067811865474
+   ],
+   "mot": [
+    1,
+    2
+   ],
+   "fast": false
+  },
+  {
+   "nr": 12,
+   "plan": 19,
+   "delar": [
+    "19"
+   ],
+   "steg": 2,
+   "veg": "ned",
+   "retning": [
+    0,
+    -0.7071067811865474,
+    -0.7071067811865474
+   ],
+   "mot": [
+    2,
+    1
+   ],
+   "fast": false
+  },
+  {
+   "nr": 13,
+   "plan": 20,
+   "delar": [
+    "20"
+   ],
+   "steg": 2,
+   "veg": "ned",
+   "retning": [
+    0,
+    -0.7071067811865474,
+    -0.7071067811865474
+   ],
+   "mot": [
+    1,
+    2
+   ],
+   "fast": false
+  },
+  {
+   "nr": 14,
+   "plan": 21,
+   "delar": [
+    "21"
+   ],
+   "steg": 2,
+   "veg": "ned",
+   "retning": [
+    0,
+    -0.7071067811865474,
+    -0.7071067811865474
+   ],
+   "mot": [
+    1,
+    2
+   ],
+   "fast": false
+  },
+  {
+   "nr": 15,
+   "plan": 22,
+   "delar": [
+    "22"
+   ],
+   "steg": 2,
+   "veg": "ned",
+   "retning": [
+    0,
+    -0.7071067811865474,
+    -0.7071067811865474
+   ],
+   "mot": [
+    1,
+    2
+   ],
+   "fast": false
+  },
+  {
+   "nr": 16,
+   "plan": 23,
+   "delar": [
+    "23"
+   ],
+   "steg": 2,
+   "veg": "ned",
+   "retning": [
+    0,
+    -0.7071067811865474,
+    -0.7071067811865474
+   ],
+   "mot": [
+    1,
+    2
+   ],
+   "fast": false
+  },
+  {
+   "nr": 17,
+   "plan": 24,
+   "delar": [
+    "24"
+   ],
+   "steg": 2,
+   "veg": "ned",
+   "retning": [
+    0,
+    -0.7071067811865474,
+    -0.7071067811865474
+   ],
+   "mot": [
+    1,
+    2
+   ],
+   "fast": false
+  },
+  {
+   "nr": 18,
+   "plan": 25,
+   "delar": [
+    "25"
+   ],
+   "steg": 2,
+   "veg": "ned",
+   "retning": [
+    0,
+    -0.7071067811865474,
+    -0.7071067811865474
+   ],
+   "mot": [
+    1,
+    2
+   ],
+   "fast": false
+  },
+  {
+   "nr": 19,
+   "plan": 26,
+   "delar": [
+    "26"
+   ],
+   "steg": 2,
+   "veg": "ned",
+   "retning": [
+    0,
+    -0.7071067811865474,
+    -0.7071067811865474
+   ],
+   "mot": [
+    1,
+    2
+   ],
+   "fast": false
+  },
+  {
+   "nr": 20,
+   "plan": 27,
+   "delar": [
+    "27"
+   ],
+   "steg": 2,
+   "veg": "ned",
+   "retning": [
+    0,
+    -0.7071067811865474,
+    -0.7071067811865474
+   ],
+   "mot": [
+    1,
+    2
+   ],
+   "fast": false
+  },
+  {
+   "nr": 21,
+   "plan": 28,
+   "delar": [
+    "28"
+   ],
+   "steg": 2,
+   "veg": "ned",
+   "retning": [
+    0,
+    -0.7071067811865474,
+    -0.7071067811865474
+   ],
+   "mot": [
+    1,
+    2
+   ],
+   "fast": false
+  },
+  {
+   "nr": 22,
+   "plan": 29,
+   "delar": [
+    "29"
+   ],
+   "steg": 2,
+   "veg": "ned",
+   "retning": [
+    0,
+    -0.7071067811865474,
+    -0.7071067811865474
+   ],
+   "mot": [
+    1,
+    2
+   ],
+   "fast": false
+  },
+  {
+   "nr": 23,
+   "plan": 30,
+   "delar": [
+    "30"
+   ],
+   "steg": 2,
+   "veg": "ned",
+   "retning": [
+    0,
+    -0.7071067811865474,
+    -0.7071067811865474
+   ],
+   "mot": [
+    1,
+    2
+   ],
+   "fast": false
+  },
+  {
+   "nr": 24,
+   "plan": 31,
+   "delar": [
+    "31"
+   ],
+   "steg": 2,
+   "veg": "ned",
+   "retning": [
+    0,
+    -0.7071067811865474,
+    -0.7071067811865474
+   ],
+   "mot": [
+    1,
+    2
+   ],
+   "fast": false
+  },
+  {
+   "nr": 25,
+   "plan": 32,
+   "delar": [
+    "32"
+   ],
+   "steg": 2,
+   "veg": "ned",
+   "retning": [
+    0,
+    -0.7071067811865474,
+    -0.7071067811865474
+   ],
+   "mot": [
+    1,
+    2
+   ],
+   "fast": false
+  },
+  {
+   "nr": 26,
+   "plan": 33,
+   "delar": [
+    "33"
+   ],
+   "steg": 2,
+   "veg": "ned",
+   "retning": [
+    0,
+    -0.7071067811865474,
+    -0.7071067811865474
+   ],
+   "mot": [
+    1,
+    2
+   ],
+   "fast": false
+  },
+  {
+   "nr": 27,
+   "plan": 34,
+   "delar": [
+    "34"
+   ],
+   "steg": 2,
+   "veg": "ned",
+   "retning": [
+    0,
+    -0.7071067811865474,
+    -0.7071067811865474
+   ],
+   "mot": [
+    1,
+    2
+   ],
+   "fast": false
+  },
+  {
+   "nr": 28,
+   "plan": 35,
+   "delar": [
+    "35"
+   ],
+   "steg": 2,
+   "veg": "ned",
+   "retning": [
+    0,
+    -0.7071067811865474,
+    -0.7071067811865474
+   ],
+   "mot": [
+    1,
+    2
+   ],
+   "fast": false
+  },
+  {
+   "nr": 29,
+   "plan": 36,
+   "delar": [
+    "36"
+   ],
+   "steg": 2,
+   "veg": "ned",
+   "retning": [
+    0,
+    -0.7071067811865474,
+    -0.7071067811865474
+   ],
+   "mot": [
+    1,
+    2
+   ],
+   "fast": false
+  },
+  {
+   "nr": 30,
+   "plan": 37,
+   "delar": [
+    "37"
+   ],
+   "steg": 2,
+   "veg": "ned",
+   "retning": [
+    0,
+    -0.7071067811865474,
+    -0.7071067811865474
+   ],
+   "mot": [
+    2,
+    1
+   ],
+   "fast": false
+  },
+  {
+   "nr": 31,
+   "plan": 38,
+   "delar": [
+    "38"
+   ],
+   "steg": 2,
+   "veg": "ned",
+   "retning": [
+    0,
+    -0.7071067811865474,
+    -0.7071067811865474
+   ],
+   "mot": [
+    1,
+    2
+   ],
+   "fast": false
+  },
+  {
+   "nr": 32,
+   "plan": 39,
+   "delar": [
+    "39"
+   ],
+   "steg": 2,
+   "veg": "ned",
+   "retning": [
+    0,
+    -0.7071067811865474,
+    -0.7071067811865474
+   ],
+   "mot": [
+    1,
+    2
+   ],
+   "fast": false
+  },
+  {
+   "nr": 33,
+   "plan": 40,
+   "delar": [
+    "40"
+   ],
+   "steg": 2,
+   "veg": "ned",
+   "retning": [
+    0,
+    -0.7071067811865474,
+    -0.7071067811865474
+   ],
+   "mot": [
+    2,
+    1
+   ],
+   "fast": false
+  },
+  {
+   "nr": 34,
+   "plan": 41,
+   "delar": [
+    "41"
+   ],
+   "steg": 2,
+   "veg": "ned",
+   "retning": [
+    0,
+    -0.7071067811865474,
+    -0.7071067811865474
+   ],
+   "mot": [
+    2,
+    1
+   ],
+   "fast": false
+  },
+  {
+   "nr": 35,
+   "plan": 42,
+   "delar": [
+    "42"
+   ],
+   "steg": 2,
+   "veg": "ned",
+   "retning": [
+    0,
+    -0.7071067811865474,
+    -0.7071067811865474
+   ],
+   "mot": [
+    2,
+    1
+   ],
+   "fast": false
+  },
+  {
+   "nr": 36,
+   "plan": 43,
+   "delar": [
+    "43"
+   ],
+   "steg": 2,
+   "veg": "ned",
+   "retning": [
+    0,
+    -0.7071067811865474,
+    -0.7071067811865474
+   ],
+   "mot": [
+    2,
+    1
+   ],
+   "fast": false
+  },
+  {
+   "nr": 37,
+   "plan": 44,
+   "delar": [
+    "44"
+   ],
+   "steg": 2,
+   "veg": "ned",
+   "retning": [
+    0,
+    -0.7071067811865474,
+    -0.7071067811865474
+   ],
+   "mot": [
+    1,
+    2
+   ],
+   "fast": false
+  },
+  {
+   "nr": 38,
+   "plan": 45,
+   "delar": [
+    "45"
+   ],
+   "steg": 2,
+   "veg": "ned",
+   "retning": [
+    0,
+    -0.7071067811865474,
+    -0.7071067811865474
+   ],
+   "mot": [
+    2,
+    1
+   ],
+   "fast": false
+  },
+  {
+   "nr": 39,
+   "plan": 46,
+   "delar": [
+    "46"
+   ],
+   "steg": 2,
+   "veg": "ned",
+   "retning": [
+    0,
+    -0.7071067811865474,
+    -0.7071067811865474
+   ],
+   "mot": [
+    1,
+    2
+   ],
+   "fast": false
+  }
+ ],
+ "lause": [],
+ "ekstra": [],
+ "fin": {
+  "celler": 1200,
+  "delar": 39,
+  "ledd": 148,
+  "ark": 4,
+  "kuttMm": 28738.285794114003,
+  "likt": true,
+  "filer": [
+   "ark-1.dxf",
+   "ark-1.svg",
+   "ark-2.dxf",
+   "ark-2.svg",
+   "ark-3.dxf",
+   "ark-3.svg",
+   "ark-4.dxf",
+   "ark-4.svg",
+   "delar.json"
+  ],
+  "paaArk": [
+   [
+    "1",
+    "2",
+    "27",
+    "28",
+    "29",
+    "26",
+    "30",
+    "21",
+    "13",
+    "10",
+    "46"
+   ],
+   [
+    "25",
+    "31",
+    "24",
+    "32",
+    "23",
+    "33",
+    "22",
+    "34",
+    "35",
+    "20",
+    "43",
+    "12"
+   ],
+   [
+    "36",
+    "19",
+    "37",
+    "18",
+    "38",
+    "17",
+    "39",
+    "16",
+    "40",
+    "15",
+    "44",
+    "11",
+    "45"
+   ],
+   [
+    "41",
+    "14",
+    "42"
+   ]
+  ],
+  "sameArk": false
+ },
+ "bilete": {
+  "ark": "/tmp/claude-0/-home-user-slicer-iverfinne-no/0351339b-1ff7-580f-bca7-9071db1d2f3c/scratchpad/lampe/nord4/zeppelin/skolm-stemning/ut/ark.png"
+ },
+ "synFeil": [
+  "syn feila: page.evaluate: Target page, context or browser has been closed"
+ ],
+ "tid": {
+  "kropp": 0,
+  "motor": 1260,
+  "ark": 37778,
+  "produksjon": 3319,
+  "bilete": 157728,
+  "alt": 200758
+ },
+ "filer": {
+  "rapport": "/tmp/claude-0/-home-user-slicer-iverfinne-no/0351339b-1ff7-580f-bca7-9071db1d2f3c/scratchpad/lampe/nord4/zeppelin/skolm-stemning/ut/rapport.txt",
+  "delar": "/tmp/claude-0/-home-user-slicer-iverfinne-no/0351339b-1ff7-580f-bca7-9071db1d2f3c/scratchpad/lampe/nord4/zeppelin/skolm-stemning/ut/delar.json",
+  "scene": "/tmp/claude-0/-home-user-slicer-iverfinne-no/0351339b-1ff7-580f-bca7-9071db1d2f3c/scratchpad/lampe/nord4/zeppelin/skolm-stemning/ut/scene.json",
+  "kropp": "/tmp/claude-0/-home-user-slicer-iverfinne-no/0351339b-1ff7-580f-bca7-9071db1d2f3c/scratchpad/lampe/nord4/zeppelin/skolm-stemning/ut/kropp.stl",
+  "ark": "/tmp/claude-0/-home-user-slicer-iverfinne-no/0351339b-1ff7-580f-bca7-9071db1d2f3c/scratchpad/lampe/nord4/zeppelin/skolm-stemning/ut/ark.png",
+  "produksjon": "/tmp/claude-0/-home-user-slicer-iverfinne-no/0351339b-1ff7-580f-bca7-9071db1d2f3c/scratchpad/lampe/nord4/zeppelin/skolm-stemning/ut/produksjon",
+  "bilete": "/tmp/claude-0/-home-user-slicer-iverfinne-no/0351339b-1ff7-580f-bca7-9071db1d2f3c/scratchpad/lampe/nord4/zeppelin/skolm-stemning/ut/bilete",
+  "step": null
+ }
+}

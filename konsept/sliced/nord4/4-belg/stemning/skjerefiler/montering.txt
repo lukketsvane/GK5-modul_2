@@ -1,0 +1,45 @@
+MONTERING — belgstemning.stl
+39 plan, 3 mm plate. Adressa er gravert på kvar del.
+
+I denne rekkjefylgja. Sporet på delen som kjem opnar seg i fartsretninga; sporet på delen som ligg opnar seg mot han.
+  1  1  ligg — ingen ledd mot delar som alt ligg
+  2  2  ligg — ingen ledd mot delar som alt ligg
+  3  10  ovanfrå og ned, mot 1, 2
+  4  11  ovanfrå og ned, mot 2, 1
+  5  12  ovanfrå og ned, mot 1, 2
+  6  13  ovanfrå og ned, mot 1, 2
+  7  14  ovanfrå og ned, mot 2, 1
+  8  15  ovanfrå og ned, mot 2, 1
+  9  16  ovanfrå og ned, mot 2, 1
+  10  17  ovanfrå og ned, mot 2, 1
+  11  18  ovanfrå og ned, mot 2, 1
+  12  19  ovanfrå og ned, mot 1, 2
+  13  20  ovanfrå og ned, mot 1, 2
+  14  21  ovanfrå og ned, mot 2, 1
+  15  22  ovanfrå og ned, mot 1, 2
+  16  23  ovanfrå og ned, mot 1, 2
+  17  24  ovanfrå og ned, mot 1, 2
+  18  25  ovanfrå og ned, mot 1, 2
+  19  26  ovanfrå og ned, mot 1, 2
+  20  27  ovanfrå og ned, mot 1, 2
+  21  28  ovanfrå og ned, mot 1, 2
+  22  29  ovanfrå og ned, mot 1, 2
+  23  30  ovanfrå og ned, mot 1, 2
+  24  31  ovanfrå og ned, mot 1, 2
+  25  32  ovanfrå og ned, mot 1, 2
+  26  33  ovanfrå og ned, mot 1, 2
+  27  34  ovanfrå og ned, mot 1, 2
+  28  35  ovanfrå og ned, mot 2, 1
+  29  36  ovanfrå og ned, mot 1, 2
+  30  37  ovanfrå og ned, mot 1, 2
+  31  38  ovanfrå og ned, mot 2, 1
+  32  39  ovanfrå og ned, mot 2, 1
+  33  40  ovanfrå og ned, mot 2, 1
+  34  41  ovanfrå og ned, mot 2, 1
+  35  42  ovanfrå og ned, mot 2, 1
+  36  43  ovanfrå og ned, mot 1, 2
+  37  44  ovanfrå og ned, mot 1, 2
+  38  45  ovanfrå og ned, mot 2, 1
+  39  46  ovanfrå og ned, mot 1, 2
+
+Sit eit ledd for hardt, er klaringa for liten: skjer passprøva i den same plata og set klaringa til det sporet avkappet går i med tommelkraft.

@@ -1,0 +1,27 @@
+REGLAR — belgstemning.stl
+
+Ingen harde brot: delane let seg lage og setje saman.
+
+Og desse kan gå betre:
+
+  !! utnytting              28 %
+
+Alle linene:
+
+     plana grip             74 ledd
+     delar å skjere         39 stk
+     kan monterast          éin veg inn for kvar
+     ingen står i kvarandre ingen klemmer
+     utan ledd · kasta      ingen
+     gods i leddet          8,5 mm
+     delane får plass       3 ark
+     klaring                0,10 mm
+     snittbreidd            0,20 mm i fila
+     snittet mot sporet     0,20 mm mot 3,10 mm
+     opning mellom plan     7,0 mm
+     lukka nett             lukka
+     nettoppløysing         28344 av 28344
+  !! utnytting              28 %
+     bøyeradius             ingen bøygde plan
+     ledd på bøygde plan    ingen
+     møte på bøygde plan    ingen bøygde

@@ -1,0 +1,77 @@
+belgstemning — 413 x 124 x 124 mm · bjork 3 mm · klaring 0.1 · snitt 0.2 · ALT OK
+nett     28344 trekantar · lukka · 1 skal · 1482 cm3 · boks -210, -62, 0 .. 210, 62, 124
+tal      39 plan · 39 delar (22 unike) · 74 ledd (0 tapp, 0 avviste) · 0 lause
+kutt     22.23 m · 18.5 min ved 20 mm/s · 3 ark 600 x 400 · utnytting 28 % · 0.307 kg · spor 3.10 mm · minste gods 8.5 mm
+harde reglar
+  ok   grip       plana grip               74 ledd
+  ok   delar      delar å skjere           39 stk
+  ok   orden      kan monterast            éin veg inn for kvar
+  ok   klem       ingen står i kvarandre   ingen klemmer
+  ok   gods       gods i leddet            8,5 mm
+  ok   plate      delane får plass         3 ark
+  ok   snittspor  snittet mot sporet       0,20 mm mot 3,10 mm
+mjuke reglar som bryt
+  utnytting  utnytting                28 % — Meir enn to tredelar av plata går i søppelbøtta. Prøv ei anna plate, eller færre og større delar. Pakkinga fylgjer omrisset og reknar hòla som ledig plass, so det som står att er luft ho ikkje fann nokon del til.
+ark
+  1  1 2 27 28 29 26 30 24 25 31 32 23 41 12 11 10 · 29 % av brukt hogd, 29 % av arket
+  2  33 22 34 21 35 20 36 19 37 18 38 17 39 16 40 15 14 42 46 · 30 % av brukt hogd, 30 % av arket
+  3  13 43 44 45 · 18 % av brukt hogd, 5 % av arket
+delar    adr    form   b x h mm        ledd  ark
+         1              D01   413.3 x 75.8    37    1
+         2              D02   413.3 x 75.8    37    1
+         10..46 (2)     D03   77.7 x 77.7     2     1,2
+         11..45 (2)     D04   86.3 x 86.1     2     1,3
+         12..44 (2)     D05   93.1 x 93.1     2     1,3
+         13..43 (2)     D06   98.7 x 98.7     2     3
+         14..42 (2)     D07   103.3 x 103.3   2     2
+         15             D08   107.4 x 107.3   2     2
+         16..40 (2)     D09   110.8 x 110.7   2     2
+         17..39 (2)     D10   113.6 x 113.3   2     2
+         18..38 (2)     D11   116.0 x 116.0   2     2
+         19..37 (2)     D12   117.9 x 117.9   2     2
+         20..36 (2)     D13   119.5 x 119.5   2     2
+         21..35 (2)     D14   120.7 x 120.8   2     2
+         22..34 (2)     D15   121.7 x 121.9   2     2
+         23..33 (2)     D16   122.5 x 122.6   2     1,2
+         24..32 (2)     D17   123.2 x 123.2   2     1
+         25..31 (2)     D18   123.6 x 123.5   2     1
+         26..30 (2)     D19   123.7 x 123.8   2     1
+         27..29 (2)     D20   123.8 x 123.8   2     1
+         28             D21   123.8 x 123.9   2     1
+         41             D22   107.4 x 107.3   2     1
+montering (motoren si eiga rekkjefylgje)
+  1-2  ligg: 1 2
+  3  ned langs (0.00, -0.71, -0.71) mot 1,2: 10
+  4  ned langs (0.00, -0.71, -0.71) mot 2,1: 11
+  5-6  ned mot 1,2: 12 13
+  7-11  ned mot 2,1: 14 15 16 17 18
+  12-13  ned mot 1,2: 19 20
+  14  ned langs (0.00, -0.71, -0.71) mot 2,1: 21
+  15-27  ned mot 1,2: 22 23 24 25 26 27 28 29 30 31 32 33 34
+  28  ned langs (0.00, -0.71, -0.71) mot 2,1: 35
+  29-30  ned mot 1,2: 36 37
+  31-35  ned mot 2,1: 38 39 40 41 42
+  36-37  ned mot 1,2: 43 44
+  38  ned langs (0.00, -0.71, -0.71) mot 2,1: 45
+  39  ned langs (0.00, -0.71, -0.71) mot 1,2: 46
+krav
+  ok   nettet er lukka og vender ut: 28344 trekantar · 0 opne · 0 mangfaldige · 0 vrengde · 1 skal
+  ok   nettet held trekantbudsjettet: 28344 av 40000: over det vert nettet forenkla
+  ok   kroppen står sentrert på z = 0: ja
+  ok   1:1: storleik 420 mot lengste side 420.00 · glatt 0 forenkl 0 hol 0
+  ok   motoren les same volum som nettet: 1482 cm3 mot 1482 cm3
+  ok   alle plan kom med: 39 skrivne · 39 lesne · 39 i motoren
+  ok   appen opnar posen uendra: ja
+  ok   ingen lause eller kasta stykke: 0 lause
+  ok   alle delar ligg på eit ark: ja
+  ok   kvart plan gjev minst éin del: ja
+  ok   ingen spalte held fram gjennom gods forbi munnen: ja
+  ok   mål med stativ: lengd 480 · høgd 362 · akse 300 over bordet · kropp ø124 · fot ø156 = 191 cm2 · 37 spant, steg 10 · 
+  ok   vogga går fri under kroppen: 12.1 mm til del 28, kravet er 6 mm
+  ok   lysstaven går fri av spanta: 19.2 mm til del 2, kravet er 9 mm
+  ok   armane går fri av kjølen: 18.9 mm til del 1, kravet er 5 mm
+  ok   stifthol i kjøl 1: [["3.79","-198,11,51",false],["3.79","198,11,51",false]]
+  ok   stifthol i kjøl 2: [["3.79","-198,-11,73",false],["3.79","198,-11,73",false]]
+  ok   fine kuttfiler (1200 celler) gjev same delar, ledd og ark: 39 delar · 3 ark · 22.42 m
+fin      produksjon/fin/: 1200 celler · 39 delar · 3 ark · 22.42 m · same tal på delar, ledd og ark som ved 220 · DELANE LIGG PÅ ANDRE ARK ENN LISTA OVER: fin/ark-1: 1 2 25 26 30 31 24 32 27 29 28 23 17 14 11 · fin/ark-2: 33 22 34 21 35 20 36 19 37 18 38 39 16 40 15 41 42 13 10 · fin/ark-3: 43 12 44 45 46
+tid      kropp 0.0 s · motor 1.1 s · ark 41.6 s · produksjon 3.3 s · bilete 198.5 s · alt 245.1 s

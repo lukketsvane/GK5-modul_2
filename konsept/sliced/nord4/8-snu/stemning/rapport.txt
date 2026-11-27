@@ -1,0 +1,57 @@
+snu-stemning — 198 x 198 x 161 mm · akryl 2 mm · klaring 0.15 · snitt 0.2 · ALT OK
+nett     32256 trekantar · lukka · 1 skal · 2307 cm3 · boks -100, -100, 0 .. 100, 100, 161
+tal      16 plan · 16 delar (9 unike) · 52 ledd (0 tapp, 0 avviste) · 0 lause
+kutt     18.30 m · 15.2 min ved 20 mm/s · 2 ark 600 x 400 · utnytting 43 % · 0.432 kg · spor 2.15 mm · minste gods 16.8 mm
+harde reglar
+  ok   grip       plana grip               52 ledd
+  ok   delar      delar å skjere           16 stk
+  ok   orden      kan monterast            éin veg inn for kvar
+  ok   klem       ingen står i kvarandre   ingen klemmer
+  ok   gods       gods i leddet            16,8 mm
+  ok   plate      delane får plass         2 ark
+  ok   snittspor  snittet mot sporet       0,20 mm mot 2,15 mm
+mjuke reglar: ingen bryt
+ark
+  1  22 27 2 7 23 26 3 1 · 42 % av brukt hogd, 41 % av arket
+  2  6 24 25 4 5 8 21 28 · 44 % av brukt hogd, 35 % av arket
+delar    adr    form   b x h mm        ledd  ark
+         1..8 (2)       D01   108.3 x 108.4   4     1,2
+         2..7 (2)       D02   159.8 x 142.0   6     1
+         3..6 (2)       D03   186.4 x 155.2   8     1,2
+         4..5 (2)       D04   198.5 x 160.8   8     2
+         21..28 (2)     D05   108.4 x 108.3   4     2
+         22             D06   159.8 x 141.9   6     1
+         23..26 (2)     D07   186.4 x 155.2   8     1
+         24..25 (2)     D08   198.4 x 160.7   8     2
+         27             D09   159.8 x 141.9   6     1
+montering (motoren si eiga rekkjefylgje)
+  1-8  ligg: 1 2 3 4 5 6 7 8
+  9  ned langs (0.00, 0.00, -1.00) mot 4,5,3,6: 21
+  10  ned langs (0.00, 0.00, -1.00) mot 4,5,3,6,2,7: 22
+  11  ned langs (0.00, 0.00, -1.00) mot 4,5,3,6,2,7,1,8: 23
+  12  ned langs (0.00, 0.00, -1.00) mot 4,5,3,6,2,7,8,1: 24
+  13-14  ned mot 4,5,3,6,2,7,1,8: 25 26
+  15  ned langs (0.00, 0.00, -1.00) mot 4,5,3,6,2,7: 27
+  16  ned langs (0.00, 0.00, -1.00) mot 4,5,3,6: 28
+krav
+  ok   nettet er lukka og vender ut: 32256 trekantar · 0 opne · 0 mangfaldige · 0 vrengde · 1 skal
+  ok   nettet held trekantbudsjettet: 32256 av 40000: over det vert nettet forenkla
+  ok   kroppen står sentrert på z = 0: ja
+  ok   1:1: storleik 199.997 mot lengste side 200.00 · glatt 0 forenkl 0 hol 0
+  ok   motoren les same volum som nettet: 2307 cm3 mot 2307 cm3
+  ok   alle plan kom med: 16 skrivne · 16 lesne · 16 i motoren
+  ok   appen opnar posen uendra: ja
+  ok   ingen lause eller kasta stykke: 0 lause
+  ok   alle delar ligg på eit ark: ja
+  ok   kvart plan gjev minst éin del: ja
+  ok   ingen spalte held fram gjennom gods forbi munnen: ja
+  ok   mål med stativ: kule + bøyle 223 mm · snor 320 mm · takskål ø110 · bøyle r110 · breidd over knotten 246 · kinn ø109
+  ok   opal-kula ø110 går fri av alle plater (≥ 4 mm): 10.0 mm luft · senter 0.0, 0.0, 98.9 · nærast 27
+  ok   lysmodulen ø20 går fri mellom dei fire midtplatene: 11.0 mm frå aksen til næraste plate (25)
+  ok   opal-kula ø110 går inn gjennom munnen ø132: 
+  ok   luminans på opalen (lm / 4π / πr²): 350 lm: 2931 cd/m2 · 60 lm: 502 cd/m2
+  ok   hol ø8 i del 1: ø7.91 likt areal · r 3.89..4.00 · 20 punkt · senter -84.0, -0.0, 98.9
+  ok   hol ø8 i del 8: ø7.91 likt areal · r 3.89..4.00 · 20 punkt · senter 84.0, -0.0, 98.9
+  ok   fine kuttfiler (1200 celler) gjev same delar, ledd og ark: 16 delar · 2 ark · 18.38 m
+fin      produksjon/fin/: 1200 celler · 16 delar · 2 ark · 18.38 m · same tal på delar, ledd og ark som ved 220 · same delar på kvart ark
+tid      kropp 0.0 s · motor 0.6 s · ark 25.6 s · produksjon 3.3 s · bilete 114.5 s · alt 144.3 s

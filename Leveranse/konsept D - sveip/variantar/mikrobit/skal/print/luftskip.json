@@ -1,10 +1,10 @@
 {
  "lukka": true,
- "volum_mm3": 19549.3,
+ "volum_mm3": 19037.6,
  "trekantar": 638464,
  "genus": 28,
  "innsida_manglar_mm3": 0.0,
- "nytt_inne_i_lampa_mm3": 0.058,
+ "nytt_inne_i_lampa_mm3": 0.054,
  "h_min": -0.5,
  "h_max": 1.6,
  "vegg_min_mm": 0.7,
@@ -286,8 +286,8 @@
    ]
   }
  ],
- "masse_g_pla": 24.2,
- "trekantar_forenkla": 231498,
+ "masse_g_pla": 23.6,
+ "trekantar_forenkla": 230010,
  "lukka_forenkla": true,
- "volumendring_forenkla_mm3": -0.042
+ "volumendring_forenkla_mm3": 0.027
 }

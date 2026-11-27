@@ -11,6 +11,9 @@ import subprocess
 import tempfile
 import zipfile
 from pathlib import Path
+
+import numpy as np
+import trimesh
 from xml.etree import ElementTree
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -21,6 +24,13 @@ PARTS = ["former/D03-retur.stl", "former/D04-rand.stl", "delar/B01-tupp.stl",
          "delar/B02_1_Limfot.stl", "delar/B02_2_Limfot.stl", "delar/B04_1_Skivehaldar.stl",
          "delar/B04_2_Skivehaldar.stl", "delar/E04_Kabelbru.stl", "delar/M01-Nedrelist.stl"]
 SUPPORTED = {"M01-Nedrelist.stl"}
+# Fast plassering (x, y nedre hjørne i mm, roter 90°). Auto-arrange la smådelane
+# inne i bogen til M01 og gav G-code-konflikt med støtta.
+LAYOUT = {"B01-tupp.stl": (12, 135, 0), "M01-Nedrelist.stl": (12, 12, 0),
+          "D03-retur.stl": (138, 14, 0), "D04-rand.stl": (192, 140, 1),
+          "B02_1_Limfot.stl": (182, 14, 0), "B02_2_Limfot.stl": (216, 14, 0),
+          "B04_1_Skivehaldar.stl": (182, 50, 0), "B04_2_Skivehaldar.stl": (216, 50, 0),
+          "E04_Kabelbru.stl": (184, 86, 1)}
 
 
 def flatten(directory, name):
@@ -76,11 +86,17 @@ def main():
             (temp / f"{k}.json").write_text(json.dumps(v, ensure_ascii=False), encoding="utf8")
         names = []
         for p in PARTS:
-            shutil.copyfile(ROOT / p, temp / Path(p).name)
+            mesh = trimesh.load_mesh(ROOT / p)
+            x, y, rot = LAYOUT[Path(p).name]
+            if rot:
+                mesh.apply_transform(trimesh.transformations.rotation_matrix(np.pi / 2, [0, 0, 1]))
+            mesh.apply_translation([x, y, 0] - mesh.bounds[0])
+            assert mesh.bounds[1][0] < 250 and mesh.bounds[1][1] < 250, p
+            mesh.export(temp / Path(p).name)
             names.append(Path(p).name)
         common = ["--load-settings", "machine.json;process.json", "--load-filaments", "filament.json",
                   "--curr-bed-type", "Textured PEI Plate", "--outputdir", str(temp)]
-        run([*common, "--orient", "0", "--arrange", "1", "--export-3mf", "steg1.3mf", *names], temp)
+        run([*common, "--orient", "0", "--arrange", "0", "--export-3mf", "steg1.3mf", *names], temp)
         mark_support(temp / "steg1.3mf")
         run(["--slice", "0", "--outputdir", str(temp), "--export-3mf", "ferdig.3mf", "steg1.3mf"], temp)
         with zipfile.ZipFile(temp / "ferdig.3mf") as z:

@@ -1,0 +1,18 @@
+{
+  "stl": "D03-retur.stl",
+  "sha256": "2449a4b35d6a047d68244346c6703bf254946a89d28086becb6952821d69ffdb",
+  "rygg_mm": 6.0,
+  "xyz_mm": [
+    27.99,
+    69.93,
+    46.36
+  ],
+  "volum_cm3": 22.24,
+  "kontaktprover": {
+    "tal": 108,
+    "median_mm": 0.149,
+    "95_prosent_mm": 0.192,
+    "maks_mm": 0.24
+  },
+  "overlapp_mm3": 0
+}

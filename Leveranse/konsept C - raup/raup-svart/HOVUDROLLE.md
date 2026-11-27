@@ -8,7 +8,7 @@ Alle delane til Raup i pressa eggekartong, samla på éin stad. Geometrien er fr
 |---|---|---|---|
 | D02 | Matrise, formar utsida av skalet | [Raup-D02-A2-PLA.gcode.3mf](print/ferdig/Raup-D02-A2-PLA.gcode.3mf) | Ferdig printa |
 | D01-R2 | Stempel med 6 mm fot langs Raup-kurva | [D01-R2-A2-PLA.gcode.3mf](print/ferdig/D01-R2-A2-PLA.gcode.3mf) · [STL](former/D01-R2/D01-R2.stl) | Ferdig printa |
-| D03 + D04, B01, B02 ×2, B04 ×2, E04, M01 | Restdelane på éi plate | [Raup-svart-hovudprosjekt-A2-PLA.3mf](print/Raup-svart-hovudprosjekt-A2-PLA.3mf) | **Neste.** 2 t 48 min, 85 g kvit PLA (A2) |
+| D03 + D04, B01, B02 ×2, B04 ×2, E04, M01 | Restdelane på éi plate | [Raup-svart-hovudprosjekt-A2-PLA.3mf](print/Raup-svart-hovudprosjekt-A2-PLA.3mf) | **Neste.** 2 t 37 min, 76 g kvit PLA (A2) |
 | G02, G02b, G03 | Kabelfôring, kile og kabelauge | [03-Raup-TPU.3mf](delar/TPU/03-Raup-TPU.3mf) | TPU 95A, glatt plate. 15 min, 0,8 g |
 | S02, E03 | Rotsko og lysberar | [S02](delar/SLS/S02.stl) · [E03](delar/SLS/E03_Lysberar.stl) | SLS PA12, bestillast |
 
@@ -19,7 +19,7 @@ Hovudprosjektet er skive med 0,20 mm Standard, Generic PLA, 4 veggar, 20 % gyroi
 | Del | Rolle | Fil |
 |---|---|---|
 | D01-R2 / D02 | Stempel og matrise for fiberskalet P01. Tre M6-stag | [former/](former/) |
-| D03 | Formar den korte returveggen P02 | [D03-retur.stl](former/D03-retur.stl) |
+| D03 | Formar den korte returveggen P02. Ryggen er halvert til 6 mm (22 cm³, var 44) sidan klossen ber lite. Pressflata er uendra | [D03-retur.stl](former/D03-retur.stl) · [d03_halv.py](kjelde/d03_halv.py) |
 | D04 | Formar den smale randa (strimmel 76,6 × 6,1 mm) | [D04-rand.stl](former/D04-rand.stl) |
 | B01 | Botnplate med lys, kabel og ballast | [B01-tupp.stl](delar/B01-tupp.stl) · [STEP](delar/B01_Botnplate-tupp.step) |
 | B02 ×2 | Limføter med M3-mutter og Ø1,5 mm sikringspinne | [B02_1](delar/B02_1_Limfot.stl) · [B02_2](delar/B02_2_Limfot.stl) |

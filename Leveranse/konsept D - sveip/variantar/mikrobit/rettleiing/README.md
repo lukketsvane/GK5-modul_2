@@ -28,7 +28,7 @@ Det krev cadquery, trimesh og reportlab, og node med three (`npm install --prefi
 | 6 | Chassiset opp i stamma nedanfrå, til golvet er i flukt med underkanten | Ingenting stoppar chassiset, berre ribbene held det. I flukt står hylsa bak holet og leiarane bak LED-hola |
 | 7 | Messingskruen (B), M3 × 4, gjennom feltet og inn i hylsa. Ikkje stram hardt | Gjengene i PLA er 2,6 mm lange. M3 × 3 når ikkje fjøra, M3 × 5 klemmer ho flat |
 | 8 | Lysplata (M4) ned i skjermen | Ligg på stolpen og to bein |
-| 9 | USB-kabelen (E) gjennom endeplata, og fastvara. Ikkje rør messingen når kabelen går i | Kortet kalibrerer berøringa når det startar |
+| 9 | USB-kabelen (E) gjennom endeplata, og fastvara | |
 | | Kontroll med kabelen i: kort trykk på messingen, og hald | Trykk slår av og på. Held du, sveiper matrisa |
 
 ## Kva som er kontrollert
@@ -53,10 +53,11 @@ Etter ein uavhengig gjennomgang av stil og korrektheit, kontrollert mot CAD-en:
 - **Porten** prøver hylsa med stålskruen A, som blir skrudd ut att, i staden for messingskruen B. Chassiset i den tomme stamma er nytt. Holmåla står ved kanalen og hylsa.
 - **Fjøra** går i lomma på rista før kortet, og kortet kjem ned med framsida ned (steg 1–2, ny vinkel `rygg`).
 - **Steg 5** viser pakka med chassiset, på ryggen med rista opp, og åtvarar mot alt som står over framsida.
-- **Steg 6** har ei boble med sluttstillinga. **Steg 7** har «Ikkje stram hardt» og kjøpemålet M3 × 4. **Steg 9** åtvarar mot å røre messingen når kabelen går i.
+- **Steg 6** har ei boble med sluttstillinga. **Steg 7** har «Ikkje stram hardt» og kjøpemålet M3 × 4.
 - **Kontrollen** har kabelen med og ei pil mot messingen. «Trykk på B» er bytt ut, sidan B òg er ein knapp på kortet.
 - **Skala:** fast utsnitt per sekvens (steg 1–2, 3–4, 7–8 og kontroll). Steg 9 er sett bakfrå, så lampa ikkje heng.
 - **Boblene** forstørrar om lag 3–4 gonger og står i fri luft.
 - **Pilene** endar ved grensesnittet og går ikkje gjennom delane. Snu-ikonet i steg 3 er borte, for pakka blir vippa, ikkje snudd.
 - **Stilarket:** strek 0,75 pt, mengd 18 pt, delnummer 7,5 pt, tittel 80 pt. Dellista står i rekkjefølgja M1–M4, MB, og beslagsida er høgare.
 - **Baksida** er mindre og har berre kjelda.
+- **Steg 9:** åtvaringa «Ikkje rør messingen når kabelen går i», som kom inn i M02, er teken bort att. Ho bygde på at kortet kalibrerer berøringa ved oppstart. Det gjer det ikkje i MicroPython 2.1.2: terskelen er fast, og ein finger som ligg på ved oppstart blir sett bort frå av programmet.

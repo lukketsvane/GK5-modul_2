@@ -114,7 +114,7 @@ messing = steg('Messingskrue', [{'view': 'iso', **LAMPE, 'scene': c('M1') + innm
 plate = steg('Lysplate', [{'view': 'iso', **LAMPE, 'scene': heil + [ny('M4', [0, 0, 40], line='none', label_offset=[-70, 0])],
                            'arrows': [[[74.0, -17.0, zp + 40.0], [74.0, -17.0, 86.5]]]}])
 kabel = steg('USB', [{'view': 'bak', 'scene': alt + [ny('E', [26, 0, 0], label_offset=[-150, -38])]}],
-             warning='Ikkje rør messingen når kabelen går i.', note='python.microbit.org · sveip_mikrobit.py')
+             note='python.microbit.org · sveip_mikrobit.py')
 kontroll = steg('Kontroll', [{'view': 'iso', **LAMPE, 'scene': alt + c('E'),
                               'arrows': [[flytt(B[0], dy=-30.0), flytt(B[0], dy=-3.5)]]}],
                 n=False, icons=['ok'], note='Kort trykk på messingen: av og på. Hald: matrisa sveiper.')

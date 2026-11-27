@@ -58,14 +58,44 @@ Skruane gjennom ringane skal vere M3 i nylon. Ein utgang på kortet toler under 
 
 ## Fastvare
 
-`sveip_mikrobit.py` er MicroPython for V2. Opne python.microbit.org, lim inn fila og send ho til kortet.
+`sveip_mikrobit.py` er MicroPython for micro:bit V2. To måtar å få ho på kortet:
 
-- Kort trykk: av og på.
-- Hald: lyset sveiper mellom arbeid og stemning på 8 s (F2 krev under 10 s). Neste hald går andre vegen.
-- Berøring tel ikkje medan lampa blir lyfta (akselerometeret).
-- Biletet blir snudd 90° i programmet, sidan kortet står rotert.
+- Dra `sveip_mikrobit.hex` over på MICROBIT-disken. Fila er MicroPython 2.1.2 med programmet som `main.py`.
+- Eller opne python.microbit.org, lim inn programmet (eller opne hex-fila der) og send det til kortet.
 
-Logikken er køyrd mot ein stubb av `microbit`-modulen i åtte tilfelle. Ho er ikkje køyrd på eit kort.
+Programmet krev V2. V1 har ikkje touch-logoen.
+
+| Handling | Kva lampa gjer |
+|---|---|
+| Kort trykk på messingen (under 0,4 s) | av eller på, med ei toning på 0,3 s |
+| Hald | lyset sveiper mellom arbeid og stemning på 8 s (F2 krev under 10 s). Neste hald går andre vegen |
+| Hald når lampa er av | slår på, og så sveiper ho |
+| Lampa blir flytta medan fingeren ligg på | lyset går attende til der det var då fingeren kom |
+| Straumen kjem | lampa slår seg på med blandinga frå førre sveip |
+
+- **Matrisa er lampa sett framanfrå.** Dei to øvste radene er skjermen og følgjer stemningslyset. Dei tre nedste radene til venstre er stamma og følgjer arbeidslyset. Dei seks i hjørnet under skjermen er alltid mørke. Biletet blir snudd 90° i programmet, sidan kortet står rotert.
+- **Lyset blir flytta, ikkje dempa.** Arbeid er cos² og stemning sin² av blandinga, så summen er alltid den same, som i rev. B (`../../elektro/SPESIFIKASJON.md`, del 3). Midt i sveipet er begge på 50 %, og endane går mjukt. P0 og P1 gjev det same som PWM på 3,9 kHz.
+- **Matrisa viser same lysmengd som utgangane.** Nivåa 1 til 9 på kortet doblar lysstyrken for kvart steg (1, 2, 4 … 255 av 255), så programmet vel det nivået som ligg nærast i den skalaen.
+- **Blandinga blir lagra** i `sveip.txt` på kortet etter kvart sveip. Trykk skriv ingenting, så flashminnet blir ikkje slite.
+- **Flytting:** programmet følgjer tyngdevektoren, jamna ut over 0,2 s. Endrar han seg meir enn 0,4 g (om lag 23° vipping eller ei varig rørsle) medan fingeren ligg på, blir berøringa forkasta. Eit kort støyt frå sjølve trykket tel ikkje. Lampa er så lett (om lag 50 g) at eit fast trykk på messingen kan vippe henne. Hald gjerne ein finger bak, eller berre kom borti messingen.
+- **Kalibrering:** kortet kalibrerer berøringa i 0,5 s når det startar, før programmet køyrer (CODAL, `TouchButton`). Ligg ein finger på messingen då, verkar ikkje berøringa. Trekk då ut kabelen og set han i att. MicroPython 2.1.2 kan ikkje kalibrere på nytt medan programmet køyrer.
+- **Tida** blir rekna med `ticks_diff`. `running_time()` går over til negative tal etter 12,4 døgn, og då ville sveipet ha stoppa.
+
+### Fastvara er kontrollert slik
+
+| Kontroll | Resultat |
+|---|---|
+| `sveip_mikrobit_test.py`: 14 scenario mot eit simulert kort (trykk, hald, retning, hald når av, flytting, støyt, lagring, øydelagd fil, ticks som går rundt, treg runde, matrisa mot utgangane) | 14 av 14 |
+| Typekontroll med dei offisielle stubbane til python.microbit.org (pyright) | 0 feil |
+| Kompilert med `mpy-cross` 1.18 (MicroPython 2.1.2 byggjer på 1.18) | ok |
+| Køyrt i MicroPython 1.29 (WebAssembly) med simulerte pinnar: fullt sveip, lagring og omstart | ok |
+| Kvar funksjon programmet brukar, finst i MicroPython 2.1.2-fila som python.microbit.org legg på kortet | ok |
+| Matrisa mot CAD-en: testen reknar biletet på lampa frå `til_lampa` i `mini_passform.py`, ikkje frå programmet | ok |
+| `sveip_mikrobit.hex` lese attende: `main.py` er lik `sveip_mikrobit.py` | ok |
+
+Ikkje prøvd på eit kort: om berøringa gjennom fjøra og messingskruen er sikker nok, om grensa for flytting passar til ei lampe på 50 g, og korleis toning og sveip ser ut gjennom lysleiarane.
+
+`lag_hex.cjs` byggjer hex-fila på nytt etter ei endring (sjå toppen av fila).
 
 ## Print (Bambu Lab P1S)
 
@@ -159,7 +189,8 @@ Ikkje prøvd: kor mykje hola krympar i verkelegheita, og om Bambu Studio les far
 | `plassering.png`, `plassering.py` | heile lampa framanfrå og snitt gjennom matrisa og messingpunktet |
 | `mini_passform.py` | kontroll av at kortet får plass |
 | `d15_lysrist.py`, `.step`, `.stl` | lysrista, kontrollert mot LED-ane, knappane og ringane |
-| `sveip_mikrobit.py` | fastvara |
+| `sveip_mikrobit.py`, `sveip_mikrobit.hex` | fastvara, og ho ferdig til å dra over på kortet |
+| `sveip_mikrobit_test.py`, `lag_hex.cjs` | testane for fastvara, og byggjaren for hex-fila |
 | `mini_print.py`, `print/` | printdelane: STL per del, 3MF med alle delane og kontrollrapport |
 | `mini_plate.py`, `print/Sveip_mini_alle_delar.png` | plata med alle delane, sett ovanfrå |
 | `rettleiing/` | monteringsrettleiinga: PDF, sider, spesifikasjon og kjelde |

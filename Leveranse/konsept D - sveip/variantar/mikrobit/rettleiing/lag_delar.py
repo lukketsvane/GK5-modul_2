@@ -50,28 +50,28 @@ def kryss(form, z_topp, d=2.6, djupn=0.9):
     return form
 
 
-def skrue_a():
-    """M3 x 8 senkskrue (DIN 965), hovudet øvst i z = 0, skaftet nedover."""
+def skrue_a(steg=0.5):
+    """M3 x 8 senkskrue (DIN 965), hovudet øvst i z = 0, skaftet nedover. steg: gjengesteg i teikninga."""
     hovud = cq.Workplane("XY").add(cq.Solid.makeCone(1.5, 2.8, 1.65, cq.Vector(0, 0, -1.65)))
     skaft = cq.Workplane("XY").workplane(offset=-8.0).circle(1.5).extrude(8.0 - 1.65)
     s = hovud.union(skaft)
-    return kryss(gjenger(s, 1.5, -8.0, -1.65), 0.0)
+    return kryss(gjenger(s, 1.5, -8.0, -1.65, steg), 0.0)
 
 
-def skrue_b():
+def skrue_b(steg=0.5):
     """M3 x 4 messingskrue med linsehovud (DIN 7985): anleggsflata i z = 0, hovudet over, skaftet under."""
     hovud = cq.Workplane("XY").circle(2.8).extrude(2.4).edges(">Z").fillet(1.0)
     skaft = cq.Workplane("XY").workplane(offset=-4.0).circle(1.5).extrude(4.0)
     s = hovud.union(skaft)
-    return kryss(gjenger(s, 1.5, -4.0, 0.0), 2.4)
+    return kryss(gjenger(s, 1.5, -4.0, 0.0, steg), 2.4)
 
 
 def fjor():
-    """Fjør Ø 3,0 x 3,0, tråd 0,3: fem vindingar frå z = 0 og opp, flate i endane."""
+    """Fjør Ø 3,0 x 3,0, tråd 0,3: fire vindingar frå z = 0 og opp, flate i endane. Fem vart ein svart klump i strek."""
     s = cq.Workplane("XY")
-    for k, z in enumerate((0.15, 0.85, 1.5, 2.15, 2.85)):
+    for k, z in enumerate((0.15, 1.0, 2.0, 2.85)):
         ring = cq.Solid.makeTorus(1.35, 0.15, pnt=cq.Vector(0, 0, 0), dir=cq.Vector(0, 0, 1))
-        vipp = 0.0 if k in (0, 4) else 8.0
+        vipp = 0.0 if k in (0, 3) else 8.0
         s = s.union(cq.Workplane("XY").add(ring).rotate((0, 0, 0), (1, 0, 0), vipp).translate((0, 0, z)))
     return s
 
@@ -124,16 +124,19 @@ if __name__ == "__main__":
     skriv("M3", kort["lysrist D15"])
     skriv("M4", MP.lysplate())
     skriv("MB", snu(mikrobit()).translate((MX, YK, MZ)))
-    a, b, c, d = skrue_a(), skrue_b(), fjor(), leiar()
-    for namn, form in (("A", a), ("B", b), ("C", c), ("D", d)):
+    c, d = fjor(), leiar()
+    # beslagsida: tette gjenger (0,5). Stega: steg 1,2, elles blir skruane svarte klumpar i liten skala
+    for namn, form, form_y in (("A", skrue_a(), skrue_a(1.2)), ("B", skrue_b(), skrue_b(1.2)), ("C", c, c), ("D", d, d)):
         # lysleiaren ligg på beslagsida, så han ikkje blir teikna høgare enn skruane
         skriv(namn, form.rotate((0, 0, 0), (0, 1, 0), 90) if namn == "D" else form)
-        skriv(f"{namn}_y", snu(form))
+        skriv(f"{namn}_y", snu(form_y))
     skriv("E", usb())
     pos = {
         "A": [lampe(u, L15.RING_V, L15.T_FOT) for u in L15.RINGAR],          # toppen av hovudet, i flukt med foten
         "B": [lampe(*L15.LOGO, MP.AVST + MP.T - MP.FELT_DJUPN)],            # anleggsflata, på framflata i feltet
         "C": [lampe(*L15.LOGO, 0.0)],                                       # står på logoen
+        "C_lomme": [lampe(*L15.LOGO, L15.GJENGE[1] - 3.0)],                 # laus i lomma på rista: på skuldra, 0,6 over
+        "A_hylse": [lampe(*L15.LOGO, L15.T + L15.STOPP + 1.65)],            # prøveskruen: hovudet på framsida av hylsa
         "D": [lampe(u, v, MP.LED_TOPP) for u, v in L15.LED],               # frå toppen av LED-en
         "logo": lampe(*L15.LOGO, 0.0),
         "kant": lampe(25.8, -20.0, 0.0),                                    # hjørnet ved kanten og hylla på stolpen

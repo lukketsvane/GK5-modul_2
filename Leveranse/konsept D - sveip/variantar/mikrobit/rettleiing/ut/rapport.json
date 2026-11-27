@@ -1,6 +1,6 @@
 {
  "pdf": "ut/rettleiing.pdf",
- "sha256": "10faa7fef22ff9309b45d7cd33424086f5a9a4881d6d1ca6866b608f2a6c099f",
+ "sha256": "586fab2a3285b571d793a6e45766f9d4b6a2c607b1f7728e3947b858a6958898",
  "sider": 10,
  "beslag": {
   "A": {
@@ -30,14 +30,42 @@
    "steg": null,
    "figurar": [
     {
-     "mappe": "ut/_arbeid/r/2c7860309c007094",
-     "mørk_del": 0.0118,
-     "strek_pt": 0.63,
+     "mappe": "ut/_arbeid/r/ab63e750c1213c8b",
+     "mørk_del": 0.0377,
+     "strek_pt": 0.72,
      "figur_pt": [
       36.0,
-      200.5,
-      521.3,
-      442.9
+      543.4,
+      205.5,
+      175.2
+     ]
+    },
+    {
+     "mappe": "ut/_arbeid/r/d0fbd09989b4706a",
+     "mørk_del": 0.0367,
+     "strek_pt": 0.72,
+     "figur_pt": [
+      311.6,
+      543.4,
+      205.5,
+      175.2
+     ]
+    }
+   ]
+  },
+  {
+   "side": 4,
+   "steg": null,
+   "figurar": [
+    {
+     "mappe": "ut/_arbeid/r/966a390271b4f380",
+     "mørk_del": 0.0198,
+     "strek_pt": 0.78,
+     "figur_pt": [
+      206.0,
+      78.0,
+      181.4,
+      314.8
      ]
     }
    ]
@@ -48,14 +76,14 @@
    "nye_delar": 1,
    "figurar": [
     {
-     "mappe": "ut/_arbeid/r/051feea196142be8",
-     "mørk_del": 0.0158,
-     "strek_pt": 0.73,
+     "mappe": "ut/_arbeid/r/3cc8c9e8beaebf86",
+     "mørk_del": 0.023,
+     "strek_pt": 0.69,
      "figur_pt": [
-      36.0,
-      446.2,
-      521.3,
-      288.5
+      138.9,
+      466.6,
+      232.5,
+      158.0
      ]
     }
    ]
@@ -66,14 +94,14 @@
    "nye_delar": 1,
    "figurar": [
     {
-     "mappe": "ut/_arbeid/r/2f7df7d967078ba9",
-     "mørk_del": 0.0295,
-     "strek_pt": 0.79,
+     "mappe": "ut/_arbeid/r/1e54f0c3cd83fb1a",
+     "mørk_del": 0.0443,
+     "strek_pt": 0.74,
      "figur_pt": [
-      99.7,
-      56.0,
-      393.8,
-      296.9
+      152.1,
+      93.1,
+      288.8,
+      223.5
      ]
     }
    ]
@@ -84,14 +112,14 @@
    "nye_delar": 3,
    "figurar": [
     {
-     "mappe": "ut/_arbeid/r/c24552ffc5d9ee45",
-     "mørk_del": 0.0319,
-     "strek_pt": 0.78,
+     "mappe": "ut/_arbeid/r/ef2f4a6fbf368f7a",
+     "mørk_del": 0.0498,
+     "strek_pt": 0.69,
      "figur_pt": [
-      147.0,
-      424.9,
-      299.2,
-      330.9
+      175.3,
+      427.2,
+      265.0,
+      293.2
      ]
     }
    ]
@@ -102,14 +130,14 @@
    "nye_delar": 1,
    "figurar": [
     {
-     "mappe": "ut/_arbeid/r/aa6c37f84a620f7b",
-     "mørk_del": 0.04,
-     "strek_pt": 0.71,
+     "mappe": "ut/_arbeid/r/2494fc237ce91db0",
+     "mørk_del": 0.0645,
+     "strek_pt": 0.74,
      "figur_pt": [
-      178.3,
-      56.0,
-      236.6,
-      296.9
+      187.8,
+      77.8,
+      197.5,
+      244.7
      ]
     }
    ]
@@ -120,14 +148,14 @@
    "nye_delar": 1,
    "figurar": [
     {
-     "mappe": "ut/_arbeid/r/34da77431f1c10d2",
-     "mørk_del": 0.046,
-     "strek_pt": 0.72,
+     "mappe": "ut/_arbeid/r/335322952f9ea264",
+     "mørk_del": 0.0404,
+     "strek_pt": 0.77,
      "figur_pt": [
-      211.4,
-      486.8,
-      170.5,
-      269.1
+      142.2,
+      486.1,
+      262.6,
+      181.5
      ]
     }
    ]
@@ -138,14 +166,14 @@
    "nye_delar": 6,
    "figurar": [
     {
-     "mappe": "ut/_arbeid/r/3cc01cfaaa7862e9",
-     "mørk_del": 0.0229,
-     "strek_pt": 0.65,
+     "mappe": "ut/_arbeid/r/861621227cbf0c86",
+     "mørk_del": 0.0405,
+     "strek_pt": 0.74,
      "figur_pt": [
-      216.0,
+      242.0,
       56.0,
-      161.3,
-      336.8
+      144.8,
+      296.9
      ]
     }
    ]
@@ -156,14 +184,14 @@
    "nye_delar": 1,
    "figurar": [
     {
-     "mappe": "ut/_arbeid/r/4bf6c8b362740135",
-     "mørk_del": 0.0163,
-     "strek_pt": 0.71,
+     "mappe": "ut/_arbeid/r/472f5113c4ce0f7a",
+     "mørk_del": 0.0248,
+     "strek_pt": 0.77,
      "figur_pt": [
-      176.9,
-      424.9,
-      239.5,
-      330.9
+      200.9,
+      451.1,
+      191.3,
+      265.2
      ]
     }
    ]
@@ -174,14 +202,14 @@
    "nye_delar": 1,
    "figurar": [
     {
-     "mappe": "ut/_arbeid/r/952ae1c04819bafd",
-     "mørk_del": 0.0221,
-     "strek_pt": 0.71,
+     "mappe": "ut/_arbeid/r/174d92cb2f3be5e1",
+     "mørk_del": 0.0299,
+     "strek_pt": 0.74,
      "figur_pt": [
-      207.8,
-      56.0,
-      177.8,
-      296.9
+      204.6,
+      60.0,
+      183.9,
+      291.0
      ]
     }
    ]
@@ -192,14 +220,14 @@
    "nye_delar": 1,
    "figurar": [
     {
-     "mappe": "ut/_arbeid/r/5357c22018e1b4bc",
-     "mørk_del": 0.0173,
-     "strek_pt": 0.79,
+     "mappe": "ut/_arbeid/r/f1f4c04a8b1a42f6",
+     "mørk_del": 0.0133,
+     "strek_pt": 0.73,
      "figur_pt": [
-      155.6,
-      446.9,
-      282.1,
-      308.9
+      144.3,
+      468.9,
+      304.6,
+      286.9
      ]
     }
    ]
@@ -209,14 +237,14 @@
    "steg": null,
    "figurar": [
     {
-     "mappe": "ut/_arbeid/r/6eb2d1719b8565ca",
-     "mørk_del": 0.0203,
-     "strek_pt": 0.69,
+     "mappe": "ut/_arbeid/r/8bd7f8d46f23b61c",
+     "mørk_del": 0.0295,
+     "strek_pt": 0.8,
      "figur_pt": [
-      197.4,
-      78.0,
-      198.6,
-      274.9
+      211.4,
+      81.4,
+      184.7,
+      236.2
      ]
     }
    ]
@@ -226,14 +254,14 @@
    "steg": null,
    "figurar": [
     {
-     "mappe": "ut/_arbeid/r/f21bfdbf0b5ed985",
-     "mørk_del": 0.0084,
-     "strek_pt": 0.69,
+     "mappe": "ut/_arbeid/r/822360a2192a383d",
+     "mørk_del": 0.0064,
+     "strek_pt": 0.65,
      "figur_pt": [
-      48.1,
-      104.0,
-      497.0,
-      635.9
+      194.1,
+      316.8,
+      190.3,
+      222.8
      ]
     }
    ]

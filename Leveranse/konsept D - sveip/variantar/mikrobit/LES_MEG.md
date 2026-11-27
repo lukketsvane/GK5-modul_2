@@ -106,6 +106,8 @@ AMS byter farge i dei første 5 mm, der M3 er svart. Er lampa kvit, kan M1, M2 o
 
 ### Montering
 
+Monteringsrettleiing i IKEA-stil: `rettleiing/ut/rettleiing.pdf` (sjå `rettleiing/README.md`). Kort fortalt:
+
 1. Legg micro:bit-en med framsida opp. Set fjøra ståande midt på logoen.
 2. Senk lysrista ned over kortet, med hylsa over fjøra og lommene over LED-ane.
 3. Snu det heile og legg kortet mot stolpen på chassiset. Skuv kortet inn mot kanten på stolpen ved kantkontakten, og ned på hylla under kortet.
@@ -160,5 +162,6 @@ Ikkje prøvd: kor mykje hola krympar i verkelegheita, og om Bambu Studio les far
 | `sveip_mikrobit.py` | fastvara |
 | `mini_print.py`, `print/` | printdelane: STL per del, 3MF med alle delane og kontrollrapport |
 | `mini_plate.py`, `print/Sveip_mini_alle_delar.png` | plata med alle delane, sett ovanfrå |
+| `rettleiing/` | monteringsrettleiinga: PDF, sider, spesifikasjon og kjelde |
 | `mini_sprengt.png`, `mini_sprengt.py` | sprengbilete av printdelane |
 | `../overflate/bilete/v12_mini.png`, `v12_mini_naer.png` | rendringane |

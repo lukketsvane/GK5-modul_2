@@ -19,8 +19,12 @@ RO = (1000, 0, 0)          # tyngda i kortkoordinatar når lampa står (høgreka
 FIL = "sveip.txt"
 
 
-class Ferdig(Exception):
-    pass
+class Ferdig(BaseException):
+    """Slutten på simulasjonen. Må ikkje vere ein Exception: programmet fangar dei og startar om."""
+
+
+class Omstart(Exception):
+    """Programmet kalla reset()."""
 
 
 class Pinne:
@@ -42,7 +46,8 @@ class Pinne:
 class Kort:
     """Eitt simulert kort. beroring: liste med (frå, til) i ms. rorsle: funksjon t -> (x, y, z)."""
 
-    def __init__(self, slutt, beroring=(), rorsle=None, filer=None, start=0, runde_ekstra=2):
+    def __init__(self, slutt, beroring=(), rorsle=None, filer=None, start=0, runde_ekstra=2, feil_ved=None,
+                 skrivefeil=False):
         self.t = start
         self.start = start
         self.slutt = start + slutt
@@ -50,9 +55,12 @@ class Kort:
         self.rorsle = rorsle
         self.filer = dict(filer or {})
         self.skrivingar = 0
+        self.feil_ved = feil_ved                         # (t, unntak): sensoren kastar dette
+        self.skrivefeil = skrivefeil
         self.runde_ekstra = runde_ekstra
         self.pin0, self.pin1 = Pinne(self, "pin0"), Pinne(self, "pin1")
         self.matrise = [[0] * 5 for _ in range(5)]     # [rad][kolonne] slik kortet ser det
+        self.omstart = False
         self.hendingar = []
         self.prov = []                                  # (t, pin0, pin1, lampebilete)
 
@@ -61,6 +69,8 @@ class Kort:
         return any(a <= self.t < b for a, b in self.beroring)
 
     def get_values(self):
+        if self.feil_ved and self.t - self.start >= self.feil_ved[0]:
+            raise self.feil_ved[1]
         return self.rorsle(self.t - self.start) if self.rorsle else RO
 
     def set_pixel(self, x, y, v):
@@ -69,6 +79,10 @@ class Kort:
 
     def clear(self):
         self.matrise = [[0] * 5 for _ in range(5)]
+
+    def reset(self):
+        self.omstart = True
+        raise Omstart
 
     # --- time
     def ticks_ms(self):
@@ -92,6 +106,8 @@ class Kort:
             def __init__(self):
                 if modus == "r" and namn not in kort.filer:
                     raise OSError(2)
+                if modus == "w" and kort.skrivefeil:
+                    raise OSError(28)
                 self.buf = ""
 
             def read(self):
@@ -115,7 +131,7 @@ class Kort:
         mb = types.SimpleNamespace(
             accelerometer=types.SimpleNamespace(get_values=self.get_values),
             display=types.SimpleNamespace(set_pixel=self.set_pixel, clear=self.clear),
-            pin0=self.pin0, pin1=self.pin1,
+            pin0=self.pin0, pin1=self.pin1, reset=self.reset,
             pin_logo=types.SimpleNamespace(is_touched=self.is_touched))
         tid = types.SimpleNamespace(ticks_ms=self.ticks_ms, ticks_diff=self.ticks_diff, sleep_ms=self.sleep_ms)
         modular = {"microbit": mb, "time": tid, "math": math}
@@ -128,7 +144,7 @@ class Kort:
         innebygd.update(__import__=imp, open=self.open)
         try:
             exec(compile(PROGRAM, "sveip_mikrobit.py", "exec"), {"__builtins__": innebygd, "__name__": "__main__"})
-        except Ferdig:
+        except (Ferdig, Omstart):
             pass
         return self
 
@@ -144,7 +160,7 @@ class Kort:
 # Matrisa slik ho syner på lampa, rekna frå CAD-en og ikkje frå programmet:
 # LED (kolonne k, rad r) sit på kortet i u = (k-2)*4, v = (2-r)*4 (d15_lysrist.LED).
 # mini_passform.til_lampa roterer -90° om z og +90° om x: (u, v, w) -> x = MX + v, z = MZ - u.
-def til_lampa(u, v, w=0.0):
+def til_lampa_rekna(u, v, w=0.0):
     def rot(p, akse, grader):
         c, s = math.cos(math.radians(grader)), math.sin(math.radians(grader))
         x, y, z = p
@@ -159,7 +175,7 @@ def lampebilete(matrise):
     bilete = [[None] * 5 for _ in range(5)]
     for r in range(5):
         for k in range(5):
-            x, _, z = til_lampa((k - 2) * 4.0, (2 - r) * 4.0)
+            x, _, z = til_lampa_rekna((k - 2) * 4.0, (2 - r) * 4.0)
             kol, rad = round(x / 4) + 2, round(-z / 4) + 2
             bilete[rad][kol] = matrise[r][k]
     return bilete
@@ -186,6 +202,7 @@ def naer(a, b, tol, tekst):
 
 def test_oppstart():
     k = Kort(1000).kjor()
+    assert not k.omstart
     assert k.pin0.logg[0] == (0, 0) and k.pin1.logg[0] == (0, 0), "lyset skal vere av først"
     assert ("periode", "pin0", 0) in k.hendingar and k.pin0.periode == 256
     _, p0, p1, b = k.ved(150)
@@ -209,7 +226,7 @@ def test_kort_trykk_av_og_paa():
     k = Kort(3000, beroring=[(1000, 1150), (2000, 2120)]).kjor()
     assert k.ved(1100)[1] == 1023, "lyset endrar seg ikkje før fingeren går"
     t_av = next(t for t, p0, p1, _ in k.prov if t > 1150 and p0 == 0 and p1 == 0)
-    naer(t_av - 1150, 300, 40, "toninga av")
+    naer(t_av - 1150, 300 + 120, 50, "toninga av: 120 ms før berøringa er over, så 300 ms toning")
     assert delar(k.ved(1600)[3]) == (0, 0, 0)
     assert k.ved(2600)[1:3] == (1023, 0), "andre trykket slår på att"
     assert k.skrivingar == 0, "trykk skal ikkje skrive til flash"
@@ -240,12 +257,14 @@ def test_neste_hald_gaar_andre_vegen():
     assert k.filer[FIL].split()[1] == "1", "etter to hald peikar retninga mot stemning att"
 
 
-def test_hald_naar_lampa_er_av():
-    k = Kort(5000, beroring=[(500, 600), (1500, 4000)]).kjor()
+def test_hald_naar_lampa_er_av_gjer_ingenting():
+    """Ein grip om lampa for å flytte henne skal ikkje tenne henne."""
+    k = Kort(7000, beroring=[(500, 600), (1500, 4000), (5000, 5100)]).kjor()
     assert k.ved(1400)[1:3] == (0, 0), "av etter trykket"
-    assert k.ved(1890)[1:3] == (0, 0), "ingenting før haldet har vart 400 ms"
-    _, p0, p1, _ = k.ved(2400)
-    assert p0 + p1 > 1000 and p1 > 0, "haldet slår på og sveiper"
+    for t in (2000, 3000, 3900, 4500, 4900):
+        assert k.ved(t)[1:3] == (0, 0), "eit hald slår ikkje på lampa (t = %d)" % t
+    assert k.ved(6500)[1:3] == (1023, 0), "eit kort trykk slår på"
+    assert k.skrivingar == 0
 
 
 def test_flytta_lampe_gaar_attende():
@@ -314,6 +333,123 @@ def test_matrisa_foelgjer_kanalane():
             else:
                 feil_pwm = math.log2(1 + 0.125 / v)     # PWM er runda til 1/1023, matrisa er ikkje
                 naer(math.log2(v) + 1, n, 0.5 + feil_pwm + 1e-3, "nivå ved t = %d" % t)
+
+
+def test_dodt_hald_ved_enden():
+    """Eit kort hald nær ein ende skal ikkje snu retninga: neste hald må gå frå enden."""
+    for lengd in (450, 600, 1000, 1400):
+        k = Kort(14000, beroring=[(1000, 1000 + lengd), (4000, 13500)]).kjor()
+        assert k.filer[FIL].split()[1] == "-1" or k.skrivingar == 2, (lengd, k.filer)
+        assert any(p1 == 1023 for _, _, p1, _ in k.prov), "andre haldet når stemning (haldt %d ms)" % lengd
+    # frå stemningsenden, same retning
+    k = Kort(14000, filer={FIL: "1.000 -1"}, beroring=[(1000, 1500), (4000, 13500)]).kjor()
+    assert any(p0 == 1023 for t, p0, _, _ in k.prov if t > 4000), "attende til arbeid"
+
+
+def test_eit_kort_hald_skriv_ikkje_til_flash():
+    k = Kort(3000, beroring=[(1000, 1450)]).kjor()
+    assert k.skrivingar == 0, "so lite rørsle er ikkje verd ei skriving"
+
+
+def test_stoyspiss_slaar_ikkje_av():
+    """Éi rå måling over terskelen (støy, ei hand nær messingen) er ikkje eit trykk."""
+    for t in (1000, 2000, 2500):
+        k = Kort(3500, beroring=[(t, t + 12)]).kjor()
+        assert k.ved(3400)[1:3] == (1023, 0), "spiss ved t = %d" % t
+        assert k.skrivingar == 0
+    k = Kort(3500, beroring=[(1000, 1040)]).kjor()          # to runder: framleis for kort
+    assert k.ved(3400)[1:3] == (1023, 0)
+
+
+def test_utfall_midt_i_hald_stansar_ikkje_sveipet():
+    """Eit utfall i kontakten på 30 til 100 ms midt i eit hald skal ikkje snu sveipet eller slå av."""
+    ren = Kort(6000, beroring=[(1000, 5500)]).kjor()
+    for ut in (30, 60, 100):
+        k = Kort(6000, beroring=[(1000, 3000), (3000 + ut, 5500)]).kjor()
+        assert k.ved(5900)[1:3] != (0, 0), "lampa er på (utfall %d ms)" % ut
+        naer(k.ved(5900)[2], ren.ved(5900)[2], 50, "same blanding (utfall %d ms)" % ut)
+        assert k.skrivingar == 1, "ei skriving, ikkje to (utfall %d ms)" % ut
+
+
+def test_sprett_ved_slepp_slaar_ikkje_av():
+    k = Kort(7000, beroring=[(1000, 5000), (5030, 5050)]).kjor()
+    assert k.ved(6900)[1:3] != (0, 0), "lampa er på etter eit hald med sprett i slepp"
+    assert k.skrivingar == 1
+
+
+def test_finger_paa_ved_oppstart_blir_sett_bort_fraa():
+    for slepp in (300, 1500):
+        k = Kort(3500, beroring=[(0, slepp)]).kjor()
+        assert k.ved(3400)[1:3] == (1023, 0), "ingen handling (slepp ved %d ms)" % slepp
+        assert k.skrivingar == 0
+    k = Kort(5000, beroring=[(0, 800), (2000, 2100)]).kjor()
+    assert k.ved(4900)[1:3] == (0, 0), "eit nytt trykk etterpå verkar"
+
+
+def test_fast_kontakt_toppar_ikkje_lampa():
+    """Ligg grunnlinja over terskelen, er is_touched alltid sann. Lampa skal då halde seg som ho var."""
+    k = Kort(25000, beroring=[(0, 26000)]).kjor()
+    for t in (1000, 10000, 24900):
+        assert k.ved(t)[1:3] == (1023, 0), "t = %d" % t
+    assert k.skrivingar == 0
+
+
+def test_hald_over_15_s_blir_sett_bort_fraa():
+    k = Kort(21000, beroring=[(1000, 20500)]).kjor()
+    assert k.ved(20900)[1:3] == (0, 1023), "sveipet nådde enden og blir verande"
+    assert k.skrivingar == 1 and k.filer[FIL].split() == ["1.000", "-1"], k.filer
+
+
+def test_vipping_glir_attende_i_staden_for_aa_hoppe():
+    def lyft(t):
+        if t < 6000:
+            return RO
+        a = math.radians(40)
+        return (int(1000 * math.cos(a)), int(1000 * math.sin(a)), 0)
+    k = Kort(8000, beroring=[(1000, 7500)], rorsle=lyft).kjor()
+    steg = [p1 for t, _, p1, _ in k.prov if 6000 <= t <= 7000]
+    hopp = max(abs(a - b) for a, b in zip(steg, steg[1:]))
+    assert hopp < 120, "blandinga glir (største steg %d av 1023)" % hopp
+    assert k.ved(7400)[1:3] == (1023, 0), "framme ved arbeid"
+
+
+def test_feil_i_programmet_gjev_omstart():
+    k = Kort(4000, feil_ved=(2000, RuntimeError("sensor"))).kjor()
+    assert k.omstart, "reset() etter eit unntak"
+    assert (k.pin0.verdi, k.pin1.verdi) == (0, 0), "lyset er av når kortet startar om"
+
+
+def test_ctrl_c_slaar_av_lyset():
+    kort = Kort(4000, feil_ved=(2000, KeyboardInterrupt()))
+    try:
+        kort.kjor()
+    except KeyboardInterrupt:
+        pass
+    assert (kort.pin0.verdi, kort.pin1.verdi) == (0, 0)
+    assert not kort.omstart, "Ctrl-C skal ikkje starte kortet om"
+
+
+def test_full_flash_stoppar_ikkje_lampa():
+    k = Kort(11000, beroring=[(1000, 10500)], skrivefeil=True).kjor()
+    assert not k.omstart
+    assert k.ved(10900)[1:3] == (0, 1023), "sveipet gjekk heilt fram sjølv om lagringa feila"
+
+
+def test_lampebiletet_mot_cad():
+    """Rotasjonen og LED-plasseringa i testen er dei same som i CAD-en (mini_passform.til_lampa)."""
+    try:
+        import cadquery as cq
+        import d15_lysrist as L15
+        from mini_passform import MB, til_lampa
+    except ImportError:
+        return
+    for u, v in L15.LED[::6]:
+        boks = til_lampa(cq.Workplane("XY").box(0.01, 0.01, 0.01).translate((u, v, 0)), 0.0)
+        c = boks.val().Center()
+        x, _, z = til_lampa_rekna(u, v)
+        naer(c.x, MB[0] + x, 0.02, "x for (%g, %g)" % (u, v))
+        naer(c.z, MB[1] + z, 0.02, "z for (%g, %g)" % (u, v))
+
 
 
 TESTAR = [v for k, v in sorted(globals().items()) if k.startswith("test_")]
